@@ -14,3 +14,7 @@ Pinned copies of the Eclipse Capella 7.0 semantic metamodel plus its dependencie
 ## Modifications
 
 The only change relative to the sources: all cross-file reference paths (`platform:/plugin/<plugin>/model/X.ecore#...` and `../../<plugin>/model/X.ecore#...`) were rewritten to same-directory form (`X.ecore#...`) so the set is self-contained. No semantic content was altered.
+
+## Licensing
+
+Unlike the rest of this repository (Apache-2.0), the `.ecore` files in this directory are redistributed under the **Eclipse Public License v. 2.0**: see [`LICENSE-EPL-2.0.md`](LICENSE-EPL-2.0.md) in this directory and the third-party section of the repository's [`NOTICE`](../../NOTICE) file. Capella is a registered trademark of the Eclipse Foundation.
