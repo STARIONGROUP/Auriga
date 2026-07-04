@@ -1,2 +1,2 @@
-# capella4net
-a suite of libraries used to read and write Capella models and make them available in the .net ecosystem
+# Auriga
+Auriga: a .NET suite for reading and writing Eclipse Capella™ models
