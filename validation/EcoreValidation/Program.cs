@@ -5,7 +5,6 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Text.RegularExpressions;
-using System.Xml;
 
 using ECoreNetto;
 using ECoreNetto.Resource;
@@ -13,57 +12,14 @@ using ECoreNetto.Resource;
 using Microsoft.Extensions.Logging;
 
 var trace = args.Contains("--trace");
-var workarounds = args.Contains("--workarounds");
 var ecoreDirectory = args.FirstOrDefault(a => !a.StartsWith("--")) ?? Path.Combine("..", "..", "resources", "ecore");
 ecoreDirectory = Path.GetFullPath(ecoreDirectory);
 
 if (!Directory.Exists(ecoreDirectory))
 {
     Console.Error.WriteLine($"ecore directory not found: {ecoreDirectory}");
-    Console.Error.WriteLine("usage: EcoreValidation [path-to-resources/ecore] [--workarounds] [--trace]");
+    Console.Error.WriteLine("usage: EcoreValidation [path-to-resources/ecore] [--trace]");
     return 1;
-}
-
-var strippedOpposites = 0;
-
-if (workarounds)
-{
-    // Stage a modified copy of the input that sidesteps two open ECoreNetto defects:
-    //   1. rename each file to '<rootPackageName>.ecore' and rewrite all cross-file references,
-    //      because ECoreNetto's resolution-cache keys derive from the root package name, not the
-    //      file name (which Capella's cross-file hrefs use)
-    //   2. strip all eOpposite attributes, because eOpposite resolution builds invalid
-    //      'EStructuralFeature::<file>' fragments that end in an unbounded recursion
-    var staging = Path.Combine(Path.GetTempPath(), $"capella4net-ecore-staged-{Guid.NewGuid():N}");
-    Directory.CreateDirectory(staging);
-
-    var renames = new Dictionary<string, string>();
-    foreach (var file in Directory.GetFiles(ecoreDirectory, "*.ecore"))
-    {
-        var xml = new XmlDocument();
-        xml.Load(file);
-        var rootPackageName = xml.DocumentElement?.GetAttribute("name")
-            ?? throw new InvalidOperationException($"no root package name in {file}");
-        renames[Path.GetFileNameWithoutExtension(file)] = rootPackageName;
-    }
-
-    foreach (var file in Directory.GetFiles(ecoreDirectory, "*.ecore"))
-    {
-        var content = File.ReadAllText(file);
-        foreach (var rename in renames.Where(r => r.Key != r.Value))
-        {
-            content = Regex.Replace(content, $@"(?<![\w.]){Regex.Escape(rename.Key)}\.ecore#", $"{rename.Value}.ecore#");
-        }
-
-        strippedOpposites += Regex.Matches(content, " eOpposite=\"").Count;
-        content = Regex.Replace(content, "\\s+eOpposite=\"[^\"]*\"", string.Empty);
-
-        File.WriteAllText(Path.Combine(staging, $"{renames[Path.GetFileNameWithoutExtension(file)]}.ecore"), content);
-    }
-
-    Console.WriteLine($"workarounds: staged to {staging}");
-    Console.WriteLine($"workarounds: {renames.Count(r => r.Key != r.Value)} files renamed to match their root package, {strippedOpposites} eOpposite attributes stripped");
-    ecoreDirectory = staging;
 }
 
 var ecoreFiles = Directory.GetFiles(ecoreDirectory, "*.ecore").OrderBy(f => f).ToList();
@@ -311,20 +267,13 @@ foreach (var reference in resolvedOpposites)
     }
 }
 
-if (workarounds)
+var declaredOpposites = ecoreFiles.Sum(f => Regex.Matches(File.ReadAllText(f), "eOpposite=\"").Count);
+if (resolvedOpposites.Count != declaredOpposites)
 {
-    Console.WriteLine($"check 5 - opposites: skipped ({strippedOpposites} eOpposite attributes stripped by workaround)");
+    failures.Add($"[opposite] {declaredOpposites} eOpposite declarations in XML but {resolvedOpposites.Count} resolved EOpposite references");
 }
-else
-{
-    var declaredOpposites = ecoreFiles.Sum(f => Regex.Matches(File.ReadAllText(f), "eOpposite=\"").Count);
-    if (resolvedOpposites.Count != declaredOpposites)
-    {
-        failures.Add($"[opposite] {declaredOpposites} eOpposite declarations in XML but {resolvedOpposites.Count} resolved EOpposite references");
-    }
 
-    Console.WriteLine($"check 5 - opposites: {resolvedOpposites.Count} resolved / {declaredOpposites} declared in XML");
-}
+Console.WriteLine($"check 5 - opposites: {resolvedOpposites.Count} resolved / {declaredOpposites} declared in XML");
 
 // ---------------------------------------------------------------------------------------------
 // check 6: annotations survive loading (Capella carries documentation and emde annotations)
