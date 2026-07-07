@@ -13,24 +13,24 @@
 
 #nullable disable
 
-namespace {{Namespace}}
+namespace {{Namespace this}}
 {
-{{#if Usings}}
-{{#each Usings}}
+{{#if (ClassUsings this)}}
+{{#each (ClassUsings this)}}
     using {{this}};
 {{/each}}
 
 {{/if}}
-{{#each Documentation}}
+{{#each (ClassDocumentation this)}}
     /// {{{this}}}
 {{/each}}
-    public partial class {{Name}}{{{Bases}}}
+    public partial class {{TypeName this}}{{Bases this}}
     {
-{{#each Members}}
-{{#each Documentation}}
+{{#each (ClassFeatures this)}}
+{{#each (MemberDocumentation this)}}
         /// {{{this}}}
 {{/each}}
-        {{{Declaration}}}
+        {{ClassDeclaration this}}
 
 {{/each}}
     }

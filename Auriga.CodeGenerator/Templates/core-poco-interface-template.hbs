@@ -13,24 +13,24 @@
 
 #nullable disable
 
-namespace {{Namespace}}
+namespace {{Namespace this}}
 {
-{{#if Usings}}
-{{#each Usings}}
+{{#if (InterfaceUsings this)}}
+{{#each (InterfaceUsings this)}}
     using {{this}};
 {{/each}}
 
 {{/if}}
-{{#each Documentation}}
+{{#each (InterfaceDocumentation this)}}
     /// {{{this}}}
 {{/each}}
-    public partial interface I{{Name}}{{{Extends}}}
+    public partial interface I{{TypeName this}}{{Extends this}}
     {
-{{#each Members}}
-{{#each Documentation}}
+{{#each (InterfaceFeatures this)}}
+{{#each (MemberDocumentation this)}}
         /// {{{this}}}
 {{/each}}
-        {{{Declaration}}}
+        {{InterfaceDeclaration this}}
 
 {{/each}}
     }
