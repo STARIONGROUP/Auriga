@@ -59,6 +59,13 @@ namespace Auriga.Xmi.ReferenceResolver
             }
         }
 
+        /// <summary>
+        /// Assigns each single-valued reference collected on the supplied element to its property,
+        /// resolving the <c>#id</c> against the cache. A reference whose id is unknown, whose property is
+        /// missing or read-only, or whose target is not assignable to the property, is logged and skipped.
+        /// </summary>
+        /// <param name="cache">the cache holding all instantiated elements</param>
+        /// <param name="element">the element whose single-valued references are resolved</param>
         private void ResolveSingleValued(IXmiElementCache cache, IAurigaElement element)
         {
             foreach (var pair in element.SingleValueReferencePropertyIdentifiers)
@@ -86,6 +93,14 @@ namespace Auriga.Xmi.ReferenceResolver
             }
         }
 
+        /// <summary>
+        /// Appends each multi-valued reference collected on the supplied element to its collection
+        /// property, resolving every <c>#id</c> against the cache. A reference whose property is missing
+        /// or not an addable collection, whose id is unknown, or whose target is not assignable to the
+        /// collection's element type, is logged and skipped.
+        /// </summary>
+        /// <param name="cache">the cache holding all instantiated elements</param>
+        /// <param name="element">the element whose multi-valued references are resolved</param>
         private void ResolveMultiValued(IXmiElementCache cache, IAurigaElement element)
         {
             foreach (var pair in element.MultiValueReferencePropertyIdentifiers)

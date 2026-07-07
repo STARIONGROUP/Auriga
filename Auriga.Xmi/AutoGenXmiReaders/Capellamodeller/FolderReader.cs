@@ -323,7 +323,6 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellamodeller
                                 break;
                             }
                             default:
-                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of Folder at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);
                                 break;
                         }

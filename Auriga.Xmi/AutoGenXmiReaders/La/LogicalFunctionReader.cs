@@ -751,7 +751,6 @@ namespace Auriga.Xmi.AutoGenXmiReaders.La
                                 break;
                             }
                             default:
-                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of LogicalFunction at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);
                                 break;
                         }

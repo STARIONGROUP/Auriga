@@ -644,7 +644,6 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Epbs
                                 break;
                             }
                             default:
-                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of ConfigurationItem at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);
                                 break;
                         }

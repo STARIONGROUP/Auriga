@@ -280,7 +280,6 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Information.Datavalue
                                 break;
                             }
                             default:
-                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of ValuePart at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);
                                 break;
                         }

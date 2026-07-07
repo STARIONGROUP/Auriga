@@ -278,7 +278,6 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacore
                                 break;
                             }
                             default:
-                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of PropertyValueGroup at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);
                                 break;
                         }

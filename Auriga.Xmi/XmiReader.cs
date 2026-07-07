@@ -117,6 +117,12 @@ namespace Auriga.Xmi
             return new XmiReaderResult(root, this.BuildIndex());
         }
 
+        /// <summary>
+        /// Registers every <c>xmlns</c> prefix-to-URI binding declared on the document with the facade, so
+        /// an <c>xsi:type</c> prefix still resolves deep in the tree where nested
+        /// <see cref="XmlReader.ReadSubtree"/> readers no longer expose the root's declarations.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on the document root</param>
         private void RegisterDocumentNamespaces(XmlReader xmlReader)
         {
             // Capella declares every package namespace on the root element. Capture them once here, while
@@ -131,6 +137,14 @@ namespace Auriga.Xmi
             }
         }
 
+        /// <summary>
+        /// Builds the package-qualified type key (<c>package:TypeName</c>) for the document root from its
+        /// namespace URI and local name, since the root carries no <c>xsi:type</c> of its own.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on the document root</param>
+        /// <param name="documentName">the name of the document (used for diagnostics)</param>
+        /// <returns>the package-qualified type key for the root element</returns>
+        /// <exception cref="InvalidDataException">the root namespace is not a known Capella package</exception>
         private string ResolveRootTypeKey(XmlReader xmlReader, string documentName)
         {
             if (!this.namespaceResolver.TryResolvePackage(xmlReader.NamespaceURI, out var package) || package == null)
@@ -141,6 +155,11 @@ namespace Auriga.Xmi
             return $"{package}:{xmlReader.LocalName}";
         }
 
+        /// <summary>
+        /// Builds the read result's <c>xmi:id</c>-to-element index from the populated cache, skipping any
+        /// element that has no identifier.
+        /// </summary>
+        /// <returns>an index of every identified element keyed by its <c>xmi:id</c></returns>
         private IReadOnlyDictionary<string, IAurigaElement> BuildIndex()
         {
             var index = new Dictionary<string, IAurigaElement>(StringComparer.Ordinal);

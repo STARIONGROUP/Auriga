@@ -371,6 +371,17 @@ namespace Auriga.Xmi.AutoGenXmiReaders
             return factory(subReader);
         }
 
+        /// <summary>
+        /// Resolves the package-qualified type key (<c>package:TypeName</c>) of the element at the cursor
+        /// from its <c>xsi:type</c> attribute: the prefix is mapped to a namespace URI (via the registered
+        /// document namespaces, falling back to <see cref="XmlReader.LookupNamespace"/>) and that URI to
+        /// its Ecore package.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <returns>the package-qualified type key</returns>
+        /// <exception cref="InvalidDataException">
+        /// the element carries no <c>xsi:type</c>, or its prefix cannot be resolved to a known Capella package
+        /// </exception>
         private string ResolveTypeKey(XmlReader xmlReader)
         {
             var xsiType = xmlReader.GetAttribute("type", XsiNamespace);

@@ -137,11 +137,18 @@ namespace Auriga.Xmi.Readers
 
         /// <summary>
         /// Fully consumes the element (and its subtree) at the cursor, leaving the reader on its end tag,
-        /// so an unrecognized child element does not derail the parent's child-element loop.
+        /// so an unrecognized child element does not derail the parent's child-element loop. The skipped
+        /// element is logged at <see cref="LogLevel.Trace"/> so discarded content remains diagnosable.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element to skip</param>
-        protected static void SkipElement(XmlReader xmlReader)
+        protected void SkipElement(XmlReader xmlReader)
         {
+            if (this.Logger.IsEnabled(LogLevel.Trace))
+            {
+                var xmlLineInfo = xmlReader as IXmlLineInfo;
+                this.Logger.LogTrace("Skipping the '{Element}' element and its subtree at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
+            }
+
             using var subReader = xmlReader.ReadSubtree();
             while (subReader.Read())
             {
