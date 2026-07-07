@@ -58,16 +58,54 @@ namespace Auriga.Xmi.Tests
         }
 
         [Test]
-        public void Verify_that_a_model_with_external_references_still_loads()
+        public void Verify_that_a_fragmented_model_loads_as_one_resolved_graph()
         {
-            // The fragmented system model carries a handful of external href references (out of scope for
-            // this single-file reader). It must still load its intra-file graph without error.
-            var result = XmiReaderBuilder.Create().Build().Read(ModelPath("sysmodel.capella"));
+            // The system model is split across sysmodel.capella and four .capellafragment files. Reading
+            // the main file must transitively load the fragments into one object graph, so every element
+            // defined in any file is present and cross-fragment href references resolve to real objects.
+            var mainPath = FragmentedModelPath();
+            var expectedIdentifiers = DistinctIdentifiersAcross(ModelFiles(mainPath));
+
+            var result = XmiReaderBuilder.Create().Build().Read(mainPath);
+
+            // Cross-fragment href references whose target was loaded from another fragment: the model
+            // genuinely exercises cross-fragment resolution.
+            var crossFragmentToLoaded = result.Elements.Values
+                .SelectMany(ReferenceTokens)
+                .Where(t => t.Contains(".capellafragment#"))
+                .Count(t => expectedIdentifiers.Contains(FragmentUuid(t)));
 
             Assert.Multiple(() =>
             {
                 Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
-                Assert.That(result.Elements, Has.Count.GreaterThan(2000));
+                Assert.That(result.Elements.Keys, Is.EquivalentTo(expectedIdentifiers));
+                Assert.That(crossFragmentToLoaded, Is.GreaterThan(50), "the fixture exercises cross-fragment references");
+
+                // The fixture is a near-complete export: the only references that stay unresolved are the
+                // few whose target is absent from every provided file. No reference to a loaded element may
+                // remain unresolved.
+                Assert.That(
+                    result.UnresolvedReferences.Where(u => expectedIdentifiers.Contains(FragmentUuid(u.TargetIdentifier))),
+                    Is.Empty,
+                    "no reference to an element present in the provided files is left unresolved");
+            });
+        }
+
+        [Test]
+        public void Verify_that_every_element_tracks_its_source_document()
+        {
+            var result = XmiReaderBuilder.Create().Build().Read(FragmentedModelPath());
+
+            var sources = result.Elements.Values.Select(e => e.SourceDocument).Distinct().ToList();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Elements.Values, Has.All.Matches<IAurigaElement>(e => !string.IsNullOrEmpty(e.SourceDocument)));
+                Assert.That(sources, Has.Some.EqualTo("sysmodel.capella"), "elements from the main file are tracked to it");
+                Assert.That(
+                    sources,
+                    Has.Some.Matches<string>(s => s.StartsWith("fragments/") && s.EndsWith(".capellafragment")),
+                    "elements from a fragment are tracked to their fragment file");
             });
         }
 
@@ -111,9 +149,55 @@ namespace Auriga.Xmi.Tests
                 .ToHashSet(System.StringComparer.Ordinal);
         }
 
+        private static string FragmentUuid(string token)
+        {
+            var separator = token.IndexOf('#');
+            return separator >= 0 ? token.Substring(separator + 1) : token;
+        }
+
+        private static IEnumerable<string> ReferenceTokens(IAurigaElement element)
+        {
+            foreach (var token in element.SingleValueReferencePropertyIdentifiers.Values)
+            {
+                yield return token;
+            }
+
+            foreach (var tokens in element.MultiValueReferencePropertyIdentifiers.Values)
+            {
+                foreach (var token in tokens)
+                {
+                    yield return token;
+                }
+            }
+        }
+
+        private static HashSet<string> DistinctIdentifiersAcross(IEnumerable<string> paths)
+        {
+            var identifiers = new HashSet<string>(System.StringComparer.Ordinal);
+            foreach (var path in paths)
+            {
+                identifiers.UnionWith(DistinctIdentifiers(path));
+            }
+
+            return identifiers;
+        }
+
         private static string ModelPath(string fileName)
         {
             return Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", fileName);
+        }
+
+        private static string FragmentedModelPath()
+        {
+            return Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "fragmented-sysmodel", "sysmodel.capella");
+        }
+
+        private static IEnumerable<string> ModelFiles(string mainPath)
+        {
+            var directory = Path.GetDirectoryName(mainPath)!;
+
+            return new[] { mainPath }
+                .Concat(Directory.EnumerateFiles(Path.Combine(directory, "fragments"), "*.capellafragment"));
         }
     }
 }

@@ -30,6 +30,13 @@ namespace Auriga
         public IAurigaElement? Container { get; set; }
 
         /// <summary>
+        /// Gets or sets the document the element was read from, relative to the model's main file — the
+        /// main <c>.capella</c>/<c>.melodymodeller</c> or a <c>.capellafragment</c>. <c>null</c> until set
+        /// by the reader.
+        /// </summary>
+        public string? SourceDocument { get; set; }
+
+        /// <summary>
         /// Gets the single-valued reference features whose targets are not yet resolved, keyed by the
         /// property name, with the referenced <c>xmi:id</c> as the value. Populated on the reader's
         /// first pass and resolved on the second.

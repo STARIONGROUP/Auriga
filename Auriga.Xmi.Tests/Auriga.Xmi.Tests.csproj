@@ -40,7 +40,11 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="..\TestData\fragmented-sysmodel\sysmodel.capella">
-            <Link>TestData\sysmodel.capella</Link>
+            <Link>TestData\fragmented-sysmodel\sysmodel.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\fragmented-sysmodel\fragments\*.capellafragment">
+            <Link>TestData\fragmented-sysmodel\fragments\%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

@@ -85,7 +85,7 @@ namespace Auriga.Xmi.ReferenceResolver
         {
             foreach (var pair in element.SingleValueReferencePropertyIdentifiers)
             {
-                if (!cache.TryGetValue(pair.Value, out var target) || target == null)
+                if (!cache.TryGetValue(ReferenceIdentifier(pair.Value), out var target) || target == null)
                 {
                     this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", pair.Key, pair.Value, element.GetType().Name);
                     unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, pair.Key, pair.Value));
@@ -141,7 +141,7 @@ namespace Auriga.Xmi.ReferenceResolver
 
                 foreach (var identifier in pair.Value)
                 {
-                    if (!cache.TryGetValue(identifier, out var target) || target == null)
+                    if (!cache.TryGetValue(ReferenceIdentifier(identifier), out var target) || target == null)
                     {
                         this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", pair.Key, identifier, element.GetType().Name);
                         unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, pair.Key, identifier));
@@ -157,6 +157,20 @@ namespace Auriga.Xmi.ReferenceResolver
                     collection.Add(target);
                 }
             }
+        }
+
+        /// <summary>
+        /// Extracts the cache lookup key from a collected reference token. An intra-document reference is
+        /// already the bare <c>xmi:id</c>; a cross-document <c>href</c> (<c>path#id</c>) is reduced to the
+        /// <c>id</c> after the fragment separator, since Capella identifiers are unique across the whole
+        /// model and the merged cache is keyed by the bare identifier.
+        /// </summary>
+        /// <param name="reference">the collected reference token</param>
+        /// <returns>the bare identifier to look up in the cache</returns>
+        private static string ReferenceIdentifier(string reference)
+        {
+            var separator = reference.IndexOf('#');
+            return separator >= 0 ? reference.Substring(separator + 1) : reference;
         }
     }
 }

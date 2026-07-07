@@ -247,6 +247,8 @@ namespace Auriga.Tests
 
             public IAurigaElement? Container { get; set; }
 
+            public string? SourceDocument { get; set; }
+
             public System.Collections.Generic.IDictionary<string, string> SingleValueReferencePropertyIdentifiers { get; }
                 = new System.Collections.Generic.Dictionary<string, string>();
 
