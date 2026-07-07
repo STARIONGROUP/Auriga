@@ -9,7 +9,7 @@ This is the Phase 2 design deliverable: how `Auriga.CodeGenerator` turns the ven
 
 ## 1. Reference approach in one paragraph
 
-uml4net.CodeGenerator loads the OMG `UML.xmi` metamodel through `uml4net.xmi` into a typed object graph, then runs one Handlebars template per model element to emit **committed** C# (an `AutoGen*` folder tree of `partial` types), reformatting each file with Roslyn before writing, and gating regeneration with golden-file tests. Auriga mirrors this exactly, with three substitutions: the input graph is the **ECoreNetto** `EPackage → EClass → EStructuralFeature` graph (not UML); the reusable helper layer is **ECoreNetto.Extensions + ECoreNetto.HandleBars** (not `uml4net.Extensions`/`uml4net.HandleBars`); and Auriga adds the one thing ECoreNetto has no opinion on — an **Ecore-primitive → C# type mapping** — plus a per-package **factory**, which uml4net omits but Capella's XMI needs.
+uml4net.CodeGenerator loads the OMG `UML.xmi` metamodel through `uml4net.xmi` into a typed object graph, then runs one Handlebars template per model element to emit **committed** C# (an `AutoGen*` folder tree of `partial` types), reformatting each file with Roslyn before writing, and gating regeneration with golden-file tests. Auriga mirrors this exactly, with three substitutions: the input graph is the **ECoreNetto** `EPackage → EClass → EStructuralFeature` graph (not UML); the reusable helper layer is **ECoreNetto.Extensions + ECoreNetto.HandleBars** (not `uml4net.Extensions`/`uml4net.HandleBars`); and Auriga supplies the one thing ECoreNetto has no opinion on — an **Ecore-primitive → C# type mapping**. Deserialization dispatch follows uml4net's single `XmiElementReaderFacade` (not a per-package factory), with the lookup key adapted to Capella's `(nsURI, localName)`.
 
 ## 2. Pipeline and project layout
 
@@ -29,8 +29,9 @@ Auriga.CodeGenerator/
     core-enumeration-template.hbs
     core-poco-interface-template.hbs
     core-poco-class-template.hbs
-    core-factory-template.hbs
 ```
+
+(The XMI reader/writer generators — including the single `XmiElementReaderFacade`, §3 — are a related set of generators that emit into `Auriga.Xmi`; they belong to the reader work in #13 but the dispatch decision is recorded here.)
 
 **Decision — reuse ECoreNetto's helper projects rather than create `Auriga.HandleBars`/`Auriga.Extensions`.** uml4net needed its own `uml4net.HandleBars`/`uml4net.Extensions` because nothing upstream understood UML. ECoreNetto already ships `ECoreNetto.Extensions` (multiplicity, containment, documentation, casing, package flattening, specialization queries) and `ECoreNetto.HandleBars` (the block helpers that call them). Auriga registers those, then adds only the C#-specific helpers above. This keeps Auriga.CodeGenerator small and avoids re-implementing the graph-query layer.
 
@@ -38,20 +39,19 @@ Generation flow (in `ObjectModelGenerator`, driven from `Auriga.CodeGenerator.Te
 
 1. **Load** the metamodel: one `ResourceSet`, load all 21 `.ecore` files, collect every root `EPackage`, flatten with `PackageExtensions.QueryPackages()` to the 24 packages. (This is exactly the load the #2 validation tests already exercise; the harness code is a working template.)
 2. **Bucket** each package's `EClassifiers` into `EEnum`, `EClass` (abstract + concrete), following `HandleBarsReportGenerator.CreateHandlebarsPayload`. There are no custom `EDataType`s to handle (inventory §2), so the datatype bucket is asserted empty — **Verify in #7**.
-3. **Emit**, in dependency-safe order (enums, then interfaces, then classes, then factories), one file per artifact, each passed through `CodeCleanup` before write.
+3. **Emit**, in dependency-safe order (enums, then interfaces, then classes), one file per artifact, each passed through `CodeCleanup` before write.
 
 ## 3. Per-EClass generation pattern
 
-**Decision — interface always, implementation class for concrete only, one factory per package.** For a metaclass `PhysicalFunction` in package `pa`:
+**Decision — interface always, implementation class for concrete only; no per-class or per-package factory.** For a metaclass `PhysicalFunction` in package `pa`:
 
 | Artifact | Emitted when | File → committed location | Namespace |
 | --- | --- | --- | --- |
 | `interface IPhysicalFunction` | always (abstract + concrete) | `AutoGenInterfaces/IPhysicalFunction.cs` | `Auriga.Pa` |
 | `class PhysicalFunction` | only when **not** `Abstract` | `AutoGenClasses/PhysicalFunction.cs` | `Auriga.Pa` |
 | `enum <Name>` | per `EEnum` | `AutoGenEnumeration/<Name>.cs` | `Auriga.Pa` |
-| `class PaFactory` | one per package (with ≥1 concrete class) | `AutoGenFactories/PaFactory.cs` | `Auriga.Pa` |
 
-This realizes the EMF `interface + impl + factory` triad the issue asks for. The interface carries the contract and the type lattice; the class carries state; the factory carries instantiation.
+The interface carries the contract and the type lattice; the class carries state. Object construction is plain `new PhysicalFunction()` — the concrete classes are directly instantiable. Type-name → instance dispatch for deserialization is handled by a single generated facade (below), not by factories.
 
 **Decision — flatten the inheritance lattice onto concrete classes; keep true multiple inheritance only on interfaces.** The Capella metamodel uses pervasive multiple inheritance (e.g. `fa::AbstractFunction` has 6+ supertypes; `oa::Entity` is a `cs::Component`; see the [Arcadia notes §6](arcadia-notes.md)). C# has single class inheritance, so — exactly as uml4net does — :
 
@@ -60,11 +60,15 @@ This realizes the EMF `interface + impl + factory` triad the issue asks for. The
 
 This makes each concrete class self-contained (no C# base-class chain to walk) and sidesteps the diamond problem entirely, at the cost of member repetition — the same trade uml4net accepts.
 
-**Decision — the factory is a real, registered creation service, not just `new`.** uml4net constructs with plain `new Foo()` and resolves `xsi:type` at read time via a hand-written reader "facade". Auriga instead generates factories because Capella's XMI keys concrete types by **package nsURI + local name** (e.g. `xsi:type="org.polarsys.capella.core.data.pa:PhysicalFunction"`), and a per-nsURI factory registry is the natural resolution point the reader (#13) needs:
+**Decision — a single generated `XmiElementReaderFacade` dispatches type → instance, following uml4net; no factories.** The issue's original wording asked for a per-package `PaFactory` (the EMF Java convention), but on review we take the uml4net route instead: one generated dispatcher for the whole model, because a single lookup does everything a per-package factory would, without the ~20 extra factory classes and a registry to wire them together. uml4net's `XmiElementReaderFacade` (`uml4net.xmi/AutoGenXmiReaders/XmiElementReaderFacade.cs`) holds a `Dictionary<string, Func<…>>` keyed by the `xmi:type` string; each value is a lambda that builds the right per-class reader and returns the constructed element; `QueryXmiElement` reads the type attribute and dispatches, throwing on an unknown type. The per-class readers construct with plain `new Foo()`.
 
-- A hand-written `IAurigaFactory` (in the runtime, §9): `string NsUri { get; }` and `ICapellaElement? Create(string classifierName)`.
-- Generated `PaFactory : IAurigaFactory` with `NsUri => "http://www.polarsys.org/capella/core/pa/7.0.0"`, one typed method per concrete class (`PhysicalFunction CreatePhysicalFunction() => new();`), and a `Create(string)` switch dispatching by classifier name.
-- A hand-written `AurigaFactoryRegistry` mapping `NsUri → IAurigaFactory`, populated by the generated factories. The reader resolves an element's namespace to the factory, then the local name to the instance. This directly serves #13 and honors the issue's `PaFactory` requirement.
+Auriga adopts the same single-facade shape with **one Capella-specific change to the key**. uml4net can key on the raw string `"uml:Class"` because UML XMI always uses the fixed `uml:` prefix. Capella's prefix is arbitrary per document (bound to an nsURI via `xmlns:`), and the same local name (e.g. `Component`) exists in several packages, so the facade must key on the **resolved** type — the pair `(nsURI, localName)` — after the reader resolves the element's prefix to its nsURI. Same dictionary-dispatch design, resolved key:
+
+- The facade is keyed by `(nsURI, localName)` → a construction/reader delegate. `nsURI` comes from resolving the element's XML namespace; `localName` is the classifier name. Both are already in hand at the point the reader hits an element.
+- An unknown `(nsURI, localName)` throws a clear "no reader for type" error — and, because abstract classes contribute no entry, an `xsi:type` naming an abstract class fails loudly rather than silently.
+- The facade and the per-class readers are generated by the XMI reader generator (mirroring uml4net's `XmiReaderGenerator`) into `Auriga.Xmi`; this is coupled to the reader work (#13), but the dispatch decision belongs to the generation design and is recorded here.
+
+Object construction stays plain `new Foo()`; the public "create a model in code" story is simply the instantiable concrete classes, exactly as in uml4net.
 
 Every generated type is `partial` (see §9/§10). File/type naming: `CapitalizeFirstLetter(EClass.Name)` for classes/enums, `"I" + CapitalizeFirstLetter(Name)` for interfaces (`ECoreNetto.Extensions.StringExtensions.CapitalizeFirstLetter` is reused; it throws on empty names — every classifier in the Capella metamodel is named, but assert this).
 
@@ -163,9 +167,10 @@ Generation is only useful on top of a small hand-authored runtime in the `Auriga
 
 - **`AurigaElement`** (base of every generated concrete class): identity (`Id`/`xmi:id`), a container back-pointer, and the plumbing the object graph needs. Every `class Foo : AurigaElement, IFoo`.
 - **`IContainerList<T>` / `ContainerList<T>`**: an owner-aware collection for containment references that sets the child's container on add/remove (the equivalent of EMF's containment `EList`). Non-containment multi-valued features use plain `List<T>`.
-- **`ICapellaElement`** (or reuse the generated `modellingcore::ModelElement` interface as the common root) — decide whether the hand-written base implements a marker interface or the generated `IModelElement`. **Decision:** `AurigaElement` implements a minimal hand-written `IAurigaElement` marker (Id + container); the generated `modellingcore::ModelElement` interface extends it. This keeps the runtime independent of generated code while giving every element the identity contract.
-- **`IAurigaFactory` + `AurigaFactoryRegistry`** (§3): the factory contract and the nsURI→factory registry the generated `*Factory` classes plug into.
+- **`IAurigaElement`** (or reuse the generated `modellingcore::ModelElement` interface as the common root) — decide whether the hand-written base implements a marker interface or the generated `IModelElement`. **Decision:** `AurigaElement` implements a minimal hand-written `IAurigaElement` marker (Id + container); the generated `modellingcore::ModelElement` interface extends it. This keeps the runtime independent of generated code while giving every element the identity contract.
 - **Hand-written `Extend/` partials**: the bodies of derived features (`QueryRealizedFunctions()` etc.). These live beside — but separate from — the generated `AutoGen*` files, in the same `partial` type.
+
+There is no factory runtime — object construction is `new Foo()`, and deserialization dispatch is the generated `XmiElementReaderFacade` (§3), which lives in `Auriga.Xmi`, not the object-model runtime.
 
 ## 10. Committed-generated-code workflow
 
@@ -176,9 +181,9 @@ Generation is only useful on top of a small hand-authored runtime in the `Auriga
   Auriga/AutoGenInterfaces/    I*.cs
   Auriga/AutoGenClasses/       <concrete>.cs
   Auriga/AutoGenEnumeration/   <enum>.cs
-  Auriga/AutoGenFactories/     <Pkg>Factory.cs
   Auriga/Extend/               hand-written partials (derived bodies, behavior)
   ```
+  (The generated `XmiElementReaderFacade` and per-class readers/writers land in `Auriga.Xmi` — see #13 — not here.)
 - **Every generated file** starts with the Starion SPDX copyright header (emitted from the top of each `.hbs` template, `file="{{Name}}.cs"` interpolated — matching CONTRIBUTING) and an auto-generated banner, and every generated type carries `[GeneratedCode("Auriga.CodeGenerator", "<version>")]`. Files are plain `.cs` segregated by `AutoGen*` folder (no `.g.cs`).
 - **All generated types are `partial`.** Structure + auto-properties + attributes are generated; derived-property bodies and any behavior live in hand-written `partial`s under `Extend/`. Regeneration never touches `Extend/`.
 - **Determinism:** order everything by name (`OrderBy(x => x.Name)`), dedupe flattened features by name, and run every file through Roslyn `CodeCleanup` (`CSharpSyntaxTree.ParseText` + `Formatter.Format` over an `AdhocWorkspace`) so output is byte-stable and templates can be whitespace-sloppy.
@@ -195,7 +200,7 @@ Generation is only useful on top of a small hand-authored runtime in the `Auriga
 4. Which enums have `Literal != Name` (round-trip mapping needed).
 5. Feature/type names colliding with C# keywords or with their enclosing type (escaping/rename rules exercised).
 6. Whether any feature is `Changeable == false` yet stored (expected none — derived covers it).
-7. The exact shape of `AurigaElement`/`IContainerList<T>`/`IAurigaFactory` (the runtime is hand-written and small, but its API is load-bearing for both the generated code and the reader in #13).
+7. The exact shape of `AurigaElement`/`IContainerList<T>` (the runtime is hand-written and small, but its API is load-bearing for the generated code) and the `(nsURI, localName)` key the `XmiElementReaderFacade` dispatches on (load-bearing for the reader in #13).
 
 ## 12. Pointers
 
