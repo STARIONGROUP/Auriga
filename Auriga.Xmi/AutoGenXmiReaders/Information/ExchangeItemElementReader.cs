@@ -94,80 +94,146 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Information
 
                         switch (xmlReader.LocalName)
                         {
+                            case "abstractType":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "AbstractType", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
+                            case "appliedPropertyValueGroups":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "AppliedPropertyValueGroups", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
+                            case "appliedPropertyValues":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "AppliedPropertyValues", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
+                            case "features":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "Features", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
                             case "ownedConstraints":
-                        poco.OwnedConstraints.Add((Auriga.Modellingcore.IAbstractConstraint)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedConstraints", href); SkipElement(xmlReader); }
+                            else { poco.OwnedConstraints.Add((Auriga.Modellingcore.IAbstractConstraint)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
                             case "ownedDefaultValue":
-                    {
-                        var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedDefaultValue = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedDefaultValue", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedDefaultValue = contained; }
+                            break;
+                        }
                             case "ownedEnumerationPropertyTypes":
-                        poco.OwnedEnumerationPropertyTypes.Add((Auriga.Capellacore.IEnumerationPropertyType)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedEnumerationPropertyTypes", href); SkipElement(xmlReader); }
+                            else { poco.OwnedEnumerationPropertyTypes.Add((Auriga.Capellacore.IEnumerationPropertyType)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
                             case "ownedExtensions":
-                        poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedExtensions", href); SkipElement(xmlReader); }
+                            else { poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
                             case "ownedMaxCard":
-                    {
-                        var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedMaxCard = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedMaxCard", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedMaxCard = contained; }
+                            break;
+                        }
                             case "ownedMaxLength":
-                    {
-                        var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedMaxLength = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedMaxLength", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedMaxLength = contained; }
+                            break;
+                        }
                             case "ownedMaxValue":
-                    {
-                        var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedMaxValue = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedMaxValue", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedMaxValue = contained; }
+                            break;
+                        }
                             case "ownedMigratedElements":
-                        poco.OwnedMigratedElements.Add((Auriga.Modellingcore.IModelElement)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedMigratedElements", href); SkipElement(xmlReader); }
+                            else { poco.OwnedMigratedElements.Add((Auriga.Modellingcore.IModelElement)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
                             case "ownedMinCard":
-                    {
-                        var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedMinCard = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedMinCard", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedMinCard = contained; }
+                            break;
+                        }
                             case "ownedMinLength":
-                    {
-                        var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedMinLength = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedMinLength", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.INumericValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedMinLength = contained; }
+                            break;
+                        }
                             case "ownedMinValue":
-                    {
-                        var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedMinValue = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedMinValue", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedMinValue = contained; }
+                            break;
+                        }
                             case "ownedNullValue":
-                    {
-                        var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader);
-                        contained.Container = poco;
-                        poco.OwnedNullValue = contained;
-                        break;
-                    }
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "OwnedNullValue", href); SkipElement(xmlReader); }
+                            else { var contained = (Auriga.Information.Datavalue.IDataValue)this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.OwnedNullValue = contained; }
+                            break;
+                        }
                             case "ownedPropertyValueGroups":
-                        poco.OwnedPropertyValueGroups.Add((Auriga.Capellacore.IPropertyValueGroup)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedPropertyValueGroups", href); SkipElement(xmlReader); }
+                            else { poco.OwnedPropertyValueGroups.Add((Auriga.Capellacore.IPropertyValueGroup)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
                             case "ownedPropertyValues":
-                        poco.OwnedPropertyValues.Add((Auriga.Capellacore.IAbstractPropertyValue)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedPropertyValues", href); SkipElement(xmlReader); }
+                            else { poco.OwnedPropertyValues.Add((Auriga.Capellacore.IAbstractPropertyValue)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
+                            case "referencedProperties":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "ReferencedProperties", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
+                            case "status":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "Status", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
                             default:
                                 this.Logger.LogTrace("Skipping unmapped element '{Element}' of ExchangeItemElement at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);

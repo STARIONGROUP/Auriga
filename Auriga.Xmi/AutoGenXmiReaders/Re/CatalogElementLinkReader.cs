@@ -79,9 +79,34 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
 
                         switch (xmlReader.LocalName)
                         {
+                            case "origin":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "Origin", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
                             case "ownedExtensions":
-                        poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedExtensions", href); SkipElement(xmlReader); }
+                            else { poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
+                            case "source":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "Source", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
+                            case "target":
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "Target", href); SkipElement(xmlReader); }
+                            else { SkipElement(xmlReader); }
+                            break;
+                        }
                             default:
                                 this.Logger.LogTrace("Skipping unmapped element '{Element}' of CatalogElementLink at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);

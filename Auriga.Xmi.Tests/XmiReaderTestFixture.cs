@@ -11,6 +11,7 @@ namespace Auriga.Xmi.Tests
 {
     using System.IO;
     using System.Linq;
+    using System.Text;
 
     using NUnit.Framework;
 
@@ -156,6 +157,37 @@ namespace Auriga.Xmi.Tests
             var link = (Auriga.Cs.IPhysicalLink)this.result.Elements[PhysicalLink];
 
             Assert.That(link.LinkEnds, Has.Some.SameAs(this.result.Elements[Pp1]).Or.Some.SameAs(this.result.Elements[Pp2]));
+        }
+
+        [Test]
+        public void Verify_that_a_cross_document_href_proxy_is_collected_not_instantiated()
+        {
+            // EMF serializes a containment child that lives in another document (a .capellafragment) as an
+            // href proxy element rather than inline. It must be collected as an unresolved reference for a
+            // later fragment-resolution pass, not instantiated as an empty object.
+            const string Xml =
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<org.polarsys.capella.core.data.capellamodeller:Project xmi:version=\"2.0\" " +
+                "xmlns:xmi=\"http://www.omg.org/XMI\" " +
+                "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " +
+                "xmlns:org.polarsys.capella.core.data.capellamodeller=\"http://www.polarsys.org/capella/core/modeller/7.0.0\" " +
+                "id=\"root-1\" name=\"Frag\">" +
+                "<ownedModelRoots xsi:type=\"org.polarsys.capella.core.data.capellamodeller:SystemEngineering\" " +
+                "href=\"other.capellafragment#se-1\"/>" +
+                "</org.polarsys.capella.core.data.capellamodeller:Project>";
+
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(Xml));
+            var readerResult = XmiReaderBuilder.Create().Build().Read(stream, "fragment-proxy");
+
+            var project = (Auriga.Capellamodeller.IProject)readerResult.Root;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(readerResult.Elements, Has.Count.EqualTo(1), "the href proxy must not be instantiated");
+                Assert.That(project.OwnedModelRoots, Is.Empty, "no empty proxy object may be added to the containment list");
+                Assert.That(project.MultiValueReferencePropertyIdentifiers, Contains.Key("OwnedModelRoots"));
+                Assert.That(project.MultiValueReferencePropertyIdentifiers["OwnedModelRoots"], Contains.Item("other.capellafragment#se-1"));
+            });
         }
     }
 }

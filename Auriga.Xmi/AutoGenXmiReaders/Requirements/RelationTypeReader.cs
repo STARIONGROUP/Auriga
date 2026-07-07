@@ -78,11 +78,19 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
                         switch (xmlReader.LocalName)
                         {
                             case "ownedAttributes":
-                        poco.OwnedAttributes.Add((Auriga.Requirements.IAttributeDefinition)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedAttributes", href); SkipElement(xmlReader); }
+                            else { poco.OwnedAttributes.Add((Auriga.Requirements.IAttributeDefinition)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
                             case "ownedExtensions":
-                        poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
-                        break;
+                        {
+                            var href = xmlReader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedExtensions", href); SkipElement(xmlReader); }
+                            else { poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader)); }
+                            break;
+                        }
                             default:
                                 this.Logger.LogTrace("Skipping unmapped element '{Element}' of RelationType at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);

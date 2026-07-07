@@ -129,12 +129,15 @@ namespace Auriga.CodeGenerator.Helpers
         }
 
         /// <summary>
-        /// The containment structural features, read from child elements, ordered by member name.
+        /// The reference structural features that can appear as child elements, ordered by member name.
+        /// Containment is always a child element; a non-containment reference is a child element only when
+        /// its target is in another document, in which case EMF serializes it as an <c>href</c> proxy.
+        /// Scalars and enumerations are always attributes in Capella, so they are not read here.
         /// </summary>
         private static List<EStructuralFeature> ElementFeatures(EClass eClass)
         {
             return ReaderFeatures(eClass)
-                .Where(f => f is EReference { IsContainment: true })
+                .Where(f => f is EReference)
                 .ToList();
         }
 
@@ -243,21 +246,30 @@ namespace Auriga.CodeGenerator.Helpers
             var propertyName = MemberName(feature);
             var xmlName = feature.Name;
             var elementType = CSharpType.BaseType(feature.EType);
+            var collection = CSharpType.IsCollection(feature);
+            var containment = feature is EReference { IsContainment: true };
 
-            if (CSharpType.IsCollection(feature))
-            {
-                return $"case \"{xmlName}\":\n" +
-                       $"                        poco.{propertyName}.Add(({elementType})this.Facade.QueryElement(xmlReader));\n" +
-                       $"                        break;";
-            }
+            // A child element carrying an href is a cross-document proxy (e.g. into a .capellafragment):
+            // collect it as an unresolved reference rather than instantiating an empty object. Otherwise
+            // an inline containment element is read recursively; a non-containment element (no href) is
+            // an unexpected encoding and is skipped.
+            var collect = collection
+                ? $"CollectMultiValueReferences(poco, \"{propertyName}\", href)"
+                : $"CollectSingleValueReference(poco, \"{propertyName}\", href)";
+
+            var inline = !containment
+                ? "SkipElement(xmlReader);"
+                : collection
+                    ? $"poco.{propertyName}.Add(({elementType})this.Facade.QueryElement(xmlReader));"
+                    : $"var contained = ({elementType})this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.{propertyName} = contained;";
 
             return $"case \"{xmlName}\":\n" +
-                   $"                    {{\n" +
-                   $"                        var contained = ({elementType})this.Facade.QueryElement(xmlReader);\n" +
-                   $"                        contained.Container = poco;\n" +
-                   $"                        poco.{propertyName} = contained;\n" +
-                   $"                        break;\n" +
-                   $"                    }}";
+                   $"                        {{\n" +
+                   $"                            var href = xmlReader.GetAttribute(\"href\");\n" +
+                   $"                            if (!string.IsNullOrEmpty(href)) {{ {collect}; SkipElement(xmlReader); }}\n" +
+                   $"                            else {{ {inline} }}\n" +
+                   $"                            break;\n" +
+                   $"                        }}";
         }
 
         private static string MemberName(EStructuralFeature feature)

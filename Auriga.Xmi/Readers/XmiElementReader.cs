@@ -101,13 +101,18 @@ namespace Auriga.Xmi.Readers
                 return;
             }
 
-            var identifiers = new List<string>(tokens.Length);
+            // Append rather than replace: a multi-valued reference may be split across several sibling
+            // href-proxy elements, each collected by a separate call, in addition to any attribute form.
+            if (!element.MultiValueReferencePropertyIdentifiers.TryGetValue(propertyName, out var identifiers))
+            {
+                identifiers = new List<string>();
+                element.MultiValueReferencePropertyIdentifiers[propertyName] = identifiers;
+            }
+
             foreach (var token in tokens)
             {
                 identifiers.Add(NormalizeIdentifier(token));
             }
-
-            element.MultiValueReferencePropertyIdentifiers[propertyName] = identifiers;
         }
 
         /// <summary>
