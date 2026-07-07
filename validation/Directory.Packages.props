@@ -1,0 +1,6 @@
+<Project>
+    <!--
+      Stopper file: the EcoreValidation harness manages its own package versions and
+      does not use the Central Package Management of the repository root.
+    -->
+</Project>
