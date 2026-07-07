@@ -31,14 +31,29 @@ namespace Auriga.Xmi
     /// </summary>
     public sealed class XmiReader : IXmiReader
     {
+        /// <summary>
+        /// The cache in which every element read on the first pass is registered by <c>xmi:id</c>.
+        /// </summary>
         private readonly IXmiElementCache cache;
 
+        /// <summary>
+        /// The facade that maps an element's <c>xsi:type</c> to its generated reader and reads it.
+        /// </summary>
         private readonly IXmiReaderFacade facade;
 
+        /// <summary>
+        /// The resolver that maps a namespace URI to its Ecore package, used to key the document root.
+        /// </summary>
         private readonly INamespaceResolver namespaceResolver;
 
+        /// <summary>
+        /// The second-pass resolver that turns the collected <c>#id</c> references into object references.
+        /// </summary>
         private readonly IReferenceResolver referenceResolver;
 
+        /// <summary>
+        /// The logger used to report unresolved roots and other read-level diagnostics.
+        /// </summary>
         private readonly ILogger<XmiReader> logger;
 
         /// <summary>
