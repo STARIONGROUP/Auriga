@@ -12,11 +12,17 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Epbs
 {
+    /// <summary>
+    /// Definition of the <c>PhysicalArchitectureRealization</c> interface.
+    /// </summary>
     public partial interface IPhysicalArchitectureRealization : Auriga.Cs.IArchitectureAllocation
     {
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

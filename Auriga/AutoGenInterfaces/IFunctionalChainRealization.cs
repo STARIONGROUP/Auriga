@@ -12,11 +12,17 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>FunctionalChainRealization</c> interface.
+    /// </summary>
     public partial interface IFunctionalChainRealization : Auriga.Capellacore.IAllocation
     {
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

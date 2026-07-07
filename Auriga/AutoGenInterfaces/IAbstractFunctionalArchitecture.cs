@@ -12,23 +12,47 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>AbstractFunctionalArchitecture</c> interface.
+    /// </summary>
     public partial interface IAbstractFunctionalArchitecture : Auriga.Capellacore.IModellingArchitecture
     {
-        Auriga.Fa.IFunctionPkg OwnedFunctionPkg { get; set; }
-
-        Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
-
+        /// <summary>
+        /// Gets the owned component exchange categories.
+        /// </summary>
         Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
 
-        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
+        /// <summary>
+        /// Gets the owned component exchange realizations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
 
+        /// <summary>
+        /// Gets the owned component exchanges.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
+
+        /// <summary>
+        /// Gets or sets the owned function pkg.
+        /// </summary>
+        Auriga.Fa.IFunctionPkg OwnedFunctionPkg { get; set; }
+
+        /// <summary>
+        /// Gets the owned functional allocations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocations { get; }
 
-        Auriga.IContainerList<Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
+        /// <summary>
+        /// Gets the owned functional links.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

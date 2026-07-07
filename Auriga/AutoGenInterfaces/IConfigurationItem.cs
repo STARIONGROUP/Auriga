@@ -12,26 +12,50 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Epbs
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>ConfigurationItem</c> interface.
+    /// </summary>
     public partial interface IConfigurationItem : Auriga.Capellacommon.ICapabilityRealizationInvolvedElement, Auriga.Cs.IComponent
     {
+        /// <summary>
+        /// Gets the allocated physical artifacts.
+        /// </summary>
+        IEnumerable<Auriga.Cs.IAbstractPhysicalArtifact> AllocatedPhysicalArtifacts { get; }
+
+        /// <summary>
+        /// Gets or sets the item identifier.
+        /// </summary>
         string ItemIdentifier { get; set; }
 
+        /// <summary>
+        /// Gets or sets the kind.
+        /// </summary>
         Auriga.Epbs.ConfigurationItemKind? Kind { get; set; }
 
-        Auriga.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
-
+        /// <summary>
+        /// Gets the owned configuration item pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
 
-        Auriga.IContainerList<Auriga.Epbs.IPhysicalArtifactRealization> OwnedPhysicalArtifactRealizations { get; }
+        /// <summary>
+        /// Gets the owned configuration items.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
 
-        IEnumerable<Auriga.Cs.IAbstractPhysicalArtifact> AllocatedPhysicalArtifacts { get; }
+        /// <summary>
+        /// Gets the owned physical artifact realizations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Epbs.IPhysicalArtifactRealization> OwnedPhysicalArtifactRealizations { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Modellingcore
 {
+    /// <summary>
+    /// The <c>RateKind</c> enumeration.
+    /// </summary>
     public enum RateKind
     {
+        /// <summary>
+        /// The <c>Unspecified</c> literal.
+        /// </summary>
         Unspecified,
 
+        /// <summary>
+        /// The <c>Continuous</c> literal.
+        /// </summary>
         Continuous,
 
+        /// <summary>
+        /// The <c>Discrete</c> literal.
+        /// </summary>
         Discrete
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

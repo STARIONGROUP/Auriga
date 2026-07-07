@@ -12,24 +12,45 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>PhysicalPort</c> interface.
+    /// </summary>
     public partial interface IPhysicalPort : Auriga.Information.IPort, Auriga.Cs.IAbstractPhysicalArtifact, Auriga.Modellingcore.IInformationsExchanger, Auriga.Cs.IAbstractPhysicalLinkEnd, Auriga.Information.IProperty
     {
-        Auriga.IContainerList<Auriga.Fa.IComponentPortAllocation> OwnedComponentPortAllocations { get; }
-
-        Auriga.IContainerList<Auriga.Cs.IPhysicalPortRealization> OwnedPhysicalPortRealizations { get; }
-
+        /// <summary>
+        /// Gets the allocated component ports.
+        /// </summary>
         IEnumerable<Auriga.Fa.IComponentPort> AllocatedComponentPorts { get; }
 
+        /// <summary>
+        /// Gets the owned component port allocations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Fa.IComponentPortAllocation> OwnedComponentPortAllocations { get; }
+
+        /// <summary>
+        /// Gets the owned physical port realizations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Cs.IPhysicalPortRealization> OwnedPhysicalPortRealizations { get; }
+
+        /// <summary>
+        /// Gets the realized physical ports.
+        /// </summary>
         IEnumerable<Auriga.Cs.IPhysicalPort> RealizedPhysicalPorts { get; }
 
+        /// <summary>
+        /// Gets the realizing physical ports.
+        /// </summary>
         IEnumerable<Auriga.Cs.IPhysicalPort> RealizingPhysicalPorts { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

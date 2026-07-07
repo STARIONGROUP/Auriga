@@ -12,17 +12,29 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>Location</c> interface.
+    /// </summary>
     public partial interface ILocation : Auriga.Oa.IAbstractConceptItem
     {
-        string LocationDescription { get; set; }
-
+        /// <summary>
+        /// Gets the located entities.
+        /// </summary>
         List<Auriga.Oa.IEntity> LocatedEntities { get; }
+
+        /// <summary>
+        /// Gets or sets the location description.
+        /// </summary>
+        string LocationDescription { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

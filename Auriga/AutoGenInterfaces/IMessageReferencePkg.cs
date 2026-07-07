@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information.Communication
 {
+    /// <summary>
+    /// Definition of the <c>MessageReferencePkg</c> interface.
+    /// </summary>
     public partial interface IMessageReferencePkg : Auriga.Capellacore.IStructure
     {
+        /// <summary>
+        /// Gets the owned message references.
+        /// </summary>
         Auriga.IContainerList<Auriga.Information.Communication.IMessageReference> OwnedMessageReferences { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

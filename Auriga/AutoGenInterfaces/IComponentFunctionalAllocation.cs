@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>ComponentFunctionalAllocation</c> interface.
+    /// </summary>
     public partial interface IComponentFunctionalAllocation : Auriga.Fa.IAbstractFunctionAllocation
     {
-        Auriga.Fa.IAbstractFunction Function { get; }
-
+        /// <summary>
+        /// Gets the block.
+        /// </summary>
         Auriga.Fa.IAbstractFunctionalBlock Block { get; }
+
+        /// <summary>
+        /// Gets the function.
+        /// </summary>
+        Auriga.Fa.IAbstractFunction Function { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

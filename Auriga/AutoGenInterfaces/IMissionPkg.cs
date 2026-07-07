@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Ctx
 {
+    /// <summary>
+    /// Definition of the <c>MissionPkg</c> interface.
+    /// </summary>
     public partial interface IMissionPkg : Auriga.Capellacore.IStructure
     {
+        /// <summary>
+        /// Gets the owned mission pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Ctx.IMissionPkg> OwnedMissionPkgs { get; }
 
+        /// <summary>
+        /// Gets the owned missions.
+        /// </summary>
         Auriga.IContainerList<Auriga.Ctx.IMission> OwnedMissions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

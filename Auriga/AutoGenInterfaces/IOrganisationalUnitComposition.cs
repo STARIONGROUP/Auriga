@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>OrganisationalUnitComposition</c> interface.
+    /// </summary>
     public partial interface IOrganisationalUnitComposition : Auriga.Capellacore.INamedElement
     {
+        /// <summary>
+        /// Gets or sets the organisational unit.
+        /// </summary>
         Auriga.Oa.IOrganisationalUnit OrganisationalUnit { get; set; }
 
+        /// <summary>
+        /// Gets or sets the participating entity.
+        /// </summary>
         Auriga.Oa.IEntity ParticipatingEntity { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// Definition of the <c>ExchangeItemRealization</c> interface.
+    /// </summary>
     public partial interface IExchangeItemRealization : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the realized item.
+        /// </summary>
         Auriga.Modellingcore.IAbstractExchangeItem RealizedItem { get; }
 
+        /// <summary>
+        /// Gets the realizing operation.
+        /// </summary>
         Auriga.Information.IOperation RealizingOperation { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

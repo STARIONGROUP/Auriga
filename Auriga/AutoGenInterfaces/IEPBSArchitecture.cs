@@ -12,24 +12,45 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Epbs
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>EPBSArchitecture</c> interface.
+    /// </summary>
     public partial interface IEPBSArchitecture : Auriga.Cs.IComponentArchitecture
     {
-        Auriga.Epbs.IConfigurationItemPkg OwnedConfigurationItemPkg { get; set; }
-
-        Auriga.La.ICapabilityRealizationPkg ContainedCapabilityRealizationPkg { get; }
-
-        Auriga.IContainerList<Auriga.Epbs.IPhysicalArchitectureRealization> OwnedPhysicalArchitectureRealizations { get; }
-
+        /// <summary>
+        /// Gets the allocated physical architecture realizations.
+        /// </summary>
         IEnumerable<Auriga.Epbs.IPhysicalArchitectureRealization> AllocatedPhysicalArchitectureRealizations { get; }
 
+        /// <summary>
+        /// Gets the allocated physical architectures.
+        /// </summary>
         IEnumerable<Auriga.Pa.IPhysicalArchitecture> AllocatedPhysicalArchitectures { get; }
+
+        /// <summary>
+        /// Gets the contained capability realization pkg.
+        /// </summary>
+        Auriga.La.ICapabilityRealizationPkg ContainedCapabilityRealizationPkg { get; }
+
+        /// <summary>
+        /// Gets or sets the owned configuration item pkg.
+        /// </summary>
+        Auriga.Epbs.IConfigurationItemPkg OwnedConfigurationItemPkg { get; set; }
+
+        /// <summary>
+        /// Gets the owned physical architecture realizations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Epbs.IPhysicalArchitectureRealization> OwnedPhysicalArchitectureRealizations { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

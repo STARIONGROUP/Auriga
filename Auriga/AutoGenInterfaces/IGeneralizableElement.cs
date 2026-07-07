@@ -12,26 +12,50 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacore
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>GeneralizableElement</c> interface.
+    /// </summary>
     public partial interface IGeneralizableElement : Auriga.Capellacore.IType
     {
+        /// <summary>
+        /// Gets or sets the abstract.
+        /// </summary>
         bool? Abstract { get; set; }
 
+        /// <summary>
+        /// Gets the owned generalizations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations { get; }
 
-        IEnumerable<Auriga.Capellacore.IGeneralization> SuperGeneralizations { get; }
+        /// <summary>
+        /// Gets the sub.
+        /// </summary>
+        IEnumerable<Auriga.Capellacore.IGeneralizableElement> Sub { get; }
 
+        /// <summary>
+        /// Gets the sub generalizations.
+        /// </summary>
         IEnumerable<Auriga.Capellacore.IGeneralization> SubGeneralizations { get; }
 
+        /// <summary>
+        /// Gets the super.
+        /// </summary>
         IEnumerable<Auriga.Capellacore.IGeneralizableElement> Super { get; }
 
-        IEnumerable<Auriga.Capellacore.IGeneralizableElement> Sub { get; }
+        /// <summary>
+        /// Gets the super generalizations.
+        /// </summary>
+        IEnumerable<Auriga.Capellacore.IGeneralization> SuperGeneralizations { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

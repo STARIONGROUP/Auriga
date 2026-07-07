@@ -12,11 +12,17 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
+    /// <summary>
+    /// Definition of the <c>LogicalInterfaceRealization</c> interface.
+    /// </summary>
     public partial interface ILogicalInterfaceRealization : Auriga.Cs.IInterfaceAllocation
     {
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

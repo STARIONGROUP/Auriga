@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// Definition of the <c>OperationAllocation</c> interface.
+    /// </summary>
     public partial interface IOperationAllocation : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the allocated operation.
+        /// </summary>
         Auriga.Information.IOperation AllocatedOperation { get; }
 
+        /// <summary>
+        /// Gets the allocating operation.
+        /// </summary>
         Auriga.Information.IOperation AllocatingOperation { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,19 +12,34 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Behavior
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>AbstractBehavior</c> interface.
+    /// </summary>
     public partial interface IAbstractBehavior : Auriga.Modellingcore.IAbstractNamedElement
     {
+        /// <summary>
+        /// Gets or sets the is control operator.
+        /// </summary>
         bool? IsControlOperator { get; set; }
 
-        List<Auriga.Modellingcore.IAbstractParameterSet> OwnedParameterSet { get; }
-
+        /// <summary>
+        /// Gets the owned parameter.
+        /// </summary>
         List<Auriga.Modellingcore.IAbstractParameter> OwnedParameter { get; }
+
+        /// <summary>
+        /// Gets the owned parameter set.
+        /// </summary>
+        List<Auriga.Modellingcore.IAbstractParameterSet> OwnedParameterSet { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

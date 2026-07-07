@@ -12,220 +12,481 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>PhysicalFunction</c> class.
+    /// </summary>
     public partial class PhysicalFunction : Auriga.AurigaElement, Auriga.Pa.IPhysicalFunction
     {
-        private Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> backingOwnedPhysicalFunctionPkgs;
-
-        public Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs => this.backingOwnedPhysicalFunctionPkgs ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalFunctionPkg>(this);
-
-        public IEnumerable<Auriga.Pa.IPhysicalComponent> AllocatingPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
-
-        public IEnumerable<Auriga.La.ILogicalFunction> RealizedLogicalFunctions => Enumerable.Empty<Auriga.La.ILogicalFunction>();
-
-        public IEnumerable<Auriga.Pa.IPhysicalFunction> ContainedPhysicalFunctions => Enumerable.Empty<Auriga.Pa.IPhysicalFunction>();
-
-        public IEnumerable<Auriga.Pa.IPhysicalFunction> ChildrenPhysicalFunctions => Enumerable.Empty<Auriga.Pa.IPhysicalFunction>();
-
-        public Auriga.Fa.FunctionKind? Kind { get; set; }
-
-        public string Condition { get; set; }
-
-        private Auriga.IContainerList<Auriga.Fa.IAbstractFunction> backingOwnedFunctions;
-
-        public Auriga.IContainerList<Auriga.Fa.IAbstractFunction> OwnedFunctions => this.backingOwnedFunctions ??= new Auriga.ContainerList<Auriga.Fa.IAbstractFunction>(this);
-
-        private Auriga.IContainerList<Auriga.Fa.IFunctionRealization> backingOwnedFunctionRealizations;
-
-        public Auriga.IContainerList<Auriga.Fa.IFunctionRealization> OwnedFunctionRealizations => this.backingOwnedFunctionRealizations ??= new Auriga.ContainerList<Auriga.Fa.IFunctionRealization>(this);
-
-        private Auriga.IContainerList<Auriga.Fa.IFunctionalExchange> backingOwnedFunctionalExchanges;
-
-        public Auriga.IContainerList<Auriga.Fa.IFunctionalExchange> OwnedFunctionalExchanges => this.backingOwnedFunctionalExchanges ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalExchange>(this);
-
-        public IEnumerable<Auriga.Fa.IAbstractFunction> SubFunctions => Enumerable.Empty<Auriga.Fa.IAbstractFunction>();
-
-        public IEnumerable<Auriga.Fa.IFunctionRealization> OutFunctionRealizations => Enumerable.Empty<Auriga.Fa.IFunctionRealization>();
-
-        public IEnumerable<Auriga.Fa.IFunctionRealization> InFunctionRealizations => Enumerable.Empty<Auriga.Fa.IFunctionRealization>();
-
-        public IEnumerable<Auriga.Fa.IComponentFunctionalAllocation> ComponentFunctionalAllocations => Enumerable.Empty<Auriga.Fa.IComponentFunctionalAllocation>();
-
-        public IEnumerable<Auriga.Fa.IAbstractFunctionalBlock> AllocationBlocks => Enumerable.Empty<Auriga.Fa.IAbstractFunctionalBlock>();
-
-        public List<Auriga.Capellacommon.IState> AvailableInStates { get; } = new List<Auriga.Capellacommon.IState>();
-
-        public IEnumerable<Auriga.Ctx.ICapability> InvolvingCapabilities => Enumerable.Empty<Auriga.Ctx.ICapability>();
-
-        public IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations => Enumerable.Empty<Auriga.La.ICapabilityRealization>();
-
-        public IEnumerable<Auriga.Fa.IFunctionalChain> InvolvingFunctionalChains => Enumerable.Empty<Auriga.Fa.IFunctionalChain>();
-
-        public Auriga.Capellacommon.IStateMachine LinkedStateMachine => default;
-
-        public Auriga.Fa.IFunctionSpecification LinkedFunctionSpecification => default;
-
-        private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
-
-        public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
-
-        public IEnumerable<Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces => Enumerable.Empty<Auriga.Capellacommon.IGenericTrace>();
-
-        private Auriga.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
-
-        public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
-
-        public string Name { get; set; }
-
-        public string Sid { get; set; }
-
-        public IEnumerable<Auriga.Modellingcore.IAbstractConstraint> Constraints => Enumerable.Empty<Auriga.Modellingcore.IAbstractConstraint>();
-
-        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
-
-        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
-
-        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
-
-        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
-
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
-
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
-
-        public string Summary { get; set; }
-
-        public string Description { get; set; }
-
-        public string Review { get; set; }
-
-        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
-
-        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
-
-        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
-
-        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
-
-        public List<Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; } = new List<Auriga.Capellacore.IAbstractPropertyValue>();
-
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
-
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
-
-        public List<Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; } = new List<Auriga.Capellacore.IPropertyValueGroup>();
-
-        public Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
-
-        public List<Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; } = new List<Auriga.Capellacore.IEnumerationPropertyLiteral>();
-
-        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> IncomingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
-
-        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> OutgoingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
-
-        public bool? VisibleInDoc { get; set; }
-
-        public bool? VisibleInLM { get; set; }
-
-        public IEnumerable<Auriga.Capellacore.IInvolvement> InvolvingInvolvements => Enumerable.Empty<Auriga.Capellacore.IInvolvement>();
-
-        public IEnumerable<Auriga.Interaction.IInstanceRole> RepresentingInstanceRoles => Enumerable.Empty<Auriga.Interaction.IInstanceRole>();
-
-        public Auriga.Information.AggregationKind? AggregationKind { get; set; }
-
-        public bool? IsDerived { get; set; }
-
-        public bool? IsReadOnly { get; set; }
-
-        public bool? IsPartOfKey { get; set; }
-
-        public Auriga.Information.IAssociation Association => default;
-
-        public bool? IsAbstract { get; set; }
-
-        public bool? IsStatic { get; set; }
-
-        public Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
-
-        public Auriga.Capellacore.IType Type => default;
-
+        /// <summary>
+        /// Gets or sets the abstract type.
+        /// </summary>
         public Auriga.Modellingcore.IAbstractType AbstractType { get; set; }
 
-        public bool? Ordered { get; set; }
+        /// <summary>
+        /// Gets the abstract typed elements.
+        /// </summary>
+        public IEnumerable<Auriga.Modellingcore.IAbstractTypedElement> AbstractTypedElements => Enumerable.Empty<Auriga.Modellingcore.IAbstractTypedElement>();
 
-        public bool? Unique { get; set; }
+        /// <summary>
+        /// Gets or sets the aggregation kind.
+        /// </summary>
+        public Auriga.Information.AggregationKind? AggregationKind { get; set; }
 
-        public bool? MinInclusive { get; set; }
+        /// <summary>
+        /// Gets the allocating physical components.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.IPhysicalComponent> AllocatingPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
 
-        public bool? MaxInclusive { get; set; }
+        /// <summary>
+        /// Gets the allocation blocks.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IAbstractFunctionalBlock> AllocationBlocks => Enumerable.Empty<Auriga.Fa.IAbstractFunctionalBlock>();
 
-        public Auriga.Information.Datavalue.IDataValue OwnedDefaultValue { get; set; }
+        /// <summary>
+        /// Gets the applied property value groups.
+        /// </summary>
+        public List<Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; } = new List<Auriga.Capellacore.IPropertyValueGroup>();
 
-        public Auriga.Information.Datavalue.IDataValue OwnedMinValue { get; set; }
+        /// <summary>
+        /// Gets the applied property values.
+        /// </summary>
+        public List<Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; } = new List<Auriga.Capellacore.IAbstractPropertyValue>();
 
-        public Auriga.Information.Datavalue.IDataValue OwnedMaxValue { get; set; }
-
-        public Auriga.Information.Datavalue.IDataValue OwnedNullValue { get; set; }
-
-        public Auriga.Information.Datavalue.INumericValue OwnedMinCard { get; set; }
-
-        public Auriga.Information.Datavalue.INumericValue OwnedMinLength { get; set; }
-
-        public Auriga.Information.Datavalue.INumericValue OwnedMaxCard { get; set; }
-
-        public Auriga.Information.Datavalue.INumericValue OwnedMaxLength { get; set; }
-
-        public bool? Final { get; set; }
-
-        private Auriga.IContainerList<Auriga.Fa.IFunctionalChain> backingOwnedFunctionalChains;
-
-        public Auriga.IContainerList<Auriga.Fa.IFunctionalChain> OwnedFunctionalChains => this.backingOwnedFunctionalChains ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalChain>(this);
-
-        public Auriga.Behavior.IAbstractBehavior Behavior { get; set; }
-
-        private Auriga.IContainerList<Auriga.Activity.IOutputPin> backingResults;
-
-        public Auriga.IContainerList<Auriga.Activity.IOutputPin> Results => this.backingResults ??= new Auriga.ContainerList<Auriga.Activity.IOutputPin>(this);
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Activity.IInputPin> Arguments => this.backingArguments ??= new Auriga.ContainerList<Auriga.Activity.IInputPin>(this);
 
         private Auriga.IContainerList<Auriga.Activity.IInputPin> backingArguments;
 
-        public Auriga.IContainerList<Auriga.Activity.IInputPin> Arguments => this.backingArguments ??= new Auriga.ContainerList<Auriga.Activity.IInputPin>(this);
+        /// <summary>
+        /// Gets the association.
+        /// </summary>
+        public Auriga.Information.IAssociation Association => default;
 
-        public Auriga.Modellingcore.IAbstractConstraint LocalPrecondition { get; set; }
+        /// <summary>
+        /// Gets the available in states.
+        /// </summary>
+        public List<Auriga.Capellacommon.IState> AvailableInStates { get; } = new List<Auriga.Capellacommon.IState>();
 
-        public Auriga.Modellingcore.IAbstractConstraint LocalPostcondition { get; set; }
+        /// <summary>
+        /// Gets or sets the behavior.
+        /// </summary>
+        public Auriga.Behavior.IAbstractBehavior Behavior { get; set; }
 
+        /// <summary>
+        /// Gets the children physical functions.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.IPhysicalFunction> ChildrenPhysicalFunctions => Enumerable.Empty<Auriga.Pa.IPhysicalFunction>();
+
+        /// <summary>
+        /// Gets the component functional allocations.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IComponentFunctionalAllocation> ComponentFunctionalAllocations => Enumerable.Empty<Auriga.Fa.IComponentFunctionalAllocation>();
+
+        /// <summary>
+        /// Gets or sets the condition.
+        /// </summary>
+        public string Condition { get; set; }
+
+        /// <summary>
+        /// Gets the constraints.
+        /// </summary>
+        public IEnumerable<Auriga.Modellingcore.IAbstractConstraint> Constraints => Enumerable.Empty<Auriga.Modellingcore.IAbstractConstraint>();
+
+        /// <summary>
+        /// Gets the contained generic traces.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces => Enumerable.Empty<Auriga.Capellacommon.IGenericTrace>();
+
+        /// <summary>
+        /// Gets the contained physical functions.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.IPhysicalFunction> ContainedPhysicalFunctions => Enumerable.Empty<Auriga.Pa.IPhysicalFunction>();
+
+        /// <summary>
+        /// Gets or sets the context.
+        /// </summary>
         public Auriga.Modellingcore.IAbstractType Context { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets the features.
+        /// </summary>
+        public List<Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; } = new List<Auriga.Capellacore.IEnumerationPropertyLiteral>();
+
+        /// <summary>
+        /// Gets or sets the final.
+        /// </summary>
+        public bool? Final { get; set; }
+
+        /// <summary>
+        /// Gets the in activity partition.
+        /// </summary>
+        public Auriga.Activity.IActivityPartition InActivityPartition => default;
+
+        /// <summary>
+        /// Gets the in function realizations.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IFunctionRealization> InFunctionRealizations => Enumerable.Empty<Auriga.Fa.IFunctionRealization>();
+
+        /// <summary>
+        /// Gets the in interruptible region.
+        /// </summary>
+        public Auriga.Activity.IInterruptibleActivityRegion InInterruptibleRegion => default;
+
+        /// <summary>
+        /// Gets the in structured node.
+        /// </summary>
+        public Auriga.Activity.IInterruptibleActivityRegion InStructuredNode => default;
+
+        /// <summary>
+        /// Gets the incoming.
+        /// </summary>
+        public IEnumerable<Auriga.Activity.IActivityEdge> Incoming => Enumerable.Empty<Auriga.Activity.IActivityEdge>();
+
+        /// <summary>
+        /// Gets the incoming traces.
+        /// </summary>
+        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> IncomingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
+
+        /// <summary>
+        /// Gets the inputs.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Activity.IInputPin> Inputs => this.backingInputs ??= new Auriga.ContainerList<Auriga.Activity.IInputPin>(this);
 
         private Auriga.IContainerList<Auriga.Activity.IInputPin> backingInputs;
 
-        public Auriga.IContainerList<Auriga.Activity.IInputPin> Inputs => this.backingInputs ??= new Auriga.ContainerList<Auriga.Activity.IInputPin>(this);
+        /// <summary>
+        /// Gets the involving capabilities.
+        /// </summary>
+        public IEnumerable<Auriga.Ctx.ICapability> InvolvingCapabilities => Enumerable.Empty<Auriga.Ctx.ICapability>();
+
+        /// <summary>
+        /// Gets the involving capability realizations.
+        /// </summary>
+        public IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations => Enumerable.Empty<Auriga.La.ICapabilityRealization>();
+
+        /// <summary>
+        /// Gets the involving functional chains.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IFunctionalChain> InvolvingFunctionalChains => Enumerable.Empty<Auriga.Fa.IFunctionalChain>();
+
+        /// <summary>
+        /// Gets the involving involvements.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacore.IInvolvement> InvolvingInvolvements => Enumerable.Empty<Auriga.Capellacore.IInvolvement>();
+
+        /// <summary>
+        /// Gets or sets the is abstract.
+        /// </summary>
+        public bool? IsAbstract { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is derived.
+        /// </summary>
+        public bool? IsDerived { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is part of key.
+        /// </summary>
+        public bool? IsPartOfKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is read only.
+        /// </summary>
+        public bool? IsReadOnly { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is static.
+        /// </summary>
+        public bool? IsStatic { get; set; }
+
+        /// <summary>
+        /// Gets or sets the kind.
+        /// </summary>
+        public Auriga.Fa.FunctionKind? Kind { get; set; }
+
+        /// <summary>
+        /// Gets the linked function specification.
+        /// </summary>
+        public Auriga.Fa.IFunctionSpecification LinkedFunctionSpecification => default;
+
+        /// <summary>
+        /// Gets the linked state machine.
+        /// </summary>
+        public Auriga.Capellacommon.IStateMachine LinkedStateMachine => default;
+
+        /// <summary>
+        /// Gets or sets the local postcondition.
+        /// </summary>
+        public Auriga.Modellingcore.IAbstractConstraint LocalPostcondition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the local precondition.
+        /// </summary>
+        public Auriga.Modellingcore.IAbstractConstraint LocalPrecondition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the max inclusive.
+        /// </summary>
+        public bool? MaxInclusive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the min inclusive.
+        /// </summary>
+        public bool? MinInclusive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets the naming rules.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
+
+        /// <summary>
+        /// Gets or sets the ordered.
+        /// </summary>
+        public bool? Ordered { get; set; }
+
+        /// <summary>
+        /// Gets the out function realizations.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IFunctionRealization> OutFunctionRealizations => Enumerable.Empty<Auriga.Fa.IFunctionRealization>();
+
+        /// <summary>
+        /// Gets the outgoing.
+        /// </summary>
+        public IEnumerable<Auriga.Activity.IActivityEdge> Outgoing => Enumerable.Empty<Auriga.Activity.IActivityEdge>();
+
+        /// <summary>
+        /// Gets the outgoing traces.
+        /// </summary>
+        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> OutgoingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
+
+        /// <summary>
+        /// Gets the outputs.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Activity.IOutputPin> Outputs => this.backingOutputs ??= new Auriga.ContainerList<Auriga.Activity.IOutputPin>(this);
 
         private Auriga.IContainerList<Auriga.Activity.IOutputPin> backingOutputs;
 
-        public Auriga.IContainerList<Auriga.Activity.IOutputPin> Outputs => this.backingOutputs ??= new Auriga.ContainerList<Auriga.Activity.IOutputPin>(this);
+        /// <summary>
+        /// Gets the owned constraints.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
+
+        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+
+        /// <summary>
+        /// Gets or sets the owned default value.
+        /// </summary>
+        public Auriga.Information.Datavalue.IDataValue OwnedDefaultValue { get; set; }
+
+        /// <summary>
+        /// Gets the owned enumeration property types.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+
+        /// <summary>
+        /// Gets the owned extensions.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+
+        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+
+        /// <summary>
+        /// Gets the owned function realizations.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Fa.IFunctionRealization> OwnedFunctionRealizations => this.backingOwnedFunctionRealizations ??= new Auriga.ContainerList<Auriga.Fa.IFunctionRealization>(this);
+
+        private Auriga.IContainerList<Auriga.Fa.IFunctionRealization> backingOwnedFunctionRealizations;
+
+        /// <summary>
+        /// Gets the owned functional chains.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Fa.IFunctionalChain> OwnedFunctionalChains => this.backingOwnedFunctionalChains ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalChain>(this);
+
+        private Auriga.IContainerList<Auriga.Fa.IFunctionalChain> backingOwnedFunctionalChains;
+
+        /// <summary>
+        /// Gets the owned functional exchanges.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Fa.IFunctionalExchange> OwnedFunctionalExchanges => this.backingOwnedFunctionalExchanges ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalExchange>(this);
+
+        private Auriga.IContainerList<Auriga.Fa.IFunctionalExchange> backingOwnedFunctionalExchanges;
+
+        /// <summary>
+        /// Gets the owned functions.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Fa.IAbstractFunction> OwnedFunctions => this.backingOwnedFunctions ??= new Auriga.ContainerList<Auriga.Fa.IAbstractFunction>(this);
+
+        private Auriga.IContainerList<Auriga.Fa.IAbstractFunction> backingOwnedFunctions;
+
+        /// <summary>
+        /// Gets the owned handlers.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Activity.IExceptionHandler> OwnedHandlers => this.backingOwnedHandlers ??= new Auriga.ContainerList<Auriga.Activity.IExceptionHandler>(this);
 
         private Auriga.IContainerList<Auriga.Activity.IExceptionHandler> backingOwnedHandlers;
 
-        public Auriga.IContainerList<Auriga.Activity.IExceptionHandler> OwnedHandlers => this.backingOwnedHandlers ??= new Auriga.ContainerList<Auriga.Activity.IExceptionHandler>(this);
+        /// <summary>
+        /// Gets or sets the owned max card.
+        /// </summary>
+        public Auriga.Information.Datavalue.INumericValue OwnedMaxCard { get; set; }
 
-        public Auriga.Activity.IActivityPartition InActivityPartition => default;
+        /// <summary>
+        /// Gets or sets the owned max length.
+        /// </summary>
+        public Auriga.Information.Datavalue.INumericValue OwnedMaxLength { get; set; }
 
-        public Auriga.Activity.IInterruptibleActivityRegion InInterruptibleRegion => default;
+        /// <summary>
+        /// Gets or sets the owned max value.
+        /// </summary>
+        public Auriga.Information.Datavalue.IDataValue OwnedMaxValue { get; set; }
 
-        public Auriga.Activity.IInterruptibleActivityRegion InStructuredNode => default;
+        /// <summary>
+        /// Gets the owned migrated elements.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
-        public IEnumerable<Auriga.Activity.IActivityEdge> Outgoing => Enumerable.Empty<Auriga.Activity.IActivityEdge>();
+        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
-        public IEnumerable<Auriga.Activity.IActivityEdge> Incoming => Enumerable.Empty<Auriga.Activity.IActivityEdge>();
+        /// <summary>
+        /// Gets or sets the owned min card.
+        /// </summary>
+        public Auriga.Information.Datavalue.INumericValue OwnedMinCard { get; set; }
 
-        public IEnumerable<Auriga.Modellingcore.IAbstractTypedElement> AbstractTypedElements => Enumerable.Empty<Auriga.Modellingcore.IAbstractTypedElement>();
+        /// <summary>
+        /// Gets or sets the owned min length.
+        /// </summary>
+        public Auriga.Information.Datavalue.INumericValue OwnedMinLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the owned min value.
+        /// </summary>
+        public Auriga.Information.Datavalue.IDataValue OwnedMinValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the owned null value.
+        /// </summary>
+        public Auriga.Information.Datavalue.IDataValue OwnedNullValue { get; set; }
+
+        /// <summary>
+        /// Gets the owned physical function pkgs.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs => this.backingOwnedPhysicalFunctionPkgs ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalFunctionPkg>(this);
+
+        private Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> backingOwnedPhysicalFunctionPkgs;
+
+        /// <summary>
+        /// Gets the owned property value groups.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+
+        /// <summary>
+        /// Gets the owned property values.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+
+        /// <summary>
+        /// Gets the owned traces.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
+
+        /// <summary>
+        /// Gets the realized logical functions.
+        /// </summary>
+        public IEnumerable<Auriga.La.ILogicalFunction> RealizedLogicalFunctions => Enumerable.Empty<Auriga.La.ILogicalFunction>();
+
+        /// <summary>
+        /// Gets the representing instance roles.
+        /// </summary>
+        public IEnumerable<Auriga.Interaction.IInstanceRole> RepresentingInstanceRoles => Enumerable.Empty<Auriga.Interaction.IInstanceRole>();
+
+        /// <summary>
+        /// Gets the results.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Activity.IOutputPin> Results => this.backingResults ??= new Auriga.ContainerList<Auriga.Activity.IOutputPin>(this);
+
+        private Auriga.IContainerList<Auriga.Activity.IOutputPin> backingResults;
+
+        /// <summary>
+        /// Gets or sets the review.
+        /// </summary>
+        public string Review { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sid.
+        /// </summary>
+        public string Sid { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        public Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
+
+        /// <summary>
+        /// Gets the sub functions.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IAbstractFunction> SubFunctions => Enumerable.Empty<Auriga.Fa.IAbstractFunction>();
+
+        /// <summary>
+        /// Gets or sets the summary.
+        /// </summary>
+        public string Summary { get; set; }
+
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        public Auriga.Capellacore.IType Type => default;
+
+        /// <summary>
+        /// Gets or sets the unique.
+        /// </summary>
+        public bool? Unique { get; set; }
+
+        /// <summary>
+        /// Gets or sets the visibility.
+        /// </summary>
+        public Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
+
+        /// <summary>
+        /// Gets or sets the visible in doc.
+        /// </summary>
+        public bool? VisibleInDoc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the visible in l m.
+        /// </summary>
+        public bool? VisibleInLM { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

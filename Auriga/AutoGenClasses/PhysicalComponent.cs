@@ -12,254 +12,545 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>PhysicalComponent</c> class.
+    /// </summary>
     public partial class PhysicalComponent : Auriga.AurigaElement, Auriga.Pa.IPhysicalComponent
     {
-        public Auriga.Pa.PhysicalComponentKind? Kind { get; set; }
-
-        public Auriga.Pa.PhysicalComponentNature? Nature { get; set; }
-
-        private Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> backingOwnedDeploymentLinks;
-
-        public Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks => this.backingOwnedDeploymentLinks ??= new Auriga.ContainerList<Auriga.Cs.IAbstractDeploymentLink>(this);
-
-        private Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> backingOwnedPhysicalComponents;
-
-        public Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents => this.backingOwnedPhysicalComponents ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalComponent>(this);
-
-        private Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> backingOwnedPhysicalComponentPkgs;
-
-        public Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs => this.backingOwnedPhysicalComponentPkgs ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalComponentPkg>(this);
-
-        public IEnumerable<Auriga.Pa.ILogicalInterfaceRealization> LogicalInterfaceRealizations => Enumerable.Empty<Auriga.Pa.ILogicalInterfaceRealization>();
-
-        public IEnumerable<Auriga.Pa.IPhysicalComponent> SubPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
-
-        public IEnumerable<Auriga.La.ILogicalComponent> RealizedLogicalComponents => Enumerable.Empty<Auriga.La.ILogicalComponent>();
-
-        public IEnumerable<Auriga.Pa.IPhysicalFunction> AllocatedPhysicalFunctions => Enumerable.Empty<Auriga.Pa.IPhysicalFunction>();
-
-        public IEnumerable<Auriga.Pa.IPhysicalComponent> DeployedPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
-
-        public IEnumerable<Auriga.Pa.IPhysicalComponent> DeployingPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
-
-        public IEnumerable<Auriga.Epbs.IConfigurationItem> AllocatorConfigurationItems => Enumerable.Empty<Auriga.Epbs.IConfigurationItem>();
-
-        public string Summary { get; set; }
-
-        public string Description { get; set; }
-
-        public string Review { get; set; }
-
-        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
-
-        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
-
-        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
-
-        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
-
-        public List<Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; } = new List<Auriga.Capellacore.IAbstractPropertyValue>();
-
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
-
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
-
-        public List<Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; } = new List<Auriga.Capellacore.IPropertyValueGroup>();
-
-        public Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
-
-        public List<Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; } = new List<Auriga.Capellacore.IEnumerationPropertyLiteral>();
-
-        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> IncomingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
-
-        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> OutgoingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
-
-        public string Sid { get; set; }
-
-        public IEnumerable<Auriga.Modellingcore.IAbstractConstraint> Constraints => Enumerable.Empty<Auriga.Modellingcore.IAbstractConstraint>();
-
-        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
-
-        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
-
-        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
-
-        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
-
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
-
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
-
-        public bool? VisibleInDoc { get; set; }
-
-        public bool? VisibleInLM { get; set; }
-
-        public bool Actor { get; set; }
-
-        public bool Human { get; set; }
-
-        private Auriga.IContainerList<Auriga.Cs.IInterfaceUse> backingOwnedInterfaceUses;
-
-        public Auriga.IContainerList<Auriga.Cs.IInterfaceUse> OwnedInterfaceUses => this.backingOwnedInterfaceUses ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceUse>(this);
-
-        public IEnumerable<Auriga.Cs.IInterfaceUse> UsedInterfaceLinks => Enumerable.Empty<Auriga.Cs.IInterfaceUse>();
-
-        public IEnumerable<Auriga.Cs.IInterface> UsedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
-
-        private Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> backingOwnedInterfaceImplementations;
-
-        public Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations => this.backingOwnedInterfaceImplementations ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceImplementation>(this);
-
-        public IEnumerable<Auriga.Cs.IInterfaceImplementation> ImplementedInterfaceLinks => Enumerable.Empty<Auriga.Cs.IInterfaceImplementation>();
-
-        public IEnumerable<Auriga.Cs.IInterface> ImplementedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
-
-        private Auriga.IContainerList<Auriga.Cs.IComponentRealization> backingOwnedComponentRealizations;
-
-        public Auriga.IContainerList<Auriga.Cs.IComponentRealization> OwnedComponentRealizations => this.backingOwnedComponentRealizations ??= new Auriga.ContainerList<Auriga.Cs.IComponentRealization>(this);
-
-        public IEnumerable<Auriga.Cs.IComponent> RealizedComponents => Enumerable.Empty<Auriga.Cs.IComponent>();
-
-        public IEnumerable<Auriga.Cs.IComponent> RealizingComponents => Enumerable.Empty<Auriga.Cs.IComponent>();
-
-        public IEnumerable<Auriga.Cs.IInterface> ProvidedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
-
-        public IEnumerable<Auriga.Cs.IInterface> RequiredInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
-
-        public IEnumerable<Auriga.Fa.IComponentPort> ContainedComponentPorts => Enumerable.Empty<Auriga.Fa.IComponentPort>();
-
-        public IEnumerable<Auriga.Cs.IPart> ContainedParts => Enumerable.Empty<Auriga.Cs.IPart>();
-
-        public IEnumerable<Auriga.Cs.IPhysicalPort> ContainedPhysicalPorts => Enumerable.Empty<Auriga.Cs.IPhysicalPort>();
-
-        private Auriga.IContainerList<Auriga.Cs.IPhysicalPath> backingOwnedPhysicalPath;
-
-        public Auriga.IContainerList<Auriga.Cs.IPhysicalPath> OwnedPhysicalPath => this.backingOwnedPhysicalPath ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalPath>(this);
-
-        private Auriga.IContainerList<Auriga.Cs.IPhysicalLink> backingOwnedPhysicalLinks;
-
-        public Auriga.IContainerList<Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks => this.backingOwnedPhysicalLinks ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalLink>(this);
-
-        private Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> backingOwnedPhysicalLinkCategories;
-
-        public Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories => this.backingOwnedPhysicalLinkCategories ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalLinkCategory>(this);
-
-        public IEnumerable<Auriga.Cs.IPart> RepresentingParts => Enumerable.Empty<Auriga.Cs.IPart>();
-
-        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
-
-        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
-
-        public Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
-
-        private Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> backingOwnedStateMachines;
-
-        public Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines => this.backingOwnedStateMachines ??= new Auriga.ContainerList<Auriga.Capellacommon.IStateMachine>(this);
-
-        public IEnumerable<Auriga.Capellacore.ITypedElement> TypedElements => Enumerable.Empty<Auriga.Capellacore.ITypedElement>();
-
+        /// <summary>
+        /// Gets or sets the abstract.
+        /// </summary>
+        public bool? Abstract { get; set; }
+
+        /// <summary>
+        /// Gets the abstract typed elements.
+        /// </summary>
         public IEnumerable<Auriga.Modellingcore.IAbstractTypedElement> AbstractTypedElements => Enumerable.Empty<Auriga.Modellingcore.IAbstractTypedElement>();
 
+        /// <summary>
+        /// Gets the access.
+        /// </summary>
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Access => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+
+        /// <summary>
+        /// Gets the acquire.
+        /// </summary>
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Acquire => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+
+        /// <summary>
+        /// Gets or sets the actor.
+        /// </summary>
+        public bool Actor { get; set; }
+
+        /// <summary>
+        /// Gets the allocated functions.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IAbstractFunction> AllocatedFunctions => Enumerable.Empty<Auriga.Fa.IAbstractFunction>();
+
+        /// <summary>
+        /// Gets the allocated interfaces.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterface> AllocatedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
+
+        /// <summary>
+        /// Gets the allocated physical functions.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.IPhysicalFunction> AllocatedPhysicalFunctions => Enumerable.Empty<Auriga.Pa.IPhysicalFunction>();
+
+        /// <summary>
+        /// Gets the allocator configuration items.
+        /// </summary>
+        public IEnumerable<Auriga.Epbs.IConfigurationItem> AllocatorConfigurationItems => Enumerable.Empty<Auriga.Epbs.IConfigurationItem>();
+
+        /// <summary>
+        /// Gets the applied property value groups.
+        /// </summary>
+        public List<Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; } = new List<Auriga.Capellacore.IPropertyValueGroup>();
+
+        /// <summary>
+        /// Gets the applied property values.
+        /// </summary>
+        public List<Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; } = new List<Auriga.Capellacore.IAbstractPropertyValue>();
+
+        /// <summary>
+        /// Gets the call.
+        /// </summary>
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Call => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+
+        /// <summary>
+        /// Gets the capability realization involvements.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacommon.ICapabilityRealizationInvolvement> CapabilityRealizationInvolvements => Enumerable.Empty<Auriga.Capellacommon.ICapabilityRealizationInvolvement>();
+
+        /// <summary>
+        /// Gets the constraints.
+        /// </summary>
+        public IEnumerable<Auriga.Modellingcore.IAbstractConstraint> Constraints => Enumerable.Empty<Auriga.Modellingcore.IAbstractConstraint>();
+
+        /// <summary>
+        /// Gets the consume.
+        /// </summary>
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Consume => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+
+        /// <summary>
+        /// Gets the contained component ports.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IComponentPort> ContainedComponentPorts => Enumerable.Empty<Auriga.Fa.IComponentPort>();
+
+        /// <summary>
+        /// Gets the contained generic traces.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces => Enumerable.Empty<Auriga.Capellacommon.IGenericTrace>();
+
+        /// <summary>
+        /// Gets the contained parts.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IPart> ContainedParts => Enumerable.Empty<Auriga.Cs.IPart>();
+
+        /// <summary>
+        /// Gets the contained physical ports.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IPhysicalPort> ContainedPhysicalPorts => Enumerable.Empty<Auriga.Cs.IPhysicalPort>();
+
+        /// <summary>
+        /// Gets the contained properties.
+        /// </summary>
+        public IEnumerable<Auriga.Information.IProperty> ContainedProperties => Enumerable.Empty<Auriga.Information.IProperty>();
+
+        /// <summary>
+        /// Gets the deployed physical components.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.IPhysicalComponent> DeployedPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
+
+        /// <summary>
+        /// Gets the deploying links.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeployingLinks => Enumerable.Empty<Auriga.Cs.IAbstractDeploymentLink>();
+
+        /// <summary>
+        /// Gets the deploying physical components.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.IPhysicalComponent> DeployingPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
+
+        /// <summary>
+        /// Gets the deployment links.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeploymentLinks => Enumerable.Empty<Auriga.Cs.IAbstractDeploymentLink>();
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets the execute.
+        /// </summary>
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Execute => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+
+        /// <summary>
+        /// Gets the features.
+        /// </summary>
+        public List<Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; } = new List<Auriga.Capellacore.IEnumerationPropertyLiteral>();
+
+        /// <summary>
+        /// Gets the functional allocations.
+        /// </summary>
+        public IEnumerable<Auriga.Fa.IComponentFunctionalAllocation> FunctionalAllocations => Enumerable.Empty<Auriga.Fa.IComponentFunctionalAllocation>();
+
+        /// <summary>
+        /// Gets or sets the human.
+        /// </summary>
+        public bool Human { get; set; }
+
+        /// <summary>
+        /// Gets the implemented interface links.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterfaceImplementation> ImplementedInterfaceLinks => Enumerable.Empty<Auriga.Cs.IInterfaceImplementation>();
+
+        /// <summary>
+        /// Gets the implemented interfaces.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterface> ImplementedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
+
+        /// <summary>
+        /// Gets the in exchange links.
+        /// </summary>
+        public List<Auriga.Fa.IExchangeLink> InExchangeLinks { get; } = new List<Auriga.Fa.IExchangeLink>();
+
+        /// <summary>
+        /// Gets the incoming traces.
+        /// </summary>
+        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> IncomingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
+
+        /// <summary>
+        /// Gets the involving capability realizations.
+        /// </summary>
+        public IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations => Enumerable.Empty<Auriga.La.ICapabilityRealization>();
+
+        /// <summary>
+        /// Gets the involving involvements.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacore.IInvolvement> InvolvingInvolvements => Enumerable.Empty<Auriga.Capellacore.IInvolvement>();
+
+        /// <summary>
+        /// Gets or sets the kind.
+        /// </summary>
+        public Auriga.Pa.PhysicalComponentKind? Kind { get; set; }
+
+        /// <summary>
+        /// Gets the logical interface realizations.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.ILogicalInterfaceRealization> LogicalInterfaceRealizations => Enumerable.Empty<Auriga.Pa.ILogicalInterfaceRealization>();
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         public string Name { get; set; }
 
-        private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
-
-        public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
-
-        public IEnumerable<Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces => Enumerable.Empty<Auriga.Capellacommon.IGenericTrace>();
+        /// <summary>
+        /// Gets the naming rules.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
 
         private Auriga.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
 
-        public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
+        /// <summary>
+        /// Gets or sets the nature.
+        /// </summary>
+        public Auriga.Pa.PhysicalComponentNature? Nature { get; set; }
 
-        private Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> backingOwnedFunctionalAllocation;
-
-        public Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation => this.backingOwnedFunctionalAllocation ??= new Auriga.ContainerList<Auriga.Fa.IComponentFunctionalAllocation>(this);
-
-        private Auriga.IContainerList<Auriga.Fa.IComponentExchange> backingOwnedComponentExchanges;
-
-        public Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges => this.backingOwnedComponentExchanges ??= new Auriga.ContainerList<Auriga.Fa.IComponentExchange>(this);
-
-        private Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> backingOwnedComponentExchangeCategories;
-
-        public Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories => this.backingOwnedComponentExchangeCategories ??= new Auriga.ContainerList<Auriga.Fa.IComponentExchangeCategory>(this);
-
-        public IEnumerable<Auriga.Fa.IComponentFunctionalAllocation> FunctionalAllocations => Enumerable.Empty<Auriga.Fa.IComponentFunctionalAllocation>();
-
-        public IEnumerable<Auriga.Fa.IAbstractFunction> AllocatedFunctions => Enumerable.Empty<Auriga.Fa.IAbstractFunction>();
-
-        public List<Auriga.Fa.IExchangeLink> InExchangeLinks { get; } = new List<Auriga.Fa.IExchangeLink>();
-
+        /// <summary>
+        /// Gets the out exchange links.
+        /// </summary>
         public List<Auriga.Fa.IExchangeLink> OutExchangeLinks { get; } = new List<Auriga.Fa.IExchangeLink>();
 
-        private Auriga.IContainerList<Auriga.Capellacore.IFeature> backingOwnedFeatures;
+        /// <summary>
+        /// Gets the outgoing traces.
+        /// </summary>
+        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> OutgoingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
 
-        public Auriga.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures => this.backingOwnedFeatures ??= new Auriga.ContainerList<Auriga.Capellacore.IFeature>(this);
+        /// <summary>
+        /// Gets or sets the owned abstract capability pkg.
+        /// </summary>
+        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
 
-        public IEnumerable<Auriga.Information.IProperty> ContainedProperties => Enumerable.Empty<Auriga.Information.IProperty>();
-
-        public bool? Abstract { get; set; }
-
-        private Auriga.IContainerList<Auriga.Capellacore.IGeneralization> backingOwnedGeneralizations;
-
-        public Auriga.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations => this.backingOwnedGeneralizations ??= new Auriga.ContainerList<Auriga.Capellacore.IGeneralization>(this);
-
-        public IEnumerable<Auriga.Capellacore.IGeneralization> SuperGeneralizations => Enumerable.Empty<Auriga.Capellacore.IGeneralization>();
-
-        public IEnumerable<Auriga.Capellacore.IGeneralization> SubGeneralizations => Enumerable.Empty<Auriga.Capellacore.IGeneralization>();
-
-        public IEnumerable<Auriga.Capellacore.IGeneralizableElement> Super => Enumerable.Empty<Auriga.Capellacore.IGeneralizableElement>();
-
-        public IEnumerable<Auriga.Capellacore.IGeneralizableElement> Sub => Enumerable.Empty<Auriga.Capellacore.IGeneralizableElement>();
-
-        private Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> backingOwnedInterfaceAllocations;
-
-        public Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations => this.backingOwnedInterfaceAllocations ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceAllocation>(this);
-
-        public IEnumerable<Auriga.Cs.IInterfaceAllocation> ProvisionedInterfaceAllocations => Enumerable.Empty<Auriga.Cs.IInterfaceAllocation>();
-
-        public IEnumerable<Auriga.Cs.IInterface> AllocatedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
+        /// <summary>
+        /// Gets the owned communication links.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks => this.backingOwnedCommunicationLinks ??= new Auriga.ContainerList<Auriga.Information.Communication.ICommunicationLink>(this);
 
         private Auriga.IContainerList<Auriga.Information.Communication.ICommunicationLink> backingOwnedCommunicationLinks;
 
-        public Auriga.IContainerList<Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks => this.backingOwnedCommunicationLinks ??= new Auriga.ContainerList<Auriga.Information.Communication.ICommunicationLink>(this);
+        /// <summary>
+        /// Gets the owned component exchange categories.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories => this.backingOwnedComponentExchangeCategories ??= new Auriga.ContainerList<Auriga.Fa.IComponentExchangeCategory>(this);
 
+        private Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> backingOwnedComponentExchangeCategories;
+
+        /// <summary>
+        /// Gets the owned component exchanges.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges => this.backingOwnedComponentExchanges ??= new Auriga.ContainerList<Auriga.Fa.IComponentExchange>(this);
+
+        private Auriga.IContainerList<Auriga.Fa.IComponentExchange> backingOwnedComponentExchanges;
+
+        /// <summary>
+        /// Gets the owned component realizations.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IComponentRealization> OwnedComponentRealizations => this.backingOwnedComponentRealizations ??= new Auriga.ContainerList<Auriga.Cs.IComponentRealization>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IComponentRealization> backingOwnedComponentRealizations;
+
+        /// <summary>
+        /// Gets the owned constraints.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
+
+        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+
+        /// <summary>
+        /// Gets or sets the owned data pkg.
+        /// </summary>
+        public Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+
+        /// <summary>
+        /// Gets the owned deployment links.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks => this.backingOwnedDeploymentLinks ??= new Auriga.ContainerList<Auriga.Cs.IAbstractDeploymentLink>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> backingOwnedDeploymentLinks;
+
+        /// <summary>
+        /// Gets the owned enumeration property types.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+
+        /// <summary>
+        /// Gets the owned extensions.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+
+        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+
+        /// <summary>
+        /// Gets the owned features.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures => this.backingOwnedFeatures ??= new Auriga.ContainerList<Auriga.Capellacore.IFeature>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IFeature> backingOwnedFeatures;
+
+        /// <summary>
+        /// Gets the owned functional allocation.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation => this.backingOwnedFunctionalAllocation ??= new Auriga.ContainerList<Auriga.Fa.IComponentFunctionalAllocation>(this);
+
+        private Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> backingOwnedFunctionalAllocation;
+
+        /// <summary>
+        /// Gets the owned generalizations.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations => this.backingOwnedGeneralizations ??= new Auriga.ContainerList<Auriga.Capellacore.IGeneralization>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IGeneralization> backingOwnedGeneralizations;
+
+        /// <summary>
+        /// Gets the owned interface allocations.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations => this.backingOwnedInterfaceAllocations ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceAllocation>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> backingOwnedInterfaceAllocations;
+
+        /// <summary>
+        /// Gets the owned interface implementations.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations => this.backingOwnedInterfaceImplementations ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceImplementation>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> backingOwnedInterfaceImplementations;
+
+        /// <summary>
+        /// Gets or sets the owned interface pkg.
+        /// </summary>
+        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+
+        /// <summary>
+        /// Gets the owned interface uses.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IInterfaceUse> OwnedInterfaceUses => this.backingOwnedInterfaceUses ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceUse>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IInterfaceUse> backingOwnedInterfaceUses;
+
+        /// <summary>
+        /// Gets the owned migrated elements.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
+
+        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
+
+        /// <summary>
+        /// Gets the owned physical component pkgs.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs => this.backingOwnedPhysicalComponentPkgs ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalComponentPkg>(this);
+
+        private Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> backingOwnedPhysicalComponentPkgs;
+
+        /// <summary>
+        /// Gets the owned physical components.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents => this.backingOwnedPhysicalComponents ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalComponent>(this);
+
+        private Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> backingOwnedPhysicalComponents;
+
+        /// <summary>
+        /// Gets the owned physical link categories.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories => this.backingOwnedPhysicalLinkCategories ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalLinkCategory>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> backingOwnedPhysicalLinkCategories;
+
+        /// <summary>
+        /// Gets the owned physical links.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks => this.backingOwnedPhysicalLinks ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalLink>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IPhysicalLink> backingOwnedPhysicalLinks;
+
+        /// <summary>
+        /// Gets the owned physical path.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Cs.IPhysicalPath> OwnedPhysicalPath => this.backingOwnedPhysicalPath ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalPath>(this);
+
+        private Auriga.IContainerList<Auriga.Cs.IPhysicalPath> backingOwnedPhysicalPath;
+
+        /// <summary>
+        /// Gets the owned property value groups.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+
+        /// <summary>
+        /// Gets the owned property values.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+
+        /// <summary>
+        /// Gets the owned state machines.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines => this.backingOwnedStateMachines ??= new Auriga.ContainerList<Auriga.Capellacommon.IStateMachine>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> backingOwnedStateMachines;
+
+        /// <summary>
+        /// Gets the owned traces.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
+
+        private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
+
+        /// <summary>
+        /// Gets the produce.
+        /// </summary>
         public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Produce => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Consume => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+        /// <summary>
+        /// Gets the provided interfaces.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterface> ProvidedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Send => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+        /// <summary>
+        /// Gets the provisioned interface allocations.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterfaceAllocation> ProvisionedInterfaceAllocations => Enumerable.Empty<Auriga.Cs.IInterfaceAllocation>();
 
+        /// <summary>
+        /// Gets the realized components.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IComponent> RealizedComponents => Enumerable.Empty<Auriga.Cs.IComponent>();
+
+        /// <summary>
+        /// Gets the realized logical components.
+        /// </summary>
+        public IEnumerable<Auriga.La.ILogicalComponent> RealizedLogicalComponents => Enumerable.Empty<Auriga.La.ILogicalComponent>();
+
+        /// <summary>
+        /// Gets the realizing components.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IComponent> RealizingComponents => Enumerable.Empty<Auriga.Cs.IComponent>();
+
+        /// <summary>
+        /// Gets the receive.
+        /// </summary>
         public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Receive => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Call => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+        /// <summary>
+        /// Gets the representing parts.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IPart> RepresentingParts => Enumerable.Empty<Auriga.Cs.IPart>();
 
-        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Execute => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+        /// <summary>
+        /// Gets the required interfaces.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterface> RequiredInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Write => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+        /// <summary>
+        /// Gets or sets the review.
+        /// </summary>
+        public string Review { get; set; }
 
-        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Access => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+        /// <summary>
+        /// Gets the send.
+        /// </summary>
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Send => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Acquire => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
+        /// <summary>
+        /// Gets or sets the sid.
+        /// </summary>
+        public string Sid { get; set; }
 
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        public Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
+
+        /// <summary>
+        /// Gets the sub.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacore.IGeneralizableElement> Sub => Enumerable.Empty<Auriga.Capellacore.IGeneralizableElement>();
+
+        /// <summary>
+        /// Gets the sub generalizations.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacore.IGeneralization> SubGeneralizations => Enumerable.Empty<Auriga.Capellacore.IGeneralization>();
+
+        /// <summary>
+        /// Gets the sub physical components.
+        /// </summary>
+        public IEnumerable<Auriga.Pa.IPhysicalComponent> SubPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
+
+        /// <summary>
+        /// Gets or sets the summary.
+        /// </summary>
+        public string Summary { get; set; }
+
+        /// <summary>
+        /// Gets the super.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacore.IGeneralizableElement> Super => Enumerable.Empty<Auriga.Capellacore.IGeneralizableElement>();
+
+        /// <summary>
+        /// Gets the super generalizations.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacore.IGeneralization> SuperGeneralizations => Enumerable.Empty<Auriga.Capellacore.IGeneralization>();
+
+        /// <summary>
+        /// Gets the transmit.
+        /// </summary>
         public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Transmit => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public IEnumerable<Auriga.Capellacommon.ICapabilityRealizationInvolvement> CapabilityRealizationInvolvements => Enumerable.Empty<Auriga.Capellacommon.ICapabilityRealizationInvolvement>();
+        /// <summary>
+        /// Gets the typed elements.
+        /// </summary>
+        public IEnumerable<Auriga.Capellacore.ITypedElement> TypedElements => Enumerable.Empty<Auriga.Capellacore.ITypedElement>();
 
-        public IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations => Enumerable.Empty<Auriga.La.ICapabilityRealization>();
+        /// <summary>
+        /// Gets the used interface links.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterfaceUse> UsedInterfaceLinks => Enumerable.Empty<Auriga.Cs.IInterfaceUse>();
 
-        public IEnumerable<Auriga.Capellacore.IInvolvement> InvolvingInvolvements => Enumerable.Empty<Auriga.Capellacore.IInvolvement>();
+        /// <summary>
+        /// Gets the used interfaces.
+        /// </summary>
+        public IEnumerable<Auriga.Cs.IInterface> UsedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        public IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeployingLinks => Enumerable.Empty<Auriga.Cs.IAbstractDeploymentLink>();
+        /// <summary>
+        /// Gets or sets the visible in doc.
+        /// </summary>
+        public bool? VisibleInDoc { get; set; }
 
-        public IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeploymentLinks => Enumerable.Empty<Auriga.Cs.IAbstractDeploymentLink>();
+        /// <summary>
+        /// Gets or sets the visible in l m.
+        /// </summary>
+        public bool? VisibleInLM { get; set; }
+
+        /// <summary>
+        /// Gets the write.
+        /// </summary>
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Write => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,11 +12,17 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
+    /// <summary>
+    /// Definition of the <c>AbstractCapabilityPkg</c> interface.
+    /// </summary>
     public partial interface IAbstractCapabilityPkg : Auriga.Capellacore.IStructure
     {
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

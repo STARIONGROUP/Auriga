@@ -12,18 +12,30 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacore
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>Classifier</c> interface.
+    /// </summary>
     public partial interface IClassifier : Auriga.Capellacore.IGeneralizableElement
     {
-        Auriga.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures { get; }
-
+        /// <summary>
+        /// Gets the contained properties.
+        /// </summary>
         IEnumerable<Auriga.Information.IProperty> ContainedProperties { get; }
+
+        /// <summary>
+        /// Gets the owned features.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacore
 {
+    /// <summary>
+    /// Definition of the <c>Generalization</c> interface.
+    /// </summary>
     public partial interface IGeneralization : Auriga.Capellacore.IRelationship
     {
-        Auriga.Capellacore.IGeneralizableElement Super { get; set; }
-
+        /// <summary>
+        /// Gets or sets the sub.
+        /// </summary>
         Auriga.Capellacore.IGeneralizableElement Sub { get; set; }
+
+        /// <summary>
+        /// Gets or sets the super.
+        /// </summary>
+        Auriga.Capellacore.IGeneralizableElement Super { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

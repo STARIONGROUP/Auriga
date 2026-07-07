@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
+    /// <summary>
+    /// Definition of the <c>Block</c> interface.
+    /// </summary>
     public partial interface IBlock : Auriga.Capellacore.IModellingBlock, Auriga.Fa.IAbstractFunctionalBlock
     {
+        /// <summary>
+        /// Gets or sets the owned abstract capability pkg.
+        /// </summary>
         Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
 
-        Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
-
+        /// <summary>
+        /// Gets or sets the owned data pkg.
+        /// </summary>
         Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
 
+        /// <summary>
+        /// Gets or sets the owned interface pkg.
+        /// </summary>
+        Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+
+        /// <summary>
+        /// Gets the owned state machines.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

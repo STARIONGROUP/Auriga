@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>ComponentExchangeRealization</c> interface.
+    /// </summary>
     public partial interface IComponentExchangeRealization : Auriga.Fa.IExchangeSpecificationRealization
     {
+        /// <summary>
+        /// Gets the allocated component exchange.
+        /// </summary>
         Auriga.Fa.IComponentExchange AllocatedComponentExchange { get; }
 
+        /// <summary>
+        /// Gets the allocating component exchange.
+        /// </summary>
         Auriga.Fa.IComponentExchange AllocatingComponentExchange { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

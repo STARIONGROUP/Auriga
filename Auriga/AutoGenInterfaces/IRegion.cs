@@ -12,19 +12,34 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>Region</c> interface.
+    /// </summary>
     public partial interface IRegion : Auriga.Capellacore.INamedElement
     {
+        /// <summary>
+        /// Gets the involved states.
+        /// </summary>
+        List<Auriga.Capellacommon.IAbstractState> InvolvedStates { get; }
+
+        /// <summary>
+        /// Gets the owned states.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacommon.IAbstractState> OwnedStates { get; }
 
+        /// <summary>
+        /// Gets the owned transitions.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacommon.IStateTransition> OwnedTransitions { get; }
-
-        List<Auriga.Capellacommon.IAbstractState> InvolvedStates { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

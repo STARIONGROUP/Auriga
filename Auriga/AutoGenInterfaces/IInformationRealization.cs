@@ -12,11 +12,17 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// Definition of the <c>InformationRealization</c> interface.
+    /// </summary>
     public partial interface IInformationRealization : Auriga.Capellacore.IAllocation
     {
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

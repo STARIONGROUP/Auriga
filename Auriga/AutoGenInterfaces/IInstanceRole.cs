@@ -12,18 +12,30 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>InstanceRole</c> interface.
+    /// </summary>
     public partial interface IInstanceRole : Auriga.Capellacore.INamedElement
     {
+        /// <summary>
+        /// Gets the abstract ends.
+        /// </summary>
         IEnumerable<Auriga.Interaction.IAbstractEnd> AbstractEnds { get; }
 
+        /// <summary>
+        /// Gets or sets the represented instance.
+        /// </summary>
         Auriga.Information.IAbstractInstance RepresentedInstance { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

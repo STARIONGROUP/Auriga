@@ -12,22 +12,40 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Ctx
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>Mission</c> interface.
+    /// </summary>
     public partial interface IMission : Auriga.Capellacore.INamedElement, Auriga.Capellacore.IInvolverElement
     {
-        Auriga.IContainerList<Auriga.Ctx.IMissionInvolvement> OwnedMissionInvolvements { get; }
+        /// <summary>
+        /// Gets the exploited capabilities.
+        /// </summary>
+        IEnumerable<Auriga.Ctx.ICapability> ExploitedCapabilities { get; }
 
+        /// <summary>
+        /// Gets the involved system components.
+        /// </summary>
         IEnumerable<Auriga.Ctx.ISystemComponent> InvolvedSystemComponents { get; }
 
+        /// <summary>
+        /// Gets the owned capability exploitations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Ctx.ICapabilityExploitation> OwnedCapabilityExploitations { get; }
 
-        IEnumerable<Auriga.Ctx.ICapability> ExploitedCapabilities { get; }
+        /// <summary>
+        /// Gets the owned mission involvements.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Ctx.IMissionInvolvement> OwnedMissionInvolvements { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

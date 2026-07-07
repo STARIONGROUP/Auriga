@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacore
 {
+    /// <summary>
+    /// Definition of the <c>Involvement</c> interface.
+    /// </summary>
     public partial interface IInvolvement : Auriga.Capellacore.IRelationship
     {
-        Auriga.Capellacore.IInvolverElement Involver { get; }
-
+        /// <summary>
+        /// Gets or sets the involved.
+        /// </summary>
         Auriga.Capellacore.IInvolvedElement Involved { get; set; }
+
+        /// <summary>
+        /// Gets the involver.
+        /// </summary>
+        Auriga.Capellacore.IInvolverElement Involver { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

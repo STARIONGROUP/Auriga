@@ -12,16 +12,25 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>DeployableElement</c> interface.
+    /// </summary>
     public partial interface IDeployableElement : Auriga.Capellacore.INamedElement
     {
+        /// <summary>
+        /// Gets the deploying links.
+        /// </summary>
         IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeployingLinks { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

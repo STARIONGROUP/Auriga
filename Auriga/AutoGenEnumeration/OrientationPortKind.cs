@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// The <c>OrientationPortKind</c> enumeration.
+    /// </summary>
     public enum OrientationPortKind
     {
+        /// <summary>
+        /// The <c>UNSET</c> literal.
+        /// </summary>
         UNSET,
 
+        /// <summary>
+        /// The <c>IN</c> literal.
+        /// </summary>
         IN,
 
+        /// <summary>
+        /// The <c>OUT</c> literal.
+        /// </summary>
         OUT,
 
+        /// <summary>
+        /// The <c>INOUT</c> literal.
+        /// </summary>
         INOUT
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

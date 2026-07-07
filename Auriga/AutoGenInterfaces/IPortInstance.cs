@@ -12,19 +12,34 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa.Deployment
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>PortInstance</c> interface.
+    /// </summary>
     public partial interface IPortInstance : Auriga.Pa.Deployment.IAbstractPhysicalInstance
     {
-        List<Auriga.Pa.Deployment.IConnectionInstance> Connections { get; }
-
+        /// <summary>
+        /// Gets the component.
+        /// </summary>
         Auriga.Pa.Deployment.IComponentInstance Component { get; }
 
+        /// <summary>
+        /// Gets the connections.
+        /// </summary>
+        List<Auriga.Pa.Deployment.IConnectionInstance> Connections { get; }
+
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
         Auriga.Fa.IComponentPort Type { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

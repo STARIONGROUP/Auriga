@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>OperationalCapabilityPkg</c> interface.
+    /// </summary>
     public partial interface IOperationalCapabilityPkg : Auriga.Capellacommon.IAbstractCapabilityPkg
     {
-        Auriga.IContainerList<Auriga.Oa.IOperationalCapability> OwnedOperationalCapabilities { get; }
-
-        Auriga.IContainerList<Auriga.Oa.IOperationalCapabilityPkg> OwnedOperationalCapabilityPkgs { get; }
-
+        /// <summary>
+        /// Gets the owned capability configurations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.ICapabilityConfiguration> OwnedCapabilityConfigurations { get; }
 
+        /// <summary>
+        /// Gets the owned concept compliances.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IConceptCompliance> OwnedConceptCompliances { get; }
+
+        /// <summary>
+        /// Gets the owned operational capabilities.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Oa.IOperationalCapability> OwnedOperationalCapabilities { get; }
+
+        /// <summary>
+        /// Gets the owned operational capability pkgs.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Oa.IOperationalCapabilityPkg> OwnedOperationalCapabilityPkgs { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

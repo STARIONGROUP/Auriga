@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// The <c>FunctionalChainKind</c> enumeration.
+    /// </summary>
     public enum FunctionalChainKind
     {
+        /// <summary>
+        /// The <c>SIMPLE</c> literal.
+        /// </summary>
         SIMPLE,
 
+        /// <summary>
+        /// The <c>COMPOSITE</c> literal.
+        /// </summary>
         COMPOSITE,
 
+        /// <summary>
+        /// The <c>FRAGMENT</c> literal.
+        /// </summary>
         FRAGMENT
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

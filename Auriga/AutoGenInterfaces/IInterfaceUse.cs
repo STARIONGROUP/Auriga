@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
+    /// <summary>
+    /// Definition of the <c>InterfaceUse</c> interface.
+    /// </summary>
     public partial interface IInterfaceUse : Auriga.Capellacore.IRelationship
     {
+        /// <summary>
+        /// Gets the interface user.
+        /// </summary>
         Auriga.Cs.IComponent InterfaceUser { get; }
 
+        /// <summary>
+        /// Gets or sets the used interface.
+        /// </summary>
         Auriga.Cs.IInterface UsedInterface { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

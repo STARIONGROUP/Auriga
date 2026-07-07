@@ -12,21 +12,39 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>ExchangeItemElement</c> interface.
+    /// </summary>
     public partial interface IExchangeItemElement : Auriga.Capellacore.INamedElement, Auriga.Information.IMultiplicityElement, Auriga.Capellacore.ITypedElement
     {
-        Auriga.Information.ElementKind? Kind { get; set; }
-
-        Auriga.Information.ParameterDirection? Direction { get; set; }
-
+        /// <summary>
+        /// Gets or sets the composite.
+        /// </summary>
         bool? Composite { get; set; }
 
+        /// <summary>
+        /// Gets or sets the direction.
+        /// </summary>
+        Auriga.Information.ParameterDirection? Direction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the kind.
+        /// </summary>
+        Auriga.Information.ElementKind? Kind { get; set; }
+
+        /// <summary>
+        /// Gets the referenced properties.
+        /// </summary>
         List<Auriga.Information.IProperty> ReferencedProperties { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

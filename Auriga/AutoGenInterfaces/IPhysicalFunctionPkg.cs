@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
+    /// <summary>
+    /// Definition of the <c>PhysicalFunctionPkg</c> interface.
+    /// </summary>
     public partial interface IPhysicalFunctionPkg : Auriga.Fa.IFunctionPkg
     {
-        Auriga.IContainerList<Auriga.Pa.IPhysicalFunction> OwnedPhysicalFunctions { get; }
-
+        /// <summary>
+        /// Gets the owned physical function pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned physical functions.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Pa.IPhysicalFunction> OwnedPhysicalFunctions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

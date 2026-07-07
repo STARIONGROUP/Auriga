@@ -12,26 +12,50 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>OperationalAnalysis</c> interface.
+    /// </summary>
     public partial interface IOperationalAnalysis : Auriga.Cs.IBlockArchitecture
     {
-        Auriga.Oa.IRolePkg OwnedRolePkg { get; set; }
+        /// <summary>
+        /// Gets the allocating system analyses.
+        /// </summary>
+        IEnumerable<Auriga.Ctx.ISystemAnalysis> AllocatingSystemAnalyses { get; }
 
-        Auriga.Oa.IEntityPkg OwnedEntityPkg { get; set; }
-
-        Auriga.Oa.IConceptPkg OwnedConceptPkg { get; set; }
-
-        Auriga.Oa.IOperationalCapabilityPkg ContainedOperationalCapabilityPkg { get; }
-
+        /// <summary>
+        /// Gets the contained operational activity pkg.
+        /// </summary>
         Auriga.Oa.IOperationalActivityPkg ContainedOperationalActivityPkg { get; }
 
-        IEnumerable<Auriga.Ctx.ISystemAnalysis> AllocatingSystemAnalyses { get; }
+        /// <summary>
+        /// Gets the contained operational capability pkg.
+        /// </summary>
+        Auriga.Oa.IOperationalCapabilityPkg ContainedOperationalCapabilityPkg { get; }
+
+        /// <summary>
+        /// Gets or sets the owned concept pkg.
+        /// </summary>
+        Auriga.Oa.IConceptPkg OwnedConceptPkg { get; set; }
+
+        /// <summary>
+        /// Gets or sets the owned entity pkg.
+        /// </summary>
+        Auriga.Oa.IEntityPkg OwnedEntityPkg { get; set; }
+
+        /// <summary>
+        /// Gets or sets the owned role pkg.
+        /// </summary>
+        Auriga.Oa.IRolePkg OwnedRolePkg { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

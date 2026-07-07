@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// The <c>ComponentPortKind</c> enumeration.
+    /// </summary>
     public enum ComponentPortKind
     {
+        /// <summary>
+        /// The <c>STANDARD</c> literal.
+        /// </summary>
         STANDARD,
 
+        /// <summary>
+        /// The <c>FLOW</c> literal.
+        /// </summary>
         FLOW
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

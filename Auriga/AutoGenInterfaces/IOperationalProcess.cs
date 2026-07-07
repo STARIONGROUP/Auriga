@@ -12,16 +12,25 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>OperationalProcess</c> interface.
+    /// </summary>
     public partial interface IOperationalProcess : Auriga.Fa.IFunctionalChain
     {
+        /// <summary>
+        /// Gets the involving operational capabilities.
+        /// </summary>
         IEnumerable<Auriga.Oa.IOperationalCapability> InvolvingOperationalCapabilities { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
+    /// <summary>
+    /// Definition of the <c>AbstractDeploymentLink</c> interface.
+    /// </summary>
     public partial interface IAbstractDeploymentLink : Auriga.Capellacore.IRelationship
     {
+        /// <summary>
+        /// Gets or sets the deployed element.
+        /// </summary>
         Auriga.Cs.IDeployableElement DeployedElement { get; set; }
 
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
         Auriga.Cs.IDeploymentTarget Location { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

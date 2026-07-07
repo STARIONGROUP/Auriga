@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Epbs
 {
+    /// <summary>
+    /// Definition of the <c>ConfigurationItemPkg</c> interface.
+    /// </summary>
     public partial interface IConfigurationItemPkg : Auriga.Cs.IComponentPkg
     {
-        Auriga.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
-
+        /// <summary>
+        /// Gets the owned configuration item pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned configuration items.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

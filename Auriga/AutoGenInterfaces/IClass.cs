@@ -12,28 +12,55 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>Class</c> interface.
+    /// </summary>
     public partial interface IClass : Auriga.Capellacore.IGeneralClass
     {
+        /// <summary>
+        /// Gets or sets the is primitive.
+        /// </summary>
         bool? IsPrimitive { get; set; }
 
+        /// <summary>
+        /// Gets the key parts.
+        /// </summary>
         List<Auriga.Information.IKeyPart> KeyParts { get; }
 
-        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
-
+        /// <summary>
+        /// Gets the owned data values.
+        /// </summary>
         Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
 
+        /// <summary>
+        /// Gets the owned information realizations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
 
+        /// <summary>
+        /// Gets the owned state machines.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+
+        /// <summary>
+        /// Gets the realized classes.
+        /// </summary>
         IEnumerable<Auriga.Information.IClass> RealizedClasses { get; }
 
+        /// <summary>
+        /// Gets the realizing classes.
+        /// </summary>
         IEnumerable<Auriga.Information.IClass> RealizingClasses { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

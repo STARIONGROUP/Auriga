@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
+    /// <summary>
+    /// Definition of the <c>InvocationAction</c> interface.
+    /// </summary>
     public partial interface IInvocationAction : Auriga.Activity.IAbstractAction
     {
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
         Auriga.IContainerList<Auriga.Activity.IInputPin> Arguments { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

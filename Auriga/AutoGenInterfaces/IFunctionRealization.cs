@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>FunctionRealization</c> interface.
+    /// </summary>
     public partial interface IFunctionRealization : Auriga.Fa.IAbstractFunctionAllocation
     {
+        /// <summary>
+        /// Gets the allocated function.
+        /// </summary>
         Auriga.Fa.IAbstractFunction AllocatedFunction { get; }
 
+        /// <summary>
+        /// Gets the allocating function.
+        /// </summary>
         Auriga.Fa.IAbstractFunction AllocatingFunction { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

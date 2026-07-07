@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>CommunicationMean</c> interface.
+    /// </summary>
     public partial interface ICommunicationMean : Auriga.Capellacore.INamedRelationship, Auriga.Fa.IComponentExchange
     {
+        /// <summary>
+        /// Gets the source entity.
+        /// </summary>
         Auriga.Oa.IEntity SourceEntity { get; }
 
+        /// <summary>
+        /// Gets the target entity.
+        /// </summary>
         Auriga.Oa.IEntity TargetEntity { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

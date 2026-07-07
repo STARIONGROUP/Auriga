@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// The <c>ElementKind</c> enumeration.
+    /// </summary>
     public enum ElementKind
     {
+        /// <summary>
+        /// The <c>TYPE</c> literal.
+        /// </summary>
         TYPE,
 
+        /// <summary>
+        /// The <c>MEMBER</c> literal.
+        /// </summary>
         MEMBER
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

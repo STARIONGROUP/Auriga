@@ -12,24 +12,45 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>PhysicalFunction</c> interface.
+    /// </summary>
     public partial interface IPhysicalFunction : Auriga.Fa.IAbstractFunction
     {
-        Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
-
+        /// <summary>
+        /// Gets the allocating physical components.
+        /// </summary>
         IEnumerable<Auriga.Pa.IPhysicalComponent> AllocatingPhysicalComponents { get; }
 
-        IEnumerable<Auriga.La.ILogicalFunction> RealizedLogicalFunctions { get; }
+        /// <summary>
+        /// Gets the children physical functions.
+        /// </summary>
+        IEnumerable<Auriga.Pa.IPhysicalFunction> ChildrenPhysicalFunctions { get; }
 
+        /// <summary>
+        /// Gets the contained physical functions.
+        /// </summary>
         IEnumerable<Auriga.Pa.IPhysicalFunction> ContainedPhysicalFunctions { get; }
 
-        IEnumerable<Auriga.Pa.IPhysicalFunction> ChildrenPhysicalFunctions { get; }
+        /// <summary>
+        /// Gets the owned physical function pkgs.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
+
+        /// <summary>
+        /// Gets the realized logical functions.
+        /// </summary>
+        IEnumerable<Auriga.La.ILogicalFunction> RealizedLogicalFunctions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

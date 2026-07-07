@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
+    /// <summary>
+    /// Definition of the <c>ObjectFlow</c> interface.
+    /// </summary>
     public partial interface IObjectFlow : Auriga.Activity.IActivityEdge
     {
+        /// <summary>
+        /// Gets or sets the is multicast.
+        /// </summary>
         bool? IsMulticast { get; set; }
 
+        /// <summary>
+        /// Gets or sets the is multireceive.
+        /// </summary>
         bool? IsMultireceive { get; set; }
 
-        Auriga.Behavior.IAbstractBehavior Transformation { get; set; }
-
+        /// <summary>
+        /// Gets or sets the selection.
+        /// </summary>
         Auriga.Behavior.IAbstractBehavior Selection { get; set; }
+
+        /// <summary>
+        /// Gets or sets the transformation.
+        /// </summary>
+        Auriga.Behavior.IAbstractBehavior Transformation { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

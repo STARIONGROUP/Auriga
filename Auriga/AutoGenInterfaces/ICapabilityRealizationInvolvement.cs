@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
+    /// <summary>
+    /// Definition of the <c>CapabilityRealizationInvolvement</c> interface.
+    /// </summary>
     public partial interface ICapabilityRealizationInvolvement : Auriga.Capellacore.IInvolvement
     {
+        /// <summary>
+        /// Gets the involved capability realization involved element.
+        /// </summary>
         Auriga.Capellacommon.ICapabilityRealizationInvolvedElement InvolvedCapabilityRealizationInvolvedElement { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

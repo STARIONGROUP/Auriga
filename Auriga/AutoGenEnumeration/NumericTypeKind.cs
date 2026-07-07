@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information.Datatype
 {
+    /// <summary>
+    /// The <c>NumericTypeKind</c> enumeration.
+    /// </summary>
     public enum NumericTypeKind
     {
+        /// <summary>
+        /// The <c>INTEGER</c> literal.
+        /// </summary>
         INTEGER,
 
+        /// <summary>
+        /// The <c>FLOAT</c> literal.
+        /// </summary>
         FLOAT
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

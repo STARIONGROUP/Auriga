@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
+    /// <summary>
+    /// The <c>TransitionKind</c> enumeration.
+    /// </summary>
     public enum TransitionKind
     {
+        /// <summary>
+        /// The <c>Internal</c> literal.
+        /// </summary>
         Internal,
 
+        /// <summary>
+        /// The <c>Local</c> literal.
+        /// </summary>
         Local,
 
+        /// <summary>
+        /// The <c>External</c> literal.
+        /// </summary>
         External
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

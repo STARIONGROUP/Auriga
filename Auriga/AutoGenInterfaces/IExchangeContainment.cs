@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>ExchangeContainment</c> interface.
+    /// </summary>
     public partial interface IExchangeContainment : Auriga.Capellacore.IRelationship
     {
+        /// <summary>
+        /// Gets or sets the exchange.
+        /// </summary>
         Auriga.Fa.IExchangeSpecification Exchange { get; set; }
 
+        /// <summary>
+        /// Gets or sets the link.
+        /// </summary>
         Auriga.Fa.IExchangeLink Link { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

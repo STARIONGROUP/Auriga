@@ -12,20 +12,35 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>FunctionalChainInvolvement</c> interface.
+    /// </summary>
     public partial interface IFunctionalChainInvolvement : Auriga.Capellacore.IInvolvement
     {
+        /// <summary>
+        /// Gets the involved element.
+        /// </summary>
+        Auriga.Capellacore.IInvolvedElement InvolvedElement { get; }
+
+        /// <summary>
+        /// Gets the next functional chain involvements.
+        /// </summary>
         IEnumerable<Auriga.Fa.IFunctionalChainInvolvement> NextFunctionalChainInvolvements { get; }
 
+        /// <summary>
+        /// Gets the previous functional chain involvements.
+        /// </summary>
         IEnumerable<Auriga.Fa.IFunctionalChainInvolvement> PreviousFunctionalChainInvolvements { get; }
-
-        Auriga.Capellacore.IInvolvedElement InvolvedElement { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

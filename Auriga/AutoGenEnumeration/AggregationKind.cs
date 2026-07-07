@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// The <c>AggregationKind</c> enumeration.
+    /// </summary>
     public enum AggregationKind
     {
+        /// <summary>
+        /// The <c>UNSET</c> literal.
+        /// </summary>
         UNSET,
 
+        /// <summary>
+        /// The <c>ASSOCIATION</c> literal.
+        /// </summary>
         ASSOCIATION,
 
+        /// <summary>
+        /// The <c>AGGREGATION</c> literal.
+        /// </summary>
         AGGREGATION,
 
+        /// <summary>
+        /// The <c>COMPOSITION</c> literal.
+        /// </summary>
         COMPOSITION
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

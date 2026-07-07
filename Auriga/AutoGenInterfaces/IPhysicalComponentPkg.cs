@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
+    /// <summary>
+    /// Definition of the <c>PhysicalComponentPkg</c> interface.
+    /// </summary>
     public partial interface IPhysicalComponentPkg : Auriga.Cs.IComponentPkg, Auriga.Information.IAssociationPkg
     {
-        Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
+        /// <summary>
+        /// Gets the owned deployments.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
 
-        Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
-
+        /// <summary>
+        /// Gets the owned key parts.
+        /// </summary>
         Auriga.IContainerList<Auriga.Information.IKeyPart> OwnedKeyParts { get; }
 
-        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
+        /// <summary>
+        /// Gets the owned physical component pkgs.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned physical components.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

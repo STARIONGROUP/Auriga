@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// Definition of the <c>Parameter</c> interface.
+    /// </summary>
     public partial interface IParameter : Auriga.Capellacore.ITypedElement, Auriga.Information.IMultiplicityElement, Auriga.Modellingcore.IAbstractParameter
     {
+        /// <summary>
+        /// Gets or sets the direction.
+        /// </summary>
         Auriga.Information.ParameterDirection? Direction { get; set; }
 
+        /// <summary>
+        /// Gets or sets the passing mode.
+        /// </summary>
         Auriga.Information.PassingMode? PassingMode { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

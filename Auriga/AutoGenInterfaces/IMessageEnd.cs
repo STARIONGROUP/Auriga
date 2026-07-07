@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
+    /// <summary>
+    /// Definition of the <c>MessageEnd</c> interface.
+    /// </summary>
     public partial interface IMessageEnd : Auriga.Interaction.IAbstractEnd
     {
+        /// <summary>
+        /// Gets the message.
+        /// </summary>
         Auriga.Interaction.ISequenceMessage Message { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

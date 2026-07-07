@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
+    /// <summary>
+    /// Definition of the <c>AbstractEnd</c> interface.
+    /// </summary>
     public partial interface IAbstractEnd : Auriga.Interaction.IInteractionFragment
     {
-        Auriga.Interaction.IEvent Event { get; set; }
-
+        /// <summary>
+        /// Gets the covered.
+        /// </summary>
         Auriga.Interaction.IInstanceRole Covered { get; }
+
+        /// <summary>
+        /// Gets or sets the event.
+        /// </summary>
+        Auriga.Interaction.IEvent Event { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

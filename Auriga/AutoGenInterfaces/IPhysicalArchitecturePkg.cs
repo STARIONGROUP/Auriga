@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
+    /// <summary>
+    /// Definition of the <c>PhysicalArchitecturePkg</c> interface.
+    /// </summary>
     public partial interface IPhysicalArchitecturePkg : Auriga.Cs.IBlockArchitecturePkg
     {
+        /// <summary>
+        /// Gets the owned physical architecture pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Pa.IPhysicalArchitecturePkg> OwnedPhysicalArchitecturePkgs { get; }
 
+        /// <summary>
+        /// Gets the owned physical architectures.
+        /// </summary>
         Auriga.IContainerList<Auriga.Pa.IPhysicalArchitecture> OwnedPhysicalArchitectures { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

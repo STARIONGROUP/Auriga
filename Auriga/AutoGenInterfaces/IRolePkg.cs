@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>RolePkg</c> interface.
+    /// </summary>
     public partial interface IRolePkg : Auriga.Capellacore.IStructure
     {
+        /// <summary>
+        /// Gets the owned role pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IRolePkg> OwnedRolePkgs { get; }
 
+        /// <summary>
+        /// Gets the owned roles.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IRole> OwnedRoles { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

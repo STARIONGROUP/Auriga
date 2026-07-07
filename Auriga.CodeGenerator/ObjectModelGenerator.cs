@@ -14,6 +14,7 @@ namespace Auriga.CodeGenerator
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
 
     using Auriga.CodeGenerator.Models;
 
@@ -202,17 +203,18 @@ namespace Auriga.CodeGenerator
 
         private EnumModel BuildEnum(EEnum eEnum)
         {
+            var name = CSharpNaming.Capitalize(eEnum.Name);
             var literals = eEnum.ELiterals.ToList();
 
             return new EnumModel
             {
                 Namespace = CSharpNaming.Namespace(eEnum),
-                Name = CSharpNaming.Capitalize(eEnum.Name),
-                Documentation = Documentation(eEnum),
+                Name = name,
+                Documentation = Summary(eEnum, $"The <c>{name}</c> enumeration."),
                 Literals = literals.Select((literal, index) => new LiteralModel
                 {
                     Name = CSharpNaming.Escape(CSharpNaming.Capitalize(literal.Name)),
-                    Documentation = Documentation(literal),
+                    Documentation = Summary(literal, $"The <c>{CSharpNaming.Capitalize(literal.Name)}</c> literal."),
                     IsLast = index == literals.Count - 1
                 }).ToList()
             };
@@ -220,6 +222,7 @@ namespace Auriga.CodeGenerator
 
         private InterfaceModel BuildInterface(EClass eClass)
         {
+            var name = CSharpNaming.Capitalize(eClass.Name);
             var supertypes = eClass.ESuperTypes.Where(s => s != null).ToList();
             var extends = supertypes.Count > 0
                 ? " : " + string.Join(", ", supertypes.Select(CSharpNaming.InterfaceType))
@@ -227,14 +230,15 @@ namespace Auriga.CodeGenerator
 
             var features = eClass.EStructuralFeatures
                 .Where(f => f.EType != null && !IsReserved(f))
+                .OrderBy(MemberName, StringComparer.Ordinal)
                 .ToList();
 
             return new InterfaceModel
             {
                 Namespace = CSharpNaming.Namespace(eClass),
                 Usings = Usings(features),
-                Name = CSharpNaming.Capitalize(eClass.Name),
-                Documentation = Documentation(eClass),
+                Name = name,
+                Documentation = Summary(eClass, $"Definition of the <c>{name}</c> interface."),
                 Extends = extends,
                 Members = features.Select(f => BuildMember(f, forInterface: true)).ToList()
             };
@@ -265,12 +269,14 @@ namespace Auriga.CodeGenerator
                 features.Add(feature);
             }
 
+            features = features.OrderBy(MemberName, StringComparer.Ordinal).ToList();
+
             return new ClassModel
             {
                 Namespace = CSharpNaming.Namespace(eClass),
                 Usings = Usings(features),
                 Name = className,
-                Documentation = Documentation(eClass),
+                Documentation = Summary(eClass, $"Definition of the <c>{className}</c> class."),
                 Bases = $" : Auriga.AurigaElement, {CSharpNaming.InterfaceType(eClass)}",
                 Members = features.Select(f => BuildMember(f, forInterface: false)).ToList()
             };
@@ -278,18 +284,20 @@ namespace Auriga.CodeGenerator
 
         private static MemberModel BuildMember(EStructuralFeature feature, bool forInterface)
         {
-            var name = CSharpNaming.Escape(CSharpNaming.Capitalize(feature.Name));
+            var name = MemberName(feature);
             var type = CSharpType.MemberType(feature);
             var baseType = CSharpType.BaseType(feature.EType);
             var computed = CSharpType.IsComputed(feature);
             var collection = CSharpType.IsCollection(feature);
             var containment = feature is EReference { IsContainment: true };
+            var writable = !computed && !collection;
+            var summary = $"{(writable ? "Gets or sets" : "Gets")} the {Humanize(feature.Name)}.";
 
             string declaration;
 
             if (forInterface)
             {
-                var accessor = computed || collection ? "{ get; }" : "{ get; set; }";
+                var accessor = writable ? "{ get; set; }" : "{ get; }";
                 declaration = $"{type} {name} {accessor}";
             }
             else if (computed)
@@ -301,8 +309,8 @@ namespace Auriga.CodeGenerator
             else if (collection && containment)
             {
                 var field = "backing" + name;
-                declaration = $"private {type} {field};\n\n" +
-                              $"        public {type} {name} => this.{field} ??= new Auriga.ContainerList<{baseType}>(this);";
+                declaration = $"public {type} {name} => this.{field} ??= new Auriga.ContainerList<{baseType}>(this);\n\n" +
+                              $"        private {type} {field};";
             }
             else if (collection)
             {
@@ -315,9 +323,14 @@ namespace Auriga.CodeGenerator
 
             return new MemberModel
             {
-                Documentation = Documentation(feature),
+                Documentation = Summary(feature, summary),
                 Declaration = declaration
             };
+        }
+
+        private static string MemberName(EStructuralFeature feature)
+        {
+            return CSharpNaming.Escape(CSharpNaming.Capitalize(feature.Name));
         }
 
         private static bool IsReserved(EStructuralFeature feature)
@@ -334,7 +347,7 @@ namespace Auriga.CodeGenerator
                 .ToList();
         }
 
-        private static IReadOnlyList<string> Documentation(EModelElement element)
+        private static IReadOnlyList<string> Summary(EModelElement element, string fallback)
         {
             List<string> lines;
 
@@ -349,7 +362,7 @@ namespace Auriga.CodeGenerator
 
             if (lines.Count == 0)
             {
-                return Array.Empty<string>();
+                lines = new List<string> { fallback };
             }
 
             var result = new List<string> { "<summary>" };
@@ -357,6 +370,23 @@ namespace Auriga.CodeGenerator
             result.Add("</summary>");
 
             return result;
+        }
+
+        private static string Humanize(string name)
+        {
+            var builder = new StringBuilder(name.Length + 8);
+
+            foreach (var character in name)
+            {
+                if (char.IsUpper(character) && builder.Length > 0)
+                {
+                    builder.Append(' ');
+                }
+
+                builder.Append(char.ToLowerInvariant(character));
+            }
+
+            return builder.ToString();
         }
 
         private static IEnumerable<EPackage> AllPackages(EPackage package)

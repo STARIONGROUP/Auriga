@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>RoleAllocation</c> interface.
+    /// </summary>
     public partial interface IRoleAllocation : Auriga.Capellacore.IAllocation
     {
-        Auriga.Oa.IRole Role { get; }
-
+        /// <summary>
+        /// Gets the entity.
+        /// </summary>
         Auriga.Oa.IEntity Entity { get; }
+
+        /// <summary>
+        /// Gets the role.
+        /// </summary>
+        Auriga.Oa.IRole Role { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

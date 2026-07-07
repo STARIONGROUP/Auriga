@@ -129,6 +129,73 @@ namespace Auriga.CodeGenerator.Tests
             });
         }
 
+        [Test]
+        public void Verify_that_types_and_members_are_documented_even_without_model_documentation()
+        {
+            var content = this.files["AutoGenClasses/PhysicalComponent.cs"];
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(content, Does.Contain("/// Definition of the <c>PhysicalComponent</c> class."));
+                Assert.That(content, Does.Contain("/// Gets or sets the "));
+                Assert.That(content, Does.Contain("/// Gets the "));
+            });
+        }
+
+        [Test]
+        public void Verify_that_enum_literals_are_documented()
+        {
+            var content = this.files["AutoGenEnumeration/PhysicalComponentNature.cs"];
+
+            Assert.That(content, Does.Contain("/// The <c>UNSET</c> literal."));
+        }
+
+        [Test]
+        public void Verify_that_members_are_sorted_alphabetically()
+        {
+            var content = this.files["AutoGenInterfaces/IPhysicalComponent.cs"];
+
+            var names = System.Text.RegularExpressions.Regex
+                .Matches(content, @"^\s+\S.* (?<name>\w+) \{ get;", System.Text.RegularExpressions.RegexOptions.Multiline)
+                .Select(m => m.Groups["name"].Value)
+                .ToList();
+
+            Assert.That(names, Is.Not.Empty);
+            Assert.That(names, Is.Ordered.Using<string>(System.StringComparer.Ordinal));
+        }
+
+        [Test]
+        public void Verify_that_generated_files_carry_the_auto_generated_banner_at_the_top_and_bottom()
+        {
+            const string Banner = "THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!";
+
+            foreach (var file in this.files.Values)
+            {
+                var trimmed = file.TrimEnd();
+
+                Assert.Multiple(() =>
+                {
+                    // once in the header, once as the closing banner after the namespace
+                    Assert.That(CountOccurrences(file, Banner), Is.EqualTo(2));
+                    Assert.That(trimmed, Does.EndWith("// ------------------------------------------------------------------------------------------------"));
+                });
+            }
+        }
+
+        private static int CountOccurrences(string text, string value)
+        {
+            var count = 0;
+            var index = text.IndexOf(value, System.StringComparison.Ordinal);
+
+            while (index >= 0)
+            {
+                count++;
+                index = text.IndexOf(value, index + value.Length, System.StringComparison.Ordinal);
+            }
+
+            return count;
+        }
+
         /// <summary>
         /// Regenerates the committed <c>pa</c> object model into the <c>Auriga</c> project. Run this
         /// explicitly after changing the generator or a template, then review the diff and commit.

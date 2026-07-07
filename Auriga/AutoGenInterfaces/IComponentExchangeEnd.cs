@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>ComponentExchangeEnd</c> interface.
+    /// </summary>
     public partial interface IComponentExchangeEnd : Auriga.Modellingcore.IInformationsExchanger, Auriga.Capellacore.ICapellaElement
     {
-        Auriga.Information.IPort Port { get; set; }
-
+        /// <summary>
+        /// Gets or sets the part.
+        /// </summary>
         Auriga.Cs.IPart Part { get; set; }
+
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
+        Auriga.Information.IPort Port { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

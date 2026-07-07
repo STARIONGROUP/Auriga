@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Epbs
 {
+    /// <summary>
+    /// Definition of the <c>PhysicalArtifactRealization</c> interface.
+    /// </summary>
     public partial interface IPhysicalArtifactRealization : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the realized physical artifact.
+        /// </summary>
         Auriga.Cs.IAbstractPhysicalArtifact RealizedPhysicalArtifact { get; }
 
+        /// <summary>
+        /// Gets the realizing configuration item.
+        /// </summary>
         Auriga.Epbs.IConfigurationItem RealizingConfigurationItem { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

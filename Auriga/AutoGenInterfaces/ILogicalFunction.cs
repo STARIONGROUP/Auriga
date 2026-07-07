@@ -12,26 +12,50 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.La
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>LogicalFunction</c> interface.
+    /// </summary>
     public partial interface ILogicalFunction : Auriga.Fa.IAbstractFunction
     {
-        Auriga.IContainerList<Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
-
+        /// <summary>
+        /// Gets the allocating logical components.
+        /// </summary>
         IEnumerable<Auriga.La.ILogicalComponent> AllocatingLogicalComponents { get; }
 
-        IEnumerable<Auriga.Ctx.ISystemFunction> RealizedSystemFunctions { get; }
+        /// <summary>
+        /// Gets the children logical functions.
+        /// </summary>
+        IEnumerable<Auriga.La.ILogicalFunction> ChildrenLogicalFunctions { get; }
 
-        IEnumerable<Auriga.Pa.IPhysicalFunction> RealizingPhysicalFunctions { get; }
-
+        /// <summary>
+        /// Gets the contained logical functions.
+        /// </summary>
         IEnumerable<Auriga.La.ILogicalFunction> ContainedLogicalFunctions { get; }
 
-        IEnumerable<Auriga.La.ILogicalFunction> ChildrenLogicalFunctions { get; }
+        /// <summary>
+        /// Gets the owned logical function pkgs.
+        /// </summary>
+        Auriga.IContainerList<Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
+
+        /// <summary>
+        /// Gets the realized system functions.
+        /// </summary>
+        IEnumerable<Auriga.Ctx.ISystemFunction> RealizedSystemFunctions { get; }
+
+        /// <summary>
+        /// Gets the realizing physical functions.
+        /// </summary>
+        IEnumerable<Auriga.Pa.IPhysicalFunction> RealizingPhysicalFunctions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

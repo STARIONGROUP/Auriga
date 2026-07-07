@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>EntityOperationalCapabilityInvolvement</c> interface.
+    /// </summary>
     public partial interface IEntityOperationalCapabilityInvolvement : Auriga.Capellacore.IInvolvement
     {
-        Auriga.Oa.IEntity Entity { get; }
-
+        /// <summary>
+        /// Gets the capability.
+        /// </summary>
         Auriga.Oa.IOperationalCapability Capability { get; }
+
+        /// <summary>
+        /// Gets the entity.
+        /// </summary>
+        Auriga.Oa.IEntity Entity { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

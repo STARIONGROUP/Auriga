@@ -12,32 +12,65 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>OperationalActivity</c> interface.
+    /// </summary>
     public partial interface IOperationalActivity : Auriga.Fa.IAbstractFunction
     {
-        Auriga.IContainerList<Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
-
+        /// <summary>
+        /// Gets the activity allocations.
+        /// </summary>
         IEnumerable<Auriga.Oa.IActivityAllocation> ActivityAllocations { get; }
 
-        IEnumerable<Auriga.Oa.ISwimlane> OwnedSwimlanes { get; }
-
-        IEnumerable<Auriga.Oa.IOperationalProcess> OwnedProcess { get; }
-
-        IEnumerable<Auriga.Oa.IEntity> AllocatorEntities { get; }
-
-        IEnumerable<Auriga.Ctx.ISystemFunction> RealizingSystemFunctions { get; }
-
+        /// <summary>
+        /// Gets the allocating roles.
+        /// </summary>
         IEnumerable<Auriga.Oa.IRole> AllocatingRoles { get; }
 
+        /// <summary>
+        /// Gets the allocator entities.
+        /// </summary>
+        IEnumerable<Auriga.Oa.IEntity> AllocatorEntities { get; }
+
+        /// <summary>
+        /// Gets the children operational activities.
+        /// </summary>
+        IEnumerable<Auriga.Oa.IOperationalActivity> ChildrenOperationalActivities { get; }
+
+        /// <summary>
+        /// Gets the contained operational activities.
+        /// </summary>
         IEnumerable<Auriga.Oa.IOperationalActivity> ContainedOperationalActivities { get; }
 
-        IEnumerable<Auriga.Oa.IOperationalActivity> ChildrenOperationalActivities { get; }
+        /// <summary>
+        /// Gets the owned operational activity pkgs.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned process.
+        /// </summary>
+        IEnumerable<Auriga.Oa.IOperationalProcess> OwnedProcess { get; }
+
+        /// <summary>
+        /// Gets the owned swimlanes.
+        /// </summary>
+        IEnumerable<Auriga.Oa.ISwimlane> OwnedSwimlanes { get; }
+
+        /// <summary>
+        /// Gets the realizing system functions.
+        /// </summary>
+        IEnumerable<Auriga.Ctx.ISystemFunction> RealizingSystemFunctions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

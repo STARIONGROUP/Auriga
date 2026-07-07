@@ -12,32 +12,65 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>State</c> interface.
+    /// </summary>
     public partial interface IState : Auriga.Capellacommon.IAbstractState
     {
-        Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
-
-        Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
-
-        IEnumerable<Auriga.Fa.IAbstractFunction> AvailableAbstractFunctions { get; }
-
-        IEnumerable<Auriga.Fa.IFunctionalChain> AvailableFunctionalChains { get; }
-
+        /// <summary>
+        /// Gets the available abstract capabilities.
+        /// </summary>
         IEnumerable<Auriga.Interaction.IAbstractCapability> AvailableAbstractCapabilities { get; }
 
-        List<Auriga.Behavior.IAbstractEvent> Entry { get; }
+        /// <summary>
+        /// Gets the available abstract functions.
+        /// </summary>
+        IEnumerable<Auriga.Fa.IAbstractFunction> AvailableAbstractFunctions { get; }
 
+        /// <summary>
+        /// Gets the available functional chains.
+        /// </summary>
+        IEnumerable<Auriga.Fa.IFunctionalChain> AvailableFunctionalChains { get; }
+
+        /// <summary>
+        /// Gets the do activity.
+        /// </summary>
         List<Auriga.Behavior.IAbstractEvent> DoActivity { get; }
 
+        /// <summary>
+        /// Gets the entry.
+        /// </summary>
+        List<Auriga.Behavior.IAbstractEvent> Entry { get; }
+
+        /// <summary>
+        /// Gets the exit.
+        /// </summary>
         List<Auriga.Behavior.IAbstractEvent> Exit { get; }
 
+        /// <summary>
+        /// Gets the owned connection points.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
+
+        /// <summary>
+        /// Gets the owned regions.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
+
+        /// <summary>
+        /// Gets or sets the state invariant.
+        /// </summary>
         Auriga.Modellingcore.IAbstractConstraint StateInvariant { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

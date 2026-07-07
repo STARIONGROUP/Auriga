@@ -12,11 +12,17 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Modellingcore
 {
+    /// <summary>
+    /// Definition of the <c>AbstractExchangeItem</c> interface.
+    /// </summary>
     public partial interface IAbstractExchangeItem : Auriga.Modellingcore.IAbstractType
     {
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.La
 {
+    /// <summary>
+    /// Definition of the <c>CapabilityRealizationPkg</c> interface.
+    /// </summary>
     public partial interface ICapabilityRealizationPkg : Auriga.Capellacommon.IAbstractCapabilityPkg
     {
-        Auriga.IContainerList<Auriga.La.ICapabilityRealization> OwnedCapabilityRealizations { get; }
-
+        /// <summary>
+        /// Gets the owned capability realization pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.La.ICapabilityRealizationPkg> OwnedCapabilityRealizationPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned capability realizations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.La.ICapabilityRealization> OwnedCapabilityRealizations { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

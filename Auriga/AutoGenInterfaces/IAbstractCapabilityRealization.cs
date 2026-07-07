@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
+    /// <summary>
+    /// Definition of the <c>AbstractCapabilityRealization</c> interface.
+    /// </summary>
     public partial interface IAbstractCapabilityRealization : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the realized capability.
+        /// </summary>
         Auriga.Interaction.IAbstractCapability RealizedCapability { get; }
 
+        /// <summary>
+        /// Gets the realizing capability.
+        /// </summary>
         Auriga.Interaction.IAbstractCapability RealizingCapability { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

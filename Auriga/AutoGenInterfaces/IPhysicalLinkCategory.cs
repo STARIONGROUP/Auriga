@@ -12,15 +12,24 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>PhysicalLinkCategory</c> interface.
+    /// </summary>
     public partial interface IPhysicalLinkCategory : Auriga.Capellacore.INamedElement
     {
+        /// <summary>
+        /// Gets the links.
+        /// </summary>
         List<Auriga.Cs.IPhysicalLink> Links { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Ctx
 {
+    /// <summary>
+    /// Definition of the <c>CapabilityInvolvement</c> interface.
+    /// </summary>
     public partial interface ICapabilityInvolvement : Auriga.Capellacore.IInvolvement
     {
-        Auriga.Ctx.ISystemComponent SystemComponent { get; }
-
+        /// <summary>
+        /// Gets the capability.
+        /// </summary>
         Auriga.Ctx.ICapability Capability { get; }
+
+        /// <summary>
+        /// Gets the system component.
+        /// </summary>
+        Auriga.Ctx.ISystemComponent SystemComponent { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

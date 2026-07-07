@@ -12,11 +12,17 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
+    /// <summary>
+    /// Definition of the <c>AbstractPathInvolvedElement</c> interface.
+    /// </summary>
     public partial interface IAbstractPathInvolvedElement : Auriga.Capellacore.IInvolvedElement
     {
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

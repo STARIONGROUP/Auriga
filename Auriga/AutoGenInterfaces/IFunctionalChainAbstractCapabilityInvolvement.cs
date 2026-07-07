@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
+    /// <summary>
+    /// Definition of the <c>FunctionalChainAbstractCapabilityInvolvement</c> interface.
+    /// </summary>
     public partial interface IFunctionalChainAbstractCapabilityInvolvement : Auriga.Capellacore.IInvolvement
     {
+        /// <summary>
+        /// Gets the capability.
+        /// </summary>
         Auriga.Interaction.IAbstractCapability Capability { get; }
 
+        /// <summary>
+        /// Gets the functional chain.
+        /// </summary>
         Auriga.Fa.IFunctionalChain FunctionalChain { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

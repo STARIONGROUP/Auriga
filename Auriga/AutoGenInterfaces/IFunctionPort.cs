@@ -12,25 +12,40 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>FunctionPort</c> interface.
+    /// </summary>
     public partial interface IFunctionPort : Auriga.Information.IPort, Auriga.Capellacore.ITypedElement, Auriga.Behavior.IAbstractEvent
     {
+        /// <summary>
+        /// Gets the allocator component ports.
+        /// </summary>
+        IEnumerable<Auriga.Fa.IComponentPort> AllocatorComponentPorts { get; }
+
+        /// <summary>
+        /// Gets the realized function ports.
+        /// </summary>
+        IEnumerable<Auriga.Fa.IFunctionPort> RealizedFunctionPorts { get; }
+
+        /// <summary>
+        /// Gets the realizing function ports.
+        /// </summary>
+        IEnumerable<Auriga.Fa.IFunctionPort> RealizingFunctionPorts { get; }
+
         /// <summary>
         /// @deprecated : 'representedComponentPort' shall not be used anymore
         /// </summary>
         Auriga.Fa.IComponentPort RepresentedComponentPort { get; set; }
 
-        IEnumerable<Auriga.Fa.IComponentPort> AllocatorComponentPorts { get; }
-
-        IEnumerable<Auriga.Fa.IFunctionPort> RealizedFunctionPorts { get; }
-
-        IEnumerable<Auriga.Fa.IFunctionPort> RealizingFunctionPorts { get; }
-
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

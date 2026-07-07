@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Ctx
 {
+    /// <summary>
+    /// Definition of the <c>SystemFunctionPkg</c> interface.
+    /// </summary>
     public partial interface ISystemFunctionPkg : Auriga.Fa.IFunctionPkg
     {
-        Auriga.IContainerList<Auriga.Ctx.ISystemFunction> OwnedSystemFunctions { get; }
-
+        /// <summary>
+        /// Gets the owned system function pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Ctx.ISystemFunctionPkg> OwnedSystemFunctionPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned system functions.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Ctx.ISystemFunction> OwnedSystemFunctions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

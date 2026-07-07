@@ -12,17 +12,29 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>Concept</c> interface.
+    /// </summary>
     public partial interface IConcept : Auriga.Capellacore.INamedElement
     {
+        /// <summary>
+        /// Gets the compliances.
+        /// </summary>
         List<Auriga.Oa.IConceptCompliance> Compliances { get; }
 
+        /// <summary>
+        /// Gets the composite links.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IItemInConcept> CompositeLinks { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

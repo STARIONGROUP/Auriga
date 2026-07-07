@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
+    /// <summary>
+    /// Definition of the <c>StateEvent</c> interface.
+    /// </summary>
     public partial interface IStateEvent : Auriga.Capellacore.INamedElement, Auriga.Behavior.IAbstractEvent
     {
+        /// <summary>
+        /// Gets or sets the expression.
+        /// </summary>
         Auriga.Capellacore.IConstraint Expression { get; set; }
 
+        /// <summary>
+        /// Gets the owned state event realizations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacommon.IStateEventRealization> OwnedStateEventRealizations { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

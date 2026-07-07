@@ -12,25 +12,52 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
+    /// <summary>
+    /// The <c>MessageKind</c> enumeration.
+    /// </summary>
     public enum MessageKind
     {
+        /// <summary>
+        /// The <c>UNSET</c> literal.
+        /// </summary>
         UNSET,
 
+        /// <summary>
+        /// The <c>ASYNCHRONOUS_CALL</c> literal.
+        /// </summary>
         ASYNCHRONOUS_CALL,
 
+        /// <summary>
+        /// The <c>SYNCHRONOUS_CALL</c> literal.
+        /// </summary>
         SYNCHRONOUS_CALL,
 
+        /// <summary>
+        /// The <c>REPLY</c> literal.
+        /// </summary>
         REPLY,
 
+        /// <summary>
+        /// The <c>DELETE</c> literal.
+        /// </summary>
         DELETE,
 
+        /// <summary>
+        /// The <c>CREATE</c> literal.
+        /// </summary>
         CREATE,
 
+        /// <summary>
+        /// The <c>TIMER</c> literal.
+        /// </summary>
         TIMER
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

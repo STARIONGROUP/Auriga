@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>ComponentPortAllocationEnd</c> interface.
+    /// </summary>
     public partial interface IComponentPortAllocationEnd : Auriga.Capellacore.ICapellaElement
     {
-        Auriga.Information.IPort Port { get; set; }
+        /// <summary>
+        /// Gets the owning component port allocation.
+        /// </summary>
+        Auriga.Fa.IComponentPortAllocation OwningComponentPortAllocation { get; }
 
+        /// <summary>
+        /// Gets or sets the part.
+        /// </summary>
         Auriga.Cs.IPart Part { get; set; }
 
-        Auriga.Fa.IComponentPortAllocation OwningComponentPortAllocation { get; }
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
+        Auriga.Information.IPort Port { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,34 +12,70 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>StateTransition</c> interface.
+    /// </summary>
     public partial interface IStateTransition : Auriga.Capellacore.INamedElement, Auriga.Capellacore.IRelationship
     {
-        Auriga.Capellacommon.TransitionKind? Kind { get; set; }
-
-        string TriggerDescription { get; set; }
-
-        Auriga.Capellacore.IConstraint Guard { get; set; }
-
-        Auriga.Capellacommon.IAbstractState Source { get; set; }
-
-        Auriga.Capellacommon.IAbstractState Target { get; set; }
-
+        /// <summary>
+        /// Gets the effect.
+        /// </summary>
         List<Auriga.Behavior.IAbstractEvent> Effect { get; }
 
-        List<Auriga.Behavior.IAbstractEvent> Triggers { get; }
+        /// <summary>
+        /// Gets or sets the guard.
+        /// </summary>
+        Auriga.Capellacore.IConstraint Guard { get; set; }
 
+        /// <summary>
+        /// Gets or sets the kind.
+        /// </summary>
+        Auriga.Capellacommon.TransitionKind? Kind { get; set; }
+
+        /// <summary>
+        /// Gets the owned state transition realizations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacommon.IStateTransitionRealization> OwnedStateTransitionRealizations { get; }
 
+        /// <summary>
+        /// Gets the realized state transitions.
+        /// </summary>
         IEnumerable<Auriga.Capellacommon.IStateTransition> RealizedStateTransitions { get; }
 
+        /// <summary>
+        /// Gets the realizing state transitions.
+        /// </summary>
         IEnumerable<Auriga.Capellacommon.IStateTransition> RealizingStateTransitions { get; }
+
+        /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
+        Auriga.Capellacommon.IAbstractState Source { get; set; }
+
+        /// <summary>
+        /// Gets or sets the target.
+        /// </summary>
+        Auriga.Capellacommon.IAbstractState Target { get; set; }
+
+        /// <summary>
+        /// Gets or sets the trigger description.
+        /// </summary>
+        string TriggerDescription { get; set; }
+
+        /// <summary>
+        /// Gets the triggers.
+        /// </summary>
+        List<Auriga.Behavior.IAbstractEvent> Triggers { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

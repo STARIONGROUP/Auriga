@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
+    /// <summary>
+    /// Definition of the <c>StateTransitionRealization</c> interface.
+    /// </summary>
     public partial interface IStateTransitionRealization : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the realized state transition.
+        /// </summary>
         Auriga.Capellacommon.IStateTransition RealizedStateTransition { get; }
 
+        /// <summary>
+        /// Gets the realizing state transition.
+        /// </summary>
         Auriga.Capellacommon.IStateTransition RealizingStateTransition { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

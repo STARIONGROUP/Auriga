@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacore
 {
+    /// <summary>
+    /// Definition of the <c>AbstractExchangeItemPkg</c> interface.
+    /// </summary>
     public partial interface IAbstractExchangeItemPkg : Auriga.Capellacore.IStructure
     {
+        /// <summary>
+        /// Gets the owned exchange items.
+        /// </summary>
         Auriga.IContainerList<Auriga.Information.IExchangeItem> OwnedExchangeItems { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

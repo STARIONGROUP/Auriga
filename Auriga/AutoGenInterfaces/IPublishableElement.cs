@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Modellingcore
 {
+    /// <summary>
+    /// Definition of the <c>PublishableElement</c> interface.
+    /// </summary>
     public partial interface IPublishableElement : Auriga.Modellingcore.IModelElement
     {
+        /// <summary>
+        /// Gets or sets the visible in doc.
+        /// </summary>
         bool? VisibleInDoc { get; set; }
 
+        /// <summary>
+        /// Gets or sets the visible in l m.
+        /// </summary>
         bool? VisibleInLM { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

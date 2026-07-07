@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
+    /// <summary>
+    /// Definition of the <c>InterfaceAllocation</c> interface.
+    /// </summary>
     public partial interface IInterfaceAllocation : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the allocated interface.
+        /// </summary>
         Auriga.Cs.IInterface AllocatedInterface { get; }
 
+        /// <summary>
+        /// Gets the allocating interface allocator.
+        /// </summary>
         Auriga.Cs.IInterfaceAllocator AllocatingInterfaceAllocator { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

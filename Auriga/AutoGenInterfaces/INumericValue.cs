@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information.Datavalue
 {
+    /// <summary>
+    /// Definition of the <c>NumericValue</c> interface.
+    /// </summary>
     public partial interface INumericValue : Auriga.Information.Datavalue.IDataValue
     {
-        Auriga.Information.IUnit Unit { get; set; }
-
+        /// <summary>
+        /// Gets the numeric type.
+        /// </summary>
         Auriga.Information.Datatype.INumericType NumericType { get; }
+
+        /// <summary>
+        /// Gets or sets the unit.
+        /// </summary>
+        Auriga.Information.IUnit Unit { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

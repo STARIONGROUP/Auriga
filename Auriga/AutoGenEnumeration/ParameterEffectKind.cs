@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Modellingcore
 {
+    /// <summary>
+    /// The <c>ParameterEffectKind</c> enumeration.
+    /// </summary>
     public enum ParameterEffectKind
     {
+        /// <summary>
+        /// The <c>Create</c> literal.
+        /// </summary>
         Create,
 
+        /// <summary>
+        /// The <c>Read</c> literal.
+        /// </summary>
         Read,
 
+        /// <summary>
+        /// The <c>Update</c> literal.
+        /// </summary>
         Update,
 
+        /// <summary>
+        /// The <c>Delete</c> literal.
+        /// </summary>
         Delete
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

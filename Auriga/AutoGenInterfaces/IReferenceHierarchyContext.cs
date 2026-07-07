@@ -12,17 +12,29 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>ReferenceHierarchyContext</c> interface.
+    /// </summary>
     public partial interface IReferenceHierarchyContext : Auriga.IAurigaElement
     {
+        /// <summary>
+        /// Gets the source reference hierarchy.
+        /// </summary>
         List<Auriga.Fa.IFunctionalChainReference> SourceReferenceHierarchy { get; }
 
+        /// <summary>
+        /// Gets the target reference hierarchy.
+        /// </summary>
         List<Auriga.Fa.IFunctionalChainReference> TargetReferenceHierarchy { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

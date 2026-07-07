@@ -12,23 +12,47 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// The <c>FunctionKind</c> enumeration.
+    /// </summary>
     public enum FunctionKind
     {
+        /// <summary>
+        /// The <c>FUNCTION</c> literal.
+        /// </summary>
         FUNCTION,
 
+        /// <summary>
+        /// The <c>DUPLICATE</c> literal.
+        /// </summary>
         DUPLICATE,
 
+        /// <summary>
+        /// The <c>GATHER</c> literal.
+        /// </summary>
         GATHER,
 
+        /// <summary>
+        /// The <c>SELECT</c> literal.
+        /// </summary>
         SELECT,
 
+        /// <summary>
+        /// The <c>SPLIT</c> literal.
+        /// </summary>
         SPLIT,
 
+        /// <summary>
+        /// The <c>ROUTE</c> literal.
+        /// </summary>
         ROUTE
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

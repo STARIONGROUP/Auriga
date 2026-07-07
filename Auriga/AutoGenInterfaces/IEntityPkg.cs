@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>EntityPkg</c> interface.
+    /// </summary>
     public partial interface IEntityPkg : Auriga.Cs.IComponentPkg
     {
+        /// <summary>
+        /// Gets the owned communication means.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
+
+        /// <summary>
+        /// Gets the owned entities.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IEntity> OwnedEntities { get; }
 
+        /// <summary>
+        /// Gets the owned entity pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IEntityPkg> OwnedEntityPkgs { get; }
 
+        /// <summary>
+        /// Gets the owned locations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.ILocation> OwnedLocations { get; }
-
-        Auriga.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

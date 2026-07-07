@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
+    /// <summary>
+    /// The <c>ObjectNodeOrderingKind</c> enumeration.
+    /// </summary>
     public enum ObjectNodeOrderingKind
     {
+        /// <summary>
+        /// The <c>FIFO</c> literal.
+        /// </summary>
         FIFO,
 
+        /// <summary>
+        /// The <c>LIFO</c> literal.
+        /// </summary>
         LIFO,
 
+        /// <summary>
+        /// The <c>Ordered</c> literal.
+        /// </summary>
         Ordered,
 
+        /// <summary>
+        /// The <c>Unordered</c> literal.
+        /// </summary>
         Unordered
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

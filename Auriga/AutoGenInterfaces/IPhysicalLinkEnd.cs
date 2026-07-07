@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
+    /// <summary>
+    /// Definition of the <c>PhysicalLinkEnd</c> interface.
+    /// </summary>
     public partial interface IPhysicalLinkEnd : Auriga.Cs.IAbstractPhysicalLinkEnd
     {
-        Auriga.Cs.IPhysicalPort Port { get; set; }
-
+        /// <summary>
+        /// Gets or sets the part.
+        /// </summary>
         Auriga.Cs.IPart Part { get; set; }
+
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
+        Auriga.Cs.IPhysicalPort Port { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

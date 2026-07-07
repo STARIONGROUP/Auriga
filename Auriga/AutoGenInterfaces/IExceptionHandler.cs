@@ -12,21 +12,39 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>ExceptionHandler</c> interface.
+    /// </summary>
     public partial interface IExceptionHandler : Auriga.Modellingcore.IModelElement
     {
-        Auriga.Activity.IExecutableNode ProtectedNode { get; set; }
-
-        Auriga.Activity.IExecutableNode HandlerBody { get; set; }
-
+        /// <summary>
+        /// Gets or sets the exception input.
+        /// </summary>
         Auriga.Activity.IObjectNode ExceptionInput { get; set; }
 
+        /// <summary>
+        /// Gets the exception types.
+        /// </summary>
         List<Auriga.Modellingcore.IAbstractType> ExceptionTypes { get; }
+
+        /// <summary>
+        /// Gets or sets the handler body.
+        /// </summary>
+        Auriga.Activity.IExecutableNode HandlerBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the protected node.
+        /// </summary>
+        Auriga.Activity.IExecutableNode ProtectedNode { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

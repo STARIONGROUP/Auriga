@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>OperationalActivityPkg</c> interface.
+    /// </summary>
     public partial interface IOperationalActivityPkg : Auriga.Fa.IFunctionPkg
     {
+        /// <summary>
+        /// Gets the owned operational activities.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IOperationalActivity> OwnedOperationalActivities { get; }
 
+        /// <summary>
+        /// Gets the owned operational activity pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,21 +12,42 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>FunctionPkg</c> interface.
+    /// </summary>
     public partial interface IFunctionPkg : Auriga.Capellacore.IStructure
     {
-        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
-
-        Auriga.IContainerList<Auriga.Fa.IFunctionalExchangeSpecification> OwnedExchanges { get; }
-
-        Auriga.IContainerList<Auriga.Fa.IExchangeSpecificationRealization> OwnedExchangeSpecificationRealizations { get; }
-
+        /// <summary>
+        /// Gets the owned categories.
+        /// </summary>
         Auriga.IContainerList<Auriga.Fa.IExchangeCategory> OwnedCategories { get; }
 
+        /// <summary>
+        /// Gets the owned exchange specification realizations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Fa.IExchangeSpecificationRealization> OwnedExchangeSpecificationRealizations { get; }
+
+        /// <summary>
+        /// Gets the owned exchanges.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Fa.IFunctionalExchangeSpecification> OwnedExchanges { get; }
+
+        /// <summary>
+        /// Gets the owned function specifications.
+        /// </summary>
         Auriga.IContainerList<Auriga.Fa.IFunctionSpecification> OwnedFunctionSpecifications { get; }
+
+        /// <summary>
+        /// Gets the owned functional links.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa.Deployment
 {
+    /// <summary>
+    /// Definition of the <c>DeploymentAspect</c> interface.
+    /// </summary>
     public partial interface IDeploymentAspect : Auriga.Capellacore.IStructure
     {
+        /// <summary>
+        /// Gets the owned configurations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Pa.Deployment.IDeploymentConfiguration> OwnedConfigurations { get; }
 
+        /// <summary>
+        /// Gets the owned deployment aspects.
+        /// </summary>
         Auriga.IContainerList<Auriga.Pa.Deployment.IDeploymentAspect> OwnedDeploymentAspects { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

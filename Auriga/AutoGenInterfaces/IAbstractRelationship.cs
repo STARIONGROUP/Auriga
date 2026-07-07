@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Modellingcore
 {
+    /// <summary>
+    /// Definition of the <c>AbstractRelationship</c> interface.
+    /// </summary>
     public partial interface IAbstractRelationship : Auriga.Modellingcore.IModelElement
     {
+        /// <summary>
+        /// Gets or sets the realized flow.
+        /// </summary>
         Auriga.Modellingcore.IAbstractInformationFlow RealizedFlow { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

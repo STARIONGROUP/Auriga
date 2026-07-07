@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
+    /// <summary>
+    /// Definition of the <c>TimeLapse</c> interface.
+    /// </summary>
     public partial interface ITimeLapse : Auriga.Capellacore.INamedElement
     {
-        Auriga.Interaction.IInteractionFragment Start { get; set; }
-
+        /// <summary>
+        /// Gets or sets the finish.
+        /// </summary>
         Auriga.Interaction.IInteractionFragment Finish { get; set; }
+
+        /// <summary>
+        /// Gets or sets the start.
+        /// </summary>
+        Auriga.Interaction.IInteractionFragment Start { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

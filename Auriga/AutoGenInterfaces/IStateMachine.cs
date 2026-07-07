@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
+    /// <summary>
+    /// Definition of the <c>StateMachine</c> interface.
+    /// </summary>
     public partial interface IStateMachine : Auriga.Capellacore.ICapellaElement, Auriga.Behavior.IAbstractBehavior
     {
-        Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
-
+        /// <summary>
+        /// Gets the owned connection points.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
+
+        /// <summary>
+        /// Gets the owned regions.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

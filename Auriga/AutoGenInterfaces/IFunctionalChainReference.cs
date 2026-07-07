@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// Definition of the <c>FunctionalChainReference</c> interface.
+    /// </summary>
     public partial interface IFunctionalChainReference : Auriga.Fa.IFunctionalChainInvolvement
     {
+        /// <summary>
+        /// Gets the referenced functional chain.
+        /// </summary>
         Auriga.Fa.IFunctionalChain ReferencedFunctionalChain { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

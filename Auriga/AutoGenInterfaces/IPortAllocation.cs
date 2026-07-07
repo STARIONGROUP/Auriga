@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// Definition of the <c>PortAllocation</c> interface.
+    /// </summary>
     public partial interface IPortAllocation : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the allocated port.
+        /// </summary>
         Auriga.Information.IPort AllocatedPort { get; }
 
+        /// <summary>
+        /// Gets the allocating port.
+        /// </summary>
         Auriga.Information.IPort AllocatingPort { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

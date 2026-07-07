@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Pa
 {
+    /// <summary>
+    /// The <c>PhysicalComponentNature</c> enumeration.
+    /// </summary>
     public enum PhysicalComponentNature
     {
+        /// <summary>
+        /// The <c>UNSET</c> literal.
+        /// </summary>
         UNSET,
 
+        /// <summary>
+        /// The <c>BEHAVIOR</c> literal.
+        /// </summary>
         BEHAVIOR,
 
+        /// <summary>
+        /// The <c>NODE</c> literal.
+        /// </summary>
         NODE
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

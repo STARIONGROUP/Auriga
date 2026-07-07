@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.La
 {
+    /// <summary>
+    /// Definition of the <c>LogicalFunctionPkg</c> interface.
+    /// </summary>
     public partial interface ILogicalFunctionPkg : Auriga.Fa.IFunctionPkg
     {
-        Auriga.IContainerList<Auriga.La.ILogicalFunction> OwnedLogicalFunctions { get; }
-
+        /// <summary>
+        /// Gets the owned logical function pkgs.
+        /// </summary>
         Auriga.IContainerList<Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned logical functions.
+        /// </summary>
+        Auriga.IContainerList<Auriga.La.ILogicalFunction> OwnedLogicalFunctions { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

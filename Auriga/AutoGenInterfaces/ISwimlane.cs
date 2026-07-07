@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Oa
 {
+    /// <summary>
+    /// Definition of the <c>Swimlane</c> interface.
+    /// </summary>
     public partial interface ISwimlane : Auriga.Capellacore.INamedElement, Auriga.Activity.IActivityPartition
     {
+        /// <summary>
+        /// Gets the represented entity.
+        /// </summary>
         Auriga.Oa.IEntity RepresentedEntity { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

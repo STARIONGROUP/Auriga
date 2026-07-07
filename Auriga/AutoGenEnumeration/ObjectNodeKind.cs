@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
+    /// <summary>
+    /// The <c>ObjectNodeKind</c> enumeration.
+    /// </summary>
     public enum ObjectNodeKind
     {
+        /// <summary>
+        /// The <c>Unspecified</c> literal.
+        /// </summary>
         Unspecified,
 
+        /// <summary>
+        /// The <c>NoBuffer</c> literal.
+        /// </summary>
         NoBuffer,
 
+        /// <summary>
+        /// The <c>Overwrite</c> literal.
+        /// </summary>
         Overwrite
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,17 +12,29 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>Association</c> interface.
+    /// </summary>
     public partial interface IAssociation : Auriga.Capellacore.INamedRelationship
     {
-        Auriga.IContainerList<Auriga.Information.IProperty> OwnedMembers { get; }
-
+        /// <summary>
+        /// Gets the navigable members.
+        /// </summary>
         List<Auriga.Information.IProperty> NavigableMembers { get; }
+
+        /// <summary>
+        /// Gets the owned members.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Information.IProperty> OwnedMembers { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

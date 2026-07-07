@@ -12,19 +12,34 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Modellingcore
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>AbstractParameterSet</c> interface.
+    /// </summary>
     public partial interface IAbstractParameterSet : Auriga.Modellingcore.IAbstractNamedElement
     {
+        /// <summary>
+        /// Gets the owned conditions.
+        /// </summary>
         Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConditions { get; }
 
-        Auriga.Modellingcore.IValueSpecification Probability { get; set; }
-
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
         List<Auriga.Modellingcore.IAbstractParameter> Parameters { get; }
+
+        /// <summary>
+        /// Gets or sets the probability.
+        /// </summary>
+        Auriga.Modellingcore.IValueSpecification Probability { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

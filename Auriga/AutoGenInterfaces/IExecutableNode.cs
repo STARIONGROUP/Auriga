@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
+    /// <summary>
+    /// Definition of the <c>ExecutableNode</c> interface.
+    /// </summary>
     public partial interface IExecutableNode : Auriga.Activity.IActivityNode
     {
+        /// <summary>
+        /// Gets the owned handlers.
+        /// </summary>
         Auriga.IContainerList<Auriga.Activity.IExceptionHandler> OwnedHandlers { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

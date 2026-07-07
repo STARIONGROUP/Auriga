@@ -12,22 +12,40 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>ExchangeSpecification</c> interface.
+    /// </summary>
     public partial interface IExchangeSpecification : Auriga.Capellacore.INamedElement, Auriga.Activity.IActivityExchange
     {
+        /// <summary>
+        /// Gets the containing link.
+        /// </summary>
         Auriga.Fa.IExchangeLink ContainingLink { get; }
 
+        /// <summary>
+        /// Gets the incoming exchange specification realizations.
+        /// </summary>
+        IEnumerable<Auriga.Fa.IExchangeSpecificationRealization> IncomingExchangeSpecificationRealizations { get; }
+
+        /// <summary>
+        /// Gets or sets the link.
+        /// </summary>
         Auriga.Fa.IExchangeContainment Link { get; set; }
 
+        /// <summary>
+        /// Gets the outgoing exchange specification realizations.
+        /// </summary>
         IEnumerable<Auriga.Fa.IExchangeSpecificationRealization> OutgoingExchangeSpecificationRealizations { get; }
-
-        IEnumerable<Auriga.Fa.IExchangeSpecificationRealization> IncomingExchangeSpecificationRealizations { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacommon
 {
+    /// <summary>
+    /// Definition of the <c>GenericTrace</c> interface.
+    /// </summary>
     public partial interface IGenericTrace : Auriga.Capellacore.ITrace
     {
+        /// <summary>
+        /// Gets the key value pairs.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
 
+        /// <summary>
+        /// Gets the source.
+        /// </summary>
         Auriga.Modellingcore.ITraceableElement Source { get; }
 
+        /// <summary>
+        /// Gets the target.
+        /// </summary>
         Auriga.Modellingcore.ITraceableElement Target { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

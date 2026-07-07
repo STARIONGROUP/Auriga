@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Capellacore
 {
+    /// <summary>
+    /// Definition of the <c>EnumerationPropertyType</c> interface.
+    /// </summary>
     public partial interface IEnumerationPropertyType : Auriga.Capellacore.INamedElement
     {
+        /// <summary>
+        /// Gets the owned literals.
+        /// </summary>
         Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyLiteral> OwnedLiterals { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

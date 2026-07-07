@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// Definition of the <c>AssociationPkg</c> interface.
+    /// </summary>
     public partial interface IAssociationPkg : Auriga.Capellacore.IStructure
     {
-        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
-
+        /// <summary>
+        /// Gets the owned associations.
+        /// </summary>
         Auriga.IContainerList<Auriga.Information.IAssociation> OwnedAssociations { get; }
+
+        /// <summary>
+        /// Gets or sets the visibility.
+        /// </summary>
+        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

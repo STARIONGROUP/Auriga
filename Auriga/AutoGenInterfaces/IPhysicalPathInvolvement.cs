@@ -12,22 +12,40 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Cs
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>PhysicalPathInvolvement</c> interface.
+    /// </summary>
     public partial interface IPhysicalPathInvolvement : Auriga.Capellacore.IInvolvement
     {
-        List<Auriga.Cs.IPhysicalPathInvolvement> NextInvolvements { get; }
+        /// <summary>
+        /// Gets the involved component.
+        /// </summary>
+        Auriga.Cs.IComponent InvolvedComponent { get; }
 
-        IEnumerable<Auriga.Cs.IPhysicalPathInvolvement> PreviousInvolvements { get; }
-
+        /// <summary>
+        /// Gets the involved element.
+        /// </summary>
         Auriga.Cs.IAbstractPathInvolvedElement InvolvedElement { get; }
 
-        Auriga.Cs.IComponent InvolvedComponent { get; }
+        /// <summary>
+        /// Gets the next involvements.
+        /// </summary>
+        List<Auriga.Cs.IPhysicalPathInvolvement> NextInvolvements { get; }
+
+        /// <summary>
+        /// Gets the previous involvements.
+        /// </summary>
+        IEnumerable<Auriga.Cs.IPhysicalPathInvolvement> PreviousInvolvements { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

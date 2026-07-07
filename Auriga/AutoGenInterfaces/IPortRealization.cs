@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information
 {
+    /// <summary>
+    /// Definition of the <c>PortRealization</c> interface.
+    /// </summary>
     public partial interface IPortRealization : Auriga.Capellacore.IAllocation
     {
+        /// <summary>
+        /// Gets the realized port.
+        /// </summary>
         Auriga.Information.IPort RealizedPort { get; }
 
+        /// <summary>
+        /// Gets the realizing port.
+        /// </summary>
         Auriga.Information.IPort RealizingPort { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

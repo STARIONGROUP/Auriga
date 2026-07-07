@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
+    /// <summary>
+    /// Definition of the <c>InputPin</c> interface.
+    /// </summary>
     public partial interface IInputPin : Auriga.Activity.IPin
     {
+        /// <summary>
+        /// Gets or sets the input evaluation action.
+        /// </summary>
         Auriga.Activity.IAbstractAction InputEvaluationAction { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

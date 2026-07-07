@@ -12,21 +12,42 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
+    /// <summary>
+    /// The <c>ScenarioKind</c> enumeration.
+    /// </summary>
     public enum ScenarioKind
     {
+        /// <summary>
+        /// The <c>UNSET</c> literal.
+        /// </summary>
         UNSET,
 
+        /// <summary>
+        /// The <c>INTERFACE</c> literal.
+        /// </summary>
         INTERFACE,
 
+        /// <summary>
+        /// The <c>DATA_FLOW</c> literal.
+        /// </summary>
         DATA_FLOW,
 
+        /// <summary>
+        /// The <c>INTERACTION</c> literal.
+        /// </summary>
         INTERACTION,
 
+        /// <summary>
+        /// The <c>FUNCTIONAL</c> literal.
+        /// </summary>
         FUNCTIONAL
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

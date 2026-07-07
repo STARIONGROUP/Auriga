@@ -12,17 +12,29 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Interaction
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Definition of the <c>AbstractCapabilityExtensionPoint</c> interface.
+    /// </summary>
     public partial interface IAbstractCapabilityExtensionPoint : Auriga.Capellacore.INamedRelationship
     {
+        /// <summary>
+        /// Gets the abstract capability.
+        /// </summary>
         Auriga.Interaction.IAbstractCapability AbstractCapability { get; }
 
+        /// <summary>
+        /// Gets the extend links.
+        /// </summary>
         List<Auriga.Interaction.IAbstractCapabilityExtend> ExtendLinks { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

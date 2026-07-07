@@ -12,19 +12,37 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// The <c>ComponentExchangeKind</c> enumeration.
+    /// </summary>
     public enum ComponentExchangeKind
     {
+        /// <summary>
+        /// The <c>UNSET</c> literal.
+        /// </summary>
         UNSET,
 
+        /// <summary>
+        /// The <c>DELEGATION</c> literal.
+        /// </summary>
         DELEGATION,
 
+        /// <summary>
+        /// The <c>ASSEMBLY</c> literal.
+        /// </summary>
         ASSEMBLY,
 
+        /// <summary>
+        /// The <c>FLOW</c> literal.
+        /// </summary>
         FLOW
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -12,26 +12,50 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Activity
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>AbstractActivity</c> interface.
+    /// </summary>
     public partial interface IAbstractActivity : Auriga.Behavior.IAbstractBehavior, Auriga.Modellingcore.ITraceableElement
     {
+        /// <summary>
+        /// Gets or sets the is read only.
+        /// </summary>
         bool? IsReadOnly { get; set; }
 
+        /// <summary>
+        /// Gets or sets the is single execution.
+        /// </summary>
         bool? IsSingleExecution { get; set; }
 
-        Auriga.IContainerList<Auriga.Activity.IActivityNode> OwnedNodes { get; }
-
+        /// <summary>
+        /// Gets the owned edges.
+        /// </summary>
         Auriga.IContainerList<Auriga.Activity.IActivityEdge> OwnedEdges { get; }
 
+        /// <summary>
+        /// Gets the owned groups.
+        /// </summary>
         Auriga.IContainerList<Auriga.Activity.IActivityGroup> OwnedGroups { get; }
 
+        /// <summary>
+        /// Gets the owned nodes.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Activity.IActivityNode> OwnedNodes { get; }
+
+        /// <summary>
+        /// Gets the owned structured nodes.
+        /// </summary>
         IEnumerable<Auriga.Activity.IStructuredActivityNode> OwnedStructuredNodes { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

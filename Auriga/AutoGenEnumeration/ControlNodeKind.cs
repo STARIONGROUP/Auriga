@@ -12,17 +12,32 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Fa
 {
+    /// <summary>
+    /// The <c>ControlNodeKind</c> enumeration.
+    /// </summary>
     public enum ControlNodeKind
     {
+        /// <summary>
+        /// The <c>OR</c> literal.
+        /// </summary>
         OR,
 
+        /// <summary>
+        /// The <c>AND</c> literal.
+        /// </summary>
         AND,
 
+        /// <summary>
+        /// The <c>ITERATE</c> literal.
+        /// </summary>
         ITERATE
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

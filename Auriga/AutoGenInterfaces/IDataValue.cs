@@ -12,15 +12,27 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information.Datavalue
 {
+    /// <summary>
+    /// Definition of the <c>DataValue</c> interface.
+    /// </summary>
     public partial interface IDataValue : Auriga.Capellacore.INamedElement, Auriga.Modellingcore.IValueSpecification
     {
+        /// <summary>
+        /// Gets or sets the abstract.
+        /// </summary>
         bool? Abstract { get; set; }
 
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
         Auriga.Capellacore.IType Type { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

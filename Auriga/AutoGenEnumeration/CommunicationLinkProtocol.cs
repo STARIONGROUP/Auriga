@@ -12,27 +12,57 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Information.Communication
 {
+    /// <summary>
+    /// The <c>CommunicationLinkProtocol</c> enumeration.
+    /// </summary>
     public enum CommunicationLinkProtocol
     {
+        /// <summary>
+        /// The <c>UNSET</c> literal.
+        /// </summary>
         UNSET,
 
+        /// <summary>
+        /// The <c>UNICAST</c> literal.
+        /// </summary>
         UNICAST,
 
+        /// <summary>
+        /// The <c>MULTICAST</c> literal.
+        /// </summary>
         MULTICAST,
 
+        /// <summary>
+        /// The <c>BROADCAST</c> literal.
+        /// </summary>
         BROADCAST,
 
+        /// <summary>
+        /// The <c>SYNCHRONOUS</c> literal.
+        /// </summary>
         SYNCHRONOUS,
 
+        /// <summary>
+        /// The <c>ASYNCHRONOUS</c> literal.
+        /// </summary>
         ASYNCHRONOUS,
 
+        /// <summary>
+        /// The <c>READ</c> literal.
+        /// </summary>
         READ,
 
+        /// <summary>
+        /// The <c>ACCEPT</c> literal.
+        /// </summary>
         ACCEPT
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

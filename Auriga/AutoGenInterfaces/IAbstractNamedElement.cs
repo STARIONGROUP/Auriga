@@ -12,13 +12,22 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.Modellingcore
 {
+    /// <summary>
+    /// Definition of the <c>AbstractNamedElement</c> interface.
+    /// </summary>
     public partial interface IAbstractNamedElement : Auriga.Modellingcore.IModelElement
     {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         string Name { get; set; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

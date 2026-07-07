@@ -12,28 +12,55 @@
 // ------------------------------------------------------------------------------------------------
 
 #nullable disable
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 namespace Auriga.La
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Definition of the <c>LogicalComponent</c> interface.
+    /// </summary>
     public partial interface ILogicalComponent : Auriga.Cs.IComponent, Auriga.Capellacommon.ICapabilityRealizationInvolvedElement
     {
-        Auriga.IContainerList<Auriga.La.ILogicalComponent> OwnedLogicalComponents { get; }
-
-        Auriga.IContainerList<Auriga.La.ILogicalArchitecture> OwnedLogicalArchitectures { get; }
-
-        Auriga.IContainerList<Auriga.La.ILogicalComponentPkg> OwnedLogicalComponentPkgs { get; }
-
-        IEnumerable<Auriga.La.ILogicalComponent> SubLogicalComponents { get; }
-
+        /// <summary>
+        /// Gets the allocated logical functions.
+        /// </summary>
         IEnumerable<Auriga.La.ILogicalFunction> AllocatedLogicalFunctions { get; }
 
+        /// <summary>
+        /// Gets the owned logical architectures.
+        /// </summary>
+        Auriga.IContainerList<Auriga.La.ILogicalArchitecture> OwnedLogicalArchitectures { get; }
+
+        /// <summary>
+        /// Gets the owned logical component pkgs.
+        /// </summary>
+        Auriga.IContainerList<Auriga.La.ILogicalComponentPkg> OwnedLogicalComponentPkgs { get; }
+
+        /// <summary>
+        /// Gets the owned logical components.
+        /// </summary>
+        Auriga.IContainerList<Auriga.La.ILogicalComponent> OwnedLogicalComponents { get; }
+
+        /// <summary>
+        /// Gets the realized system components.
+        /// </summary>
         IEnumerable<Auriga.Ctx.ISystemComponent> RealizedSystemComponents { get; }
 
+        /// <summary>
+        /// Gets the realizing physical components.
+        /// </summary>
         IEnumerable<Auriga.Pa.IPhysicalComponent> RealizingPhysicalComponents { get; }
+
+        /// <summary>
+        /// Gets the sub logical components.
+        /// </summary>
+        IEnumerable<Auriga.La.ILogicalComponent> SubLogicalComponents { get; }
 
     }
 }
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
