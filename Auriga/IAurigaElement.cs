@@ -9,6 +9,8 @@
 
 namespace Auriga
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The minimal contract implemented by every element in the Auriga Capella object model.
     /// The generated <c>modellingcore::ModelElement</c> interface extends this, so every model
@@ -25,5 +27,20 @@ namespace Auriga
         /// Gets or sets the element that contains this element, or <c>null</c> when this element is a root.
         /// </summary>
         IAurigaElement? Container { get; set; }
+
+        /// <summary>
+        /// Gets the single-valued reference features whose targets are not yet resolved, keyed by the
+        /// property name, with the referenced <c>xmi:id</c> as the value. The XMI reader records
+        /// cross-references here on the first pass and resolves them to object references on the second
+        /// pass, once every element has been instantiated (the uml4net two-pass pattern).
+        /// </summary>
+        IDictionary<string, string> SingleValueReferencePropertyIdentifiers { get; }
+
+        /// <summary>
+        /// Gets the multi-valued reference features whose targets are not yet resolved, keyed by the
+        /// property name, with the list of referenced <c>xmi:id</c>s as the value. Populated on the
+        /// reader's first pass and resolved on the second.
+        /// </summary>
+        IDictionary<string, List<string>> MultiValueReferencePropertyIdentifiers { get; }
     }
 }

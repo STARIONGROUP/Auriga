@@ -208,6 +208,22 @@ There is no factory runtime — object construction is `new Foo()`, and deserial
     ```
 - **Input** is `resources/ecore` (the 21 vendored files), loaded exactly as the #2 validation tests do.
 
+## 10a. XMI reader generation (#10)
+
+The same generator also emits the **XMI readers** consumed by `Auriga.Xmi`, following the uml4net pattern of a generated per-type reader on top of a hand-written core:
+
+- **`XmiReaderGenerator`** (in `Generators/`, sharing `MetamodelLoader` with the model generator) emits, into the `Auriga.Xmi` project:
+  - `AutoGenXmiReaders/<Package>/<Type>Reader.cs` — one reader per concrete class, driven from the ECoreNetto POCOs through `XmiReaderHelper`. Each feature is classified exactly as uml4net's `PropertyHelper` does — scalar / enum attribute, single- or multi-valued `#id` reference (a Capella attribute), or single/collection containment (a child element carrying `xsi:type`) — and the matching read code is emitted.
+  - `AutoGenXmiReaders/XmiReaderFacade.cs` — the registry mapping a package-qualified type key (`package:TypeName`) to its reader, resolving an element's `xsi:type` via the document's namespace bindings.
+  - `AutoGenXmiReaders/AutoGenNamespaceRegistry.cs` — the map from each package's XML namespace URI to its Ecore package name.
+- **Hand-written core** in `Auriga.Xmi` (`XmiReader`, `XmiElementCache`, `NamespaceResolver`, `ReferenceResolver`, `XmiElementReader<T>`, `XmiReaderBuilder`) implements the two-pass load: instantiate + cache on the first pass, resolve the collected `#id` references on the second. The model base (`AurigaElement`) carries the deferred-reference dictionaries the readers populate.
+- **Regeneration** (drift-guarded and golden-file tested like the model):
+  ```
+  dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_xmi_readers"
+  dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_expected_readers"
+  ```
+- **Scope (#10):** single-file `.melodymodeller`/`.capella` documents with intra-file `#id` references. Cross-file fragments (`href` into `.capellafragment`) are a later issue.
+
 ## 11. Open items to confirm during implementation (#7)
 
 1. No custom `EDataType`s exist (assert the datatype bucket is empty).

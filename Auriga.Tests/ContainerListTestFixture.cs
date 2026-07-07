@@ -246,6 +246,12 @@ namespace Auriga.Tests
             public string? Id { get; set; }
 
             public IAurigaElement? Container { get; set; }
+
+            public System.Collections.Generic.IDictionary<string, string> SingleValueReferencePropertyIdentifiers { get; }
+                = new System.Collections.Generic.Dictionary<string, string>();
+
+            public System.Collections.Generic.IDictionary<string, System.Collections.Generic.List<string>> MultiValueReferencePropertyIdentifiers { get; }
+                = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>();
         }
     }
 }

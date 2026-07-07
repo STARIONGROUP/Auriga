@@ -21,7 +21,10 @@ namespace Auriga.CodeGenerator.Tests.Expected
     /// </summary>
     public sealed class ExpectedAllClasses : IEnumerable<string>
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns an enumerator that iterates over the class names.
+        /// </summary>
+        /// <returns>an enumerator over the class names</returns>
         public IEnumerator<string> GetEnumerator()
         {
             yield return "AbstractAction";
@@ -46,7 +49,10 @@ namespace Auriga.CodeGenerator.Tests.Expected
             yield return "SystemCommunication";
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns an enumerator that iterates over the class names.
+        /// </summary>
+        /// <returns>an enumerator over the class names</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
@@ -59,7 +65,10 @@ namespace Auriga.CodeGenerator.Tests.Expected
     /// </summary>
     public sealed class ExpectedConcreteClasses : IEnumerable<string>
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns an enumerator that iterates over the class names.
+        /// </summary>
+        /// <returns>an enumerator over the class names</returns>
         public IEnumerator<string> GetEnumerator()
         {
             yield return "Association";
@@ -75,7 +84,10 @@ namespace Auriga.CodeGenerator.Tests.Expected
             yield return "SystemCommunication";
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns an enumerator that iterates over the class names.
+        /// </summary>
+        /// <returns>an enumerator over the class names</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

@@ -9,6 +9,8 @@
 
 namespace Auriga
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The hand-written base class of every generated concrete Capella element. It provides the
     /// identity and container plumbing the generated object graph rests on (the analogue of
@@ -26,5 +28,21 @@ namespace Auriga
         /// Gets or sets the element that contains this element, or <c>null</c> when this element is a root.
         /// </summary>
         public IAurigaElement? Container { get; set; }
+
+        /// <summary>
+        /// Gets the single-valued reference features whose targets are not yet resolved, keyed by the
+        /// property name, with the referenced <c>xmi:id</c> as the value. Populated on the reader's
+        /// first pass and resolved on the second.
+        /// </summary>
+        public IDictionary<string, string> SingleValueReferencePropertyIdentifiers { get; }
+            = new Dictionary<string, string>();
+
+        /// <summary>
+        /// Gets the multi-valued reference features whose targets are not yet resolved, keyed by the
+        /// property name, with the list of referenced <c>xmi:id</c>s as the value. Populated on the
+        /// reader's first pass and resolved on the second.
+        /// </summary>
+        public IDictionary<string, List<string>> MultiValueReferencePropertyIdentifiers { get; }
+            = new Dictionary<string, List<string>>();
     }
 }

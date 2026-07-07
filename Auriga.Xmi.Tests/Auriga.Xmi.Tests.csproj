@@ -26,4 +26,23 @@
         <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="..\TestData\minimal\minimal.melodymodeller">
+            <Link>TestData\minimal.melodymodeller</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\coffee-machine\coffee-machine-demo.capella">
+            <Link>TestData\coffee-machine-demo.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\in-flight-entertainment-system\In-Flight Entertainment System.capella">
+            <Link>TestData\in-flight-entertainment-system.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\fragmented-sysmodel\sysmodel.capella">
+            <Link>TestData\sysmodel.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>
