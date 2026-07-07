@@ -120,8 +120,13 @@ jobs:
           targetdir: CoverageReport
           reporttypes: Cobertura
 
+      # Coverage reporting is a PR-informational nicety and must never fail the build.
+      # In particular, while the production libraries are still empty scaffolds the merged
+      # report contains no package data and CodeCoverageSummary errors out; continue-on-error
+      # keeps that from red-flagging the PR until there is production code to cover.
       - name: Code coverage summary
         if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
+        continue-on-error: true
         uses: irongut/CodeCoverageSummary@51cc3a756ddcd398d447c044c02cb6aa83fdae95 # v1.3.0
         with:
           filename: CoverageReport/Cobertura.xml
@@ -130,10 +135,12 @@ jobs:
 
       - name: Append coverage to job summary
         if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
-        run: cat code-coverage-results.md >> "$GITHUB_STEP_SUMMARY"
+        continue-on-error: true
+        run: '[ -f code-coverage-results.md ] && cat code-coverage-results.md >> "$GITHUB_STEP_SUMMARY" || echo "No coverage summary to append."'
 
       - name: Post coverage comment on PR
-        if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
+        if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request' && hashFiles('code-coverage-results.md') != ''
+        continue-on-error: true
         uses: marocchino/sticky-pull-request-comment@efaaab3fd41a9c3de579aba759d2552635e590fd # v2.8.0
         with:
           header: code-coverage
