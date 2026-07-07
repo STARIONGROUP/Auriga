@@ -23,6 +23,10 @@ namespace Auriga.Xmi
     /// </summary>
     public sealed class XmiReaderBuilder
     {
+        /// <summary>
+        /// The logger factory the built reader and its collaborators log through, or <c>null</c> to
+        /// disable logging.
+        /// </summary>
         private ILoggerFactory? loggerFactory;
 
         /// <summary>

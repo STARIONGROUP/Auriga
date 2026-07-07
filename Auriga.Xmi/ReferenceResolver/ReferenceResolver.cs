@@ -28,8 +28,15 @@ namespace Auriga.Xmi.ReferenceResolver
     /// </summary>
     public sealed class ReferenceResolver : IReferenceResolver
     {
+        /// <summary>
+        /// The binding flags used to look up a reference property by its (PascalCase) name — public
+        /// instance properties, matched case-insensitively.
+        /// </summary>
         private const BindingFlags PropertyBindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase;
 
+        /// <summary>
+        /// The logger used to report references that cannot be resolved.
+        /// </summary>
         private readonly ILogger<ReferenceResolver> logger;
 
         /// <summary>

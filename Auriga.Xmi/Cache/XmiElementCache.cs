@@ -17,6 +17,9 @@ namespace Auriga.Xmi.Cache
     /// </summary>
     public sealed class XmiElementCache : IXmiElementCache
     {
+        /// <summary>
+        /// The backing store of cached elements, keyed by <c>xmi:id</c> with ordinal comparison.
+        /// </summary>
         private readonly Dictionary<string, IAurigaElement> elements = new Dictionary<string, IAurigaElement>(StringComparer.Ordinal);
 
         /// <summary>
