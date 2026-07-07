@@ -33,4 +33,24 @@
         </None>
     </ItemGroup>
 
+    <!--
+      The golden files under Expected/AutoGen* are the committed expected generator output. They are
+      not compiled (they belong to Auriga's namespaces, not the test project) but are copied to the
+      test output so the golden-file tests can read them.
+    -->
+    <ItemGroup>
+        <Compile Remove="Expected\AutoGenInterfaces\**\*.cs" />
+        <Compile Remove="Expected\AutoGenClasses\**\*.cs" />
+        <Compile Remove="Expected\AutoGenEnumeration\**\*.cs" />
+        <None Include="Expected\AutoGenInterfaces\**\*.cs">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="Expected\AutoGenClasses\**\*.cs">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="Expected\AutoGenEnumeration\**\*.cs">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>
