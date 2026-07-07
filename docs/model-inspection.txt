@@ -1,0 +1,2524 @@
+The purpose of this report is to provide an overview of the
+contents of an ECore model.
+
+1. This report shows the variation of value-types reference-types
+   and enumerations
+2. The report provides an overview of the variation of
+   used multiplicities. 
+3. The report shows an overview of interesting classes.
+   Interesting classes are those classes that should be used
+   when writing unit tests for code generation. By writing
+   tests for these classes all variations of types and multiplicities
+   are covered.
+4. The report lists each class and feature that does contain
+   any documentation.
+
+Inspection Report generated on Tuesday, 7 July 2026 18:02
+
+----- PACKAGE activity ANALYSIS ------
+
+activity.AbstractAction -- REF 0:1:containment
+activity.AbstractAction -- REF 0:1
+activity.AbstractAction -- REF 0:-1:containment
+AbstractActivity -- VAL EBoolean:0:1
+ActivityEdge -- ENUM 0:1
+activity.ActivityEdge -- REF 1:1
+activity.ExceptionHandler -- REF 1:-1
+activity.InterruptibleActivityRegion -- REF 0:-1
+activity.SendSignalAction -- REF 1:1:containment
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+value type: EBoolean:0:1
+
+----- INTERESTING CLASSES ------
+
+class: activity:AbstractAction
+class: activity:AbstractActivity
+class: activity:ActivityEdge
+class: activity:ExceptionHandler
+class: activity:InterruptibleActivityRegion
+class: activity:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+activity.AbstractAction
+activity.AbstractAction:context
+activity.AbstractAction:inputs
+activity.AbstractAction:localPostcondition
+activity.AbstractAction:localPrecondition
+activity.AbstractAction:outputs
+activity.AbstractActivity
+activity.AbstractActivity:isReadOnly
+activity.AbstractActivity:isSingleExecution
+activity.AbstractActivity:ownedEdges
+activity.AbstractActivity:ownedGroups
+activity.AbstractActivity:ownedNodes
+activity.AbstractActivity:ownedStructuredNodes
+activity.AcceptEventAction
+activity.AcceptEventAction:isUnmarshall
+activity.AcceptEventAction:result
+activity.ActivityEdge
+activity.ActivityEdge:guard
+activity.ActivityEdge:inActivityPartition
+activity.ActivityEdge:inInterruptibleRegion
+activity.ActivityEdge:inStructuredNode
+activity.ActivityEdge:interrupts
+activity.ActivityEdge:kindOfRate
+activity.ActivityEdge:probability
+activity.ActivityEdge:rate
+activity.ActivityEdge:source
+activity.ActivityEdge:target
+activity.ActivityEdge:weight
+activity.ActivityExchange
+activity.ActivityExchange:realizingActivityFlows
+activity.ActivityGroup
+activity.ActivityGroup:ownedEdges
+activity.ActivityGroup:ownedNodes
+activity.ActivityGroup:subGroups
+activity.ActivityGroup:superGroup
+activity.ActivityNode
+activity.ActivityNode:inActivityPartition
+activity.ActivityNode:incoming
+activity.ActivityNode:inInterruptibleRegion
+activity.ActivityNode:inStructuredNode
+activity.ActivityNode:outgoing
+activity.ActivityPartition
+activity.ActivityPartition:isDimension
+activity.ActivityPartition:isExternal
+activity.ActivityPartition:representedElement
+activity.ActivityPartition:subPartitions
+activity.ActivityPartition:superPartition
+activity.CallAction
+activity.CallAction:results
+activity.CallBehaviorAction
+activity.CallBehaviorAction:behavior
+activity.ControlFlow
+activity.ExceptionHandler
+activity.ExceptionHandler:exceptionInput
+activity.ExceptionHandler:exceptionTypes
+activity.ExceptionHandler:handlerBody
+activity.ExceptionHandler:protectedNode
+activity.ExecutableNode
+activity.ExecutableNode:ownedHandlers
+activity.InputPin
+activity.InputPin:inputEvaluationAction
+activity.InterruptibleActivityRegion
+activity.InterruptibleActivityRegion:interruptingEdges
+activity.InvocationAction
+activity.InvocationAction:arguments
+activity.ObjectFlow
+activity.ObjectFlow:isMulticast
+activity.ObjectFlow:isMultireceive
+activity.ObjectFlow:selection
+activity.ObjectFlow:transformation
+activity.ObjectNode
+activity.ObjectNode:inState
+activity.ObjectNode:isControlType
+activity.ObjectNode:kindOfNode
+activity.ObjectNode:ordering
+activity.ObjectNode:selection
+activity.ObjectNode:upperBound
+activity.OutputPin
+activity.Pin
+activity.Pin:isControl
+activity.SendSignalAction
+activity.SendSignalAction:signal
+activity.SendSignalAction:target
+activity.StructuredActivityNode
+activity.ValuePin
+activity.ValuePin:value
+
+----- PACKAGE behavior ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+value type: EBoolean:0:1
+
+----- INTERESTING CLASSES ------
+
+class: behavior:AbstractAction
+class: behavior:AbstractActivity
+class: behavior:ActivityEdge
+class: behavior:ExceptionHandler
+class: behavior:InterruptibleActivityRegion
+class: behavior:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+behavior.AbstractBehavior
+behavior.AbstractBehavior:isControlOperator
+behavior.AbstractBehavior:ownedParameter
+behavior.AbstractBehavior:ownedParameterSet
+behavior.AbstractEvent
+behavior.AbstractMessageEvent
+behavior.AbstractSignal
+behavior.AbstractSignalEvent
+behavior.AbstractSignalEvent:signal
+behavior.AbstractTimeEvent
+behavior.AbstractTimeEvent:isRelative
+behavior.AbstractTimeEvent:when
+behavior.TimeExpression
+behavior.TimeExpression:expression
+behavior.TimeExpression:observations
+
+----- PACKAGE modellingcore ANALYSIS ------
+
+AbstractNamedElement -- VAL EString:0:1
+ModelElement -- VAL EString:1:1
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+value type: EBoolean:0:1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: modellingcore:AbstractAction
+class: modellingcore:AbstractActivity
+class: modellingcore:AbstractNamedElement
+class: modellingcore:ActivityEdge
+class: modellingcore:ExceptionHandler
+class: modellingcore:InterruptibleActivityRegion
+class: modellingcore:ModelElement
+class: modellingcore:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+modellingcore.AbstractConstraint
+modellingcore.AbstractConstraint:constrainedElements
+modellingcore.AbstractConstraint:context
+modellingcore.AbstractConstraint:ownedSpecification
+modellingcore.AbstractExchangeItem
+modellingcore.AbstractInformationFlow
+modellingcore.AbstractInformationFlow:convoyedInformations
+modellingcore.AbstractInformationFlow:realizations
+modellingcore.AbstractInformationFlow:source
+modellingcore.AbstractInformationFlow:target
+modellingcore.AbstractNamedElement
+modellingcore.AbstractNamedElement:name
+modellingcore.AbstractParameter
+modellingcore.AbstractParameter:effect
+modellingcore.AbstractParameter:isException
+modellingcore.AbstractParameter:isOptional
+modellingcore.AbstractParameter:isStream
+modellingcore.AbstractParameter:kindOfRate
+modellingcore.AbstractParameter:parameterSet
+modellingcore.AbstractParameter:probability
+modellingcore.AbstractParameter:rate
+modellingcore.AbstractParameterSet
+modellingcore.AbstractParameterSet:ownedConditions
+modellingcore.AbstractParameterSet:parameters
+modellingcore.AbstractParameterSet:probability
+modellingcore.AbstractRelationship
+modellingcore.AbstractRelationship:realizedFlow
+modellingcore.AbstractTrace
+modellingcore.AbstractTrace:sourceElement
+modellingcore.AbstractTrace:targetElement
+modellingcore.AbstractType
+modellingcore.AbstractType:abstractTypedElements
+modellingcore.AbstractTypedElement
+modellingcore.AbstractTypedElement:abstractType
+modellingcore.FinalizableElement
+modellingcore.FinalizableElement:final
+modellingcore.InformationsExchanger
+modellingcore.InformationsExchanger:incomingInformationFlows
+modellingcore.InformationsExchanger:informationFlows
+modellingcore.InformationsExchanger:outgoingInformationFlows
+modellingcore.IState
+modellingcore.IState:exploitedStates
+modellingcore.IState:referencedStates
+modellingcore.ModelElement
+modellingcore.ModelElement:constraints
+modellingcore.ModelElement:id
+modellingcore.ModelElement:ownedConstraints
+modellingcore.ModelElement:ownedMigratedElements
+modellingcore.ModelElement:sid
+modellingcore.PublishableElement
+modellingcore.PublishableElement:visibleInDoc
+modellingcore.PublishableElement:visibleInLM
+modellingcore.TraceableElement
+modellingcore.TraceableElement:incomingTraces
+modellingcore.TraceableElement:outgoingTraces
+modellingcore.ValueSpecification
+
+----- PACKAGE emde ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+value type: EBoolean:0:1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: emde:AbstractAction
+class: emde:AbstractActivity
+class: emde:AbstractNamedElement
+class: emde:ActivityEdge
+class: emde:ExceptionHandler
+class: emde:InterruptibleActivityRegion
+class: emde:ModelElement
+class: emde:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+emde.Element
+emde.ElementExtension
+emde.ExtensibleElement
+emde.ExtensibleElement:ownedExtensions
+
+----- PACKAGE capellacommon ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+value type: EBoolean:0:1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: capellacommon:AbstractAction
+class: capellacommon:AbstractActivity
+class: capellacommon:AbstractNamedElement
+class: capellacommon:ActivityEdge
+class: capellacommon:ExceptionHandler
+class: capellacommon:InterruptibleActivityRegion
+class: capellacommon:ModelElement
+class: capellacommon:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+capellacommon.AbstractCapabilityPkg
+capellacommon.AbstractState
+capellacommon.AbstractState:incoming
+capellacommon.AbstractState:involverRegions
+capellacommon.AbstractState:outgoing
+capellacommon.AbstractState:ownedAbstractStateRealizations
+capellacommon.AbstractState:realizedAbstractStates
+capellacommon.AbstractState:realizingAbstractStates
+capellacommon.AbstractStateRealization
+capellacommon.AbstractStateRealization:realizedAbstractState
+capellacommon.AbstractStateRealization:realizingAbstractState
+capellacommon.CapabilityRealizationInvolvedElement
+capellacommon.CapabilityRealizationInvolvedElement:capabilityRealizationInvolvements
+capellacommon.CapabilityRealizationInvolvedElement:involvingCapabilityRealizations
+capellacommon.CapabilityRealizationInvolvement
+capellacommon.CapabilityRealizationInvolvement:involvedCapabilityRealizationInvolvedElement
+capellacommon.ChangeEvent
+capellacommon.ChangeEvent:kind
+capellacommon.ChoicePseudoState
+capellacommon.DeepHistoryPseudoState
+capellacommon.EntryPointPseudoState
+capellacommon.ExitPointPseudoState
+capellacommon.FinalState
+capellacommon.ForkPseudoState
+capellacommon.GenericTrace
+capellacommon.GenericTrace:keyValuePairs
+capellacommon.GenericTrace:source
+capellacommon.GenericTrace:target
+capellacommon.InitialPseudoState
+capellacommon.JoinPseudoState
+capellacommon.JustificationLink
+capellacommon.Mode
+capellacommon.Pseudostate
+capellacommon.Region
+capellacommon.Region:involvedStates
+capellacommon.Region:ownedStates
+capellacommon.Region:ownedTransitions
+capellacommon.ShallowHistoryPseudoState
+capellacommon.State
+capellacommon.State:availableAbstractCapabilities
+capellacommon.State:availableAbstractFunctions
+capellacommon.State:availableFunctionalChains
+capellacommon.State:doActivity
+capellacommon.State:entry
+capellacommon.State:exit
+capellacommon.State:ownedConnectionPoints
+capellacommon.State:ownedRegions
+capellacommon.State:stateInvariant
+capellacommon.StateEvent
+capellacommon.StateEvent:expression
+capellacommon.StateEvent:ownedStateEventRealizations
+capellacommon.StateEventRealization
+capellacommon.StateEventRealization:realizedEvent
+capellacommon.StateEventRealization:realizingEvent
+capellacommon.StateMachine
+capellacommon.StateMachine:ownedConnectionPoints
+capellacommon.StateMachine:ownedRegions
+capellacommon.StateTransition
+capellacommon.StateTransition:effect
+capellacommon.StateTransition:guard
+capellacommon.StateTransition:kind
+capellacommon.StateTransition:ownedStateTransitionRealizations
+capellacommon.StateTransition:realizedStateTransitions
+capellacommon.StateTransition:realizingStateTransitions
+capellacommon.StateTransition:source
+capellacommon.StateTransition:target
+capellacommon.StateTransition:triggerDescription
+capellacommon.StateTransition:triggers
+capellacommon.StateTransitionRealization
+capellacommon.StateTransitionRealization:realizedStateTransition
+capellacommon.StateTransitionRealization:realizingStateTransition
+capellacommon.TerminatePseudoState
+capellacommon.TimeEvent
+capellacommon.TimeEvent:kind
+capellacommon.TransfoLink
+
+----- PACKAGE capellacore ANALYSIS ------
+
+FloatPropertyValue -- VAL EFloat:0:1
+IntegerPropertyValue -- VAL EInt:0:1
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+value type: EBoolean:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: capellacore:AbstractAction
+class: capellacore:AbstractActivity
+class: capellacore:AbstractNamedElement
+class: capellacore:ActivityEdge
+class: capellacore:ExceptionHandler
+class: capellacore:FloatPropertyValue
+class: capellacore:IntegerPropertyValue
+class: capellacore:InterruptibleActivityRegion
+class: capellacore:ModelElement
+class: capellacore:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+capellacore.AbstractAnnotation
+capellacore.AbstractAnnotation:content
+capellacore.AbstractDependenciesPkg
+capellacore.AbstractExchangeItemPkg
+capellacore.AbstractExchangeItemPkg:ownedExchangeItems
+capellacore.AbstractModellingStructure
+capellacore.AbstractModellingStructure:ownedArchitecturePkgs
+capellacore.AbstractModellingStructure:ownedArchitectures
+capellacore.AbstractPropertyValue
+capellacore.AbstractPropertyValue:involvedElements
+capellacore.AbstractPropertyValue:valuedElements
+capellacore.Allocation
+capellacore.BooleanPropertyValue
+capellacore.BooleanPropertyValue:value
+capellacore.CapellaElement
+capellacore.CapellaElement:appliedPropertyValueGroups
+capellacore.CapellaElement:appliedPropertyValues
+capellacore.CapellaElement:description
+capellacore.CapellaElement:features
+capellacore.CapellaElement:ownedEnumerationPropertyTypes
+capellacore.CapellaElement:ownedPropertyValueGroups
+capellacore.CapellaElement:ownedPropertyValues
+capellacore.CapellaElement:review
+capellacore.CapellaElement:status
+capellacore.CapellaElement:summary
+capellacore.Classifier
+capellacore.Classifier:containedProperties
+capellacore.Classifier:ownedFeatures
+capellacore.Constraint
+capellacore.EnumerationPropertyLiteral
+capellacore.EnumerationPropertyType
+capellacore.EnumerationPropertyType:ownedLiterals
+capellacore.EnumerationPropertyValue
+capellacore.EnumerationPropertyValue:type
+capellacore.EnumerationPropertyValue:value
+capellacore.Feature
+capellacore.Feature:isAbstract
+capellacore.Feature:isStatic
+capellacore.Feature:visibility
+capellacore.FloatPropertyValue
+capellacore.FloatPropertyValue:value
+capellacore.GeneralClass
+capellacore.GeneralClass:containedOperations
+capellacore.GeneralClass:nestedGeneralClasses
+capellacore.GeneralClass:visibility
+capellacore.GeneralizableElement
+capellacore.GeneralizableElement:abstract
+capellacore.GeneralizableElement:ownedGeneralizations
+capellacore.GeneralizableElement:sub
+capellacore.GeneralizableElement:subGeneralizations
+capellacore.GeneralizableElement:super
+capellacore.GeneralizableElement:superGeneralizations
+capellacore.Generalization
+capellacore.Generalization:sub
+capellacore.Generalization:super
+capellacore.IntegerPropertyValue
+capellacore.IntegerPropertyValue:value
+capellacore.InvolvedElement
+capellacore.InvolvedElement:involvingInvolvements
+capellacore.Involvement
+capellacore.Involvement:involved
+capellacore.Involvement:involver
+capellacore.InvolverElement
+capellacore.InvolverElement:involvedInvolvements
+capellacore.KeyValue
+capellacore.KeyValue:key
+capellacore.KeyValue:value
+capellacore.ModellingArchitecture
+capellacore.ModellingArchitecturePkg
+capellacore.ModellingBlock
+capellacore.NamedElement
+capellacore.NamedRelationship
+capellacore.NamedRelationship:namingRules
+capellacore.Namespace
+capellacore.Namespace:containedGenericTraces
+capellacore.Namespace:namingRules
+capellacore.Namespace:ownedTraces
+capellacore.NamingRule
+capellacore.NamingRule:targetType
+capellacore.PropertyValueGroup
+capellacore.PropertyValueGroup:valuedElements
+capellacore.PropertyValuePkg
+capellacore.Relationship
+capellacore.ReuseableStructure
+capellacore.ReuseableStructure:reuseLinks
+capellacore.ReuseLink
+capellacore.ReuseLink:reused
+capellacore.ReuseLink:reuser
+capellacore.ReuserStructure
+capellacore.ReuserStructure:ownedReuseLinks
+capellacore.ReuserStructure:reuseLinks
+capellacore.StringPropertyValue
+capellacore.StringPropertyValue:value
+capellacore.Structure
+capellacore.Structure:ownedPropertyValuePkgs
+capellacore.Trace
+capellacore.Type
+capellacore.Type:typedElements
+capellacore.TypedElement
+capellacore.TypedElement:type
+
+----- PACKAGE information ANALYSIS ------
+
+information.Association -- REF 0:2:containment
+information.Association -- REF 0:2
+ExchangeItem -- ENUM 1:1
+OpaqueExpression -- VAL EString:0:-1
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: information:AbstractAction
+class: information:AbstractActivity
+class: information:AbstractNamedElement
+class: information:ActivityEdge
+class: information:Association
+class: information:ExceptionHandler
+class: information:ExchangeItem
+class: information:FloatPropertyValue
+class: information:IntegerPropertyValue
+class: information:InterruptibleActivityRegion
+class: information:ModelElement
+class: information:OpaqueExpression
+class: information:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+information.AbstractCollectionValue
+information.AbstractEventOperation
+information.AbstractEventOperation:invokingSequenceMessages
+information.AbstractInstance
+information.AbstractInstance:representingInstanceRoles
+information.Association
+information.Association:navigableMembers
+information.Association:ownedMembers
+information.AssociationPkg
+information.AssociationPkg:ownedAssociations
+information.AssociationPkg:visibility
+information.Class
+information.Class:isPrimitive
+information.Class:keyParts
+information.Class:ownedDataValues
+information.Class:ownedInformationRealizations
+information.Class:ownedStateMachines
+information.Class:realizedClasses
+information.Class:realizingClasses
+information.Collection
+information.Collection:aggregationKind
+information.Collection:containedOperations
+information.Collection:index
+information.Collection:isPrimitive
+information.Collection:kind
+information.Collection:type
+information.Collection:visibility
+information.CollectionValue
+information.CollectionValue:ownedDefaultElement
+information.CollectionValue:ownedElements
+information.CollectionValueReference
+information.CollectionValueReference:referencedProperty
+information.CollectionValueReference:referencedValue
+information.DataPkg
+information.DataPkg:ownedClasses
+information.DataPkg:ownedCollections
+information.DataPkg:ownedDataPkgs
+information.DataPkg:ownedDataTypes
+information.DataPkg:ownedExceptions
+information.DataPkg:ownedKeyParts
+information.DataPkg:ownedMessages
+information.DataPkg:ownedSignals
+information.DataPkg:ownedStateEvents
+information.DataPkg:ownedUnits
+information.DomainElement
+information.ExchangeItem
+information.ExchangeItem:allocatorInterfaces
+information.ExchangeItem:exchangeMechanism
+information.ExchangeItem:ownedElements
+information.ExchangeItem:ownedExchangeItemInstances
+information.ExchangeItem:ownedInformationRealizations
+information.ExchangeItem:realizedExchangeItems
+information.ExchangeItem:realizingExchangeItems
+information.ExchangeItem:realizingOperations
+information.ExchangeItemElement
+information.ExchangeItemElement:composite
+information.ExchangeItemElement:direction
+information.ExchangeItemElement:kind
+information.ExchangeItemElement:referencedProperties
+information.ExchangeItemInstance
+information.ExchangeItemRealization
+information.ExchangeItemRealization:realizedItem
+information.ExchangeItemRealization:realizingOperation
+information.InformationRealization
+information.KeyPart
+information.KeyPart:property
+information.MultiplicityElement
+information.MultiplicityElement:maxInclusive
+information.MultiplicityElement:minInclusive
+information.MultiplicityElement:ordered
+information.MultiplicityElement:ownedDefaultValue
+information.MultiplicityElement:ownedMaxCard
+information.MultiplicityElement:ownedMaxLength
+information.MultiplicityElement:ownedMaxValue
+information.MultiplicityElement:ownedMinCard
+information.MultiplicityElement:ownedMinLength
+information.MultiplicityElement:ownedMinValue
+information.MultiplicityElement:ownedNullValue
+information.MultiplicityElement:unique
+information.Operation
+information.Operation:allocatedOperations
+information.Operation:allocatingOperations
+information.Operation:ownedExchangeItemRealizations
+information.Operation:ownedOperationAllocation
+information.Operation:ownedParameters
+information.Operation:realizedExchangeItems
+information.OperationAllocation
+information.OperationAllocation:allocatedOperation
+information.OperationAllocation:allocatingOperation
+information.Parameter
+information.Parameter:direction
+information.Parameter:passingMode
+information.Port
+information.Port:incomingPortAllocations
+information.Port:incomingPortRealizations
+information.Port:outgoingPortAllocations
+information.Port:outgoingPortRealizations
+information.Port:ownedPortAllocations
+information.Port:ownedPortRealizations
+information.Port:ownedProtocols
+information.Port:providedInterfaces
+information.Port:requiredInterfaces
+information.PortAllocation
+information.PortAllocation:allocatedPort
+information.PortAllocation:allocatingPort
+information.PortRealization
+information.PortRealization:realizedPort
+information.PortRealization:realizingPort
+information.Property
+information.Property:aggregationKind
+information.Property:association
+information.Property:isDerived
+information.Property:isPartOfKey
+information.Property:isReadOnly
+information.Service
+information.Service:messageReferences
+information.Service:messages
+information.Service:synchronismKind
+information.Service:thrownExceptions
+information.Union
+information.Union:containedUnionProperties
+information.Union:defaultProperty
+information.Union:discriminant
+information.Union:kind
+information.UnionProperty
+information.UnionProperty:qualifier
+information.Unit
+Package.Class:Feature
+
+communication.CommunicationItem
+communication.CommunicationItem:ownedStateMachines
+communication.CommunicationItem:properties
+communication.CommunicationItem:visibility
+communication.CommunicationLink
+communication.CommunicationLink:exchangeItem
+communication.CommunicationLink:kind
+communication.CommunicationLink:protocol
+communication.CommunicationLinkExchanger
+communication.CommunicationLinkExchanger:access
+communication.CommunicationLinkExchanger:acquire
+communication.CommunicationLinkExchanger:call
+communication.CommunicationLinkExchanger:consume
+communication.CommunicationLinkExchanger:execute
+communication.CommunicationLinkExchanger:ownedCommunicationLinks
+communication.CommunicationLinkExchanger:produce
+communication.CommunicationLinkExchanger:receive
+communication.CommunicationLinkExchanger:send
+communication.CommunicationLinkExchanger:transmit
+communication.CommunicationLinkExchanger:write
+communication.Exception
+communication.Message
+communication.MessageReference
+communication.MessageReference:message
+communication.MessageReferencePkg
+communication.MessageReferencePkg:ownedMessageReferences
+communication.Signal
+communication.Signal:signalInstances
+communication.SignalInstance
+Package.Class:Feature
+
+datatype.BooleanType
+datatype.BooleanType:ownedDefaultValue
+datatype.BooleanType:ownedLiterals
+datatype.DataType
+datatype.DataType:defaultValue
+datatype.DataType:discrete
+datatype.DataType:maxInclusive
+datatype.DataType:minInclusive
+datatype.DataType:nullValue
+datatype.DataType:ownedInformationRealizations
+datatype.DataType:pattern
+datatype.DataType:realizedDataTypes
+datatype.DataType:realizingDataTypes
+datatype.DataType:visibility
+datatype.Enumeration
+datatype.Enumeration:domainType
+datatype.Enumeration:ownedDefaultValue
+datatype.Enumeration:ownedLiterals
+datatype.Enumeration:ownedMaxValue
+datatype.Enumeration:ownedMinValue
+datatype.Enumeration:ownedNullValue
+datatype.NumericType
+datatype.NumericType:kind
+datatype.NumericType:ownedDefaultValue
+datatype.NumericType:ownedMaxValue
+datatype.NumericType:ownedMinValue
+datatype.NumericType:ownedNullValue
+datatype.PhysicalQuantity
+datatype.PhysicalQuantity:unit
+datatype.StringType
+datatype.StringType:ownedDefaultValue
+datatype.StringType:ownedMaxLength
+datatype.StringType:ownedMinLength
+datatype.StringType:ownedNullValue
+Package.Class:Feature
+
+datavalue.AbstractBooleanValue
+datavalue.AbstractBooleanValue:booleanType
+datavalue.AbstractComplexValue
+datavalue.AbstractComplexValue:complexType
+datavalue.AbstractEnumerationValue
+datavalue.AbstractEnumerationValue:enumerationType
+datavalue.AbstractExpressionValue
+datavalue.AbstractExpressionValue:expression
+datavalue.AbstractExpressionValue:expressionType
+datavalue.AbstractExpressionValue:unparsedExpression
+datavalue.AbstractStringValue
+datavalue.AbstractStringValue:stringType
+datavalue.BinaryExpression
+datavalue.BinaryExpression:operator
+datavalue.BinaryExpression:ownedLeftOperand
+datavalue.BinaryExpression:ownedRightOperand
+datavalue.BooleanReference
+datavalue.BooleanReference:referencedProperty
+datavalue.BooleanReference:referencedValue
+datavalue.ComplexValue
+datavalue.ComplexValue:ownedParts
+datavalue.ComplexValueReference
+datavalue.ComplexValueReference:referencedProperty
+datavalue.ComplexValueReference:referencedValue
+datavalue.DataValue
+datavalue.DataValue:abstract
+datavalue.DataValue:type
+datavalue.DataValueContainer
+datavalue.DataValueContainer:ownedDataValues
+datavalue.EnumerationLiteral
+datavalue.EnumerationLiteral:domainValue
+datavalue.EnumerationReference
+datavalue.EnumerationReference:referencedProperty
+datavalue.EnumerationReference:referencedValue
+datavalue.LiteralBooleanValue
+datavalue.LiteralBooleanValue:value
+datavalue.LiteralNumericValue
+datavalue.LiteralNumericValue:value
+datavalue.LiteralStringValue
+datavalue.LiteralStringValue:value
+datavalue.NumericReference
+datavalue.NumericReference:referencedProperty
+datavalue.NumericReference:referencedValue
+datavalue.NumericValue
+datavalue.NumericValue:numericType
+datavalue.NumericValue:unit
+datavalue.OpaqueExpression
+datavalue.OpaqueExpression:bodies
+datavalue.OpaqueExpression:languages
+datavalue.StringReference
+datavalue.StringReference:referencedProperty
+datavalue.StringReference:referencedValue
+datavalue.UnaryExpression
+datavalue.UnaryExpression:operator
+datavalue.UnaryExpression:ownedOperand
+datavalue.ValuePart
+datavalue.ValuePart:ownedValue
+datavalue.ValuePart:referencedProperty
+
+----- PACKAGE interaction ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: interaction:AbstractAction
+class: interaction:AbstractActivity
+class: interaction:AbstractNamedElement
+class: interaction:ActivityEdge
+class: interaction:Association
+class: interaction:ExceptionHandler
+class: interaction:ExchangeItem
+class: interaction:FloatPropertyValue
+class: interaction:IntegerPropertyValue
+class: interaction:InterruptibleActivityRegion
+class: interaction:ModelElement
+class: interaction:OpaqueExpression
+class: interaction:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+interaction.AbstractCapability
+interaction.AbstractCapability:abstractCapabilityExtensionPoints
+interaction.AbstractCapability:availableInStates
+interaction.AbstractCapability:extendedAbstractCapabilities
+interaction.AbstractCapability:extending
+interaction.AbstractCapability:extendingAbstractCapabilities
+interaction.AbstractCapability:extends
+interaction.AbstractCapability:includedAbstractCapabilities
+interaction.AbstractCapability:includes
+interaction.AbstractCapability:including
+interaction.AbstractCapability:includingAbstractCapabilities
+interaction.AbstractCapability:incomingCapabilityAllocation
+interaction.AbstractCapability:involvedAbstractFunctions
+interaction.AbstractCapability:involvedFunctionalChains
+interaction.AbstractCapability:outgoingCapabilityAllocation
+interaction.AbstractCapability:ownedAbstractCapabilityRealizations
+interaction.AbstractCapability:ownedAbstractFunctionAbstractCapabilityInvolvements
+interaction.AbstractCapability:ownedFunctionalChainAbstractCapabilityInvolvements
+interaction.AbstractCapability:ownedScenarios
+interaction.AbstractCapability:postCondition
+interaction.AbstractCapability:preCondition
+interaction.AbstractCapability:sub
+interaction.AbstractCapability:subGeneralizations
+interaction.AbstractCapability:super
+interaction.AbstractCapability:superGeneralizations
+interaction.AbstractCapabilityExtend
+interaction.AbstractCapabilityExtend:extended
+interaction.AbstractCapabilityExtend:extension
+interaction.AbstractCapabilityExtend:extensionLocation
+interaction.AbstractCapabilityExtensionPoint
+interaction.AbstractCapabilityExtensionPoint:abstractCapability
+interaction.AbstractCapabilityExtensionPoint:extendLinks
+interaction.AbstractCapabilityGeneralization
+interaction.AbstractCapabilityGeneralization:sub
+interaction.AbstractCapabilityGeneralization:super
+interaction.AbstractCapabilityInclude
+interaction.AbstractCapabilityInclude:included
+interaction.AbstractCapabilityInclude:inclusion
+interaction.AbstractCapabilityRealization
+interaction.AbstractCapabilityRealization:realizedCapability
+interaction.AbstractCapabilityRealization:realizingCapability
+interaction.AbstractEnd
+interaction.AbstractEnd:covered
+interaction.AbstractEnd:event
+interaction.AbstractFragment
+interaction.AbstractFragment:ownedGates
+interaction.AbstractFunctionAbstractCapabilityInvolvement
+interaction.AbstractFunctionAbstractCapabilityInvolvement:capability
+interaction.AbstractFunctionAbstractCapabilityInvolvement:function
+interaction.ArmTimerEvent
+interaction.CancelTimerEvent
+interaction.CombinedFragment
+interaction.CombinedFragment:expressionGates
+interaction.CombinedFragment:operator
+interaction.CombinedFragment:referencedOperands
+interaction.ConstraintDuration
+interaction.ConstraintDuration:duration
+interaction.ConstraintDuration:finish
+interaction.ConstraintDuration:start
+interaction.CreationEvent
+interaction.DestructionEvent
+interaction.Event
+interaction.EventReceiptOperation
+interaction.EventReceiptOperation:operation
+interaction.EventSentOperation
+interaction.EventSentOperation:operation
+interaction.Execution
+interaction.Execution:covered
+interaction.ExecutionEnd
+interaction.ExecutionEnd:execution
+interaction.ExecutionEvent
+interaction.FragmentEnd
+interaction.FragmentEnd:abstractFragment
+interaction.FunctionalChainAbstractCapabilityInvolvement
+interaction.FunctionalChainAbstractCapabilityInvolvement:capability
+interaction.FunctionalChainAbstractCapabilityInvolvement:functionalChain
+interaction.Gate
+interaction.InstanceRole
+interaction.InstanceRole:abstractEnds
+interaction.InstanceRole:representedInstance
+interaction.InteractionFragment
+interaction.InteractionFragment:coveredInstanceRoles
+interaction.InteractionOperand
+interaction.InteractionOperand:guard
+interaction.InteractionOperand:referencedInteractionFragments
+interaction.InteractionState
+interaction.InteractionState:covered
+interaction.InteractionUse
+interaction.InteractionUse:actualGates
+interaction.InteractionUse:referencedScenario
+interaction.MergeLink
+interaction.MessageEnd
+interaction.MessageEnd:message
+interaction.RefinementLink
+interaction.Scenario
+interaction.Scenario:containedFunctions
+interaction.Scenario:containedParts
+interaction.Scenario:kind
+interaction.Scenario:merged
+interaction.Scenario:ownedConstraintDurations
+interaction.Scenario:ownedEvents
+interaction.Scenario:ownedFormalGates
+interaction.Scenario:ownedInstanceRoles
+interaction.Scenario:ownedInteractionFragments
+interaction.Scenario:ownedMessages
+interaction.Scenario:ownedScenarioRealization
+interaction.Scenario:ownedTimeLapses
+interaction.Scenario:postCondition
+interaction.Scenario:preCondition
+interaction.Scenario:realizedScenarios
+interaction.Scenario:realizingScenarios
+interaction.Scenario:referencedScenarios
+interaction.ScenarioRealization
+interaction.ScenarioRealization:realizedScenario
+interaction.ScenarioRealization:realizingScenario
+interaction.SequenceMessage
+interaction.SequenceMessage:exchangeContext
+interaction.SequenceMessage:exchangedItems
+interaction.SequenceMessage:invokedOperation
+interaction.SequenceMessage:kind
+interaction.SequenceMessage:ownedSequenceMessageValuations
+interaction.SequenceMessage:receivingEnd
+interaction.SequenceMessage:receivingFunction
+interaction.SequenceMessage:receivingPart
+interaction.SequenceMessage:sendingEnd
+interaction.SequenceMessage:sendingFunction
+interaction.SequenceMessage:sendingPart
+interaction.SequenceMessageValuation
+interaction.SequenceMessageValuation:exchangeItemElement
+interaction.SequenceMessageValuation:value
+interaction.StateFragment
+interaction.StateFragment:relatedAbstractFunction
+interaction.StateFragment:relatedAbstractState
+interaction.TimeLapse
+interaction.TimeLapse:finish
+interaction.TimeLapse:start
+
+----- PACKAGE cs ANALYSIS ------
+
+Component -- VAL EBoolean:1:1
+cs.PhysicalLink -- REF 2:2
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: cs:AbstractAction
+class: cs:AbstractActivity
+class: cs:AbstractNamedElement
+class: cs:ActivityEdge
+class: cs:Association
+class: cs:Component
+class: cs:ExceptionHandler
+class: cs:ExchangeItem
+class: cs:FloatPropertyValue
+class: cs:IntegerPropertyValue
+class: cs:InterruptibleActivityRegion
+class: cs:ModelElement
+class: cs:OpaqueExpression
+class: cs:PhysicalLink
+class: cs:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+cs.AbstractDeploymentLink
+cs.AbstractDeploymentLink:deployedElement
+cs.AbstractDeploymentLink:location
+cs.AbstractPathInvolvedElement
+cs.AbstractPhysicalArtifact
+cs.AbstractPhysicalArtifact:allocatorConfigurationItems
+cs.AbstractPhysicalLinkEnd
+cs.AbstractPhysicalLinkEnd:involvedLinks
+cs.AbstractPhysicalPathLink
+cs.ArchitectureAllocation
+cs.ArchitectureAllocation:allocatedArchitecture
+cs.ArchitectureAllocation:allocatingArchitecture
+cs.Block
+cs.Block:ownedAbstractCapabilityPkg
+cs.Block:ownedDataPkg
+cs.Block:ownedInterfacePkg
+cs.Block:ownedStateMachines
+cs.BlockArchitecture
+cs.BlockArchitecture:allocatedArchitectures
+cs.BlockArchitecture:allocatingArchitectures
+cs.BlockArchitecture:ownedAbstractCapabilityPkg
+cs.BlockArchitecture:ownedDataPkg
+cs.BlockArchitecture:ownedInterfacePkg
+cs.BlockArchitecture:provisionedArchitectureAllocations
+cs.BlockArchitecture:provisioningArchitectureAllocations
+cs.BlockArchitecture:system
+cs.BlockArchitecturePkg
+cs.Component
+cs.Component:actor
+cs.Component:containedComponentPorts
+cs.Component:containedParts
+cs.Component:containedPhysicalPorts
+cs.Component:human
+cs.Component:implementedInterfaceLinks
+cs.Component:implementedInterfaces
+cs.Component:ownedComponentRealizations
+cs.Component:ownedInterfaceImplementations
+cs.Component:ownedInterfaceUses
+cs.Component:ownedPhysicalLinkCategories
+cs.Component:ownedPhysicalLinks
+cs.Component:ownedPhysicalPath
+cs.Component:providedInterfaces
+cs.Component:realizedComponents
+cs.Component:realizingComponents
+cs.Component:representingParts
+cs.Component:requiredInterfaces
+cs.Component:usedInterfaceLinks
+cs.Component:usedInterfaces
+cs.ComponentArchitecture
+cs.ComponentPkg
+cs.ComponentPkg:ownedComponentExchangeCategories
+cs.ComponentPkg:ownedComponentExchangeRealizations
+cs.ComponentPkg:ownedComponentExchanges
+cs.ComponentPkg:ownedFunctionalAllocations
+cs.ComponentPkg:ownedFunctionalLinks
+cs.ComponentPkg:ownedParts
+cs.ComponentPkg:ownedPhysicalLinkCategories
+cs.ComponentPkg:ownedPhysicalLinks
+cs.ComponentPkg:ownedStateMachines
+cs.ComponentRealization
+cs.ComponentRealization:realizedComponent
+cs.ComponentRealization:realizingComponent
+cs.DeployableElement
+cs.DeployableElement:deployingLinks
+cs.DeploymentTarget
+cs.DeploymentTarget:deploymentLinks
+cs.ExchangeItemAllocation
+cs.ExchangeItemAllocation:allocatedItem
+cs.ExchangeItemAllocation:allocatingInterface
+cs.ExchangeItemAllocation:receiveProtocol
+cs.ExchangeItemAllocation:sendProtocol
+cs.Interface
+cs.Interface:allocatingComponents
+cs.Interface:allocatingInterfaces
+cs.Interface:exchangeItems
+cs.Interface:implementorComponents
+cs.Interface:interfaceImplementations
+cs.Interface:interfaceUses
+cs.Interface:mechanism
+cs.Interface:ownedExchangeItemAllocations
+cs.Interface:providingComponentPorts
+cs.Interface:providingComponents
+cs.Interface:provisioningInterfaceAllocations
+cs.Interface:realizedContextInterfaces
+cs.Interface:realizedLogicalInterfaces
+cs.Interface:realizingLogicalInterfaces
+cs.Interface:realizingPhysicalInterfaces
+cs.Interface:requiringComponentPorts
+cs.Interface:requiringComponents
+cs.Interface:structural
+cs.Interface:userComponents
+cs.InterfaceAllocation
+cs.InterfaceAllocation:allocatedInterface
+cs.InterfaceAllocation:allocatingInterfaceAllocator
+cs.InterfaceAllocator
+cs.InterfaceAllocator:allocatedInterfaces
+cs.InterfaceAllocator:ownedInterfaceAllocations
+cs.InterfaceAllocator:provisionedInterfaceAllocations
+cs.InterfaceImplementation
+cs.InterfaceImplementation:implementedInterface
+cs.InterfaceImplementation:interfaceImplementor
+cs.InterfacePkg
+cs.InterfacePkg:ownedInterfacePkgs
+cs.InterfacePkg:ownedInterfaces
+cs.InterfaceUse
+cs.InterfaceUse:interfaceUser
+cs.InterfaceUse:usedInterface
+cs.Part
+cs.Part:deployedParts
+cs.Part:deployingParts
+cs.Part:ownedAbstractType
+cs.Part:ownedDeploymentLinks
+cs.Part:providedInterfaces
+cs.Part:requiredInterfaces
+cs.PhysicalLink
+cs.PhysicalLink:categories
+cs.PhysicalLink:linkEnds
+cs.PhysicalLink:ownedComponentExchangeFunctionalExchangeAllocations
+cs.PhysicalLink:ownedPhysicalLinkEnds
+cs.PhysicalLink:ownedPhysicalLinkRealizations
+cs.PhysicalLink:realizedPhysicalLinks
+cs.PhysicalLink:realizingPhysicalLinks
+cs.PhysicalLink:sourcePhysicalPort
+cs.PhysicalLink:targetPhysicalPort
+cs.PhysicalLinkCategory
+cs.PhysicalLinkCategory:links
+cs.PhysicalLinkEnd
+cs.PhysicalLinkEnd:part
+cs.PhysicalLinkEnd:port
+cs.PhysicalLinkRealization
+cs.PhysicalPath
+cs.PhysicalPath:firstPhysicalPathInvolvements
+cs.PhysicalPath:ownedPhysicalPathInvolvements
+cs.PhysicalPath:ownedPhysicalPathRealizations
+cs.PhysicalPath:realizedPhysicalPaths
+cs.PhysicalPath:realizingPhysicalPaths
+cs.PhysicalPathInvolvement
+cs.PhysicalPathInvolvement:involvedComponent
+cs.PhysicalPathInvolvement:involvedElement
+cs.PhysicalPathInvolvement:nextInvolvements
+cs.PhysicalPathInvolvement:previousInvolvements
+cs.PhysicalPathRealization
+cs.PhysicalPathReference
+cs.PhysicalPathReference:referencedPhysicalPath
+cs.PhysicalPort
+cs.PhysicalPort:allocatedComponentPorts
+cs.PhysicalPort:ownedComponentPortAllocations
+cs.PhysicalPort:ownedPhysicalPortRealizations
+cs.PhysicalPort:realizedPhysicalPorts
+cs.PhysicalPort:realizingPhysicalPorts
+cs.PhysicalPortRealization
+cs.ProvidedInterfaceLink
+cs.ProvidedInterfaceLink:interface
+cs.RequiredInterfaceLink
+cs.RequiredInterfaceLink:interface
+
+----- PACKAGE fa ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: fa:AbstractAction
+class: fa:AbstractActivity
+class: fa:AbstractNamedElement
+class: fa:ActivityEdge
+class: fa:Association
+class: fa:Component
+class: fa:ExceptionHandler
+class: fa:ExchangeItem
+class: fa:FloatPropertyValue
+class: fa:IntegerPropertyValue
+class: fa:InterruptibleActivityRegion
+class: fa:ModelElement
+class: fa:OpaqueExpression
+class: fa:PhysicalLink
+class: fa:SendSignalAction
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+fa.AbstractFunction
+fa.AbstractFunction:allocationBlocks
+fa.AbstractFunction:availableInStates
+fa.AbstractFunction:componentFunctionalAllocations
+fa.AbstractFunction:condition
+fa.AbstractFunction:inFunctionRealizations
+fa.AbstractFunction:involvingCapabilities
+fa.AbstractFunction:involvingCapabilityRealizations
+fa.AbstractFunction:involvingFunctionalChains
+fa.AbstractFunction:kind
+fa.AbstractFunction:linkedFunctionSpecification
+fa.AbstractFunction:linkedStateMachine
+fa.AbstractFunction:outFunctionRealizations
+fa.AbstractFunction:ownedFunctionalExchanges
+fa.AbstractFunction:ownedFunctionRealizations
+fa.AbstractFunction:ownedFunctions
+fa.AbstractFunction:subFunctions
+fa.AbstractFunctionalArchitecture
+fa.AbstractFunctionalArchitecture:ownedComponentExchangeCategories
+fa.AbstractFunctionalArchitecture:ownedComponentExchangeRealizations
+fa.AbstractFunctionalArchitecture:ownedComponentExchanges
+fa.AbstractFunctionalArchitecture:ownedFunctionalAllocations
+fa.AbstractFunctionalArchitecture:ownedFunctionalLinks
+fa.AbstractFunctionalArchitecture:ownedFunctionPkg
+fa.AbstractFunctionalBlock
+fa.AbstractFunctionalBlock:allocatedFunctions
+fa.AbstractFunctionalBlock:functionalAllocations
+fa.AbstractFunctionalBlock:inExchangeLinks
+fa.AbstractFunctionalBlock:outExchangeLinks
+fa.AbstractFunctionalBlock:ownedComponentExchangeCategories
+fa.AbstractFunctionalBlock:ownedComponentExchanges
+fa.AbstractFunctionalBlock:ownedFunctionalAllocation
+fa.AbstractFunctionalChainContainer
+fa.AbstractFunctionalChainContainer:ownedFunctionalChains
+fa.AbstractFunctionAllocation
+fa.ComponentExchange
+fa.ComponentExchange:allocatedFunctionalExchanges
+fa.ComponentExchange:allocatorPhysicalLinks
+fa.ComponentExchange:categories
+fa.ComponentExchange:incomingComponentExchangeRealizations
+fa.ComponentExchange:kind
+fa.ComponentExchange:oriented
+fa.ComponentExchange:outgoingComponentExchangeFunctionalExchangeAllocations
+fa.ComponentExchange:outgoingComponentExchangeRealizations
+fa.ComponentExchange:ownedComponentExchangeEnds
+fa.ComponentExchange:ownedComponentExchangeFunctionalExchangeAllocations
+fa.ComponentExchange:ownedComponentExchangeRealizations
+fa.ComponentExchange:realizedComponentExchanges
+fa.ComponentExchange:realizingComponentExchanges
+fa.ComponentExchange:sourcePart
+fa.ComponentExchange:sourcePort
+fa.ComponentExchange:targetPart
+fa.ComponentExchange:targetPort
+fa.ComponentExchangeAllocation
+fa.ComponentExchangeAllocation:componentExchangeAllocated
+fa.ComponentExchangeAllocation:componentExchangeAllocator
+fa.ComponentExchangeAllocator
+fa.ComponentExchangeAllocator:allocatedComponentExchanges
+fa.ComponentExchangeAllocator:ownedComponentExchangeAllocations
+fa.ComponentExchangeCategory
+fa.ComponentExchangeCategory:exchanges
+fa.ComponentExchangeEnd
+fa.ComponentExchangeEnd:part
+fa.ComponentExchangeEnd:port
+fa.ComponentExchangeFunctionalExchangeAllocation
+fa.ComponentExchangeFunctionalExchangeAllocation:allocatedFunctionalExchange
+fa.ComponentExchangeFunctionalExchangeAllocation:allocatingComponentExchange
+fa.ComponentExchangeRealization
+fa.ComponentExchangeRealization:allocatedComponentExchange
+fa.ComponentExchangeRealization:allocatingComponentExchange
+fa.ComponentFunctionalAllocation
+fa.ComponentFunctionalAllocation:block
+fa.ComponentFunctionalAllocation:function
+fa.ComponentPort
+fa.ComponentPort:allocatedFunctionPorts
+fa.ComponentPort:allocatingPhysicalPorts
+fa.ComponentPort:componentExchanges
+fa.ComponentPort:delegatedComponentPorts
+fa.ComponentPort:delegatingComponentPorts
+fa.ComponentPort:kind
+fa.ComponentPort:orientation
+fa.ComponentPort:realizedComponentPorts
+fa.ComponentPort:realizingComponentPorts
+fa.ComponentPortAllocation
+fa.ComponentPortAllocation:allocatedPort
+fa.ComponentPortAllocation:allocatingPort
+fa.ComponentPortAllocation:ownedComponentPortAllocationEnds
+fa.ComponentPortAllocationEnd
+fa.ComponentPortAllocationEnd:owningComponentPortAllocation
+fa.ComponentPortAllocationEnd:part
+fa.ComponentPortAllocationEnd:port
+fa.ControlNode
+fa.ControlNode:kind
+fa.ExchangeCategory
+fa.ExchangeCategory:exchanges
+fa.ExchangeContainment
+fa.ExchangeContainment:exchange
+fa.ExchangeContainment:link
+fa.ExchangeLink
+fa.ExchangeLink:destinations
+fa.ExchangeLink:exchangeContainmentLinks
+fa.ExchangeLink:exchanges
+fa.ExchangeLink:ownedExchangeContainments
+fa.ExchangeLink:sources
+fa.ExchangeSpecification
+fa.ExchangeSpecification:containingLink
+fa.ExchangeSpecification:incomingExchangeSpecificationRealizations
+fa.ExchangeSpecification:link
+fa.ExchangeSpecification:outgoingExchangeSpecificationRealizations
+fa.ExchangeSpecificationRealization
+fa.ExchangeSpecificationRealization:realizedExchangeSpecification
+fa.ExchangeSpecificationRealization:realizingExchangeSpecification
+fa.FunctionalChain
+fa.FunctionalChain:availableInStates
+fa.FunctionalChain:enactedFunctionalBlocks
+fa.FunctionalChain:enactedFunctions
+fa.FunctionalChain:firstFunctionalChainInvolvements
+fa.FunctionalChain:involvedElements
+fa.FunctionalChain:involvedFunctionalChainInvolvements
+fa.FunctionalChain:involvedFunctionalExchanges
+fa.FunctionalChain:involvedFunctions
+fa.FunctionalChain:involvingCapabilities
+fa.FunctionalChain:involvingCapabilityRealizations
+fa.FunctionalChain:kind
+fa.FunctionalChain:ownedFunctionalChainInvolvements
+fa.FunctionalChain:ownedFunctionalChainRealizations
+fa.FunctionalChain:ownedSequenceLinks
+fa.FunctionalChain:ownedSequenceNodes
+fa.FunctionalChain:postCondition
+fa.FunctionalChain:preCondition
+fa.FunctionalChain:realizedFunctionalChains
+fa.FunctionalChain:realizingFunctionalChains
+fa.FunctionalChainInvolvement
+fa.FunctionalChainInvolvement:involvedElement
+fa.FunctionalChainInvolvement:nextFunctionalChainInvolvements
+fa.FunctionalChainInvolvement:previousFunctionalChainInvolvements
+fa.FunctionalChainInvolvementFunction
+fa.FunctionalChainInvolvementFunction:incomingInvolvementLinks
+fa.FunctionalChainInvolvementFunction:outgoingInvolvementLinks
+fa.FunctionalChainInvolvementLink
+fa.FunctionalChainInvolvementLink:exchangeContext
+fa.FunctionalChainInvolvementLink:exchangedItems
+fa.FunctionalChainInvolvementLink:source
+fa.FunctionalChainInvolvementLink:target
+fa.FunctionalChainRealization
+fa.FunctionalChainReference
+fa.FunctionalChainReference:referencedFunctionalChain
+fa.FunctionalExchange
+fa.FunctionalExchange:allocatingComponentExchanges
+fa.FunctionalExchange:categories
+fa.FunctionalExchange:exchangedItems
+fa.FunctionalExchange:exchangeSpecifications
+fa.FunctionalExchange:incomingComponentExchangeFunctionalExchangeRealizations
+fa.FunctionalExchange:incomingFunctionalExchangeRealizations
+fa.FunctionalExchange:involvingFunctionalChains
+fa.FunctionalExchange:outgoingFunctionalExchangeRealizations
+fa.FunctionalExchange:ownedFunctionalExchangeRealizations
+fa.FunctionalExchange:realizedFunctionalExchanges
+fa.FunctionalExchange:realizingFunctionalExchanges
+fa.FunctionalExchange:sourceFunctionOutputPort
+fa.FunctionalExchange:targetFunctionInputPort
+fa.FunctionalExchangeRealization
+fa.FunctionalExchangeRealization:realizedFunctionalExchange
+fa.FunctionalExchangeRealization:realizingFunctionalExchange
+fa.FunctionalExchangeSpecification
+fa.FunctionalExchangeSpecification:functionalExchanges
+fa.FunctionInputPort
+fa.FunctionInputPort:incomingExchangeItems
+fa.FunctionInputPort:incomingFunctionalExchanges
+fa.FunctionOutputPort
+fa.FunctionOutputPort:outgoingExchangeItems
+fa.FunctionOutputPort:outgoingFunctionalExchanges
+fa.FunctionPkg
+fa.FunctionPkg:ownedCategories
+fa.FunctionPkg:ownedExchanges
+fa.FunctionPkg:ownedExchangeSpecificationRealizations
+fa.FunctionPkg:ownedFunctionalLinks
+fa.FunctionPkg:ownedFunctionSpecifications
+fa.FunctionPort
+fa.FunctionPort:allocatorComponentPorts
+fa.FunctionPort:realizedFunctionPorts
+fa.FunctionPort:realizingFunctionPorts
+fa.FunctionRealization
+fa.FunctionRealization:allocatedFunction
+fa.FunctionRealization:allocatingFunction
+fa.FunctionSpecification
+fa.FunctionSpecification:inExchangeLinks
+fa.FunctionSpecification:outExchangeLinks
+fa.FunctionSpecification:ownedFunctionPorts
+fa.FunctionSpecification:subFunctionSpecifications
+fa.ReferenceHierarchyContext
+fa.ReferenceHierarchyContext:sourceReferenceHierarchy
+fa.ReferenceHierarchyContext:targetReferenceHierarchy
+fa.SequenceLink
+fa.SequenceLink:condition
+fa.SequenceLink:links
+fa.SequenceLink:source
+fa.SequenceLink:target
+fa.SequenceLinkEnd
+
+----- PACKAGE ctx ANALYSIS ------
+
+ctx.SystemCommunication -- REF 2:2:containment
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: ctx:AbstractAction
+class: ctx:AbstractActivity
+class: ctx:AbstractNamedElement
+class: ctx:ActivityEdge
+class: ctx:Association
+class: ctx:Component
+class: ctx:ExceptionHandler
+class: ctx:ExchangeItem
+class: ctx:FloatPropertyValue
+class: ctx:IntegerPropertyValue
+class: ctx:InterruptibleActivityRegion
+class: ctx:ModelElement
+class: ctx:OpaqueExpression
+class: ctx:PhysicalLink
+class: ctx:SendSignalAction
+class: ctx:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+ctx.Capability
+ctx.Capability:involvedSystemComponents
+ctx.Capability:ownedCapabilityInvolvements
+ctx.Capability:purposeMissions
+ctx.Capability:purposes
+ctx.Capability:realizedOperationalCapabilities
+ctx.Capability:realizingCapabilityRealizations
+ctx.CapabilityExploitation
+ctx.CapabilityExploitation:capability
+ctx.CapabilityExploitation:mission
+ctx.CapabilityInvolvement
+ctx.CapabilityInvolvement:capability
+ctx.CapabilityInvolvement:systemComponent
+ctx.CapabilityPkg
+ctx.CapabilityPkg:ownedCapabilities
+ctx.CapabilityPkg:ownedCapabilityPkgs
+ctx.Mission
+ctx.Mission:exploitedCapabilities
+ctx.Mission:involvedSystemComponents
+ctx.Mission:ownedCapabilityExploitations
+ctx.Mission:ownedMissionInvolvements
+ctx.MissionInvolvement
+ctx.MissionInvolvement:mission
+ctx.MissionInvolvement:systemComponent
+ctx.MissionPkg
+ctx.MissionPkg:ownedMissionPkgs
+ctx.MissionPkg:ownedMissions
+ctx.OperationalAnalysisRealization
+ctx.SystemAnalysis
+ctx.SystemAnalysis:allocatedOperationalAnalyses
+ctx.SystemAnalysis:allocatedOperationalAnalysisRealizations
+ctx.SystemAnalysis:allocatingLogicalArchitectures
+ctx.SystemAnalysis:containedCapabilityPkg
+ctx.SystemAnalysis:containedSystemFunctionPkg
+ctx.SystemAnalysis:ownedMissionPkg
+ctx.SystemAnalysis:ownedOperationalAnalysisRealizations
+ctx.SystemAnalysis:ownedSystemComponentPkg
+ctx.SystemCommunication
+ctx.SystemCommunication:ends
+ctx.SystemCommunicationHook
+ctx.SystemCommunicationHook:communication
+ctx.SystemCommunicationHook:type
+ctx.SystemComponent
+ctx.SystemComponent:allocatedSystemFunctions
+ctx.SystemComponent:capabilityInvolvements
+ctx.SystemComponent:dataComponent
+ctx.SystemComponent:dataType
+ctx.SystemComponent:involvingCapabilities
+ctx.SystemComponent:involvingMissions
+ctx.SystemComponent:missionInvolvements
+ctx.SystemComponent:ownedSystemComponentPkgs
+ctx.SystemComponent:ownedSystemComponents
+ctx.SystemComponent:realizedEntities
+ctx.SystemComponent:realizingLogicalComponents
+ctx.SystemComponentPkg
+ctx.SystemComponentPkg:ownedSystemComponentPkgs
+ctx.SystemComponentPkg:ownedSystemComponents
+ctx.SystemFunction
+ctx.SystemFunction:allocatingSystemComponents
+ctx.SystemFunction:childrenSystemFunctions
+ctx.SystemFunction:containedSystemFunctions
+ctx.SystemFunction:ownedSystemFunctionPkgs
+ctx.SystemFunction:realizedOperationalActivities
+ctx.SystemFunction:realizingLogicalFunctions
+ctx.SystemFunctionPkg
+ctx.SystemFunctionPkg:ownedSystemFunctionPkgs
+ctx.SystemFunctionPkg:ownedSystemFunctions
+
+----- PACKAGE oa ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: oa:AbstractAction
+class: oa:AbstractActivity
+class: oa:AbstractNamedElement
+class: oa:ActivityEdge
+class: oa:Association
+class: oa:Component
+class: oa:ExceptionHandler
+class: oa:ExchangeItem
+class: oa:FloatPropertyValue
+class: oa:IntegerPropertyValue
+class: oa:InterruptibleActivityRegion
+class: oa:ModelElement
+class: oa:OpaqueExpression
+class: oa:PhysicalLink
+class: oa:SendSignalAction
+class: oa:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+oa.AbstractConceptItem
+oa.AbstractConceptItem:composingLinks
+oa.ActivityAllocation
+oa.ActivityAllocation:activity
+oa.ActivityAllocation:role
+oa.CapabilityConfiguration
+oa.CapabilityConfiguration:configuredCapability
+oa.CommunicationMean
+oa.CommunicationMean:sourceEntity
+oa.CommunicationMean:targetEntity
+oa.CommunityOfInterest
+oa.CommunityOfInterest:communityOfInterestCompositions
+oa.CommunityOfInterestComposition
+oa.CommunityOfInterestComposition:communityOfInterest
+oa.CommunityOfInterestComposition:interestedOrganisationUnit
+oa.Concept
+oa.Concept:compliances
+oa.Concept:compositeLinks
+oa.ConceptCompliance
+oa.ConceptCompliance:compliantCapability
+oa.ConceptCompliance:complyWithConcept
+oa.ConceptPkg
+oa.ConceptPkg:ownedConceptPkgs
+oa.ConceptPkg:ownedConcepts
+oa.Entity
+oa.Entity:actualLocation
+oa.Entity:allocatedOperationalActivities
+oa.Entity:allocatedRoles
+oa.Entity:involvingOperationalCapabilities
+oa.Entity:organisationalUnitMemberships
+oa.Entity:ownedCommunicationMeans
+oa.Entity:ownedEntities
+oa.Entity:ownedRoleAllocations
+oa.Entity:realizingSystemComponents
+oa.Entity:roleAllocations
+oa.Entity:subEntities
+oa.EntityOperationalCapabilityInvolvement
+oa.EntityOperationalCapabilityInvolvement:capability
+oa.EntityOperationalCapabilityInvolvement:entity
+oa.EntityPkg
+oa.EntityPkg:ownedCommunicationMeans
+oa.EntityPkg:ownedEntities
+oa.EntityPkg:ownedEntityPkgs
+oa.EntityPkg:ownedLocations
+oa.ItemInConcept
+oa.ItemInConcept:concept
+oa.ItemInConcept:item
+oa.Location
+oa.Location:locatedEntities
+oa.Location:locationDescription
+oa.OperationalActivity
+oa.OperationalActivity:activityAllocations
+oa.OperationalActivity:allocatingRoles
+oa.OperationalActivity:allocatorEntities
+oa.OperationalActivity:childrenOperationalActivities
+oa.OperationalActivity:containedOperationalActivities
+oa.OperationalActivity:ownedOperationalActivityPkgs
+oa.OperationalActivity:ownedProcess
+oa.OperationalActivity:ownedSwimlanes
+oa.OperationalActivity:realizingSystemFunctions
+oa.OperationalActivityPkg
+oa.OperationalActivityPkg:ownedOperationalActivities
+oa.OperationalActivityPkg:ownedOperationalActivityPkgs
+oa.OperationalAnalysis
+oa.OperationalAnalysis:allocatingSystemAnalyses
+oa.OperationalAnalysis:containedOperationalActivityPkg
+oa.OperationalAnalysis:containedOperationalCapabilityPkg
+oa.OperationalAnalysis:ownedConceptPkg
+oa.OperationalAnalysis:ownedEntityPkg
+oa.OperationalAnalysis:ownedRolePkg
+oa.OperationalCapability
+oa.OperationalCapability:compliances
+oa.OperationalCapability:configurations
+oa.OperationalCapability:involvedEntities
+oa.OperationalCapability:ownedEntityOperationalCapabilityInvolvements
+oa.OperationalCapability:realizingCapabilities
+oa.OperationalCapabilityPkg
+oa.OperationalCapabilityPkg:ownedCapabilityConfigurations
+oa.OperationalCapabilityPkg:ownedConceptCompliances
+oa.OperationalCapabilityPkg:ownedOperationalCapabilities
+oa.OperationalCapabilityPkg:ownedOperationalCapabilityPkgs
+oa.OperationalProcess
+oa.OperationalProcess:involvingOperationalCapabilities
+oa.OperationalScenario
+oa.OperationalScenario:context
+oa.OperationalScenario:objective
+oa.OrganisationalUnit
+oa.OrganisationalUnit:communityOfInterestMemberships
+oa.OrganisationalUnit:organisationalUnitCompositions
+oa.OrganisationalUnitComposition
+oa.OrganisationalUnitComposition:organisationalUnit
+oa.OrganisationalUnitComposition:participatingEntity
+oa.Role
+oa.Role:activityAllocations
+oa.Role:allocatedOperationalActivities
+oa.Role:allocatingEntities
+oa.Role:ownedActivityAllocations
+oa.Role:ownedRoleAssemblyUsages
+oa.Role:roleAllocations
+oa.RoleAllocation
+oa.RoleAllocation:entity
+oa.RoleAllocation:role
+oa.RoleAssemblyUsage
+oa.RoleAssemblyUsage:child
+oa.RolePkg
+oa.RolePkg:ownedRolePkgs
+oa.RolePkg:ownedRoles
+oa.Swimlane
+oa.Swimlane:representedEntity
+
+----- PACKAGE la ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: la:AbstractAction
+class: la:AbstractActivity
+class: la:AbstractNamedElement
+class: la:ActivityEdge
+class: la:Association
+class: la:Component
+class: la:ExceptionHandler
+class: la:ExchangeItem
+class: la:FloatPropertyValue
+class: la:IntegerPropertyValue
+class: la:InterruptibleActivityRegion
+class: la:ModelElement
+class: la:OpaqueExpression
+class: la:PhysicalLink
+class: la:SendSignalAction
+class: la:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+la.CapabilityRealization
+la.CapabilityRealization:involvedComponents
+la.CapabilityRealization:ownedCapabilityRealizationInvolvements
+la.CapabilityRealization:realizedCapabilities
+la.CapabilityRealization:realizedCapabilityRealizations
+la.CapabilityRealization:realizingCapabilityRealizations
+la.CapabilityRealizationPkg
+la.CapabilityRealizationPkg:ownedCapabilityRealizationPkgs
+la.CapabilityRealizationPkg:ownedCapabilityRealizations
+la.ContextInterfaceRealization
+la.LogicalArchitecture
+la.LogicalArchitecture:allocatedSystemAnalyses
+la.LogicalArchitecture:allocatedSystemAnalysisRealizations
+la.LogicalArchitecture:allocatingPhysicalArchitectures
+la.LogicalArchitecture:containedCapabilityRealizationPkg
+la.LogicalArchitecture:containedLogicalFunctionPkg
+la.LogicalArchitecture:ownedLogicalComponentPkg
+la.LogicalArchitecture:ownedSystemAnalysisRealizations
+la.LogicalArchitecturePkg
+la.LogicalArchitecturePkg:ownedLogicalArchitectures
+la.LogicalComponent
+la.LogicalComponent:allocatedLogicalFunctions
+la.LogicalComponent:ownedLogicalArchitectures
+la.LogicalComponent:ownedLogicalComponentPkgs
+la.LogicalComponent:ownedLogicalComponents
+la.LogicalComponent:realizedSystemComponents
+la.LogicalComponent:realizingPhysicalComponents
+la.LogicalComponent:subLogicalComponents
+la.LogicalComponentPkg
+la.LogicalComponentPkg:ownedLogicalComponentPkgs
+la.LogicalComponentPkg:ownedLogicalComponents
+la.LogicalFunction
+la.LogicalFunction:allocatingLogicalComponents
+la.LogicalFunction:childrenLogicalFunctions
+la.LogicalFunction:containedLogicalFunctions
+la.LogicalFunction:ownedLogicalFunctionPkgs
+la.LogicalFunction:realizedSystemFunctions
+la.LogicalFunction:realizingPhysicalFunctions
+la.LogicalFunctionPkg
+la.LogicalFunctionPkg:ownedLogicalFunctionPkgs
+la.LogicalFunctionPkg:ownedLogicalFunctions
+la.SystemAnalysisRealization
+
+----- PACKAGE pa ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: pa:AbstractAction
+class: pa:AbstractActivity
+class: pa:AbstractNamedElement
+class: pa:ActivityEdge
+class: pa:Association
+class: pa:Component
+class: pa:ExceptionHandler
+class: pa:ExchangeItem
+class: pa:FloatPropertyValue
+class: pa:IntegerPropertyValue
+class: pa:InterruptibleActivityRegion
+class: pa:ModelElement
+class: pa:OpaqueExpression
+class: pa:PhysicalLink
+class: pa:SendSignalAction
+class: pa:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+pa.LogicalArchitectureRealization
+pa.LogicalInterfaceRealization
+pa.PhysicalArchitecture
+pa.PhysicalArchitecture:allocatedLogicalArchitectureRealizations
+pa.PhysicalArchitecture:allocatedLogicalArchitectures
+pa.PhysicalArchitecture:allocatingEpbsArchitectures
+pa.PhysicalArchitecture:containedCapabilityRealizationPkg
+pa.PhysicalArchitecture:containedPhysicalFunctionPkg
+pa.PhysicalArchitecture:ownedDeployments
+pa.PhysicalArchitecture:ownedLogicalArchitectureRealizations
+pa.PhysicalArchitecture:ownedPhysicalComponentPkg
+pa.PhysicalArchitecturePkg
+pa.PhysicalArchitecturePkg:ownedPhysicalArchitecturePkgs
+pa.PhysicalArchitecturePkg:ownedPhysicalArchitectures
+pa.PhysicalComponent
+pa.PhysicalComponent:allocatedPhysicalFunctions
+pa.PhysicalComponent:deployedPhysicalComponents
+pa.PhysicalComponent:deployingPhysicalComponents
+pa.PhysicalComponent:kind
+pa.PhysicalComponent:logicalInterfaceRealizations
+pa.PhysicalComponent:nature
+pa.PhysicalComponent:ownedDeploymentLinks
+pa.PhysicalComponent:ownedPhysicalComponentPkgs
+pa.PhysicalComponent:ownedPhysicalComponents
+pa.PhysicalComponent:realizedLogicalComponents
+pa.PhysicalComponent:subPhysicalComponents
+pa.PhysicalComponentPkg
+pa.PhysicalComponentPkg:ownedDeployments
+pa.PhysicalComponentPkg:ownedKeyParts
+pa.PhysicalComponentPkg:ownedPhysicalComponentPkgs
+pa.PhysicalComponentPkg:ownedPhysicalComponents
+pa.PhysicalFunction
+pa.PhysicalFunction:allocatingPhysicalComponents
+pa.PhysicalFunction:childrenPhysicalFunctions
+pa.PhysicalFunction:containedPhysicalFunctions
+pa.PhysicalFunction:ownedPhysicalFunctionPkgs
+pa.PhysicalFunction:realizedLogicalFunctions
+pa.PhysicalFunctionPkg
+pa.PhysicalFunctionPkg:ownedPhysicalFunctionPkgs
+pa.PhysicalFunctionPkg:ownedPhysicalFunctions
+pa.PhysicalNode
+pa.PhysicalNode:subPhysicalNodes
+Package.Class:Feature
+
+deployment.AbstractPhysicalInstance
+deployment.ComponentInstance
+deployment.ComponentInstance:ownedAbstractPhysicalInstances
+deployment.ComponentInstance:ownedInstanceDeploymentLinks
+deployment.ComponentInstance:portInstances
+deployment.ComponentInstance:type
+deployment.ConnectionInstance
+deployment.ConnectionInstance:connectionEnds
+deployment.ConnectionInstance:type
+deployment.DeploymentAspect
+deployment.DeploymentAspect:ownedConfigurations
+deployment.DeploymentAspect:ownedDeploymentAspects
+deployment.DeploymentConfiguration
+deployment.DeploymentConfiguration:ownedDeploymentLinks
+deployment.DeploymentConfiguration:ownedPhysicalInstances
+deployment.InstanceDeploymentLink
+deployment.PartDeploymentLink
+deployment.PortInstance
+deployment.PortInstance:component
+deployment.PortInstance:connections
+deployment.PortInstance:type
+deployment.TypeDeploymentLink
+
+----- PACKAGE epbs ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: epbs:AbstractAction
+class: epbs:AbstractActivity
+class: epbs:AbstractNamedElement
+class: epbs:ActivityEdge
+class: epbs:Association
+class: epbs:Component
+class: epbs:ExceptionHandler
+class: epbs:ExchangeItem
+class: epbs:FloatPropertyValue
+class: epbs:IntegerPropertyValue
+class: epbs:InterruptibleActivityRegion
+class: epbs:ModelElement
+class: epbs:OpaqueExpression
+class: epbs:PhysicalLink
+class: epbs:SendSignalAction
+class: epbs:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+epbs.ConfigurationItem
+epbs.ConfigurationItem:allocatedPhysicalArtifacts
+epbs.ConfigurationItem:itemIdentifier
+epbs.ConfigurationItem:kind
+epbs.ConfigurationItem:ownedConfigurationItemPkgs
+epbs.ConfigurationItem:ownedConfigurationItems
+epbs.ConfigurationItem:ownedPhysicalArtifactRealizations
+epbs.ConfigurationItemPkg
+epbs.ConfigurationItemPkg:ownedConfigurationItemPkgs
+epbs.ConfigurationItemPkg:ownedConfigurationItems
+epbs.EPBSArchitecture
+epbs.EPBSArchitecture:allocatedPhysicalArchitectureRealizations
+epbs.EPBSArchitecture:allocatedPhysicalArchitectures
+epbs.EPBSArchitecture:containedCapabilityRealizationPkg
+epbs.EPBSArchitecture:ownedConfigurationItemPkg
+epbs.EPBSArchitecture:ownedPhysicalArchitectureRealizations
+epbs.EPBSArchitecturePkg
+epbs.EPBSArchitecturePkg:ownedEPBSArchitectures
+epbs.PhysicalArchitectureRealization
+epbs.PhysicalArtifactRealization
+epbs.PhysicalArtifactRealization:realizedPhysicalArtifact
+epbs.PhysicalArtifactRealization:realizingConfigurationItem
+
+----- PACKAGE capellamodeller ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: capellamodeller:AbstractAction
+class: capellamodeller:AbstractActivity
+class: capellamodeller:AbstractNamedElement
+class: capellamodeller:ActivityEdge
+class: capellamodeller:Association
+class: capellamodeller:Component
+class: capellamodeller:ExceptionHandler
+class: capellamodeller:ExchangeItem
+class: capellamodeller:FloatPropertyValue
+class: capellamodeller:IntegerPropertyValue
+class: capellamodeller:InterruptibleActivityRegion
+class: capellamodeller:ModelElement
+class: capellamodeller:OpaqueExpression
+class: capellamodeller:PhysicalLink
+class: capellamodeller:SendSignalAction
+class: capellamodeller:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+capellamodeller.Folder
+capellamodeller.Folder:ownedFolders
+capellamodeller.Folder:ownedModelRoots
+capellamodeller.Library
+capellamodeller.ModelRoot
+capellamodeller.Project
+capellamodeller.Project:keyValuePairs
+capellamodeller.Project:ownedFolders
+capellamodeller.Project:ownedModelRoots
+capellamodeller.SystemEngineering
+capellamodeller.SystemEngineering:containedEPBSArchitectures
+capellamodeller.SystemEngineering:containedLogicalArchitectures
+capellamodeller.SystemEngineering:containedOperationalAnalysis
+capellamodeller.SystemEngineering:containedPhysicalArchitectures
+capellamodeller.SystemEngineering:containedSharedPkgs
+capellamodeller.SystemEngineering:containedSystemAnalysis
+capellamodeller.SystemEngineeringPkg
+capellamodeller.SystemEngineeringPkg:ownedSystemEngineerings
+
+----- PACKAGE sharedmodel ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: sharedmodel:AbstractAction
+class: sharedmodel:AbstractActivity
+class: sharedmodel:AbstractNamedElement
+class: sharedmodel:ActivityEdge
+class: sharedmodel:Association
+class: sharedmodel:Component
+class: sharedmodel:ExceptionHandler
+class: sharedmodel:ExchangeItem
+class: sharedmodel:FloatPropertyValue
+class: sharedmodel:IntegerPropertyValue
+class: sharedmodel:InterruptibleActivityRegion
+class: sharedmodel:ModelElement
+class: sharedmodel:OpaqueExpression
+class: sharedmodel:PhysicalLink
+class: sharedmodel:SendSignalAction
+class: sharedmodel:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+sharedmodel.GenericPkg
+sharedmodel.GenericPkg:capellaElements
+sharedmodel.GenericPkg:subGenericPkgs
+sharedmodel.SharedPkg
+sharedmodel.SharedPkg:ownedDataPkg
+sharedmodel.SharedPkg:ownedGenericPkg
+
+----- PACKAGE CapellaRequirements ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: CapellaRequirements:AbstractAction
+class: CapellaRequirements:AbstractActivity
+class: CapellaRequirements:AbstractNamedElement
+class: CapellaRequirements:ActivityEdge
+class: CapellaRequirements:Association
+class: CapellaRequirements:Component
+class: CapellaRequirements:ExceptionHandler
+class: CapellaRequirements:ExchangeItem
+class: CapellaRequirements:FloatPropertyValue
+class: CapellaRequirements:IntegerPropertyValue
+class: CapellaRequirements:InterruptibleActivityRegion
+class: CapellaRequirements:ModelElement
+class: CapellaRequirements:OpaqueExpression
+class: CapellaRequirements:PhysicalLink
+class: CapellaRequirements:SendSignalAction
+class: CapellaRequirements:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+CapellaRequirements.CapellaIncomingRelation
+CapellaRequirements.CapellaIncomingRelation:source
+CapellaRequirements.CapellaIncomingRelation:target
+CapellaRequirements.CapellaModule
+CapellaRequirements.CapellaOutgoingRelation
+CapellaRequirements.CapellaOutgoingRelation:source
+CapellaRequirements.CapellaOutgoingRelation:target
+CapellaRequirements.CapellaRelation
+CapellaRequirements.CapellaTypesFolder
+
+----- PACKAGE Requirements ANALYSIS ------
+
+DateValueAttribute -- VAL EDate:0:1
+RealValueAttribute -- VAL EDouble:0:1
+Requirement -- VAL EBigInteger:0:1
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBigInteger:0:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EDate:0:1
+value type: EDouble:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: Requirements:AbstractAction
+class: Requirements:AbstractActivity
+class: Requirements:AbstractNamedElement
+class: Requirements:ActivityEdge
+class: Requirements:Association
+class: Requirements:Component
+class: Requirements:DateValueAttribute
+class: Requirements:ExceptionHandler
+class: Requirements:ExchangeItem
+class: Requirements:FloatPropertyValue
+class: Requirements:IntegerPropertyValue
+class: Requirements:InterruptibleActivityRegion
+class: Requirements:ModelElement
+class: Requirements:OpaqueExpression
+class: Requirements:PhysicalLink
+class: Requirements:RealValueAttribute
+class: Requirements:Requirement
+class: Requirements:SendSignalAction
+class: Requirements:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+Requirements.AbstractRelation
+Requirements.AbstractRelation:relationType
+Requirements.AbstractRelation:relationTypeProxy
+Requirements.AbstractType
+Requirements.AbstractType:ownedAttributes
+Requirements.Attribute
+Requirements.Attribute:definition
+Requirements.Attribute:definitionProxy
+Requirements.AttributeDefinition
+Requirements.AttributeDefinition:defaultValue
+Requirements.AttributeDefinition:definitionType
+Requirements.AttributeDefinitionEnumeration
+Requirements.AttributeDefinitionEnumeration:multiValued
+Requirements.AttributeOwner
+Requirements.AttributeOwner:ownedAttributes
+Requirements.BooleanValueAttribute
+Requirements.BooleanValueAttribute:value
+Requirements.DataTypeDefinition
+Requirements.DateValueAttribute
+Requirements.DateValueAttribute:value
+Requirements.EnumerationDataTypeDefinition
+Requirements.EnumerationDataTypeDefinition:specifiedValues
+Requirements.EnumerationValueAttribute
+Requirements.EnumerationValueAttribute:values
+Requirements.EnumValue
+Requirements.Folder
+Requirements.Folder:ownedRequirements
+Requirements.IdentifiableElement
+Requirements.IdentifiableElement:id
+Requirements.IntegerValueAttribute
+Requirements.IntegerValueAttribute:value
+Requirements.InternalRelation
+Requirements.InternalRelation:source
+Requirements.InternalRelation:target
+Requirements.Module
+Requirements.Module:moduleType
+Requirements.Module:ownedRequirements
+Requirements.ModuleType
+Requirements.RealValueAttribute
+Requirements.RealValueAttribute:value
+Requirements.RelationType
+Requirements.ReqIFElement
+Requirements.ReqIFElement:ReqIFDescription
+Requirements.ReqIFElement:ReqIFIdentifier
+Requirements.ReqIFElement:ReqIFLongName
+Requirements.Requirement
+Requirements.Requirement:ownedRelations
+Requirements.Requirement:ReqIFChapterName
+Requirements.Requirement:ReqIFForeignID
+Requirements.Requirement:ReqIFText
+Requirements.Requirement:requirementType
+Requirements.Requirement:requirementTypeProxy
+Requirements.RequirementType
+Requirements.SharedDirectAttributes
+Requirements.SharedDirectAttributes:ReqIFName
+Requirements.SharedDirectAttributes:ReqIFPrefix
+Requirements.StringValueAttribute
+Requirements.StringValueAttribute:value
+Requirements.TypesFolder
+Requirements.TypesFolder:ownedDefinitionTypes
+Requirements.TypesFolder:ownedTypes
+
+----- PACKAGE libraries ANALYSIS ------
+
+ModelVersion -- VAL EInt:1:1
+ModelVersion -- VAL ELong:0:1
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBigInteger:0:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EDate:0:1
+value type: EDouble:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EInt:1:1
+value type: ELong:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: libraries:AbstractAction
+class: libraries:AbstractActivity
+class: libraries:AbstractNamedElement
+class: libraries:ActivityEdge
+class: libraries:Association
+class: libraries:Component
+class: libraries:DateValueAttribute
+class: libraries:ExceptionHandler
+class: libraries:ExchangeItem
+class: libraries:FloatPropertyValue
+class: libraries:IntegerPropertyValue
+class: libraries:InterruptibleActivityRegion
+class: libraries:ModelElement
+class: libraries:ModelVersion
+class: libraries:OpaqueExpression
+class: libraries:PhysicalLink
+class: libraries:RealValueAttribute
+class: libraries:Requirement
+class: libraries:SendSignalAction
+class: libraries:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+libraries.LibraryAbstractElement
+libraries.LibraryAbstractElement:id
+libraries.LibraryReference
+libraries.LibraryReference:accessPolicy
+libraries.LibraryReference:library
+libraries.LibraryReference:version
+libraries.ModelInformation
+libraries.ModelInformation:ownedReferences
+libraries.ModelInformation:version
+libraries.ModelVersion
+libraries.ModelVersion:lastModifiedFileStamp
+libraries.ModelVersion:majorVersionNumber
+libraries.ModelVersion:minorVersionNumber
+
+----- PACKAGE re ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBigInteger:0:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EDate:0:1
+value type: EDouble:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EInt:1:1
+value type: ELong:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: re:AbstractAction
+class: re:AbstractActivity
+class: re:AbstractNamedElement
+class: re:ActivityEdge
+class: re:Association
+class: re:Component
+class: re:DateValueAttribute
+class: re:ExceptionHandler
+class: re:ExchangeItem
+class: re:FloatPropertyValue
+class: re:IntegerPropertyValue
+class: re:InterruptibleActivityRegion
+class: re:ModelElement
+class: re:ModelVersion
+class: re:OpaqueExpression
+class: re:PhysicalLink
+class: re:RealValueAttribute
+class: re:Requirement
+class: re:SendSignalAction
+class: re:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+re.CatalogElement
+re.CatalogElement:author
+re.CatalogElement:currentCompliancy
+re.CatalogElement:defaultReplicaCompliancy
+re.CatalogElement:environment
+re.CatalogElement:kind
+re.CatalogElement:origin
+re.CatalogElement:ownedLinks
+re.CatalogElement:purpose
+re.CatalogElement:readOnly
+re.CatalogElement:referencedElements
+re.CatalogElement:replicatedElements
+re.CatalogElement:suffix
+re.CatalogElement:tags
+re.CatalogElement:version
+re.CatalogElementLink
+re.CatalogElementLink:origin
+re.CatalogElementLink:source
+re.CatalogElementLink:suffixed
+re.CatalogElementLink:target
+re.CatalogElementLink:unsynchronizedFeatures
+re.CatalogElementPkg
+re.CatalogElementPkg:ownedElementPkgs
+re.CompliancyDefinition
+re.CompliancyDefinitionPkg
+re.CompliancyDefinitionPkg:ownedDefinitions
+re.GroupingElementPkg
+re.ReAbstractElement
+re.ReAbstractElement:id
+re.RecCatalog
+re.RecCatalog:ownedCompliancyDefinitionPkg
+re.ReDescriptionElement
+re.ReDescriptionElement:description
+re.ReElementContainer
+re.ReElementContainer:ownedElements
+re.ReNamedElement
+re.ReNamedElement:name
+

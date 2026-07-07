@@ -200,6 +200,10 @@ There is no factory runtime — object construction is `new Foo()`, and deserial
     ```
     dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_object_model"
     ```
+  - *Expected-results verification* (#8): `Verify_that_every_interesting_class_from_the_model_inspector_is_generated` runs ECoreNetto's `ModelInspector` over the vendored metamodel and asserts every "interesting class" (the minimal set covering all type/multiplicity variations) has a generated interface. The full inspection report is committed at [`docs/model-inspection.txt`](model-inspection.txt) and regenerated with:
+    ```
+    dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_model_inspection_report"
+    ```
 - **Input** is `resources/ecore` (the 21 vendored files), loaded exactly as the #2 validation tests do.
 
 ## 11. Open items to confirm during implementation (#7)

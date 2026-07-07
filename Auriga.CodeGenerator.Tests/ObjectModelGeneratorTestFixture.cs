@@ -15,6 +15,8 @@ namespace Auriga.CodeGenerator.Tests
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using ECoreNetto.Reporting.Generators;
+
     using NUnit.Framework;
 
     /// <summary>
@@ -77,6 +79,32 @@ namespace Auriga.CodeGenerator.Tests
                 .ToList();
 
             Assert.That(classesWithoutInterface, Is.Empty);
+        }
+
+        [Test]
+        public void Verify_that_every_interesting_class_from_the_model_inspector_is_generated()
+        {
+            // ECoreNetto's ModelInspector reports the "interesting classes" — the minimal set covering
+            // every variation of value type, reference type, enum and multiplicity. Generating (an
+            // interface for) each of them is the correctness bar for the code generator.
+            var reportPath = Path.Combine(TestContext.CurrentContext.TestDirectory, "model-inspection.txt");
+            new ModelInspector().GenerateCombinedReport(new DirectoryInfo(this.ecoreDirectory), new FileInfo(reportPath));
+            var report = File.ReadAllText(reportPath);
+
+            var interestingClasses = Regex
+                .Matches(report, @"^class: [^:]+:(?<name>\w+)\s*$", RegexOptions.Multiline)
+                .Select(m => Capitalize(m.Groups["name"].Value))
+                .ToHashSet(StringComparer.Ordinal);
+
+            var generatedInterfaces = this.files.Keys
+                .Where(k => k.StartsWith("AutoGenInterfaces/", StringComparison.Ordinal))
+                .Select(k => Path.GetFileNameWithoutExtension(k)[1..]) // strip the leading 'I'
+                .ToHashSet(StringComparer.Ordinal);
+
+            Assert.That(interestingClasses, Is.Not.Empty, "the inspector reported no interesting classes");
+
+            var missing = interestingClasses.Where(name => !generatedInterfaces.Contains(name)).OrderBy(n => n).ToList();
+            Assert.That(missing, Is.Empty, $"interesting classes without a generated interface: {string.Join(", ", missing)}");
         }
 
         [Test]
@@ -236,6 +264,11 @@ namespace Auriga.CodeGenerator.Tests
             return this.files.Keys.Count(k => k.StartsWith(folderPrefix, StringComparison.Ordinal));
         }
 
+        private static string Capitalize(string name)
+        {
+            return char.ToUpperInvariant(name[0]) + name[1..];
+        }
+
         private static int CountOccurrences(string text, string value)
         {
             var count = 0;
@@ -258,6 +291,25 @@ namespace Auriga.CodeGenerator.Tests
         [Explicit("Regenerates the committed object model in the Auriga project.")]
         public void Regenerate_object_model()
         {
+            var aurigaProject = Path.Combine(SolutionRoot(), "Auriga");
+            new ObjectModelGenerator(this.ecoreDirectory).Write(aurigaProject);
+        }
+
+        /// <summary>
+        /// Writes the ECoreNetto model-inspection report to <c>docs/model-inspection.txt</c> — the
+        /// documented list of the metamodel's classes, type/multiplicity variations and the "interesting
+        /// classes" that the code-generation tests are expected to cover.
+        /// </summary>
+        [Test]
+        [Explicit("Regenerates docs/model-inspection.txt from the vendored metamodel.")]
+        public void Regenerate_model_inspection_report()
+        {
+            var reportPath = Path.Combine(SolutionRoot(), "docs", "model-inspection.txt");
+            new ModelInspector().GenerateCombinedReport(new DirectoryInfo(this.ecoreDirectory), new FileInfo(reportPath));
+        }
+
+        private static string SolutionRoot()
+        {
             var directory = new DirectoryInfo(TestContext.CurrentContext.TestDirectory);
             while (directory != null && !File.Exists(Path.Combine(directory.FullName, "Auriga.sln")))
             {
@@ -265,9 +317,7 @@ namespace Auriga.CodeGenerator.Tests
             }
 
             Assert.That(directory, Is.Not.Null, "could not locate the solution root");
-
-            var aurigaProject = Path.Combine(directory!.FullName, "Auriga");
-            new ObjectModelGenerator(this.ecoreDirectory).Write(aurigaProject);
+            return directory!.FullName;
         }
     }
 }
