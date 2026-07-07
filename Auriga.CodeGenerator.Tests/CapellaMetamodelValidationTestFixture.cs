@@ -13,7 +13,6 @@ namespace Auriga.CodeGenerator.Tests
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
 
     using ECoreNetto;
     using ECoreNetto.Resource;
@@ -231,7 +230,7 @@ namespace Auriga.CodeGenerator.Tests
                 .Select(reference => $"{reference.EContainingClass.Name}.{reference.Name}")
                 .ToList();
 
-            var declaredOpposites = this.ecoreFiles.Sum(f => Regex.Matches(File.ReadAllText(f), "eOpposite=\"").Count);
+            var declaredOpposites = this.ecoreFiles.Sum(f => CountOccurrences(File.ReadAllText(f), "eOpposite=\""));
 
             Assert.Multiple(() =>
             {
@@ -269,6 +268,20 @@ namespace Auriga.CodeGenerator.Tests
             {
                 yield return nested;
             }
+        }
+
+        private static int CountOccurrences(string text, string value)
+        {
+            var count = 0;
+            var index = 0;
+
+            while ((index = text.IndexOf(value, index, StringComparison.Ordinal)) >= 0)
+            {
+                count++;
+                index += value.Length;
+            }
+
+            return count;
         }
 
         private static string QualifiedName(EPackage package)
