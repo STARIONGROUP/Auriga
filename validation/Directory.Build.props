@@ -1,6 +1,0 @@
-<Project>
-    <!--
-      Stopper file: the EcoreValidation harness is a standalone project and does not
-      inherit the solution-wide build properties from the repository root.
-    -->
-</Project>

@@ -1,15 +1,10 @@
 ---
 name: "Bug or Feature Report"
 about: "Report a bug or request a feature for Auriga"
-title: "[Bug|Feature]: "
+title: "[Issue]: "
 labels: []
 assignees: []
 ---
-
-### What type of issue is this?
-
-- [ ] Bug report
-- [ ] Feature request
 
 ### Prerequisites
 
