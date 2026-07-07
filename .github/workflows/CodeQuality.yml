@@ -41,7 +41,12 @@ jobs:
         run: |
           dotnet tool install --global dotnet-sonarscanner
           dotnet tool install --global dotnet-coverage
-          dotnet sonarscanner begin /k:"STARIONGROUP_Auriga" /o:"stariongroup" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          # AutoGen*/** are machine-generated data holders (interfaces, classes, enums) emitted by the
+          # code generator. They are near-identical by construction and not hand-maintained, so they are
+          # excluded from coverage and duplication so those gates reflect the hand-written code. The same
+          # pattern also matches the golden copies under Auriga.CodeGenerator.Tests/Expected/AutoGen*.
+          GENERATED='**/AutoGenClasses/**/*.cs,**/AutoGenInterfaces/**/*.cs,**/AutoGenEnumeration/**/*.cs'
+          dotnet sonarscanner begin /k:"STARIONGROUP_Auriga" /o:"stariongroup" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.coverage.exclusions="$GENERATED" /d:sonar.cpd.exclusions="$GENERATED"
 
       - name: Build
         run: dotnet build Auriga.sln --no-restore --no-incremental /p:ContinuousIntegrationBuild=true

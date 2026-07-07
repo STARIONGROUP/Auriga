@@ -28,7 +28,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
     /// and 35 EEnums, across 25 Ecore packages.
     /// </summary>
     [TestFixture]
-    public class CorePocoGeneratorTestFixture
+    public partial class CorePocoGeneratorTestFixture
     {
         private const int ExpectedInterfaceCount = 430;
 
@@ -93,8 +93,8 @@ namespace Auriga.CodeGenerator.Tests.Generators
             new ModelInspector().GenerateCombinedReport(new DirectoryInfo(this.ecoreDirectory), new FileInfo(reportPath));
             var report = File.ReadAllText(reportPath);
 
-            var interestingClasses = Regex
-                .Matches(report, @"^class: [^:]+:(?<name>\w+)\s*$", RegexOptions.Multiline)
+            var interestingClasses = InterestingClassRegex()
+                .Matches(report)
                 .Select(m => Capitalize(m.Groups["name"].Value))
                 .ToHashSet(StringComparer.Ordinal);
 
@@ -235,8 +235,8 @@ namespace Auriga.CodeGenerator.Tests.Generators
         {
             var content = this.files["AutoGenInterfaces/Pa/IPhysicalComponent.cs"];
 
-            var names = Regex
-                .Matches(content, @"^\s+\S.* (?<name>\w+) \{ get;", RegexOptions.Multiline)
+            var names = MemberDeclarationRegex()
+                .Matches(content)
                 .Select(m => m.Groups["name"].Value)
                 .ToList();
 
@@ -265,6 +265,19 @@ namespace Auriga.CodeGenerator.Tests.Generators
         {
             return this.files.Keys.Count(k => k.StartsWith(folderPrefix, StringComparison.Ordinal));
         }
+
+        /// <summary>
+        /// Matches an "interesting class" line in the ECoreNetto model-inspection report, capturing the
+        /// simple class name.
+        /// </summary>
+        [GeneratedRegex(@"^class: [^:]+:(?<name>\w+)\s*$", RegexOptions.Multiline)]
+        private static partial Regex InterestingClassRegex();
+
+        /// <summary>
+        /// Matches a generated property declaration, capturing the member name that precedes <c>{ get;</c>.
+        /// </summary>
+        [GeneratedRegex(@"^\s+\S.* (?<name>\w+) \{ get;", RegexOptions.Multiline)]
+        private static partial Regex MemberDeclarationRegex();
 
         private static string Capitalize(string name)
         {
