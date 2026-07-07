@@ -93,17 +93,17 @@ namespace Auriga.CodeGenerator.Generators
             foreach (var eEnum in closureEnums.OrderBy(CSharpNaming.EnumType, StringComparer.Ordinal))
             {
                 var name = CSharpNaming.Capitalize(eEnum.Name);
-                files[$"AutoGenEnumeration/{PackageFolder(eEnum)}/{name}.cs"] = this.enumTemplate(eEnum);
+                files[$"AutoGenEnumeration/{PackageFolder(eEnum)}/{name}.cs"] = Normalize(this.enumTemplate(eEnum));
             }
 
             foreach (var eClass in closureClasses.OrderBy(CSharpNaming.InterfaceType, StringComparer.Ordinal))
             {
                 var name = CSharpNaming.Capitalize(eClass.Name);
-                files[$"AutoGenInterfaces/{PackageFolder(eClass)}/I{name}.cs"] = this.interfaceTemplate(eClass);
+                files[$"AutoGenInterfaces/{PackageFolder(eClass)}/I{name}.cs"] = Normalize(this.interfaceTemplate(eClass));
 
                 if (targetPackageSet.Contains(eClass.EPackage) && !eClass.Abstract && !eClass.Interface)
                 {
-                    files[$"AutoGenClasses/{PackageFolder(eClass)}/{name}.cs"] = this.classTemplate(eClass);
+                    files[$"AutoGenClasses/{PackageFolder(eClass)}/{name}.cs"] = Normalize(this.classTemplate(eClass));
                 }
             }
 
@@ -117,6 +117,17 @@ namespace Auriga.CodeGenerator.Generators
         private static string PackageFolder(EClassifier classifier)
         {
             return CSharpNaming.Capitalize(classifier.EPackage.Name);
+        }
+
+        /// <summary>
+        /// Normalizes rendered output to LF line endings so generation is deterministic regardless of the
+        /// line endings the embedded templates were checked out with (CRLF on Windows, LF on Linux) and of
+        /// the LF explicitly injected by some helpers. This keeps the committed generated code — and the
+        /// CI drift guard — identical across platforms.
+        /// </summary>
+        private static string Normalize(string content)
+        {
+            return content.Replace("\r\n", "\n");
         }
 
         /// <summary>

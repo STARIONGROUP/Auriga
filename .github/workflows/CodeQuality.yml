@@ -59,6 +59,34 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
 
+  # Drift guard: regenerate the object model from the vendored .ecore files and fail if the freshly
+  # generated code differs from what is committed. This keeps the committed AutoGen* code in lock-step
+  # with the generator/templates so a change to either without regenerating cannot be merged.
+  codegen-drift:
+    name: Generated code drift guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: '10.0.x'
+
+      # The regeneration entry point is an [Explicit] test, so it only runs when selected by this filter.
+      - name: Regenerate the object model
+        run: dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_object_model"
+
+      - name: Fail if the committed generated code drifted from fresh output
+        run: |
+          GENERATED='Auriga/AutoGenClasses Auriga/AutoGenInterfaces Auriga/AutoGenEnumeration'
+          git add -A -- $GENERATED
+          if ! git diff --cached --quiet -- $GENERATED; then
+            echo "::error::Committed generated code is out of date. Run the Regenerate_object_model test and commit the result."
+            git diff --cached -- $GENERATED
+            exit 1
+          fi
+
   # Cross-platform build & test that surfaces results/coverage on the PR.
   # Needs no secrets, so it also produces signal on fork PRs (where SONAR_TOKEN is absent).
   build-test:
