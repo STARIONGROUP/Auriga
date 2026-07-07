@@ -28,9 +28,10 @@ namespace Auriga.CodeGenerator
     /// Generates the Auriga Capella object model (interfaces, implementation classes and enums) from
     /// the vendored Capella <c>.ecore</c> files, following <c>docs/codegen-design.md</c>. The whole
     /// metamodel is loaded into one <see cref="ResourceSet"/> (the graph is cyclic and cannot be
-    /// generated file-by-file); implementation classes are emitted only for the requested target
-    /// packages, while the interfaces and enums those classes transitively reference are emitted so
-    /// the generated code compiles.
+    /// generated file-by-file). By default every package is generated (the v1 scope of issue #1); a
+    /// caller may instead name a subset of packages, in which case implementation classes are emitted
+    /// only for those packages while the interfaces and enums they transitively reference are emitted
+    /// so the generated code still compiles.
     /// </summary>
     public sealed class ObjectModelGenerator
     {
@@ -63,20 +64,27 @@ namespace Auriga.CodeGenerator
         }
 
         /// <summary>
-        /// Generates the object model for the supplied target package names and returns the files as a
-        /// dictionary keyed by repository-relative path (e.g. <c>AutoGenInterfaces/IPhysicalFunction.cs</c>).
-        /// Pure function of the input, so calling it twice yields identical content.
+        /// Generates the object model and returns the files as a dictionary keyed by repository-relative
+        /// path (e.g. <c>AutoGenInterfaces/Pa/IPhysicalFunction.cs</c>). When no target package names are
+        /// supplied the whole metamodel is generated (the confirmed v1 scope, issue #1); otherwise only
+        /// the named packages get implementation classes, and the interfaces and enums those classes
+        /// transitively reference are emitted so the output still compiles. Each classifier is written to
+        /// a per-package sub-folder so classes with the same simple name in different packages (e.g.
+        /// <c>Folder</c> in <c>capellamodeller</c> and <c>Requirements</c>) do not collide. Pure function
+        /// of the input, so calling it twice yields identical content.
         /// </summary>
-        /// <param name="targetPackageNames">the Ecore package names whose concrete classes are emitted</param>
+        /// <param name="targetPackageNames">
+        /// the Ecore package names whose concrete classes are emitted, or none to generate the whole metamodel
+        /// </param>
         /// <returns>a path-keyed dictionary of generated file contents</returns>
         public IReadOnlyDictionary<string, string> Generate(params string[] targetPackageNames)
         {
             var rootPackages = this.LoadMetamodel();
             var allPackages = rootPackages.SelectMany(AllPackages).ToList();
 
-            var targetPackages = allPackages
-                .Where(p => targetPackageNames.Contains(p.Name, StringComparer.Ordinal))
-                .ToList();
+            var targetPackages = targetPackageNames.Length == 0
+                ? allPackages
+                : allPackages.Where(p => targetPackageNames.Contains(p.Name, StringComparer.Ordinal)).ToList();
 
             if (targetPackages.Count == 0)
             {
@@ -92,17 +100,17 @@ namespace Auriga.CodeGenerator
             foreach (var eEnum in closureEnums.OrderBy(CSharpNaming.EnumType, StringComparer.Ordinal))
             {
                 var name = CSharpNaming.Capitalize(eEnum.Name);
-                files[$"AutoGenEnumeration/{name}.cs"] = this.enumTemplate(this.BuildEnum(eEnum));
+                files[$"AutoGenEnumeration/{PackageFolder(eEnum)}/{name}.cs"] = this.enumTemplate(this.BuildEnum(eEnum));
             }
 
             foreach (var eClass in closureClasses.OrderBy(CSharpNaming.InterfaceType, StringComparer.Ordinal))
             {
                 var name = CSharpNaming.Capitalize(eClass.Name);
-                files[$"AutoGenInterfaces/I{name}.cs"] = this.interfaceTemplate(this.BuildInterface(eClass));
+                files[$"AutoGenInterfaces/{PackageFolder(eClass)}/I{name}.cs"] = this.interfaceTemplate(this.BuildInterface(eClass));
 
                 if (targetPackageSet.Contains(eClass.EPackage) && !eClass.Abstract && !eClass.Interface)
                 {
-                    files[$"AutoGenClasses/{name}.cs"] = this.classTemplate(this.BuildClass(eClass));
+                    files[$"AutoGenClasses/{PackageFolder(eClass)}/{name}.cs"] = this.classTemplate(this.BuildClass(eClass));
                 }
             }
 
@@ -110,11 +118,32 @@ namespace Auriga.CodeGenerator
         }
 
         /// <summary>
+        /// The single-level output sub-folder for a classifier: the PascalCased name of its immediate
+        /// Ecore package (e.g. <c>Pa</c>, <c>Deployment</c>, <c>Requirements</c>).
+        /// </summary>
+        private static string PackageFolder(EClassifier classifier)
+        {
+            return CSharpNaming.Capitalize(classifier.EPackage.Name);
+        }
+
+        /// <summary>
+        /// Whether an <see cref="EClass"/> belongs to the Capella metamodel (and is therefore generated).
+        /// Ecore built-ins reached as a supertype or feature type — notably <c>ecore::EObject</c>, whose
+        /// <see cref="EClassifier.EPackage"/> is not part of the loaded resource set — return false.
+        /// </summary>
+        private static bool IsGenerated(EClass eClass)
+        {
+            return eClass?.EPackage != null;
+        }
+
+        /// <summary>
         /// Generates the object model and writes it into the supplied <c>Auriga</c> project directory,
         /// clearing the <c>AutoGen*</c> folders first so removed types do not linger.
         /// </summary>
         /// <param name="aurigaProjectDirectory">the path of the <c>Auriga</c> project</param>
-        /// <param name="targetPackageNames">the Ecore package names whose concrete classes are emitted</param>
+        /// <param name="targetPackageNames">
+        /// the Ecore package names whose concrete classes are emitted, or none to write the whole metamodel
+        /// </param>
         public void Write(string aurigaProjectDirectory, params string[] targetPackageNames)
         {
             var files = this.Generate(targetPackageNames);
@@ -133,6 +162,7 @@ namespace Auriga.CodeGenerator
             foreach (var file in files)
             {
                 var path = Path.Combine(aurigaProjectDirectory, file.Key.Replace('/', Path.DirectorySeparatorChar));
+                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
                 File.WriteAllText(path, file.Value);
             }
         }
@@ -179,7 +209,7 @@ namespace Auriga.CodeGenerator
                     continue;
                 }
 
-                foreach (var super in eClass.ESuperTypes.Where(s => s != null))
+                foreach (var super in eClass.ESuperTypes.Where(IsGenerated))
                 {
                     queue.Enqueue(super);
                 }
@@ -191,7 +221,7 @@ namespace Auriga.CodeGenerator
                         case EEnum eEnum:
                             enums.Add(eEnum);
                             break;
-                        case EClass referenced:
+                        case EClass referenced when IsGenerated(referenced):
                             queue.Enqueue(referenced);
                             break;
                     }
@@ -223,7 +253,7 @@ namespace Auriga.CodeGenerator
         private InterfaceModel BuildInterface(EClass eClass)
         {
             var name = CSharpNaming.Capitalize(eClass.Name);
-            var supertypes = eClass.ESuperTypes.Where(s => s != null).ToList();
+            var supertypes = eClass.ESuperTypes.Where(IsGenerated).ToList();
             var extends = supertypes.Count > 0
                 ? " : " + string.Join(", ", supertypes.Select(CSharpNaming.InterfaceType))
                 : " : Auriga.IAurigaElement";

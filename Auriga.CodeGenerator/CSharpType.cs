@@ -61,8 +61,11 @@ namespace Auriga.CodeGenerator
             {
                 case EEnum eEnum:
                     return CSharpNaming.EnumType(eEnum);
-                case EClass eClass:
+                case EClass eClass when eClass.EPackage != null:
                     return CSharpNaming.InterfaceType(eClass);
+                case EClass:
+                    // an Ecore built-in reached as a feature type (only ecore::EObject occurs)
+                    return "object";
                 case EDataType dataType when PrimitiveMap.TryGetValue(dataType.Name, out var cSharp):
                     return cSharp;
                 default:

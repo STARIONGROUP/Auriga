@@ -1,0 +1,53 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="ModelInformation.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Libraries
+{
+    /// <summary>
+    /// Definition of the <c>ModelInformation</c> class.
+    /// </summary>
+    public partial class ModelInformation : Auriga.AurigaElement, Auriga.Libraries.IModelInformation
+    {
+        /// <summary>
+        /// Gets the owned extensions.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedExtensions"/>.
+        /// </summary>
+        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+
+        /// <summary>
+        /// Gets the owned references.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Libraries.ILibraryReference> OwnedReferences => this.backingOwnedReferences ??= new Auriga.ContainerList<Auriga.Libraries.ILibraryReference>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedReferences"/>.
+        /// </summary>
+        private Auriga.IContainerList<Auriga.Libraries.ILibraryReference> backingOwnedReferences;
+
+        /// <summary>
+        /// Gets or sets the version.
+        /// </summary>
+        public Auriga.Libraries.IModelVersion Version { get; set; }
+
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
