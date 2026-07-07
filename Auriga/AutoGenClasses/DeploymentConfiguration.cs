@@ -68,6 +68,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedConstraints"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
         /// <summary>
@@ -75,6 +78,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks => this.backingOwnedDeploymentLinks ??= new Auriga.ContainerList<Auriga.Cs.IAbstractDeploymentLink>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedDeploymentLinks"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> backingOwnedDeploymentLinks;
 
         /// <summary>
@@ -82,6 +88,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedEnumerationPropertyTypes"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
         /// <summary>
@@ -89,6 +98,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedExtensions"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
@@ -96,6 +108,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedMigratedElements"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
         /// <summary>
@@ -103,6 +118,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedPhysicalInstances => this.backingOwnedPhysicalInstances ??= new Auriga.ContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPhysicalInstances"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance> backingOwnedPhysicalInstances;
 
         /// <summary>
@@ -110,6 +128,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPropertyValueGroups"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
         /// <summary>
@@ -117,6 +138,9 @@ namespace Auriga.Pa.Deployment
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPropertyValues"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
         /// <summary>

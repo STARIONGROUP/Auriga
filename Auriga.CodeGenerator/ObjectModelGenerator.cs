@@ -310,6 +310,9 @@ namespace Auriga.CodeGenerator
             {
                 var field = "backing" + name;
                 declaration = $"public {type} {name} => this.{field} ??= new Auriga.ContainerList<{baseType}>(this);\n\n" +
+                              $"        /// <summary>\n" +
+                              $"        /// Backing field for <see cref=\"{name}\"/>.\n" +
+                              $"        /// </summary>\n" +
                               $"        private {type} {field};";
             }
             else if (collection)

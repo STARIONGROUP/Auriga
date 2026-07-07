@@ -68,6 +68,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="NamingRules"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
 
         /// <summary>
@@ -80,6 +83,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Fa.IExchangeCategory> OwnedCategories => this.backingOwnedCategories ??= new Auriga.ContainerList<Auriga.Fa.IExchangeCategory>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedCategories"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Fa.IExchangeCategory> backingOwnedCategories;
 
         /// <summary>
@@ -87,6 +93,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedConstraints"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
         /// <summary>
@@ -94,6 +103,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedEnumerationPropertyTypes"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
         /// <summary>
@@ -101,6 +113,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Fa.IExchangeSpecificationRealization> OwnedExchangeSpecificationRealizations => this.backingOwnedExchangeSpecificationRealizations ??= new Auriga.ContainerList<Auriga.Fa.IExchangeSpecificationRealization>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedExchangeSpecificationRealizations"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Fa.IExchangeSpecificationRealization> backingOwnedExchangeSpecificationRealizations;
 
         /// <summary>
@@ -108,6 +123,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Fa.IFunctionalExchangeSpecification> OwnedExchanges => this.backingOwnedExchanges ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalExchangeSpecification>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedExchanges"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Fa.IFunctionalExchangeSpecification> backingOwnedExchanges;
 
         /// <summary>
@@ -115,6 +133,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedExtensions"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
@@ -122,6 +143,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Fa.IFunctionSpecification> OwnedFunctionSpecifications => this.backingOwnedFunctionSpecifications ??= new Auriga.ContainerList<Auriga.Fa.IFunctionSpecification>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedFunctionSpecifications"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Fa.IFunctionSpecification> backingOwnedFunctionSpecifications;
 
         /// <summary>
@@ -129,6 +153,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks => this.backingOwnedFunctionalLinks ??= new Auriga.ContainerList<Auriga.Fa.IExchangeLink>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedFunctionalLinks"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Fa.IExchangeLink> backingOwnedFunctionalLinks;
 
         /// <summary>
@@ -136,6 +163,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedMigratedElements"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
         /// <summary>
@@ -143,6 +173,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs => this.backingOwnedPhysicalFunctionPkgs ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalFunctionPkg>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPhysicalFunctionPkgs"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> backingOwnedPhysicalFunctionPkgs;
 
         /// <summary>
@@ -150,6 +183,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Pa.IPhysicalFunction> OwnedPhysicalFunctions => this.backingOwnedPhysicalFunctions ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalFunction>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPhysicalFunctions"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Pa.IPhysicalFunction> backingOwnedPhysicalFunctions;
 
         /// <summary>
@@ -157,6 +193,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPropertyValueGroups"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
         /// <summary>
@@ -164,6 +203,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs => this.backingOwnedPropertyValuePkgs ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValuePkg>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPropertyValuePkgs"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> backingOwnedPropertyValuePkgs;
 
         /// <summary>
@@ -171,6 +213,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedPropertyValues"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
         /// <summary>
@@ -178,6 +223,9 @@ namespace Auriga.Pa
         /// </summary>
         public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
 
+        /// <summary>
+        /// Backing field for <see cref="OwnedTraces"/>.
+        /// </summary>
         private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
 
         /// <summary>
