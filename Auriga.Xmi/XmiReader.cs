@@ -125,11 +125,16 @@ namespace Auriga.Xmi
             var rootTypeKey = this.ResolveRootTypeKey(xmlReader, documentName);
             var root = this.facade.QueryElement(xmlReader, rootTypeKey);
 
-            this.referenceResolver.Resolve(this.cache);
+            var unresolvedReferences = this.referenceResolver.Resolve(this.cache);
+
+            if (unresolvedReferences.Count > 0)
+            {
+                this.logger.LogWarning("{Count} references in {Document} could not be resolved", unresolvedReferences.Count, documentName);
+            }
 
             this.logger.LogInformation("Read {Count} elements from {Document}", this.cache.Count, documentName);
 
-            return new XmiReaderResult(root, this.BuildIndex());
+            return new XmiReaderResult(root, this.BuildIndex(), unresolvedReferences);
         }
 
         /// <summary>
