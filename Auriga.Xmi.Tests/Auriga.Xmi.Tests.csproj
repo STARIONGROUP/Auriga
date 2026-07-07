@@ -26,4 +26,11 @@
         <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="..\TestData\minimal\minimal.melodymodeller">
+            <Link>TestData\minimal.melodymodeller</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>

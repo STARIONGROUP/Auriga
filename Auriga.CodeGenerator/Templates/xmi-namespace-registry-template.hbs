@@ -1,0 +1,42 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="AutoGenNamespaceRegistry.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Xmi.AutoGenXmiReaders
+{
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// The generated map from a Capella package's XML namespace URI to its Ecore package name, used to
+    /// resolve an <c>xsi:type</c> prefix (and the document root's namespace) to the package that owns the
+    /// referenced type.
+    /// </summary>
+    public static class AutoGenNamespaceRegistry
+    {
+        /// <summary>
+        /// Gets the namespace-URI-to-package-name map for every Capella package.
+        /// </summary>
+        public static IReadOnlyDictionary<string, string> NamespaceToPackage { get; } = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            {{#each this}}
+            {{RegistryEntry this}}
+            {{/each}}
+        };
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

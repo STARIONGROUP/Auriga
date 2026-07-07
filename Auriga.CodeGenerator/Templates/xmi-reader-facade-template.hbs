@@ -1,0 +1,110 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="XmiReaderFacade.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Xmi.AutoGenXmiReaders
+{
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Xml;
+
+    using Auriga.Xmi.Cache;
+    using Auriga.Xmi.Namespaces;
+    using Auriga.Xmi.Readers;
+
+    /// <summary>
+    /// The generated registry that maps a package-qualified type key (<c>package:TypeName</c>) to the
+    /// reader that instantiates it, and reads the element at the cursor by resolving its <c>xsi:type</c>.
+    /// </summary>
+    public sealed class XmiReaderFacade : IXmiReaderFacade
+    {
+        private const string XsiNamespace = "{{XsiNamespaceUri}}";
+
+        private readonly IXmiElementCache cache;
+
+        private readonly INamespaceResolver namespaceResolver;
+
+        private readonly Dictionary<string, string> prefixToNamespace = new Dictionary<string, string>(StringComparer.Ordinal);
+
+        private readonly Dictionary<string, Func<XmlReader, IAurigaElement>> readerFactories;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmiReaderFacade"/> class.
+        /// </summary>
+        /// <param name="cache">the element cache shared with every reader</param>
+        /// <param name="namespaceResolver">the namespace-URI-to-package resolver</param>
+        public XmiReaderFacade(IXmiElementCache cache, INamespaceResolver namespaceResolver)
+        {
+            this.cache = cache;
+            this.namespaceResolver = namespaceResolver;
+            this.readerFactories = new Dictionary<string, Func<XmlReader, IAurigaElement>>(StringComparer.Ordinal)
+            {
+                {{#each this}}
+                {{FacadeEntry this}}
+                {{/each}}
+            };
+        }
+
+        /// <inheritdoc/>
+        public void RegisterNamespace(string prefix, string namespaceUri)
+        {
+            this.prefixToNamespace[prefix] = namespaceUri;
+        }
+
+        /// <inheritdoc/>
+        public IAurigaElement QueryElement(XmlReader xmlReader, string explicitTypeKey = null)
+        {
+            var typeKey = explicitTypeKey ?? this.ResolveTypeKey(xmlReader);
+
+            if (!this.readerFactories.TryGetValue(typeKey, out var factory))
+            {
+                throw new InvalidOperationException($"No XMI reader is registered for the type '{typeKey}'.");
+            }
+
+            using var subReader = xmlReader.ReadSubtree();
+            subReader.MoveToContent();
+            return factory(subReader);
+        }
+
+        private string ResolveTypeKey(XmlReader xmlReader)
+        {
+            var xsiType = xmlReader.GetAttribute("type", XsiNamespace);
+            if (string.IsNullOrEmpty(xsiType))
+            {
+                throw new InvalidDataException("A contained element does not carry an xsi:type attribute.");
+            }
+
+            var separator = xsiType.IndexOf(':');
+            var prefix = separator >= 0 ? xsiType.Substring(0, separator) : string.Empty;
+            var typeName = separator >= 0 ? xsiType.Substring(separator + 1) : xsiType;
+
+            if (!this.prefixToNamespace.TryGetValue(prefix, out var namespaceUri))
+            {
+                namespaceUri = xmlReader.LookupNamespace(prefix);
+            }
+
+            if (namespaceUri == null || !this.namespaceResolver.TryResolvePackage(namespaceUri, out var package))
+            {
+                throw new InvalidDataException($"Cannot resolve the xsi:type '{xsiType}' to a known Capella package.");
+            }
+
+            return $"{package}:{typeName}";
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

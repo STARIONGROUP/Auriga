@@ -1,9 +1,10 @@
 # Generated code is emitted with LF line endings by the code generator and committed as-is. Pin it to
 # LF so it is not smudged to CRLF on Windows checkouts; that keeps the committed output byte-identical
 # across platforms and lets the CI drift guard (regenerate + git diff) run cleanly everywhere.
-Auriga/AutoGenClasses/**/*.cs      text eol=lf
-Auriga/AutoGenInterfaces/**/*.cs   text eol=lf
-Auriga/AutoGenEnumeration/**/*.cs  text eol=lf
+Auriga/AutoGenClasses/**/*.cs        text eol=lf
+Auriga/AutoGenInterfaces/**/*.cs     text eol=lf
+Auriga/AutoGenEnumeration/**/*.cs    text eol=lf
+Auriga.Xmi/AutoGenXmiReaders/**/*.cs text eol=lf
 
 # The golden files mirror generated output and are compared byte-for-byte, so pin them to LF too.
 Auriga.CodeGenerator.Tests/Expected/**/*.cs text eol=lf
