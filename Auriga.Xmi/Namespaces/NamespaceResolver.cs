@@ -21,10 +21,20 @@ namespace Auriga.Xmi.Namespaces
     /// </summary>
     public sealed class NamespaceResolver : INamespaceResolver
     {
+        /// <summary>
+        /// Matches a trailing version segment (e.g. <c>/7.0.0</c>, optionally followed by a slash) at the
+        /// end of a namespace URI, so it can be stripped for version-tolerant matching.
+        /// </summary>
         private static readonly Regex TrailingVersion = new Regex(@"/\d+(\.\d+)*/?$", RegexOptions.Compiled);
 
+        /// <summary>
+        /// The exact namespace-URI-to-package-name map supplied at construction.
+        /// </summary>
         private readonly IReadOnlyDictionary<string, string> namespaceToPackage;
 
+        /// <summary>
+        /// The version-stripped namespace-to-package map, used as a fallback when an exact URI match fails.
+        /// </summary>
         private readonly Dictionary<string, string> versionStrippedToPackage;
 
         /// <summary>
@@ -59,6 +69,13 @@ namespace Auriga.Xmi.Namespaces
             return this.versionStrippedToPackage.TryGetValue(StripVersion(namespaceUri), out package);
         }
 
+        /// <summary>
+        /// Removes a trailing version segment from a namespace URI (e.g.
+        /// <c>.../capella/core/pa/7.0.0</c> becomes <c>.../capella/core/pa</c>) so that documents
+        /// produced by a different Capella minor version still resolve.
+        /// </summary>
+        /// <param name="namespaceUri">the namespace URI to normalize</param>
+        /// <returns>the URI with any trailing version segment removed</returns>
         private static string StripVersion(string namespaceUri)
         {
             return TrailingVersion.Replace(namespaceUri, string.Empty);

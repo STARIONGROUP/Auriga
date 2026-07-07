@@ -38,6 +38,7 @@ namespace Auriga.Xmi.Cache
                 return false;
             }
 
+            // Dictionary.TryAdd is not available on netstandard2.0, so guard-then-add is the equivalent.
             if (this.elements.ContainsKey(element.Id!))
             {
                 return false;
