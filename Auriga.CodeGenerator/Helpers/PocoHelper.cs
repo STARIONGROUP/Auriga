@@ -1,0 +1,268 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="PocoHelper.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+namespace Auriga.CodeGenerator.Helpers
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using ECoreNetto;
+    using ECoreNetto.Extensions;
+
+    using HandlebarsDotNet;
+
+    /// <summary>
+    /// The HandleBars helpers that render the Auriga object model directly from the ECoreNetto POCOs
+    /// (<see cref="EClass"/>, <see cref="EEnum"/>, <see cref="EStructuralFeature"/>), following the
+    /// uml4net/SysML2.NET convention of driving the templates from the metamodel elements plus helpers
+    /// rather than intermediate view-model classes.
+    /// </summary>
+    public static class PocoHelper
+    {
+        /// <summary>
+        /// Member names supplied by <c>Auriga.IAurigaElement</c>; a same-named Capella feature is mapped
+        /// onto the inherited member rather than re-declared (which would hide the base).
+        /// </summary>
+        private static readonly HashSet<string> ReservedMembers = new(StringComparer.Ordinal) { "Id", "Container" };
+
+        /// <summary>
+        /// Whether an <see cref="EClass"/> belongs to the Capella metamodel (and is therefore generated).
+        /// Ecore built-ins reached as a supertype or feature type — notably <c>ecore::EObject</c>, whose
+        /// <see cref="EClassifier.EPackage"/> is not part of the loaded resource set — return false.
+        /// </summary>
+        /// <param name="eClass">the class to test</param>
+        /// <returns>true when the class is part of the generated metamodel</returns>
+        public static bool IsGenerated(EClass eClass)
+        {
+            return eClass?.EPackage != null;
+        }
+
+        /// <summary>
+        /// Registers the <see cref="PocoHelper"/> helpers with the supplied HandleBars context.
+        /// </summary>
+        /// <param name="handlebars">the HandleBars context</param>
+        public static void RegisterPocoHelper(this IHandlebars handlebars)
+        {
+            handlebars.RegisterHelper("Namespace", (writer, _, arguments) =>
+                writer.WriteSafeString(CSharpNaming.Namespace((EClassifier)arguments[0]!)));
+
+            handlebars.RegisterHelper("TypeName", (writer, _, arguments) =>
+                writer.WriteSafeString(CSharpNaming.Capitalize(((EClassifier)arguments[0]!).Name)));
+
+            handlebars.RegisterHelper("Extends", (writer, _, arguments) =>
+                writer.WriteSafeString(Extends((EClass)arguments[0]!)));
+
+            handlebars.RegisterHelper("Bases", (writer, _, arguments) =>
+                writer.WriteSafeString($" : Auriga.AurigaElement, {CSharpNaming.InterfaceType((EClass)arguments[0]!)}"));
+
+            handlebars.RegisterHelper("InterfaceDeclaration", (writer, _, arguments) =>
+                writer.WriteSafeString(Declaration((EStructuralFeature)arguments[0]!, forInterface: true)));
+
+            handlebars.RegisterHelper("ClassDeclaration", (writer, _, arguments) =>
+                writer.WriteSafeString(Declaration((EStructuralFeature)arguments[0]!, forInterface: false)));
+
+            handlebars.RegisterHelper("LiteralName", (writer, _, arguments) =>
+                writer.WriteSafeString(CSharpNaming.Escape(CSharpNaming.Capitalize(((EEnumLiteral)arguments[0]!).Name))));
+
+            handlebars.RegisterHelper("EnumerationDocumentation", (_, arguments) =>
+            {
+                var eEnum = (EEnum)arguments[0]!;
+                return Summary(eEnum, $"The <c>{CSharpNaming.Capitalize(eEnum.Name)}</c> enumeration.");
+            });
+
+            handlebars.RegisterHelper("InterfaceDocumentation", (_, arguments) =>
+            {
+                var eClass = (EClass)arguments[0]!;
+                return Summary(eClass, $"Definition of the <c>{CSharpNaming.Capitalize(eClass.Name)}</c> interface.");
+            });
+
+            handlebars.RegisterHelper("ClassDocumentation", (_, arguments) =>
+            {
+                var eClass = (EClass)arguments[0]!;
+                return Summary(eClass, $"Definition of the <c>{CSharpNaming.Capitalize(eClass.Name)}</c> class.");
+            });
+
+            handlebars.RegisterHelper("LiteralDocumentation", (_, arguments) =>
+            {
+                var literal = (EEnumLiteral)arguments[0]!;
+                return Summary(literal, $"The <c>{CSharpNaming.Capitalize(literal.Name)}</c> literal.");
+            });
+
+            handlebars.RegisterHelper("MemberDocumentation", (_, arguments) =>
+            {
+                var feature = (EStructuralFeature)arguments[0]!;
+                var writable = !CSharpType.IsComputed(feature) && !CSharpType.IsCollection(feature);
+                return Summary(feature, $"{(writable ? "Gets or sets" : "Gets")} the {Humanize(feature.Name)}.");
+            });
+
+            handlebars.RegisterHelper("InterfaceFeatures", (_, arguments) => InterfaceFeatures((EClass)arguments[0]!));
+
+            handlebars.RegisterHelper("ClassFeatures", (_, arguments) => ClassFeatures((EClass)arguments[0]!));
+
+            handlebars.RegisterHelper("InterfaceUsings", (_, arguments) => Usings(InterfaceFeatures((EClass)arguments[0]!)));
+
+            handlebars.RegisterHelper("ClassUsings", (_, arguments) => Usings(ClassFeatures((EClass)arguments[0]!)));
+        }
+
+        /// <summary>
+        /// Returns the own structural features rendered on an interface, filtered and ordered by name.
+        /// </summary>
+        private static List<EStructuralFeature> InterfaceFeatures(EClass eClass)
+        {
+            return eClass.EStructuralFeatures
+                .Where(f => f.EType != null && !IsReserved(f))
+                .OrderBy(MemberName, StringComparer.Ordinal)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Returns the flattened structural features rendered on a concrete class: inherited features are
+        /// pulled onto the class, deduped by name and ordered by name.
+        /// </summary>
+        private static List<EStructuralFeature> ClassFeatures(EClass eClass)
+        {
+            var features = new List<EStructuralFeature>();
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+            var className = CSharpNaming.Capitalize(eClass.Name);
+
+            foreach (var feature in eClass.AllEStructuralFeatures.Where(f => f.EType != null && !IsReserved(f)))
+            {
+                var memberName = MemberName(feature);
+
+                if (!seen.Add(memberName))
+                {
+                    continue;
+                }
+
+                if (string.Equals(memberName, className, StringComparison.Ordinal))
+                {
+                    throw new NotSupportedException(
+                        $"Feature '{eClass.Name}.{feature.Name}' collides with its enclosing type name; " +
+                        "member/type name-collision handling is deferred to a later issue.");
+                }
+
+                features.Add(feature);
+            }
+
+            return features.OrderBy(MemberName, StringComparer.Ordinal).ToList();
+        }
+
+        private static string Extends(EClass eClass)
+        {
+            var supertypes = eClass.ESuperTypes.Where(IsGenerated).ToList();
+
+            return supertypes.Count > 0
+                ? " : " + string.Join(", ", supertypes.Select(CSharpNaming.InterfaceType))
+                : " : Auriga.IAurigaElement";
+        }
+
+        private static string Declaration(EStructuralFeature feature, bool forInterface)
+        {
+            var name = MemberName(feature);
+            var type = CSharpType.MemberType(feature);
+            var baseType = CSharpType.BaseType(feature.EType);
+            var computed = CSharpType.IsComputed(feature);
+            var collection = CSharpType.IsCollection(feature);
+            var containment = feature is EReference { IsContainment: true };
+
+            if (forInterface)
+            {
+                var accessor = !computed && !collection ? "{ get; set; }" : "{ get; }";
+                return $"{type} {name} {accessor}";
+            }
+
+            if (computed)
+            {
+                return collection
+                    ? $"public {type} {name} => Enumerable.Empty<{baseType}>();"
+                    : $"public {type} {name} => default;";
+            }
+
+            if (collection && containment)
+            {
+                var field = "backing" + name;
+                return $"public {type} {name} => this.{field} ??= new Auriga.ContainerList<{baseType}>(this);\n\n" +
+                       $"        /// <summary>\n" +
+                       $"        /// Backing field for <see cref=\"{name}\"/>.\n" +
+                       $"        /// </summary>\n" +
+                       $"        private {type} {field};";
+            }
+
+            if (collection)
+            {
+                return $"public {type} {name} {{ get; }} = new List<{baseType}>();";
+            }
+
+            return $"public {type} {name} {{ get; set; }}";
+        }
+
+        private static string MemberName(EStructuralFeature feature)
+        {
+            return CSharpNaming.Escape(CSharpNaming.Capitalize(feature.Name));
+        }
+
+        private static bool IsReserved(EStructuralFeature feature)
+        {
+            return ReservedMembers.Contains(CSharpNaming.Capitalize(feature.Name));
+        }
+
+        private static List<string> Usings(IEnumerable<EStructuralFeature> features)
+        {
+            return features
+                .SelectMany(CSharpType.RequiredNamespaces)
+                .Distinct()
+                .OrderBy(n => n, StringComparer.Ordinal)
+                .ToList();
+        }
+
+        private static List<string> Summary(EModelElement element, string fallback)
+        {
+            List<string> lines;
+
+            try
+            {
+                lines = element.QueryDocumentation().Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+            }
+            catch (Exception)
+            {
+                lines = new List<string>();
+            }
+
+            if (lines.Count == 0)
+            {
+                lines = new List<string> { fallback };
+            }
+
+            var result = new List<string> { "<summary>" };
+            result.AddRange(lines);
+            result.Add("</summary>");
+
+            return result;
+        }
+
+        private static string Humanize(string name)
+        {
+            var builder = new StringBuilder(name.Length + 8);
+
+            foreach (var character in name)
+            {
+                if (char.IsUpper(character) && builder.Length > 0)
+                {
+                    builder.Append(' ');
+                }
+
+                builder.Append(char.ToLowerInvariant(character));
+            }
+
+            return builder.ToString();
+        }
+    }
+}

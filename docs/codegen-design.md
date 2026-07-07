@@ -18,24 +18,25 @@ The generator is a thin orchestrator, not a transformer chain. `Auriga.CodeGener
 ```
 Auriga.CodeGenerator/
   Generators/
-    HandleBarsGenerator.cs      // owns the shared IHandlebars env + compiled template registry
-    ObjectModelGenerator.cs     // orchestrates: enums -> interfaces -> classes -> factories
-    CodeCleanup.cs              // Roslyn reformat (CSharpSyntaxTree.ParseText + Formatter)
+    CorePocoGenerator.cs        // THE code generator: orchestrates enums -> interfaces -> classes
   Helpers/
-    CSharpTypeHelper.cs         // Ecore->C# type mapping + nullability + collection rendering  (NEW logic)
-    CSharpNameHelper.cs         // casing, reserved-word @-escaping, name==type collision        (NEW logic)
-    NamespaceHelper.cs          // EPackage -> C# namespace                                       (NEW logic)
+    CSharpType.cs               // Ecore->C# type mapping + nullability + collection rendering
+    CSharpNaming.cs             // casing, reserved-word @-escaping, namespace + interface/enum names
+  Models/                       // the HandleBars template contexts (one file per model type)
+    EnumModel.cs, InterfaceModel.cs, ClassModel.cs, MemberModel.cs, LiteralModel.cs
   Templates/
     core-enumeration-template.hbs
     core-poco-interface-template.hbs
     core-poco-class-template.hbs
 ```
 
+The class that performs code generation is `Generators/CorePocoGenerator` (the uml4net/SysML2.NET `CorePocoGenerator`/`UmlCorePocoGenerator` convention); its tests are `Auriga.CodeGenerator.Tests/Generators/CorePocoGeneratorTestFixture` (structure, counts, model-inspector coverage) and `CorePocoGeneratorExpectedTestFixture` (golden files).
+
 (The XMI reader/writer generators — including the single `XmiElementReaderFacade`, §3 — are a related set of generators that emit into `Auriga.Xmi`; they belong to the reader work in #13 but the dispatch decision is recorded here.)
 
 **Decision — reuse ECoreNetto's helper projects rather than create `Auriga.HandleBars`/`Auriga.Extensions`.** uml4net needed its own `uml4net.HandleBars`/`uml4net.Extensions` because nothing upstream understood UML. ECoreNetto already ships `ECoreNetto.Extensions` (multiplicity, containment, documentation, casing, package flattening, specialization queries) and `ECoreNetto.HandleBars` (the block helpers that call them). Auriga registers those, then adds only the C#-specific helpers above. This keeps Auriga.CodeGenerator small and avoids re-implementing the graph-query layer.
 
-Generation flow (in `ObjectModelGenerator`, driven from `Auriga.CodeGenerator.Tests` — see §10, following uml4net which has no CLI and drives generation from NUnit):
+Generation flow (in `CorePocoGenerator`, driven from `Auriga.CodeGenerator.Tests` — see §10, following uml4net which has no CLI and drives generation from NUnit):
 
 1. **Load** the metamodel: one `ResourceSet`, load all 21 `.ecore` files, collect every root `EPackage`, flatten with `PackageExtensions.QueryPackages()` to the 24 packages. (This is exactly the load the #2 validation tests already exercise; the harness code is a working template.)
 2. **Bucket** each package's `EClassifiers` into `EEnum`, `EClass` (abstract + concrete), following `HandleBarsReportGenerator.CreateHandlebarsPayload`. There are no custom `EDataType`s to handle (inventory §2), so the datatype bucket is asserted empty — **Verify in #7**.
@@ -47,9 +48,9 @@ Generation flow (in `ObjectModelGenerator`, driven from `Auriga.CodeGenerator.Te
 
 | Artifact | Emitted when | File → committed location | Namespace |
 | --- | --- | --- | --- |
-| `interface IPhysicalFunction` | always (abstract + concrete) | `AutoGenInterfaces/IPhysicalFunction.cs` | `Auriga.Pa` |
-| `class PhysicalFunction` | only when **not** `Abstract` | `AutoGenClasses/PhysicalFunction.cs` | `Auriga.Pa` |
-| `enum <Name>` | per `EEnum` | `AutoGenEnumeration/<Name>.cs` | `Auriga.Pa` |
+| `interface IPhysicalFunction` | always (abstract + concrete) | `AutoGenInterfaces/Pa/IPhysicalFunction.cs` | `Auriga.Pa` |
+| `class PhysicalFunction` | only when **not** `Abstract` | `AutoGenClasses/Pa/PhysicalFunction.cs` | `Auriga.Pa` |
+| `enum <Name>` | per `EEnum` | `AutoGenEnumeration/Pa/<Name>.cs` | `Auriga.Pa` |
 
 The interface carries the contract and the type lattice; the class carries state. Object construction is plain `new PhysicalFunction()` — the concrete classes are directly instantiable. Type-name → instance dispatch for deserialization is handled by a single generated facade (below), not by factories.
 
@@ -176,20 +177,34 @@ There is no factory runtime — object construction is `new Foo()`, and deserial
 
 **Decision — commit the generated code into the `Auriga` project and gate it with golden-file tests, exactly as uml4net does.**
 
-- **Output location** (committed to git, in the `Auriga` library):
+- **Output location** (committed to git, in the `Auriga` library). Each classifier is written to a
+  single-level sub-folder named after its Ecore package (PascalCased), so classes that share a simple
+  name in different packages (`Folder` in `capellamodeller` and `Requirements`; `AbstractType` in
+  `modellingcore` and `Requirements`) do not collide:
   ```
-  Auriga/AutoGenInterfaces/    I*.cs
-  Auriga/AutoGenClasses/       <concrete>.cs
-  Auriga/AutoGenEnumeration/   <enum>.cs
+  Auriga/AutoGenInterfaces/<Package>/I*.cs      e.g. AutoGenInterfaces/Pa/IPhysicalComponent.cs
+  Auriga/AutoGenClasses/<Package>/<concrete>.cs e.g. AutoGenClasses/Pa/PhysicalComponent.cs
+  Auriga/AutoGenEnumeration/<Package>/<enum>.cs e.g. AutoGenEnumeration/Pa/PhysicalComponentNature.cs
   Auriga/Extend/               hand-written partials (derived bodies, behavior)
   ```
+  As of #8 the generator emits the whole v1 metamodel by default (430 interfaces, 275 concrete
+  classes, 35 enums across 21 packages that contain concrete types); `Generate(params packageNames)`
+  still accepts a package subset for targeted runs. `ecore::EObject` (reached only as a feature type in
+  `re.ecore`) is an Ecore built-in, not part of the model, and maps to `object`.
   (The generated `XmiElementReaderFacade` and per-class readers/writers land in `Auriga.Xmi` — see #13 — not here.)
 - **Every generated file** starts with the Starion SPDX copyright header (emitted from the top of each `.hbs` template, `file="{{Name}}.cs"` interpolated — matching CONTRIBUTING) and an auto-generated banner, and every generated type carries `[GeneratedCode("Auriga.CodeGenerator", "<version>")]`. Files are plain `.cs` segregated by `AutoGen*` folder (no `.g.cs`).
 - **All generated types are `partial`.** Structure + auto-properties + attributes are generated; derived-property bodies and any behavior live in hand-written `partial`s under `Extend/`. Regeneration never touches `Extend/`.
 - **Determinism:** order everything by name (`OrderBy(x => x.Name)`), dedupe flattened features by name, and run every file through Roslyn `CodeCleanup` (`CSharpSyntaxTree.ParseText` + `Formatter.Format` over an `AdhocWorkspace`) so output is byte-stable and templates can be whitespace-sloppy.
 - **Regeneration is test-driven** (no CLI, matching uml4net):
   - *Golden-file verification tests* in `Auriga.CodeGenerator.Tests` generate into a throwaway temp dir and assert string-equality against the committed `AutoGen*` files. This is the CI gate: any drift between the templates and the committed output fails the build. (The vendored `.ecore` files are already copied to the test output by the `Auriga.CodeGenerator.Tests.csproj` `Data/ecore` item added in #5.)
-  - One `[Explicit("Regenerates production code")]` test walks up to the solution root and writes the `AutoGen*` folders in place. A developer runs it after changing a template, reviews the diff, and commits. CI never runs the explicit test.
+  - One `[Explicit]` test (`Regenerate_object_model`) walks up to the solution root and writes the `AutoGen*` folders in place. A developer runs it after changing a template, reviews the diff, and commits. CI never runs the explicit test. The regeneration command is:
+    ```
+    dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_object_model"
+    ```
+  - *Expected-results verification* (#8): `Verify_that_every_interesting_class_from_the_model_inspector_is_generated` runs ECoreNetto's `ModelInspector` over the vendored metamodel and asserts every "interesting class" (the minimal set covering all type/multiplicity variations) has a generated interface. The full inspection report is committed at [`docs/model-inspection.txt`](model-inspection.txt) and regenerated with:
+    ```
+    dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_model_inspection_report"
+    ```
 - **Input** is `resources/ecore` (the 21 vendored files), loaded exactly as the #2 validation tests do.
 
 ## 11. Open items to confirm during implementation (#7)

@@ -13,18 +13,18 @@
 
 #nullable disable
 
-namespace {{Namespace}}
+namespace {{Namespace this}}
 {
-{{#each Documentation}}
+{{#each (EnumerationDocumentation this)}}
     /// {{{this}}}
 {{/each}}
-    public enum {{Name}}
+    public enum {{TypeName this}}
     {
-{{#each Literals}}
-{{#each Documentation}}
+{{#each this.ELiterals}}
+{{#each (LiteralDocumentation this)}}
         /// {{{this}}}
 {{/each}}
-        {{Name}}{{#unless IsLast}},{{/unless}}
+        {{LiteralName this}}{{#unless @last}},{{/unless}}
 
 {{/each}}
     }
