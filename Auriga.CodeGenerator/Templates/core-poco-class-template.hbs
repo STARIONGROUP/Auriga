@@ -1,0 +1,41 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="{{Name}}.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace {{Namespace}}
+{
+{{#if Usings}}
+{{#each Usings}}
+    using {{this}};
+{{/each}}
+
+{{/if}}
+{{#each Documentation}}
+    /// {{{this}}}
+{{/each}}
+    public partial class {{Name}}{{{Bases}}}
+    {
+{{#each Members}}
+{{#each Documentation}}
+        /// {{{this}}}
+{{/each}}
+        {{{Declaration}}}
+
+{{/each}}
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -21,6 +21,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="Templates\*.hbs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <InternalsVisibleTo Include="$(MSBuildProjectName).Tests" />
     </ItemGroup>
 
