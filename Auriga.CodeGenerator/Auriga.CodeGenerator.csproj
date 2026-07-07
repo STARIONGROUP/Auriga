@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Version>0.1.0</Version>
+        <Description>Ecore-to-C# code generator that emits the Auriga Capella object model from the vendored Capella .ecore files, built on ECoreNetto and ECoreNetto.HandleBars. Development-time tool; not packable.</Description>
+        <PackageId>Auriga.CodeGenerator</PackageId>
+        <AssemblyTitle>Auriga.CodeGenerator</AssemblyTitle>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <IsPackable>false</IsPackable>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ECoreNetto" />
+        <PackageReference Include="ECoreNetto.HandleBars" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(MSBuildProjectName).Tests" />
+    </ItemGroup>
+
+</Project>

@@ -17,7 +17,7 @@ check 5 - opposites:  146 eOpposite pairs resolved and mutual / 146 declared in 
 check 6 - annotations: 1253 class-level annotations preserved (documentation, semantic, UML2 mapping, ...)
 ```
 
-The original validation against 7.0.9 found six upstream defects (three blockers) that made the metamodel unloadable without workarounds; the blockers were fixed in ECoreNetto 9.0.0 and the workaround staging code has been removed from the harness.
+The original validation against 7.0.9 found six upstream defects (three blockers) that made the metamodel unloadable without workarounds; the blockers were fixed in ECoreNetto 9.0.0 and the workaround staging code was removed.
 
 ## The vendored metamodel: `resources/ecore/`
 
@@ -30,11 +30,12 @@ Per the recommendation in [`metamodel-inventory.md`](metamodel-inventory.md), th
 
 All `platform:/plugin/...` and `../../...` reference paths were rewritten to same-directory form (`CapellaModeller.ecore#//...`); no semantic changes were made. Every cross-file reference resolves within the directory.
 
-## The validation harness: `validation/EcoreValidation`
+## The validation checks: `Auriga.CodeGenerator.Tests`
+
+The checks originally lived in a standalone harness (`validation/EcoreValidation`); after the solution scaffold (#5) they were converted to NUnit regression tests in `Auriga.CodeGenerator.Tests/CapellaMetamodelValidationTestFixture.cs`, so they now run in CI on every push and guard the code generator's input against ECoreNetto regressions and re-vendoring mistakes:
 
 ```
-dotnet run --project validation/EcoreValidation -- resources/ecore                 # passes
-dotnet run --project validation/EcoreValidation -- <dir> --trace                   # verbose ECoreNetto trace logging
+dotnet test Auriga.CodeGenerator.Tests/Auriga.CodeGenerator.Tests.csproj
 ```
 
 Checks performed: (1) all files load through one `ResourceSet`; (2) per-package EClass/EEnum/EDataType counts match the metamodel inventory; (3) every `eSuperTypes` entry and feature `eType` resolves to a non-null classifier; (4) cross-package inheritance chains (e.g. `pa::PhysicalFunction → fa::AbstractFunction`, `ctx::SystemFunction → emde::ExtensibleElement`) are reachable; (5) `eOpposite` pairs are mutual and complete; (6) EAnnotations survive loading.
@@ -52,9 +53,9 @@ The original run against 7.0.9 died with an uncatchable `StackOverflowException`
 | [EcoreNetto#83](https://github.com/STARIONGROUP/EcoreNetto/issues/83) | minor | Built-in Ecore type lookup uses substring matching; misnamed `EBool` key and ambiguous-match exceptions |
 | [EcoreNetto#84](https://github.com/STARIONGROUP/EcoreNetto/issues/84) | minor | `ResourceSet.CreateResource` allows duplicate URIs, corrupting resolution for the whole set |
 
-Defects 79–81 interacted: 79 caused the cache misses, 80 turned any miss into a process-killing crash, and 81 injected malformed fragments that triggered 80 even when 79 was worked around. The blocker fixes shipped in **ECoreNetto 9.0.0**; the harness verifies all three against the unmodified vendored files (checks 1, 3 and 5 above).
+Defects 79–81 interacted: 79 caused the cache misses, 80 turned any miss into a process-killing crash, and 81 injected malformed fragments that triggered 80 even when 79 was worked around. The blocker fixes shipped in **ECoreNetto 9.0.0**; the tests verify all three against the unmodified vendored files (checks 1, 3 and 5 above).
 
 ## Consequences for capella4net
 
 - **The code generator (#6, #7) is not blocked.** On ECoreNetto 9.0.0 the full metamodel — including all 146 mutual `EOpposite` links — is available as a resolved object graph directly from the vendored files with their canonical Capella names. No staging or sidecar is needed.
-- The `--trace` flag remains available for verbose ECoreNetto load logging.
+- For verbose ECoreNetto load logging, pass an `ILoggerFactory` to the `ResourceSet` (the converted test fixture passes `null`).

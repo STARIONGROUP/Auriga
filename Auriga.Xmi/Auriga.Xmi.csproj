@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>10.0</LangVersion>
+        <Title>Auriga.Xmi</Title>
+        <Version>0.1.0</Version>
+        <Description>XMI reader and writer for Eclipse Capella semantic models: .capella / .melodymodeller files and .capellafragment fragments, deserialized into and serialized from the Auriga object model.</Description>
+        <PackageId>Auriga.Xmi</PackageId>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <AssemblyTitle>Auriga.Xmi</AssemblyTitle>
+        <PackageTags>Capella Arcadia Ecore XMI MBSE modeltopia</PackageTags>
+        <PackageReleaseNotes>
+            [Add] solution scaffold; fixes #5
+        </PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Auriga\Auriga.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(MSBuildProjectName).Tests" />
+    </ItemGroup>
+
+</Project>

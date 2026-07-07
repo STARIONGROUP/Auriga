@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>10.0</LangVersion>
+        <Title>Auriga.Extensions</Title>
+        <Version>0.1.0</Version>
+        <Description>Query extension methods for the Auriga Capella object model: architecture-layer accessors and LINQ-friendly navigation helpers that respect the Arcadia methodology semantics.</Description>
+        <PackageId>Auriga.Extensions</PackageId>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <AssemblyTitle>Auriga.Extensions</AssemblyTitle>
+        <PackageTags>Capella Arcadia Ecore MBSE modeltopia</PackageTags>
+        <PackageReleaseNotes>
+            [Add] solution scaffold; fixes #5
+        </PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Auriga\Auriga.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(MSBuildProjectName).Tests" />
+    </ItemGroup>
+
+</Project>

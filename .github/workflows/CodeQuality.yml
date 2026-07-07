@@ -1,0 +1,148 @@
+name: Build & Test & SonarQube
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  # SonarCloud analysis. Kept as a single instance on a single OS: running
+  # SonarScanner across an OS matrix would double-submit analysis to SonarCloud.
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          overwrite-settings: false
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore Auriga.sln
+
+      - name: Sonarqube Begin
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_SCANNER_OPTS: "-Xmx4096m"
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet tool install --global dotnet-coverage
+          dotnet sonarscanner begin /k:"STARIONGROUP_Auriga" /o:"stariongroup" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+
+      - name: Build
+        run: dotnet build Auriga.sln --no-restore --no-incremental /p:ContinuousIntegrationBuild=true
+
+      - name: Test with the dotnet CLI
+        run: dotnet-coverage collect "dotnet test Auriga.sln --no-restore --no-build --verbosity normal" -f xml -o "coverage.xml"
+
+      - name: Sonarqube end
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
+
+  # Cross-platform build & test that surfaces results/coverage on the PR.
+  # Needs no secrets, so it also produces signal on fork PRs (where SONAR_TOKEN is absent).
+  build-test:
+    name: Build & Test (${{ matrix.os }})
+    permissions:
+      contents: read
+      checks: write          # dorny/test-reporter check run + annotations
+      pull-requests: write   # sticky coverage comment
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore Auriga.sln
+
+      - name: Build
+        run: dotnet build Auriga.sln --no-restore
+
+      # Cobertura (the default XPlat Code Coverage format) is what the coverage
+      # summary action below consumes, so the opencover coverlet.runsettings is
+      # intentionally not passed here.
+      - name: Test
+        run: >
+          dotnet test Auriga.sln --no-build
+          --logger "trx;LogFileName=test-results.trx"
+          --collect:"XPlat Code Coverage"
+          --results-directory ${{ github.workspace }}/TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-results-${{ matrix.os }}
+          path: TestResults/**
+
+      - name: Publish test report
+        if: always()
+        uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3.0.0
+        with:
+          name: Tests (${{ matrix.os }})
+          path: TestResults/**/*.trx
+          reporter: dotnet-trx
+          fail-on-error: false
+
+      # Coverage comment: only once (ubuntu leg) and only on pull requests.
+      # The per-project test runs each emit their own coverage.cobertura.xml that also
+      # includes the shared production assemblies. Merge them into a single, de-duplicated
+      # report first so each assembly's coverage is the union across all suites (otherwise a
+      # shared assembly is counted once per file and its reported coverage is diluted).
+      - name: Merge coverage reports
+        if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
+        uses: danielpalme/ReportGenerator-GitHub-Action@049f7ec958c672fd31d5cc1cb01622dc8d2e23ab # 5.5.10
+        with:
+          reports: TestResults/**/coverage.cobertura.xml
+          targetdir: CoverageReport
+          reporttypes: Cobertura
+
+      # Coverage reporting is a PR-informational nicety and must never fail the build.
+      # In particular, while the production libraries are still empty scaffolds the merged
+      # report contains no package data and CodeCoverageSummary errors out; continue-on-error
+      # keeps that from red-flagging the PR until there is production code to cover.
+      - name: Code coverage summary
+        if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: irongut/CodeCoverageSummary@51cc3a756ddcd398d447c044c02cb6aa83fdae95 # v1.3.0
+        with:
+          filename: CoverageReport/Cobertura.xml
+          format: markdown
+          output: both
+
+      - name: Append coverage to job summary
+        if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
+        continue-on-error: true
+        run: '[ -f code-coverage-results.md ] && cat code-coverage-results.md >> "$GITHUB_STEP_SUMMARY" || echo "No coverage summary to append."'
+
+      - name: Post coverage comment on PR
+        if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request' && hashFiles('code-coverage-results.md') != ''
+        continue-on-error: true
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          header: code-coverage
+          recreate: true
+          path: code-coverage-results.md
