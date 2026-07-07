@@ -19,13 +19,23 @@ namespace Auriga.Xmi.Cache
     {
         private readonly Dictionary<string, IAurigaElement> elements = new Dictionary<string, IAurigaElement>(StringComparer.Ordinal);
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the number of elements in the cache.
+        /// </summary>
         public int Count => this.elements.Count;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets every cached <see cref="IAurigaElement"/>.
+        /// </summary>
         public IEnumerable<IAurigaElement> Values => this.elements.Values;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Registers the supplied <paramref name="element"/> under its <see cref="IAurigaElement.Id"/>.
+        /// </summary>
+        /// <param name="element">the element to cache</param>
+        /// <returns>
+        /// true when the element was added; false when its identifier is null/empty or already present
+        /// </returns>
         public bool TryAdd(IAurigaElement element)
         {
             if (element == null)
@@ -41,7 +51,12 @@ namespace Auriga.Xmi.Cache
             return this.elements.TryAdd(element.Id!, element);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Looks up the element registered under the supplied identifier.
+        /// </summary>
+        /// <param name="id">the <c>xmi:id</c> of the element (without a leading <c>#</c>)</param>
+        /// <param name="element">the resolved element, or <c>null</c> when not found</param>
+        /// <returns>true when an element with the identifier is present</returns>
         public bool TryGetValue(string id, out IAurigaElement? element)
         {
             if (id == null)
@@ -52,7 +67,9 @@ namespace Auriga.Xmi.Cache
             return this.elements.TryGetValue(id, out element);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Removes every element from the cache.
+        /// </summary>
         public void Clear()
         {
             this.elements.Clear();

@@ -58,7 +58,11 @@ namespace Auriga.Xmi
             this.logger = (loggerFactory ?? NullLoggerFactory.Instance).CreateLogger<XmiReader>();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Reads the XMI document at the supplied path.
+        /// </summary>
+        /// <param name="path">the path of the <c>.melodymodeller</c> / <c>.capella</c> file</param>
+        /// <returns>the read result</returns>
         public XmiReaderResult Read(string path)
         {
             if (string.IsNullOrEmpty(path))
@@ -70,7 +74,12 @@ namespace Auriga.Xmi
             return this.Read(stream, Path.GetFileName(path));
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Reads the XMI document from the supplied stream.
+        /// </summary>
+        /// <param name="stream">the stream to read</param>
+        /// <param name="documentName">the name of the document (used for diagnostics)</param>
+        /// <returns>the read result</returns>
         public XmiReaderResult Read(Stream stream, string documentName)
         {
             if (stream == null)

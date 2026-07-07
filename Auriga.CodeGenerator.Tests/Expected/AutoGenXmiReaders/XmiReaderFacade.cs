@@ -335,13 +335,28 @@ namespace Auriga.Xmi.AutoGenXmiReaders
             };
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Registers a document-level <c>xmlns</c> prefix-to-URI binding so an <c>xsi:type</c> prefix can
+        /// be resolved even deep in the tree, where <see cref="XmlReader.LookupNamespace"/> no longer sees
+        /// the root's declarations because of the nested <see cref="XmlReader.ReadSubtree"/> calls.
+        /// </summary>
+        /// <param name="prefix">the namespace prefix</param>
+        /// <param name="namespaceUri">the namespace URI it is bound to</param>
         public void RegisterNamespace(string prefix, string namespaceUri)
         {
             this.prefixToNamespace[prefix] = namespaceUri;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Reads the element at the cursor of <paramref name="xmlReader"/> into a typed
+        /// <see cref="IAurigaElement"/>, recursing into contained elements.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on the element to read</param>
+        /// <param name="explicitTypeKey">
+        /// the package-qualified type key (<c>package:TypeName</c>) to use instead of the element's
+        /// <c>xsi:type</c>, or <c>null</c> to resolve the type from <c>xsi:type</c>
+        /// </param>
+        /// <returns>the instantiated, populated element</returns>
         public IAurigaElement QueryElement(XmlReader xmlReader, string explicitTypeKey = null)
         {
             var typeKey = explicitTypeKey ?? this.ResolveTypeKey(xmlReader);

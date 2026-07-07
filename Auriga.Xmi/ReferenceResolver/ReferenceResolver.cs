@@ -41,7 +41,10 @@ namespace Auriga.Xmi.ReferenceResolver
             this.logger = (loggerFactory ?? NullLoggerFactory.Instance).CreateLogger<ReferenceResolver>();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Resolves every deferred single- and multi-valued reference of every element in the cache.
+        /// </summary>
+        /// <param name="cache">the cache holding all instantiated elements</param>
         public void Resolve(IXmiElementCache cache)
         {
             if (cache == null)

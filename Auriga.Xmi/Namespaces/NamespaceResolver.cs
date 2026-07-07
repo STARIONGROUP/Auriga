@@ -52,7 +52,12 @@ namespace Auriga.Xmi.Namespaces
             }
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Resolves the supplied namespace URI to its Ecore package name.
+        /// </summary>
+        /// <param name="namespaceUri">the XML namespace URI</param>
+        /// <param name="package">the resolved Ecore package name, or <c>null</c> when unresolved</param>
+        /// <returns>true when the namespace URI is known</returns>
         public bool TryResolvePackage(string namespaceUri, out string? package)
         {
             if (namespaceUri == null)
