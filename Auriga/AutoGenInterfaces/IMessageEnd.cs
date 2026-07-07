@@ -16,9 +16,9 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IMessageEnd : global::Auriga.Interaction.IAbstractEnd
+    public partial interface IMessageEnd : Auriga.Interaction.IAbstractEnd
     {
-        global::Auriga.Interaction.ISequenceMessage Message { get; }
+        Auriga.Interaction.ISequenceMessage Message { get; }
 
     }
 }

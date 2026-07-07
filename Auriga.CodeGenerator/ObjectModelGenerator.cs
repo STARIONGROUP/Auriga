@@ -15,6 +15,8 @@ namespace Auriga.CodeGenerator
     using System.Linq;
     using System.Reflection;
 
+    using Auriga.CodeGenerator.Models;
+
     using ECoreNetto;
     using ECoreNetto.Extensions;
     using ECoreNetto.Resource;
@@ -221,25 +223,27 @@ namespace Auriga.CodeGenerator
             var supertypes = eClass.ESuperTypes.Where(s => s != null).ToList();
             var extends = supertypes.Count > 0
                 ? " : " + string.Join(", ", supertypes.Select(CSharpNaming.InterfaceType))
-                : " : global::Auriga.IAurigaElement";
+                : " : Auriga.IAurigaElement";
+
+            var features = eClass.EStructuralFeatures
+                .Where(f => f.EType != null && !IsReserved(f))
+                .ToList();
 
             return new InterfaceModel
             {
                 Namespace = CSharpNaming.Namespace(eClass),
+                Usings = Usings(features),
                 Name = CSharpNaming.Capitalize(eClass.Name),
                 Documentation = Documentation(eClass),
                 Extends = extends,
-                Members = eClass.EStructuralFeatures
-                    .Where(f => f.EType != null && !IsReserved(f))
-                    .Select(f => BuildMember(f, forInterface: true))
-                    .ToList()
+                Members = features.Select(f => BuildMember(f, forInterface: true)).ToList()
             };
         }
 
         private ClassModel BuildClass(EClass eClass)
         {
             var className = CSharpNaming.Capitalize(eClass.Name);
-            var members = new List<MemberModel>();
+            var features = new List<EStructuralFeature>();
             var seen = new HashSet<string>(StringComparer.Ordinal);
 
             foreach (var feature in eClass.AllEStructuralFeatures.Where(f => f.EType != null && !IsReserved(f)))
@@ -258,16 +262,17 @@ namespace Auriga.CodeGenerator
                         "member/type name-collision handling is deferred to #8.");
                 }
 
-                members.Add(BuildMember(feature, forInterface: false));
+                features.Add(feature);
             }
 
             return new ClassModel
             {
                 Namespace = CSharpNaming.Namespace(eClass),
+                Usings = Usings(features),
                 Name = className,
                 Documentation = Documentation(eClass),
-                Bases = $" : global::Auriga.AurigaElement, {CSharpNaming.InterfaceType(eClass)}",
-                Members = members
+                Bases = $" : Auriga.AurigaElement, {CSharpNaming.InterfaceType(eClass)}",
+                Members = features.Select(f => BuildMember(f, forInterface: false)).ToList()
             };
         }
 
@@ -290,18 +295,18 @@ namespace Auriga.CodeGenerator
             else if (computed)
             {
                 declaration = collection
-                    ? $"public {type} {name} => global::System.Linq.Enumerable.Empty<{baseType}>();"
+                    ? $"public {type} {name} => Enumerable.Empty<{baseType}>();"
                     : $"public {type} {name} => default;";
             }
             else if (collection && containment)
             {
                 var field = "backing" + name;
                 declaration = $"private {type} {field};\n\n" +
-                              $"        public {type} {name} => this.{field} ??= new global::Auriga.ContainerList<{baseType}>(this);";
+                              $"        public {type} {name} => this.{field} ??= new Auriga.ContainerList<{baseType}>(this);";
             }
             else if (collection)
             {
-                declaration = $"public {type} {name} {{ get; }} = new global::System.Collections.Generic.List<{baseType}>();";
+                declaration = $"public {type} {name} {{ get; }} = new List<{baseType}>();";
             }
             else
             {
@@ -318,6 +323,15 @@ namespace Auriga.CodeGenerator
         private static bool IsReserved(EStructuralFeature feature)
         {
             return ReservedMembers.Contains(CSharpNaming.Capitalize(feature.Name));
+        }
+
+        private static IReadOnlyList<string> Usings(IEnumerable<EStructuralFeature> features)
+        {
+            return features
+                .SelectMany(CSharpType.RequiredNamespaces)
+                .Distinct()
+                .OrderBy(n => n, StringComparer.Ordinal)
+                .ToList();
         }
 
         private static IReadOnlyList<string> Documentation(EModelElement element)

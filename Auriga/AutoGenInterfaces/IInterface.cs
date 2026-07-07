@@ -16,45 +16,48 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IInterface : global::Auriga.Capellacore.IGeneralClass, global::Auriga.Cs.IInterfaceAllocator
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IInterface : Auriga.Capellacore.IGeneralClass, Auriga.Cs.IInterfaceAllocator
     {
         string Mechanism { get; set; }
 
         bool? Structural { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> ImplementorComponents { get; }
+        IEnumerable<Auriga.Cs.IComponent> ImplementorComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> UserComponents { get; }
+        IEnumerable<Auriga.Cs.IComponent> UserComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceImplementation> InterfaceImplementations { get; }
+        IEnumerable<Auriga.Cs.IInterfaceImplementation> InterfaceImplementations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceUse> InterfaceUses { get; }
+        IEnumerable<Auriga.Cs.IInterfaceUse> InterfaceUses { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceAllocation> ProvisioningInterfaceAllocations { get; }
+        IEnumerable<Auriga.Cs.IInterfaceAllocation> ProvisioningInterfaceAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> AllocatingInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> AllocatingInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> AllocatingComponents { get; }
+        IEnumerable<Auriga.Cs.IComponent> AllocatingComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IExchangeItem> ExchangeItems { get; }
+        IEnumerable<Auriga.Information.IExchangeItem> ExchangeItems { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IExchangeItemAllocation> OwnedExchangeItemAllocations { get; }
+        Auriga.IContainerList<Auriga.Cs.IExchangeItemAllocation> OwnedExchangeItemAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> RequiringComponents { get; }
+        IEnumerable<Auriga.Cs.IComponent> RequiringComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> RequiringComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> RequiringComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> ProvidingComponents { get; }
+        IEnumerable<Auriga.Cs.IComponent> ProvidingComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> ProvidingComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> ProvidingComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> RealizingLogicalInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> RealizingLogicalInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> RealizedContextInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> RealizedContextInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> RealizingPhysicalInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> RealizingPhysicalInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> RealizedLogicalInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> RealizedLogicalInterfaces { get; }
 
     }
 }

@@ -16,29 +16,32 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IEntity : global::Auriga.Oa.IAbstractConceptItem, global::Auriga.Modellingcore.IInformationsExchanger, global::Auriga.Capellacore.IInvolvedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IEntity : Auriga.Oa.IAbstractConceptItem, Auriga.Modellingcore.IInformationsExchanger, Auriga.Capellacore.IInvolvedElement
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IRoleAllocation> RoleAllocations { get; }
+        IEnumerable<Auriga.Oa.IRoleAllocation> RoleAllocations { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Oa.IOrganisationalUnitComposition> OrganisationalUnitMemberships { get; }
+        List<Auriga.Oa.IOrganisationalUnitComposition> OrganisationalUnitMemberships { get; }
 
-        global::Auriga.Oa.ILocation ActualLocation { get; set; }
+        Auriga.Oa.ILocation ActualLocation { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IEntity> SubEntities { get; }
+        IEnumerable<Auriga.Oa.IEntity> SubEntities { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IEntity> OwnedEntities { get; }
+        Auriga.IContainerList<Auriga.Oa.IEntity> OwnedEntities { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
+        Auriga.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IRoleAllocation> OwnedRoleAllocations { get; }
+        Auriga.IContainerList<Auriga.Oa.IRoleAllocation> OwnedRoleAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalActivity> AllocatedOperationalActivities { get; }
+        IEnumerable<Auriga.Oa.IOperationalActivity> AllocatedOperationalActivities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IRole> AllocatedRoles { get; }
+        IEnumerable<Auriga.Oa.IRole> AllocatedRoles { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalCapability> InvolvingOperationalCapabilities { get; }
+        IEnumerable<Auriga.Oa.IOperationalCapability> InvolvingOperationalCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemComponent> RealizingSystemComponents { get; }
+        IEnumerable<Auriga.Ctx.ISystemComponent> RealizingSystemComponents { get; }
 
     }
 }

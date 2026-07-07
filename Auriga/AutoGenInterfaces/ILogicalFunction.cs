@@ -16,19 +16,22 @@
 
 namespace Auriga.La
 {
-    public partial interface ILogicalFunction : global::Auriga.Fa.IAbstractFunction
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ILogicalFunction : Auriga.Fa.IAbstractFunction
     {
-        global::Auriga.IContainerList<global::Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
+        Auriga.IContainerList<Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalComponent> AllocatingLogicalComponents { get; }
+        IEnumerable<Auriga.La.ILogicalComponent> AllocatingLogicalComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemFunction> RealizedSystemFunctions { get; }
+        IEnumerable<Auriga.Ctx.ISystemFunction> RealizedSystemFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalFunction> RealizingPhysicalFunctions { get; }
+        IEnumerable<Auriga.Pa.IPhysicalFunction> RealizingPhysicalFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalFunction> ContainedLogicalFunctions { get; }
+        IEnumerable<Auriga.La.ILogicalFunction> ContainedLogicalFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalFunction> ChildrenLogicalFunctions { get; }
+        IEnumerable<Auriga.La.ILogicalFunction> ChildrenLogicalFunctions { get; }
 
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IStateMachine : global::Auriga.Capellacore.ICapellaElement, global::Auriga.Behavior.IAbstractBehavior
+    public partial interface IStateMachine : Auriga.Capellacore.ICapellaElement, Auriga.Behavior.IAbstractBehavior
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IRegion> OwnedRegions { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
 
     }
 }

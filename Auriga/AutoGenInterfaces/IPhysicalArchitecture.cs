@@ -16,23 +16,26 @@
 
 namespace Auriga.Pa
 {
-    public partial interface IPhysicalArchitecture : global::Auriga.Cs.IComponentArchitecture
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalArchitecture : Auriga.Cs.IComponentArchitecture
     {
-        global::Auriga.Pa.IPhysicalComponentPkg OwnedPhysicalComponentPkg { get; set; }
+        Auriga.Pa.IPhysicalComponentPkg OwnedPhysicalComponentPkg { get; set; }
 
-        global::Auriga.La.ICapabilityRealizationPkg ContainedCapabilityRealizationPkg { get; }
+        Auriga.La.ICapabilityRealizationPkg ContainedCapabilityRealizationPkg { get; }
 
-        global::Auriga.Pa.IPhysicalFunctionPkg ContainedPhysicalFunctionPkg { get; }
+        Auriga.Pa.IPhysicalFunctionPkg ContainedPhysicalFunctionPkg { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
+        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Pa.ILogicalArchitectureRealization> OwnedLogicalArchitectureRealizations { get; }
+        Auriga.IContainerList<Auriga.Pa.ILogicalArchitectureRealization> OwnedLogicalArchitectureRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.ILogicalArchitectureRealization> AllocatedLogicalArchitectureRealizations { get; }
+        IEnumerable<Auriga.Pa.ILogicalArchitectureRealization> AllocatedLogicalArchitectureRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalArchitecture> AllocatedLogicalArchitectures { get; }
+        IEnumerable<Auriga.La.ILogicalArchitecture> AllocatedLogicalArchitectures { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Epbs.IEPBSArchitecture> AllocatingEpbsArchitectures { get; }
+        IEnumerable<Auriga.Epbs.IEPBSArchitecture> AllocatingEpbsArchitectures { get; }
 
     }
 }

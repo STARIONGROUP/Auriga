@@ -16,29 +16,29 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IActivityEdge : global::Auriga.Modellingcore.IAbstractRelationship
+    public partial interface IActivityEdge : Auriga.Modellingcore.IAbstractRelationship
     {
-        global::Auriga.Modellingcore.RateKind? KindOfRate { get; set; }
+        Auriga.Modellingcore.RateKind? KindOfRate { get; set; }
 
-        global::Auriga.Activity.IActivityPartition InActivityPartition { get; }
+        Auriga.Activity.IActivityPartition InActivityPartition { get; }
 
-        global::Auriga.Activity.IInterruptibleActivityRegion InInterruptibleRegion { get; }
+        Auriga.Activity.IInterruptibleActivityRegion InInterruptibleRegion { get; }
 
-        global::Auriga.Activity.IStructuredActivityNode InStructuredNode { get; }
+        Auriga.Activity.IStructuredActivityNode InStructuredNode { get; }
 
-        global::Auriga.Modellingcore.IValueSpecification Rate { get; set; }
+        Auriga.Modellingcore.IValueSpecification Rate { get; set; }
 
-        global::Auriga.Modellingcore.IValueSpecification Probability { get; set; }
+        Auriga.Modellingcore.IValueSpecification Probability { get; set; }
 
-        global::Auriga.Activity.IActivityNode Target { get; set; }
+        Auriga.Activity.IActivityNode Target { get; set; }
 
-        global::Auriga.Activity.IActivityNode Source { get; set; }
+        Auriga.Activity.IActivityNode Source { get; set; }
 
-        global::Auriga.Modellingcore.IValueSpecification Guard { get; set; }
+        Auriga.Modellingcore.IValueSpecification Guard { get; set; }
 
-        global::Auriga.Modellingcore.IValueSpecification Weight { get; set; }
+        Auriga.Modellingcore.IValueSpecification Weight { get; set; }
 
-        global::Auriga.Activity.IInterruptibleActivityRegion Interrupts { get; set; }
+        Auriga.Activity.IInterruptibleActivityRegion Interrupts { get; set; }
 
     }
 }

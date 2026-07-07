@@ -16,55 +16,58 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IAbstractCapability : global::Auriga.Capellacore.IStructure, global::Auriga.Capellacore.IInvolverElement, global::Auriga.Fa.IAbstractFunctionalChainContainer
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractCapability : Auriga.Capellacore.IStructure, Auriga.Capellacore.IInvolverElement, Auriga.Fa.IAbstractFunctionalChainContainer
     {
-        global::Auriga.Capellacore.IConstraint PreCondition { get; set; }
+        Auriga.Capellacore.IConstraint PreCondition { get; set; }
 
-        global::Auriga.Capellacore.IConstraint PostCondition { get; set; }
+        Auriga.Capellacore.IConstraint PostCondition { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IScenario> OwnedScenarios { get; }
+        Auriga.IContainerList<Auriga.Interaction.IScenario> OwnedScenarios { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapabilityRealization> IncomingCapabilityAllocation { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapabilityRealization> IncomingCapabilityAllocation { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapabilityRealization> OutgoingCapabilityAllocation { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapabilityRealization> OutgoingCapabilityAllocation { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IAbstractCapabilityExtend> Extends { get; }
+        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtend> Extends { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapabilityExtend> Extending { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapabilityExtend> Extending { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IAbstractCapabilityExtensionPoint> AbstractCapabilityExtensionPoints { get; }
+        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint> AbstractCapabilityExtensionPoints { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IAbstractCapabilityGeneralization> SuperGeneralizations { get; }
+        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization> SuperGeneralizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapabilityGeneralization> SubGeneralizations { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapabilityGeneralization> SubGeneralizations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IAbstractCapabilityInclude> Includes { get; }
+        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityInclude> Includes { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapabilityInclude> Including { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapabilityInclude> Including { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapability> Super { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapability> Super { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapability> Sub { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapability> Sub { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapability> IncludedAbstractCapabilities { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapability> IncludedAbstractCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapability> IncludingAbstractCapabilities { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapability> IncludingAbstractCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapability> ExtendedAbstractCapabilities { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapability> ExtendedAbstractCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapability> ExtendingAbstractCapabilities { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapability> ExtendingAbstractCapabilities { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> OwnedFunctionalChainAbstractCapabilityInvolvements { get; }
+        Auriga.IContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> OwnedFunctionalChainAbstractCapabilityInvolvements { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> OwnedAbstractFunctionAbstractCapabilityInvolvements { get; }
+        Auriga.IContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> OwnedAbstractFunctionAbstractCapabilityInvolvements { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacommon.IState> AvailableInStates { get; }
+        List<Auriga.Capellacommon.IState> AvailableInStates { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IAbstractCapabilityRealization> OwnedAbstractCapabilityRealizations { get; }
+        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityRealization> OwnedAbstractCapabilityRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> InvolvedAbstractFunctions { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunction> InvolvedAbstractFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChain> InvolvedFunctionalChains { get; }
+        IEnumerable<Auriga.Fa.IFunctionalChain> InvolvedFunctionalChains { get; }
 
     }
 }

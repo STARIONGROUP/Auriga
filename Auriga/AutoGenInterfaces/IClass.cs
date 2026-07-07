@@ -16,21 +16,24 @@
 
 namespace Auriga.Information
 {
-    public partial interface IClass : global::Auriga.Capellacore.IGeneralClass
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IClass : Auriga.Capellacore.IGeneralClass
     {
         bool? IsPrimitive { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Information.IKeyPart> KeyParts { get; }
+        List<Auriga.Information.IKeyPart> KeyParts { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
+        Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
+        Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IClass> RealizedClasses { get; }
+        IEnumerable<Auriga.Information.IClass> RealizedClasses { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IClass> RealizingClasses { get; }
+        IEnumerable<Auriga.Information.IClass> RealizingClasses { get; }
 
     }
 }

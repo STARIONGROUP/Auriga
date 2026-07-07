@@ -16,11 +16,11 @@
 
 namespace Auriga.Pa
 {
-    public partial interface IPhysicalArchitecturePkg : global::Auriga.Cs.IBlockArchitecturePkg
+    public partial interface IPhysicalArchitecturePkg : Auriga.Cs.IBlockArchitecturePkg
     {
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalArchitecturePkg> OwnedPhysicalArchitecturePkgs { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalArchitecturePkg> OwnedPhysicalArchitecturePkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalArchitecture> OwnedPhysicalArchitectures { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalArchitecture> OwnedPhysicalArchitectures { get; }
 
     }
 }

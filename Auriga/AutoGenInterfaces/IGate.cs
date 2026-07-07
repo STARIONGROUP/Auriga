@@ -16,7 +16,7 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IGate : global::Auriga.Interaction.IMessageEnd
+    public partial interface IGate : Auriga.Interaction.IMessageEnd
     {
     }
 }

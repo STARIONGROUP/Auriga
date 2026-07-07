@@ -16,7 +16,9 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface ICapellaElement : global::Auriga.Modellingcore.ITraceableElement, global::Auriga.Modellingcore.IPublishableElement
+    using System.Collections.Generic;
+
+    public partial interface ICapellaElement : Auriga.Modellingcore.ITraceableElement, Auriga.Modellingcore.IPublishableElement
     {
         string Summary { get; set; }
 
@@ -24,19 +26,19 @@ namespace Auriga.Capellacore
 
         string Review { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; }
+        List<Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; }
+        List<Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; }
 
-        global::Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
+        Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; }
+        List<Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; }
 
     }
 }

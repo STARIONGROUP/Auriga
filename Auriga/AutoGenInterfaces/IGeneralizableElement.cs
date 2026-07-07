@@ -16,19 +16,22 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IGeneralizableElement : global::Auriga.Capellacore.IType
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IGeneralizableElement : Auriga.Capellacore.IType
     {
         bool? Abstract { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IGeneralization> OwnedGeneralizations { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralization> SuperGeneralizations { get; }
+        IEnumerable<Auriga.Capellacore.IGeneralization> SuperGeneralizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralization> SubGeneralizations { get; }
+        IEnumerable<Auriga.Capellacore.IGeneralization> SubGeneralizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralizableElement> Super { get; }
+        IEnumerable<Auriga.Capellacore.IGeneralizableElement> Super { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralizableElement> Sub { get; }
+        IEnumerable<Auriga.Capellacore.IGeneralizableElement> Sub { get; }
 
     }
 }

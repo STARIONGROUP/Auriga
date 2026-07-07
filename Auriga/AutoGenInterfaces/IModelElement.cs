@@ -16,15 +16,18 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IModelElement : global::Auriga.Emde.IExtensibleElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IModelElement : Auriga.Emde.IExtensibleElement
     {
         string Sid { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractConstraint> Constraints { get; }
+        IEnumerable<Auriga.Modellingcore.IAbstractConstraint> Constraints { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints { get; }
+        Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Modellingcore.IModelElement> OwnedMigratedElements { get; }
+        Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements { get; }
 
     }
 }

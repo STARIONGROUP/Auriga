@@ -16,9 +16,12 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IType : global::Auriga.Modellingcore.IAbstractType, global::Auriga.Capellacore.INamespace
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IType : Auriga.Modellingcore.IAbstractType, Auriga.Capellacore.INamespace
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.ITypedElement> TypedElements { get; }
+        IEnumerable<Auriga.Capellacore.ITypedElement> TypedElements { get; }
 
     }
 }

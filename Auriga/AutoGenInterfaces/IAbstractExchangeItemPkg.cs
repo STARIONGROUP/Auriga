@@ -16,9 +16,9 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IAbstractExchangeItemPkg : global::Auriga.Capellacore.IStructure
+    public partial interface IAbstractExchangeItemPkg : Auriga.Capellacore.IStructure
     {
-        global::Auriga.IContainerList<global::Auriga.Information.IExchangeItem> OwnedExchangeItems { get; }
+        Auriga.IContainerList<Auriga.Information.IExchangeItem> OwnedExchangeItems { get; }
 
     }
 }

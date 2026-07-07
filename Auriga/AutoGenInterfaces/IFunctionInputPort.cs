@@ -16,11 +16,14 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionInputPort : global::Auriga.Fa.IFunctionPort, global::Auriga.Activity.IInputPin
-    {
-        global::System.Collections.Generic.List<global::Auriga.Information.IExchangeItem> IncomingExchangeItems { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalExchange> IncomingFunctionalExchanges { get; }
+    public partial interface IFunctionInputPort : Auriga.Fa.IFunctionPort, Auriga.Activity.IInputPin
+    {
+        List<Auriga.Information.IExchangeItem> IncomingExchangeItems { get; }
+
+        IEnumerable<Auriga.Fa.IFunctionalExchange> IncomingFunctionalExchanges { get; }
 
     }
 }

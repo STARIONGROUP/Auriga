@@ -16,9 +16,11 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IInterruptibleActivityRegion : global::Auriga.Activity.IActivityGroup
+    using System.Collections.Generic;
+
+    public partial interface IInterruptibleActivityRegion : Auriga.Activity.IActivityGroup
     {
-        global::System.Collections.Generic.List<global::Auriga.Activity.IActivityEdge> InterruptingEdges { get; }
+        List<Auriga.Activity.IActivityEdge> InterruptingEdges { get; }
 
     }
 }

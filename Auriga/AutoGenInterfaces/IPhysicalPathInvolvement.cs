@@ -16,15 +16,18 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalPathInvolvement : global::Auriga.Capellacore.IInvolvement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalPathInvolvement : Auriga.Capellacore.IInvolvement
     {
-        global::System.Collections.Generic.List<global::Auriga.Cs.IPhysicalPathInvolvement> NextInvolvements { get; }
+        List<Auriga.Cs.IPhysicalPathInvolvement> NextInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPathInvolvement> PreviousInvolvements { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPathInvolvement> PreviousInvolvements { get; }
 
-        global::Auriga.Cs.IAbstractPathInvolvedElement InvolvedElement { get; }
+        Auriga.Cs.IAbstractPathInvolvedElement InvolvedElement { get; }
 
-        global::Auriga.Cs.IComponent InvolvedComponent { get; }
+        Auriga.Cs.IComponent InvolvedComponent { get; }
 
     }
 }

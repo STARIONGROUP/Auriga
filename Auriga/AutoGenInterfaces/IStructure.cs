@@ -16,9 +16,9 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IStructure : global::Auriga.Capellacore.INamespace
+    public partial interface IStructure : Auriga.Capellacore.INamespace
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs { get; }
 
     }
 }

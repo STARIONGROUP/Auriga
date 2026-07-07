@@ -16,15 +16,15 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IBlock : global::Auriga.Capellacore.IModellingBlock, global::Auriga.Fa.IAbstractFunctionalBlock
+    public partial interface IBlock : Auriga.Capellacore.IModellingBlock, Auriga.Fa.IAbstractFunctionalBlock
     {
-        global::Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
+        Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
 
-        global::Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+        Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
 
-        global::Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+        Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
     }
 }

@@ -16,17 +16,20 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IActivityNode : global::Auriga.Modellingcore.IAbstractNamedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IActivityNode : Auriga.Modellingcore.IAbstractNamedElement
     {
-        global::Auriga.Activity.IActivityPartition InActivityPartition { get; }
+        Auriga.Activity.IActivityPartition InActivityPartition { get; }
 
-        global::Auriga.Activity.IInterruptibleActivityRegion InInterruptibleRegion { get; }
+        Auriga.Activity.IInterruptibleActivityRegion InInterruptibleRegion { get; }
 
-        global::Auriga.Activity.IInterruptibleActivityRegion InStructuredNode { get; }
+        Auriga.Activity.IInterruptibleActivityRegion InStructuredNode { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Activity.IActivityEdge> Outgoing { get; }
+        IEnumerable<Auriga.Activity.IActivityEdge> Outgoing { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Activity.IActivityEdge> Incoming { get; }
+        IEnumerable<Auriga.Activity.IActivityEdge> Incoming { get; }
 
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IKeyValue : global::Auriga.Capellacore.ICapellaElement
+    public partial interface IKeyValue : Auriga.Capellacore.ICapellaElement
     {
         string Key { get; set; }
 

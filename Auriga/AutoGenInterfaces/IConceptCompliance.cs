@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IConceptCompliance : global::Auriga.Capellacore.IRelationship
+    public partial interface IConceptCompliance : Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Oa.IConcept ComplyWithConcept { get; set; }
+        Auriga.Oa.IConcept ComplyWithConcept { get; set; }
 
-        global::Auriga.Oa.IOperationalCapability CompliantCapability { get; set; }
+        Auriga.Oa.IOperationalCapability CompliantCapability { get; set; }
 
     }
 }

@@ -16,13 +16,13 @@
 
 namespace Auriga.Information.Communication
 {
-    public partial interface ICommunicationLink : global::Auriga.Capellacore.ICapellaElement
+    public partial interface ICommunicationLink : Auriga.Capellacore.ICapellaElement
     {
-        global::Auriga.Information.Communication.CommunicationLinkKind? Kind { get; set; }
+        Auriga.Information.Communication.CommunicationLinkKind? Kind { get; set; }
 
-        global::Auriga.Information.Communication.CommunicationLinkProtocol? Protocol { get; set; }
+        Auriga.Information.Communication.CommunicationLinkProtocol? Protocol { get; set; }
 
-        global::Auriga.Information.IExchangeItem ExchangeItem { get; set; }
+        Auriga.Information.IExchangeItem ExchangeItem { get; set; }
 
     }
 }

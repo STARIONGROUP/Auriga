@@ -16,9 +16,9 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IEnumerationPropertyType : global::Auriga.Capellacore.INamedElement
+    public partial interface IEnumerationPropertyType : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IEnumerationPropertyLiteral> OwnedLiterals { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyLiteral> OwnedLiterals { get; }
 
     }
 }

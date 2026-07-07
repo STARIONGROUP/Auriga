@@ -16,15 +16,17 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IExceptionHandler : global::Auriga.Modellingcore.IModelElement
+    using System.Collections.Generic;
+
+    public partial interface IExceptionHandler : Auriga.Modellingcore.IModelElement
     {
-        global::Auriga.Activity.IExecutableNode ProtectedNode { get; set; }
+        Auriga.Activity.IExecutableNode ProtectedNode { get; set; }
 
-        global::Auriga.Activity.IExecutableNode HandlerBody { get; set; }
+        Auriga.Activity.IExecutableNode HandlerBody { get; set; }
 
-        global::Auriga.Activity.IObjectNode ExceptionInput { get; set; }
+        Auriga.Activity.IObjectNode ExceptionInput { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IAbstractType> ExceptionTypes { get; }
+        List<Auriga.Modellingcore.IAbstractType> ExceptionTypes { get; }
 
     }
 }

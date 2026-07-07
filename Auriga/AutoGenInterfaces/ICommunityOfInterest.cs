@@ -16,9 +16,9 @@
 
 namespace Auriga.Oa
 {
-    public partial interface ICommunityOfInterest : global::Auriga.Capellacore.INamedElement
+    public partial interface ICommunityOfInterest : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.ICommunityOfInterestComposition> CommunityOfInterestCompositions { get; }
+        Auriga.IContainerList<Auriga.Oa.ICommunityOfInterestComposition> CommunityOfInterestCompositions { get; }
 
     }
 }

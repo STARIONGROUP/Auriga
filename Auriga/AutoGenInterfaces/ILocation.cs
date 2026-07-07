@@ -16,11 +16,13 @@
 
 namespace Auriga.Oa
 {
-    public partial interface ILocation : global::Auriga.Oa.IAbstractConceptItem
+    using System.Collections.Generic;
+
+    public partial interface ILocation : Auriga.Oa.IAbstractConceptItem
     {
         string LocationDescription { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Oa.IEntity> LocatedEntities { get; }
+        List<Auriga.Oa.IEntity> LocatedEntities { get; }
 
     }
 }

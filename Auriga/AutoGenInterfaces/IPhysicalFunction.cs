@@ -16,17 +16,20 @@
 
 namespace Auriga.Pa
 {
-    public partial interface IPhysicalFunction : global::Auriga.Fa.IAbstractFunction
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalFunction : Auriga.Fa.IAbstractFunction
     {
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalComponent> AllocatingPhysicalComponents { get; }
+        IEnumerable<Auriga.Pa.IPhysicalComponent> AllocatingPhysicalComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalFunction> RealizedLogicalFunctions { get; }
+        IEnumerable<Auriga.La.ILogicalFunction> RealizedLogicalFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalFunction> ContainedPhysicalFunctions { get; }
+        IEnumerable<Auriga.Pa.IPhysicalFunction> ContainedPhysicalFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalFunction> ChildrenPhysicalFunctions { get; }
+        IEnumerable<Auriga.Pa.IPhysicalFunction> ChildrenPhysicalFunctions { get; }
 
     }
 }

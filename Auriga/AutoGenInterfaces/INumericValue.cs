@@ -16,11 +16,11 @@
 
 namespace Auriga.Information.Datavalue
 {
-    public partial interface INumericValue : global::Auriga.Information.Datavalue.IDataValue
+    public partial interface INumericValue : Auriga.Information.Datavalue.IDataValue
     {
-        global::Auriga.Information.IUnit Unit { get; set; }
+        Auriga.Information.IUnit Unit { get; set; }
 
-        global::Auriga.Information.Datatype.INumericType NumericType { get; }
+        Auriga.Information.Datatype.INumericType NumericType { get; }
 
     }
 }

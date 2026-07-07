@@ -16,11 +16,11 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentExchangeFunctionalExchangeAllocation : global::Auriga.Fa.IAbstractFunctionAllocation
+    public partial interface IComponentExchangeFunctionalExchangeAllocation : Auriga.Fa.IAbstractFunctionAllocation
     {
-        global::Auriga.Fa.IFunctionalExchange AllocatedFunctionalExchange { get; }
+        Auriga.Fa.IFunctionalExchange AllocatedFunctionalExchange { get; }
 
-        global::Auriga.Fa.IComponentExchange AllocatingComponentExchange { get; }
+        Auriga.Fa.IComponentExchange AllocatingComponentExchange { get; }
 
     }
 }

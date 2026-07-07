@@ -16,9 +16,12 @@
 
 namespace Auriga.Pa
 {
-    public partial interface IPhysicalNode : global::Auriga.Pa.IPhysicalComponent
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalNode : Auriga.Pa.IPhysicalComponent
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalNode> SubPhysicalNodes { get; }
+        IEnumerable<Auriga.Pa.IPhysicalNode> SubPhysicalNodes { get; }
 
     }
 }

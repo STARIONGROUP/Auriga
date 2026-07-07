@@ -16,9 +16,12 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IPropertyValueGroup : global::Auriga.Capellacore.INamespace
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPropertyValueGroup : Auriga.Capellacore.INamespace
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.ICapellaElement> ValuedElements { get; }
+        IEnumerable<Auriga.Capellacore.ICapellaElement> ValuedElements { get; }
 
     }
 }

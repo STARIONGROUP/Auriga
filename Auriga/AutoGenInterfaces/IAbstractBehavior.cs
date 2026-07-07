@@ -16,13 +16,15 @@
 
 namespace Auriga.Behavior
 {
-    public partial interface IAbstractBehavior : global::Auriga.Modellingcore.IAbstractNamedElement
+    using System.Collections.Generic;
+
+    public partial interface IAbstractBehavior : Auriga.Modellingcore.IAbstractNamedElement
     {
         bool? IsControlOperator { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IAbstractParameterSet> OwnedParameterSet { get; }
+        List<Auriga.Modellingcore.IAbstractParameterSet> OwnedParameterSet { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IAbstractParameter> OwnedParameter { get; }
+        List<Auriga.Modellingcore.IAbstractParameter> OwnedParameter { get; }
 
     }
 }

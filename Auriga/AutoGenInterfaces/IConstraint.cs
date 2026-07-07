@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IConstraint : global::Auriga.Capellacore.INamedElement, global::Auriga.Modellingcore.IAbstractConstraint
+    public partial interface IConstraint : Auriga.Capellacore.INamedElement, Auriga.Modellingcore.IAbstractConstraint
     {
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Information.Communication
 {
-    public partial interface IException : global::Auriga.Information.Communication.ICommunicationItem
+    public partial interface IException : Auriga.Information.Communication.ICommunicationItem
     {
     }
 }

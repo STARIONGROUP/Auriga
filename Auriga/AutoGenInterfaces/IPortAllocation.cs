@@ -16,11 +16,11 @@
 
 namespace Auriga.Information
 {
-    public partial interface IPortAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IPortAllocation : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Information.IPort AllocatedPort { get; }
+        Auriga.Information.IPort AllocatedPort { get; }
 
-        global::Auriga.Information.IPort AllocatingPort { get; }
+        Auriga.Information.IPort AllocatingPort { get; }
 
     }
 }

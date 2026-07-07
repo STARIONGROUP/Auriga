@@ -16,7 +16,7 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IEvent : global::Auriga.Capellacore.INamedElement, global::Auriga.Behavior.IAbstractEvent
+    public partial interface IEvent : Auriga.Capellacore.INamedElement, Auriga.Behavior.IAbstractEvent
     {
     }
 }

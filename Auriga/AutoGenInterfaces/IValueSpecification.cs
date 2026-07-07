@@ -16,7 +16,7 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IValueSpecification : global::Auriga.Modellingcore.IAbstractTypedElement
+    public partial interface IValueSpecification : Auriga.Modellingcore.IAbstractTypedElement
     {
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IEntityOperationalCapabilityInvolvement : global::Auriga.Capellacore.IInvolvement
+    public partial interface IEntityOperationalCapabilityInvolvement : Auriga.Capellacore.IInvolvement
     {
-        global::Auriga.Oa.IEntity Entity { get; }
+        Auriga.Oa.IEntity Entity { get; }
 
-        global::Auriga.Oa.IOperationalCapability Capability { get; }
+        Auriga.Oa.IOperationalCapability Capability { get; }
 
     }
 }

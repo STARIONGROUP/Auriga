@@ -16,9 +16,12 @@
 
 namespace Auriga.Information
 {
-    public partial interface IAbstractEventOperation : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractEventOperation : Auriga.Capellacore.INamedElement
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.ISequenceMessage> InvokingSequenceMessages { get; }
+        IEnumerable<Auriga.Interaction.ISequenceMessage> InvokingSequenceMessages { get; }
 
     }
 }

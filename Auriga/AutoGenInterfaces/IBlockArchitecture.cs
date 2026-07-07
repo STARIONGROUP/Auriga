@@ -16,23 +16,26 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IBlockArchitecture : global::Auriga.Fa.IAbstractFunctionalArchitecture
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IBlockArchitecture : Auriga.Fa.IAbstractFunctionalArchitecture
     {
-        global::Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
+        Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
 
-        global::Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+        Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
 
-        global::Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+        Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IArchitectureAllocation> ProvisionedArchitectureAllocations { get; }
+        IEnumerable<Auriga.Cs.IArchitectureAllocation> ProvisionedArchitectureAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IArchitectureAllocation> ProvisioningArchitectureAllocations { get; }
+        IEnumerable<Auriga.Cs.IArchitectureAllocation> ProvisioningArchitectureAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IBlockArchitecture> AllocatedArchitectures { get; }
+        IEnumerable<Auriga.Cs.IBlockArchitecture> AllocatedArchitectures { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IBlockArchitecture> AllocatingArchitectures { get; }
+        IEnumerable<Auriga.Cs.IBlockArchitecture> AllocatingArchitectures { get; }
 
-        global::Auriga.Cs.IComponent System { get; }
+        Auriga.Cs.IComponent System { get; }
 
     }
 }

@@ -16,27 +16,30 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IStateTransition : global::Auriga.Capellacore.INamedElement, global::Auriga.Capellacore.IRelationship
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IStateTransition : Auriga.Capellacore.INamedElement, Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Capellacommon.TransitionKind? Kind { get; set; }
+        Auriga.Capellacommon.TransitionKind? Kind { get; set; }
 
         string TriggerDescription { get; set; }
 
-        global::Auriga.Capellacore.IConstraint Guard { get; set; }
+        Auriga.Capellacore.IConstraint Guard { get; set; }
 
-        global::Auriga.Capellacommon.IAbstractState Source { get; set; }
+        Auriga.Capellacommon.IAbstractState Source { get; set; }
 
-        global::Auriga.Capellacommon.IAbstractState Target { get; set; }
+        Auriga.Capellacommon.IAbstractState Target { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Behavior.IAbstractEvent> Effect { get; }
+        List<Auriga.Behavior.IAbstractEvent> Effect { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Behavior.IAbstractEvent> Triggers { get; }
+        List<Auriga.Behavior.IAbstractEvent> Triggers { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateTransitionRealization> OwnedStateTransitionRealizations { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateTransitionRealization> OwnedStateTransitionRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IStateTransition> RealizedStateTransitions { get; }
+        IEnumerable<Auriga.Capellacommon.IStateTransition> RealizedStateTransitions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IStateTransition> RealizingStateTransitions { get; }
+        IEnumerable<Auriga.Capellacommon.IStateTransition> RealizingStateTransitions { get; }
 
     }
 }

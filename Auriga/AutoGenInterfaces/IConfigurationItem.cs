@@ -16,19 +16,22 @@
 
 namespace Auriga.Epbs
 {
-    public partial interface IConfigurationItem : global::Auriga.Capellacommon.ICapabilityRealizationInvolvedElement, global::Auriga.Cs.IComponent
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IConfigurationItem : Auriga.Capellacommon.ICapabilityRealizationInvolvedElement, Auriga.Cs.IComponent
     {
         string ItemIdentifier { get; set; }
 
-        global::Auriga.Epbs.ConfigurationItemKind? Kind { get; set; }
+        Auriga.Epbs.ConfigurationItemKind? Kind { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
+        Auriga.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
+        Auriga.IContainerList<Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Epbs.IPhysicalArtifactRealization> OwnedPhysicalArtifactRealizations { get; }
+        Auriga.IContainerList<Auriga.Epbs.IPhysicalArtifactRealization> OwnedPhysicalArtifactRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IAbstractPhysicalArtifact> AllocatedPhysicalArtifacts { get; }
+        IEnumerable<Auriga.Cs.IAbstractPhysicalArtifact> AllocatedPhysicalArtifacts { get; }
 
     }
 }

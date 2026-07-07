@@ -16,47 +16,50 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IComponent : global::Auriga.Cs.IBlock, global::Auriga.Capellacore.IClassifier, global::Auriga.Cs.IInterfaceAllocator, global::Auriga.Information.Communication.ICommunicationLinkExchanger
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IComponent : Auriga.Cs.IBlock, Auriga.Capellacore.IClassifier, Auriga.Cs.IInterfaceAllocator, Auriga.Information.Communication.ICommunicationLinkExchanger
     {
         bool Actor { get; set; }
 
         bool Human { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceUse> OwnedInterfaceUses { get; }
+        Auriga.IContainerList<Auriga.Cs.IInterfaceUse> OwnedInterfaceUses { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceUse> UsedInterfaceLinks { get; }
+        IEnumerable<Auriga.Cs.IInterfaceUse> UsedInterfaceLinks { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> UsedInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> UsedInterfaces { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations { get; }
+        Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceImplementation> ImplementedInterfaceLinks { get; }
+        IEnumerable<Auriga.Cs.IInterfaceImplementation> ImplementedInterfaceLinks { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> ImplementedInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> ImplementedInterfaces { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IComponentRealization> OwnedComponentRealizations { get; }
+        Auriga.IContainerList<Auriga.Cs.IComponentRealization> OwnedComponentRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> RealizedComponents { get; }
+        IEnumerable<Auriga.Cs.IComponent> RealizedComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> RealizingComponents { get; }
+        IEnumerable<Auriga.Cs.IComponent> RealizingComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> ProvidedInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> ProvidedInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> RequiredInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> RequiredInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> ContainedComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> ContainedComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPart> ContainedParts { get; }
+        IEnumerable<Auriga.Cs.IPart> ContainedParts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPort> ContainedPhysicalPorts { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPort> ContainedPhysicalPorts { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalPath> OwnedPhysicalPath { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalPath> OwnedPhysicalPath { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPart> RepresentingParts { get; }
+        IEnumerable<Auriga.Cs.IPart> RepresentingParts { get; }
 
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IAbstractPhysicalPathLink : global::Auriga.Fa.IComponentExchangeAllocator
+    public partial interface IAbstractPhysicalPathLink : Auriga.Fa.IComponentExchangeAllocator
     {
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IScenarioRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IScenarioRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Interaction.IScenario RealizedScenario { get; }
+        Auriga.Interaction.IScenario RealizedScenario { get; }
 
-        global::Auriga.Interaction.IScenario RealizingScenario { get; }
+        Auriga.Interaction.IScenario RealizingScenario { get; }
 
     }
 }

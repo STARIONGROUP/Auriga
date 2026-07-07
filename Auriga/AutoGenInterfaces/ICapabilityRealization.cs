@@ -16,17 +16,20 @@
 
 namespace Auriga.La
 {
-    public partial interface ICapabilityRealization : global::Auriga.Interaction.IAbstractCapability
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ICapabilityRealization : Auriga.Interaction.IAbstractCapability
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.ICapabilityRealizationInvolvement> OwnedCapabilityRealizationInvolvements { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement> OwnedCapabilityRealizationInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.ICapabilityRealizationInvolvedElement> InvolvedComponents { get; }
+        IEnumerable<Auriga.Capellacommon.ICapabilityRealizationInvolvedElement> InvolvedComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapability> RealizedCapabilities { get; }
+        IEnumerable<Auriga.Ctx.ICapability> RealizedCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ICapabilityRealization> RealizedCapabilityRealizations { get; }
+        IEnumerable<Auriga.La.ICapabilityRealization> RealizedCapabilityRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ICapabilityRealization> RealizingCapabilityRealizations { get; }
+        IEnumerable<Auriga.La.ICapabilityRealization> RealizingCapabilityRealizations { get; }
 
     }
 }

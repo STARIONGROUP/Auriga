@@ -16,7 +16,7 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionalChainRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IFunctionalChainRealization : Auriga.Capellacore.IAllocation
     {
     }
 }

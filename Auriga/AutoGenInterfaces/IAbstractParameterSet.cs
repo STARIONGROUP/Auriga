@@ -16,13 +16,15 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractParameterSet : global::Auriga.Modellingcore.IAbstractNamedElement
+    using System.Collections.Generic;
+
+    public partial interface IAbstractParameterSet : Auriga.Modellingcore.IAbstractNamedElement
     {
-        global::Auriga.IContainerList<global::Auriga.Modellingcore.IAbstractConstraint> OwnedConditions { get; }
+        Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConditions { get; }
 
-        global::Auriga.Modellingcore.IValueSpecification Probability { get; set; }
+        Auriga.Modellingcore.IValueSpecification Probability { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IAbstractParameter> Parameters { get; }
+        List<Auriga.Modellingcore.IAbstractParameter> Parameters { get; }
 
     }
 }

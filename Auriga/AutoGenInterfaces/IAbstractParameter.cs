@@ -16,7 +16,9 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractParameter : global::Auriga.Modellingcore.IAbstractTypedElement
+    using System.Collections.Generic;
+
+    public partial interface IAbstractParameter : Auriga.Modellingcore.IAbstractTypedElement
     {
         bool? IsException { get; set; }
 
@@ -24,15 +26,15 @@ namespace Auriga.Modellingcore
 
         bool? IsOptional { get; set; }
 
-        global::Auriga.Modellingcore.RateKind? KindOfRate { get; set; }
+        Auriga.Modellingcore.RateKind? KindOfRate { get; set; }
 
-        global::Auriga.Modellingcore.ParameterEffectKind? Effect { get; set; }
+        Auriga.Modellingcore.ParameterEffectKind? Effect { get; set; }
 
-        global::Auriga.Modellingcore.IValueSpecification Rate { get; set; }
+        Auriga.Modellingcore.IValueSpecification Rate { get; set; }
 
-        global::Auriga.Modellingcore.IValueSpecification Probability { get; set; }
+        Auriga.Modellingcore.IValueSpecification Probability { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IAbstractParameterSet> ParameterSet { get; }
+        List<Auriga.Modellingcore.IAbstractParameterSet> ParameterSet { get; }
 
     }
 }

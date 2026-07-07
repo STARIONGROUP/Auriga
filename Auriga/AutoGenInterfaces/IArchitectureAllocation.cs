@@ -16,11 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IArchitectureAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IArchitectureAllocation : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Cs.IBlockArchitecture AllocatedArchitecture { get; }
+        Auriga.Cs.IBlockArchitecture AllocatedArchitecture { get; }
 
-        global::Auriga.Cs.IBlockArchitecture AllocatingArchitecture { get; }
+        Auriga.Cs.IBlockArchitecture AllocatingArchitecture { get; }
 
     }
 }

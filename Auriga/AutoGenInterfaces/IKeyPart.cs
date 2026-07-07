@@ -16,9 +16,9 @@
 
 namespace Auriga.Information
 {
-    public partial interface IKeyPart : global::Auriga.Capellacore.IRelationship
+    public partial interface IKeyPart : Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Information.IProperty Property { get; set; }
+        Auriga.Information.IProperty Property { get; set; }
 
     }
 }

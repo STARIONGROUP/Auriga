@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IAbstractAnnotation : global::Auriga.Capellacore.ICapellaElement
+    public partial interface IAbstractAnnotation : Auriga.Capellacore.ICapellaElement
     {
         string Content { get; set; }
 

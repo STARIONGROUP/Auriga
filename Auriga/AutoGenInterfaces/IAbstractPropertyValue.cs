@@ -16,11 +16,14 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IAbstractPropertyValue : global::Auriga.Capellacore.INamedElement
-    {
-        global::System.Collections.Generic.List<global::Auriga.Capellacore.ICapellaElement> InvolvedElements { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.ICapellaElement> ValuedElements { get; }
+    public partial interface IAbstractPropertyValue : Auriga.Capellacore.INamedElement
+    {
+        List<Auriga.Capellacore.ICapellaElement> InvolvedElements { get; }
+
+        IEnumerable<Auriga.Capellacore.ICapellaElement> ValuedElements { get; }
 
     }
 }

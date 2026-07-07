@@ -16,9 +16,12 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IActivityExchange : global::Auriga.Modellingcore.IAbstractInformationFlow
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IActivityExchange : Auriga.Modellingcore.IAbstractInformationFlow
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Activity.IActivityEdge> RealizingActivityFlows { get; }
+        IEnumerable<Auriga.Activity.IActivityEdge> RealizingActivityFlows { get; }
 
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Pa.Deployment
 {
-    public partial interface IInstanceDeploymentLink : global::Auriga.Cs.IAbstractDeploymentLink
+    public partial interface IInstanceDeploymentLink : Auriga.Cs.IAbstractDeploymentLink
     {
     }
 }

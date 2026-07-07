@@ -16,9 +16,9 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IAbstractFunctionalChainContainer : global::Auriga.Capellacore.ICapellaElement
+    public partial interface IAbstractFunctionalChainContainer : Auriga.Capellacore.ICapellaElement
     {
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionalChain> OwnedFunctionalChains { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionalChain> OwnedFunctionalChains { get; }
 
     }
 }

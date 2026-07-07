@@ -16,15 +16,18 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionSpecification : global::Auriga.Capellacore.INamespace, global::Auriga.Activity.IAbstractActivity
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IFunctionSpecification : Auriga.Capellacore.INamespace, Auriga.Activity.IAbstractActivity
     {
-        global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink> InExchangeLinks { get; }
+        List<Auriga.Fa.IExchangeLink> InExchangeLinks { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink> OutExchangeLinks { get; }
+        List<Auriga.Fa.IExchangeLink> OutExchangeLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionPort> OwnedFunctionPorts { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionPort> OwnedFunctionPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionSpecification> SubFunctionSpecifications { get; }
+        IEnumerable<Auriga.Fa.IFunctionSpecification> SubFunctionSpecifications { get; }
 
     }
 }

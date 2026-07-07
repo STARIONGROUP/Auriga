@@ -16,22 +16,25 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalPath : global::Auriga.Capellacore.INamedElement, global::Auriga.Fa.IComponentExchangeAllocator, global::Auriga.Cs.IAbstractPathInvolvedElement, global::Auriga.Capellacore.IInvolverElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalPath : Auriga.Capellacore.INamedElement, Auriga.Fa.IComponentExchangeAllocator, Auriga.Cs.IAbstractPathInvolvedElement, Auriga.Capellacore.IInvolverElement
     {
         /// <summary>
         /// @deprecated : 'involvedLinks' shall not be used anymore
         /// </summary>
-        global::System.Collections.Generic.List<global::Auriga.Cs.IAbstractPhysicalPathLink> InvolvedLinks { get; }
+        List<Auriga.Cs.IAbstractPhysicalPathLink> InvolvedLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalPathInvolvement> OwnedPhysicalPathInvolvements { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalPathInvolvement> OwnedPhysicalPathInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPathInvolvement> FirstPhysicalPathInvolvements { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPathInvolvement> FirstPhysicalPathInvolvements { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalPathRealization> OwnedPhysicalPathRealizations { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalPathRealization> OwnedPhysicalPathRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPath> RealizedPhysicalPaths { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPath> RealizedPhysicalPaths { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPath> RealizingPhysicalPaths { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPath> RealizingPhysicalPaths { get; }
 
     }
 }

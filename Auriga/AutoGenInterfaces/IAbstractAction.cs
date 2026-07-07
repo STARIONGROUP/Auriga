@@ -16,17 +16,17 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IAbstractAction : global::Auriga.Activity.IExecutableNode, global::Auriga.Modellingcore.IAbstractNamedElement
+    public partial interface IAbstractAction : Auriga.Activity.IExecutableNode, Auriga.Modellingcore.IAbstractNamedElement
     {
-        global::Auriga.Modellingcore.IAbstractConstraint LocalPrecondition { get; set; }
+        Auriga.Modellingcore.IAbstractConstraint LocalPrecondition { get; set; }
 
-        global::Auriga.Modellingcore.IAbstractConstraint LocalPostcondition { get; set; }
+        Auriga.Modellingcore.IAbstractConstraint LocalPostcondition { get; set; }
 
-        global::Auriga.Modellingcore.IAbstractType Context { get; set; }
+        Auriga.Modellingcore.IAbstractType Context { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IInputPin> Inputs { get; }
+        Auriga.IContainerList<Auriga.Activity.IInputPin> Inputs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IOutputPin> Outputs { get; }
+        Auriga.IContainerList<Auriga.Activity.IOutputPin> Outputs { get; }
 
     }
 }

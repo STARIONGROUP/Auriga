@@ -16,15 +16,17 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractInformationFlow : global::Auriga.Modellingcore.IAbstractNamedElement, global::Auriga.Modellingcore.IAbstractRelationship
+    using System.Collections.Generic;
+
+    public partial interface IAbstractInformationFlow : Auriga.Modellingcore.IAbstractNamedElement, Auriga.Modellingcore.IAbstractRelationship
     {
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IAbstractRelationship> Realizations { get; }
+        List<Auriga.Modellingcore.IAbstractRelationship> Realizations { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IAbstractExchangeItem> ConvoyedInformations { get; }
+        List<Auriga.Modellingcore.IAbstractExchangeItem> ConvoyedInformations { get; }
 
-        global::Auriga.Modellingcore.IInformationsExchanger Source { get; set; }
+        Auriga.Modellingcore.IInformationsExchanger Source { get; set; }
 
-        global::Auriga.Modellingcore.IInformationsExchanger Target { get; set; }
+        Auriga.Modellingcore.IInformationsExchanger Target { get; set; }
 
     }
 }

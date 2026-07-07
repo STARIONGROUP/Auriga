@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IPseudostate : global::Auriga.Capellacommon.IAbstractState
+    public partial interface IPseudostate : Auriga.Capellacommon.IAbstractState
     {
     }
 }

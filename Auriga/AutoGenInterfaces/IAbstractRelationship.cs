@@ -16,9 +16,9 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractRelationship : global::Auriga.Modellingcore.IModelElement
+    public partial interface IAbstractRelationship : Auriga.Modellingcore.IModelElement
     {
-        global::Auriga.Modellingcore.IAbstractInformationFlow RealizedFlow { get; set; }
+        Auriga.Modellingcore.IAbstractInformationFlow RealizedFlow { get; set; }
 
     }
 }

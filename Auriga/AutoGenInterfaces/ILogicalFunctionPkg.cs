@@ -16,11 +16,11 @@
 
 namespace Auriga.La
 {
-    public partial interface ILogicalFunctionPkg : global::Auriga.Fa.IFunctionPkg
+    public partial interface ILogicalFunctionPkg : Auriga.Fa.IFunctionPkg
     {
-        global::Auriga.IContainerList<global::Auriga.La.ILogicalFunction> OwnedLogicalFunctions { get; }
+        Auriga.IContainerList<Auriga.La.ILogicalFunction> OwnedLogicalFunctions { get; }
 
-        global::Auriga.IContainerList<global::Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
+        Auriga.IContainerList<Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
 
     }
 }

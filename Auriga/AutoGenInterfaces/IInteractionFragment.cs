@@ -16,9 +16,11 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IInteractionFragment : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+
+    public partial interface IInteractionFragment : Auriga.Capellacore.INamedElement
     {
-        global::System.Collections.Generic.List<global::Auriga.Interaction.IInstanceRole> CoveredInstanceRoles { get; }
+        List<Auriga.Interaction.IInstanceRole> CoveredInstanceRoles { get; }
 
     }
 }

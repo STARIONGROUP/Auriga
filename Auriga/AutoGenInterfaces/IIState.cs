@@ -16,11 +16,13 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IIState : global::Auriga.Modellingcore.IAbstractNamedElement
-    {
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IIState> ReferencedStates { get; }
+    using System.Collections.Generic;
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IIState> ExploitedStates { get; }
+    public partial interface IIState : Auriga.Modellingcore.IAbstractNamedElement
+    {
+        List<Auriga.Modellingcore.IIState> ReferencedStates { get; }
+
+        List<Auriga.Modellingcore.IIState> ExploitedStates { get; }
 
     }
 }

@@ -16,9 +16,12 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IInvolverElement : global::Auriga.Capellacore.ICapellaElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IInvolverElement : Auriga.Capellacore.ICapellaElement
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IInvolvement> InvolvedInvolvements { get; }
+        IEnumerable<Auriga.Capellacore.IInvolvement> InvolvedInvolvements { get; }
 
     }
 }

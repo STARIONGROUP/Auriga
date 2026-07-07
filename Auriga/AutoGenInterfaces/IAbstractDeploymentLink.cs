@@ -16,11 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IAbstractDeploymentLink : global::Auriga.Capellacore.IRelationship
+    public partial interface IAbstractDeploymentLink : Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Cs.IDeployableElement DeployedElement { get; set; }
+        Auriga.Cs.IDeployableElement DeployedElement { get; set; }
 
-        global::Auriga.Cs.IDeploymentTarget Location { get; set; }
+        Auriga.Cs.IDeploymentTarget Location { get; set; }
 
     }
 }

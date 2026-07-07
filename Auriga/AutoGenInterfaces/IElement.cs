@@ -16,7 +16,7 @@
 
 namespace Auriga.Emde
 {
-    public partial interface IElement : global::Auriga.IAurigaElement
+    public partial interface IElement : Auriga.IAurigaElement
     {
     }
 }

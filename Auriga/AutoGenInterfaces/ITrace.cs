@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface ITrace : global::Auriga.Capellacore.IRelationship, global::Auriga.Modellingcore.IAbstractTrace
+    public partial interface ITrace : Auriga.Capellacore.IRelationship, Auriga.Modellingcore.IAbstractTrace
     {
     }
 }

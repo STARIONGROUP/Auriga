@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOperationalActivityPkg : global::Auriga.Fa.IFunctionPkg
+    public partial interface IOperationalActivityPkg : Auriga.Fa.IFunctionPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.IOperationalActivity> OwnedOperationalActivities { get; }
+        Auriga.IContainerList<Auriga.Oa.IOperationalActivity> OwnedOperationalActivities { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
+        Auriga.IContainerList<Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
 
     }
 }

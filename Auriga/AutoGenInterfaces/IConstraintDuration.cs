@@ -16,13 +16,13 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IConstraintDuration : global::Auriga.Capellacore.INamedElement
+    public partial interface IConstraintDuration : Auriga.Capellacore.INamedElement
     {
         string Duration { get; set; }
 
-        global::Auriga.Interaction.IInteractionFragment Start { get; set; }
+        Auriga.Interaction.IInteractionFragment Start { get; set; }
 
-        global::Auriga.Interaction.IInteractionFragment Finish { get; set; }
+        Auriga.Interaction.IInteractionFragment Finish { get; set; }
 
     }
 }

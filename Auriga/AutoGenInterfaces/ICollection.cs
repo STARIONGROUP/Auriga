@@ -16,21 +16,24 @@
 
 namespace Auriga.Information
 {
-    public partial interface ICollection : global::Auriga.Capellacore.IClassifier, global::Auriga.Information.IMultiplicityElement, global::Auriga.Information.Datavalue.IDataValueContainer, global::Auriga.Modellingcore.IFinalizableElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ICollection : Auriga.Capellacore.IClassifier, Auriga.Information.IMultiplicityElement, Auriga.Information.Datavalue.IDataValueContainer, Auriga.Modellingcore.IFinalizableElement
     {
         bool? IsPrimitive { get; set; }
 
-        global::Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
+        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
 
-        global::Auriga.Information.CollectionKind? Kind { get; set; }
+        Auriga.Information.CollectionKind? Kind { get; set; }
 
-        global::Auriga.Information.AggregationKind? AggregationKind { get; set; }
+        Auriga.Information.AggregationKind? AggregationKind { get; set; }
 
-        global::Auriga.Capellacore.IType Type { get; set; }
+        Auriga.Capellacore.IType Type { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Information.Datatype.IDataType> Index { get; }
+        List<Auriga.Information.Datatype.IDataType> Index { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IOperation> ContainedOperations { get; }
+        IEnumerable<Auriga.Information.IOperation> ContainedOperations { get; }
 
     }
 }

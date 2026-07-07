@@ -16,11 +16,11 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentExchangeEnd : global::Auriga.Modellingcore.IInformationsExchanger, global::Auriga.Capellacore.ICapellaElement
+    public partial interface IComponentExchangeEnd : Auriga.Modellingcore.IInformationsExchanger, Auriga.Capellacore.ICapellaElement
     {
-        global::Auriga.Information.IPort Port { get; set; }
+        Auriga.Information.IPort Port { get; set; }
 
-        global::Auriga.Cs.IPart Part { get; set; }
+        Auriga.Cs.IPart Part { get; set; }
 
     }
 }

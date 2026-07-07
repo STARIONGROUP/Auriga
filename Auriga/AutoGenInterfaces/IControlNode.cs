@@ -16,9 +16,9 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IControlNode : global::Auriga.Fa.ISequenceLinkEnd
+    public partial interface IControlNode : Auriga.Fa.ISequenceLinkEnd
     {
-        global::Auriga.Fa.ControlNodeKind? Kind { get; set; }
+        Auriga.Fa.ControlNodeKind? Kind { get; set; }
 
     }
 }

@@ -16,13 +16,16 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IGeneralClass : global::Auriga.Capellacore.IClassifier, global::Auriga.Modellingcore.IFinalizableElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IGeneralClass : Auriga.Capellacore.IClassifier, Auriga.Modellingcore.IFinalizableElement
     {
-        global::Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
+        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IOperation> ContainedOperations { get; }
+        IEnumerable<Auriga.Information.IOperation> ContainedOperations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IGeneralClass> NestedGeneralClasses { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IGeneralClass> NestedGeneralClasses { get; }
 
     }
 }

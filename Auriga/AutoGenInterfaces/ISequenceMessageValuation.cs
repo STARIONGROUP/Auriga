@@ -16,11 +16,11 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface ISequenceMessageValuation : global::Auriga.Capellacore.ICapellaElement
+    public partial interface ISequenceMessageValuation : Auriga.Capellacore.ICapellaElement
     {
-        global::Auriga.Information.IExchangeItemElement ExchangeItemElement { get; set; }
+        Auriga.Information.IExchangeItemElement ExchangeItemElement { get; set; }
 
-        global::Auriga.Modellingcore.IValueSpecification Value { get; set; }
+        Auriga.Modellingcore.IValueSpecification Value { get; set; }
 
     }
 }

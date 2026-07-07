@@ -16,11 +16,11 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentFunctionalAllocation : global::Auriga.Fa.IAbstractFunctionAllocation
+    public partial interface IComponentFunctionalAllocation : Auriga.Fa.IAbstractFunctionAllocation
     {
-        global::Auriga.Fa.IAbstractFunction Function { get; }
+        Auriga.Fa.IAbstractFunction Function { get; }
 
-        global::Auriga.Fa.IAbstractFunctionalBlock Block { get; }
+        Auriga.Fa.IAbstractFunctionalBlock Block { get; }
 
     }
 }

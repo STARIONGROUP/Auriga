@@ -16,9 +16,12 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionalExchangeSpecification : global::Auriga.Fa.IExchangeSpecification
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IFunctionalExchangeSpecification : Auriga.Fa.IExchangeSpecification
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalExchange> FunctionalExchanges { get; }
+        IEnumerable<Auriga.Fa.IFunctionalExchange> FunctionalExchanges { get; }
 
     }
 }

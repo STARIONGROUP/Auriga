@@ -16,7 +16,7 @@
 
 namespace Auriga.Information
 {
-    public partial interface IInformationRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IInformationRealization : Auriga.Capellacore.IAllocation
     {
     }
 }

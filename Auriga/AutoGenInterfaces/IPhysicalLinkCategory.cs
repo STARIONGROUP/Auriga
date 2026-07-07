@@ -16,9 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalLinkCategory : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+
+    public partial interface IPhysicalLinkCategory : Auriga.Capellacore.INamedElement
     {
-        global::System.Collections.Generic.List<global::Auriga.Cs.IPhysicalLink> Links { get; }
+        List<Auriga.Cs.IPhysicalLink> Links { get; }
 
     }
 }

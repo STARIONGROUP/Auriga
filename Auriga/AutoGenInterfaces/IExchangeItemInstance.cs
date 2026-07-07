@@ -16,7 +16,7 @@
 
 namespace Auriga.Information
 {
-    public partial interface IExchangeItemInstance : global::Auriga.Information.IAbstractInstance
+    public partial interface IExchangeItemInstance : Auriga.Information.IAbstractInstance
     {
     }
 }

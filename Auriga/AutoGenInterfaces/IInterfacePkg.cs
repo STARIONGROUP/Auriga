@@ -16,11 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IInterfacePkg : global::Auriga.Information.Communication.IMessageReferencePkg, global::Auriga.Capellacore.IAbstractDependenciesPkg, global::Auriga.Capellacore.IAbstractExchangeItemPkg
+    public partial interface IInterfacePkg : Auriga.Information.Communication.IMessageReferencePkg, Auriga.Capellacore.IAbstractDependenciesPkg, Auriga.Capellacore.IAbstractExchangeItemPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Cs.IInterface> OwnedInterfaces { get; }
+        Auriga.IContainerList<Auriga.Cs.IInterface> OwnedInterfaces { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IInterfacePkg> OwnedInterfacePkgs { get; }
+        Auriga.IContainerList<Auriga.Cs.IInterfacePkg> OwnedInterfacePkgs { get; }
 
     }
 }

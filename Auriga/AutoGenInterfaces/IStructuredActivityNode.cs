@@ -16,7 +16,7 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IStructuredActivityNode : global::Auriga.Activity.IActivityGroup, global::Auriga.Activity.IAbstractAction
+    public partial interface IStructuredActivityNode : Auriga.Activity.IActivityGroup, Auriga.Activity.IAbstractAction
     {
     }
 }

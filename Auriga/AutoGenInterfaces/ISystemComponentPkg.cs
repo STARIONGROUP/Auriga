@@ -16,11 +16,11 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface ISystemComponentPkg : global::Auriga.Cs.IComponentPkg
+    public partial interface ISystemComponentPkg : Auriga.Cs.IComponentPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Ctx.ISystemComponent> OwnedSystemComponents { get; }
+        Auriga.IContainerList<Auriga.Ctx.ISystemComponent> OwnedSystemComponents { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Ctx.ISystemComponentPkg> OwnedSystemComponentPkgs { get; }
+        Auriga.IContainerList<Auriga.Ctx.ISystemComponentPkg> OwnedSystemComponentPkgs { get; }
 
     }
 }

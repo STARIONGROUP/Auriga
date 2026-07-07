@@ -16,45 +16,48 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionalChain : global::Auriga.Capellacore.INamedElement, global::Auriga.Capellacore.IInvolverElement, global::Auriga.Capellacore.IInvolvedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IFunctionalChain : Auriga.Capellacore.INamedElement, Auriga.Capellacore.IInvolverElement, Auriga.Capellacore.IInvolvedElement
     {
-        global::Auriga.Fa.FunctionalChainKind? Kind { get; set; }
+        Auriga.Fa.FunctionalChainKind? Kind { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionalChainInvolvement> OwnedFunctionalChainInvolvements { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionalChainInvolvement> OwnedFunctionalChainInvolvements { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionalChainRealization> OwnedFunctionalChainRealizations { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionalChainRealization> OwnedFunctionalChainRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChainInvolvement> InvolvedFunctionalChainInvolvements { get; }
+        IEnumerable<Auriga.Fa.IFunctionalChainInvolvement> InvolvedFunctionalChainInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> InvolvedFunctions { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunction> InvolvedFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalExchange> InvolvedFunctionalExchanges { get; }
+        IEnumerable<Auriga.Fa.IFunctionalExchange> InvolvedFunctionalExchanges { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IInvolvedElement> InvolvedElements { get; }
+        IEnumerable<Auriga.Capellacore.IInvolvedElement> InvolvedElements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> EnactedFunctions { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunction> EnactedFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunctionalBlock> EnactedFunctionalBlocks { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunctionalBlock> EnactedFunctionalBlocks { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacommon.IState> AvailableInStates { get; }
+        List<Auriga.Capellacommon.IState> AvailableInStates { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChainInvolvement> FirstFunctionalChainInvolvements { get; }
+        IEnumerable<Auriga.Fa.IFunctionalChainInvolvement> FirstFunctionalChainInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapability> InvolvingCapabilities { get; }
+        IEnumerable<Auriga.Ctx.ICapability> InvolvingCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations { get; }
+        IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChain> RealizedFunctionalChains { get; }
+        IEnumerable<Auriga.Fa.IFunctionalChain> RealizedFunctionalChains { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChain> RealizingFunctionalChains { get; }
+        IEnumerable<Auriga.Fa.IFunctionalChain> RealizingFunctionalChains { get; }
 
-        global::Auriga.Capellacore.IConstraint PreCondition { get; set; }
+        Auriga.Capellacore.IConstraint PreCondition { get; set; }
 
-        global::Auriga.Capellacore.IConstraint PostCondition { get; set; }
+        Auriga.Capellacore.IConstraint PostCondition { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IControlNode> OwnedSequenceNodes { get; }
+        Auriga.IContainerList<Auriga.Fa.IControlNode> OwnedSequenceNodes { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.ISequenceLink> OwnedSequenceLinks { get; }
+        Auriga.IContainerList<Auriga.Fa.ISequenceLink> OwnedSequenceLinks { get; }
 
     }
 }

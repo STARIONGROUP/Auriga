@@ -16,27 +16,27 @@
 
 namespace Auriga.Information
 {
-    public partial interface IDataPkg : global::Auriga.Capellacore.IAbstractDependenciesPkg, global::Auriga.Capellacore.IAbstractExchangeItemPkg, global::Auriga.Information.IAssociationPkg, global::Auriga.Information.Datavalue.IDataValueContainer, global::Auriga.Information.Communication.IMessageReferencePkg
+    public partial interface IDataPkg : Auriga.Capellacore.IAbstractDependenciesPkg, Auriga.Capellacore.IAbstractExchangeItemPkg, Auriga.Information.IAssociationPkg, Auriga.Information.Datavalue.IDataValueContainer, Auriga.Information.Communication.IMessageReferencePkg
     {
-        global::Auriga.IContainerList<global::Auriga.Information.IDataPkg> OwnedDataPkgs { get; }
+        Auriga.IContainerList<Auriga.Information.IDataPkg> OwnedDataPkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IClass> OwnedClasses { get; }
+        Auriga.IContainerList<Auriga.Information.IClass> OwnedClasses { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IKeyPart> OwnedKeyParts { get; }
+        Auriga.IContainerList<Auriga.Information.IKeyPart> OwnedKeyParts { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.ICollection> OwnedCollections { get; }
+        Auriga.IContainerList<Auriga.Information.ICollection> OwnedCollections { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IUnit> OwnedUnits { get; }
+        Auriga.IContainerList<Auriga.Information.IUnit> OwnedUnits { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.Datatype.IDataType> OwnedDataTypes { get; }
+        Auriga.IContainerList<Auriga.Information.Datatype.IDataType> OwnedDataTypes { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.Communication.ISignal> OwnedSignals { get; }
+        Auriga.IContainerList<Auriga.Information.Communication.ISignal> OwnedSignals { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.Communication.IMessage> OwnedMessages { get; }
+        Auriga.IContainerList<Auriga.Information.Communication.IMessage> OwnedMessages { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.Communication.IException> OwnedExceptions { get; }
+        Auriga.IContainerList<Auriga.Information.Communication.IException> OwnedExceptions { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateEvent> OwnedStateEvents { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateEvent> OwnedStateEvents { get; }
 
     }
 }

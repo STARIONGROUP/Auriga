@@ -16,7 +16,10 @@
 
 namespace Auriga.Information.Datatype
 {
-    public partial interface IDataType : global::Auriga.Capellacore.IGeneralizableElement, global::Auriga.Information.Datavalue.IDataValueContainer, global::Auriga.Modellingcore.IFinalizableElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IDataType : Auriga.Capellacore.IGeneralizableElement, Auriga.Information.Datavalue.IDataValueContainer, Auriga.Modellingcore.IFinalizableElement
     {
         bool? Discrete { get; set; }
 
@@ -26,17 +29,17 @@ namespace Auriga.Information.Datatype
 
         string Pattern { get; set; }
 
-        global::Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
+        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
 
-        global::Auriga.Information.Datavalue.IDataValue DefaultValue { get; }
+        Auriga.Information.Datavalue.IDataValue DefaultValue { get; }
 
-        global::Auriga.Information.Datavalue.IDataValue NullValue { get; }
+        Auriga.Information.Datavalue.IDataValue NullValue { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
+        Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Datatype.IDataType> RealizedDataTypes { get; }
+        IEnumerable<Auriga.Information.Datatype.IDataType> RealizedDataTypes { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Datatype.IDataType> RealizingDataTypes { get; }
+        IEnumerable<Auriga.Information.Datatype.IDataType> RealizingDataTypes { get; }
 
     }
 }

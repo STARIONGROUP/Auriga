@@ -16,9 +16,12 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractType : global::Auriga.Modellingcore.IAbstractNamedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractType : Auriga.Modellingcore.IAbstractNamedElement
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractTypedElement> AbstractTypedElements { get; }
+        IEnumerable<Auriga.Modellingcore.IAbstractTypedElement> AbstractTypedElements { get; }
 
     }
 }

@@ -16,15 +16,17 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionalChainInvolvementLink : global::Auriga.Fa.IFunctionalChainInvolvement, global::Auriga.Fa.IReferenceHierarchyContext
+    using System.Collections.Generic;
+
+    public partial interface IFunctionalChainInvolvementLink : Auriga.Fa.IFunctionalChainInvolvement, Auriga.Fa.IReferenceHierarchyContext
     {
-        global::Auriga.Capellacore.IConstraint ExchangeContext { get; set; }
+        Auriga.Capellacore.IConstraint ExchangeContext { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Information.IExchangeItem> ExchangedItems { get; }
+        List<Auriga.Information.IExchangeItem> ExchangedItems { get; }
 
-        global::Auriga.Fa.IFunctionalChainInvolvementFunction Source { get; set; }
+        Auriga.Fa.IFunctionalChainInvolvementFunction Source { get; set; }
 
-        global::Auriga.Fa.IFunctionalChainInvolvementFunction Target { get; set; }
+        Auriga.Fa.IFunctionalChainInvolvementFunction Target { get; set; }
 
     }
 }

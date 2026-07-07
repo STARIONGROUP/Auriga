@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IModellingArchitecture : global::Auriga.Capellacore.IStructure
+    public partial interface IModellingArchitecture : Auriga.Capellacore.IStructure
     {
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IGeneralization : global::Auriga.Capellacore.IRelationship
+    public partial interface IGeneralization : Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Capellacore.IGeneralizableElement Super { get; set; }
+        Auriga.Capellacore.IGeneralizableElement Super { get; set; }
 
-        global::Auriga.Capellacore.IGeneralizableElement Sub { get; set; }
+        Auriga.Capellacore.IGeneralizableElement Sub { get; set; }
 
     }
 }

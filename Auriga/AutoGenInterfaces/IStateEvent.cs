@@ -16,11 +16,11 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IStateEvent : global::Auriga.Capellacore.INamedElement, global::Auriga.Behavior.IAbstractEvent
+    public partial interface IStateEvent : Auriga.Capellacore.INamedElement, Auriga.Behavior.IAbstractEvent
     {
-        global::Auriga.Capellacore.IConstraint Expression { get; set; }
+        Auriga.Capellacore.IConstraint Expression { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateEventRealization> OwnedStateEventRealizations { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateEventRealization> OwnedStateEventRealizations { get; }
 
     }
 }

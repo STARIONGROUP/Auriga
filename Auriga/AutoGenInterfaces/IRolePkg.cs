@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IRolePkg : global::Auriga.Capellacore.IStructure
+    public partial interface IRolePkg : Auriga.Capellacore.IStructure
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.IRolePkg> OwnedRolePkgs { get; }
+        Auriga.IContainerList<Auriga.Oa.IRolePkg> OwnedRolePkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IRole> OwnedRoles { get; }
+        Auriga.IContainerList<Auriga.Oa.IRole> OwnedRoles { get; }
 
     }
 }

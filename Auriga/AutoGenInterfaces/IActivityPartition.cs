@@ -16,17 +16,20 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IActivityPartition : global::Auriga.Activity.IActivityGroup, global::Auriga.Modellingcore.IAbstractNamedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IActivityPartition : Auriga.Activity.IActivityGroup, Auriga.Modellingcore.IAbstractNamedElement
     {
         bool? IsDimension { get; set; }
 
         bool? IsExternal { get; set; }
 
-        global::Auriga.Modellingcore.IAbstractType RepresentedElement { get; set; }
+        Auriga.Modellingcore.IAbstractType RepresentedElement { get; set; }
 
-        global::Auriga.Activity.IActivityPartition SuperPartition { get; }
+        Auriga.Activity.IActivityPartition SuperPartition { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Activity.IActivityPartition> SubPartitions { get; }
+        IEnumerable<Auriga.Activity.IActivityPartition> SubPartitions { get; }
 
     }
 }

@@ -16,15 +16,18 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface IMission : global::Auriga.Capellacore.INamedElement, global::Auriga.Capellacore.IInvolverElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IMission : Auriga.Capellacore.INamedElement, Auriga.Capellacore.IInvolverElement
     {
-        global::Auriga.IContainerList<global::Auriga.Ctx.IMissionInvolvement> OwnedMissionInvolvements { get; }
+        Auriga.IContainerList<Auriga.Ctx.IMissionInvolvement> OwnedMissionInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemComponent> InvolvedSystemComponents { get; }
+        IEnumerable<Auriga.Ctx.ISystemComponent> InvolvedSystemComponents { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Ctx.ICapabilityExploitation> OwnedCapabilityExploitations { get; }
+        Auriga.IContainerList<Auriga.Ctx.ICapabilityExploitation> OwnedCapabilityExploitations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapability> ExploitedCapabilities { get; }
+        IEnumerable<Auriga.Ctx.ICapability> ExploitedCapabilities { get; }
 
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IInterfaceUse : global::Auriga.Capellacore.IRelationship
+    public partial interface IInterfaceUse : Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Cs.IComponent InterfaceUser { get; }
+        Auriga.Cs.IComponent InterfaceUser { get; }
 
-        global::Auriga.Cs.IInterface UsedInterface { get; set; }
+        Auriga.Cs.IInterface UsedInterface { get; set; }
 
     }
 }

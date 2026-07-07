@@ -16,29 +16,32 @@
 
 namespace Auriga.Information.Communication
 {
-    public partial interface ICommunicationLinkExchanger : global::Auriga.IAurigaElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ICommunicationLinkExchanger : Auriga.IAurigaElement
     {
-        global::Auriga.IContainerList<global::Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks { get; }
+        Auriga.IContainerList<Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Produce { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Produce { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Consume { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Consume { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Send { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Send { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Receive { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Receive { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Call { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Call { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Execute { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Execute { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Write { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Write { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Access { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Access { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Acquire { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Acquire { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Transmit { get; }
+        IEnumerable<Auriga.Information.Communication.ICommunicationLink> Transmit { get; }
 
     }
 }

@@ -16,15 +16,18 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IExchangeSpecification : global::Auriga.Capellacore.INamedElement, global::Auriga.Activity.IActivityExchange
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IExchangeSpecification : Auriga.Capellacore.INamedElement, Auriga.Activity.IActivityExchange
     {
-        global::Auriga.Fa.IExchangeLink ContainingLink { get; }
+        Auriga.Fa.IExchangeLink ContainingLink { get; }
 
-        global::Auriga.Fa.IExchangeContainment Link { get; set; }
+        Auriga.Fa.IExchangeContainment Link { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IExchangeSpecificationRealization> OutgoingExchangeSpecificationRealizations { get; }
+        IEnumerable<Auriga.Fa.IExchangeSpecificationRealization> OutgoingExchangeSpecificationRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IExchangeSpecificationRealization> IncomingExchangeSpecificationRealizations { get; }
+        IEnumerable<Auriga.Fa.IExchangeSpecificationRealization> IncomingExchangeSpecificationRealizations { get; }
 
     }
 }

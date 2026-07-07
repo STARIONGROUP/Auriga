@@ -16,9 +16,9 @@
 
 namespace Auriga.Activity
 {
-    public partial interface ICallBehaviorAction : global::Auriga.Activity.ICallAction
+    public partial interface ICallBehaviorAction : Auriga.Activity.ICallAction
     {
-        global::Auriga.Behavior.IAbstractBehavior Behavior { get; set; }
+        Auriga.Behavior.IAbstractBehavior Behavior { get; set; }
 
     }
 }

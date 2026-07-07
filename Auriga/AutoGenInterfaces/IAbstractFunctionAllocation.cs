@@ -16,7 +16,7 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IAbstractFunctionAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IAbstractFunctionAllocation : Auriga.Capellacore.IAllocation
     {
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Pa.Deployment
 {
-    public partial interface IAbstractPhysicalInstance : global::Auriga.Capellacore.ICapellaElement
+    public partial interface IAbstractPhysicalInstance : Auriga.Capellacore.ICapellaElement
     {
     }
 }

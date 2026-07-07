@@ -16,11 +16,14 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface ITraceableElement : global::Auriga.Modellingcore.IModelElement
-    {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractTrace> IncomingTraces { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractTrace> OutgoingTraces { get; }
+    public partial interface ITraceableElement : Auriga.Modellingcore.IModelElement
+    {
+        IEnumerable<Auriga.Modellingcore.IAbstractTrace> IncomingTraces { get; }
+
+        IEnumerable<Auriga.Modellingcore.IAbstractTrace> OutgoingTraces { get; }
 
     }
 }

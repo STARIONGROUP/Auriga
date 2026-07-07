@@ -16,9 +16,9 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface ICapabilityRealizationInvolvement : global::Auriga.Capellacore.IInvolvement
+    public partial interface ICapabilityRealizationInvolvement : Auriga.Capellacore.IInvolvement
     {
-        global::Auriga.Capellacommon.ICapabilityRealizationInvolvedElement InvolvedCapabilityRealizationInvolvedElement { get; }
+        Auriga.Capellacommon.ICapabilityRealizationInvolvedElement InvolvedCapabilityRealizationInvolvedElement { get; }
 
     }
 }

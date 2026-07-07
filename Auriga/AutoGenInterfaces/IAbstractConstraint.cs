@@ -16,13 +16,15 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractConstraint : global::Auriga.Modellingcore.IModelElement
+    using System.Collections.Generic;
+
+    public partial interface IAbstractConstraint : Auriga.Modellingcore.IModelElement
     {
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IModelElement> ConstrainedElements { get; }
+        List<Auriga.Modellingcore.IModelElement> ConstrainedElements { get; }
 
-        global::Auriga.Modellingcore.IValueSpecification OwnedSpecification { get; set; }
+        Auriga.Modellingcore.IValueSpecification OwnedSpecification { get; set; }
 
-        global::Auriga.Modellingcore.IModelElement Context { get; }
+        Auriga.Modellingcore.IModelElement Context { get; }
 
     }
 }

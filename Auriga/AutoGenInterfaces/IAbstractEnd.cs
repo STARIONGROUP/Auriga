@@ -16,11 +16,11 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IAbstractEnd : global::Auriga.Interaction.IInteractionFragment
+    public partial interface IAbstractEnd : Auriga.Interaction.IInteractionFragment
     {
-        global::Auriga.Interaction.IEvent Event { get; set; }
+        Auriga.Interaction.IEvent Event { get; set; }
 
-        global::Auriga.Interaction.IInstanceRole Covered { get; }
+        Auriga.Interaction.IInstanceRole Covered { get; }
 
     }
 }

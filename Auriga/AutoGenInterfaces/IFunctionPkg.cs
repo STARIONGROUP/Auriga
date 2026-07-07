@@ -16,17 +16,17 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionPkg : global::Auriga.Capellacore.IStructure
+    public partial interface IFunctionPkg : Auriga.Capellacore.IStructure
     {
-        global::Auriga.IContainerList<global::Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
+        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionalExchangeSpecification> OwnedExchanges { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionalExchangeSpecification> OwnedExchanges { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IExchangeSpecificationRealization> OwnedExchangeSpecificationRealizations { get; }
+        Auriga.IContainerList<Auriga.Fa.IExchangeSpecificationRealization> OwnedExchangeSpecificationRealizations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IExchangeCategory> OwnedCategories { get; }
+        Auriga.IContainerList<Auriga.Fa.IExchangeCategory> OwnedCategories { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionSpecification> OwnedFunctionSpecifications { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionSpecification> OwnedFunctionSpecifications { get; }
 
     }
 }

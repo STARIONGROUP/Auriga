@@ -16,13 +16,16 @@
 
 namespace Auriga.Information.Communication
 {
-    public partial interface ICommunicationItem : global::Auriga.Capellacore.IClassifier, global::Auriga.Information.Datavalue.IDataValueContainer
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ICommunicationItem : Auriga.Capellacore.IClassifier, Auriga.Information.Datavalue.IDataValueContainer
     {
-        global::Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
+        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IProperty> Properties { get; }
+        IEnumerable<Auriga.Information.IProperty> Properties { get; }
 
     }
 }

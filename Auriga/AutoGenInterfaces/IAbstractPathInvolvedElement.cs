@@ -16,7 +16,7 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IAbstractPathInvolvedElement : global::Auriga.Capellacore.IInvolvedElement
+    public partial interface IAbstractPathInvolvedElement : Auriga.Capellacore.IInvolvedElement
     {
     }
 }

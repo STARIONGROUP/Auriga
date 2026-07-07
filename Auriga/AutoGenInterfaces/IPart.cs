@@ -16,19 +16,22 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPart : global::Auriga.Information.IAbstractInstance, global::Auriga.Modellingcore.IInformationsExchanger, global::Auriga.Cs.IDeployableElement, global::Auriga.Cs.IDeploymentTarget, global::Auriga.Cs.IAbstractPathInvolvedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPart : Auriga.Information.IAbstractInstance, Auriga.Modellingcore.IInformationsExchanger, Auriga.Cs.IDeployableElement, Auriga.Cs.IDeploymentTarget, Auriga.Cs.IAbstractPathInvolvedElement
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> ProvidedInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> ProvidedInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> RequiredInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> RequiredInterfaces { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
+        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPart> DeployedParts { get; }
+        IEnumerable<Auriga.Cs.IPart> DeployedParts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPart> DeployingParts { get; }
+        IEnumerable<Auriga.Cs.IPart> DeployingParts { get; }
 
-        global::Auriga.Modellingcore.IAbstractType OwnedAbstractType { get; set; }
+        Auriga.Modellingcore.IAbstractType OwnedAbstractType { get; set; }
 
     }
 }

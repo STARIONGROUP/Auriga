@@ -16,11 +16,11 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface IMissionInvolvement : global::Auriga.Capellacore.IInvolvement
+    public partial interface IMissionInvolvement : Auriga.Capellacore.IInvolvement
     {
-        global::Auriga.Ctx.ISystemComponent SystemComponent { get; }
+        Auriga.Ctx.ISystemComponent SystemComponent { get; }
 
-        global::Auriga.Ctx.IMission Mission { get; }
+        Auriga.Ctx.IMission Mission { get; }
 
     }
 }

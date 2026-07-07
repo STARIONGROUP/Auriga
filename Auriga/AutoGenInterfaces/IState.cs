@@ -16,25 +16,28 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IState : global::Auriga.Capellacommon.IAbstractState
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IState : Auriga.Capellacommon.IAbstractState
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IRegion> OwnedRegions { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> AvailableAbstractFunctions { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunction> AvailableAbstractFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChain> AvailableFunctionalChains { get; }
+        IEnumerable<Auriga.Fa.IFunctionalChain> AvailableFunctionalChains { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractCapability> AvailableAbstractCapabilities { get; }
+        IEnumerable<Auriga.Interaction.IAbstractCapability> AvailableAbstractCapabilities { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Behavior.IAbstractEvent> Entry { get; }
+        List<Auriga.Behavior.IAbstractEvent> Entry { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Behavior.IAbstractEvent> DoActivity { get; }
+        List<Auriga.Behavior.IAbstractEvent> DoActivity { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Behavior.IAbstractEvent> Exit { get; }
+        List<Auriga.Behavior.IAbstractEvent> Exit { get; }
 
-        global::Auriga.Modellingcore.IAbstractConstraint StateInvariant { get; set; }
+        Auriga.Modellingcore.IAbstractConstraint StateInvariant { get; set; }
 
     }
 }

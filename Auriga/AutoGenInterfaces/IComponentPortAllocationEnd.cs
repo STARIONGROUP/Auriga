@@ -16,13 +16,13 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentPortAllocationEnd : global::Auriga.Capellacore.ICapellaElement
+    public partial interface IComponentPortAllocationEnd : Auriga.Capellacore.ICapellaElement
     {
-        global::Auriga.Information.IPort Port { get; set; }
+        Auriga.Information.IPort Port { get; set; }
 
-        global::Auriga.Cs.IPart Part { get; set; }
+        Auriga.Cs.IPart Part { get; set; }
 
-        global::Auriga.Fa.IComponentPortAllocation OwningComponentPortAllocation { get; }
+        Auriga.Fa.IComponentPortAllocation OwningComponentPortAllocation { get; }
 
     }
 }

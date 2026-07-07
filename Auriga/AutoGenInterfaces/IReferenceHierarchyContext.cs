@@ -16,11 +16,13 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IReferenceHierarchyContext : global::Auriga.IAurigaElement
-    {
-        global::System.Collections.Generic.List<global::Auriga.Fa.IFunctionalChainReference> SourceReferenceHierarchy { get; }
+    using System.Collections.Generic;
 
-        global::System.Collections.Generic.List<global::Auriga.Fa.IFunctionalChainReference> TargetReferenceHierarchy { get; }
+    public partial interface IReferenceHierarchyContext : Auriga.IAurigaElement
+    {
+        List<Auriga.Fa.IFunctionalChainReference> SourceReferenceHierarchy { get; }
+
+        List<Auriga.Fa.IFunctionalChainReference> TargetReferenceHierarchy { get; }
 
     }
 }

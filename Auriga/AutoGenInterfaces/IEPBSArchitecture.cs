@@ -16,17 +16,20 @@
 
 namespace Auriga.Epbs
 {
-    public partial interface IEPBSArchitecture : global::Auriga.Cs.IComponentArchitecture
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IEPBSArchitecture : Auriga.Cs.IComponentArchitecture
     {
-        global::Auriga.Epbs.IConfigurationItemPkg OwnedConfigurationItemPkg { get; set; }
+        Auriga.Epbs.IConfigurationItemPkg OwnedConfigurationItemPkg { get; set; }
 
-        global::Auriga.La.ICapabilityRealizationPkg ContainedCapabilityRealizationPkg { get; }
+        Auriga.La.ICapabilityRealizationPkg ContainedCapabilityRealizationPkg { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Epbs.IPhysicalArchitectureRealization> OwnedPhysicalArchitectureRealizations { get; }
+        Auriga.IContainerList<Auriga.Epbs.IPhysicalArchitectureRealization> OwnedPhysicalArchitectureRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Epbs.IPhysicalArchitectureRealization> AllocatedPhysicalArchitectureRealizations { get; }
+        IEnumerable<Auriga.Epbs.IPhysicalArchitectureRealization> AllocatedPhysicalArchitectureRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalArchitecture> AllocatedPhysicalArchitectures { get; }
+        IEnumerable<Auriga.Pa.IPhysicalArchitecture> AllocatedPhysicalArchitectures { get; }
 
     }
 }

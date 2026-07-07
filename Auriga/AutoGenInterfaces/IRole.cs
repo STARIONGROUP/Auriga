@@ -16,19 +16,22 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IRole : global::Auriga.Information.IAbstractInstance
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IRole : Auriga.Information.IAbstractInstance
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.IRoleAssemblyUsage> OwnedRoleAssemblyUsages { get; }
+        Auriga.IContainerList<Auriga.Oa.IRoleAssemblyUsage> OwnedRoleAssemblyUsages { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IActivityAllocation> OwnedActivityAllocations { get; }
+        Auriga.IContainerList<Auriga.Oa.IActivityAllocation> OwnedActivityAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IRoleAllocation> RoleAllocations { get; }
+        IEnumerable<Auriga.Oa.IRoleAllocation> RoleAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IActivityAllocation> ActivityAllocations { get; }
+        IEnumerable<Auriga.Oa.IActivityAllocation> ActivityAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IEntity> AllocatingEntities { get; }
+        IEnumerable<Auriga.Oa.IEntity> AllocatingEntities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalActivity> AllocatedOperationalActivities { get; }
+        IEnumerable<Auriga.Oa.IOperationalActivity> AllocatedOperationalActivities { get; }
 
     }
 }

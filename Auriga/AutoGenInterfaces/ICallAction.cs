@@ -16,9 +16,9 @@
 
 namespace Auriga.Activity
 {
-    public partial interface ICallAction : global::Auriga.Activity.IInvocationAction
+    public partial interface ICallAction : Auriga.Activity.IInvocationAction
     {
-        global::Auriga.IContainerList<global::Auriga.Activity.IOutputPin> Results { get; }
+        Auriga.IContainerList<Auriga.Activity.IOutputPin> Results { get; }
 
     }
 }

@@ -16,9 +16,9 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IRoleAssemblyUsage : global::Auriga.Capellacore.INamedElement
+    public partial interface IRoleAssemblyUsage : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.Oa.IRole Child { get; set; }
+        Auriga.Oa.IRole Child { get; set; }
 
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IStateTransitionRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IStateTransitionRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Capellacommon.IStateTransition RealizedStateTransition { get; }
+        Auriga.Capellacommon.IStateTransition RealizedStateTransition { get; }
 
-        global::Auriga.Capellacommon.IStateTransition RealizingStateTransition { get; }
+        Auriga.Capellacommon.IStateTransition RealizingStateTransition { get; }
 
     }
 }

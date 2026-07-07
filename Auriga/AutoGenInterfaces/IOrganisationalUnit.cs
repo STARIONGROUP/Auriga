@@ -16,11 +16,13 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOrganisationalUnit : global::Auriga.Capellacore.INamedElement
-    {
-        global::Auriga.IContainerList<global::Auriga.Oa.IOrganisationalUnitComposition> OrganisationalUnitCompositions { get; }
+    using System.Collections.Generic;
 
-        global::System.Collections.Generic.List<global::Auriga.Oa.ICommunityOfInterestComposition> CommunityOfInterestMemberships { get; }
+    public partial interface IOrganisationalUnit : Auriga.Capellacore.INamedElement
+    {
+        Auriga.IContainerList<Auriga.Oa.IOrganisationalUnitComposition> OrganisationalUnitCompositions { get; }
+
+        List<Auriga.Oa.ICommunityOfInterestComposition> CommunityOfInterestMemberships { get; }
 
     }
 }

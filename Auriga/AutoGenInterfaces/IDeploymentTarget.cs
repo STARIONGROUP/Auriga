@@ -16,9 +16,12 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IDeploymentTarget : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IDeploymentTarget : Auriga.Capellacore.INamedElement
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IAbstractDeploymentLink> DeploymentLinks { get; }
+        IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeploymentLinks { get; }
 
     }
 }

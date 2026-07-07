@@ -16,29 +16,32 @@
 
 namespace Auriga.Pa
 {
-    public partial interface IPhysicalComponent : global::Auriga.Cs.IAbstractPhysicalArtifact, global::Auriga.Cs.IComponent, global::Auriga.Capellacommon.ICapabilityRealizationInvolvedElement, global::Auriga.Cs.IDeployableElement, global::Auriga.Cs.IDeploymentTarget
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalComponent : Auriga.Cs.IAbstractPhysicalArtifact, Auriga.Cs.IComponent, Auriga.Capellacommon.ICapabilityRealizationInvolvedElement, Auriga.Cs.IDeployableElement, Auriga.Cs.IDeploymentTarget
     {
-        global::Auriga.Pa.PhysicalComponentKind? Kind { get; set; }
+        Auriga.Pa.PhysicalComponentKind? Kind { get; set; }
 
-        global::Auriga.Pa.PhysicalComponentNature? Nature { get; set; }
+        Auriga.Pa.PhysicalComponentNature? Nature { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
+        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.ILogicalInterfaceRealization> LogicalInterfaceRealizations { get; }
+        IEnumerable<Auriga.Pa.ILogicalInterfaceRealization> LogicalInterfaceRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalComponent> SubPhysicalComponents { get; }
+        IEnumerable<Auriga.Pa.IPhysicalComponent> SubPhysicalComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalComponent> RealizedLogicalComponents { get; }
+        IEnumerable<Auriga.La.ILogicalComponent> RealizedLogicalComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalFunction> AllocatedPhysicalFunctions { get; }
+        IEnumerable<Auriga.Pa.IPhysicalFunction> AllocatedPhysicalFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalComponent> DeployedPhysicalComponents { get; }
+        IEnumerable<Auriga.Pa.IPhysicalComponent> DeployedPhysicalComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalComponent> DeployingPhysicalComponents { get; }
+        IEnumerable<Auriga.Pa.IPhysicalComponent> DeployingPhysicalComponents { get; }
 
     }
 }

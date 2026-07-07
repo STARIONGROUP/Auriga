@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IActivityAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IActivityAllocation : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Oa.IRole Role { get; }
+        Auriga.Oa.IRole Role { get; }
 
-        global::Auriga.Oa.IOperationalActivity Activity { get; }
+        Auriga.Oa.IOperationalActivity Activity { get; }
 
     }
 }

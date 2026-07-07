@@ -16,7 +16,7 @@
 
 namespace Auriga.La
 {
-    public partial interface ISystemAnalysisRealization : global::Auriga.Cs.IArchitectureAllocation
+    public partial interface ISystemAnalysisRealization : Auriga.Cs.IArchitectureAllocation
     {
     }
 }

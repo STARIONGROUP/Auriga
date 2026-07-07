@@ -16,7 +16,7 @@
 
 namespace Auriga.Information
 {
-    public partial interface IMultiplicityElement : global::Auriga.Capellacore.ICapellaElement
+    public partial interface IMultiplicityElement : Auriga.Capellacore.ICapellaElement
     {
         bool? Ordered { get; set; }
 
@@ -26,21 +26,21 @@ namespace Auriga.Information
 
         bool? MaxInclusive { get; set; }
 
-        global::Auriga.Information.Datavalue.IDataValue OwnedDefaultValue { get; set; }
+        Auriga.Information.Datavalue.IDataValue OwnedDefaultValue { get; set; }
 
-        global::Auriga.Information.Datavalue.IDataValue OwnedMinValue { get; set; }
+        Auriga.Information.Datavalue.IDataValue OwnedMinValue { get; set; }
 
-        global::Auriga.Information.Datavalue.IDataValue OwnedMaxValue { get; set; }
+        Auriga.Information.Datavalue.IDataValue OwnedMaxValue { get; set; }
 
-        global::Auriga.Information.Datavalue.IDataValue OwnedNullValue { get; set; }
+        Auriga.Information.Datavalue.IDataValue OwnedNullValue { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedMinCard { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedMinCard { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedMinLength { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedMinLength { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedMaxCard { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedMaxCard { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedMaxLength { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedMaxLength { get; set; }
 
     }
 }

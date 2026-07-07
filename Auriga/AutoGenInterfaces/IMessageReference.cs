@@ -16,9 +16,9 @@
 
 namespace Auriga.Information.Communication
 {
-    public partial interface IMessageReference : global::Auriga.Capellacore.IRelationship
+    public partial interface IMessageReference : Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Information.Communication.IMessage Message { get; set; }
+        Auriga.Information.Communication.IMessage Message { get; set; }
 
     }
 }

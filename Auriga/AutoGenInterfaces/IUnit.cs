@@ -16,7 +16,7 @@
 
 namespace Auriga.Information
 {
-    public partial interface IUnit : global::Auriga.Capellacore.INamedElement
+    public partial interface IUnit : Auriga.Capellacore.INamedElement
     {
     }
 }

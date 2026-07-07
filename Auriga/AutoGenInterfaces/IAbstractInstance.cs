@@ -16,9 +16,12 @@
 
 namespace Auriga.Information
 {
-    public partial interface IAbstractInstance : global::Auriga.Information.IProperty
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractInstance : Auriga.Information.IProperty
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IInstanceRole> RepresentingInstanceRoles { get; }
+        IEnumerable<Auriga.Interaction.IInstanceRole> RepresentingInstanceRoles { get; }
 
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IFinalizableElement : global::Auriga.Modellingcore.IModelElement
+    public partial interface IFinalizableElement : Auriga.Modellingcore.IModelElement
     {
         bool? Final { get; set; }
 

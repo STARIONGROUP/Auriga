@@ -16,19 +16,22 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface ISystemFunction : global::Auriga.Fa.IAbstractFunction
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ISystemFunction : Auriga.Fa.IAbstractFunction
     {
-        global::Auriga.IContainerList<global::Auriga.Ctx.ISystemFunctionPkg> OwnedSystemFunctionPkgs { get; }
+        Auriga.IContainerList<Auriga.Ctx.ISystemFunctionPkg> OwnedSystemFunctionPkgs { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemComponent> AllocatingSystemComponents { get; }
+        IEnumerable<Auriga.Ctx.ISystemComponent> AllocatingSystemComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalActivity> RealizedOperationalActivities { get; }
+        IEnumerable<Auriga.Oa.IOperationalActivity> RealizedOperationalActivities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalFunction> RealizingLogicalFunctions { get; }
+        IEnumerable<Auriga.La.ILogicalFunction> RealizingLogicalFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemFunction> ContainedSystemFunctions { get; }
+        IEnumerable<Auriga.Ctx.ISystemFunction> ContainedSystemFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemFunction> ChildrenSystemFunctions { get; }
+        IEnumerable<Auriga.Ctx.ISystemFunction> ChildrenSystemFunctions { get; }
 
     }
 }

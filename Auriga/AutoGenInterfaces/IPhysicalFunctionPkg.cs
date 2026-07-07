@@ -16,11 +16,11 @@
 
 namespace Auriga.Pa
 {
-    public partial interface IPhysicalFunctionPkg : global::Auriga.Fa.IFunctionPkg
+    public partial interface IPhysicalFunctionPkg : Auriga.Fa.IFunctionPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalFunction> OwnedPhysicalFunctions { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalFunction> OwnedPhysicalFunctions { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
 
     }
 }

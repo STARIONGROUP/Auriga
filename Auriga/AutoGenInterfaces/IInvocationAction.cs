@@ -16,9 +16,9 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IInvocationAction : global::Auriga.Activity.IAbstractAction
+    public partial interface IInvocationAction : Auriga.Activity.IAbstractAction
     {
-        global::Auriga.IContainerList<global::Auriga.Activity.IInputPin> Arguments { get; }
+        Auriga.IContainerList<Auriga.Activity.IInputPin> Arguments { get; }
 
     }
 }

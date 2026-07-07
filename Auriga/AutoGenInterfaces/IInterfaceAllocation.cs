@@ -16,11 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IInterfaceAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IInterfaceAllocation : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Cs.IInterface AllocatedInterface { get; }
+        Auriga.Cs.IInterface AllocatedInterface { get; }
 
-        global::Auriga.Cs.IInterfaceAllocator AllocatingInterfaceAllocator { get; }
+        Auriga.Cs.IInterfaceAllocator AllocatingInterfaceAllocator { get; }
 
     }
 }

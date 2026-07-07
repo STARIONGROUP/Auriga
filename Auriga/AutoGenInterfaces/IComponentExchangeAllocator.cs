@@ -16,11 +16,14 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentExchangeAllocator : global::Auriga.Capellacore.INamedElement
-    {
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeAllocation> OwnedComponentExchangeAllocations { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchange> AllocatedComponentExchanges { get; }
+    public partial interface IComponentExchangeAllocator : Auriga.Capellacore.INamedElement
+    {
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeAllocation> OwnedComponentExchangeAllocations { get; }
+
+        IEnumerable<Auriga.Fa.IComponentExchange> AllocatedComponentExchanges { get; }
 
     }
 }

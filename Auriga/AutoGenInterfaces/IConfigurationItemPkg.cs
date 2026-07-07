@@ -16,11 +16,11 @@
 
 namespace Auriga.Epbs
 {
-    public partial interface IConfigurationItemPkg : global::Auriga.Cs.IComponentPkg
+    public partial interface IConfigurationItemPkg : Auriga.Cs.IComponentPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
+        Auriga.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
+        Auriga.IContainerList<Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
 
     }
 }

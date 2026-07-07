@@ -16,19 +16,22 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface ICapability : global::Auriga.Interaction.IAbstractCapability
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ICapability : Auriga.Interaction.IAbstractCapability
     {
-        global::Auriga.IContainerList<global::Auriga.Ctx.ICapabilityInvolvement> OwnedCapabilityInvolvements { get; }
+        Auriga.IContainerList<Auriga.Ctx.ICapabilityInvolvement> OwnedCapabilityInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemComponent> InvolvedSystemComponents { get; }
+        IEnumerable<Auriga.Ctx.ISystemComponent> InvolvedSystemComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapabilityExploitation> Purposes { get; }
+        IEnumerable<Auriga.Ctx.ICapabilityExploitation> Purposes { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.IMission> PurposeMissions { get; }
+        IEnumerable<Auriga.Ctx.IMission> PurposeMissions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalCapability> RealizedOperationalCapabilities { get; }
+        IEnumerable<Auriga.Oa.IOperationalCapability> RealizedOperationalCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ICapabilityRealization> RealizingCapabilityRealizations { get; }
+        IEnumerable<Auriga.La.ICapabilityRealization> RealizingCapabilityRealizations { get; }
 
     }
 }

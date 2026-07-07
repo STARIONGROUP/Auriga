@@ -16,15 +16,15 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IObjectFlow : global::Auriga.Activity.IActivityEdge
+    public partial interface IObjectFlow : Auriga.Activity.IActivityEdge
     {
         bool? IsMulticast { get; set; }
 
         bool? IsMultireceive { get; set; }
 
-        global::Auriga.Behavior.IAbstractBehavior Transformation { get; set; }
+        Auriga.Behavior.IAbstractBehavior Transformation { get; set; }
 
-        global::Auriga.Behavior.IAbstractBehavior Selection { get; set; }
+        Auriga.Behavior.IAbstractBehavior Selection { get; set; }
 
     }
 }

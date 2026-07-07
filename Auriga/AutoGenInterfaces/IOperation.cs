@@ -16,19 +16,22 @@
 
 namespace Auriga.Information
 {
-    public partial interface IOperation : global::Auriga.Capellacore.IFeature, global::Auriga.Behavior.IAbstractEvent, global::Auriga.Information.IAbstractEventOperation
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IOperation : Auriga.Capellacore.IFeature, Auriga.Behavior.IAbstractEvent, Auriga.Information.IAbstractEventOperation
     {
-        global::Auriga.IContainerList<global::Auriga.Information.IParameter> OwnedParameters { get; }
+        Auriga.IContainerList<Auriga.Information.IParameter> OwnedParameters { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IOperation> AllocatingOperations { get; }
+        IEnumerable<Auriga.Information.IOperation> AllocatingOperations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IOperation> AllocatedOperations { get; }
+        IEnumerable<Auriga.Information.IOperation> AllocatedOperations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IOperationAllocation> OwnedOperationAllocation { get; }
+        Auriga.IContainerList<Auriga.Information.IOperationAllocation> OwnedOperationAllocation { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IExchangeItemRealization> OwnedExchangeItemRealizations { get; }
+        Auriga.IContainerList<Auriga.Information.IExchangeItemRealization> OwnedExchangeItemRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IExchangeItem> RealizedExchangeItems { get; }
+        IEnumerable<Auriga.Information.IExchangeItem> RealizedExchangeItems { get; }
 
     }
 }

@@ -16,13 +16,13 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IGenericTrace : global::Auriga.Capellacore.ITrace
+    public partial interface IGenericTrace : Auriga.Capellacore.ITrace
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
+        Auriga.IContainerList<Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
 
-        global::Auriga.Modellingcore.ITraceableElement Source { get; }
+        Auriga.Modellingcore.ITraceableElement Source { get; }
 
-        global::Auriga.Modellingcore.ITraceableElement Target { get; }
+        Auriga.Modellingcore.ITraceableElement Target { get; }
 
     }
 }

@@ -16,13 +16,16 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IInformationsExchanger : global::Auriga.Modellingcore.IModelElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IInformationsExchanger : Auriga.Modellingcore.IModelElement
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractInformationFlow> IncomingInformationFlows { get; }
+        IEnumerable<Auriga.Modellingcore.IAbstractInformationFlow> IncomingInformationFlows { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractInformationFlow> OutgoingInformationFlows { get; }
+        IEnumerable<Auriga.Modellingcore.IAbstractInformationFlow> OutgoingInformationFlows { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractInformationFlow> InformationFlows { get; }
+        IEnumerable<Auriga.Modellingcore.IAbstractInformationFlow> InformationFlows { get; }
 
     }
 }

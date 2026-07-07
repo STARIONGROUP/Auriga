@@ -16,11 +16,14 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IInstanceRole : global::Auriga.Capellacore.INamedElement
-    {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IAbstractEnd> AbstractEnds { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::Auriga.Information.IAbstractInstance RepresentedInstance { get; set; }
+    public partial interface IInstanceRole : Auriga.Capellacore.INamedElement
+    {
+        IEnumerable<Auriga.Interaction.IAbstractEnd> AbstractEnds { get; }
+
+        Auriga.Information.IAbstractInstance RepresentedInstance { get; set; }
 
     }
 }

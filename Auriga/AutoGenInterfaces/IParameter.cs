@@ -16,11 +16,11 @@
 
 namespace Auriga.Information
 {
-    public partial interface IParameter : global::Auriga.Capellacore.ITypedElement, global::Auriga.Information.IMultiplicityElement, global::Auriga.Modellingcore.IAbstractParameter
+    public partial interface IParameter : Auriga.Capellacore.ITypedElement, Auriga.Information.IMultiplicityElement, Auriga.Modellingcore.IAbstractParameter
     {
-        global::Auriga.Information.ParameterDirection? Direction { get; set; }
+        Auriga.Information.ParameterDirection? Direction { get; set; }
 
-        global::Auriga.Information.PassingMode? PassingMode { get; set; }
+        Auriga.Information.PassingMode? PassingMode { get; set; }
 
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionalExchangeRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IFunctionalExchangeRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Fa.IFunctionalExchange RealizedFunctionalExchange { get; }
+        Auriga.Fa.IFunctionalExchange RealizedFunctionalExchange { get; }
 
-        global::Auriga.Fa.IFunctionalExchange RealizingFunctionalExchange { get; }
+        Auriga.Fa.IFunctionalExchange RealizingFunctionalExchange { get; }
 
     }
 }

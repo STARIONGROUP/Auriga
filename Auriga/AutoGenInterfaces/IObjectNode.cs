@@ -16,19 +16,21 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IObjectNode : global::Auriga.Activity.IActivityNode, global::Auriga.Modellingcore.IAbstractTypedElement
+    using System.Collections.Generic;
+
+    public partial interface IObjectNode : Auriga.Activity.IActivityNode, Auriga.Modellingcore.IAbstractTypedElement
     {
         bool? IsControlType { get; set; }
 
-        global::Auriga.Activity.ObjectNodeKind? KindOfNode { get; set; }
+        Auriga.Activity.ObjectNodeKind? KindOfNode { get; set; }
 
-        global::Auriga.Activity.ObjectNodeOrderingKind? Ordering { get; set; }
+        Auriga.Activity.ObjectNodeOrderingKind? Ordering { get; set; }
 
-        global::Auriga.Modellingcore.IValueSpecification UpperBound { get; set; }
+        Auriga.Modellingcore.IValueSpecification UpperBound { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Modellingcore.IIState> InState { get; }
+        List<Auriga.Modellingcore.IIState> InState { get; }
 
-        global::Auriga.Behavior.IAbstractBehavior Selection { get; set; }
+        Auriga.Behavior.IAbstractBehavior Selection { get; set; }
 
     }
 }

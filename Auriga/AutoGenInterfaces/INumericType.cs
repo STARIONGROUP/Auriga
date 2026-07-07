@@ -16,17 +16,17 @@
 
 namespace Auriga.Information.Datatype
 {
-    public partial interface INumericType : global::Auriga.Information.Datatype.IDataType
+    public partial interface INumericType : Auriga.Information.Datatype.IDataType
     {
-        global::Auriga.Information.Datatype.NumericTypeKind? Kind { get; set; }
+        Auriga.Information.Datatype.NumericTypeKind? Kind { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedDefaultValue { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedDefaultValue { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedNullValue { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedNullValue { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedMinValue { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedMinValue { get; set; }
 
-        global::Auriga.Information.Datavalue.INumericValue OwnedMaxValue { get; set; }
+        Auriga.Information.Datavalue.INumericValue OwnedMaxValue { get; set; }
 
     }
 }

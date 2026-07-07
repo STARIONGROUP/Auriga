@@ -16,7 +16,7 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractNamedElement : global::Auriga.Modellingcore.IModelElement
+    public partial interface IAbstractNamedElement : Auriga.Modellingcore.IModelElement
     {
         string Name { get; set; }
 

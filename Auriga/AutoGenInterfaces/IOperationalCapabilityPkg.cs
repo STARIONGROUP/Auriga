@@ -16,15 +16,15 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOperationalCapabilityPkg : global::Auriga.Capellacommon.IAbstractCapabilityPkg
+    public partial interface IOperationalCapabilityPkg : Auriga.Capellacommon.IAbstractCapabilityPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.IOperationalCapability> OwnedOperationalCapabilities { get; }
+        Auriga.IContainerList<Auriga.Oa.IOperationalCapability> OwnedOperationalCapabilities { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IOperationalCapabilityPkg> OwnedOperationalCapabilityPkgs { get; }
+        Auriga.IContainerList<Auriga.Oa.IOperationalCapabilityPkg> OwnedOperationalCapabilityPkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.ICapabilityConfiguration> OwnedCapabilityConfigurations { get; }
+        Auriga.IContainerList<Auriga.Oa.ICapabilityConfiguration> OwnedCapabilityConfigurations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IConceptCompliance> OwnedConceptCompliances { get; }
+        Auriga.IContainerList<Auriga.Oa.IConceptCompliance> OwnedConceptCompliances { get; }
 
     }
 }

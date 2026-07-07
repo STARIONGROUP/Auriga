@@ -16,11 +16,14 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface ICapabilityRealizationInvolvedElement : global::Auriga.Capellacore.IInvolvedElement
-    {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.ICapabilityRealizationInvolvement> CapabilityRealizationInvolvements { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations { get; }
+    public partial interface ICapabilityRealizationInvolvedElement : Auriga.Capellacore.IInvolvedElement
+    {
+        IEnumerable<Auriga.Capellacommon.ICapabilityRealizationInvolvement> CapabilityRealizationInvolvements { get; }
+
+        IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations { get; }
 
     }
 }

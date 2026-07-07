@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface INamingRule : global::Auriga.Capellacore.IAbstractAnnotation
+    public partial interface INamingRule : Auriga.Capellacore.IAbstractAnnotation
     {
         string TargetType { get; set; }
 

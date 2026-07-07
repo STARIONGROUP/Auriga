@@ -16,15 +16,17 @@
 
 namespace Auriga.Fa
 {
-    public partial interface ISequenceLink : global::Auriga.Capellacore.ICapellaElement, global::Auriga.Fa.IReferenceHierarchyContext
+    using System.Collections.Generic;
+
+    public partial interface ISequenceLink : Auriga.Capellacore.ICapellaElement, Auriga.Fa.IReferenceHierarchyContext
     {
-        global::Auriga.Capellacore.IConstraint Condition { get; set; }
+        Auriga.Capellacore.IConstraint Condition { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Fa.IFunctionalChainInvolvementLink> Links { get; }
+        List<Auriga.Fa.IFunctionalChainInvolvementLink> Links { get; }
 
-        global::Auriga.Fa.ISequenceLinkEnd Source { get; set; }
+        Auriga.Fa.ISequenceLinkEnd Source { get; set; }
 
-        global::Auriga.Fa.ISequenceLinkEnd Target { get; set; }
+        Auriga.Fa.ISequenceLinkEnd Target { get; set; }
 
     }
 }

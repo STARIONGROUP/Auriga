@@ -16,7 +16,7 @@
 
 namespace Auriga.Information.Communication
 {
-    public partial interface ISignalInstance : global::Auriga.Information.IAbstractInstance
+    public partial interface ISignalInstance : Auriga.Information.IAbstractInstance
     {
     }
 }

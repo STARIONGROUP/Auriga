@@ -16,7 +16,7 @@
 
 namespace Auriga.Information.Communication
 {
-    public partial interface IMessage : global::Auriga.Information.Communication.ICommunicationItem
+    public partial interface IMessage : Auriga.Information.Communication.ICommunicationItem
     {
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IAbstractCapabilityPkg : global::Auriga.Capellacore.IStructure
+    public partial interface IAbstractCapabilityPkg : Auriga.Capellacore.IStructure
     {
     }
 }

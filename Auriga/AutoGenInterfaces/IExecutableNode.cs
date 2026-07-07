@@ -16,9 +16,9 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IExecutableNode : global::Auriga.Activity.IActivityNode
+    public partial interface IExecutableNode : Auriga.Activity.IActivityNode
     {
-        global::Auriga.IContainerList<global::Auriga.Activity.IExceptionHandler> OwnedHandlers { get; }
+        Auriga.IContainerList<Auriga.Activity.IExceptionHandler> OwnedHandlers { get; }
 
     }
 }

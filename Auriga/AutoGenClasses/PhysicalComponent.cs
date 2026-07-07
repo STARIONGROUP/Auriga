@@ -16,37 +16,40 @@
 
 namespace Auriga.Pa
 {
-    public partial class PhysicalComponent : global::Auriga.AurigaElement, global::Auriga.Pa.IPhysicalComponent
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial class PhysicalComponent : Auriga.AurigaElement, Auriga.Pa.IPhysicalComponent
     {
-        public global::Auriga.Pa.PhysicalComponentKind? Kind { get; set; }
+        public Auriga.Pa.PhysicalComponentKind? Kind { get; set; }
 
-        public global::Auriga.Pa.PhysicalComponentNature? Nature { get; set; }
+        public Auriga.Pa.PhysicalComponentNature? Nature { get; set; }
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> backingOwnedDeploymentLinks;
+        private Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> backingOwnedDeploymentLinks;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks => this.backingOwnedDeploymentLinks ??= new global::Auriga.ContainerList<global::Auriga.Cs.IAbstractDeploymentLink>(this);
+        public Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks => this.backingOwnedDeploymentLinks ??= new Auriga.ContainerList<Auriga.Cs.IAbstractDeploymentLink>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponent> backingOwnedPhysicalComponents;
+        private Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> backingOwnedPhysicalComponents;
 
-        public global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents => this.backingOwnedPhysicalComponents ??= new global::Auriga.ContainerList<global::Auriga.Pa.IPhysicalComponent>(this);
+        public Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents => this.backingOwnedPhysicalComponents ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalComponent>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponentPkg> backingOwnedPhysicalComponentPkgs;
+        private Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> backingOwnedPhysicalComponentPkgs;
 
-        public global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs => this.backingOwnedPhysicalComponentPkgs ??= new global::Auriga.ContainerList<global::Auriga.Pa.IPhysicalComponentPkg>(this);
+        public Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs => this.backingOwnedPhysicalComponentPkgs ??= new Auriga.ContainerList<Auriga.Pa.IPhysicalComponentPkg>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.ILogicalInterfaceRealization> LogicalInterfaceRealizations => global::System.Linq.Enumerable.Empty<global::Auriga.Pa.ILogicalInterfaceRealization>();
+        public IEnumerable<Auriga.Pa.ILogicalInterfaceRealization> LogicalInterfaceRealizations => Enumerable.Empty<Auriga.Pa.ILogicalInterfaceRealization>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalComponent> SubPhysicalComponents => global::System.Linq.Enumerable.Empty<global::Auriga.Pa.IPhysicalComponent>();
+        public IEnumerable<Auriga.Pa.IPhysicalComponent> SubPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalComponent> RealizedLogicalComponents => global::System.Linq.Enumerable.Empty<global::Auriga.La.ILogicalComponent>();
+        public IEnumerable<Auriga.La.ILogicalComponent> RealizedLogicalComponents => Enumerable.Empty<Auriga.La.ILogicalComponent>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalFunction> AllocatedPhysicalFunctions => global::System.Linq.Enumerable.Empty<global::Auriga.Pa.IPhysicalFunction>();
+        public IEnumerable<Auriga.Pa.IPhysicalFunction> AllocatedPhysicalFunctions => Enumerable.Empty<Auriga.Pa.IPhysicalFunction>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalComponent> DeployedPhysicalComponents => global::System.Linq.Enumerable.Empty<global::Auriga.Pa.IPhysicalComponent>();
+        public IEnumerable<Auriga.Pa.IPhysicalComponent> DeployedPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Pa.IPhysicalComponent> DeployingPhysicalComponents => global::System.Linq.Enumerable.Empty<global::Auriga.Pa.IPhysicalComponent>();
+        public IEnumerable<Auriga.Pa.IPhysicalComponent> DeployingPhysicalComponents => Enumerable.Empty<Auriga.Pa.IPhysicalComponent>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Epbs.IConfigurationItem> AllocatorConfigurationItems => global::System.Linq.Enumerable.Empty<global::Auriga.Epbs.IConfigurationItem>();
+        public IEnumerable<Auriga.Epbs.IConfigurationItem> AllocatorConfigurationItems => Enumerable.Empty<Auriga.Epbs.IConfigurationItem>();
 
         public string Summary { get; set; }
 
@@ -54,45 +57,45 @@ namespace Auriga.Pa
 
         public string Review { get; set; }
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new global::Auriga.ContainerList<global::Auriga.Capellacore.IAbstractPropertyValue>(this);
+        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new global::Auriga.ContainerList<global::Auriga.Capellacore.IEnumerationPropertyType>(this);
+        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
-        public global::System.Collections.Generic.List<global::Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; } = new global::System.Collections.Generic.List<global::Auriga.Capellacore.IAbstractPropertyValue>();
+        public List<Auriga.Capellacore.IAbstractPropertyValue> AppliedPropertyValues { get; } = new List<Auriga.Capellacore.IAbstractPropertyValue>();
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new global::Auriga.ContainerList<global::Auriga.Capellacore.IPropertyValueGroup>(this);
+        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
-        public global::System.Collections.Generic.List<global::Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; } = new global::System.Collections.Generic.List<global::Auriga.Capellacore.IPropertyValueGroup>();
+        public List<Auriga.Capellacore.IPropertyValueGroup> AppliedPropertyValueGroups { get; } = new List<Auriga.Capellacore.IPropertyValueGroup>();
 
-        public global::Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
+        public Auriga.Capellacore.IEnumerationPropertyLiteral Status { get; set; }
 
-        public global::System.Collections.Generic.List<global::Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; } = new global::System.Collections.Generic.List<global::Auriga.Capellacore.IEnumerationPropertyLiteral>();
+        public List<Auriga.Capellacore.IEnumerationPropertyLiteral> Features { get; } = new List<Auriga.Capellacore.IEnumerationPropertyLiteral>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractTrace> IncomingTraces => global::System.Linq.Enumerable.Empty<global::Auriga.Modellingcore.IAbstractTrace>();
+        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> IncomingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractTrace> OutgoingTraces => global::System.Linq.Enumerable.Empty<global::Auriga.Modellingcore.IAbstractTrace>();
+        public IEnumerable<Auriga.Modellingcore.IAbstractTrace> OutgoingTraces => Enumerable.Empty<Auriga.Modellingcore.IAbstractTrace>();
 
         public string Sid { get; set; }
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractConstraint> Constraints => global::System.Linq.Enumerable.Empty<global::Auriga.Modellingcore.IAbstractConstraint>();
+        public IEnumerable<Auriga.Modellingcore.IAbstractConstraint> Constraints => Enumerable.Empty<Auriga.Modellingcore.IAbstractConstraint>();
 
-        private global::Auriga.IContainerList<global::Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
-        public global::Auriga.IContainerList<global::Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new global::Auriga.ContainerList<global::Auriga.Modellingcore.IAbstractConstraint>(this);
+        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
+        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
-        public global::Auriga.IContainerList<global::Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new global::Auriga.ContainerList<global::Auriga.Modellingcore.IModelElement>(this);
+        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
-        public global::Auriga.IContainerList<global::Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new global::Auriga.ContainerList<global::Auriga.Emde.IElementExtension>(this);
+        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         public bool? VisibleInDoc { get; set; }
 
@@ -102,161 +105,161 @@ namespace Auriga.Pa
 
         public bool Human { get; set; }
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceUse> backingOwnedInterfaceUses;
+        private Auriga.IContainerList<Auriga.Cs.IInterfaceUse> backingOwnedInterfaceUses;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceUse> OwnedInterfaceUses => this.backingOwnedInterfaceUses ??= new global::Auriga.ContainerList<global::Auriga.Cs.IInterfaceUse>(this);
+        public Auriga.IContainerList<Auriga.Cs.IInterfaceUse> OwnedInterfaceUses => this.backingOwnedInterfaceUses ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceUse>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceUse> UsedInterfaceLinks => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterfaceUse>();
+        public IEnumerable<Auriga.Cs.IInterfaceUse> UsedInterfaceLinks => Enumerable.Empty<Auriga.Cs.IInterfaceUse>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> UsedInterfaces => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterface>();
+        public IEnumerable<Auriga.Cs.IInterface> UsedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceImplementation> backingOwnedInterfaceImplementations;
+        private Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> backingOwnedInterfaceImplementations;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations => this.backingOwnedInterfaceImplementations ??= new global::Auriga.ContainerList<global::Auriga.Cs.IInterfaceImplementation>(this);
+        public Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations => this.backingOwnedInterfaceImplementations ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceImplementation>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceImplementation> ImplementedInterfaceLinks => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterfaceImplementation>();
+        public IEnumerable<Auriga.Cs.IInterfaceImplementation> ImplementedInterfaceLinks => Enumerable.Empty<Auriga.Cs.IInterfaceImplementation>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> ImplementedInterfaces => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterface>();
+        public IEnumerable<Auriga.Cs.IInterface> ImplementedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IComponentRealization> backingOwnedComponentRealizations;
+        private Auriga.IContainerList<Auriga.Cs.IComponentRealization> backingOwnedComponentRealizations;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IComponentRealization> OwnedComponentRealizations => this.backingOwnedComponentRealizations ??= new global::Auriga.ContainerList<global::Auriga.Cs.IComponentRealization>(this);
+        public Auriga.IContainerList<Auriga.Cs.IComponentRealization> OwnedComponentRealizations => this.backingOwnedComponentRealizations ??= new Auriga.ContainerList<Auriga.Cs.IComponentRealization>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> RealizedComponents => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IComponent>();
+        public IEnumerable<Auriga.Cs.IComponent> RealizedComponents => Enumerable.Empty<Auriga.Cs.IComponent>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IComponent> RealizingComponents => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IComponent>();
+        public IEnumerable<Auriga.Cs.IComponent> RealizingComponents => Enumerable.Empty<Auriga.Cs.IComponent>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> ProvidedInterfaces => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterface>();
+        public IEnumerable<Auriga.Cs.IInterface> ProvidedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> RequiredInterfaces => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterface>();
+        public IEnumerable<Auriga.Cs.IInterface> RequiredInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> ContainedComponentPorts => global::System.Linq.Enumerable.Empty<global::Auriga.Fa.IComponentPort>();
+        public IEnumerable<Auriga.Fa.IComponentPort> ContainedComponentPorts => Enumerable.Empty<Auriga.Fa.IComponentPort>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPart> ContainedParts => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IPart>();
+        public IEnumerable<Auriga.Cs.IPart> ContainedParts => Enumerable.Empty<Auriga.Cs.IPart>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPort> ContainedPhysicalPorts => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IPhysicalPort>();
+        public IEnumerable<Auriga.Cs.IPhysicalPort> ContainedPhysicalPorts => Enumerable.Empty<Auriga.Cs.IPhysicalPort>();
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalPath> backingOwnedPhysicalPath;
+        private Auriga.IContainerList<Auriga.Cs.IPhysicalPath> backingOwnedPhysicalPath;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalPath> OwnedPhysicalPath => this.backingOwnedPhysicalPath ??= new global::Auriga.ContainerList<global::Auriga.Cs.IPhysicalPath>(this);
+        public Auriga.IContainerList<Auriga.Cs.IPhysicalPath> OwnedPhysicalPath => this.backingOwnedPhysicalPath ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalPath>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLink> backingOwnedPhysicalLinks;
+        private Auriga.IContainerList<Auriga.Cs.IPhysicalLink> backingOwnedPhysicalLinks;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks => this.backingOwnedPhysicalLinks ??= new global::Auriga.ContainerList<global::Auriga.Cs.IPhysicalLink>(this);
+        public Auriga.IContainerList<Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks => this.backingOwnedPhysicalLinks ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalLink>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLinkCategory> backingOwnedPhysicalLinkCategories;
+        private Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> backingOwnedPhysicalLinkCategories;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories => this.backingOwnedPhysicalLinkCategories ??= new global::Auriga.ContainerList<global::Auriga.Cs.IPhysicalLinkCategory>(this);
+        public Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories => this.backingOwnedPhysicalLinkCategories ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalLinkCategory>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPart> RepresentingParts => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IPart>();
+        public IEnumerable<Auriga.Cs.IPart> RepresentingParts => Enumerable.Empty<Auriga.Cs.IPart>();
 
-        public global::Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
+        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
 
-        public global::Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
 
-        public global::Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+        public Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateMachine> backingOwnedStateMachines;
+        private Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> backingOwnedStateMachines;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateMachine> OwnedStateMachines => this.backingOwnedStateMachines ??= new global::Auriga.ContainerList<global::Auriga.Capellacommon.IStateMachine>(this);
+        public Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines => this.backingOwnedStateMachines ??= new Auriga.ContainerList<Auriga.Capellacommon.IStateMachine>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.ITypedElement> TypedElements => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacore.ITypedElement>();
+        public IEnumerable<Auriga.Capellacore.ITypedElement> TypedElements => Enumerable.Empty<Auriga.Capellacore.ITypedElement>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Modellingcore.IAbstractTypedElement> AbstractTypedElements => global::System.Linq.Enumerable.Empty<global::Auriga.Modellingcore.IAbstractTypedElement>();
+        public IEnumerable<Auriga.Modellingcore.IAbstractTypedElement> AbstractTypedElements => Enumerable.Empty<Auriga.Modellingcore.IAbstractTypedElement>();
 
         public string Name { get; set; }
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacore.ITrace> backingOwnedTraces;
+        private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new global::Auriga.ContainerList<global::Auriga.Capellacore.ITrace>(this);
+        public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacommon.IGenericTrace>();
+        public IEnumerable<Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces => Enumerable.Empty<Auriga.Capellacommon.IGenericTrace>();
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacore.INamingRule> backingNamingRules;
+        private Auriga.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new global::Auriga.ContainerList<global::Auriga.Capellacore.INamingRule>(this);
+        public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Fa.IComponentFunctionalAllocation> backingOwnedFunctionalAllocation;
+        private Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> backingOwnedFunctionalAllocation;
 
-        public global::Auriga.IContainerList<global::Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation => this.backingOwnedFunctionalAllocation ??= new global::Auriga.ContainerList<global::Auriga.Fa.IComponentFunctionalAllocation>(this);
+        public Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation => this.backingOwnedFunctionalAllocation ??= new Auriga.ContainerList<Auriga.Fa.IComponentFunctionalAllocation>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchange> backingOwnedComponentExchanges;
+        private Auriga.IContainerList<Auriga.Fa.IComponentExchange> backingOwnedComponentExchanges;
 
-        public global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchange> OwnedComponentExchanges => this.backingOwnedComponentExchanges ??= new global::Auriga.ContainerList<global::Auriga.Fa.IComponentExchange>(this);
+        public Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges => this.backingOwnedComponentExchanges ??= new Auriga.ContainerList<Auriga.Fa.IComponentExchange>(this);
 
-        private global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeCategory> backingOwnedComponentExchangeCategories;
+        private Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> backingOwnedComponentExchangeCategories;
 
-        public global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories => this.backingOwnedComponentExchangeCategories ??= new global::Auriga.ContainerList<global::Auriga.Fa.IComponentExchangeCategory>(this);
+        public Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories => this.backingOwnedComponentExchangeCategories ??= new Auriga.ContainerList<Auriga.Fa.IComponentExchangeCategory>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentFunctionalAllocation> FunctionalAllocations => global::System.Linq.Enumerable.Empty<global::Auriga.Fa.IComponentFunctionalAllocation>();
+        public IEnumerable<Auriga.Fa.IComponentFunctionalAllocation> FunctionalAllocations => Enumerable.Empty<Auriga.Fa.IComponentFunctionalAllocation>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> AllocatedFunctions => global::System.Linq.Enumerable.Empty<global::Auriga.Fa.IAbstractFunction>();
+        public IEnumerable<Auriga.Fa.IAbstractFunction> AllocatedFunctions => Enumerable.Empty<Auriga.Fa.IAbstractFunction>();
 
-        public global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink> InExchangeLinks { get; } = new global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink>();
+        public List<Auriga.Fa.IExchangeLink> InExchangeLinks { get; } = new List<Auriga.Fa.IExchangeLink>();
 
-        public global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink> OutExchangeLinks { get; } = new global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink>();
+        public List<Auriga.Fa.IExchangeLink> OutExchangeLinks { get; } = new List<Auriga.Fa.IExchangeLink>();
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacore.IFeature> backingOwnedFeatures;
+        private Auriga.IContainerList<Auriga.Capellacore.IFeature> backingOwnedFeatures;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacore.IFeature> OwnedFeatures => this.backingOwnedFeatures ??= new global::Auriga.ContainerList<global::Auriga.Capellacore.IFeature>(this);
+        public Auriga.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures => this.backingOwnedFeatures ??= new Auriga.ContainerList<Auriga.Capellacore.IFeature>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IProperty> ContainedProperties => global::System.Linq.Enumerable.Empty<global::Auriga.Information.IProperty>();
+        public IEnumerable<Auriga.Information.IProperty> ContainedProperties => Enumerable.Empty<Auriga.Information.IProperty>();
 
         public bool? Abstract { get; set; }
 
-        private global::Auriga.IContainerList<global::Auriga.Capellacore.IGeneralization> backingOwnedGeneralizations;
+        private Auriga.IContainerList<Auriga.Capellacore.IGeneralization> backingOwnedGeneralizations;
 
-        public global::Auriga.IContainerList<global::Auriga.Capellacore.IGeneralization> OwnedGeneralizations => this.backingOwnedGeneralizations ??= new global::Auriga.ContainerList<global::Auriga.Capellacore.IGeneralization>(this);
+        public Auriga.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations => this.backingOwnedGeneralizations ??= new Auriga.ContainerList<Auriga.Capellacore.IGeneralization>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralization> SuperGeneralizations => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacore.IGeneralization>();
+        public IEnumerable<Auriga.Capellacore.IGeneralization> SuperGeneralizations => Enumerable.Empty<Auriga.Capellacore.IGeneralization>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralization> SubGeneralizations => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacore.IGeneralization>();
+        public IEnumerable<Auriga.Capellacore.IGeneralization> SubGeneralizations => Enumerable.Empty<Auriga.Capellacore.IGeneralization>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralizableElement> Super => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacore.IGeneralizableElement>();
+        public IEnumerable<Auriga.Capellacore.IGeneralizableElement> Super => Enumerable.Empty<Auriga.Capellacore.IGeneralizableElement>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IGeneralizableElement> Sub => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacore.IGeneralizableElement>();
+        public IEnumerable<Auriga.Capellacore.IGeneralizableElement> Sub => Enumerable.Empty<Auriga.Capellacore.IGeneralizableElement>();
 
-        private global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceAllocation> backingOwnedInterfaceAllocations;
+        private Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> backingOwnedInterfaceAllocations;
 
-        public global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations => this.backingOwnedInterfaceAllocations ??= new global::Auriga.ContainerList<global::Auriga.Cs.IInterfaceAllocation>(this);
+        public Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations => this.backingOwnedInterfaceAllocations ??= new Auriga.ContainerList<Auriga.Cs.IInterfaceAllocation>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceAllocation> ProvisionedInterfaceAllocations => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterfaceAllocation>();
+        public IEnumerable<Auriga.Cs.IInterfaceAllocation> ProvisionedInterfaceAllocations => Enumerable.Empty<Auriga.Cs.IInterfaceAllocation>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> AllocatedInterfaces => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IInterface>();
+        public IEnumerable<Auriga.Cs.IInterface> AllocatedInterfaces => Enumerable.Empty<Auriga.Cs.IInterface>();
 
-        private global::Auriga.IContainerList<global::Auriga.Information.Communication.ICommunicationLink> backingOwnedCommunicationLinks;
+        private Auriga.IContainerList<Auriga.Information.Communication.ICommunicationLink> backingOwnedCommunicationLinks;
 
-        public global::Auriga.IContainerList<global::Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks => this.backingOwnedCommunicationLinks ??= new global::Auriga.ContainerList<global::Auriga.Information.Communication.ICommunicationLink>(this);
+        public Auriga.IContainerList<Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks => this.backingOwnedCommunicationLinks ??= new Auriga.ContainerList<Auriga.Information.Communication.ICommunicationLink>(this);
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Produce => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Produce => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Consume => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Consume => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Send => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Send => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Receive => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Receive => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Call => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Call => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Execute => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Execute => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Write => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Write => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Access => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Access => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Acquire => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Acquire => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Information.Communication.ICommunicationLink> Transmit => global::System.Linq.Enumerable.Empty<global::Auriga.Information.Communication.ICommunicationLink>();
+        public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Transmit => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.ICapabilityRealizationInvolvement> CapabilityRealizationInvolvements => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacommon.ICapabilityRealizationInvolvement>();
+        public IEnumerable<Auriga.Capellacommon.ICapabilityRealizationInvolvement> CapabilityRealizationInvolvements => Enumerable.Empty<Auriga.Capellacommon.ICapabilityRealizationInvolvement>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations => global::System.Linq.Enumerable.Empty<global::Auriga.La.ICapabilityRealization>();
+        public IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations => Enumerable.Empty<Auriga.La.ICapabilityRealization>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacore.IInvolvement> InvolvingInvolvements => global::System.Linq.Enumerable.Empty<global::Auriga.Capellacore.IInvolvement>();
+        public IEnumerable<Auriga.Capellacore.IInvolvement> InvolvingInvolvements => Enumerable.Empty<Auriga.Capellacore.IInvolvement>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IAbstractDeploymentLink> DeployingLinks => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IAbstractDeploymentLink>();
+        public IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeployingLinks => Enumerable.Empty<Auriga.Cs.IAbstractDeploymentLink>();
 
-        public global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IAbstractDeploymentLink> DeploymentLinks => global::System.Linq.Enumerable.Empty<global::Auriga.Cs.IAbstractDeploymentLink>();
+        public IEnumerable<Auriga.Cs.IAbstractDeploymentLink> DeploymentLinks => Enumerable.Empty<Auriga.Cs.IAbstractDeploymentLink>();
 
     }
 }

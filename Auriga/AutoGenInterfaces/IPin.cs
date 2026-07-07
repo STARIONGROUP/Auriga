@@ -16,7 +16,7 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IPin : global::Auriga.Activity.IObjectNode
+    public partial interface IPin : Auriga.Activity.IObjectNode
     {
         bool? IsControl { get; set; }
 

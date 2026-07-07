@@ -16,11 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalLinkEnd : global::Auriga.Cs.IAbstractPhysicalLinkEnd
+    public partial interface IPhysicalLinkEnd : Auriga.Cs.IAbstractPhysicalLinkEnd
     {
-        global::Auriga.Cs.IPhysicalPort Port { get; set; }
+        Auriga.Cs.IPhysicalPort Port { get; set; }
 
-        global::Auriga.Cs.IPart Part { get; set; }
+        Auriga.Cs.IPart Part { get; set; }
 
     }
 }

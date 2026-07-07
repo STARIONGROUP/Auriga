@@ -16,39 +16,42 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IAbstractFunction : global::Auriga.Capellacore.INamespace, global::Auriga.Capellacore.IInvolvedElement, global::Auriga.Information.IAbstractInstance, global::Auriga.Fa.IAbstractFunctionalChainContainer, global::Auriga.Activity.ICallBehaviorAction, global::Auriga.Behavior.IAbstractEvent
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractFunction : Auriga.Capellacore.INamespace, Auriga.Capellacore.IInvolvedElement, Auriga.Information.IAbstractInstance, Auriga.Fa.IAbstractFunctionalChainContainer, Auriga.Activity.ICallBehaviorAction, Auriga.Behavior.IAbstractEvent
     {
-        global::Auriga.Fa.FunctionKind? Kind { get; set; }
+        Auriga.Fa.FunctionKind? Kind { get; set; }
 
         string Condition { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IAbstractFunction> OwnedFunctions { get; }
+        Auriga.IContainerList<Auriga.Fa.IAbstractFunction> OwnedFunctions { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionRealization> OwnedFunctionRealizations { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionRealization> OwnedFunctionRealizations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IFunctionalExchange> OwnedFunctionalExchanges { get; }
+        Auriga.IContainerList<Auriga.Fa.IFunctionalExchange> OwnedFunctionalExchanges { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> SubFunctions { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunction> SubFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionRealization> OutFunctionRealizations { get; }
+        IEnumerable<Auriga.Fa.IFunctionRealization> OutFunctionRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionRealization> InFunctionRealizations { get; }
+        IEnumerable<Auriga.Fa.IFunctionRealization> InFunctionRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentFunctionalAllocation> ComponentFunctionalAllocations { get; }
+        IEnumerable<Auriga.Fa.IComponentFunctionalAllocation> ComponentFunctionalAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunctionalBlock> AllocationBlocks { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunctionalBlock> AllocationBlocks { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacommon.IState> AvailableInStates { get; }
+        List<Auriga.Capellacommon.IState> AvailableInStates { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapability> InvolvingCapabilities { get; }
+        IEnumerable<Auriga.Ctx.ICapability> InvolvingCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations { get; }
+        IEnumerable<Auriga.La.ICapabilityRealization> InvolvingCapabilityRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChain> InvolvingFunctionalChains { get; }
+        IEnumerable<Auriga.Fa.IFunctionalChain> InvolvingFunctionalChains { get; }
 
-        global::Auriga.Capellacommon.IStateMachine LinkedStateMachine { get; }
+        Auriga.Capellacommon.IStateMachine LinkedStateMachine { get; }
 
-        global::Auriga.Fa.IFunctionSpecification LinkedFunctionSpecification { get; }
+        Auriga.Fa.IFunctionSpecification LinkedFunctionSpecification { get; }
 
     }
 }

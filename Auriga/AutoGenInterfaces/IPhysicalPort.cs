@@ -16,17 +16,20 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalPort : global::Auriga.Information.IPort, global::Auriga.Cs.IAbstractPhysicalArtifact, global::Auriga.Modellingcore.IInformationsExchanger, global::Auriga.Cs.IAbstractPhysicalLinkEnd, global::Auriga.Information.IProperty
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalPort : Auriga.Information.IPort, Auriga.Cs.IAbstractPhysicalArtifact, Auriga.Modellingcore.IInformationsExchanger, Auriga.Cs.IAbstractPhysicalLinkEnd, Auriga.Information.IProperty
     {
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentPortAllocation> OwnedComponentPortAllocations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentPortAllocation> OwnedComponentPortAllocations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalPortRealization> OwnedPhysicalPortRealizations { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalPortRealization> OwnedPhysicalPortRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> AllocatedComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> AllocatedComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPort> RealizedPhysicalPorts { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPort> RealizedPhysicalPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPort> RealizingPhysicalPorts { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPort> RealizingPhysicalPorts { get; }
 
     }
 }

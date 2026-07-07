@@ -16,11 +16,13 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IConcept : global::Auriga.Capellacore.INamedElement
-    {
-        global::System.Collections.Generic.List<global::Auriga.Oa.IConceptCompliance> Compliances { get; }
+    using System.Collections.Generic;
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IItemInConcept> CompositeLinks { get; }
+    public partial interface IConcept : Auriga.Capellacore.INamedElement
+    {
+        List<Auriga.Oa.IConceptCompliance> Compliances { get; }
+
+        Auriga.IContainerList<Auriga.Oa.IItemInConcept> CompositeLinks { get; }
 
     }
 }

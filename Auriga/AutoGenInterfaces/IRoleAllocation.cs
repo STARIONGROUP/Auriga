@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IRoleAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IRoleAllocation : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Oa.IRole Role { get; }
+        Auriga.Oa.IRole Role { get; }
 
-        global::Auriga.Oa.IEntity Entity { get; }
+        Auriga.Oa.IEntity Entity { get; }
 
     }
 }

@@ -16,25 +16,25 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IComponentPkg : global::Auriga.Capellacore.IStructure
+    public partial interface IComponentPkg : Auriga.Capellacore.IStructure
     {
-        global::Auriga.IContainerList<global::Auriga.Cs.IPart> OwnedParts { get; }
+        Auriga.IContainerList<Auriga.Cs.IPart> OwnedParts { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
+        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
     }
 }

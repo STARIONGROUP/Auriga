@@ -16,7 +16,7 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IPublishableElement : global::Auriga.Modellingcore.IModelElement
+    public partial interface IPublishableElement : Auriga.Modellingcore.IModelElement
     {
         bool? VisibleInDoc { get; set; }
 

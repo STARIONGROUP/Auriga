@@ -16,7 +16,7 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IBlockArchitecturePkg : global::Auriga.Capellacore.IModellingArchitecturePkg
+    public partial interface IBlockArchitecturePkg : Auriga.Capellacore.IModellingArchitecturePkg
     {
     }
 }

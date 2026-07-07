@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IEnumerationPropertyLiteral : global::Auriga.Capellacore.INamedElement
+    public partial interface IEnumerationPropertyLiteral : Auriga.Capellacore.INamedElement
     {
     }
 }

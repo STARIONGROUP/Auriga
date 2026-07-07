@@ -16,6 +16,12 @@
 
 namespace {{Namespace}}
 {
+{{#if Usings}}
+{{#each Usings}}
+    using {{this}};
+{{/each}}
+
+{{/if}}
 {{#each Documentation}}
     /// {{{this}}}
 {{/each}}

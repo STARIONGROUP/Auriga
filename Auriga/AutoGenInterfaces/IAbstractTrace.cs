@@ -16,11 +16,11 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractTrace : global::Auriga.Modellingcore.ITraceableElement
+    public partial interface IAbstractTrace : Auriga.Modellingcore.ITraceableElement
     {
-        global::Auriga.Modellingcore.ITraceableElement TargetElement { get; set; }
+        Auriga.Modellingcore.ITraceableElement TargetElement { get; set; }
 
-        global::Auriga.Modellingcore.ITraceableElement SourceElement { get; set; }
+        Auriga.Modellingcore.ITraceableElement SourceElement { get; set; }
 
     }
 }

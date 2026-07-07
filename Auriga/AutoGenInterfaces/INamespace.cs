@@ -16,13 +16,16 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface INamespace : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface INamespace : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacore.ITrace> OwnedTraces { get; }
+        Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces { get; }
+        IEnumerable<Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacore.INamingRule> NamingRules { get; }
+        Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules { get; }
 
     }
 }

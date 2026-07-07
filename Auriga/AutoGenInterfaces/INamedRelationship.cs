@@ -16,9 +16,9 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface INamedRelationship : global::Auriga.Capellacore.IRelationship, global::Auriga.Capellacore.INamedElement
+    public partial interface INamedRelationship : Auriga.Capellacore.IRelationship, Auriga.Capellacore.INamedElement
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacore.INamingRule> NamingRules { get; }
+        Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules { get; }
 
     }
 }

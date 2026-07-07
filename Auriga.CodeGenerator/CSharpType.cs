@@ -36,9 +36,9 @@ namespace Auriga.CodeGenerator
             ["ELong"] = "long", ["ELongObject"] = "long",
             ["EFloat"] = "float", ["EFloatObject"] = "float",
             ["EDouble"] = "double", ["EDoubleObject"] = "double",
-            ["EBigDecimal"] = "decimal", ["EBigInteger"] = "global::System.Numerics.BigInteger",
-            ["EDate"] = "global::System.DateTime",
-            ["EJavaObject"] = "object", ["EJavaClass"] = "global::System.Type"
+            ["EBigDecimal"] = "decimal", ["EBigInteger"] = "BigInteger",
+            ["EDate"] = "DateTime",
+            ["EJavaObject"] = "object", ["EJavaClass"] = "Type"
         };
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Auriga.CodeGenerator
         private static readonly HashSet<string> ValueTypes = new(StringComparer.Ordinal)
         {
             "bool", "sbyte", "char", "short", "int", "long", "float", "double", "decimal",
-            "global::System.Numerics.BigInteger", "global::System.DateTime"
+            "BigInteger", "DateTime"
         };
 
         /// <summary>
@@ -106,17 +106,56 @@ namespace Auriga.CodeGenerator
 
             if (IsComputed(feature))
             {
-                return collection ? $"global::System.Collections.Generic.IEnumerable<{baseType}>" : ScalarType(feature, baseType);
+                return collection ? $"IEnumerable<{baseType}>" : ScalarType(feature, baseType);
             }
 
             if (collection)
             {
                 return containment
-                    ? $"global::Auriga.IContainerList<{baseType}>"
-                    : $"global::System.Collections.Generic.List<{baseType}>";
+                    ? $"Auriga.IContainerList<{baseType}>"
+                    : $"List<{baseType}>";
             }
 
             return ScalarType(feature, baseType);
+        }
+
+        /// <summary>
+        /// Returns the BCL namespaces a feature's rendered member requires, so the generated file can
+        /// emit exactly the <c>using</c> directives it needs (Auriga model types are fully qualified
+        /// and never need a using).
+        /// </summary>
+        /// <param name="feature">the structural feature</param>
+        /// <returns>the required BCL namespaces</returns>
+        public static IEnumerable<string> RequiredNamespaces(EStructuralFeature feature)
+        {
+            var collection = IsCollection(feature);
+            var containment = feature is EReference { IsContainment: true };
+
+            if (collection)
+            {
+                if (IsComputed(feature))
+                {
+                    yield return "System.Collections.Generic";
+                    yield return "System.Linq";
+                }
+                else if (!containment)
+                {
+                    yield return "System.Collections.Generic";
+                }
+
+                yield break;
+            }
+
+            switch (BaseType(feature.EType))
+            {
+                case "DateTime":
+                case "Type":
+                    yield return "System";
+                    break;
+                case "BigInteger":
+                    yield return "System.Numerics";
+                    break;
+            }
         }
 
         /// <summary>

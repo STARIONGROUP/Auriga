@@ -16,29 +16,31 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface ISequenceMessage : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+
+    public partial interface ISequenceMessage : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.Interaction.MessageKind? Kind { get; set; }
+        Auriga.Interaction.MessageKind? Kind { get; set; }
 
-        global::Auriga.Capellacore.IConstraint ExchangeContext { get; set; }
+        Auriga.Capellacore.IConstraint ExchangeContext { get; set; }
 
-        global::Auriga.Interaction.IMessageEnd SendingEnd { get; set; }
+        Auriga.Interaction.IMessageEnd SendingEnd { get; set; }
 
-        global::Auriga.Interaction.IMessageEnd ReceivingEnd { get; set; }
+        Auriga.Interaction.IMessageEnd ReceivingEnd { get; set; }
 
-        global::Auriga.Information.IAbstractEventOperation InvokedOperation { get; }
+        Auriga.Information.IAbstractEventOperation InvokedOperation { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Information.IExchangeItem> ExchangedItems { get; }
+        List<Auriga.Information.IExchangeItem> ExchangedItems { get; }
 
-        global::Auriga.Cs.IPart SendingPart { get; }
+        Auriga.Cs.IPart SendingPart { get; }
 
-        global::Auriga.Cs.IPart ReceivingPart { get; }
+        Auriga.Cs.IPart ReceivingPart { get; }
 
-        global::Auriga.Fa.IAbstractFunction SendingFunction { get; }
+        Auriga.Fa.IAbstractFunction SendingFunction { get; }
 
-        global::Auriga.Fa.IAbstractFunction ReceivingFunction { get; }
+        Auriga.Fa.IAbstractFunction ReceivingFunction { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.ISequenceMessageValuation> OwnedSequenceMessageValuations { get; }
+        Auriga.IContainerList<Auriga.Interaction.ISequenceMessageValuation> OwnedSequenceMessageValuations { get; }
 
     }
 }

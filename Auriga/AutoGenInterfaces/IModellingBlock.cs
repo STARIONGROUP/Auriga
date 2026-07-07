@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IModellingBlock : global::Auriga.Capellacore.IType
+    public partial interface IModellingBlock : Auriga.Capellacore.IType
     {
     }
 }

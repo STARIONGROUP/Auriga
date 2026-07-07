@@ -16,11 +16,11 @@
 
 namespace Auriga.La
 {
-    public partial interface ILogicalComponentPkg : global::Auriga.Cs.IComponentPkg
+    public partial interface ILogicalComponentPkg : Auriga.Cs.IComponentPkg
     {
-        global::Auriga.IContainerList<global::Auriga.La.ILogicalComponent> OwnedLogicalComponents { get; }
+        Auriga.IContainerList<Auriga.La.ILogicalComponent> OwnedLogicalComponents { get; }
 
-        global::Auriga.IContainerList<global::Auriga.La.ILogicalComponentPkg> OwnedLogicalComponentPkgs { get; }
+        Auriga.IContainerList<Auriga.La.ILogicalComponentPkg> OwnedLogicalComponentPkgs { get; }
 
     }
 }

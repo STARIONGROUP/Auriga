@@ -16,13 +16,16 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IInterfaceAllocator : global::Auriga.Capellacore.ICapellaElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IInterfaceAllocator : Auriga.Capellacore.ICapellaElement
     {
-        global::Auriga.IContainerList<global::Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations { get; }
+        Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterfaceAllocation> ProvisionedInterfaceAllocations { get; }
+        IEnumerable<Auriga.Cs.IInterfaceAllocation> ProvisionedInterfaceAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> AllocatedInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> AllocatedInterfaces { get; }
 
     }
 }

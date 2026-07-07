@@ -16,7 +16,7 @@
 
 namespace Auriga.Behavior
 {
-    public partial interface IAbstractSignal : global::Auriga.Modellingcore.IAbstractType
+    public partial interface IAbstractSignal : Auriga.Modellingcore.IAbstractType
     {
     }
 }

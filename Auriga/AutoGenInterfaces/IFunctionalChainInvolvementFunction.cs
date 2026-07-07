@@ -16,11 +16,14 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionalChainInvolvementFunction : global::Auriga.Fa.IFunctionalChainInvolvement, global::Auriga.Fa.ISequenceLinkEnd
-    {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChainInvolvementLink> OutgoingInvolvementLinks { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalChainInvolvementLink> IncomingInvolvementLinks { get; }
+    public partial interface IFunctionalChainInvolvementFunction : Auriga.Fa.IFunctionalChainInvolvement, Auriga.Fa.ISequenceLinkEnd
+    {
+        IEnumerable<Auriga.Fa.IFunctionalChainInvolvementLink> OutgoingInvolvementLinks { get; }
+
+        IEnumerable<Auriga.Fa.IFunctionalChainInvolvementLink> IncomingInvolvementLinks { get; }
 
     }
 }

@@ -16,9 +16,9 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionalChainReference : global::Auriga.Fa.IFunctionalChainInvolvement
+    public partial interface IFunctionalChainReference : Auriga.Fa.IFunctionalChainInvolvement
     {
-        global::Auriga.Fa.IFunctionalChain ReferencedFunctionalChain { get; }
+        Auriga.Fa.IFunctionalChain ReferencedFunctionalChain { get; }
 
     }
 }

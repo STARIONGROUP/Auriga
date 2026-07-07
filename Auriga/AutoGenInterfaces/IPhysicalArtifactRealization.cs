@@ -16,11 +16,11 @@
 
 namespace Auriga.Epbs
 {
-    public partial interface IPhysicalArtifactRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IPhysicalArtifactRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Cs.IAbstractPhysicalArtifact RealizedPhysicalArtifact { get; }
+        Auriga.Cs.IAbstractPhysicalArtifact RealizedPhysicalArtifact { get; }
 
-        global::Auriga.Epbs.IConfigurationItem RealizingConfigurationItem { get; }
+        Auriga.Epbs.IConfigurationItem RealizingConfigurationItem { get; }
 
     }
 }

@@ -16,11 +16,13 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IAbstractCapabilityExtensionPoint : global::Auriga.Capellacore.INamedRelationship
-    {
-        global::Auriga.Interaction.IAbstractCapability AbstractCapability { get; }
+    using System.Collections.Generic;
 
-        global::System.Collections.Generic.List<global::Auriga.Interaction.IAbstractCapabilityExtend> ExtendLinks { get; }
+    public partial interface IAbstractCapabilityExtensionPoint : Auriga.Capellacore.INamedRelationship
+    {
+        Auriga.Interaction.IAbstractCapability AbstractCapability { get; }
+
+        List<Auriga.Interaction.IAbstractCapabilityExtend> ExtendLinks { get; }
 
     }
 }

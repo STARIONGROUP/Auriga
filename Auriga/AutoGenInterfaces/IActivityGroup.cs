@@ -16,15 +16,15 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IActivityGroup : global::Auriga.Modellingcore.IModelElement
+    public partial interface IActivityGroup : Auriga.Modellingcore.IModelElement
     {
-        global::Auriga.Activity.IActivityGroup SuperGroup { get; set; }
+        Auriga.Activity.IActivityGroup SuperGroup { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IActivityGroup> SubGroups { get; }
+        Auriga.IContainerList<Auriga.Activity.IActivityGroup> SubGroups { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IActivityNode> OwnedNodes { get; }
+        Auriga.IContainerList<Auriga.Activity.IActivityNode> OwnedNodes { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IActivityEdge> OwnedEdges { get; }
+        Auriga.IContainerList<Auriga.Activity.IActivityEdge> OwnedEdges { get; }
 
     }
 }

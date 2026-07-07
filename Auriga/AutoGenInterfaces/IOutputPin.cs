@@ -16,7 +16,7 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IOutputPin : global::Auriga.Activity.IPin
+    public partial interface IOutputPin : Auriga.Activity.IPin
     {
     }
 }

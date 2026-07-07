@@ -16,11 +16,11 @@
 
 namespace Auriga.Information
 {
-    public partial interface IOperationAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IOperationAllocation : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Information.IOperation AllocatedOperation { get; }
+        Auriga.Information.IOperation AllocatedOperation { get; }
 
-        global::Auriga.Information.IOperation AllocatingOperation { get; }
+        Auriga.Information.IOperation AllocatingOperation { get; }
 
     }
 }

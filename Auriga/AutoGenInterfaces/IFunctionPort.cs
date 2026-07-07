@@ -16,18 +16,21 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IFunctionPort : global::Auriga.Information.IPort, global::Auriga.Capellacore.ITypedElement, global::Auriga.Behavior.IAbstractEvent
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IFunctionPort : Auriga.Information.IPort, Auriga.Capellacore.ITypedElement, Auriga.Behavior.IAbstractEvent
     {
         /// <summary>
         /// @deprecated : 'representedComponentPort' shall not be used anymore
         /// </summary>
-        global::Auriga.Fa.IComponentPort RepresentedComponentPort { get; set; }
+        Auriga.Fa.IComponentPort RepresentedComponentPort { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> AllocatorComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> AllocatorComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionPort> RealizedFunctionPorts { get; }
+        IEnumerable<Auriga.Fa.IFunctionPort> RealizedFunctionPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionPort> RealizingFunctionPorts { get; }
+        IEnumerable<Auriga.Fa.IFunctionPort> RealizingFunctionPorts { get; }
 
     }
 }

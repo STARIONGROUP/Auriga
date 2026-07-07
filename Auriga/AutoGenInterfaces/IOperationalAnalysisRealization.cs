@@ -16,7 +16,7 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface IOperationalAnalysisRealization : global::Auriga.Cs.IArchitectureAllocation
+    public partial interface IOperationalAnalysisRealization : Auriga.Cs.IArchitectureAllocation
     {
     }
 }

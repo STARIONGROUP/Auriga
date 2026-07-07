@@ -16,9 +16,9 @@
 
 namespace Auriga.Emde
 {
-    public partial interface IExtensibleElement : global::Auriga.Emde.IElement
+    public partial interface IExtensibleElement : Auriga.Emde.IElement
     {
-        global::Auriga.IContainerList<global::Auriga.Emde.IElementExtension> OwnedExtensions { get; }
+        Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions { get; }
 
     }
 }

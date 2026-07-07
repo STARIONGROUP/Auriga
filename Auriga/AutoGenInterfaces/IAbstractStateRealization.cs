@@ -16,11 +16,11 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IAbstractStateRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IAbstractStateRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Capellacommon.IAbstractState RealizedAbstractState { get; }
+        Auriga.Capellacommon.IAbstractState RealizedAbstractState { get; }
 
-        global::Auriga.Capellacommon.IAbstractState RealizingAbstractState { get; }
+        Auriga.Capellacommon.IAbstractState RealizingAbstractState { get; }
 
     }
 }

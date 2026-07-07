@@ -16,9 +16,9 @@
 
 namespace Auriga.Information.Datavalue
 {
-    public partial interface IDataValueContainer : global::Auriga.Capellacore.IStructure
+    public partial interface IDataValueContainer : Auriga.Capellacore.IStructure
     {
-        global::Auriga.IContainerList<global::Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
+        Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
 
     }
 }

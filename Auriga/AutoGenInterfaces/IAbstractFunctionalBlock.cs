@@ -16,21 +16,24 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IAbstractFunctionalBlock : global::Auriga.Capellacore.IModellingBlock
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractFunctionalBlock : Auriga.Capellacore.IModellingBlock
     {
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentFunctionalAllocation> FunctionalAllocations { get; }
+        IEnumerable<Auriga.Fa.IComponentFunctionalAllocation> FunctionalAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> AllocatedFunctions { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunction> AllocatedFunctions { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink> InExchangeLinks { get; }
+        List<Auriga.Fa.IExchangeLink> InExchangeLinks { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Fa.IExchangeLink> OutExchangeLinks { get; }
+        List<Auriga.Fa.IExchangeLink> OutExchangeLinks { get; }
 
     }
 }

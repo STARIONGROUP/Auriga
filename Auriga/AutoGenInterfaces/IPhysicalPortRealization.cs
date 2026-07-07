@@ -16,7 +16,7 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalPortRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IPhysicalPortRealization : Auriga.Capellacore.IAllocation
     {
     }
 }

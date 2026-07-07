@@ -16,7 +16,7 @@
 
 namespace Auriga.Fa
 {
-    public partial interface ISequenceLinkEnd : global::Auriga.Capellacore.ICapellaElement
+    public partial interface ISequenceLinkEnd : Auriga.Capellacore.ICapellaElement
     {
     }
 }

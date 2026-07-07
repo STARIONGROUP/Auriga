@@ -16,9 +16,12 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOperationalProcess : global::Auriga.Fa.IFunctionalChain
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IOperationalProcess : Auriga.Fa.IFunctionalChain
     {
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalCapability> InvolvingOperationalCapabilities { get; }
+        IEnumerable<Auriga.Oa.IOperationalCapability> InvolvingOperationalCapabilities { get; }
 
     }
 }

@@ -16,9 +16,11 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentExchangeCategory : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+
+    public partial interface IComponentExchangeCategory : Auriga.Capellacore.INamedElement
     {
-        global::System.Collections.Generic.List<global::Auriga.Fa.IComponentExchange> Exchanges { get; }
+        List<Auriga.Fa.IComponentExchange> Exchanges { get; }
 
     }
 }

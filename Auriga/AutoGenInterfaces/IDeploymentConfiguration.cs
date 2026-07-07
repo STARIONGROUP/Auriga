@@ -16,11 +16,11 @@
 
 namespace Auriga.Pa.Deployment
 {
-    public partial interface IDeploymentConfiguration : global::Auriga.Capellacore.INamedElement
+    public partial interface IDeploymentConfiguration : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
+        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedPhysicalInstances { get; }
+        Auriga.IContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedPhysicalInstances { get; }
 
     }
 }

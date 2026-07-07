@@ -16,19 +16,22 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IAbstractState : global::Auriga.Capellacore.INamedElement, global::Auriga.Modellingcore.IIState
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractState : Auriga.Capellacore.INamedElement, Auriga.Modellingcore.IIState
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IAbstractStateRealization> OwnedAbstractStateRealizations { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IAbstractStateRealization> OwnedAbstractStateRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IAbstractState> RealizedAbstractStates { get; }
+        IEnumerable<Auriga.Capellacommon.IAbstractState> RealizedAbstractStates { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IAbstractState> RealizingAbstractStates { get; }
+        IEnumerable<Auriga.Capellacommon.IAbstractState> RealizingAbstractStates { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IStateTransition> Outgoing { get; }
+        IEnumerable<Auriga.Capellacommon.IStateTransition> Outgoing { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IStateTransition> Incoming { get; }
+        IEnumerable<Auriga.Capellacommon.IStateTransition> Incoming { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IRegion> InvolverRegions { get; }
+        IEnumerable<Auriga.Capellacommon.IRegion> InvolverRegions { get; }
 
     }
 }

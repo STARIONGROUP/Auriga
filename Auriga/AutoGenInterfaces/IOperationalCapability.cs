@@ -16,17 +16,20 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOperationalCapability : global::Auriga.Interaction.IAbstractCapability, global::Auriga.Capellacore.INamespace
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IOperationalCapability : Auriga.Interaction.IAbstractCapability, Auriga.Capellacore.INamespace
     {
-        global::System.Collections.Generic.List<global::Auriga.Oa.IConceptCompliance> Compliances { get; }
+        List<Auriga.Oa.IConceptCompliance> Compliances { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Oa.ICapabilityConfiguration> Configurations { get; }
+        List<Auriga.Oa.ICapabilityConfiguration> Configurations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IEntityOperationalCapabilityInvolvement> OwnedEntityOperationalCapabilityInvolvements { get; }
+        Auriga.IContainerList<Auriga.Oa.IEntityOperationalCapabilityInvolvement> OwnedEntityOperationalCapabilityInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapability> RealizingCapabilities { get; }
+        IEnumerable<Auriga.Ctx.ICapability> RealizingCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IEntity> InvolvedEntities { get; }
+        IEnumerable<Auriga.Oa.IEntity> InvolvedEntities { get; }
 
     }
 }

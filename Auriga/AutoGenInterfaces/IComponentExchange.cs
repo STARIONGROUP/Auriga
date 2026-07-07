@@ -16,41 +16,44 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentExchange : global::Auriga.Behavior.IAbstractEvent, global::Auriga.Information.IAbstractEventOperation, global::Auriga.Capellacore.INamedElement, global::Auriga.Fa.IExchangeSpecification
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IComponentExchange : Auriga.Behavior.IAbstractEvent, Auriga.Information.IAbstractEventOperation, Auriga.Capellacore.INamedElement, Auriga.Fa.IExchangeSpecification
     {
-        global::Auriga.Fa.ComponentExchangeKind? Kind { get; set; }
+        Auriga.Fa.ComponentExchangeKind? Kind { get; set; }
 
         bool? Oriented { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionalExchange> AllocatedFunctionalExchanges { get; }
+        IEnumerable<Auriga.Fa.IFunctionalExchange> AllocatedFunctionalExchanges { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchangeRealization> IncomingComponentExchangeRealizations { get; }
+        IEnumerable<Auriga.Fa.IComponentExchangeRealization> IncomingComponentExchangeRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchangeRealization> OutgoingComponentExchangeRealizations { get; }
+        IEnumerable<Auriga.Fa.IComponentExchangeRealization> OutgoingComponentExchangeRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OutgoingComponentExchangeFunctionalExchangeAllocations { get; }
+        IEnumerable<Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OutgoingComponentExchangeFunctionalExchangeAllocations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeEnd> OwnedComponentExchangeEnds { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeEnd> OwnedComponentExchangeEnds { get; }
 
-        global::Auriga.Information.IPort SourcePort { get; }
+        Auriga.Information.IPort SourcePort { get; }
 
-        global::Auriga.Cs.IPart SourcePart { get; }
+        Auriga.Cs.IPart SourcePart { get; }
 
-        global::Auriga.Information.IPort TargetPort { get; }
+        Auriga.Information.IPort TargetPort { get; }
 
-        global::Auriga.Cs.IPart TargetPart { get; }
+        Auriga.Cs.IPart TargetPart { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchangeCategory> Categories { get; }
+        IEnumerable<Auriga.Fa.IComponentExchangeCategory> Categories { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalLink> AllocatorPhysicalLinks { get; }
+        IEnumerable<Auriga.Cs.IPhysicalLink> AllocatorPhysicalLinks { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchange> RealizedComponentExchanges { get; }
+        IEnumerable<Auriga.Fa.IComponentExchange> RealizedComponentExchanges { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchange> RealizingComponentExchanges { get; }
+        IEnumerable<Auriga.Fa.IComponentExchange> RealizingComponentExchanges { get; }
 
     }
 }

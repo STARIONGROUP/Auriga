@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IRelationship : global::Auriga.Modellingcore.IAbstractRelationship, global::Auriga.Capellacore.ICapellaElement
+    public partial interface IRelationship : Auriga.Modellingcore.IAbstractRelationship, Auriga.Capellacore.ICapellaElement
     {
     }
 }

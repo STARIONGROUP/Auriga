@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOrganisationalUnitComposition : global::Auriga.Capellacore.INamedElement
+    public partial interface IOrganisationalUnitComposition : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.Oa.IOrganisationalUnit OrganisationalUnit { get; set; }
+        Auriga.Oa.IOrganisationalUnit OrganisationalUnit { get; set; }
 
-        global::Auriga.Oa.IEntity ParticipatingEntity { get; set; }
+        Auriga.Oa.IEntity ParticipatingEntity { get; set; }
 
     }
 }

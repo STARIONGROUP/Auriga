@@ -16,11 +16,11 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface ITimeLapse : global::Auriga.Capellacore.INamedElement
+    public partial interface ITimeLapse : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.Interaction.IInteractionFragment Start { get; set; }
+        Auriga.Interaction.IInteractionFragment Start { get; set; }
 
-        global::Auriga.Interaction.IInteractionFragment Finish { get; set; }
+        Auriga.Interaction.IInteractionFragment Finish { get; set; }
 
     }
 }

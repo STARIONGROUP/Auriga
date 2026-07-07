@@ -16,23 +16,26 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface ISystemAnalysis : global::Auriga.Cs.IComponentArchitecture
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface ISystemAnalysis : Auriga.Cs.IComponentArchitecture
     {
-        global::Auriga.Ctx.ISystemComponentPkg OwnedSystemComponentPkg { get; set; }
+        Auriga.Ctx.ISystemComponentPkg OwnedSystemComponentPkg { get; set; }
 
-        global::Auriga.Ctx.IMissionPkg OwnedMissionPkg { get; set; }
+        Auriga.Ctx.IMissionPkg OwnedMissionPkg { get; set; }
 
-        global::Auriga.Ctx.ICapabilityPkg ContainedCapabilityPkg { get; }
+        Auriga.Ctx.ICapabilityPkg ContainedCapabilityPkg { get; }
 
-        global::Auriga.Ctx.ISystemFunctionPkg ContainedSystemFunctionPkg { get; }
+        Auriga.Ctx.ISystemFunctionPkg ContainedSystemFunctionPkg { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Ctx.IOperationalAnalysisRealization> OwnedOperationalAnalysisRealizations { get; }
+        Auriga.IContainerList<Auriga.Ctx.IOperationalAnalysisRealization> OwnedOperationalAnalysisRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.IOperationalAnalysisRealization> AllocatedOperationalAnalysisRealizations { get; }
+        IEnumerable<Auriga.Ctx.IOperationalAnalysisRealization> AllocatedOperationalAnalysisRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalAnalysis> AllocatedOperationalAnalyses { get; }
+        IEnumerable<Auriga.Oa.IOperationalAnalysis> AllocatedOperationalAnalyses { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalArchitecture> AllocatingLogicalArchitectures { get; }
+        IEnumerable<Auriga.La.ILogicalArchitecture> AllocatingLogicalArchitectures { get; }
 
     }
 }

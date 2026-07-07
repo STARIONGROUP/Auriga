@@ -16,9 +16,9 @@
 
 namespace Auriga.Information
 {
-    public partial interface IProperty : global::Auriga.Capellacore.IFeature, global::Auriga.Capellacore.ITypedElement, global::Auriga.Information.IMultiplicityElement, global::Auriga.Modellingcore.IFinalizableElement
+    public partial interface IProperty : Auriga.Capellacore.IFeature, Auriga.Capellacore.ITypedElement, Auriga.Information.IMultiplicityElement, Auriga.Modellingcore.IFinalizableElement
     {
-        global::Auriga.Information.AggregationKind? AggregationKind { get; set; }
+        Auriga.Information.AggregationKind? AggregationKind { get; set; }
 
         bool? IsDerived { get; set; }
 
@@ -26,7 +26,7 @@ namespace Auriga.Information
 
         bool? IsPartOfKey { get; set; }
 
-        global::Auriga.Information.IAssociation Association { get; }
+        Auriga.Information.IAssociation Association { get; }
 
     }
 }

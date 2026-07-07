@@ -16,11 +16,11 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentExchangeAllocation : global::Auriga.Capellacore.IAllocation
+    public partial interface IComponentExchangeAllocation : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Fa.IComponentExchange ComponentExchangeAllocated { get; }
+        Auriga.Fa.IComponentExchange ComponentExchangeAllocated { get; }
 
-        global::Auriga.Fa.IComponentExchangeAllocator ComponentExchangeAllocator { get; }
+        Auriga.Fa.IComponentExchangeAllocator ComponentExchangeAllocator { get; }
 
     }
 }

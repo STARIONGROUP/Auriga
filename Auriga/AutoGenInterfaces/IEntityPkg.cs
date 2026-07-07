@@ -16,15 +16,15 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IEntityPkg : global::Auriga.Cs.IComponentPkg
+    public partial interface IEntityPkg : Auriga.Cs.IComponentPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.IEntity> OwnedEntities { get; }
+        Auriga.IContainerList<Auriga.Oa.IEntity> OwnedEntities { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IEntityPkg> OwnedEntityPkgs { get; }
+        Auriga.IContainerList<Auriga.Oa.IEntityPkg> OwnedEntityPkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.ILocation> OwnedLocations { get; }
+        Auriga.IContainerList<Auriga.Oa.ILocation> OwnedLocations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
+        Auriga.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
 
     }
 }

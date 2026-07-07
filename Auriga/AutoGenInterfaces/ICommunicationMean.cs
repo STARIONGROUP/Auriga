@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface ICommunicationMean : global::Auriga.Capellacore.INamedRelationship, global::Auriga.Fa.IComponentExchange
+    public partial interface ICommunicationMean : Auriga.Capellacore.INamedRelationship, Auriga.Fa.IComponentExchange
     {
-        global::Auriga.Oa.IEntity SourceEntity { get; }
+        Auriga.Oa.IEntity SourceEntity { get; }
 
-        global::Auriga.Oa.IEntity TargetEntity { get; }
+        Auriga.Oa.IEntity TargetEntity { get; }
 
     }
 }

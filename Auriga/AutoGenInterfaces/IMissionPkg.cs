@@ -16,11 +16,11 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface IMissionPkg : global::Auriga.Capellacore.IStructure
+    public partial interface IMissionPkg : Auriga.Capellacore.IStructure
     {
-        global::Auriga.IContainerList<global::Auriga.Ctx.IMissionPkg> OwnedMissionPkgs { get; }
+        Auriga.IContainerList<Auriga.Ctx.IMissionPkg> OwnedMissionPkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Ctx.IMission> OwnedMissions { get; }
+        Auriga.IContainerList<Auriga.Ctx.IMission> OwnedMissions { get; }
 
     }
 }

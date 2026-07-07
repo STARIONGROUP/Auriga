@@ -16,9 +16,9 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IInputPin : global::Auriga.Activity.IPin
+    public partial interface IInputPin : Auriga.Activity.IPin
     {
-        global::Auriga.Activity.IAbstractAction InputEvaluationAction { get; set; }
+        Auriga.Activity.IAbstractAction InputEvaluationAction { get; set; }
 
     }
 }

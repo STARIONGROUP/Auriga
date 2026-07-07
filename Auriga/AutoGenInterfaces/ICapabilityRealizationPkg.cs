@@ -16,11 +16,11 @@
 
 namespace Auriga.La
 {
-    public partial interface ICapabilityRealizationPkg : global::Auriga.Capellacommon.IAbstractCapabilityPkg
+    public partial interface ICapabilityRealizationPkg : Auriga.Capellacommon.IAbstractCapabilityPkg
     {
-        global::Auriga.IContainerList<global::Auriga.La.ICapabilityRealization> OwnedCapabilityRealizations { get; }
+        Auriga.IContainerList<Auriga.La.ICapabilityRealization> OwnedCapabilityRealizations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.La.ICapabilityRealizationPkg> OwnedCapabilityRealizationPkgs { get; }
+        Auriga.IContainerList<Auriga.La.ICapabilityRealizationPkg> OwnedCapabilityRealizationPkgs { get; }
 
     }
 }

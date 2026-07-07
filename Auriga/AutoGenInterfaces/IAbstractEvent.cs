@@ -16,7 +16,7 @@
 
 namespace Auriga.Behavior
 {
-    public partial interface IAbstractEvent : global::Auriga.Modellingcore.IAbstractType
+    public partial interface IAbstractEvent : Auriga.Modellingcore.IAbstractType
     {
     }
 }

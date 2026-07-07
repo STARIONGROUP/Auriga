@@ -96,7 +96,7 @@ namespace Auriga.CodeGenerator
         /// <returns>the fully-qualified interface name</returns>
         public static string InterfaceType(EClass eClass)
         {
-            return $"global::{Namespace(eClass)}.I{Capitalize(eClass.Name)}";
+            return $"{Namespace(eClass)}.I{Capitalize(eClass.Name)}";
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Auriga.CodeGenerator
         /// <returns>the fully-qualified enum name</returns>
         public static string EnumType(EEnum eEnum)
         {
-            return $"global::{Namespace(eEnum)}.{Capitalize(eEnum.Name)}";
+            return $"{Namespace(eEnum)}.{Capitalize(eEnum.Name)}";
         }
     }
 }

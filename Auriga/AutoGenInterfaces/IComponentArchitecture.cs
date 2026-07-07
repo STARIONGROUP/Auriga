@@ -16,7 +16,7 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IComponentArchitecture : global::Auriga.Cs.IBlockArchitecture
+    public partial interface IComponentArchitecture : Auriga.Cs.IBlockArchitecture
     {
     }
 }

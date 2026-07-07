@@ -16,11 +16,11 @@
 
 namespace Auriga.Information
 {
-    public partial interface IExchangeItemRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IExchangeItemRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Modellingcore.IAbstractExchangeItem RealizedItem { get; }
+        Auriga.Modellingcore.IAbstractExchangeItem RealizedItem { get; }
 
-        global::Auriga.Information.IOperation RealizingOperation { get; }
+        Auriga.Information.IOperation RealizingOperation { get; }
 
     }
 }

@@ -16,11 +16,11 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface ISystemFunctionPkg : global::Auriga.Fa.IFunctionPkg
+    public partial interface ISystemFunctionPkg : Auriga.Fa.IFunctionPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Ctx.ISystemFunction> OwnedSystemFunctions { get; }
+        Auriga.IContainerList<Auriga.Ctx.ISystemFunction> OwnedSystemFunctions { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Ctx.ISystemFunctionPkg> OwnedSystemFunctionPkgs { get; }
+        Auriga.IContainerList<Auriga.Ctx.ISystemFunctionPkg> OwnedSystemFunctionPkgs { get; }
 
     }
 }

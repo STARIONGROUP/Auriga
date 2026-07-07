@@ -16,11 +16,11 @@
 
 namespace Auriga.Information
 {
-    public partial interface IAssociationPkg : global::Auriga.Capellacore.IStructure
+    public partial interface IAssociationPkg : Auriga.Capellacore.IStructure
     {
-        global::Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
+        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IAssociation> OwnedAssociations { get; }
+        Auriga.IContainerList<Auriga.Information.IAssociation> OwnedAssociations { get; }
 
     }
 }

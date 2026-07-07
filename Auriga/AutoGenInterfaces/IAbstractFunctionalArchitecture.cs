@@ -16,19 +16,19 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IAbstractFunctionalArchitecture : global::Auriga.Capellacore.IModellingArchitecture
+    public partial interface IAbstractFunctionalArchitecture : Auriga.Capellacore.IModellingArchitecture
     {
-        global::Auriga.Fa.IFunctionPkg OwnedFunctionPkg { get; set; }
+        Auriga.Fa.IFunctionPkg OwnedFunctionPkg { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
+        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
 
     }
 }

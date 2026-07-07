@@ -16,11 +16,11 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IAbstractFunctionAbstractCapabilityInvolvement : global::Auriga.Capellacore.IInvolvement
+    public partial interface IAbstractFunctionAbstractCapabilityInvolvement : Auriga.Capellacore.IInvolvement
     {
-        global::Auriga.Interaction.IAbstractCapability Capability { get; }
+        Auriga.Interaction.IAbstractCapability Capability { get; }
 
-        global::Auriga.Fa.IAbstractFunction Function { get; }
+        Auriga.Fa.IAbstractFunction Function { get; }
 
     }
 }

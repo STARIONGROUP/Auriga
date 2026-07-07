@@ -16,25 +16,28 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOperationalActivity : global::Auriga.Fa.IAbstractFunction
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IOperationalActivity : Auriga.Fa.IAbstractFunction
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
+        Auriga.IContainerList<Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IActivityAllocation> ActivityAllocations { get; }
+        IEnumerable<Auriga.Oa.IActivityAllocation> ActivityAllocations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.ISwimlane> OwnedSwimlanes { get; }
+        IEnumerable<Auriga.Oa.ISwimlane> OwnedSwimlanes { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalProcess> OwnedProcess { get; }
+        IEnumerable<Auriga.Oa.IOperationalProcess> OwnedProcess { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IEntity> AllocatorEntities { get; }
+        IEnumerable<Auriga.Oa.IEntity> AllocatorEntities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemFunction> RealizingSystemFunctions { get; }
+        IEnumerable<Auriga.Ctx.ISystemFunction> RealizingSystemFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IRole> AllocatingRoles { get; }
+        IEnumerable<Auriga.Oa.IRole> AllocatingRoles { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalActivity> ContainedOperationalActivities { get; }
+        IEnumerable<Auriga.Oa.IOperationalActivity> ContainedOperationalActivities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IOperationalActivity> ChildrenOperationalActivities { get; }
+        IEnumerable<Auriga.Oa.IOperationalActivity> ChildrenOperationalActivities { get; }
 
     }
 }

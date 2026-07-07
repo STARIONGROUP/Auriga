@@ -16,23 +16,26 @@
 
 namespace Auriga.Information
 {
-    public partial interface IExchangeItem : global::Auriga.Modellingcore.IAbstractExchangeItem, global::Auriga.Behavior.IAbstractEvent, global::Auriga.Behavior.IAbstractSignal, global::Auriga.Modellingcore.IFinalizableElement, global::Auriga.Capellacore.IGeneralizableElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IExchangeItem : Auriga.Modellingcore.IAbstractExchangeItem, Auriga.Behavior.IAbstractEvent, Auriga.Behavior.IAbstractSignal, Auriga.Modellingcore.IFinalizableElement, Auriga.Capellacore.IGeneralizableElement
     {
-        global::Auriga.Information.ExchangeMechanism ExchangeMechanism { get; set; }
+        Auriga.Information.ExchangeMechanism ExchangeMechanism { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IExchangeItemElement> OwnedElements { get; }
+        Auriga.IContainerList<Auriga.Information.IExchangeItemElement> OwnedElements { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
+        Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IExchangeItemInstance> OwnedExchangeItemInstances { get; }
+        Auriga.IContainerList<Auriga.Information.IExchangeItemInstance> OwnedExchangeItemInstances { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IInterface> AllocatorInterfaces { get; }
+        IEnumerable<Auriga.Cs.IInterface> AllocatorInterfaces { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IExchangeItem> RealizedExchangeItems { get; }
+        IEnumerable<Auriga.Information.IExchangeItem> RealizedExchangeItems { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IExchangeItem> RealizingExchangeItems { get; }
+        IEnumerable<Auriga.Information.IExchangeItem> RealizingExchangeItems { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IOperation> RealizingOperations { get; }
+        IEnumerable<Auriga.Information.IOperation> RealizingOperations { get; }
 
     }
 }

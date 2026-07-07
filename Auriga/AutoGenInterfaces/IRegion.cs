@@ -16,13 +16,15 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IRegion : global::Auriga.Capellacore.INamedElement
+    using System.Collections.Generic;
+
+    public partial interface IRegion : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IAbstractState> OwnedStates { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IAbstractState> OwnedStates { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Capellacommon.IStateTransition> OwnedTransitions { get; }
+        Auriga.IContainerList<Auriga.Capellacommon.IStateTransition> OwnedTransitions { get; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacommon.IAbstractState> InvolvedStates { get; }
+        List<Auriga.Capellacommon.IAbstractState> InvolvedStates { get; }
 
     }
 }

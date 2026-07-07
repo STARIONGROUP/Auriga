@@ -16,7 +16,7 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalLinkRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IPhysicalLinkRealization : Auriga.Capellacore.IAllocation
     {
     }
 }

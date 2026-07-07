@@ -16,29 +16,32 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface ISystemComponent : global::Auriga.Cs.IComponent, global::Auriga.Capellacore.IInvolvedElement
-    {
-        global::Auriga.IContainerList<global::Auriga.Ctx.ISystemComponent> OwnedSystemComponents { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::Auriga.IContainerList<global::Auriga.Ctx.ISystemComponentPkg> OwnedSystemComponentPkgs { get; }
+    public partial interface ISystemComponent : Auriga.Cs.IComponent, Auriga.Capellacore.IInvolvedElement
+    {
+        Auriga.IContainerList<Auriga.Ctx.ISystemComponent> OwnedSystemComponents { get; }
+
+        Auriga.IContainerList<Auriga.Ctx.ISystemComponentPkg> OwnedSystemComponentPkgs { get; }
 
         bool? DataComponent { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Capellacore.IClassifier> DataType { get; }
+        List<Auriga.Capellacore.IClassifier> DataType { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapability> InvolvingCapabilities { get; }
+        IEnumerable<Auriga.Ctx.ICapability> InvolvingCapabilities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ICapabilityInvolvement> CapabilityInvolvements { get; }
+        IEnumerable<Auriga.Ctx.ICapabilityInvolvement> CapabilityInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.IMission> InvolvingMissions { get; }
+        IEnumerable<Auriga.Ctx.IMission> InvolvingMissions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.IMissionInvolvement> MissionInvolvements { get; }
+        IEnumerable<Auriga.Ctx.IMissionInvolvement> MissionInvolvements { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Oa.IEntity> RealizedEntities { get; }
+        IEnumerable<Auriga.Oa.IEntity> RealizedEntities { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.La.ILogicalComponent> RealizingLogicalComponents { get; }
+        IEnumerable<Auriga.La.ILogicalComponent> RealizingLogicalComponents { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemFunction> AllocatedSystemFunctions { get; }
+        IEnumerable<Auriga.Ctx.ISystemFunction> AllocatedSystemFunctions { get; }
 
     }
 }

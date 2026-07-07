@@ -16,7 +16,7 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractExchangeItem : global::Auriga.Modellingcore.IAbstractType
+    public partial interface IAbstractExchangeItem : Auriga.Modellingcore.IAbstractType
     {
     }
 }

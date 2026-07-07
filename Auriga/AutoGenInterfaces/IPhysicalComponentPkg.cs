@@ -16,15 +16,15 @@
 
 namespace Auriga.Pa
 {
-    public partial interface IPhysicalComponentPkg : global::Auriga.Cs.IComponentPkg, global::Auriga.Information.IAssociationPkg
+    public partial interface IPhysicalComponentPkg : Auriga.Cs.IComponentPkg, Auriga.Information.IAssociationPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
+        Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Information.IKeyPart> OwnedKeyParts { get; }
+        Auriga.IContainerList<Auriga.Information.IKeyPart> OwnedKeyParts { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
+        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
 
     }
 }

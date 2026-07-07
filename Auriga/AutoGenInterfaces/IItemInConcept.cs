@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IItemInConcept : global::Auriga.Capellacore.INamedElement
+    public partial interface IItemInConcept : Auriga.Capellacore.INamedElement
     {
-        global::Auriga.Oa.IConcept Concept { get; set; }
+        Auriga.Oa.IConcept Concept { get; set; }
 
-        global::Auriga.Oa.IAbstractConceptItem Item { get; set; }
+        Auriga.Oa.IAbstractConceptItem Item { get; set; }
 
     }
 }

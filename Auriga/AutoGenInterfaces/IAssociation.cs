@@ -16,11 +16,13 @@
 
 namespace Auriga.Information
 {
-    public partial interface IAssociation : global::Auriga.Capellacore.INamedRelationship
-    {
-        global::Auriga.IContainerList<global::Auriga.Information.IProperty> OwnedMembers { get; }
+    using System.Collections.Generic;
 
-        global::System.Collections.Generic.List<global::Auriga.Information.IProperty> NavigableMembers { get; }
+    public partial interface IAssociation : Auriga.Capellacore.INamedRelationship
+    {
+        Auriga.IContainerList<Auriga.Information.IProperty> OwnedMembers { get; }
+
+        List<Auriga.Information.IProperty> NavigableMembers { get; }
 
     }
 }

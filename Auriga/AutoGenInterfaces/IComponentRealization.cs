@@ -16,11 +16,11 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IComponentRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IComponentRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Cs.IComponent RealizedComponent { get; }
+        Auriga.Cs.IComponent RealizedComponent { get; }
 
-        global::Auriga.Cs.IComponent RealizingComponent { get; }
+        Auriga.Cs.IComponent RealizingComponent { get; }
 
     }
 }

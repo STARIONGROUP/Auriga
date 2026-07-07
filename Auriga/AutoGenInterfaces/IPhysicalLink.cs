@@ -16,25 +16,28 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IPhysicalLink : global::Auriga.Cs.IAbstractPhysicalPathLink, global::Auriga.Cs.IAbstractPhysicalArtifact, global::Auriga.Cs.IAbstractPathInvolvedElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IPhysicalLink : Auriga.Cs.IAbstractPhysicalPathLink, Auriga.Cs.IAbstractPhysicalArtifact, Auriga.Cs.IAbstractPathInvolvedElement
     {
-        global::System.Collections.Generic.List<global::Auriga.Cs.IAbstractPhysicalLinkEnd> LinkEnds { get; }
+        List<Auriga.Cs.IAbstractPhysicalLinkEnd> LinkEnds { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
+        Auriga.IContainerList<Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLinkEnd> OwnedPhysicalLinkEnds { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalLinkEnd> OwnedPhysicalLinkEnds { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Cs.IPhysicalLinkRealization> OwnedPhysicalLinkRealizations { get; }
+        Auriga.IContainerList<Auriga.Cs.IPhysicalLinkRealization> OwnedPhysicalLinkRealizations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalLinkCategory> Categories { get; }
+        IEnumerable<Auriga.Cs.IPhysicalLinkCategory> Categories { get; }
 
-        global::Auriga.Cs.IPhysicalPort SourcePhysicalPort { get; }
+        Auriga.Cs.IPhysicalPort SourcePhysicalPort { get; }
 
-        global::Auriga.Cs.IPhysicalPort TargetPhysicalPort { get; }
+        Auriga.Cs.IPhysicalPort TargetPhysicalPort { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalLink> RealizedPhysicalLinks { get; }
+        IEnumerable<Auriga.Cs.IPhysicalLink> RealizedPhysicalLinks { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalLink> RealizingPhysicalLinks { get; }
+        IEnumerable<Auriga.Cs.IPhysicalLink> RealizingPhysicalLinks { get; }
 
     }
 }

@@ -88,7 +88,7 @@ namespace Auriga.CodeGenerator.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(content, Does.Contain("public partial class PhysicalComponent : global::Auriga.AurigaElement, global::Auriga.Pa.IPhysicalComponent"));
+                Assert.That(content, Does.Contain("public partial class PhysicalComponent : Auriga.AurigaElement, Auriga.Pa.IPhysicalComponent"));
                 Assert.That(content, Does.Contain("#nullable disable"));
             });
         }
@@ -99,7 +99,7 @@ namespace Auriga.CodeGenerator.Tests
             // every generated concrete class that has a containment collection uses IContainerList
             var anyContainerList = this.files
                 .Where(f => f.Key.StartsWith("AutoGenClasses/"))
-                .Any(f => f.Value.Contains("global::Auriga.IContainerList<"));
+                .Any(f => f.Value.Contains("Auriga.IContainerList<"));
 
             Assert.That(anyContainerList, Is.True);
         }
@@ -109,9 +109,24 @@ namespace Auriga.CodeGenerator.Tests
         {
             var anyList = this.files
                 .Where(f => f.Key.StartsWith("AutoGenClasses/"))
-                .Any(f => f.Value.Contains("new global::System.Collections.Generic.List<"));
+                .Any(f => f.Value.Contains("new List<"));
 
             Assert.That(anyList, Is.True);
+        }
+
+        [Test]
+        public void Verify_that_generated_files_import_only_bcl_namespaces_and_use_no_global_alias()
+        {
+            var content = this.files["AutoGenClasses/PhysicalComponent.cs"];
+
+            Assert.Multiple(() =>
+            {
+                // BCL namespaces are imported; Auriga model types stay fully qualified (no using, no global::)
+                Assert.That(content, Does.Contain("    using System.Collections.Generic;"));
+                Assert.That(content, Does.Contain("    using System.Linq;"));
+                Assert.That(content, Does.Not.Contain("global::"));
+                Assert.That(content, Does.Not.Contain("using Auriga"));
+            });
         }
 
         /// <summary>

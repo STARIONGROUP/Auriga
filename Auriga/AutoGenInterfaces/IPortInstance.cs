@@ -16,13 +16,15 @@
 
 namespace Auriga.Pa.Deployment
 {
-    public partial interface IPortInstance : global::Auriga.Pa.Deployment.IAbstractPhysicalInstance
+    using System.Collections.Generic;
+
+    public partial interface IPortInstance : Auriga.Pa.Deployment.IAbstractPhysicalInstance
     {
-        global::System.Collections.Generic.List<global::Auriga.Pa.Deployment.IConnectionInstance> Connections { get; }
+        List<Auriga.Pa.Deployment.IConnectionInstance> Connections { get; }
 
-        global::Auriga.Pa.Deployment.IComponentInstance Component { get; }
+        Auriga.Pa.Deployment.IComponentInstance Component { get; }
 
-        global::Auriga.Fa.IComponentPort Type { get; set; }
+        Auriga.Fa.IComponentPort Type { get; set; }
 
     }
 }

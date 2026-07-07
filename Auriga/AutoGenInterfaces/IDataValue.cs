@@ -16,11 +16,11 @@
 
 namespace Auriga.Information.Datavalue
 {
-    public partial interface IDataValue : global::Auriga.Capellacore.INamedElement, global::Auriga.Modellingcore.IValueSpecification
+    public partial interface IDataValue : Auriga.Capellacore.INamedElement, Auriga.Modellingcore.IValueSpecification
     {
         bool? Abstract { get; set; }
 
-        global::Auriga.Capellacore.IType Type { get; }
+        Auriga.Capellacore.IType Type { get; }
 
     }
 }

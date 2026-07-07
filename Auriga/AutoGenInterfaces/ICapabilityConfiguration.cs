@@ -16,9 +16,9 @@
 
 namespace Auriga.Oa
 {
-    public partial interface ICapabilityConfiguration : global::Auriga.Oa.IAbstractConceptItem
+    public partial interface ICapabilityConfiguration : Auriga.Oa.IAbstractConceptItem
     {
-        global::Auriga.Oa.IOperationalCapability ConfiguredCapability { get; set; }
+        Auriga.Oa.IOperationalCapability ConfiguredCapability { get; set; }
 
     }
 }

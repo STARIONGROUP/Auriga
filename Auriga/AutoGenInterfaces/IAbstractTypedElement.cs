@@ -16,9 +16,9 @@
 
 namespace Auriga.Modellingcore
 {
-    public partial interface IAbstractTypedElement : global::Auriga.Modellingcore.IAbstractNamedElement
+    public partial interface IAbstractTypedElement : Auriga.Modellingcore.IAbstractNamedElement
     {
-        global::Auriga.Modellingcore.IAbstractType AbstractType { get; set; }
+        Auriga.Modellingcore.IAbstractType AbstractType { get; set; }
 
     }
 }

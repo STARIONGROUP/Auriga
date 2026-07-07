@@ -16,11 +16,11 @@
 
 namespace Auriga.Ctx
 {
-    public partial interface ICapabilityPkg : global::Auriga.Capellacommon.IAbstractCapabilityPkg
+    public partial interface ICapabilityPkg : Auriga.Capellacommon.IAbstractCapabilityPkg
     {
-        global::Auriga.IContainerList<global::Auriga.Ctx.ICapability> OwnedCapabilities { get; }
+        Auriga.IContainerList<Auriga.Ctx.ICapability> OwnedCapabilities { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Ctx.ICapabilityPkg> OwnedCapabilityPkgs { get; }
+        Auriga.IContainerList<Auriga.Ctx.ICapabilityPkg> OwnedCapabilityPkgs { get; }
 
     }
 }

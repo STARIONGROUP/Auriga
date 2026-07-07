@@ -16,9 +16,9 @@
 
 namespace Auriga.Oa
 {
-    public partial interface ISwimlane : global::Auriga.Capellacore.INamedElement, global::Auriga.Activity.IActivityPartition
+    public partial interface ISwimlane : Auriga.Capellacore.INamedElement, Auriga.Activity.IActivityPartition
     {
-        global::Auriga.Oa.IEntity RepresentedEntity { get; }
+        Auriga.Oa.IEntity RepresentedEntity { get; }
 
     }
 }

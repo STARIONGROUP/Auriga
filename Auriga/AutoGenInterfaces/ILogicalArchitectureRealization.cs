@@ -16,7 +16,7 @@
 
 namespace Auriga.Pa
 {
-    public partial interface ILogicalArchitectureRealization : global::Auriga.Cs.IArchitectureAllocation
+    public partial interface ILogicalArchitectureRealization : Auriga.Cs.IArchitectureAllocation
     {
     }
 }

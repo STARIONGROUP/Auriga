@@ -16,41 +16,44 @@
 
 namespace Auriga.Interaction
 {
-    public partial interface IScenario : global::Auriga.Capellacore.INamespace, global::Auriga.Behavior.IAbstractBehavior
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IScenario : Auriga.Capellacore.INamespace, Auriga.Behavior.IAbstractBehavior
     {
-        global::Auriga.Interaction.ScenarioKind? Kind { get; set; }
+        Auriga.Interaction.ScenarioKind? Kind { get; set; }
 
         bool? Merged { get; set; }
 
-        global::Auriga.Capellacore.IConstraint PreCondition { get; set; }
+        Auriga.Capellacore.IConstraint PreCondition { get; set; }
 
-        global::Auriga.Capellacore.IConstraint PostCondition { get; set; }
+        Auriga.Capellacore.IConstraint PostCondition { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IInstanceRole> OwnedInstanceRoles { get; }
+        Auriga.IContainerList<Auriga.Interaction.IInstanceRole> OwnedInstanceRoles { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.ISequenceMessage> OwnedMessages { get; }
+        Auriga.IContainerList<Auriga.Interaction.ISequenceMessage> OwnedMessages { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IInteractionFragment> OwnedInteractionFragments { get; }
+        Auriga.IContainerList<Auriga.Interaction.IInteractionFragment> OwnedInteractionFragments { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.ITimeLapse> OwnedTimeLapses { get; }
+        Auriga.IContainerList<Auriga.Interaction.ITimeLapse> OwnedTimeLapses { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IEvent> OwnedEvents { get; }
+        Auriga.IContainerList<Auriga.Interaction.IEvent> OwnedEvents { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IGate> OwnedFormalGates { get; }
+        Auriga.IContainerList<Auriga.Interaction.IGate> OwnedFormalGates { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IScenarioRealization> OwnedScenarioRealization { get; }
+        Auriga.IContainerList<Auriga.Interaction.IScenarioRealization> OwnedScenarioRealization { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Interaction.IConstraintDuration> OwnedConstraintDurations { get; }
+        Auriga.IContainerList<Auriga.Interaction.IConstraintDuration> OwnedConstraintDurations { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IAbstractFunction> ContainedFunctions { get; }
+        IEnumerable<Auriga.Fa.IAbstractFunction> ContainedFunctions { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPart> ContainedParts { get; }
+        IEnumerable<Auriga.Cs.IPart> ContainedParts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IScenario> ReferencedScenarios { get; }
+        IEnumerable<Auriga.Interaction.IScenario> ReferencedScenarios { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IScenario> RealizedScenarios { get; }
+        IEnumerable<Auriga.Interaction.IScenario> RealizedScenarios { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Interaction.IScenario> RealizingScenarios { get; }
+        IEnumerable<Auriga.Interaction.IScenario> RealizingScenarios { get; }
 
     }
 }

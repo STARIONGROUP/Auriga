@@ -16,19 +16,22 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IOperationalAnalysis : global::Auriga.Cs.IBlockArchitecture
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IOperationalAnalysis : Auriga.Cs.IBlockArchitecture
     {
-        global::Auriga.Oa.IRolePkg OwnedRolePkg { get; set; }
+        Auriga.Oa.IRolePkg OwnedRolePkg { get; set; }
 
-        global::Auriga.Oa.IEntityPkg OwnedEntityPkg { get; set; }
+        Auriga.Oa.IEntityPkg OwnedEntityPkg { get; set; }
 
-        global::Auriga.Oa.IConceptPkg OwnedConceptPkg { get; set; }
+        Auriga.Oa.IConceptPkg OwnedConceptPkg { get; set; }
 
-        global::Auriga.Oa.IOperationalCapabilityPkg ContainedOperationalCapabilityPkg { get; }
+        Auriga.Oa.IOperationalCapabilityPkg ContainedOperationalCapabilityPkg { get; }
 
-        global::Auriga.Oa.IOperationalActivityPkg ContainedOperationalActivityPkg { get; }
+        Auriga.Oa.IOperationalActivityPkg ContainedOperationalActivityPkg { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Ctx.ISystemAnalysis> AllocatingSystemAnalyses { get; }
+        IEnumerable<Auriga.Ctx.ISystemAnalysis> AllocatingSystemAnalyses { get; }
 
     }
 }

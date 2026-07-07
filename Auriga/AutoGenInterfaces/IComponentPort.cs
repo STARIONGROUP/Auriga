@@ -16,25 +16,28 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IComponentPort : global::Auriga.Information.IPort, global::Auriga.Modellingcore.IInformationsExchanger, global::Auriga.Information.IProperty
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IComponentPort : Auriga.Information.IPort, Auriga.Modellingcore.IInformationsExchanger, Auriga.Information.IProperty
     {
-        global::Auriga.Fa.OrientationPortKind? Orientation { get; set; }
+        Auriga.Fa.OrientationPortKind? Orientation { get; set; }
 
-        global::Auriga.Fa.ComponentPortKind? Kind { get; set; }
+        Auriga.Fa.ComponentPortKind? Kind { get; set; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentExchange> ComponentExchanges { get; }
+        IEnumerable<Auriga.Fa.IComponentExchange> ComponentExchanges { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IFunctionPort> AllocatedFunctionPorts { get; }
+        IEnumerable<Auriga.Fa.IFunctionPort> AllocatedFunctionPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> DelegatedComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> DelegatedComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> DelegatingComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> DelegatingComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Cs.IPhysicalPort> AllocatingPhysicalPorts { get; }
+        IEnumerable<Auriga.Cs.IPhysicalPort> AllocatingPhysicalPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> RealizedComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> RealizedComponentPorts { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Fa.IComponentPort> RealizingComponentPorts { get; }
+        IEnumerable<Auriga.Fa.IComponentPort> RealizingComponentPorts { get; }
 
     }
 }

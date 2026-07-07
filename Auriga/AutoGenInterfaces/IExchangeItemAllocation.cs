@@ -16,15 +16,15 @@
 
 namespace Auriga.Cs
 {
-    public partial interface IExchangeItemAllocation : global::Auriga.Capellacore.IRelationship, global::Auriga.Information.IAbstractEventOperation, global::Auriga.Modellingcore.IFinalizableElement
+    public partial interface IExchangeItemAllocation : Auriga.Capellacore.IRelationship, Auriga.Information.IAbstractEventOperation, Auriga.Modellingcore.IFinalizableElement
     {
-        global::Auriga.Information.Communication.CommunicationLinkProtocol? SendProtocol { get; set; }
+        Auriga.Information.Communication.CommunicationLinkProtocol? SendProtocol { get; set; }
 
-        global::Auriga.Information.Communication.CommunicationLinkProtocol? ReceiveProtocol { get; set; }
+        Auriga.Information.Communication.CommunicationLinkProtocol? ReceiveProtocol { get; set; }
 
-        global::Auriga.Information.IExchangeItem AllocatedItem { get; set; }
+        Auriga.Information.IExchangeItem AllocatedItem { get; set; }
 
-        global::Auriga.Cs.IInterface AllocatingInterface { get; }
+        Auriga.Cs.IInterface AllocatingInterface { get; }
 
     }
 }

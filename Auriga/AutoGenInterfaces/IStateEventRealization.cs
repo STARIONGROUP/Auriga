@@ -16,11 +16,11 @@
 
 namespace Auriga.Capellacommon
 {
-    public partial interface IStateEventRealization : global::Auriga.Capellacore.IAllocation
+    public partial interface IStateEventRealization : Auriga.Capellacore.IAllocation
     {
-        global::Auriga.Capellacommon.IStateEvent RealizedEvent { get; }
+        Auriga.Capellacommon.IStateEvent RealizedEvent { get; }
 
-        global::Auriga.Capellacommon.IStateEvent RealizingEvent { get; }
+        Auriga.Capellacommon.IStateEvent RealizingEvent { get; }
 
     }
 }

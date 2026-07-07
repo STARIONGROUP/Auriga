@@ -16,11 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IConceptPkg : global::Auriga.Capellacore.IStructure
+    public partial interface IConceptPkg : Auriga.Capellacore.IStructure
     {
-        global::Auriga.IContainerList<global::Auriga.Oa.IConceptPkg> OwnedConceptPkgs { get; }
+        Auriga.IContainerList<Auriga.Oa.IConceptPkg> OwnedConceptPkgs { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Oa.IConcept> OwnedConcepts { get; }
+        Auriga.IContainerList<Auriga.Oa.IConcept> OwnedConcepts { get; }
 
     }
 }

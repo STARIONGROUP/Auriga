@@ -16,19 +16,22 @@
 
 namespace Auriga.Activity
 {
-    public partial interface IAbstractActivity : global::Auriga.Behavior.IAbstractBehavior, global::Auriga.Modellingcore.ITraceableElement
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public partial interface IAbstractActivity : Auriga.Behavior.IAbstractBehavior, Auriga.Modellingcore.ITraceableElement
     {
         bool? IsReadOnly { get; set; }
 
         bool? IsSingleExecution { get; set; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IActivityNode> OwnedNodes { get; }
+        Auriga.IContainerList<Auriga.Activity.IActivityNode> OwnedNodes { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IActivityEdge> OwnedEdges { get; }
+        Auriga.IContainerList<Auriga.Activity.IActivityEdge> OwnedEdges { get; }
 
-        global::Auriga.IContainerList<global::Auriga.Activity.IActivityGroup> OwnedGroups { get; }
+        Auriga.IContainerList<Auriga.Activity.IActivityGroup> OwnedGroups { get; }
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Activity.IStructuredActivityNode> OwnedStructuredNodes { get; }
+        IEnumerable<Auriga.Activity.IStructuredActivityNode> OwnedStructuredNodes { get; }
 
     }
 }

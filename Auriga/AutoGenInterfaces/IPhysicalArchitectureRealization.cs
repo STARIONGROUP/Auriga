@@ -16,7 +16,7 @@
 
 namespace Auriga.Epbs
 {
-    public partial interface IPhysicalArchitectureRealization : global::Auriga.Cs.IArchitectureAllocation
+    public partial interface IPhysicalArchitectureRealization : Auriga.Cs.IArchitectureAllocation
     {
     }
 }

@@ -16,15 +16,17 @@
 
 namespace Auriga.Information
 {
-    public partial interface IExchangeItemElement : global::Auriga.Capellacore.INamedElement, global::Auriga.Information.IMultiplicityElement, global::Auriga.Capellacore.ITypedElement
-    {
-        global::Auriga.Information.ElementKind? Kind { get; set; }
+    using System.Collections.Generic;
 
-        global::Auriga.Information.ParameterDirection? Direction { get; set; }
+    public partial interface IExchangeItemElement : Auriga.Capellacore.INamedElement, Auriga.Information.IMultiplicityElement, Auriga.Capellacore.ITypedElement
+    {
+        Auriga.Information.ElementKind? Kind { get; set; }
+
+        Auriga.Information.ParameterDirection? Direction { get; set; }
 
         bool? Composite { get; set; }
 
-        global::System.Collections.Generic.List<global::Auriga.Information.IProperty> ReferencedProperties { get; }
+        List<Auriga.Information.IProperty> ReferencedProperties { get; }
 
     }
 }

@@ -16,7 +16,7 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface INamedElement : global::Auriga.Modellingcore.IAbstractNamedElement, global::Auriga.Capellacore.ICapellaElement
+    public partial interface INamedElement : Auriga.Modellingcore.IAbstractNamedElement, Auriga.Capellacore.ICapellaElement
     {
     }
 }

@@ -16,13 +16,13 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IFeature : global::Auriga.Capellacore.INamedElement
+    public partial interface IFeature : Auriga.Capellacore.INamedElement
     {
         bool? IsAbstract { get; set; }
 
         bool? IsStatic { get; set; }
 
-        global::Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
+        Auriga.Capellacore.VisibilityKind? Visibility { get; set; }
 
     }
 }

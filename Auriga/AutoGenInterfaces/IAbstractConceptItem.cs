@@ -16,9 +16,11 @@
 
 namespace Auriga.Oa
 {
-    public partial interface IAbstractConceptItem : global::Auriga.Cs.IComponent
+    using System.Collections.Generic;
+
+    public partial interface IAbstractConceptItem : Auriga.Cs.IComponent
     {
-        global::System.Collections.Generic.List<global::Auriga.Oa.IItemInConcept> ComposingLinks { get; }
+        List<Auriga.Oa.IItemInConcept> ComposingLinks { get; }
 
     }
 }

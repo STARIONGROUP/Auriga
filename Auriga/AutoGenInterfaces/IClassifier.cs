@@ -16,11 +16,14 @@
 
 namespace Auriga.Capellacore
 {
-    public partial interface IClassifier : global::Auriga.Capellacore.IGeneralizableElement
-    {
-        global::Auriga.IContainerList<global::Auriga.Capellacore.IFeature> OwnedFeatures { get; }
+    using System.Collections.Generic;
+    using System.Linq;
 
-        global::System.Collections.Generic.IEnumerable<global::Auriga.Information.IProperty> ContainedProperties { get; }
+    public partial interface IClassifier : Auriga.Capellacore.IGeneralizableElement
+    {
+        Auriga.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures { get; }
+
+        IEnumerable<Auriga.Information.IProperty> ContainedProperties { get; }
 
     }
 }

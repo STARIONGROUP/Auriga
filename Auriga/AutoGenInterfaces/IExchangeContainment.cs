@@ -16,11 +16,11 @@
 
 namespace Auriga.Fa
 {
-    public partial interface IExchangeContainment : global::Auriga.Capellacore.IRelationship
+    public partial interface IExchangeContainment : Auriga.Capellacore.IRelationship
     {
-        global::Auriga.Fa.IExchangeSpecification Exchange { get; set; }
+        Auriga.Fa.IExchangeSpecification Exchange { get; set; }
 
-        global::Auriga.Fa.IExchangeLink Link { get; set; }
+        Auriga.Fa.IExchangeLink Link { get; set; }
 
     }
 }
