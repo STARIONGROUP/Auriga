@@ -49,21 +49,28 @@ namespace Auriga.Xmi.ReferenceResolver
         }
 
         /// <summary>
-        /// Resolves every deferred single- and multi-valued reference of every element in the cache.
+        /// Resolves every deferred single- and multi-valued reference of every element in the cache,
+        /// returning the references that could not be resolved (dangling references) so the caller can
+        /// report them without the load being aborted by the first one.
         /// </summary>
         /// <param name="cache">the cache holding all instantiated elements</param>
-        public void Resolve(IXmiElementCache cache)
+        /// <returns>the dangling references; empty when every reference resolved</returns>
+        public IReadOnlyList<UnresolvedReference> Resolve(IXmiElementCache cache)
         {
             if (cache == null)
             {
                 throw new ArgumentNullException(nameof(cache));
             }
 
+            var unresolved = new List<UnresolvedReference>();
+
             foreach (var element in cache.Values)
             {
-                this.ResolveSingleValued(cache, element);
-                this.ResolveMultiValued(cache, element);
+                this.ResolveSingleValued(cache, element, unresolved);
+                this.ResolveMultiValued(cache, element, unresolved);
             }
+
+            return unresolved;
         }
 
         /// <summary>
@@ -73,13 +80,15 @@ namespace Auriga.Xmi.ReferenceResolver
         /// </summary>
         /// <param name="cache">the cache holding all instantiated elements</param>
         /// <param name="element">the element whose single-valued references are resolved</param>
-        private void ResolveSingleValued(IXmiElementCache cache, IAurigaElement element)
+        /// <param name="unresolved">the collection to which dangling references are appended</param>
+        private void ResolveSingleValued(IXmiElementCache cache, IAurigaElement element, ICollection<UnresolvedReference> unresolved)
         {
             foreach (var pair in element.SingleValueReferencePropertyIdentifiers)
             {
                 if (!cache.TryGetValue(pair.Value, out var target) || target == null)
                 {
                     this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", pair.Key, pair.Value, element.GetType().Name);
+                    unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, pair.Key, pair.Value));
                     continue;
                 }
 
@@ -108,7 +117,8 @@ namespace Auriga.Xmi.ReferenceResolver
         /// </summary>
         /// <param name="cache">the cache holding all instantiated elements</param>
         /// <param name="element">the element whose multi-valued references are resolved</param>
-        private void ResolveMultiValued(IXmiElementCache cache, IAurigaElement element)
+        /// <param name="unresolved">the collection to which dangling references are appended</param>
+        private void ResolveMultiValued(IXmiElementCache cache, IAurigaElement element, ICollection<UnresolvedReference> unresolved)
         {
             foreach (var pair in element.MultiValueReferencePropertyIdentifiers)
             {
@@ -134,6 +144,7 @@ namespace Auriga.Xmi.ReferenceResolver
                     if (!cache.TryGetValue(identifier, out var target) || target == null)
                     {
                         this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", pair.Key, identifier, element.GetType().Name);
+                        unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, pair.Key, identifier));
                         continue;
                     }
 

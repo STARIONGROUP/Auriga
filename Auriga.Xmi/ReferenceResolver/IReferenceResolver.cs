@@ -9,6 +9,8 @@
 
 namespace Auriga.Xmi.ReferenceResolver
 {
+    using System.Collections.Generic;
+
     using Auriga.Xmi.Cache;
 
     /// <summary>
@@ -19,9 +21,12 @@ namespace Auriga.Xmi.ReferenceResolver
     public interface IReferenceResolver
     {
         /// <summary>
-        /// Resolves every deferred single- and multi-valued reference of every element in the cache.
+        /// Resolves every deferred single- and multi-valued reference of every element in the cache,
+        /// returning the references that could not be resolved (dangling references) so the caller can
+        /// report them without the load being aborted by the first one.
         /// </summary>
         /// <param name="cache">the cache holding all instantiated elements</param>
-        void Resolve(IXmiElementCache cache);
+        /// <returns>the dangling references; empty when every reference resolved</returns>
+        IReadOnlyList<UnresolvedReference> Resolve(IXmiElementCache cache);
     }
 }
