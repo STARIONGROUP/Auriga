@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.CodeGenerator
+namespace Auriga.CodeGenerator.Helpers
 {
     using System;
     using System.Collections.Generic;

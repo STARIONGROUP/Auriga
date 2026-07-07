@@ -18,24 +18,25 @@ The generator is a thin orchestrator, not a transformer chain. `Auriga.CodeGener
 ```
 Auriga.CodeGenerator/
   Generators/
-    HandleBarsGenerator.cs      // owns the shared IHandlebars env + compiled template registry
-    ObjectModelGenerator.cs     // orchestrates: enums -> interfaces -> classes -> factories
-    CodeCleanup.cs              // Roslyn reformat (CSharpSyntaxTree.ParseText + Formatter)
+    CorePocoGenerator.cs        // THE code generator: orchestrates enums -> interfaces -> classes
   Helpers/
-    CSharpTypeHelper.cs         // Ecore->C# type mapping + nullability + collection rendering  (NEW logic)
-    CSharpNameHelper.cs         // casing, reserved-word @-escaping, name==type collision        (NEW logic)
-    NamespaceHelper.cs          // EPackage -> C# namespace                                       (NEW logic)
+    CSharpType.cs               // Ecore->C# type mapping + nullability + collection rendering
+    CSharpNaming.cs             // casing, reserved-word @-escaping, namespace + interface/enum names
+  Models/                       // the HandleBars template contexts (one file per model type)
+    EnumModel.cs, InterfaceModel.cs, ClassModel.cs, MemberModel.cs, LiteralModel.cs
   Templates/
     core-enumeration-template.hbs
     core-poco-interface-template.hbs
     core-poco-class-template.hbs
 ```
 
+The class that performs code generation is `Generators/CorePocoGenerator` (the uml4net/SysML2.NET `CorePocoGenerator`/`UmlCorePocoGenerator` convention); its tests are `Auriga.CodeGenerator.Tests/Generators/CorePocoGeneratorTestFixture` (structure, counts, model-inspector coverage) and `CorePocoGeneratorExpectedTestFixture` (golden files).
+
 (The XMI reader/writer generators — including the single `XmiElementReaderFacade`, §3 — are a related set of generators that emit into `Auriga.Xmi`; they belong to the reader work in #13 but the dispatch decision is recorded here.)
 
 **Decision — reuse ECoreNetto's helper projects rather than create `Auriga.HandleBars`/`Auriga.Extensions`.** uml4net needed its own `uml4net.HandleBars`/`uml4net.Extensions` because nothing upstream understood UML. ECoreNetto already ships `ECoreNetto.Extensions` (multiplicity, containment, documentation, casing, package flattening, specialization queries) and `ECoreNetto.HandleBars` (the block helpers that call them). Auriga registers those, then adds only the C#-specific helpers above. This keeps Auriga.CodeGenerator small and avoids re-implementing the graph-query layer.
 
-Generation flow (in `ObjectModelGenerator`, driven from `Auriga.CodeGenerator.Tests` — see §10, following uml4net which has no CLI and drives generation from NUnit):
+Generation flow (in `CorePocoGenerator`, driven from `Auriga.CodeGenerator.Tests` — see §10, following uml4net which has no CLI and drives generation from NUnit):
 
 1. **Load** the metamodel: one `ResourceSet`, load all 21 `.ecore` files, collect every root `EPackage`, flatten with `PackageExtensions.QueryPackages()` to the 24 packages. (This is exactly the load the #2 validation tests already exercise; the harness code is a working template.)
 2. **Bucket** each package's `EClassifiers` into `EEnum`, `EClass` (abstract + concrete), following `HandleBarsReportGenerator.CreateHandlebarsPayload`. There are no custom `EDataType`s to handle (inventory §2), so the datatype bucket is asserted empty — **Verify in #7**.

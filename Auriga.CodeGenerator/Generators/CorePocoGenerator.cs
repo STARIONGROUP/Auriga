@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="ObjectModelGenerator.cs" company="Starion Group S.A.">
+// <copyright file="CorePocoGenerator.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.CodeGenerator
+namespace Auriga.CodeGenerator.Generators
 {
     using System;
     using System.Collections.Generic;
@@ -16,6 +16,7 @@ namespace Auriga.CodeGenerator
     using System.Reflection;
     using System.Text;
 
+    using Auriga.CodeGenerator.Helpers;
     using Auriga.CodeGenerator.Models;
 
     using ECoreNetto;
@@ -33,7 +34,7 @@ namespace Auriga.CodeGenerator
     /// only for those packages while the interfaces and enums they transitively reference are emitted
     /// so the generated code still compiles.
     /// </summary>
-    public sealed class ObjectModelGenerator
+    public sealed class CorePocoGenerator
     {
         /// <summary>
         /// Member names supplied by <c>Auriga.IAurigaElement</c>; a same-named Capella feature is
@@ -50,10 +51,10 @@ namespace Auriga.CodeGenerator
         private readonly HandlebarsTemplate<object, object> classTemplate;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ObjectModelGenerator"/> class.
+        /// Initializes a new instance of the <see cref="CorePocoGenerator"/> class.
         /// </summary>
         /// <param name="ecoreDirectory">the directory containing the vendored <c>.ecore</c> files</param>
-        public ObjectModelGenerator(string ecoreDirectory)
+        public CorePocoGenerator(string ecoreDirectory)
         {
             this.ecoreDirectory = ecoreDirectory;
 

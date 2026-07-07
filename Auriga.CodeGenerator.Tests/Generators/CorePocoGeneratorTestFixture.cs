@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="ObjectModelGeneratorTestFixture.cs" company="Starion Group S.A.">
+// <copyright file="CorePocoGeneratorTestFixture.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.CodeGenerator.Tests
+namespace Auriga.CodeGenerator.Tests.Generators
 {
     using System;
     using System.Collections.Generic;
@@ -15,18 +15,20 @@ namespace Auriga.CodeGenerator.Tests
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using Auriga.CodeGenerator.Generators;
+
     using ECoreNetto.Reporting.Generators;
 
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests for the <see cref="ObjectModelGenerator"/>, which generates the whole Capella v1 metamodel
+    /// Tests for the <see cref="CorePocoGenerator"/>, which generates the whole Capella v1 metamodel
     /// (issue #8). The expected classifier counts are the ground truth established in the metamodel
     /// inventory (<c>docs/metamodel-inventory.md</c>, issue #1): 430 EClasses, 275 of them concrete,
     /// and 35 EEnums, across 25 Ecore packages.
     /// </summary>
     [TestFixture]
-    public class ObjectModelGeneratorTestFixture
+    public class CorePocoGeneratorTestFixture
     {
         private const int ExpectedInterfaceCount = 430;
 
@@ -42,13 +44,13 @@ namespace Auriga.CodeGenerator.Tests
         public void SetUp()
         {
             this.ecoreDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "ecore");
-            this.files = new ObjectModelGenerator(this.ecoreDirectory).Generate();
+            this.files = new CorePocoGenerator(this.ecoreDirectory).Generate();
         }
 
         [Test]
         public void Verify_that_generation_is_deterministic()
         {
-            var second = new ObjectModelGenerator(this.ecoreDirectory).Generate();
+            var second = new CorePocoGenerator(this.ecoreDirectory).Generate();
 
             Assert.That(second, Is.EqualTo(this.files));
         }
@@ -292,7 +294,7 @@ namespace Auriga.CodeGenerator.Tests
         public void Regenerate_object_model()
         {
             var aurigaProject = Path.Combine(SolutionRoot(), "Auriga");
-            new ObjectModelGenerator(this.ecoreDirectory).Write(aurigaProject);
+            new CorePocoGenerator(this.ecoreDirectory).Write(aurigaProject);
         }
 
         /// <summary>

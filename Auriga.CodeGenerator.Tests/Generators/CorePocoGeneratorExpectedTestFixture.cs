@@ -7,12 +7,13 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.CodeGenerator.Tests
+namespace Auriga.CodeGenerator.Tests.Generators
 {
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
+    using Auriga.CodeGenerator.Generators;
     using Auriga.CodeGenerator.Tests.Expected;
 
     using NUnit.Framework;
@@ -25,7 +26,7 @@ namespace Auriga.CodeGenerator.Tests
     /// after an intended generator change to refresh the golden files, then review the diff.
     /// </summary>
     [TestFixture]
-    public class ExpectedObjectModelTestFixture
+    public class CorePocoGeneratorExpectedTestFixture
     {
         private const string ExpectedEnumeration = "PhysicalComponentNature";
 
@@ -37,7 +38,7 @@ namespace Auriga.CodeGenerator.Tests
         public void SetUp()
         {
             var ecoreDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "ecore");
-            this.files = new ObjectModelGenerator(ecoreDirectory).Generate();
+            this.files = new CorePocoGenerator(ecoreDirectory).Generate();
             this.expectedDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Expected");
         }
 
