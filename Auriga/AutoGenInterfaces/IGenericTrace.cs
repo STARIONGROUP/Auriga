@@ -1,0 +1,28 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="IGenericTrace.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace Auriga.Capellacommon
+{
+    public partial interface IGenericTrace : global::Auriga.Capellacore.ITrace
+    {
+        global::Auriga.IContainerList<global::Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
+
+        global::Auriga.Modellingcore.ITraceableElement Source { get; }
+
+        global::Auriga.Modellingcore.ITraceableElement Target { get; }
+
+    }
+}

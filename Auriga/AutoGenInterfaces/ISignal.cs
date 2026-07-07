@@ -1,0 +1,24 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="ISignal.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace Auriga.Information.Communication
+{
+    public partial interface ISignal : global::Auriga.Information.Communication.ICommunicationItem, global::Auriga.Behavior.IAbstractSignal
+    {
+        global::Auriga.IContainerList<global::Auriga.Information.Communication.ISignalInstance> SignalInstances { get; }
+
+    }
+}

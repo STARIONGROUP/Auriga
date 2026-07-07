@@ -1,0 +1,28 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="INamespace.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace Auriga.Capellacore
+{
+    public partial interface INamespace : global::Auriga.Capellacore.INamedElement
+    {
+        global::Auriga.IContainerList<global::Auriga.Capellacore.ITrace> OwnedTraces { get; }
+
+        global::System.Collections.Generic.IEnumerable<global::Auriga.Capellacommon.IGenericTrace> ContainedGenericTraces { get; }
+
+        global::Auriga.IContainerList<global::Auriga.Capellacore.INamingRule> NamingRules { get; }
+
+    }
+}

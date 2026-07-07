@@ -1,0 +1,26 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="IDeploymentConfiguration.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace Auriga.Pa.Deployment
+{
+    public partial interface IDeploymentConfiguration : global::Auriga.Capellacore.INamedElement
+    {
+        global::Auriga.IContainerList<global::Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
+
+        global::Auriga.IContainerList<global::Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedPhysicalInstances { get; }
+
+    }
+}

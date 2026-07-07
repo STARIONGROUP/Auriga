@@ -1,0 +1,30 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="IExchangeItemAllocation.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+namespace Auriga.Cs
+{
+    public partial interface IExchangeItemAllocation : global::Auriga.Capellacore.IRelationship, global::Auriga.Information.IAbstractEventOperation, global::Auriga.Modellingcore.IFinalizableElement
+    {
+        global::Auriga.Information.Communication.CommunicationLinkProtocol? SendProtocol { get; set; }
+
+        global::Auriga.Information.Communication.CommunicationLinkProtocol? ReceiveProtocol { get; set; }
+
+        global::Auriga.Information.IExchangeItem AllocatedItem { get; set; }
+
+        global::Auriga.Cs.IInterface AllocatingInterface { get; }
+
+    }
+}
