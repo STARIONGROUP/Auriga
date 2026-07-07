@@ -62,7 +62,13 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
                 poco.Id = xmlReader.GetAttribute("id");
                 CollectSingleValueReference(poco, "Definition", xmlReader.GetAttribute("definition"));
                 poco.DefinitionProxy = xmlReader.GetAttribute("definitionProxy");
-                { var raw = xmlReader.GetAttribute("value"); if (!string.IsNullOrEmpty(raw) && System.DateTime.TryParse(raw, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var parsed)) { poco.Value = parsed; } }
+                {
+                    var raw = xmlReader.GetAttribute("value");
+                    if (!string.IsNullOrEmpty(raw) && System.DateTime.TryParse(raw, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var parsed))
+                    {
+                        poco.Value = parsed;
+                    }
+                }
 
                 this.Cache.TryAdd(poco);
 
@@ -78,19 +84,35 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
                         switch (xmlReader.LocalName)
                         {
                             case "definition":
-                        {
-                            var href = xmlReader.GetAttribute("href");
-                            if (!string.IsNullOrEmpty(href)) { CollectSingleValueReference(poco, "Definition", href); SkipElement(xmlReader); }
-                            else { SkipElement(xmlReader); }
-                            break;
-                        }
+                            {
+                                var href = xmlReader.GetAttribute("href");
+                                if (!string.IsNullOrEmpty(href))
+                                {
+                                    CollectSingleValueReference(poco, "Definition", href);
+                                    SkipElement(xmlReader);
+                                }
+                                else
+                                {
+                                    SkipElement(xmlReader);
+                                }
+
+                                break;
+                            }
                             case "ownedExtensions":
-                        {
-                            var href = xmlReader.GetAttribute("href");
-                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedExtensions", href); SkipElement(xmlReader); }
-                            else { poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader)); }
-                            break;
-                        }
+                            {
+                                var href = xmlReader.GetAttribute("href");
+                                if (!string.IsNullOrEmpty(href))
+                                {
+                                    CollectMultiValueReferences(poco, "OwnedExtensions", href);
+                                    SkipElement(xmlReader);
+                                }
+                                else
+                                {
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                }
+
+                                break;
+                            }
                             default:
                                 this.Logger.LogTrace("Skipping unmapped element '{Element}' of DateValueAttribute at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);

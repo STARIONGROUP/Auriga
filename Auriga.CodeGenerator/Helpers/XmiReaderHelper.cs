@@ -11,8 +11,8 @@ namespace Auriga.CodeGenerator.Helpers
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
+    using System.Text;
 
     using ECoreNetto;
 
@@ -167,6 +167,17 @@ namespace Auriga.CodeGenerator.Helpers
             return features.OrderBy(MemberName, StringComparer.Ordinal);
         }
 
+        /// <summary>
+        /// The indentation (in spaces) at which an attribute-read statement is injected in the reader
+        /// template — the first line is indented by the template, the rest by <see cref="Block"/>.
+        /// </summary>
+        private const int AttributeIndent = 16;
+
+        /// <summary>
+        /// The indentation (in spaces) at which a <c>switch</c> element-case is injected.
+        /// </summary>
+        private const int ElementCaseIndent = 28;
+
         private static string AttributeRead(EStructuralFeature feature)
         {
             var propertyName = MemberName(feature);
@@ -182,7 +193,14 @@ namespace Auriga.CodeGenerator.Helpers
             if (feature.EType is EEnum)
             {
                 var enumType = CSharpNaming.EnumType((EEnum)feature.EType);
-                return $"{{ if (TryParseEnum<{enumType}>(xmlReader.GetAttribute(\"{xmlName}\"), out var parsed)) {{ poco.{propertyName} = parsed; }} }}";
+                return Block(
+                    AttributeIndent,
+                    "{",
+                    $"    if (TryParseEnum<{enumType}>(xmlReader.GetAttribute(\"{xmlName}\"), out var parsed))",
+                    "    {",
+                    $"        poco.{propertyName} = parsed;",
+                    "    }",
+                    "}");
             }
 
             // A multi-valued primitive attribute is a whitespace-delimited list; only string lists occur in
@@ -191,7 +209,12 @@ namespace Auriga.CodeGenerator.Helpers
             {
                 if (CSharpType.BaseType(feature.EType) == "string")
                 {
-                    return $"foreach (var token in (xmlReader.GetAttribute(\"{xmlName}\") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries)) {{ poco.{propertyName}.Add(token); }}";
+                    return Block(
+                        AttributeIndent,
+                        $"foreach (var token in (xmlReader.GetAttribute(\"{xmlName}\") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))",
+                        "{",
+                        $"    poco.{propertyName}.Add(token);",
+                        "}");
                 }
 
                 return $"// '{xmlName}' is a multi-valued primitive of an unsupported element type and is not read";
@@ -203,42 +226,57 @@ namespace Auriga.CodeGenerator.Helpers
         private static string ScalarAttributeRead(EStructuralFeature feature, string propertyName, string xmlName)
         {
             var baseType = CSharpType.BaseType(feature.EType);
-            var getter = $"xmlReader.GetAttribute(\"{xmlName}\")";
 
             switch (baseType)
             {
                 case "string":
-                    return $"poco.{propertyName} = {getter};";
+                    return $"poco.{propertyName} = xmlReader.GetAttribute(\"{xmlName}\");";
                 case "bool":
-                    return TryParse(propertyName, getter, "bool.TryParse(raw, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "bool.TryParse(raw, out var parsed)");
                 case "sbyte":
-                    return TryParse(propertyName, getter, "sbyte.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "sbyte.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "short":
-                    return TryParse(propertyName, getter, "short.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "short.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "int":
-                    return TryParse(propertyName, getter, "int.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "int.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "long":
-                    return TryParse(propertyName, getter, "long.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "long.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "float":
-                    return TryParse(propertyName, getter, "float.TryParse(raw, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "float.TryParse(raw, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "double":
-                    return TryParse(propertyName, getter, "double.TryParse(raw, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "double.TryParse(raw, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "decimal":
-                    return TryParse(propertyName, getter, "decimal.TryParse(raw, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "decimal.TryParse(raw, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "BigInteger":
-                    return TryParse(propertyName, getter, "System.Numerics.BigInteger.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "System.Numerics.BigInteger.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)");
                 case "DateTime":
-                    return TryParse(propertyName, getter, "System.DateTime.TryParse(raw, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var parsed)");
+                    return ScalarParseBlock(propertyName, xmlName, "System.DateTime.TryParse(raw, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var parsed)");
                 case "char":
-                    return $"{{ var raw = {getter}; if (!string.IsNullOrEmpty(raw)) {{ poco.{propertyName} = raw[0]; }} }}";
+                    return Block(
+                        AttributeIndent,
+                        "{",
+                        $"    var raw = xmlReader.GetAttribute(\"{xmlName}\");",
+                        "    if (!string.IsNullOrEmpty(raw))",
+                        "    {",
+                        $"        poco.{propertyName} = raw[0];",
+                        "    }",
+                        "}");
                 default:
                     return $"// '{xmlName}' has unsupported primitive type '{baseType}' and is not read";
             }
         }
 
-        private static string TryParse(string propertyName, string getter, string tryParse)
+        private static string ScalarParseBlock(string propertyName, string xmlName, string tryParse)
         {
-            return $"{{ var raw = {getter}; if (!string.IsNullOrEmpty(raw) && {tryParse}) {{ poco.{propertyName} = parsed; }} }}";
+            return Block(
+                AttributeIndent,
+                "{",
+                $"    var raw = xmlReader.GetAttribute(\"{xmlName}\");",
+                $"    if (!string.IsNullOrEmpty(raw) && {tryParse})",
+                "    {",
+                $"        poco.{propertyName} = parsed;",
+                "    }",
+                "}");
         }
 
         private static string ElementCase(EStructuralFeature feature)
@@ -250,26 +288,74 @@ namespace Auriga.CodeGenerator.Helpers
             var containment = feature is EReference { IsContainment: true };
 
             // A child element carrying an href is a cross-document proxy (e.g. into a .capellafragment):
-            // collect it as an unresolved reference rather than instantiating an empty object. Otherwise
-            // an inline containment element is read recursively; a non-containment element (no href) is
-            // an unexpected encoding and is skipped.
-            var collect = collection
-                ? $"CollectMultiValueReferences(poco, \"{propertyName}\", href)"
-                : $"CollectSingleValueReference(poco, \"{propertyName}\", href)";
+            // it is collected as an unresolved reference rather than instantiated as an empty object.
+            // Otherwise an inline containment element is read recursively; a non-containment element
+            // (no href) is an unexpected encoding and is skipped.
+            var lines = new List<string>
+            {
+                $"case \"{xmlName}\":",
+                "{",
+                "    var href = xmlReader.GetAttribute(\"href\");",
+                "    if (!string.IsNullOrEmpty(href))",
+                "    {",
+                collection
+                    ? $"        CollectMultiValueReferences(poco, \"{propertyName}\", href);"
+                    : $"        CollectSingleValueReference(poco, \"{propertyName}\", href);",
+                "        SkipElement(xmlReader);",
+                "    }",
+                "    else",
+                "    {",
+            };
 
-            var inline = !containment
-                ? "SkipElement(xmlReader);"
-                : collection
-                    ? $"poco.{propertyName}.Add(({elementType})this.Facade.QueryElement(xmlReader));"
-                    : $"var contained = ({elementType})this.Facade.QueryElement(xmlReader); contained.Container = poco; poco.{propertyName} = contained;";
+            if (!containment)
+            {
+                lines.Add("        SkipElement(xmlReader);");
+            }
+            else if (collection)
+            {
+                lines.Add($"        poco.{propertyName}.Add(({elementType})this.Facade.QueryElement(xmlReader));");
+            }
+            else
+            {
+                lines.Add($"        var contained = ({elementType})this.Facade.QueryElement(xmlReader);");
+                lines.Add("        contained.Container = poco;");
+                lines.Add($"        poco.{propertyName} = contained;");
+            }
 
-            return $"case \"{xmlName}\":\n" +
-                   $"                        {{\n" +
-                   $"                            var href = xmlReader.GetAttribute(\"href\");\n" +
-                   $"                            if (!string.IsNullOrEmpty(href)) {{ {collect}; SkipElement(xmlReader); }}\n" +
-                   $"                            else {{ {inline} }}\n" +
-                   $"                            break;\n" +
-                   $"                        }}";
+            lines.Add("    }");
+            lines.Add(string.Empty);
+            lines.Add("    break;");
+            lines.Add("}");
+
+            return Block(ElementCaseIndent, lines.ToArray());
+        }
+
+        /// <summary>
+        /// Joins the supplied lines into a single block. The first line is emitted without indentation —
+        /// the reader template indents it — while every subsequent non-empty line is prefixed with
+        /// <paramref name="baseIndent"/> spaces (on top of the relative indentation baked into the line).
+        /// </summary>
+        private static string Block(int baseIndent, params string[] lines)
+        {
+            var padding = new string(' ', baseIndent);
+            var builder = new StringBuilder();
+
+            for (var i = 0; i < lines.Length; i++)
+            {
+                if (i > 0)
+                {
+                    builder.Append('\n');
+
+                    if (lines[i].Length > 0)
+                    {
+                        builder.Append(padding);
+                    }
+                }
+
+                builder.Append(lines[i]);
+            }
+
+            return builder.ToString();
         }
 
         private static string MemberName(EStructuralFeature feature)

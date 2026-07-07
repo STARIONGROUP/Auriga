@@ -60,9 +60,27 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Libraries
             if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
                 poco.Id = xmlReader.GetAttribute("id");
-                { var raw = xmlReader.GetAttribute("lastModifiedFileStamp"); if (!string.IsNullOrEmpty(raw) && long.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)) { poco.LastModifiedFileStamp = parsed; } }
-                { var raw = xmlReader.GetAttribute("majorVersionNumber"); if (!string.IsNullOrEmpty(raw) && int.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)) { poco.MajorVersionNumber = parsed; } }
-                { var raw = xmlReader.GetAttribute("minorVersionNumber"); if (!string.IsNullOrEmpty(raw) && int.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)) { poco.MinorVersionNumber = parsed; } }
+                {
+                    var raw = xmlReader.GetAttribute("lastModifiedFileStamp");
+                    if (!string.IsNullOrEmpty(raw) && long.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                    {
+                        poco.LastModifiedFileStamp = parsed;
+                    }
+                }
+                {
+                    var raw = xmlReader.GetAttribute("majorVersionNumber");
+                    if (!string.IsNullOrEmpty(raw) && int.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                    {
+                        poco.MajorVersionNumber = parsed;
+                    }
+                }
+                {
+                    var raw = xmlReader.GetAttribute("minorVersionNumber");
+                    if (!string.IsNullOrEmpty(raw) && int.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                    {
+                        poco.MinorVersionNumber = parsed;
+                    }
+                }
 
                 this.Cache.TryAdd(poco);
 
@@ -78,12 +96,20 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Libraries
                         switch (xmlReader.LocalName)
                         {
                             case "ownedExtensions":
-                        {
-                            var href = xmlReader.GetAttribute("href");
-                            if (!string.IsNullOrEmpty(href)) { CollectMultiValueReferences(poco, "OwnedExtensions", href); SkipElement(xmlReader); }
-                            else { poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader)); }
-                            break;
-                        }
+                            {
+                                var href = xmlReader.GetAttribute("href");
+                                if (!string.IsNullOrEmpty(href))
+                                {
+                                    CollectMultiValueReferences(poco, "OwnedExtensions", href);
+                                    SkipElement(xmlReader);
+                                }
+                                else
+                                {
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                }
+
+                                break;
+                            }
                             default:
                                 this.Logger.LogTrace("Skipping unmapped element '{Element}' of ModelVersion at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);
