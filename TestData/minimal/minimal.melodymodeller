@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--Capella_Version_7.0.0-->
+<org.polarsys.capella.core.data.capellamodeller:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:org.polarsys.capella.core.data.capellamodeller="http://www.polarsys.org/capella/core/modeller/7.0.0"
+    xmlns:org.polarsys.capella.core.data.cs="http://www.polarsys.org/capella/core/cs/7.0.0"
+    xmlns:org.polarsys.capella.core.data.fa="http://www.polarsys.org/capella/core/fa/7.0.0"
+    xmlns:org.polarsys.capella.core.data.pa="http://www.polarsys.org/capella/core/pa/7.0.0"
+    xmlns:org.polarsys.capella.core.data.pa.deployment="http://www.polarsys.org/capella/core/pa/deployment/7.0.0"
+    id="a0000000-0000-4000-8000-000000000001" name="Minimal">
+  <ownedModelRoots xsi:type="org.polarsys.capella.core.data.capellamodeller:SystemEngineering"
+      id="a0000000-0000-4000-8000-000000000002" name="Minimal">
+    <ownedArchitectures xsi:type="org.polarsys.capella.core.data.pa:PhysicalArchitecture"
+        id="a0000000-0000-4000-8000-000000000003" name="Physical Architecture">
+      <ownedFunctionPkg xsi:type="org.polarsys.capella.core.data.pa:PhysicalFunctionPkg"
+          id="a0000000-0000-4000-8000-000000000010" name="Physical Functions">
+        <ownedPhysicalFunctions xsi:type="org.polarsys.capella.core.data.pa:PhysicalFunction"
+            id="a0000000-0000-4000-8000-000000000011" name="Root Physical Function">
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="a0000000-0000-4000-8000-000000000016" name="Sensor Data"
+              source="#a0000000-0000-4000-8000-000000000013" target="#a0000000-0000-4000-8000-000000000015"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.pa:PhysicalFunction"
+              id="a0000000-0000-4000-8000-000000000012" name="Acquire Sensor Data">
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="a0000000-0000-4000-8000-000000000013" name="FOP1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.pa:PhysicalFunction"
+              id="a0000000-0000-4000-8000-000000000014" name="Process Sensor Data">
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="a0000000-0000-4000-8000-000000000015" name="FIP1"/>
+          </ownedFunctions>
+        </ownedPhysicalFunctions>
+      </ownedFunctionPkg>
+      <ownedPhysicalComponentPkg xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponentPkg"
+          id="a0000000-0000-4000-8000-000000000020" name="Structure">
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part"
+            id="a0000000-0000-4000-8000-000000000021" name="Physical System"
+            abstractType="#a0000000-0000-4000-8000-000000000022"/>
+        <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+            id="a0000000-0000-4000-8000-000000000022" name="Physical System">
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part"
+              id="a0000000-0000-4000-8000-000000000023" name="Controller Node"
+              abstractType="#a0000000-0000-4000-8000-000000000024">
+            <ownedDeploymentLinks xsi:type="org.polarsys.capella.core.data.pa.deployment:PartDeploymentLink"
+                id="a0000000-0000-4000-8000-000000000027" deployedElement="#a0000000-0000-4000-8000-000000000025"
+                location="#a0000000-0000-4000-8000-000000000023"/>
+          </ownedFeatures>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part"
+              id="a0000000-0000-4000-8000-000000000025" name="Control Software"
+              abstractType="#a0000000-0000-4000-8000-000000000026"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part"
+              id="a0000000-0000-4000-8000-000000000032" name="Sensor Node"
+              abstractType="#a0000000-0000-4000-8000-000000000030"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="a0000000-0000-4000-8000-000000000033" name="Serial Cable"
+              linkEnds="#a0000000-0000-4000-8000-000000000028 #a0000000-0000-4000-8000-000000000031"/>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="a0000000-0000-4000-8000-000000000024" name="Controller Node" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="a0000000-0000-4000-8000-000000000028" name="PP1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="a0000000-0000-4000-8000-000000000026" name="Control Software" nature="BEHAVIOR">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="a0000000-0000-4000-8000-000000000029" targetElement="#a0000000-0000-4000-8000-000000000012"
+                sourceElement="#a0000000-0000-4000-8000-000000000026"/>
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="a0000000-0000-4000-8000-00000000002a" targetElement="#a0000000-0000-4000-8000-000000000014"
+                sourceElement="#a0000000-0000-4000-8000-000000000026"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="a0000000-0000-4000-8000-000000000030" name="Sensor Node" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="a0000000-0000-4000-8000-000000000031" name="PP2"/>
+          </ownedPhysicalComponents>
+        </ownedPhysicalComponents>
+      </ownedPhysicalComponentPkg>
+    </ownedArchitectures>
+  </ownedModelRoots>
+</org.polarsys.capella.core.data.capellamodeller:Project>
