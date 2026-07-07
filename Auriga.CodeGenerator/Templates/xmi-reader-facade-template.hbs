@@ -24,6 +24,8 @@ namespace Auriga.Xmi.AutoGenXmiReaders
     using Auriga.Xmi.Namespaces;
     using Auriga.Xmi.Readers;
 
+    using Microsoft.Extensions.Logging;
+
     /// <summary>
     /// The generated registry that maps a package-qualified type key (<c>package:TypeName</c>) to the
     /// reader that instantiates it, and reads the element at the cursor by resolving its <c>xsi:type</c>.
@@ -36,6 +38,8 @@ namespace Auriga.Xmi.AutoGenXmiReaders
 
         private readonly INamespaceResolver namespaceResolver;
 
+        private readonly ILoggerFactory loggerFactory;
+
         private readonly Dictionary<string, string> prefixToNamespace = new Dictionary<string, string>(StringComparer.Ordinal);
 
         private readonly Dictionary<string, Func<XmlReader, IAurigaElement>> readerFactories;
@@ -45,10 +49,12 @@ namespace Auriga.Xmi.AutoGenXmiReaders
         /// </summary>
         /// <param name="cache">the element cache shared with every reader</param>
         /// <param name="namespaceResolver">the namespace-URI-to-package resolver</param>
-        public XmiReaderFacade(IXmiElementCache cache, INamespaceResolver namespaceResolver)
+        /// <param name="loggerFactory">the logger factory shared with every reader, or <c>null</c> to disable logging</param>
+        public XmiReaderFacade(IXmiElementCache cache, INamespaceResolver namespaceResolver, ILoggerFactory loggerFactory = null)
         {
             this.cache = cache;
             this.namespaceResolver = namespaceResolver;
+            this.loggerFactory = loggerFactory;
             this.readerFactories = new Dictionary<string, Func<XmlReader, IAurigaElement>>(StringComparer.Ordinal)
             {
                 {{#each this}}

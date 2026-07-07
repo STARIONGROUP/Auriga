@@ -53,7 +53,7 @@ namespace Auriga.Xmi
         {
             var cache = new XmiElementCache();
             var namespaceResolver = new NamespaceResolver(AutoGenNamespaceRegistry.NamespaceToPackage);
-            var facade = new XmiReaderFacade(cache, namespaceResolver);
+            var facade = new XmiReaderFacade(cache, namespaceResolver, this.loggerFactory);
             var referenceResolver = new ReferenceResolver.ReferenceResolver(this.loggerFactory);
 
             return new XmiReader(cache, facade, namespaceResolver, referenceResolver, this.loggerFactory);

@@ -15,10 +15,13 @@
 
 namespace Auriga.Xmi.AutoGenXmiReaders.Information.Communication
 {
+    using System;
     using System.Xml;
 
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Readers;
+
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// The generated XMI reader that instantiates and populates an <c>CommunicationLink</c> from its
@@ -32,8 +35,9 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Information.Communication
         /// </summary>
         /// <param name="cache">the element cache</param>
         /// <param name="facade">the reader facade used to read contained elements</param>
-        public CommunicationLinkReader(IXmiElementCache cache, IXmiReaderFacade facade)
-            : base(cache, facade)
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public CommunicationLinkReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory loggerFactory)
+            : base(cache, facade, loggerFactory)
         {
         }
 
@@ -44,61 +48,74 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Information.Communication
         /// <returns>the populated <see cref="Auriga.Information.Communication.ICommunicationLink"/></returns>
         public Auriga.Information.Communication.ICommunicationLink Read(XmlReader xmlReader)
         {
+            if (xmlReader == null)
+            {
+                throw new ArgumentNullException(nameof(xmlReader));
+            }
+
             var poco = new Auriga.Information.Communication.CommunicationLink();
 
-            xmlReader.MoveToContent();
+            var xmlLineInfo = xmlReader as IXmlLineInfo;
 
-            poco.Id = xmlReader.GetAttribute("id");
-            CollectMultiValueReferences(poco, "AppliedPropertyValueGroups", xmlReader.GetAttribute("appliedPropertyValueGroups"));
-            CollectMultiValueReferences(poco, "AppliedPropertyValues", xmlReader.GetAttribute("appliedPropertyValues"));
-            poco.Description = xmlReader.GetAttribute("description");
-            CollectSingleValueReference(poco, "ExchangeItem", xmlReader.GetAttribute("exchangeItem"));
-            CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
-            { if (TryParseEnum<Auriga.Information.Communication.CommunicationLinkKind>(xmlReader.GetAttribute("kind"), out var parsed)) { poco.Kind = parsed; } }
-            { if (TryParseEnum<Auriga.Information.Communication.CommunicationLinkProtocol>(xmlReader.GetAttribute("protocol"), out var parsed)) { poco.Protocol = parsed; } }
-            poco.Review = xmlReader.GetAttribute("review");
-            poco.Sid = xmlReader.GetAttribute("sid");
-            CollectSingleValueReference(poco, "Status", xmlReader.GetAttribute("status"));
-            poco.Summary = xmlReader.GetAttribute("summary");
-            { var raw = xmlReader.GetAttribute("visibleInDoc"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInDoc = parsed; } }
-            { var raw = xmlReader.GetAttribute("visibleInLM"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInLM = parsed; } }
-
-            this.Cache.TryAdd(poco);
-
-            if (!xmlReader.IsEmptyElement)
+            if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.Element)
-                    {
-                        continue;
-                    }
+                poco.Id = xmlReader.GetAttribute("id");
+                CollectMultiValueReferences(poco, "AppliedPropertyValueGroups", xmlReader.GetAttribute("appliedPropertyValueGroups"));
+                CollectMultiValueReferences(poco, "AppliedPropertyValues", xmlReader.GetAttribute("appliedPropertyValues"));
+                poco.Description = xmlReader.GetAttribute("description");
+                CollectSingleValueReference(poco, "ExchangeItem", xmlReader.GetAttribute("exchangeItem"));
+                CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
+                { if (TryParseEnum<Auriga.Information.Communication.CommunicationLinkKind>(xmlReader.GetAttribute("kind"), out var parsed)) { poco.Kind = parsed; } }
+                { if (TryParseEnum<Auriga.Information.Communication.CommunicationLinkProtocol>(xmlReader.GetAttribute("protocol"), out var parsed)) { poco.Protocol = parsed; } }
+                poco.Review = xmlReader.GetAttribute("review");
+                poco.Sid = xmlReader.GetAttribute("sid");
+                CollectSingleValueReference(poco, "Status", xmlReader.GetAttribute("status"));
+                poco.Summary = xmlReader.GetAttribute("summary");
+                { var raw = xmlReader.GetAttribute("visibleInDoc"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInDoc = parsed; } }
+                { var raw = xmlReader.GetAttribute("visibleInLM"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInLM = parsed; } }
 
-                    switch (xmlReader.LocalName)
+                this.Cache.TryAdd(poco);
+
+                if (!xmlReader.IsEmptyElement)
+                {
+                    while (xmlReader.Read())
                     {
-                        case "ownedConstraints":
+                        if (xmlReader.NodeType != XmlNodeType.Element)
+                        {
+                            continue;
+                        }
+
+                        switch (xmlReader.LocalName)
+                        {
+                            case "ownedConstraints":
                         poco.OwnedConstraints.Add((Auriga.Modellingcore.IAbstractConstraint)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedEnumerationPropertyTypes":
+                            case "ownedEnumerationPropertyTypes":
                         poco.OwnedEnumerationPropertyTypes.Add((Auriga.Capellacore.IEnumerationPropertyType)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedExtensions":
+                            case "ownedExtensions":
                         poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedMigratedElements":
+                            case "ownedMigratedElements":
                         poco.OwnedMigratedElements.Add((Auriga.Modellingcore.IModelElement)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedPropertyValueGroups":
+                            case "ownedPropertyValueGroups":
                         poco.OwnedPropertyValueGroups.Add((Auriga.Capellacore.IPropertyValueGroup)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedPropertyValues":
+                            case "ownedPropertyValues":
                         poco.OwnedPropertyValues.Add((Auriga.Capellacore.IAbstractPropertyValue)this.Facade.QueryElement(xmlReader));
                         break;
-                        default:
-                            SkipElement(xmlReader);
-                            break;
+                            default:
+                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of CommunicationLink at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
+                                SkipElement(xmlReader);
+                                break;
+                        }
                     }
                 }
+            }
+            else
+            {
+                this.Logger.LogWarning("Expected an element to read CommunicationLink but found {NodeType} at line {Line}:{Position}", xmlReader.NodeType, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
             }
 
             return poco;

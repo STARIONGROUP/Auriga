@@ -15,10 +15,13 @@
 
 namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
 {
+    using System;
     using System.Xml;
 
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Readers;
+
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// The generated XMI reader that instantiates and populates an <c>EnumerationValueAttribute</c> from its
@@ -32,8 +35,9 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
         /// </summary>
         /// <param name="cache">the element cache</param>
         /// <param name="facade">the reader facade used to read contained elements</param>
-        public EnumerationValueAttributeReader(IXmiElementCache cache, IXmiReaderFacade facade)
-            : base(cache, facade)
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public EnumerationValueAttributeReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory loggerFactory)
+            : base(cache, facade, loggerFactory)
         {
         }
 
@@ -44,36 +48,49 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
         /// <returns>the populated <see cref="Auriga.Requirements.IEnumerationValueAttribute"/></returns>
         public Auriga.Requirements.IEnumerationValueAttribute Read(XmlReader xmlReader)
         {
+            if (xmlReader == null)
+            {
+                throw new ArgumentNullException(nameof(xmlReader));
+            }
+
             var poco = new Auriga.Requirements.EnumerationValueAttribute();
 
-            xmlReader.MoveToContent();
+            var xmlLineInfo = xmlReader as IXmlLineInfo;
 
-            poco.Id = xmlReader.GetAttribute("id");
-            CollectSingleValueReference(poco, "Definition", xmlReader.GetAttribute("definition"));
-            poco.DefinitionProxy = xmlReader.GetAttribute("definitionProxy");
-            CollectMultiValueReferences(poco, "Values", xmlReader.GetAttribute("values"));
-
-            this.Cache.TryAdd(poco);
-
-            if (!xmlReader.IsEmptyElement)
+            if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.Element)
-                    {
-                        continue;
-                    }
+                poco.Id = xmlReader.GetAttribute("id");
+                CollectSingleValueReference(poco, "Definition", xmlReader.GetAttribute("definition"));
+                poco.DefinitionProxy = xmlReader.GetAttribute("definitionProxy");
+                CollectMultiValueReferences(poco, "Values", xmlReader.GetAttribute("values"));
 
-                    switch (xmlReader.LocalName)
+                this.Cache.TryAdd(poco);
+
+                if (!xmlReader.IsEmptyElement)
+                {
+                    while (xmlReader.Read())
                     {
-                        case "ownedExtensions":
+                        if (xmlReader.NodeType != XmlNodeType.Element)
+                        {
+                            continue;
+                        }
+
+                        switch (xmlReader.LocalName)
+                        {
+                            case "ownedExtensions":
                         poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
                         break;
-                        default:
-                            SkipElement(xmlReader);
-                            break;
+                            default:
+                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of EnumerationValueAttribute at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
+                                SkipElement(xmlReader);
+                                break;
+                        }
                     }
                 }
+            }
+            else
+            {
+                this.Logger.LogWarning("Expected an element to read EnumerationValueAttribute but found {NodeType} at line {Line}:{Position}", xmlReader.NodeType, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
             }
 
             return poco;

@@ -15,10 +15,13 @@
 
 namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
 {
+    using System;
     using System.Xml;
 
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Readers;
+
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// The generated XMI reader that instantiates and populates an <c>Requirement</c> from its
@@ -32,8 +35,9 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
         /// </summary>
         /// <param name="cache">the element cache</param>
         /// <param name="facade">the reader facade used to read contained elements</param>
-        public RequirementReader(IXmiElementCache cache, IXmiReaderFacade facade)
-            : base(cache, facade)
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public RequirementReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory loggerFactory)
+            : base(cache, facade, loggerFactory)
         {
         }
 
@@ -44,49 +48,62 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
         /// <returns>the populated <see cref="Auriga.Requirements.IRequirement"/></returns>
         public Auriga.Requirements.IRequirement Read(XmlReader xmlReader)
         {
+            if (xmlReader == null)
+            {
+                throw new ArgumentNullException(nameof(xmlReader));
+            }
+
             var poco = new Auriga.Requirements.Requirement();
 
-            xmlReader.MoveToContent();
+            var xmlLineInfo = xmlReader as IXmlLineInfo;
 
-            poco.Id = xmlReader.GetAttribute("id");
-            poco.ReqIFChapterName = xmlReader.GetAttribute("ReqIFChapterName");
-            poco.ReqIFDescription = xmlReader.GetAttribute("ReqIFDescription");
-            { var raw = xmlReader.GetAttribute("ReqIFForeignID"); if (!string.IsNullOrEmpty(raw) && System.Numerics.BigInteger.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)) { poco.ReqIFForeignID = parsed; } }
-            poco.ReqIFIdentifier = xmlReader.GetAttribute("ReqIFIdentifier");
-            poco.ReqIFLongName = xmlReader.GetAttribute("ReqIFLongName");
-            poco.ReqIFName = xmlReader.GetAttribute("ReqIFName");
-            poco.ReqIFPrefix = xmlReader.GetAttribute("ReqIFPrefix");
-            poco.ReqIFText = xmlReader.GetAttribute("ReqIFText");
-            CollectSingleValueReference(poco, "RequirementType", xmlReader.GetAttribute("requirementType"));
-            poco.RequirementTypeProxy = xmlReader.GetAttribute("requirementTypeProxy");
-
-            this.Cache.TryAdd(poco);
-
-            if (!xmlReader.IsEmptyElement)
+            if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.Element)
-                    {
-                        continue;
-                    }
+                poco.Id = xmlReader.GetAttribute("id");
+                poco.ReqIFChapterName = xmlReader.GetAttribute("ReqIFChapterName");
+                poco.ReqIFDescription = xmlReader.GetAttribute("ReqIFDescription");
+                { var raw = xmlReader.GetAttribute("ReqIFForeignID"); if (!string.IsNullOrEmpty(raw) && System.Numerics.BigInteger.TryParse(raw, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed)) { poco.ReqIFForeignID = parsed; } }
+                poco.ReqIFIdentifier = xmlReader.GetAttribute("ReqIFIdentifier");
+                poco.ReqIFLongName = xmlReader.GetAttribute("ReqIFLongName");
+                poco.ReqIFName = xmlReader.GetAttribute("ReqIFName");
+                poco.ReqIFPrefix = xmlReader.GetAttribute("ReqIFPrefix");
+                poco.ReqIFText = xmlReader.GetAttribute("ReqIFText");
+                CollectSingleValueReference(poco, "RequirementType", xmlReader.GetAttribute("requirementType"));
+                poco.RequirementTypeProxy = xmlReader.GetAttribute("requirementTypeProxy");
 
-                    switch (xmlReader.LocalName)
+                this.Cache.TryAdd(poco);
+
+                if (!xmlReader.IsEmptyElement)
+                {
+                    while (xmlReader.Read())
                     {
-                        case "ownedAttributes":
+                        if (xmlReader.NodeType != XmlNodeType.Element)
+                        {
+                            continue;
+                        }
+
+                        switch (xmlReader.LocalName)
+                        {
+                            case "ownedAttributes":
                         poco.OwnedAttributes.Add((Auriga.Requirements.IAttribute)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedExtensions":
+                            case "ownedExtensions":
                         poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedRelations":
+                            case "ownedRelations":
                         poco.OwnedRelations.Add((Auriga.Requirements.IAbstractRelation)this.Facade.QueryElement(xmlReader));
                         break;
-                        default:
-                            SkipElement(xmlReader);
-                            break;
+                            default:
+                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of Requirement at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
+                                SkipElement(xmlReader);
+                                break;
+                        }
                     }
                 }
+            }
+            else
+            {
+                this.Logger.LogWarning("Expected an element to read Requirement but found {NodeType} at line {Line}:{Position}", xmlReader.NodeType, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
             }
 
             return poco;

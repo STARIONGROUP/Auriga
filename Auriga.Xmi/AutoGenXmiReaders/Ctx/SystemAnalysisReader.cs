@@ -15,10 +15,13 @@
 
 namespace Auriga.Xmi.AutoGenXmiReaders.Ctx
 {
+    using System;
     using System.Xml;
 
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Readers;
+
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// The generated XMI reader that instantiates and populates an <c>SystemAnalysis</c> from its
@@ -32,8 +35,9 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Ctx
         /// </summary>
         /// <param name="cache">the element cache</param>
         /// <param name="facade">the reader facade used to read contained elements</param>
-        public SystemAnalysisReader(IXmiElementCache cache, IXmiReaderFacade facade)
-            : base(cache, facade)
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public SystemAnalysisReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory loggerFactory)
+            : base(cache, facade, loggerFactory)
         {
         }
 
@@ -44,128 +48,141 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Ctx
         /// <returns>the populated <see cref="Auriga.Ctx.ISystemAnalysis"/></returns>
         public Auriga.Ctx.ISystemAnalysis Read(XmlReader xmlReader)
         {
+            if (xmlReader == null)
+            {
+                throw new ArgumentNullException(nameof(xmlReader));
+            }
+
             var poco = new Auriga.Ctx.SystemAnalysis();
 
-            xmlReader.MoveToContent();
+            var xmlLineInfo = xmlReader as IXmlLineInfo;
 
-            poco.Id = xmlReader.GetAttribute("id");
-            CollectMultiValueReferences(poco, "AppliedPropertyValueGroups", xmlReader.GetAttribute("appliedPropertyValueGroups"));
-            CollectMultiValueReferences(poco, "AppliedPropertyValues", xmlReader.GetAttribute("appliedPropertyValues"));
-            poco.Description = xmlReader.GetAttribute("description");
-            CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
-            poco.Name = xmlReader.GetAttribute("name");
-            poco.Review = xmlReader.GetAttribute("review");
-            poco.Sid = xmlReader.GetAttribute("sid");
-            CollectSingleValueReference(poco, "Status", xmlReader.GetAttribute("status"));
-            poco.Summary = xmlReader.GetAttribute("summary");
-            { var raw = xmlReader.GetAttribute("visibleInDoc"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInDoc = parsed; } }
-            { var raw = xmlReader.GetAttribute("visibleInLM"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInLM = parsed; } }
-
-            this.Cache.TryAdd(poco);
-
-            if (!xmlReader.IsEmptyElement)
+            if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.Element)
-                    {
-                        continue;
-                    }
+                poco.Id = xmlReader.GetAttribute("id");
+                CollectMultiValueReferences(poco, "AppliedPropertyValueGroups", xmlReader.GetAttribute("appliedPropertyValueGroups"));
+                CollectMultiValueReferences(poco, "AppliedPropertyValues", xmlReader.GetAttribute("appliedPropertyValues"));
+                poco.Description = xmlReader.GetAttribute("description");
+                CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
+                poco.Name = xmlReader.GetAttribute("name");
+                poco.Review = xmlReader.GetAttribute("review");
+                poco.Sid = xmlReader.GetAttribute("sid");
+                CollectSingleValueReference(poco, "Status", xmlReader.GetAttribute("status"));
+                poco.Summary = xmlReader.GetAttribute("summary");
+                { var raw = xmlReader.GetAttribute("visibleInDoc"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInDoc = parsed; } }
+                { var raw = xmlReader.GetAttribute("visibleInLM"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.VisibleInLM = parsed; } }
 
-                    switch (xmlReader.LocalName)
+                this.Cache.TryAdd(poco);
+
+                if (!xmlReader.IsEmptyElement)
+                {
+                    while (xmlReader.Read())
                     {
-                        case "namingRules":
+                        if (xmlReader.NodeType != XmlNodeType.Element)
+                        {
+                            continue;
+                        }
+
+                        switch (xmlReader.LocalName)
+                        {
+                            case "namingRules":
                         poco.NamingRules.Add((Auriga.Capellacore.INamingRule)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedAbstractCapabilityPkg":
+                            case "ownedAbstractCapabilityPkg":
                     {
                         var contained = (Auriga.Capellacommon.IAbstractCapabilityPkg)this.Facade.QueryElement(xmlReader);
                         contained.Container = poco;
                         poco.OwnedAbstractCapabilityPkg = contained;
                         break;
                     }
-                        case "ownedComponentExchangeCategories":
+                            case "ownedComponentExchangeCategories":
                         poco.OwnedComponentExchangeCategories.Add((Auriga.Fa.IComponentExchangeCategory)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedComponentExchangeRealizations":
+                            case "ownedComponentExchangeRealizations":
                         poco.OwnedComponentExchangeRealizations.Add((Auriga.Fa.IComponentExchangeRealization)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedComponentExchanges":
+                            case "ownedComponentExchanges":
                         poco.OwnedComponentExchanges.Add((Auriga.Fa.IComponentExchange)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedConstraints":
+                            case "ownedConstraints":
                         poco.OwnedConstraints.Add((Auriga.Modellingcore.IAbstractConstraint)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedDataPkg":
+                            case "ownedDataPkg":
                     {
                         var contained = (Auriga.Information.IDataPkg)this.Facade.QueryElement(xmlReader);
                         contained.Container = poco;
                         poco.OwnedDataPkg = contained;
                         break;
                     }
-                        case "ownedEnumerationPropertyTypes":
+                            case "ownedEnumerationPropertyTypes":
                         poco.OwnedEnumerationPropertyTypes.Add((Auriga.Capellacore.IEnumerationPropertyType)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedExtensions":
+                            case "ownedExtensions":
                         poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedFunctionPkg":
+                            case "ownedFunctionPkg":
                     {
                         var contained = (Auriga.Fa.IFunctionPkg)this.Facade.QueryElement(xmlReader);
                         contained.Container = poco;
                         poco.OwnedFunctionPkg = contained;
                         break;
                     }
-                        case "ownedFunctionalAllocations":
+                            case "ownedFunctionalAllocations":
                         poco.OwnedFunctionalAllocations.Add((Auriga.Fa.IComponentFunctionalAllocation)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedFunctionalLinks":
+                            case "ownedFunctionalLinks":
                         poco.OwnedFunctionalLinks.Add((Auriga.Fa.IExchangeLink)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedInterfacePkg":
+                            case "ownedInterfacePkg":
                     {
                         var contained = (Auriga.Cs.IInterfacePkg)this.Facade.QueryElement(xmlReader);
                         contained.Container = poco;
                         poco.OwnedInterfacePkg = contained;
                         break;
                     }
-                        case "ownedMigratedElements":
+                            case "ownedMigratedElements":
                         poco.OwnedMigratedElements.Add((Auriga.Modellingcore.IModelElement)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedMissionPkg":
+                            case "ownedMissionPkg":
                     {
                         var contained = (Auriga.Ctx.IMissionPkg)this.Facade.QueryElement(xmlReader);
                         contained.Container = poco;
                         poco.OwnedMissionPkg = contained;
                         break;
                     }
-                        case "ownedOperationalAnalysisRealizations":
+                            case "ownedOperationalAnalysisRealizations":
                         poco.OwnedOperationalAnalysisRealizations.Add((Auriga.Ctx.IOperationalAnalysisRealization)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedPropertyValueGroups":
+                            case "ownedPropertyValueGroups":
                         poco.OwnedPropertyValueGroups.Add((Auriga.Capellacore.IPropertyValueGroup)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedPropertyValuePkgs":
+                            case "ownedPropertyValuePkgs":
                         poco.OwnedPropertyValuePkgs.Add((Auriga.Capellacore.IPropertyValuePkg)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedPropertyValues":
+                            case "ownedPropertyValues":
                         poco.OwnedPropertyValues.Add((Auriga.Capellacore.IAbstractPropertyValue)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedSystemComponentPkg":
+                            case "ownedSystemComponentPkg":
                     {
                         var contained = (Auriga.Ctx.ISystemComponentPkg)this.Facade.QueryElement(xmlReader);
                         contained.Container = poco;
                         poco.OwnedSystemComponentPkg = contained;
                         break;
                     }
-                        case "ownedTraces":
+                            case "ownedTraces":
                         poco.OwnedTraces.Add((Auriga.Capellacore.ITrace)this.Facade.QueryElement(xmlReader));
                         break;
-                        default:
-                            SkipElement(xmlReader);
-                            break;
+                            default:
+                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of SystemAnalysis at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
+                                SkipElement(xmlReader);
+                                break;
+                        }
                     }
                 }
+            }
+            else
+            {
+                this.Logger.LogWarning("Expected an element to read SystemAnalysis but found {NodeType} at line {Line}:{Position}", xmlReader.NodeType, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
             }
 
             return poco;

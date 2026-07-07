@@ -15,10 +15,13 @@
 
 namespace Auriga.Xmi.AutoGenXmiReaders.Re
 {
+    using System;
     using System.Xml;
 
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Readers;
+
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// The generated XMI reader that instantiates and populates an <c>CatalogElement</c> from its
@@ -32,8 +35,9 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
         /// </summary>
         /// <param name="cache">the element cache</param>
         /// <param name="facade">the reader facade used to read contained elements</param>
-        public CatalogElementReader(IXmiElementCache cache, IXmiReaderFacade facade)
-            : base(cache, facade)
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public CatalogElementReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory loggerFactory)
+            : base(cache, facade, loggerFactory)
         {
         }
 
@@ -44,52 +48,65 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
         /// <returns>the populated <see cref="Auriga.Re.ICatalogElement"/></returns>
         public Auriga.Re.ICatalogElement Read(XmlReader xmlReader)
         {
+            if (xmlReader == null)
+            {
+                throw new ArgumentNullException(nameof(xmlReader));
+            }
+
             var poco = new Auriga.Re.CatalogElement();
 
-            xmlReader.MoveToContent();
+            var xmlLineInfo = xmlReader as IXmlLineInfo;
 
-            poco.Id = xmlReader.GetAttribute("id");
-            poco.Author = xmlReader.GetAttribute("author");
-            CollectSingleValueReference(poco, "CurrentCompliancy", xmlReader.GetAttribute("currentCompliancy"));
-            CollectSingleValueReference(poco, "DefaultReplicaCompliancy", xmlReader.GetAttribute("defaultReplicaCompliancy"));
-            poco.Description = xmlReader.GetAttribute("description");
-            poco.Environment = xmlReader.GetAttribute("environment");
-            { if (TryParseEnum<Auriga.Re.CatalogElementKind>(xmlReader.GetAttribute("kind"), out var parsed)) { poco.Kind = parsed; } }
-            poco.Name = xmlReader.GetAttribute("name");
-            CollectSingleValueReference(poco, "Origin", xmlReader.GetAttribute("origin"));
-            poco.Purpose = xmlReader.GetAttribute("purpose");
-            { var raw = xmlReader.GetAttribute("readOnly"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.ReadOnly = parsed; } }
-            poco.Suffix = xmlReader.GetAttribute("suffix");
-            foreach (var token in (xmlReader.GetAttribute("tags") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries)) { poco.Tags.Add(token); }
-            poco.Version = xmlReader.GetAttribute("version");
-
-            this.Cache.TryAdd(poco);
-
-            if (!xmlReader.IsEmptyElement)
+            if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.Element)
-                    {
-                        continue;
-                    }
+                poco.Id = xmlReader.GetAttribute("id");
+                poco.Author = xmlReader.GetAttribute("author");
+                CollectSingleValueReference(poco, "CurrentCompliancy", xmlReader.GetAttribute("currentCompliancy"));
+                CollectSingleValueReference(poco, "DefaultReplicaCompliancy", xmlReader.GetAttribute("defaultReplicaCompliancy"));
+                poco.Description = xmlReader.GetAttribute("description");
+                poco.Environment = xmlReader.GetAttribute("environment");
+                { if (TryParseEnum<Auriga.Re.CatalogElementKind>(xmlReader.GetAttribute("kind"), out var parsed)) { poco.Kind = parsed; } }
+                poco.Name = xmlReader.GetAttribute("name");
+                CollectSingleValueReference(poco, "Origin", xmlReader.GetAttribute("origin"));
+                poco.Purpose = xmlReader.GetAttribute("purpose");
+                { var raw = xmlReader.GetAttribute("readOnly"); if (!string.IsNullOrEmpty(raw) && bool.TryParse(raw, out var parsed)) { poco.ReadOnly = parsed; } }
+                poco.Suffix = xmlReader.GetAttribute("suffix");
+                foreach (var token in (xmlReader.GetAttribute("tags") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries)) { poco.Tags.Add(token); }
+                poco.Version = xmlReader.GetAttribute("version");
 
-                    switch (xmlReader.LocalName)
+                this.Cache.TryAdd(poco);
+
+                if (!xmlReader.IsEmptyElement)
+                {
+                    while (xmlReader.Read())
                     {
-                        case "ownedElements":
+                        if (xmlReader.NodeType != XmlNodeType.Element)
+                        {
+                            continue;
+                        }
+
+                        switch (xmlReader.LocalName)
+                        {
+                            case "ownedElements":
                         poco.OwnedElements.Add((Auriga.Re.ICatalogElement)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedExtensions":
+                            case "ownedExtensions":
                         poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
                         break;
-                        case "ownedLinks":
+                            case "ownedLinks":
                         poco.OwnedLinks.Add((Auriga.Re.ICatalogElementLink)this.Facade.QueryElement(xmlReader));
                         break;
-                        default:
-                            SkipElement(xmlReader);
-                            break;
+                            default:
+                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of CatalogElement at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
+                                SkipElement(xmlReader);
+                                break;
+                        }
                     }
                 }
+            }
+            else
+            {
+                this.Logger.LogWarning("Expected an element to read CatalogElement but found {NodeType} at line {Line}:{Position}", xmlReader.NodeType, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
             }
 
             return poco;

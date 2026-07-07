@@ -15,10 +15,13 @@
 
 namespace {{ReaderNamespace this}}
 {
+    using System;
     using System.Xml;
 
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Readers;
+
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// The generated XMI reader that instantiates and populates an <c>{{TypeNameRaw this}}</c> from its
@@ -32,8 +35,9 @@ namespace {{ReaderNamespace this}}
         /// </summary>
         /// <param name="cache">the element cache</param>
         /// <param name="facade">the reader facade used to read contained elements</param>
-        public {{ReaderClassName this}}(IXmiElementCache cache, IXmiReaderFacade facade)
-            : base(cache, facade)
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public {{ReaderClassName this}}(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory loggerFactory)
+            : base(cache, facade, loggerFactory)
         {
         }
 
@@ -44,36 +48,49 @@ namespace {{ReaderNamespace this}}
         /// <returns>the populated <see cref="{{PocoInterface this}}"/></returns>
         public {{PocoInterface this}} Read(XmlReader xmlReader)
         {
+            if (xmlReader == null)
+            {
+                throw new ArgumentNullException(nameof(xmlReader));
+            }
+
             var poco = new {{PocoType this}}();
 
-            xmlReader.MoveToContent();
+            var xmlLineInfo = xmlReader as IXmlLineInfo;
 
-            poco.Id = xmlReader.GetAttribute("id");
-            {{#each (ReaderAttributeFeatures this)}}
-            {{AttributeRead this}}
-            {{/each}}
-
-            this.Cache.TryAdd(poco);
-
-            if (!xmlReader.IsEmptyElement)
+            if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.Element)
-                    {
-                        continue;
-                    }
+                poco.Id = xmlReader.GetAttribute("id");
+                {{#each (ReaderAttributeFeatures this)}}
+                {{AttributeRead this}}
+                {{/each}}
 
-                    switch (xmlReader.LocalName)
+                this.Cache.TryAdd(poco);
+
+                if (!xmlReader.IsEmptyElement)
+                {
+                    while (xmlReader.Read())
                     {
-                        {{#each (ReaderElementFeatures this)}}
-                        {{ElementCase this}}
-                        {{/each}}
-                        default:
-                            SkipElement(xmlReader);
-                            break;
+                        if (xmlReader.NodeType != XmlNodeType.Element)
+                        {
+                            continue;
+                        }
+
+                        switch (xmlReader.LocalName)
+                        {
+                            {{#each (ReaderElementFeatures this)}}
+                            {{ElementCase this}}
+                            {{/each}}
+                            default:
+                                this.Logger.LogTrace("Skipping unmapped element '{Element}' of {{TypeNameRaw this}} at line {Line}:{Position}", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
+                                SkipElement(xmlReader);
+                                break;
+                        }
                     }
                 }
+            }
+            else
+            {
+                this.Logger.LogWarning("Expected an element to read {{TypeNameRaw this}} but found {NodeType} at line {Line}:{Position}", xmlReader.NodeType, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
             }
 
             return poco;

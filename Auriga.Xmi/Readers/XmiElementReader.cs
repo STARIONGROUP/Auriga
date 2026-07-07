@@ -15,6 +15,9 @@ namespace Auriga.Xmi.Readers
 
     using Auriga.Xmi.Cache;
 
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.Abstractions;
+
     /// <summary>
     /// The abstract base class from which every generated per-type XMI reader derives. It holds the
     /// shared <see cref="IXmiElementCache"/> and <see cref="IXmiReaderFacade"/> and provides the helpers
@@ -37,10 +40,12 @@ namespace Auriga.Xmi.Readers
         /// </summary>
         /// <param name="cache">the cache in which every read element is registered by <c>xmi:id</c></param>
         /// <param name="facade">the facade used to read contained elements</param>
-        protected XmiElementReader(IXmiElementCache cache, IXmiReaderFacade facade)
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        protected XmiElementReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory? loggerFactory = null)
         {
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.Facade = facade ?? throw new ArgumentNullException(nameof(facade));
+            this.Logger = (loggerFactory ?? NullLoggerFactory.Instance).CreateLogger(this.GetType());
         }
 
         /// <summary>
@@ -52,6 +57,11 @@ namespace Auriga.Xmi.Readers
         /// Gets the facade used to read contained elements.
         /// </summary>
         protected IXmiReaderFacade Facade { get; }
+
+        /// <summary>
+        /// Gets the logger used to report unexpected content (categorized by the concrete reader type).
+        /// </summary>
+        protected ILogger Logger { get; }
 
         /// <summary>
         /// Records a single-valued cross-reference, parsed from an attribute value of the form
