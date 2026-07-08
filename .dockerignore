@@ -1,0 +1,9 @@
+# Keep the Docker build context small and reproducible: only sources and the vendored .ecore files are
+# needed to render the report; build artifacts and VCS metadata are not.
+**/bin/
+**/obj/
+.git/
+.github/
+.vs/
+report-output/
+*.user

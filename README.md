@@ -22,6 +22,10 @@ The **Auriga.Extensions** library provides extension methods to the Auriga libra
 
 The **Auriga.CodeGenerator** is an Ecore-to-C# code generator, built on [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) and [ECoreNetto.HandleBars](https://github.com/STARIONGROUP/EcoreNetto), that emits the Auriga object model from the vendored Capella `.ecore` files. It is a development-time tool and is not published as a package.
 
+## Auriga.Reporting
+
+The **Auriga.Reporting** tool renders a browsable, self-contained static HTML report of the Capella metamodel from the vendored `.ecore` files — one cross-linked page per package, class and enumeration — mirroring what [sysml2.net](https://sysml2.net) does for the SysML v2 metamodel. A multi-stage [`Dockerfile`](Dockerfile) builds the report and serves it via nginx. See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
+
 # Code Quality
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=STARIONGROUP_Auriga&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=STARIONGROUP_Auriga)
@@ -59,6 +63,7 @@ Background and design documentation lives in the [`docs`](docs) folder:
   - [Capella Metamodel Inventory](docs/metamodel-inventory.md) — the `.ecore` files, the inter-package dependency graph, and the v1 code-generation scope
   - [Arcadia Semantics Not Visible in Raw Ecore](docs/arcadia-notes.md) — the layer, allocation, realization, and containment conventions the public API must respect
   - [ECoreNetto Validation Against the Capella Metamodel](docs/ecorenetto-validation.md) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
+  - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with a Dockerfile)
 
 # Capella and Arcadia Documentation
 

@@ -430,3 +430,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 .idea/
+
+# Auriga.Reporting generated site
+report-output/

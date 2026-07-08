@@ -1,0 +1,17 @@
+<nav class="crumb"><a href="index.html">metamodel</a> › <a href="package.{{PackageName}}.html">{{PackageName}}</a> › <span>{{Name}}</span></nav>
+<h1><span class="kind">enumeration</span> <code>{{Name}}</code></h1>
+{{> doc Documentation}}
+<table class="features">
+    <thead>
+        <tr><th>Literal</th><th class="num">Value</th><th>Documentation</th></tr>
+    </thead>
+    <tbody>
+{{#each Literals}}
+        <tr>
+            <td><code>{{Name}}</code></td>
+            <td class="num">{{Value}}</td>
+            <td class="doc">{{#each Documentation}}{{this}} {{/each}}</td>
+        </tr>
+{{/each}}
+    </tbody>
+</table>

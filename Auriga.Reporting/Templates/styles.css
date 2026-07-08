@@ -1,0 +1,111 @@
+/* Auriga Capella metamodel report — self-contained styles (no external dependencies). */
+
+:root {
+    --fg: #1c2126;
+    --muted: #5b6772;
+    --bg: #ffffff;
+    --panel: #f6f8fa;
+    --border: #d5dce3;
+    --link: #0a5ad6;
+    --accent: #0a5ad6;
+    --tag-bg: #eef2f6;
+    --code: #24292f;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fg: #e6edf3;
+        --muted: #9aa7b2;
+        --bg: #0d1117;
+        --panel: #161b22;
+        --border: #30363d;
+        --link: #58a6ff;
+        --accent: #58a6ff;
+        --tag-bg: #21262d;
+        --code: #c9d1d9;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    color: var(--fg);
+    background: var(--bg);
+}
+
+header {
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+}
+
+header .home {
+    font-weight: 600;
+    color: var(--fg);
+    text-decoration: none;
+}
+
+main {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+footer {
+    max-width: 62rem;
+    margin: 2rem auto 3rem;
+    padding: 1rem 1.5rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1 { font-size: 1.6rem; margin: 0.2rem 0 0.6rem; }
+h2 { font-size: 1.15rem; margin: 1.6rem 0 0.6rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+
+h1 .kind { color: var(--muted); font-weight: 400; font-size: 1.1rem; }
+h2 .count { color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+
+code { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; color: var(--code); }
+h1 code { font-size: 1.5rem; }
+
+.crumb { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.6rem; }
+.crumb span { color: var(--fg); }
+
+.counts { color: var(--muted); }
+
+table { border-collapse: collapse; width: 100%; margin: 0.5rem 0 1rem; font-size: 0.9rem; }
+th, td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+th.num, td.num { text-align: right; white-space: nowrap; }
+td.doc { color: var(--muted); }
+
+.listing td a { font-weight: 500; }
+
+tr.computed td { color: var(--muted); }
+
+ul.types { list-style: none; padding: 0; margin: 0.3rem 0 1rem; }
+ul.types li { padding: 0.2rem 0; }
+ul.types.inline { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; }
+ul.types.inline li { padding: 0; }
+
+.tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    padding: 0 0.45rem;
+    vertical-align: middle;
+}
+
+.ext { color: var(--muted); }
+
+.table-scroll { overflow-x: auto; }
