@@ -45,8 +45,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
         /// Reads an <c>RecCatalog</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <param name="documentName">the document being read, relative to the model's main file</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <returns>the populated <see cref="Auriga.Re.IRecCatalog"/></returns>
-        public Auriga.Re.IRecCatalog Read(XmlReader xmlReader)
+        public Auriga.Re.IRecCatalog Read(XmlReader xmlReader, string documentName, string namespaceUri)
         {
             if (xmlReader == null)
             {
@@ -60,6 +62,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
             if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
                 poco.Id = xmlReader.GetAttribute("id");
+                poco.SourceDocument = documentName;
                 poco.Name = xmlReader.GetAttribute("name");
 
                 this.Cache.TryAdd(poco);
@@ -85,9 +88,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
                                 }
                                 else
                                 {
-                                    var contained = (Auriga.Re.ICompliancyDefinitionPkg)this.Facade.QueryElement(xmlReader);
-                                    contained.Container = poco;
-                                    poco.OwnedCompliancyDefinitionPkg = contained;
+                                    poco.OwnedCompliancyDefinitionPkg = (Auriga.Re.ICompliancyDefinitionPkg)this.Facade.QueryElement(xmlReader, documentName, namespaceUri);
                                 }
 
                                 break;
@@ -102,7 +103,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
                                 }
                                 else
                                 {
-                                    poco.OwnedElementPkgs.Add((Auriga.Re.ICatalogElementPkg)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedElementPkgs.Add((Auriga.Re.ICatalogElementPkg)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -117,7 +118,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
                                 }
                                 else
                                 {
-                                    poco.OwnedElements.Add((Auriga.Re.ICatalogElement)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedElements.Add((Auriga.Re.ICatalogElement)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -132,7 +133,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Re
                                 }
                                 else
                                 {
-                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;

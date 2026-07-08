@@ -45,8 +45,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders.CapellaRequirements
         /// Reads an <c>CapellaTypesFolder</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <param name="documentName">the document being read, relative to the model's main file</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <returns>the populated <see cref="Auriga.CapellaRequirements.ICapellaTypesFolder"/></returns>
-        public Auriga.CapellaRequirements.ICapellaTypesFolder Read(XmlReader xmlReader)
+        public Auriga.CapellaRequirements.ICapellaTypesFolder Read(XmlReader xmlReader, string documentName, string namespaceUri)
         {
             if (xmlReader == null)
             {
@@ -60,6 +62,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.CapellaRequirements
             if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
                 poco.Id = xmlReader.GetAttribute("id");
+                poco.SourceDocument = documentName;
                 poco.ReqIFDescription = xmlReader.GetAttribute("ReqIFDescription");
                 poco.ReqIFIdentifier = xmlReader.GetAttribute("ReqIFIdentifier");
                 poco.ReqIFLongName = xmlReader.GetAttribute("ReqIFLongName");
@@ -87,7 +90,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.CapellaRequirements
                                 }
                                 else
                                 {
-                                    poco.OwnedDefinitionTypes.Add((Auriga.Requirements.IDataTypeDefinition)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedDefinitionTypes.Add((Auriga.Requirements.IDataTypeDefinition)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -102,7 +105,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.CapellaRequirements
                                 }
                                 else
                                 {
-                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -117,7 +120,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.CapellaRequirements
                                 }
                                 else
                                 {
-                                    poco.OwnedTypes.Add((Auriga.Requirements.IAbstractType)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedTypes.Add((Auriga.Requirements.IAbstractType)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;

@@ -13,9 +13,10 @@ namespace Auriga.Xmi.Cache
 
     /// <summary>
     /// The cache in which every <see cref="IAurigaElement"/> read from an XMI document is registered,
-    /// keyed by its <c>xmi:id</c>. The reader populates it on the first (instantiation) pass; the
-    /// reference resolver reads it on the second pass to turn the collected <c>#id</c> references into
-    /// object references. This mirrors the <c>IXmiElementCache</c> of uml4net.
+    /// keyed by its document-scoped key (<c>documentName#id</c>). The reader populates it on the first
+    /// (instantiation) pass; the reference resolver reads it on the second pass to turn the collected
+    /// references into object references, using the document component to resolve <c>href</c>s that name
+    /// another document. This mirrors the <c>IXmiElementCache</c> of uml4net.
     /// </summary>
     public interface IXmiElementCache
     {
@@ -39,12 +40,13 @@ namespace Auriga.Xmi.Cache
         bool TryAdd(IAurigaElement element);
 
         /// <summary>
-        /// Looks up the element registered under the supplied identifier.
+        /// Looks up the element registered under the supplied document-scoped key
+        /// (<c>documentName#id</c>).
         /// </summary>
-        /// <param name="id">the <c>xmi:id</c> of the element (without a leading <c>#</c>)</param>
+        /// <param name="key">the document-scoped key of the element</param>
         /// <param name="element">the resolved element, or <c>null</c> when not found</param>
-        /// <returns>true when an element with the identifier is present</returns>
-        bool TryGetValue(string id, out IAurigaElement? element);
+        /// <returns>true when an element with the key is present</returns>
+        bool TryGetValue(string key, out IAurigaElement? element);
 
         /// <summary>
         /// Removes every element from the cache.

@@ -28,9 +28,10 @@ namespace Auriga.Xmi.Namespaces
         private static readonly Regex TrailingVersion = new Regex(@"/\d+(\.\d+)*/?$", RegexOptions.Compiled);
 
         /// <summary>
-        /// The exact namespace-URI-to-package-name map supplied at construction.
+        /// The exact namespace-URI-to-package-name map, seeded from the metamodel and extendable via
+        /// <see cref="RegisterNamespace"/>.
         /// </summary>
-        private readonly IReadOnlyDictionary<string, string> namespaceToPackage;
+        private readonly Dictionary<string, string> namespaceToPackage;
 
         /// <summary>
         /// The version-stripped namespace-to-package map, used as a fallback when an exact URI match fails.
@@ -43,13 +44,40 @@ namespace Auriga.Xmi.Namespaces
         /// <param name="namespaceToPackage">the namespace-URI-to-package-name map (from the metamodel)</param>
         public NamespaceResolver(IReadOnlyDictionary<string, string> namespaceToPackage)
         {
-            this.namespaceToPackage = namespaceToPackage ?? throw new ArgumentNullException(nameof(namespaceToPackage));
+            if (namespaceToPackage == null)
+            {
+                throw new ArgumentNullException(nameof(namespaceToPackage));
+            }
 
+            this.namespaceToPackage = new Dictionary<string, string>(StringComparer.Ordinal);
             this.versionStrippedToPackage = new Dictionary<string, string>(StringComparer.Ordinal);
+
             foreach (var pair in namespaceToPackage)
             {
-                this.versionStrippedToPackage[StripVersion(pair.Key)] = pair.Value;
+                this.RegisterNamespace(pair.Key, pair.Value);
             }
+        }
+
+        /// <summary>
+        /// Registers a known namespace URI and the Ecore package it identifies, so it can subsequently be
+        /// resolved by an exact or version-stripped match.
+        /// </summary>
+        /// <param name="namespaceUri">the XML namespace URI</param>
+        /// <param name="package">the Ecore package name it identifies</param>
+        public void RegisterNamespace(string namespaceUri, string package)
+        {
+            if (namespaceUri == null)
+            {
+                throw new ArgumentNullException(nameof(namespaceUri));
+            }
+
+            if (package == null)
+            {
+                throw new ArgumentNullException(nameof(package));
+            }
+
+            this.namespaceToPackage[namespaceUri] = package;
+            this.versionStrippedToPackage[StripVersion(namespaceUri)] = package;
         }
 
         /// <summary>

@@ -45,8 +45,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
         /// Reads an <c>EnumerationValueAttribute</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <param name="documentName">the document being read, relative to the model's main file</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <returns>the populated <see cref="Auriga.Requirements.IEnumerationValueAttribute"/></returns>
-        public Auriga.Requirements.IEnumerationValueAttribute Read(XmlReader xmlReader)
+        public Auriga.Requirements.IEnumerationValueAttribute Read(XmlReader xmlReader, string documentName, string namespaceUri)
         {
             if (xmlReader == null)
             {
@@ -60,6 +62,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
             if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
                 poco.Id = xmlReader.GetAttribute("id");
+                poco.SourceDocument = documentName;
                 CollectSingleValueReference(poco, "Definition", xmlReader.GetAttribute("definition"));
                 poco.DefinitionProxy = xmlReader.GetAttribute("definitionProxy");
                 CollectMultiValueReferences(poco, "Values", xmlReader.GetAttribute("values"));
@@ -102,7 +105,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
                                 }
                                 else
                                 {
-                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;

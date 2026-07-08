@@ -45,8 +45,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Libraries
         /// Reads an <c>ModelInformation</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <param name="documentName">the document being read, relative to the model's main file</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <returns>the populated <see cref="Auriga.Libraries.IModelInformation"/></returns>
-        public Auriga.Libraries.IModelInformation Read(XmlReader xmlReader)
+        public Auriga.Libraries.IModelInformation Read(XmlReader xmlReader, string documentName, string namespaceUri)
         {
             if (xmlReader == null)
             {
@@ -60,6 +62,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Libraries
             if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
                 poco.Id = xmlReader.GetAttribute("id");
+                poco.SourceDocument = documentName;
                 CollectSingleValueReference(poco, "Version", xmlReader.GetAttribute("version"));
 
                 this.Cache.TryAdd(poco);
@@ -85,7 +88,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Libraries
                                 }
                                 else
                                 {
-                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -100,7 +103,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Libraries
                                 }
                                 else
                                 {
-                                    poco.OwnedReferences.Add((Auriga.Libraries.ILibraryReference)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedReferences.Add((Auriga.Libraries.ILibraryReference)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;

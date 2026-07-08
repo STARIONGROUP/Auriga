@@ -167,12 +167,12 @@ namespace Auriga.Xmi
 
             this.RegisterDocumentNamespaces(xmlReader);
 
+            var namespaceUri = xmlReader.NamespaceURI;
             var rootTypeKey = this.ResolveRootTypeKey(xmlReader, documentName);
-            var root = this.facade.QueryElement(xmlReader, rootTypeKey);
 
-            this.TagSourceDocument(documentName);
-
-            return root;
+            // Each generated reader records documentName as the read element's source and caches it under
+            // its document-scoped key, so no post-hoc tagging pass is needed.
+            return this.facade.QueryElement(xmlReader, documentName, namespaceUri, rootTypeKey);
         }
 
         /// <summary>
@@ -228,22 +228,6 @@ namespace Auriga.Xmi
             this.logger.LogInformation("Read {Count} elements from {DocumentCount} document(s) of {Model}", this.cache.Count, documentCount, modelName);
 
             return new XmiReaderResult(root, this.BuildIndex(), unresolvedReferences);
-        }
-
-        /// <summary>
-        /// Records <paramref name="documentName"/> as the source of every element in the cache that does
-        /// not yet have one — that is, the elements just contributed by the document being read.
-        /// </summary>
-        /// <param name="documentName">the source document name to record</param>
-        private void TagSourceDocument(string documentName)
-        {
-            foreach (var element in this.cache.Values)
-            {
-                if (element.SourceDocument == null)
-                {
-                    element.SourceDocument = documentName;
-                }
-            }
         }
 
         /// <summary>

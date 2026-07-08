@@ -109,7 +109,7 @@ namespace Auriga.CodeGenerator.Helpers
         {
             var key = $"{eClass.EPackage.Name}:{eClass.Name}";
             var readerType = ReaderNamespace(eClass) + "." + ReaderClassName(eClass);
-            return $"[\"{key}\"] = xmlReader => new {readerType}(this.cache, this, this.loggerFactory).Read(xmlReader),";
+            return $"[\"{key}\"] = (xmlReader, documentName, namespaceUri) => new {readerType}(this.cache, this, this.loggerFactory).Read(xmlReader, documentName, namespaceUri),";
         }
 
         private static string RegistryEntry(EPackage package)
@@ -313,13 +313,11 @@ namespace Auriga.CodeGenerator.Helpers
             }
             else if (collection)
             {
-                lines.Add($"        poco.{propertyName}.Add(({elementType})this.Facade.QueryElement(xmlReader));");
+                lines.Add($"        poco.{propertyName}.Add(({elementType})this.Facade.QueryElement(xmlReader, documentName, namespaceUri));");
             }
             else
             {
-                lines.Add($"        var contained = ({elementType})this.Facade.QueryElement(xmlReader);");
-                lines.Add("        contained.Container = poco;");
-                lines.Add($"        poco.{propertyName} = contained;");
+                lines.Add($"        poco.{propertyName} = ({elementType})this.Facade.QueryElement(xmlReader, documentName, namespaceUri);");
             }
 
             lines.Add("    }");
