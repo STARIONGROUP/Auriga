@@ -434,3 +434,4 @@ FodyWeavers.xsd
 # Auriga.Reporting generated report
 report/
 report-output/
+HtmlDocs/index.html

@@ -1,5 +1,5 @@
-# Keep the Docker build context small and reproducible: only sources and the vendored .ecore files are
-# needed to render the report; build artifacts and VCS metadata are not.
+# Keep the Docker build context small and reproducible: the docs image only serves the pre-generated
+# HtmlDocs/index.html, so build artifacts and VCS metadata are not needed.
 **/bin/
 **/obj/
 .git/

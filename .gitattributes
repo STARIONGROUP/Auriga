@@ -11,3 +11,8 @@ Auriga.CodeGenerator.Tests/Expected/**/*.cs text eol=lf
 
 # The templates drive that output; keep them LF so a Windows checkout does not perturb generation.
 Auriga.CodeGenerator/Templates/*.hbs text eol=lf
+
+# Shell scripts and the docs image files must stay LF; CRLF breaks bash and the nginx entrypoint.
+*.sh                 text eol=lf
+HtmlDocs/Dockerfile  text eol=lf
+HtmlDocs/nginx.conf  text eol=lf

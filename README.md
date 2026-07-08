@@ -24,7 +24,7 @@ The **Auriga.CodeGenerator** is an Ecore-to-C# code generator, built on [ECoreNe
 
 ## Auriga.Reporting
 
-The **Auriga.Reporting** tool renders a browsable HTML report of the Capella metamodel from the vendored `.ecore` files, using the [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). A multi-stage [`Dockerfile`](Dockerfile) builds the report and serves it via nginx. See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
+The **Auriga.Reporting** tool renders a browsable HTML report of the Capella metamodel from the vendored `.ecore` files, using the [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
 
 # Code Quality
 
@@ -63,7 +63,7 @@ Background and design documentation lives in the [`docs`](docs) folder:
   - [Capella Metamodel Inventory](docs/metamodel-inventory.md) — the `.ecore` files, the inter-package dependency graph, and the v1 code-generation scope
   - [Arcadia Semantics Not Visible in Raw Ecore](docs/arcadia-notes.md) — the layer, allocation, realization, and containment conventions the public API must respect
   - [ECoreNetto Validation Against the Capella Metamodel](docs/ecorenetto-validation.md) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
-  - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with a Dockerfile)
+  - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with Docker build scripts)
 
 # Capella and Arcadia Documentation
 
