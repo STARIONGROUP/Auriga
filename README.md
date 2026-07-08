@@ -16,7 +16,7 @@ The **Auriga.Xmi** library provides an XMI reader implementation to read Capella
 
 ## Auriga.Extensions
 
-The **Auriga.Extensions** library provides extension methods to the Auriga library to support navigation and code generation: architecture-layer accessors and LINQ-friendly query helpers that respect the Arcadia methodology semantics. This library is part of the Auriga ecosystem.
+The **Auriga.Extensions** library provides LINQ-style query extension methods over the Auriga object graph, following the `uml4net.Extensions` pattern: containment navigation (`QueryAncestors`, `QueryRoot`, `QueryAllFunctions`, `QueryAllComponents`), component-functional allocation (`QueryAllocatedFunctions`, `IsAllocatedTo`, `QueryAllocatingBlocks`), function/component ports and functional exchanges, and cross-layer realization (`QueryRealizedFunctions`/`QueryRealizingFunctions` and the component equivalents). See [Query Extension Methods](docs/query-extensions.md).
 
 ## Auriga.CodeGenerator
 
@@ -64,6 +64,7 @@ Background and design documentation lives in the [`docs`](docs) folder:
   - [Arcadia Semantics Not Visible in Raw Ecore](docs/arcadia-notes.md) — the layer, allocation, realization, and containment conventions the public API must respect
   - [ECoreNetto Validation Against the Capella Metamodel](docs/ecorenetto-validation.md) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
   - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with Docker build scripts)
+  - [Query Extension Methods](docs/query-extensions.md) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
 
 # Capella and Arcadia Documentation
 

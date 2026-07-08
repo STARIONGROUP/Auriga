@@ -24,6 +24,14 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga.Extensions\Auriga.Extensions.csproj" />
+        <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\TestData\coffee-machine\coffee-machine-demo.capella">
+            <Link>TestData\coffee-machine-demo.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
