@@ -275,6 +275,10 @@ namespace Auriga.Tests
 
             public string? SourceDocument { get; set; }
 
+            public string? XsiType { get; set; }
+
+            public string? XmiNamespaceUri { get; set; }
+
             public System.Collections.Generic.IDictionary<string, string> SingleValueReferencePropertyIdentifiers { get; }
                 = new System.Collections.Generic.Dictionary<string, string>();
 
