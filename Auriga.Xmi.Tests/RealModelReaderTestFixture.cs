@@ -14,6 +14,8 @@ namespace Auriga.Xmi.Tests
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using Auriga.Xmi.Readers;
+
     using NUnit.Framework;
 
     /// <summary>

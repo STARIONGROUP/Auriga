@@ -5,6 +5,7 @@ Auriga/AutoGenClasses/**/*.cs        text eol=lf
 Auriga/AutoGenInterfaces/**/*.cs     text eol=lf
 Auriga/AutoGenEnumeration/**/*.cs    text eol=lf
 Auriga.Xmi/AutoGenXmiReaders/**/*.cs text eol=lf
+Auriga.Xmi/AutoGenXmiWriters/**/*.cs text eol=lf
 
 # The golden files mirror generated output and are compared byte-for-byte, so pin them to LF too.
 Auriga.CodeGenerator.Tests/Expected/**/*.cs text eol=lf

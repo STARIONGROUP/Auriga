@@ -12,7 +12,7 @@ The core library that contains the Capella object model: the C# implementation o
 
 ## Auriga.Xmi
 
-The **Auriga.Xmi** library provides an XMI reader implementation to read Capella semantic model files (`.capella` / `.melodymodeller`) and an XMI writer implementation to write them back. It resolves intra-file (`xmi:id`) and cross-file (`href`) references, including references that cross `.capellafragment` boundaries, into a fully resolved object graph.
+The **Auriga.Xmi** library provides an XMI reader implementation to read Capella semantic model files (`.capella` / `.melodymodeller`) and an XMI writer implementation to write them back. It resolves intra-file (`xmi:id`) and cross-file (`href`) references, including references that cross `.capellafragment` boundaries, into a fully resolved object graph. The writer serializes the graph back to Capella-faithful XMI, preserving the fragment layout — see [XMI Writer](docs/xmi-writer.md).
 
 ## Auriga.Extensions
 
@@ -65,6 +65,7 @@ Background and design documentation lives in the [`docs`](docs) folder:
   - [ECoreNetto Validation Against the Capella Metamodel](docs/ecorenetto-validation.md) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
   - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with Docker build scripts)
   - [Query Extension Methods](docs/query-extensions.md) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
+  - [XMI Writer](docs/xmi-writer.md) — serializing the object graph back to Capella-faithful XMI (`Auriga.Xmi`), fragment layout, and the fidelity model
 
 # Capella and Arcadia Documentation
 

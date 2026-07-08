@@ -45,7 +45,7 @@ jobs:
           # code generator. They are near-identical by construction and not hand-maintained, so they are
           # excluded from coverage and duplication so those gates reflect the hand-written code. The same
           # pattern also matches the golden copies under Auriga.CodeGenerator.Tests/Expected/AutoGen*.
-          GENERATED='**/AutoGenClasses/**/*.cs,**/AutoGenInterfaces/**/*.cs,**/AutoGenEnumeration/**/*.cs,**/AutoGenXmiReaders/**/*.cs'
+          GENERATED='**/AutoGenClasses/**/*.cs,**/AutoGenInterfaces/**/*.cs,**/AutoGenEnumeration/**/*.cs,**/AutoGenXmiReaders/**/*.cs,**/AutoGenXmiWriters/**/*.cs'
           dotnet sonarscanner begin /k:"STARIONGROUP_Auriga" /o:"stariongroup" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.coverage.exclusions="$GENERATED" /d:sonar.cpd.exclusions="$GENERATED"
 
       - name: Build
@@ -74,15 +74,15 @@ jobs:
           dotnet-version: '10.0.x'
 
       # The regeneration entry points are [Explicit] tests, so they only run when selected by this filter.
-      - name: Regenerate the object model and the XMI readers
-        run: dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_object_model|FullyQualifiedName~Regenerate_xmi_readers|FullyQualifiedName~Regenerate_expected_readers"
+      - name: Regenerate the object model and the XMI readers and writers
+        run: dotnet test Auriga.CodeGenerator.Tests --filter "FullyQualifiedName~Regenerate_object_model|FullyQualifiedName~Regenerate_xmi_readers|FullyQualifiedName~Regenerate_expected_readers|FullyQualifiedName~Regenerate_xmi_writers|FullyQualifiedName~Regenerate_expected_writers"
 
       - name: Fail if the committed generated code drifted from fresh output
         run: |
-          GENERATED='Auriga/AutoGenClasses Auriga/AutoGenInterfaces Auriga/AutoGenEnumeration Auriga.Xmi/AutoGenXmiReaders Auriga.CodeGenerator.Tests/Expected'
+          GENERATED='Auriga/AutoGenClasses Auriga/AutoGenInterfaces Auriga/AutoGenEnumeration Auriga.Xmi/AutoGenXmiReaders Auriga.Xmi/AutoGenXmiWriters Auriga.CodeGenerator.Tests/Expected'
           git add -A -- $GENERATED
           if ! git diff --cached --quiet -- $GENERATED; then
-            echo "::error::Committed generated code is out of date. Run the Regenerate_object_model, Regenerate_xmi_readers and Regenerate_expected_readers tests and commit the result."
+            echo "::error::Committed generated code is out of date. Run the Regenerate_object_model, Regenerate_xmi_readers, Regenerate_expected_readers, Regenerate_xmi_writers and Regenerate_expected_writers tests and commit the result."
             git diff --cached -- $GENERATED
             exit 1
           fi

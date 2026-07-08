@@ -13,6 +13,8 @@ namespace Auriga.Xmi.Tests
     using System.IO;
     using System.Linq;
 
+    using Auriga.Xmi.Readers;
+
     using NUnit.Framework;
 
     /// <summary>

@@ -1,0 +1,79 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="XmiElementWriterFacade.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+namespace Auriga.Xmi.AutoGenXmiWriters
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml;
+
+    using Auriga.Xmi.Writers;
+
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The generated registry that maps an element's runtime type to the writer that serializes it, and
+    /// writes a contained element by dispatching on that type. The inverse of <c>XmiReaderFacade</c>.
+    /// </summary>
+    public sealed class XmiElementWriterFacade : IXmiElementWriterFacade
+    {
+        private readonly Dictionary<Type, IXmiElementWriter> writers;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmiElementWriterFacade"/> class.
+        /// </summary>
+        /// <param name="loggerFactory">the logger factory shared with every writer, or <c>null</c> to disable logging</param>
+        public XmiElementWriterFacade(ILoggerFactory? loggerFactory = null)
+        {
+            this.writers = new Dictionary<Type, IXmiElementWriter>()
+            {
+                {{#each this}}
+                {{WriterFacadeEntry this}}
+                {{/each}}
+            };
+        }
+
+        /// <summary>
+        /// Writes <paramref name="element"/> as a contained child under <paramref name="roleName"/> by
+        /// dispatching to the writer registered for its runtime type.
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="element">the element to write</param>
+        /// <param name="roleName">the containment feature's XML name</param>
+        /// <param name="context">the write context</param>
+        public void WriteElement(XmlWriter xmlWriter, IAurigaElement element, string roleName, IXmiWriteContext context)
+        {
+            this.ResolveWriter(element).Write(xmlWriter, element, roleName, context);
+        }
+
+        /// <summary>
+        /// Resolves the per-type writer registered for <paramref name="element"/>'s runtime type.
+        /// </summary>
+        /// <param name="element">the element to resolve a writer for</param>
+        /// <returns>the writer registered for the element's runtime type</returns>
+        /// <exception cref="InvalidOperationException">no writer is registered for the element's type</exception>
+        public IXmiElementWriter ResolveWriter(IAurigaElement element)
+        {
+            if (!this.writers.TryGetValue(element.GetType(), out var writer))
+            {
+                throw new InvalidOperationException($"No XMI writer is registered for the type '{element.GetType().FullName}'.");
+            }
+
+            return writer;
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

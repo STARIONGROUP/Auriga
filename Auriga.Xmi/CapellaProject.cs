@@ -13,6 +13,7 @@ namespace Auriga.Xmi
     using System.Collections.Generic;
     using System.Linq;
 
+    using Auriga.Xmi.Readers;
     using Auriga.Xmi.ReferenceResolver;
 
     using Microsoft.Extensions.Logging;

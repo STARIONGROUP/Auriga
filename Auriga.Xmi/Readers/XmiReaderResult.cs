@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi
+namespace Auriga.Xmi.Readers
 {
     using System.Collections.Generic;
 

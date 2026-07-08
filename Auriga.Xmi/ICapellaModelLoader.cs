@@ -9,6 +9,8 @@
 
 namespace Auriga.Xmi
 {
+    using Auriga.Xmi.Readers;
+
     /// <summary>
     /// The project-level entry point that loads an on-disk Capella project — given the semantic model
     /// file (a <c>.capella</c> or legacy <c>.melodymodeller</c>) or the directory that contains it — into
