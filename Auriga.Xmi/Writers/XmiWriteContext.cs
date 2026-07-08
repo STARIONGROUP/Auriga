@@ -25,7 +25,10 @@ namespace Auriga.Xmi.Writers
             this.DocumentName = documentName ?? throw new ArgumentNullException(nameof(documentName));
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the name of the document currently being written, relative to the model's main file
+        /// (e.g. <c>sysmodel.capella</c> or <c>fragments/SA.capellafragment</c>).
+        /// </summary>
         public string DocumentName { get; }
     }
 }

@@ -47,13 +47,21 @@ namespace Auriga.Xmi.Writers
             this.Logger = (loggerFactory ?? NullLoggerFactory.Instance).CreateLogger(this.GetType());
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix of the element's package (e.g.
+        /// <c>org.polarsys.capella.core.data.pa</c>).
+        /// </summary>
         public abstract string NamespacePrefix { get; }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the element's XMI type name, unqualified (e.g. <c>PhysicalFunction</c>).
+        /// </summary>
         public abstract string TypeName { get; }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI of the element's package (e.g.
+        /// <c>http://www.polarsys.org/capella/core/pa/7.0.0</c>).
+        /// </summary>
         public abstract string NamespaceUri { get; }
 
         /// <summary>
@@ -66,7 +74,14 @@ namespace Auriga.Xmi.Writers
         /// </summary>
         protected ILogger Logger { get; }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Writes the element as a contained child under <paramref name="roleName"/>: the role-named start
+        /// tag, the <c>xsi:type</c>, then the body (id, attributes and children).
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="element">the element to write</param>
+        /// <param name="roleName">the containment feature's XML name (e.g. <c>ownedFunctions</c>)</param>
+        /// <param name="context">the write context</param>
         public void Write(XmlWriter xmlWriter, IAurigaElement element, string roleName, IXmiWriteContext context)
         {
             xmlWriter.WriteStartElement(roleName);
@@ -75,7 +90,14 @@ namespace Auriga.Xmi.Writers
             xmlWriter.WriteEndElement();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Writes the element's body only — its <c>id</c>, attributes and contained children — without the
+        /// enclosing start/end tag. Used for a document root, whose tag the <see cref="IXmiWriter"/> writes
+        /// with the package prefix and namespace declarations.
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="element">the element whose body to write</param>
+        /// <param name="context">the write context</param>
         public void WriteBody(XmlWriter xmlWriter, IAurigaElement element, IXmiWriteContext context)
         {
             this.WriteBody(xmlWriter, (T)element, context);
