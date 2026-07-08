@@ -41,9 +41,11 @@ namespace Auriga.Xmi.Tests
         }
 
         [Test]
-        public void Verify_that_a_capella_file_loads_into_a_resolved_graph()
+        [TestCase("coffee-machine-demo.capella")]
+        [TestCase("in-flight-entertainment-system.capella")]
+        public void Verify_that_a_capella_file_loads_into_a_resolved_graph(string fileName)
         {
-            var result = CapellaModelLoader.Create().Load(CoffeeMachineFile());
+            var result = CapellaModelLoader.Create().Load(ModelFile(fileName));
 
             Assert.Multiple(() =>
             {
@@ -150,9 +152,14 @@ namespace Auriga.Xmi.Tests
             Assert.That(() => CapellaModelLoader.Create().Load(notAModel), Throws.InstanceOf<InvalidDataException>());
         }
 
+        private static string ModelFile(string fileName)
+        {
+            return Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", fileName);
+        }
+
         private static string CoffeeMachineFile()
         {
-            return Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "coffee-machine-demo.capella");
+            return ModelFile("coffee-machine-demo.capella");
         }
 
         private static string MinimalFile()
