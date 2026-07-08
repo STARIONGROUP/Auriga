@@ -8,7 +8,7 @@
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <Version>0.1.0</Version>
-        <Description>Renders a browsable, self-contained static HTML report of the Capella metamodel from the vendored .ecore files, built on ECoreNetto and HandleBars. Development-time tool; not packable.</Description>
+        <Description>Renders a browsable HTML report of the Capella metamodel from the vendored .ecore files using the ECoreNetto.Reporting HTML report generator. Development-time tool; not packable.</Description>
         <PackageId>Auriga.Reporting</PackageId>
         <AssemblyTitle>Auriga.Reporting</AssemblyTitle>
         <RootNamespace>Auriga.Reporting</RootNamespace>
@@ -17,19 +17,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ECoreNetto" />
-        <PackageReference Include="ECoreNetto.HandleBars" />
+        <PackageReference Include="ECoreNetto.Reporting" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <!-- Reuse the shared metamodel loader and Ecore-to-C# feature helpers (both dev tools over the same .ecore). -->
-        <ProjectReference Include="..\Auriga.CodeGenerator\Auriga.CodeGenerator.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Include="Templates\*.hbs" />
-        <EmbeddedResource Include="Templates\*.css" />
     </ItemGroup>
 
     <ItemGroup>

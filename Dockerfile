@@ -15,7 +15,7 @@ WORKDIR /src
 COPY . .
 RUN dotnet run --project Auriga.Reporting -c Release -- \
     --ecore resources/ecore \
-    --output /report
+    --output /report/index.html
 
 # --- serve stage: static files via nginx ---
 FROM nginx:alpine AS serve

@@ -12,9 +12,14 @@ namespace Auriga.Reporting
     using System;
     using System.IO;
 
+    using ECoreNetto.Reporting.Generators;
+
+    using Microsoft.Extensions.Logging.Abstractions;
+
     /// <summary>
-    /// The command-line entry point: renders the Capella metamodel HTML report from the vendored
-    /// <c>.ecore</c> files into an output directory.
+    /// The command-line entry point: renders the Capella metamodel as an HTML report from the vendored
+    /// <c>.ecore</c> files, using the ECoreNetto <see cref="HtmlReportGenerator"/> — the same report
+    /// generator used by the sibling projects (uml4net, SysML2.NET).
     /// </summary>
     public static class Program
     {
@@ -23,32 +28,32 @@ namespace Auriga.Reporting
         /// </summary>
         /// <param name="args">
         /// the command-line arguments: <c>--ecore &lt;dir&gt;</c> (the vendored <c>.ecore</c> directory,
-        /// default <c>resources/ecore</c>) and <c>--output &lt;dir&gt;</c> (the site output directory,
-        /// default <c>report-output</c>)
+        /// default <c>resources/ecore</c>) and <c>--output &lt;file.html&gt;</c> (the HTML report file,
+        /// default <c>report/index.html</c>)
         /// </param>
         /// <returns>zero on success; a non-zero code on failure</returns>
         public static int Main(string[] args)
         {
             var ecoreDirectory = Option(args, "--ecore") ?? Path.Combine("resources", "ecore");
-            var outputDirectory = Option(args, "--output") ?? "report-output";
+            var outputFile = Option(args, "--output") ?? Path.Combine("report", "index.html");
 
             if (!Directory.Exists(ecoreDirectory))
             {
                 Console.Error.WriteLine($"Ecore directory not found: '{ecoreDirectory}'.");
-                Console.Error.WriteLine("Usage: Auriga.Reporting [--ecore <dir>] [--output <dir>]");
+                Console.Error.WriteLine("Usage: Auriga.Reporting [--ecore <dir>] [--output <file.html>]");
                 return 1;
             }
 
-            // The metamodel loader resolves each .ecore file as an absolute URI, so give it an absolute
-            // directory regardless of the (possibly relative) path supplied on the command line.
-            ecoreDirectory = Path.GetFullPath(ecoreDirectory);
-
             try
             {
-                var generator = new HtmlReportGenerator(ecoreDirectory);
-                generator.Write(outputDirectory);
+                var input = new DirectoryInfo(Path.GetFullPath(ecoreDirectory));
+                var output = new FileInfo(Path.GetFullPath(outputFile));
+                output.Directory?.Create();
 
-                Console.WriteLine($"Capella metamodel report written to '{Path.GetFullPath(outputDirectory)}'.");
+                var generator = new HtmlReportGenerator(NullLoggerFactory.Instance);
+                generator.GenerateCombinedReport(input, output);
+
+                Console.WriteLine($"Capella metamodel HTML report written to '{output.FullName}'.");
                 return 0;
             }
             catch (Exception exception)

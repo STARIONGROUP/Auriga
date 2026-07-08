@@ -24,7 +24,7 @@ The **Auriga.CodeGenerator** is an Ecore-to-C# code generator, built on [ECoreNe
 
 ## Auriga.Reporting
 
-The **Auriga.Reporting** tool renders a browsable, self-contained static HTML report of the Capella metamodel from the vendored `.ecore` files — one cross-linked page per package, class and enumeration — mirroring what [sysml2.net](https://sysml2.net) does for the SysML v2 metamodel. A multi-stage [`Dockerfile`](Dockerfile) builds the report and serves it via nginx. See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
+The **Auriga.Reporting** tool renders a browsable HTML report of the Capella metamodel from the vendored `.ecore` files, using the [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). A multi-stage [`Dockerfile`](Dockerfile) builds the report and serves it via nginx. See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
 
 # Code Quality
 
