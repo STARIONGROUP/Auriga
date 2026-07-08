@@ -311,7 +311,24 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets or sets the upper bound.
         /// </summary>
-        public Auriga.Modellingcore.IValueSpecification UpperBound { get; set; }
+        public Auriga.Modellingcore.IValueSpecification UpperBound
+        {
+            get => this.backingUpperBound;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingUpperBound = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="UpperBound"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IValueSpecification backingUpperBound;
 
         /// <summary>
         /// Gets or sets the visible in doc.
@@ -323,6 +340,62 @@ namespace Auriga.Fa
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>FunctionInputPort</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPortAllocations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPortRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedProtocols)
+            {
+                yield return element;
+            }
+
+            if (this.UpperBound != null)
+            {
+                yield return this.UpperBound;
+            }
+        }
     }
 }
 

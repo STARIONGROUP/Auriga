@@ -51,5 +51,32 @@ namespace Auriga
         /// </summary>
         public IDictionary<string, List<string>> MultiValueReferencePropertyIdentifiers { get; }
             = new Dictionary<string, List<string>>();
+
+        /// <summary>
+        /// Gets the elements directly contained by this element (the analogue of EMF's <c>eContents()</c>).
+        /// The base returns none; a generated class with containment features overrides this to yield them.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public virtual IEnumerable<IAurigaElement> QueryContainedElements()
+        {
+            yield break;
+        }
+
+        /// <summary>
+        /// Gets every element in this element's containment subtree — all descendants, depth-first.
+        /// </summary>
+        /// <returns>the transitive containment closure of this element</returns>
+        public IEnumerable<IAurigaElement> QueryAllContainedElements()
+        {
+            foreach (var child in this.QueryContainedElements())
+            {
+                yield return child;
+
+                foreach (var descendant in child.QueryAllContainedElements())
+                {
+                    yield return descendant;
+                }
+            }
+        }
     }
 }

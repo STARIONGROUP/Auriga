@@ -141,7 +141,24 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets or sets the owned default value.
         /// </summary>
-        public Auriga.Information.Datavalue.IAbstractStringValue OwnedDefaultValue { get; set; }
+        public Auriga.Information.Datavalue.IAbstractStringValue OwnedDefaultValue
+        {
+            get => this.backingOwnedDefaultValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDefaultValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDefaultValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IAbstractStringValue backingOwnedDefaultValue;
 
         /// <summary>
         /// Gets the owned enumeration property types.
@@ -186,7 +203,24 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets or sets the owned max length.
         /// </summary>
-        public Auriga.Information.Datavalue.INumericValue OwnedMaxLength { get; set; }
+        public Auriga.Information.Datavalue.INumericValue OwnedMaxLength
+        {
+            get => this.backingOwnedMaxLength;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMaxLength = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMaxLength"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.INumericValue backingOwnedMaxLength;
 
         /// <summary>
         /// Gets the owned migrated elements.
@@ -201,12 +235,46 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets or sets the owned min length.
         /// </summary>
-        public Auriga.Information.Datavalue.INumericValue OwnedMinLength { get; set; }
+        public Auriga.Information.Datavalue.INumericValue OwnedMinLength
+        {
+            get => this.backingOwnedMinLength;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMinLength = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMinLength"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.INumericValue backingOwnedMinLength;
 
         /// <summary>
         /// Gets or sets the owned null value.
         /// </summary>
-        public Auriga.Information.Datavalue.IAbstractStringValue OwnedNullValue { get; set; }
+        public Auriga.Information.Datavalue.IAbstractStringValue OwnedNullValue
+        {
+            get => this.backingOwnedNullValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedNullValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedNullValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IAbstractStringValue backingOwnedNullValue;
 
         /// <summary>
         /// Gets the owned property value groups.
@@ -323,6 +391,92 @@ namespace Auriga.Information.Datatype
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>StringType</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedDataValues)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDefaultValue != null)
+            {
+                yield return this.OwnedDefaultValue;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedGeneralizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedInformationRealizations)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedMaxLength != null)
+            {
+                yield return this.OwnedMaxLength;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedMinLength != null)
+            {
+                yield return this.OwnedMinLength;
+            }
+
+            if (this.OwnedNullValue != null)
+            {
+                yield return this.OwnedNullValue;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValuePkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

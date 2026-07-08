@@ -110,6 +110,9 @@ namespace Auriga.CodeGenerator.Helpers
             handlebars.RegisterHelper("InterfaceUsings", (_, arguments) => Usings(InterfaceFeatures((EClass)arguments[0]!)));
 
             handlebars.RegisterHelper("ClassUsings", (_, arguments) => Usings(ClassFeatures((EClass)arguments[0]!)));
+
+            handlebars.RegisterHelper("ContainmentTraversal", (writer, _, arguments) =>
+                writer.WriteSafeString(ContainmentTraversal((EClass)arguments[0]!)));
         }
 
         /// <summary>
@@ -201,7 +204,87 @@ namespace Auriga.CodeGenerator.Helpers
                 return $"public {type} {name} {{ get; }} = new List<{baseType}>();";
             }
 
+            if (containment)
+            {
+                // Single-valued containment: the setter re-parents the value so containment navigation
+                // (eContainer/eContents) works whether the value is set inline by the reader or through the
+                // reflection-based reference resolver.
+                var field = "backing" + name;
+                return $"public {type} {name}\n" +
+                       $"        {{\n" +
+                       $"            get => this.{field};\n" +
+                       $"            set\n" +
+                       $"            {{\n" +
+                       $"                if (value != null)\n" +
+                       $"                {{\n" +
+                       $"                    value.Container = this;\n" +
+                       $"                }}\n" +
+                       $"\n" +
+                       $"                this.{field} = value;\n" +
+                       $"            }}\n" +
+                       $"        }}\n\n" +
+                       $"        /// <summary>\n" +
+                       $"        /// Backing field for <see cref=\"{name}\"/>.\n" +
+                       $"        /// </summary>\n" +
+                       $"        private {type} {field};";
+            }
+
             return $"public {type} {name} {{ get; set; }}";
+        }
+
+        /// <summary>
+        /// Emits the <c>QueryContainedElements</c> override (the analogue of EMF's <c>eContents()</c>) for a
+        /// concrete class, yielding the value(s) of each of its containment features, or an empty string
+        /// when the class has no containment features (the base returns none).
+        /// </summary>
+        /// <param name="eClass">the class</param>
+        /// <returns>the override method, or an empty string</returns>
+        private static string ContainmentTraversal(EClass eClass)
+        {
+            var containments = ClassFeatures(eClass)
+                .Where(f => f is EReference { IsContainment: true })
+                .ToList();
+
+            if (containments.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            var builder = new StringBuilder();
+            builder.Append("        /// <summary>\n");
+            builder.Append($"        /// Gets the elements directly contained by this <c>{CSharpNaming.Capitalize(eClass.Name)}</c>.\n");
+            builder.Append("        /// </summary>\n");
+            builder.Append("        /// <returns>the directly contained elements</returns>\n");
+            builder.Append("        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()\n");
+            builder.Append("        {\n");
+
+            for (var i = 0; i < containments.Count; i++)
+            {
+                if (i > 0)
+                {
+                    builder.Append('\n');
+                }
+
+                var name = MemberName(containments[i]);
+
+                if (CSharpType.IsCollection(containments[i]))
+                {
+                    builder.Append($"            foreach (var element in this.{name})\n");
+                    builder.Append("            {\n");
+                    builder.Append("                yield return element;\n");
+                    builder.Append("            }\n");
+                }
+                else
+                {
+                    builder.Append($"            if (this.{name} != null)\n");
+                    builder.Append("            {\n");
+                    builder.Append($"                yield return this.{name};\n");
+                    builder.Append("            }\n");
+                }
+            }
+
+            builder.Append("        }");
+            return builder.ToString();
         }
 
         private static string MemberName(EStructuralFeature feature)

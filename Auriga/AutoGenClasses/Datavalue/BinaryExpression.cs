@@ -141,7 +141,24 @@ namespace Auriga.Information.Datavalue
         /// <summary>
         /// Gets or sets the owned left operand.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedLeftOperand { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedLeftOperand
+        {
+            get => this.backingOwnedLeftOperand;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedLeftOperand = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedLeftOperand"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedLeftOperand;
 
         /// <summary>
         /// Gets the owned migrated elements.
@@ -176,7 +193,24 @@ namespace Auriga.Information.Datavalue
         /// <summary>
         /// Gets or sets the owned right operand.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedRightOperand { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedRightOperand
+        {
+            get => this.backingOwnedRightOperand;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedRightOperand = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedRightOperand"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedRightOperand;
 
         /// <summary>
         /// Gets or sets the review.
@@ -228,6 +262,52 @@ namespace Auriga.Information.Datavalue
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>BinaryExpression</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedLeftOperand != null)
+            {
+                yield return this.OwnedLeftOperand;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedRightOperand != null)
+            {
+                yield return this.OwnedRightOperand;
+            }
+        }
     }
 }
 

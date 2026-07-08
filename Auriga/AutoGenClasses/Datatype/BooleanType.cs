@@ -141,7 +141,24 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets or sets the owned default value.
         /// </summary>
-        public Auriga.Information.Datavalue.IAbstractBooleanValue OwnedDefaultValue { get; set; }
+        public Auriga.Information.Datavalue.IAbstractBooleanValue OwnedDefaultValue
+        {
+            get => this.backingOwnedDefaultValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDefaultValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDefaultValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IAbstractBooleanValue backingOwnedDefaultValue;
 
         /// <summary>
         /// Gets the owned enumeration property types.
@@ -318,6 +335,82 @@ namespace Auriga.Information.Datatype
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>BooleanType</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedDataValues)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDefaultValue != null)
+            {
+                yield return this.OwnedDefaultValue;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedGeneralizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedInformationRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedLiterals)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValuePkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

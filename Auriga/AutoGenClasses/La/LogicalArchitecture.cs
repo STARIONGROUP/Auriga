@@ -116,7 +116,24 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the owned abstract capability pkg.
         /// </summary>
-        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
+        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg
+        {
+            get => this.backingOwnedAbstractCapabilityPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedAbstractCapabilityPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedAbstractCapabilityPkg"/>.
+        /// </summary>
+        private Auriga.Capellacommon.IAbstractCapabilityPkg backingOwnedAbstractCapabilityPkg;
 
         /// <summary>
         /// Gets the owned component exchange categories.
@@ -161,7 +178,24 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the owned data pkg.
         /// </summary>
-        public Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+        public Auriga.Information.IDataPkg OwnedDataPkg
+        {
+            get => this.backingOwnedDataPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDataPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDataPkg"/>.
+        /// </summary>
+        private Auriga.Information.IDataPkg backingOwnedDataPkg;
 
         /// <summary>
         /// Gets the owned enumeration property types.
@@ -186,7 +220,24 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the owned function pkg.
         /// </summary>
-        public Auriga.Fa.IFunctionPkg OwnedFunctionPkg { get; set; }
+        public Auriga.Fa.IFunctionPkg OwnedFunctionPkg
+        {
+            get => this.backingOwnedFunctionPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedFunctionPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedFunctionPkg"/>.
+        /// </summary>
+        private Auriga.Fa.IFunctionPkg backingOwnedFunctionPkg;
 
         /// <summary>
         /// Gets the owned functional allocations.
@@ -211,12 +262,46 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the owned interface pkg.
         /// </summary>
-        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg
+        {
+            get => this.backingOwnedInterfacePkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedInterfacePkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedInterfacePkg"/>.
+        /// </summary>
+        private Auriga.Cs.IInterfacePkg backingOwnedInterfacePkg;
 
         /// <summary>
         /// Gets or sets the owned logical component pkg.
         /// </summary>
-        public Auriga.La.ILogicalComponentPkg OwnedLogicalComponentPkg { get; set; }
+        public Auriga.La.ILogicalComponentPkg OwnedLogicalComponentPkg
+        {
+            get => this.backingOwnedLogicalComponentPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedLogicalComponentPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedLogicalComponentPkg"/>.
+        /// </summary>
+        private Auriga.La.ILogicalComponentPkg backingOwnedLogicalComponentPkg;
 
         /// <summary>
         /// Gets the owned migrated elements.
@@ -323,6 +408,112 @@ namespace Auriga.La
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>LogicalArchitecture</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedAbstractCapabilityPkg != null)
+            {
+                yield return this.OwnedAbstractCapabilityPkg;
+            }
+
+            foreach (var element in this.OwnedComponentExchangeCategories)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchangeRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchanges)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDataPkg != null)
+            {
+                yield return this.OwnedDataPkg;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedFunctionPkg != null)
+            {
+                yield return this.OwnedFunctionPkg;
+            }
+
+            foreach (var element in this.OwnedFunctionalAllocations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalLinks)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedInterfacePkg != null)
+            {
+                yield return this.OwnedInterfacePkg;
+            }
+
+            if (this.OwnedLogicalComponentPkg != null)
+            {
+                yield return this.OwnedLogicalComponentPkg;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValuePkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedSystemAnalysisRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

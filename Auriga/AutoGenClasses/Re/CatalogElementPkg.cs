@@ -55,6 +55,27 @@ namespace Auriga.Re
         /// </summary>
         private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>CatalogElementPkg</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedElementPkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

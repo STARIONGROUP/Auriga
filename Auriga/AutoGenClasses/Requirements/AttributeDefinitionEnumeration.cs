@@ -23,7 +23,24 @@ namespace Auriga.Requirements
         /// <summary>
         /// Gets or sets the default value.
         /// </summary>
-        public Auriga.Requirements.IAttribute DefaultValue { get; set; }
+        public Auriga.Requirements.IAttribute DefaultValue
+        {
+            get => this.backingDefaultValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingDefaultValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="DefaultValue"/>.
+        /// </summary>
+        private Auriga.Requirements.IAttribute backingDefaultValue;
 
         /// <summary>
         /// Gets or sets the definition type.
@@ -60,6 +77,22 @@ namespace Auriga.Requirements
         /// </summary>
         public string ReqIFLongName { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>AttributeDefinitionEnumeration</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            if (this.DefaultValue != null)
+            {
+                yield return this.DefaultValue;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

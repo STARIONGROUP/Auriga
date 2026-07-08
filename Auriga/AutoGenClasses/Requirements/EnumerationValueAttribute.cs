@@ -47,6 +47,17 @@ namespace Auriga.Requirements
         /// </summary>
         public List<Auriga.Requirements.IEnumValue> Values { get; } = new List<Auriga.Requirements.IEnumValue>();
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>EnumerationValueAttribute</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

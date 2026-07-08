@@ -146,7 +146,24 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets or sets the owned default value.
         /// </summary>
-        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedDefaultValue { get; set; }
+        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedDefaultValue
+        {
+            get => this.backingOwnedDefaultValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDefaultValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDefaultValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IAbstractEnumerationValue backingOwnedDefaultValue;
 
         /// <summary>
         /// Gets the owned enumeration property types.
@@ -201,7 +218,24 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets or sets the owned max value.
         /// </summary>
-        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedMaxValue { get; set; }
+        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedMaxValue
+        {
+            get => this.backingOwnedMaxValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMaxValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMaxValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IAbstractEnumerationValue backingOwnedMaxValue;
 
         /// <summary>
         /// Gets the owned migrated elements.
@@ -216,12 +250,46 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets or sets the owned min value.
         /// </summary>
-        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedMinValue { get; set; }
+        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedMinValue
+        {
+            get => this.backingOwnedMinValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMinValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMinValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IAbstractEnumerationValue backingOwnedMinValue;
 
         /// <summary>
         /// Gets or sets the owned null value.
         /// </summary>
-        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedNullValue { get; set; }
+        public Auriga.Information.Datavalue.IAbstractEnumerationValue OwnedNullValue
+        {
+            get => this.backingOwnedNullValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedNullValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedNullValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IAbstractEnumerationValue backingOwnedNullValue;
 
         /// <summary>
         /// Gets the owned property value groups.
@@ -338,6 +406,97 @@ namespace Auriga.Information.Datatype
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>Enumeration</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedDataValues)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDefaultValue != null)
+            {
+                yield return this.OwnedDefaultValue;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedGeneralizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedInformationRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedLiterals)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedMaxValue != null)
+            {
+                yield return this.OwnedMaxValue;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedMinValue != null)
+            {
+                yield return this.OwnedMinValue;
+            }
+
+            if (this.OwnedNullValue != null)
+            {
+                yield return this.OwnedNullValue;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValuePkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

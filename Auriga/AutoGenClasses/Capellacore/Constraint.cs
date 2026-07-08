@@ -136,7 +136,24 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets or sets the owned specification.
         /// </summary>
-        public Auriga.Modellingcore.IValueSpecification OwnedSpecification { get; set; }
+        public Auriga.Modellingcore.IValueSpecification OwnedSpecification
+        {
+            get => this.backingOwnedSpecification;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedSpecification = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedSpecification"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IValueSpecification backingOwnedSpecification;
 
         /// <summary>
         /// Gets or sets the review.
@@ -168,6 +185,47 @@ namespace Auriga.Capellacore
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>Constraint</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedSpecification != null)
+            {
+                yield return this.OwnedSpecification;
+            }
+        }
     }
 }
 

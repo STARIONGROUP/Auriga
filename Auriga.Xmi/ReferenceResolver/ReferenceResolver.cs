@@ -154,7 +154,12 @@ namespace Auriga.Xmi.ReferenceResolver
                         continue;
                     }
 
-                    collection.Add(target);
+                    // A containment collection is a ContainerList whose Add re-parents the target and rejects
+                    // duplicates; skip a target already present so a repeated href does not trip that guard.
+                    if (!collection.Contains(target))
+                    {
+                        collection.Add(target);
+                    }
                 }
             }
         }

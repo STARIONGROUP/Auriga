@@ -51,5 +51,20 @@ namespace Auriga
         /// reader's first pass and resolved on the second.
         /// </summary>
         IDictionary<string, List<string>> MultiValueReferencePropertyIdentifiers { get; }
+
+        /// <summary>
+        /// Gets the elements directly contained by this element (the analogue of EMF's <c>eContents()</c>) —
+        /// the values of its containment features. The reader and the containment collections keep these
+        /// consistent with each element's <see cref="Container"/>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        IEnumerable<IAurigaElement> QueryContainedElements();
+
+        /// <summary>
+        /// Gets every element in this element's containment subtree — all descendants, depth-first — so a
+        /// loaded model can be queried with LINQ, e.g. <c>project.QueryAllContainedElements().OfType&lt;…&gt;()</c>.
+        /// </summary>
+        /// <returns>the transitive containment closure of this element</returns>
+        IEnumerable<IAurigaElement> QueryAllContainedElements();
     }
 }

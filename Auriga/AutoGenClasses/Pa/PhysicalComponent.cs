@@ -241,7 +241,24 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets or sets the owned abstract capability pkg.
         /// </summary>
-        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
+        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg
+        {
+            get => this.backingOwnedAbstractCapabilityPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedAbstractCapabilityPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedAbstractCapabilityPkg"/>.
+        /// </summary>
+        private Auriga.Capellacommon.IAbstractCapabilityPkg backingOwnedAbstractCapabilityPkg;
 
         /// <summary>
         /// Gets the owned communication links.
@@ -296,7 +313,24 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets or sets the owned data pkg.
         /// </summary>
-        public Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+        public Auriga.Information.IDataPkg OwnedDataPkg
+        {
+            get => this.backingOwnedDataPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDataPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDataPkg"/>.
+        /// </summary>
+        private Auriga.Information.IDataPkg backingOwnedDataPkg;
 
         /// <summary>
         /// Gets the owned deployment links.
@@ -381,7 +415,24 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets or sets the owned interface pkg.
         /// </summary>
-        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg
+        {
+            get => this.backingOwnedInterfacePkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedInterfacePkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedInterfacePkg"/>.
+        /// </summary>
+        private Auriga.Cs.IInterfacePkg backingOwnedInterfacePkg;
 
         /// <summary>
         /// Gets the owned interface uses.
@@ -623,6 +674,152 @@ namespace Auriga.Pa
         /// </summary>
         public IEnumerable<Auriga.Information.Communication.ICommunicationLink> Write => Enumerable.Empty<Auriga.Information.Communication.ICommunicationLink>();
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>PhysicalComponent</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedAbstractCapabilityPkg != null)
+            {
+                yield return this.OwnedAbstractCapabilityPkg;
+            }
+
+            foreach (var element in this.OwnedCommunicationLinks)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchangeCategories)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchanges)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDataPkg != null)
+            {
+                yield return this.OwnedDataPkg;
+            }
+
+            foreach (var element in this.OwnedDeploymentLinks)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFeatures)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalAllocation)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedGeneralizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedInterfaceAllocations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedInterfaceImplementations)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedInterfacePkg != null)
+            {
+                yield return this.OwnedInterfacePkg;
+            }
+
+            foreach (var element in this.OwnedInterfaceUses)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalComponentPkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalComponents)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalLinkCategories)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalLinks)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalPath)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedStateMachines)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

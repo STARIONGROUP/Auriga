@@ -33,6 +33,9 @@ namespace {{Namespace this}}
         {{ClassDeclaration this}}
 
 {{/each}}
+{{#if (ContainmentTraversal this)}}
+{{{ContainmentTraversal this}}}
+{{/if}}
     }
 }
 

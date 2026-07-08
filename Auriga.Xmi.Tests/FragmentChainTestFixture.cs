@@ -115,5 +115,55 @@ namespace Auriga.Xmi.Tests
                 Assert.That(this.result.Elements["pa-1"].SourceDocument, Is.EqualTo("fragments/b.capellafragment"));
             });
         }
+
+        [Test]
+        public void Verify_that_walking_the_container_of_a_fragment_element_reaches_the_root()
+        {
+            // pa-1 lives in fragment b, se-1 in fragment a, proj-1 in the main file. Cross-document
+            // containment resolved through the ContainerList must have re-parented each element, so
+            // walking IAurigaElement.Container from the deepest fragment element reaches the Project root.
+            var physicalArchitecture = this.result.Elements["pa-1"];
+
+            var ancestors = Ancestors(physicalArchitecture).ToList();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(physicalArchitecture.Container, Is.SameAs(this.result.Elements["se-1"]));
+                Assert.That(ancestors, Does.Contain(this.result.Root));
+                Assert.That(ancestors.Last(), Is.SameAs(this.result.Root));
+            });
+        }
+
+        [Test]
+        public void Verify_that_the_root_can_enumerate_all_fragment_sourced_descendants()
+        {
+            var descendants = this.result.Root.QueryAllContainedElements().ToList();
+
+            Assert.Multiple(() =>
+            {
+                // se-1 (fragment a) and pa-1 (fragment b) are both reachable as descendants of the main root
+                Assert.That(descendants, Does.Contain(this.result.Elements["se-1"]));
+                Assert.That(descendants, Does.Contain(this.result.Elements["pa-1"]));
+
+                // the LINQ-over-the-whole-model pattern the issue calls for
+                Assert.That(
+                    this.result.Root.QueryAllContainedElements().OfType<Auriga.Capellamodeller.ISystemEngineering>().Single().Id,
+                    Is.EqualTo("se-1"));
+            });
+        }
+
+        /// <summary>
+        /// Walks the <see cref="Auriga.IAurigaElement.Container"/> chain of an element from its immediate
+        /// container up to the root, in order.
+        /// </summary>
+        /// <param name="element">the element whose ancestors are enumerated</param>
+        /// <returns>the ancestor chain, nearest first</returns>
+        private static System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> Ancestors(Auriga.IAurigaElement element)
+        {
+            for (var current = element.Container; current != null; current = current.Container)
+            {
+                yield return current;
+            }
+        }
     }
 }

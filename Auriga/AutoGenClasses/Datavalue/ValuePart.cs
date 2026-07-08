@@ -121,7 +121,24 @@ namespace Auriga.Information.Datavalue
         /// <summary>
         /// Gets or sets the owned value.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedValue { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedValue
+        {
+            get => this.backingOwnedValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedValue;
 
         /// <summary>
         /// Gets or sets the referenced property.
@@ -158,6 +175,47 @@ namespace Auriga.Information.Datavalue
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>ValuePart</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedValue != null)
+            {
+                yield return this.OwnedValue;
+            }
+        }
     }
 }
 
