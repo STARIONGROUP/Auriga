@@ -13,7 +13,7 @@
         <AssemblyTitle>Auriga.Extensions</AssemblyTitle>
         <PackageTags>Capella Arcadia Ecore MBSE modeltopia</PackageTags>
         <PackageReleaseNotes>
-            [Add] solution scaffold; fixes #5
+            [Add] LINQ query extension methods for functions, components, ports, exchanges, and cross-layer allocation/realization; fixes #16
         </PackageReleaseNotes>
     </PropertyGroup>
 
