@@ -43,6 +43,7 @@
         <Compile Remove="Expected\AutoGenClasses\**\*.cs" />
         <Compile Remove="Expected\AutoGenEnumeration\**\*.cs" />
         <Compile Remove="Expected\AutoGenXmiReaders\**\*.cs" />
+        <Compile Remove="Expected\AutoGenXmiWriters\**\*.cs" />
         <None Include="Expected\AutoGenInterfaces\**\*.cs">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -53,6 +54,9 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="Expected\AutoGenXmiReaders\**\*.cs">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="Expected\AutoGenXmiWriters\**\*.cs">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

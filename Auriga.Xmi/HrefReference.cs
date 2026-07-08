@@ -89,5 +89,64 @@ namespace Auriga.Xmi
 
             return string.Join("/", segments);
         }
+
+        /// <summary>
+        /// The inverse of <see cref="Canonicalize"/>: computes the URL-encoded <c>href</c> document path
+        /// from the document a reference is written in to the document that holds the target — both given as
+        /// canonical names relative to the model's main file. Used by the writer to serialize a
+        /// cross-document reference (e.g. <c>../sysmodel.capella</c> or <c>fragments/SA.capellafragment</c>).
+        /// </summary>
+        /// <param name="fromDocument">the canonical name of the referring document</param>
+        /// <param name="toDocument">the canonical name of the target document</param>
+        /// <returns>the URL-encoded relative document path, without the <c>#id</c></returns>
+        public static string Relativize(string? fromDocument, string toDocument)
+        {
+            var fromDirectory = DirectorySegments(fromDocument);
+
+            var toSegments = toDocument.Split('/');
+            var toDirectory = new string[toSegments.Length - 1];
+            Array.Copy(toSegments, toDirectory, toDirectory.Length);
+            var fileName = toSegments[toSegments.Length - 1];
+
+            var common = 0;
+            while (common < fromDirectory.Count && common < toDirectory.Length &&
+                   string.Equals(fromDirectory[common], toDirectory[common], StringComparison.Ordinal))
+            {
+                common++;
+            }
+
+            var parts = new List<string>();
+            for (var i = common; i < fromDirectory.Count; i++)
+            {
+                parts.Add("..");
+            }
+
+            for (var i = common; i < toDirectory.Length; i++)
+            {
+                parts.Add(Uri.EscapeDataString(toDirectory[i]));
+            }
+
+            parts.Add(Uri.EscapeDataString(fileName));
+
+            return string.Join("/", parts);
+        }
+
+        private static List<string> DirectorySegments(string? document)
+        {
+            var segments = new List<string>();
+
+            if (string.IsNullOrEmpty(document))
+            {
+                return segments;
+            }
+
+            var lastSlash = document!.LastIndexOf('/');
+            if (lastSlash >= 0)
+            {
+                segments.AddRange(document.Substring(0, lastSlash).Split('/'));
+            }
+
+            return segments;
+        }
     }
 }

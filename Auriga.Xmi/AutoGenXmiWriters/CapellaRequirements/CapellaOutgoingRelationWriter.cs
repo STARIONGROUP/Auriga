@@ -1,0 +1,73 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="CapellaOutgoingRelationWriter.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Xmi.AutoGenXmiWriters.CapellaRequirements
+{
+    using System.Xml;
+
+    using Auriga.Xmi.Writers;
+
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The generated XMI writer that serializes an <c>CapellaOutgoingRelation</c> back to its XMI
+    /// representation. Contained elements are written recursively through the facade; cross-references are
+    /// written as <c>#id</c> (or cross-document <c>href</c>) attributes.
+    /// </summary>
+    public class CapellaOutgoingRelationWriter : XmiElementWriter<Auriga.CapellaRequirements.ICapellaOutgoingRelation>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CapellaOutgoingRelationWriter"/> class.
+        /// </summary>
+        /// <param name="facade">the writer facade used to write contained elements</param>
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public CapellaOutgoingRelationWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+            : base(facade, loggerFactory)
+        {
+        }
+
+        /// <inheritdoc/>
+        public override string NamespacePrefix => "CapellaRequirements";
+
+        /// <inheritdoc/>
+        public override string TypeName => "CapellaOutgoingRelation";
+
+        /// <inheritdoc/>
+        public override string NamespaceUri => "http://www.polarsys.org/capella/requirements";
+
+        /// <summary>
+        /// Writes the <c>id</c>, attributes and contained children of an <c>CapellaOutgoingRelation</c>.
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="poco">the element whose body to write</param>
+        /// <param name="context">the write context</param>
+        protected override void WriteBody(XmlWriter xmlWriter, Auriga.CapellaRequirements.ICapellaOutgoingRelation poco, IXmiWriteContext context)
+        {
+            WriteId(xmlWriter, poco);
+            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
+            this.WriteReferenceAttribute(xmlWriter, "relationType", poco.RelationType, poco, "RelationType", context);
+            WriteStringAttribute(xmlWriter, "relationTypeProxy", poco.RelationTypeProxy);
+            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
+            WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
+            WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
+            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

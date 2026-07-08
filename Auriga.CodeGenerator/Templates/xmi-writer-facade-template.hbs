@@ -1,0 +1,69 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="XmiElementWriterFacade.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Xmi.AutoGenXmiWriters
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml;
+
+    using Auriga.Xmi.Writers;
+
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The generated registry that maps an element's runtime type to the writer that serializes it, and
+    /// writes a contained element by dispatching on that type. The inverse of <c>XmiReaderFacade</c>.
+    /// </summary>
+    public sealed class XmiElementWriterFacade : IXmiElementWriterFacade
+    {
+        private readonly Dictionary<Type, IXmiElementWriter> writers;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmiElementWriterFacade"/> class.
+        /// </summary>
+        /// <param name="loggerFactory">the logger factory shared with every writer, or <c>null</c> to disable logging</param>
+        public XmiElementWriterFacade(ILoggerFactory loggerFactory = null)
+        {
+            this.writers = new Dictionary<Type, IXmiElementWriter>()
+            {
+                {{#each this}}
+                {{WriterFacadeEntry this}}
+                {{/each}}
+            };
+        }
+
+        /// <inheritdoc/>
+        public void WriteElement(XmlWriter xmlWriter, IAurigaElement element, string roleName, IXmiWriteContext context)
+        {
+            this.ResolveWriter(element).Write(xmlWriter, element, roleName, context);
+        }
+
+        /// <inheritdoc/>
+        public IXmiElementWriter ResolveWriter(IAurigaElement element)
+        {
+            if (!this.writers.TryGetValue(element.GetType(), out var writer))
+            {
+                throw new InvalidOperationException($"No XMI writer is registered for the type '{element.GetType().FullName}'.");
+            }
+
+            return writer;
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
