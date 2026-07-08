@@ -34,10 +34,9 @@ namespace Auriga.Extensions
                 throw new ArgumentNullException(nameof(function));
             }
 
-            if (function is not Auriga.Activity.IAbstractAction action)
-            {
-                return Enumerable.Empty<Auriga.Fa.IFunctionPort>();
-            }
+            // Every function is an activity action (IAbstractFunction inherits Activity.IAbstractAction),
+            // so its ports are its input and output pins.
+            var action = (Auriga.Activity.IAbstractAction)function;
 
             return action.Inputs.OfType<Auriga.Fa.IFunctionPort>()
                 .Concat(action.Outputs.OfType<Auriga.Fa.IFunctionPort>());
