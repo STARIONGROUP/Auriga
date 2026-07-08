@@ -86,7 +86,24 @@ namespace Auriga.Information
         /// <summary>
         /// Gets or sets the owned default element.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedDefaultElement { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedDefaultElement
+        {
+            get => this.backingOwnedDefaultElement;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDefaultElement = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDefaultElement"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedDefaultElement;
 
         /// <summary>
         /// Gets the owned elements.
@@ -183,6 +200,52 @@ namespace Auriga.Information
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>CollectionValue</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDefaultElement != null)
+            {
+                yield return this.OwnedDefaultElement;
+            }
+
+            foreach (var element in this.OwnedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

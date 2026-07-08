@@ -236,12 +236,46 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the local postcondition.
         /// </summary>
-        public Auriga.Modellingcore.IAbstractConstraint LocalPostcondition { get; set; }
+        public Auriga.Modellingcore.IAbstractConstraint LocalPostcondition
+        {
+            get => this.backingLocalPostcondition;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingLocalPostcondition = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="LocalPostcondition"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IAbstractConstraint backingLocalPostcondition;
 
         /// <summary>
         /// Gets or sets the local precondition.
         /// </summary>
-        public Auriga.Modellingcore.IAbstractConstraint LocalPrecondition { get; set; }
+        public Auriga.Modellingcore.IAbstractConstraint LocalPrecondition
+        {
+            get => this.backingLocalPrecondition;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingLocalPrecondition = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="LocalPrecondition"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IAbstractConstraint backingLocalPrecondition;
 
         /// <summary>
         /// Gets or sets the max inclusive.
@@ -311,7 +345,24 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the owned default value.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedDefaultValue { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedDefaultValue
+        {
+            get => this.backingOwnedDefaultValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDefaultValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDefaultValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedDefaultValue;
 
         /// <summary>
         /// Gets the owned enumeration property types.
@@ -396,17 +447,68 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the owned max card.
         /// </summary>
-        public Auriga.Information.Datavalue.INumericValue OwnedMaxCard { get; set; }
+        public Auriga.Information.Datavalue.INumericValue OwnedMaxCard
+        {
+            get => this.backingOwnedMaxCard;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMaxCard = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMaxCard"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.INumericValue backingOwnedMaxCard;
 
         /// <summary>
         /// Gets or sets the owned max length.
         /// </summary>
-        public Auriga.Information.Datavalue.INumericValue OwnedMaxLength { get; set; }
+        public Auriga.Information.Datavalue.INumericValue OwnedMaxLength
+        {
+            get => this.backingOwnedMaxLength;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMaxLength = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMaxLength"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.INumericValue backingOwnedMaxLength;
 
         /// <summary>
         /// Gets or sets the owned max value.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedMaxValue { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedMaxValue
+        {
+            get => this.backingOwnedMaxValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMaxValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMaxValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedMaxValue;
 
         /// <summary>
         /// Gets the owned migrated elements.
@@ -421,22 +523,90 @@ namespace Auriga.La
         /// <summary>
         /// Gets or sets the owned min card.
         /// </summary>
-        public Auriga.Information.Datavalue.INumericValue OwnedMinCard { get; set; }
+        public Auriga.Information.Datavalue.INumericValue OwnedMinCard
+        {
+            get => this.backingOwnedMinCard;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMinCard = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMinCard"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.INumericValue backingOwnedMinCard;
 
         /// <summary>
         /// Gets or sets the owned min length.
         /// </summary>
-        public Auriga.Information.Datavalue.INumericValue OwnedMinLength { get; set; }
+        public Auriga.Information.Datavalue.INumericValue OwnedMinLength
+        {
+            get => this.backingOwnedMinLength;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMinLength = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMinLength"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.INumericValue backingOwnedMinLength;
 
         /// <summary>
         /// Gets or sets the owned min value.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedMinValue { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedMinValue
+        {
+            get => this.backingOwnedMinValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedMinValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedMinValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedMinValue;
 
         /// <summary>
         /// Gets or sets the owned null value.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue OwnedNullValue { get; set; }
+        public Auriga.Information.Datavalue.IDataValue OwnedNullValue
+        {
+            get => this.backingOwnedNullValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedNullValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedNullValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingOwnedNullValue;
 
         /// <summary>
         /// Gets the owned property value groups.
@@ -543,6 +713,152 @@ namespace Auriga.La
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>LogicalFunction</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.Arguments)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.Inputs)
+            {
+                yield return element;
+            }
+
+            if (this.LocalPostcondition != null)
+            {
+                yield return this.LocalPostcondition;
+            }
+
+            if (this.LocalPrecondition != null)
+            {
+                yield return this.LocalPrecondition;
+            }
+
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.Outputs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDefaultValue != null)
+            {
+                yield return this.OwnedDefaultValue;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalChains)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalExchanges)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedHandlers)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedLogicalFunctionPkgs)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedMaxCard != null)
+            {
+                yield return this.OwnedMaxCard;
+            }
+
+            if (this.OwnedMaxLength != null)
+            {
+                yield return this.OwnedMaxLength;
+            }
+
+            if (this.OwnedMaxValue != null)
+            {
+                yield return this.OwnedMaxValue;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedMinCard != null)
+            {
+                yield return this.OwnedMinCard;
+            }
+
+            if (this.OwnedMinLength != null)
+            {
+                yield return this.OwnedMinLength;
+            }
+
+            if (this.OwnedMinValue != null)
+            {
+                yield return this.OwnedMinValue;
+            }
+
+            if (this.OwnedNullValue != null)
+            {
+                yield return this.OwnedNullValue;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.Results)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

@@ -333,6 +333,127 @@ namespace Auriga.Pa
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>PhysicalComponentPkg</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedAssociations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchangeCategories)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchangeRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchanges)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedDeployments)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalAllocations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalLinks)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedKeyParts)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedParts)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalComponentPkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalComponents)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalLinkCategories)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPhysicalLinks)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValuePkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedStateMachines)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

@@ -231,7 +231,24 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets or sets the state invariant.
         /// </summary>
-        public Auriga.Modellingcore.IAbstractConstraint StateInvariant { get; set; }
+        public Auriga.Modellingcore.IAbstractConstraint StateInvariant
+        {
+            get => this.backingStateInvariant;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingStateInvariant = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="StateInvariant"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IAbstractConstraint backingStateInvariant;
 
         /// <summary>
         /// Gets or sets the status.
@@ -253,6 +270,62 @@ namespace Auriga.Capellacommon
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>FinalState</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedAbstractStateRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConnectionPoints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedRegions)
+            {
+                yield return element;
+            }
+
+            if (this.StateInvariant != null)
+            {
+                yield return this.StateInvariant;
+            }
+        }
     }
 }
 

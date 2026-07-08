@@ -91,7 +91,24 @@ namespace Auriga.Sharedmodel
         /// <summary>
         /// Gets or sets the owned data pkg.
         /// </summary>
-        public Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+        public Auriga.Information.IDataPkg OwnedDataPkg
+        {
+            get => this.backingOwnedDataPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDataPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDataPkg"/>.
+        /// </summary>
+        private Auriga.Information.IDataPkg backingOwnedDataPkg;
 
         /// <summary>
         /// Gets the owned enumeration property types.
@@ -116,7 +133,24 @@ namespace Auriga.Sharedmodel
         /// <summary>
         /// Gets or sets the owned generic pkg.
         /// </summary>
-        public Auriga.Sharedmodel.IGenericPkg OwnedGenericPkg { get; set; }
+        public Auriga.Sharedmodel.IGenericPkg OwnedGenericPkg
+        {
+            get => this.backingOwnedGenericPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedGenericPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedGenericPkg"/>.
+        /// </summary>
+        private Auriga.Sharedmodel.IGenericPkg backingOwnedGenericPkg;
 
         /// <summary>
         /// Gets the owned migrated elements.
@@ -203,6 +237,67 @@ namespace Auriga.Sharedmodel
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>SharedPkg</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDataPkg != null)
+            {
+                yield return this.OwnedDataPkg;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedGenericPkg != null)
+            {
+                yield return this.OwnedGenericPkg;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValuePkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

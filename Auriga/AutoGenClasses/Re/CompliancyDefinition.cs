@@ -40,6 +40,17 @@ namespace Auriga.Re
         /// </summary>
         private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>CompliancyDefinition</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

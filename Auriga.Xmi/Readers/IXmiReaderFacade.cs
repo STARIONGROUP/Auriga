@@ -35,11 +35,14 @@ namespace Auriga.Xmi.Readers
         /// <see cref="IAurigaElement"/>, recursing into contained elements.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element to read</param>
+        /// <param name="documentName">the document being read, relative to the model's main file; recorded
+        /// as the element's source and used to build its document-scoped cache key</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <param name="explicitTypeKey">
         /// the package-qualified type key (<c>package:TypeName</c>) to use instead of the element's
         /// <c>xsi:type</c>, or <c>null</c> to resolve the type from <c>xsi:type</c>
         /// </param>
         /// <returns>the instantiated, populated element</returns>
-        IAurigaElement QueryElement(XmlReader xmlReader, string? explicitTypeKey = null);
+        IAurigaElement QueryElement(XmlReader xmlReader, string documentName, string namespaceUri, string? explicitTypeKey = null);
     }
 }

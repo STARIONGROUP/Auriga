@@ -28,7 +28,24 @@ namespace Auriga.Re
         /// <summary>
         /// Gets or sets the owned compliancy definition pkg.
         /// </summary>
-        public Auriga.Re.ICompliancyDefinitionPkg OwnedCompliancyDefinitionPkg { get; set; }
+        public Auriga.Re.ICompliancyDefinitionPkg OwnedCompliancyDefinitionPkg
+        {
+            get => this.backingOwnedCompliancyDefinitionPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedCompliancyDefinitionPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedCompliancyDefinitionPkg"/>.
+        /// </summary>
+        private Auriga.Re.ICompliancyDefinitionPkg backingOwnedCompliancyDefinitionPkg;
 
         /// <summary>
         /// Gets the owned element pkgs.
@@ -60,6 +77,32 @@ namespace Auriga.Re
         /// </summary>
         private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>RecCatalog</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            if (this.OwnedCompliancyDefinitionPkg != null)
+            {
+                yield return this.OwnedCompliancyDefinitionPkg;
+            }
+
+            foreach (var element in this.OwnedElementPkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

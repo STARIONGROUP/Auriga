@@ -65,6 +65,27 @@ namespace Auriga.Requirements
         /// </summary>
         public string ReqIFLongName { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>TypesFolder</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedDefinitionTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedTypes)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

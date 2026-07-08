@@ -63,6 +63,32 @@ namespace Auriga.Tests
         }
 
         [Test]
+        public void Verify_that_Insert_sets_the_container_to_the_owner()
+        {
+            var element = new TestElement { Id = "child" };
+
+            this.list.Insert(0, element);
+
+            Assert.That(element.Container, Is.SameAs(this.owner));
+        }
+
+        [Test]
+        public void Verify_that_adding_through_the_non_generic_list_sets_the_container()
+        {
+            // Adding through System.Collections.IList must still re-parent — this is the path the
+            // reference resolver uses for href-resolved (cross-fragment) containment.
+            var element = new TestElement { Id = "child" };
+
+            ((System.Collections.IList)this.list).Add(element);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.list, Has.Count.EqualTo(1));
+                Assert.That(element.Container, Is.SameAs(this.owner));
+            });
+        }
+
+        [Test]
         public void Verify_that_Add_throws_when_adding_the_owner_to_itself()
         {
             Assert.That(() => this.list.Add(this.owner), Throws.InvalidOperationException);
@@ -247,11 +273,27 @@ namespace Auriga.Tests
 
             public IAurigaElement? Container { get; set; }
 
+            public string? SourceDocument { get; set; }
+
+            public string? XsiType { get; set; }
+
+            public string? XmiNamespaceUri { get; set; }
+
             public System.Collections.Generic.IDictionary<string, string> SingleValueReferencePropertyIdentifiers { get; }
                 = new System.Collections.Generic.Dictionary<string, string>();
 
             public System.Collections.Generic.IDictionary<string, System.Collections.Generic.List<string>> MultiValueReferencePropertyIdentifiers { get; }
                 = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>();
+
+            public System.Collections.Generic.IEnumerable<IAurigaElement> QueryContainedElements()
+            {
+                yield break;
+            }
+
+            public System.Collections.Generic.IEnumerable<IAurigaElement> QueryAllContainedElements()
+            {
+                yield break;
+            }
         }
     }
 }

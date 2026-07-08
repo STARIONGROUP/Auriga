@@ -45,6 +45,17 @@ namespace Auriga.Requirements
         /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>StringValueAttribute</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

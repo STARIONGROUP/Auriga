@@ -42,7 +42,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders
 
         private readonly Dictionary<string, string> prefixToNamespace = new Dictionary<string, string>(StringComparer.Ordinal);
 
-        private readonly Dictionary<string, Func<XmlReader, IAurigaElement>> readerFactories;
+        private readonly Dictionary<string, Func<XmlReader, string, string, IAurigaElement>> readerFactories;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmiReaderFacade"/> class.
@@ -55,7 +55,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders
             this.cache = cache;
             this.namespaceResolver = namespaceResolver;
             this.loggerFactory = loggerFactory;
-            this.readerFactories = new Dictionary<string, Func<XmlReader, IAurigaElement>>(StringComparer.Ordinal)
+            this.readerFactories = new Dictionary<string, Func<XmlReader, string, string, IAurigaElement>>(StringComparer.Ordinal)
             {
                 {{#each this}}
                 {{FacadeEntry this}}
@@ -80,12 +80,14 @@ namespace Auriga.Xmi.AutoGenXmiReaders
         /// <see cref="IAurigaElement"/>, recursing into contained elements.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element to read</param>
+        /// <param name="documentName">the document being read, relative to the model's main file</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <param name="explicitTypeKey">
         /// the package-qualified type key (<c>package:TypeName</c>) to use instead of the element's
         /// <c>xsi:type</c>, or <c>null</c> to resolve the type from <c>xsi:type</c>
         /// </param>
         /// <returns>the instantiated, populated element</returns>
-        public IAurigaElement QueryElement(XmlReader xmlReader, string explicitTypeKey = null)
+        public IAurigaElement QueryElement(XmlReader xmlReader, string documentName, string namespaceUri, string explicitTypeKey = null)
         {
             var typeKey = explicitTypeKey ?? this.ResolveTypeKey(xmlReader);
 
@@ -96,7 +98,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders
 
             using var subReader = xmlReader.ReadSubtree();
             subReader.MoveToContent();
-            return factory(subReader);
+            return factory(subReader, documentName, namespaceUri);
         }
 
         /// <summary>

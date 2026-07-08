@@ -26,8 +26,9 @@ namespace Auriga.Xmi
     /// The default <see cref="IXmiReader"/>. It instantiates the object graph in a first pass by
     /// dispatching the root and every contained element to its generated reader through the
     /// <see cref="IXmiReaderFacade"/>, then resolves the collected cross-references in a second pass via
-    /// the <see cref="IReferenceResolver"/> — the two-pass strategy of uml4net. Cross-file fragments
-    /// (<c>href</c>) are out of scope for this reader.
+    /// the <see cref="IReferenceResolver"/> — the two-pass strategy of uml4net. When a model is split
+    /// across a main document and <c>.capellafragment</c> files, <see cref="Read(string)"/> discovers and
+    /// loads the referenced fragments into the same object graph so cross-fragment references resolve.
     /// </summary>
     public sealed class XmiReader : IXmiReader
     {
@@ -74,9 +75,11 @@ namespace Auriga.Xmi
         }
 
         /// <summary>
-        /// Reads the XMI document at the supplied path.
+        /// Reads the Capella model whose main document is at the supplied path. Any
+        /// <c>.capellafragment</c> documents the model references — transitively, resolved relative to the
+        /// main document — are loaded into the same object graph so cross-fragment references resolve.
         /// </summary>
-        /// <param name="path">the path of the <c>.melodymodeller</c> / <c>.capella</c> file</param>
+        /// <param name="path">the path of the main <c>.melodymodeller</c> / <c>.capella</c> file</param>
         /// <returns>the read result</returns>
         public XmiReaderResult Read(string path)
         {
@@ -85,15 +88,43 @@ namespace Auriga.Xmi
                 throw new ArgumentException("The path must be provided.", nameof(path));
             }
 
-            using var stream = File.OpenRead(path);
-            return this.Read(stream, Path.GetFileName(path));
+            var mainPath = Path.GetFullPath(path);
+            var baseDirectory = Path.GetDirectoryName(mainPath) ?? string.Empty;
+
+            this.cache.Clear();
+
+            var loaded = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var root = this.LoadDocument(mainPath, baseDirectory, loaded, isMain: true)!;
+
+            // Transitively load every referenced fragment document into the same cache before resolving,
+            // so an href whose target lives in another fragment resolves against the merged object graph.
+            var pending = new Queue<string>(this.DiscoverReferencedDocuments(baseDirectory, loaded));
+            while (pending.Count > 0)
+            {
+                var documentPath = pending.Dequeue();
+                if (loaded.Contains(documentPath))
+                {
+                    continue;
+                }
+
+                this.LoadDocument(documentPath, baseDirectory, loaded, isMain: false);
+
+                foreach (var referenced in this.DiscoverReferencedDocuments(baseDirectory, loaded))
+                {
+                    pending.Enqueue(referenced);
+                }
+            }
+
+            return this.ResolveAndBuild(root, Path.GetFileName(mainPath), loaded.Count);
         }
 
         /// <summary>
-        /// Reads the XMI document from the supplied stream.
+        /// Reads a single XMI document from the supplied stream. A stream has no location, so referenced
+        /// fragment documents cannot be discovered; use <see cref="Read(string)"/> to load a model that is
+        /// split across fragment files.
         /// </summary>
         /// <param name="stream">the stream to read</param>
-        /// <param name="documentName">the name of the document (used for diagnostics)</param>
+        /// <param name="documentName">the name of the document (used for diagnostics and source tracking)</param>
         /// <returns>the read result</returns>
         public XmiReaderResult Read(Stream stream, string documentName)
         {
@@ -104,6 +135,20 @@ namespace Auriga.Xmi
 
             this.cache.Clear();
 
+            var root = this.ReadDocument(stream, documentName);
+
+            return this.ResolveAndBuild(root, documentName, 1);
+        }
+
+        /// <summary>
+        /// Parses a single XMI document from the stream into the cache (without clearing it or resolving
+        /// references) and tags every element it contributes with <paramref name="documentName"/>.
+        /// </summary>
+        /// <param name="stream">the stream to read</param>
+        /// <param name="documentName">the name recorded as the source document of the read elements</param>
+        /// <returns>the root element of the document</returns>
+        private IAurigaElement ReadDocument(Stream stream, string documentName)
+        {
             var settings = new XmlReaderSettings
             {
                 IgnoreComments = true,
@@ -122,19 +167,147 @@ namespace Auriga.Xmi
 
             this.RegisterDocumentNamespaces(xmlReader);
 
+            var namespaceUri = xmlReader.NamespaceURI;
             var rootTypeKey = this.ResolveRootTypeKey(xmlReader, documentName);
-            var root = this.facade.QueryElement(xmlReader, rootTypeKey);
 
+            // Each generated reader records documentName as the read element's source and caches it under
+            // its document-scoped key, so no post-hoc tagging pass is needed.
+            return this.facade.QueryElement(xmlReader, documentName, namespaceUri, rootTypeKey);
+        }
+
+        /// <summary>
+        /// Loads the document at the supplied path into the cache. The main document's failures propagate;
+        /// a fragment that is missing or fails to parse is logged and skipped so one bad fragment does not
+        /// abort the load.
+        /// </summary>
+        /// <param name="fullPath">the absolute path of the document</param>
+        /// <param name="baseDirectory">the directory of the main document, used to name the source</param>
+        /// <param name="loaded">the set of already-loaded document paths, to which this path is added</param>
+        /// <param name="isMain">whether this is the model's main document</param>
+        /// <returns>the root element of the document, or <c>null</c> when a fragment could not be loaded</returns>
+        private IAurigaElement? LoadDocument(string fullPath, string baseDirectory, HashSet<string> loaded, bool isMain)
+        {
+            loaded.Add(fullPath);
+
+            if (!File.Exists(fullPath))
+            {
+                this.logger.LogWarning("Referenced fragment document {Document} was not found", fullPath);
+                return null;
+            }
+
+            var documentName = RelativeDocumentName(baseDirectory, fullPath);
+
+            try
+            {
+                using var stream = File.OpenRead(fullPath);
+                return this.ReadDocument(stream, documentName);
+            }
+            catch (Exception exception) when (!isMain)
+            {
+                this.logger.LogWarning(exception, "Failed to load fragment document {Document}", documentName);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Runs the second-pass reference resolution over the merged cache and builds the read result.
+        /// </summary>
+        /// <param name="root">the root element of the main document</param>
+        /// <param name="modelName">the model name used in diagnostics</param>
+        /// <param name="documentCount">the number of documents loaded into the graph</param>
+        /// <returns>the read result</returns>
+        private XmiReaderResult ResolveAndBuild(IAurigaElement root, string modelName, int documentCount)
+        {
             var unresolvedReferences = this.referenceResolver.Resolve(this.cache);
 
             if (unresolvedReferences.Count > 0)
             {
-                this.logger.LogWarning("{Count} references in {Document} could not be resolved", unresolvedReferences.Count, documentName);
+                this.logger.LogWarning("{Count} references in {Model} could not be resolved", unresolvedReferences.Count, modelName);
             }
 
-            this.logger.LogInformation("Read {Count} elements from {Document}", this.cache.Count, documentName);
+            this.logger.LogInformation("Read {Count} elements from {DocumentCount} document(s) of {Model}", this.cache.Count, documentCount, modelName);
 
             return new XmiReaderResult(root, this.BuildIndex(), unresolvedReferences);
+        }
+
+        /// <summary>
+        /// Scans every collected reference for cross-document <c>href</c> tokens and returns the absolute
+        /// paths of the referenced fragment documents that have not yet been loaded. Each href is resolved
+        /// relative to the directory of the document that owns it, so a fragment referencing another
+        /// fragment (or referencing back to the main file) resolves correctly.
+        /// </summary>
+        /// <param name="baseDirectory">the directory of the model's main document</param>
+        /// <param name="loaded">the set of already-loaded document paths</param>
+        /// <returns>the absolute paths of the not-yet-loaded referenced documents</returns>
+        private IEnumerable<string> DiscoverReferencedDocuments(string baseDirectory, HashSet<string> loaded)
+        {
+            var documents = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var element in this.cache.Values)
+            {
+                foreach (var token in element.SingleValueReferencePropertyIdentifiers.Values)
+                {
+                    AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents);
+                }
+
+                foreach (var tokens in element.MultiValueReferencePropertyIdentifiers.Values)
+                {
+                    foreach (var token in tokens)
+                    {
+                        AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents);
+                    }
+                }
+            }
+
+            return documents;
+        }
+
+        /// <summary>
+        /// Adds the document referenced by a single <c>href</c> token to <paramref name="documents"/> when
+        /// the token is a not-yet-loaded reference into a <c>.capellafragment</c>. Intra-document
+        /// references (a bare id) and references to anything other than a fragment — <c>hlink://</c> in
+        /// rich text, <c>platform:/resource</c> library links, <c>.aird</c> diagrams — are ignored.
+        /// </summary>
+        /// <param name="referringDocument">the document that owns the reference, whose directory the href
+        /// path is resolved relative to</param>
+        /// <param name="token">the collected reference token</param>
+        /// <param name="baseDirectory">the directory of the model's main document</param>
+        /// <param name="loaded">the set of already-loaded document paths</param>
+        /// <param name="documents">the set the referenced document path is added to</param>
+        private static void AddReferencedDocument(string? referringDocument, string token, string baseDirectory, HashSet<string> loaded, HashSet<string> documents)
+        {
+            var (documentPath, _) = HrefReference.Parse(token);
+            if (documentPath.Length == 0)
+            {
+                return;
+            }
+
+            var canonical = HrefReference.Canonicalize(referringDocument, documentPath);
+
+            if (!canonical.EndsWith(".capellafragment", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            var fullPath = Path.GetFullPath(Path.Combine(baseDirectory, canonical));
+
+            if (!loaded.Contains(fullPath))
+            {
+                documents.Add(fullPath);
+            }
+        }
+
+        /// <summary>
+        /// Names a loaded document relative to the model's base directory, with forward slashes, for use
+        /// as the elements' <see cref="IAurigaElement.SourceDocument"/>.
+        /// </summary>
+        /// <param name="baseDirectory">the directory of the main document</param>
+        /// <param name="fullPath">the absolute path of the loaded document</param>
+        /// <returns>the document name relative to the base directory</returns>
+        private static string RelativeDocumentName(string baseDirectory, string fullPath)
+        {
+            var relative = Path.GetRelativePath(baseDirectory, fullPath);
+            return relative.Replace(Path.DirectorySeparatorChar, '/');
         }
 
         /// <summary>

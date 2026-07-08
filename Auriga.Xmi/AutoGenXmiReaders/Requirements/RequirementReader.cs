@@ -45,12 +45,24 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
         /// Reads an <c>Requirement</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <param name="documentName">the document being read, relative to the model's main file</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <returns>the populated <see cref="Auriga.Requirements.IRequirement"/></returns>
-        public Auriga.Requirements.IRequirement Read(XmlReader xmlReader)
+        public Auriga.Requirements.IRequirement Read(XmlReader xmlReader, string documentName, string namespaceUri)
         {
             if (xmlReader == null)
             {
                 throw new ArgumentNullException(nameof(xmlReader));
+            }
+
+            if (string.IsNullOrEmpty(documentName))
+            {
+                throw new ArgumentException("The document name is required.", nameof(documentName));
+            }
+
+            if (string.IsNullOrEmpty(namespaceUri))
+            {
+                throw new ArgumentException("The namespace URI is required.", nameof(namespaceUri));
             }
 
             var poco = new Auriga.Requirements.Requirement();
@@ -59,7 +71,23 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
 
             if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
+                this.Logger.LogTrace("reading Requirement at line:position {LineNumber}:{LinePosition}", xmlLineInfo?.LineNumber, xmlLineInfo?.LinePosition);
+
+                // The element's own namespace becomes the in-scope namespace threaded to its children. A
+                // document root carries the document namespace; a nested element may narrow it.
+                if (!string.IsNullOrEmpty(xmlReader.NamespaceURI))
+                {
+                    namespaceUri = xmlReader.NamespaceURI;
+                }
+
+                // Capture the declared xsi:type verbatim (null on a document root, whose type is fixed by
+                // its element tag) as round-trip groundwork. Type-correctness is already guaranteed by the
+                // facade's dispatch, so the reader does not re-validate it.
+                poco.XsiType = xmlReader.GetAttribute("type", XsiNamespace);
+                poco.XmiNamespaceUri = namespaceUri;
+
                 poco.Id = xmlReader.GetAttribute("id");
+                poco.SourceDocument = documentName;
                 poco.ReqIFChapterName = xmlReader.GetAttribute("ReqIFChapterName");
                 poco.ReqIFDescription = xmlReader.GetAttribute("ReqIFDescription");
                 {
@@ -100,7 +128,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
                                 }
                                 else
                                 {
-                                    poco.OwnedAttributes.Add((Auriga.Requirements.IAttribute)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedAttributes.Add((Auriga.Requirements.IAttribute)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -115,7 +143,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
                                 }
                                 else
                                 {
-                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -130,7 +158,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Requirements
                                 }
                                 else
                                 {
-                                    poco.OwnedRelations.Add((Auriga.Requirements.IAbstractRelation)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedRelations.Add((Auriga.Requirements.IAbstractRelation)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;

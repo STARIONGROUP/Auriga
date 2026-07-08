@@ -24,7 +24,10 @@ namespace Auriga.Xmi.Readers
         /// collected for later resolution rather than resolved here.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on (or just before) the element to read</param>
+        /// <param name="documentName">the document the element is read from, relative to the model's main
+        /// file; recorded as the element's source and used to build its document-scoped cache key</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <returns>the instantiated, populated element</returns>
-        T Read(XmlReader xmlReader);
+        T Read(XmlReader xmlReader, string documentName, string namespaceUri);
     }
 }

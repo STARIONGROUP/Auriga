@@ -18,6 +18,15 @@ namespace Auriga.Xmi.Namespaces
     public interface INamespaceResolver
     {
         /// <summary>
+        /// Registers a known namespace URI and the Ecore package it identifies, so it can subsequently be
+        /// resolved. The Capella namespaces are registered up front from the generated registry; a document
+        /// may register any additional namespaces it declares.
+        /// </summary>
+        /// <param name="namespaceUri">the XML namespace URI</param>
+        /// <param name="package">the Ecore package name it identifies</param>
+        void RegisterNamespace(string namespaceUri, string package);
+
+        /// <summary>
         /// Resolves the supplied namespace URI to its Ecore package name.
         /// </summary>
         /// <param name="namespaceUri">the XML namespace URI</param>

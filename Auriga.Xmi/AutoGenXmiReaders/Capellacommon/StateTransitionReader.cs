@@ -45,12 +45,24 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
         /// Reads an <c>StateTransition</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <param name="documentName">the document being read, relative to the model's main file</param>
+        /// <param name="namespaceUri">the namespace URI in scope for the document being read</param>
         /// <returns>the populated <see cref="Auriga.Capellacommon.IStateTransition"/></returns>
-        public Auriga.Capellacommon.IStateTransition Read(XmlReader xmlReader)
+        public Auriga.Capellacommon.IStateTransition Read(XmlReader xmlReader, string documentName, string namespaceUri)
         {
             if (xmlReader == null)
             {
                 throw new ArgumentNullException(nameof(xmlReader));
+            }
+
+            if (string.IsNullOrEmpty(documentName))
+            {
+                throw new ArgumentException("The document name is required.", nameof(documentName));
+            }
+
+            if (string.IsNullOrEmpty(namespaceUri))
+            {
+                throw new ArgumentException("The namespace URI is required.", nameof(namespaceUri));
             }
 
             var poco = new Auriga.Capellacommon.StateTransition();
@@ -59,7 +71,23 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
 
             if (xmlReader.MoveToContent() == XmlNodeType.Element)
             {
+                this.Logger.LogTrace("reading StateTransition at line:position {LineNumber}:{LinePosition}", xmlLineInfo?.LineNumber, xmlLineInfo?.LinePosition);
+
+                // The element's own namespace becomes the in-scope namespace threaded to its children. A
+                // document root carries the document namespace; a nested element may narrow it.
+                if (!string.IsNullOrEmpty(xmlReader.NamespaceURI))
+                {
+                    namespaceUri = xmlReader.NamespaceURI;
+                }
+
+                // Capture the declared xsi:type verbatim (null on a document root, whose type is fixed by
+                // its element tag) as round-trip groundwork. Type-correctness is already guaranteed by the
+                // facade's dispatch, so the reader does not re-validate it.
+                poco.XsiType = xmlReader.GetAttribute("type", XsiNamespace);
+                poco.XmiNamespaceUri = namespaceUri;
+
                 poco.Id = xmlReader.GetAttribute("id");
+                poco.SourceDocument = documentName;
                 CollectMultiValueReferences(poco, "AppliedPropertyValueGroups", xmlReader.GetAttribute("appliedPropertyValueGroups"));
                 CollectMultiValueReferences(poco, "AppliedPropertyValues", xmlReader.GetAttribute("appliedPropertyValues"));
                 poco.Description = xmlReader.GetAttribute("description");
@@ -195,7 +223,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
                                 }
                                 else
                                 {
-                                    poco.OwnedConstraints.Add((Auriga.Modellingcore.IAbstractConstraint)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedConstraints.Add((Auriga.Modellingcore.IAbstractConstraint)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -210,7 +238,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
                                 }
                                 else
                                 {
-                                    poco.OwnedEnumerationPropertyTypes.Add((Auriga.Capellacore.IEnumerationPropertyType)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedEnumerationPropertyTypes.Add((Auriga.Capellacore.IEnumerationPropertyType)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -225,7 +253,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
                                 }
                                 else
                                 {
-                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedExtensions.Add((Auriga.Emde.IElementExtension)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -240,7 +268,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
                                 }
                                 else
                                 {
-                                    poco.OwnedMigratedElements.Add((Auriga.Modellingcore.IModelElement)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedMigratedElements.Add((Auriga.Modellingcore.IModelElement)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -255,7 +283,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
                                 }
                                 else
                                 {
-                                    poco.OwnedPropertyValueGroups.Add((Auriga.Capellacore.IPropertyValueGroup)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedPropertyValueGroups.Add((Auriga.Capellacore.IPropertyValueGroup)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -270,7 +298,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
                                 }
                                 else
                                 {
-                                    poco.OwnedPropertyValues.Add((Auriga.Capellacore.IAbstractPropertyValue)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedPropertyValues.Add((Auriga.Capellacore.IAbstractPropertyValue)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;
@@ -285,7 +313,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacommon
                                 }
                                 else
                                 {
-                                    poco.OwnedStateTransitionRealizations.Add((Auriga.Capellacommon.IStateTransitionRealization)this.Facade.QueryElement(xmlReader));
+                                    poco.OwnedStateTransitionRealizations.Add((Auriga.Capellacommon.IStateTransitionRealization)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;

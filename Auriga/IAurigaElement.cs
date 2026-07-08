@@ -29,6 +29,31 @@ namespace Auriga
         IAurigaElement? Container { get; set; }
 
         /// <summary>
+        /// Gets or sets the document the element was read from, relative to the model's main file — the
+        /// main <c>.capella</c>/<c>.melodymodeller</c> or a <c>.capellafragment</c>. This makes the origin
+        /// of every element queryable in a model split across fragment files, and is what a
+        /// fragment-preserving write uses to route each element back to its file. <c>null</c> until set by
+        /// the reader.
+        /// </summary>
+        string? SourceDocument { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <c>xsi:type</c> the element was read from, verbatim (e.g.
+        /// <c>org.polarsys.capella.core.data.capellacommon:AbstractStateRealization</c>), or <c>null</c>
+        /// for a document root whose type is fixed by its element tag. Recorded by the reader as
+        /// round-trip groundwork so a write can re-emit the exact declared type. (Type dispatch on read is
+        /// done by the reader facade, not from this value.)
+        /// </summary>
+        string? XsiType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the XML namespace URI in scope when the element was read (e.g.
+        /// <c>http://www.polarsys.org/capella/core/capellacommon/7.0.0</c>). <c>null</c> until set by the
+        /// reader; round-trip groundwork alongside <see cref="XsiType"/>.
+        /// </summary>
+        string? XmiNamespaceUri { get; set; }
+
+        /// <summary>
         /// Gets the single-valued reference features whose targets are not yet resolved, keyed by the
         /// property name, with the referenced <c>xmi:id</c> as the value. The XMI reader records
         /// cross-references here on the first pass and resolves them to object references on the second
@@ -42,5 +67,20 @@ namespace Auriga
         /// reader's first pass and resolved on the second.
         /// </summary>
         IDictionary<string, List<string>> MultiValueReferencePropertyIdentifiers { get; }
+
+        /// <summary>
+        /// Gets the elements directly contained by this element (the analogue of EMF's <c>eContents()</c>) —
+        /// the values of its containment features. The reader and the containment collections keep these
+        /// consistent with each element's <see cref="Container"/>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        IEnumerable<IAurigaElement> QueryContainedElements();
+
+        /// <summary>
+        /// Gets every element in this element's containment subtree — all descendants, depth-first — so a
+        /// loaded model can be queried with LINQ, e.g. <c>project.QueryAllContainedElements().OfType&lt;…&gt;()</c>.
+        /// </summary>
+        /// <returns>the transitive containment closure of this element</returns>
+        IEnumerable<IAurigaElement> QueryAllContainedElements();
     }
 }

@@ -106,7 +106,24 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets or sets the owned abstract capability pkg.
         /// </summary>
-        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg { get; set; }
+        public Auriga.Capellacommon.IAbstractCapabilityPkg OwnedAbstractCapabilityPkg
+        {
+            get => this.backingOwnedAbstractCapabilityPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedAbstractCapabilityPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedAbstractCapabilityPkg"/>.
+        /// </summary>
+        private Auriga.Capellacommon.IAbstractCapabilityPkg backingOwnedAbstractCapabilityPkg;
 
         /// <summary>
         /// Gets the owned component exchange categories.
@@ -141,7 +158,24 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets or sets the owned concept pkg.
         /// </summary>
-        public Auriga.Oa.IConceptPkg OwnedConceptPkg { get; set; }
+        public Auriga.Oa.IConceptPkg OwnedConceptPkg
+        {
+            get => this.backingOwnedConceptPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedConceptPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedConceptPkg"/>.
+        /// </summary>
+        private Auriga.Oa.IConceptPkg backingOwnedConceptPkg;
 
         /// <summary>
         /// Gets the owned constraints.
@@ -156,12 +190,46 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets or sets the owned data pkg.
         /// </summary>
-        public Auriga.Information.IDataPkg OwnedDataPkg { get; set; }
+        public Auriga.Information.IDataPkg OwnedDataPkg
+        {
+            get => this.backingOwnedDataPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedDataPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedDataPkg"/>.
+        /// </summary>
+        private Auriga.Information.IDataPkg backingOwnedDataPkg;
 
         /// <summary>
         /// Gets or sets the owned entity pkg.
         /// </summary>
-        public Auriga.Oa.IEntityPkg OwnedEntityPkg { get; set; }
+        public Auriga.Oa.IEntityPkg OwnedEntityPkg
+        {
+            get => this.backingOwnedEntityPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedEntityPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedEntityPkg"/>.
+        /// </summary>
+        private Auriga.Oa.IEntityPkg backingOwnedEntityPkg;
 
         /// <summary>
         /// Gets the owned enumeration property types.
@@ -186,7 +254,24 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets or sets the owned function pkg.
         /// </summary>
-        public Auriga.Fa.IFunctionPkg OwnedFunctionPkg { get; set; }
+        public Auriga.Fa.IFunctionPkg OwnedFunctionPkg
+        {
+            get => this.backingOwnedFunctionPkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedFunctionPkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedFunctionPkg"/>.
+        /// </summary>
+        private Auriga.Fa.IFunctionPkg backingOwnedFunctionPkg;
 
         /// <summary>
         /// Gets the owned functional allocations.
@@ -211,7 +296,24 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets or sets the owned interface pkg.
         /// </summary>
-        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg { get; set; }
+        public Auriga.Cs.IInterfacePkg OwnedInterfacePkg
+        {
+            get => this.backingOwnedInterfacePkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedInterfacePkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedInterfacePkg"/>.
+        /// </summary>
+        private Auriga.Cs.IInterfacePkg backingOwnedInterfacePkg;
 
         /// <summary>
         /// Gets the owned migrated elements.
@@ -256,7 +358,24 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets or sets the owned role pkg.
         /// </summary>
-        public Auriga.Oa.IRolePkg OwnedRolePkg { get; set; }
+        public Auriga.Oa.IRolePkg OwnedRolePkg
+        {
+            get => this.backingOwnedRolePkg;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingOwnedRolePkg = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedRolePkg"/>.
+        /// </summary>
+        private Auriga.Oa.IRolePkg backingOwnedRolePkg;
 
         /// <summary>
         /// Gets the owned traces.
@@ -313,6 +432,117 @@ namespace Auriga.Oa
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>OperationalAnalysis</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.NamingRules)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedAbstractCapabilityPkg != null)
+            {
+                yield return this.OwnedAbstractCapabilityPkg;
+            }
+
+            foreach (var element in this.OwnedComponentExchangeCategories)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchangeRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedComponentExchanges)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedConceptPkg != null)
+            {
+                yield return this.OwnedConceptPkg;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedDataPkg != null)
+            {
+                yield return this.OwnedDataPkg;
+            }
+
+            if (this.OwnedEntityPkg != null)
+            {
+                yield return this.OwnedEntityPkg;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedFunctionPkg != null)
+            {
+                yield return this.OwnedFunctionPkg;
+            }
+
+            foreach (var element in this.OwnedFunctionalAllocations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalLinks)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedInterfacePkg != null)
+            {
+                yield return this.OwnedInterfacePkg;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValuePkgs)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            if (this.OwnedRolePkg != null)
+            {
+                yield return this.OwnedRolePkg;
+            }
+
+            foreach (var element in this.OwnedTraces)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

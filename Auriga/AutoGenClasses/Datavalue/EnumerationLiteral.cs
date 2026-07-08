@@ -56,7 +56,24 @@ namespace Auriga.Information.Datavalue
         /// <summary>
         /// Gets or sets the domain value.
         /// </summary>
-        public Auriga.Information.Datavalue.IDataValue DomainValue { get; set; }
+        public Auriga.Information.Datavalue.IDataValue DomainValue
+        {
+            get => this.backingDomainValue;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingDomainValue = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="DomainValue"/>.
+        /// </summary>
+        private Auriga.Information.Datavalue.IDataValue backingDomainValue;
 
         /// <summary>
         /// Gets the enumeration type.
@@ -178,6 +195,47 @@ namespace Auriga.Information.Datavalue
         /// </summary>
         public bool? VisibleInLM { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>EnumerationLiteral</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            if (this.DomainValue != null)
+            {
+                yield return this.DomainValue;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

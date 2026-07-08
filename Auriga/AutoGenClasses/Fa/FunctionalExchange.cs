@@ -76,7 +76,24 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets or sets the guard.
         /// </summary>
-        public Auriga.Modellingcore.IValueSpecification Guard { get; set; }
+        public Auriga.Modellingcore.IValueSpecification Guard
+        {
+            get => this.backingGuard;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingGuard = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="Guard"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IValueSpecification backingGuard;
 
         /// <summary>
         /// Gets the in activity partition.
@@ -231,12 +248,46 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets or sets the probability.
         /// </summary>
-        public Auriga.Modellingcore.IValueSpecification Probability { get; set; }
+        public Auriga.Modellingcore.IValueSpecification Probability
+        {
+            get => this.backingProbability;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingProbability = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="Probability"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IValueSpecification backingProbability;
 
         /// <summary>
         /// Gets or sets the rate.
         /// </summary>
-        public Auriga.Modellingcore.IValueSpecification Rate { get; set; }
+        public Auriga.Modellingcore.IValueSpecification Rate
+        {
+            get => this.backingRate;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
+
+                this.backingRate = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="Rate"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IValueSpecification backingRate;
 
         /// <summary>
         /// Gets or sets the realized flow.
@@ -316,8 +367,86 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets or sets the weight.
         /// </summary>
-        public Auriga.Modellingcore.IValueSpecification Weight { get; set; }
+        public Auriga.Modellingcore.IValueSpecification Weight
+        {
+            get => this.backingWeight;
+            set
+            {
+                if (value != null)
+                {
+                    value.Container = this;
+                }
 
+                this.backingWeight = value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for <see cref="Weight"/>.
+        /// </summary>
+        private Auriga.Modellingcore.IValueSpecification backingWeight;
+
+        /// <summary>
+        /// Gets the elements directly contained by this <c>FunctionalExchange</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            if (this.Guard != null)
+            {
+                yield return this.Guard;
+            }
+
+            foreach (var element in this.OwnedConstraints)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedEnumerationPropertyTypes)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedFunctionalExchangeRealizations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedMigratedElements)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValueGroups)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedPropertyValues)
+            {
+                yield return element;
+            }
+
+            if (this.Probability != null)
+            {
+                yield return this.Probability;
+            }
+
+            if (this.Rate != null)
+            {
+                yield return this.Rate;
+            }
+
+            if (this.Weight != null)
+            {
+                yield return this.Weight;
+            }
+        }
     }
 }
 

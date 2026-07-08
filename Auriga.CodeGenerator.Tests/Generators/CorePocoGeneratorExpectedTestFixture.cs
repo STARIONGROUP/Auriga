@@ -79,13 +79,15 @@ namespace Auriga.CodeGenerator.Tests.Generators
         [Explicit("Regenerates the committed Expected golden files.")]
         public void Regenerate_expected_files()
         {
+            // Anchor on the test project's .csproj (an ancestor of the bin output directory) so the golden
+            // files are written into the source tree rather than the copied Expected folder under bin.
             var directory = new DirectoryInfo(TestContext.CurrentContext.TestDirectory);
-            while (directory != null && !Directory.Exists(Path.Combine(directory.FullName, "Expected")))
+            while (directory != null && !File.Exists(Path.Combine(directory.FullName, "Auriga.CodeGenerator.Tests.csproj")))
             {
                 directory = directory.Parent;
             }
 
-            Assert.That(directory, Is.Not.Null, "could not locate the Expected directory in the test project");
+            Assert.That(directory, Is.Not.Null, "could not locate the test project directory");
             var expected = Path.Combine(directory!.FullName, "Expected");
 
             foreach (var className in new ExpectedAllClasses())

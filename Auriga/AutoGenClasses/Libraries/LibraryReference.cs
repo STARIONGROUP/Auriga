@@ -45,6 +45,17 @@ namespace Auriga.Libraries
         /// </summary>
         public Auriga.Libraries.IModelVersion Version { get; set; }
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>LibraryReference</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
     }
 }
 

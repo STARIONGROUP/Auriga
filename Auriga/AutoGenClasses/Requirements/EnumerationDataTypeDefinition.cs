@@ -55,6 +55,22 @@ namespace Auriga.Requirements
         /// </summary>
         private Auriga.IContainerList<Auriga.Requirements.IEnumValue> backingSpecifiedValues;
 
+        /// <summary>
+        /// Gets the elements directly contained by this <c>EnumerationDataTypeDefinition</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.SpecifiedValues)
+            {
+                yield return element;
+            }
+        }
     }
 }
 
