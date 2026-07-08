@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Re
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Re
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public CatalogElementWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public CatalogElementWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>re</c>) of the package that
+        /// declares <c>CatalogElement</c>.
+        /// </summary>
         public override string NamespacePrefix => "re";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>CatalogElement</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "CatalogElement";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/capella/common/re/7.0.0</c>) of the package that declares
+        /// <c>CatalogElement</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/capella/common/re/7.0.0";
 
         /// <summary>
@@ -56,22 +65,22 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Re
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Re.ICatalogElement poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Re.CatalogElementKind>(xmlWriter, "kind", poco.Kind);
             WriteStringAttribute(xmlWriter, "author", poco.Author);
-            WriteStringAttribute(xmlWriter, "environment", poco.Environment);
-            WriteStringAttribute(xmlWriter, "suffix", poco.Suffix);
-            WriteStringAttribute(xmlWriter, "purpose", poco.Purpose);
-            WriteBooleanAttribute(xmlWriter, "readOnly", poco.ReadOnly);
-            WriteStringAttribute(xmlWriter, "version", poco.Version);
-            WriteStringListAttribute(xmlWriter, "tags", poco.Tags);
-            this.WriteReferenceAttribute(xmlWriter, "origin", poco.Origin, poco, "Origin", context);
             this.WriteReferenceAttribute(xmlWriter, "currentCompliancy", poco.CurrentCompliancy, poco, "CurrentCompliancy", context);
             this.WriteReferenceAttribute(xmlWriter, "defaultReplicaCompliancy", poco.DefaultReplicaCompliancy, poco, "DefaultReplicaCompliancy", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
+            WriteStringAttribute(xmlWriter, "environment", poco.Environment);
+            WriteEnumAttribute<Auriga.Re.CatalogElementKind>(xmlWriter, "kind", poco.Kind);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            this.WriteContainedElements(xmlWriter, "ownedLinks", poco.OwnedLinks, poco, "OwnedLinks", context);
-            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteReferenceAttribute(xmlWriter, "origin", poco.Origin, poco, "Origin", context);
+            WriteStringAttribute(xmlWriter, "purpose", poco.Purpose);
+            WriteBooleanAttribute(xmlWriter, "readOnly", poco.ReadOnly);
+            WriteStringAttribute(xmlWriter, "suffix", poco.Suffix);
+            WriteStringListAttribute(xmlWriter, "tags", poco.Tags);
+            WriteStringAttribute(xmlWriter, "version", poco.Version);
             this.WriteContainedElements(xmlWriter, "ownedElements", poco.OwnedElements, poco, "OwnedElements", context);
+            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedLinks", poco.OwnedLinks, poco, "OwnedLinks", context);
         }
     }
 }

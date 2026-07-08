@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public ModuleWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public ModuleWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>Requirements</c>) of the package that
+        /// declares <c>Module</c>.
+        /// </summary>
         public override string NamespacePrefix => "Requirements";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>Module</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "Module";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/kitalpha/requirements</c>) of the package that declares
+        /// <c>Module</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/kitalpha/requirements";
 
         /// <summary>
@@ -57,14 +66,14 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "moduleType", poco.ModuleType, poco, "ModuleType", context);
-            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
+            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
             WriteStringAttribute(xmlWriter, "ReqIFName", poco.ReqIFName);
             WriteStringAttribute(xmlWriter, "ReqIFPrefix", poco.ReqIFPrefix);
-            this.WriteContainedElements(xmlWriter, "ownedRequirements", poco.OwnedRequirements, poco, "OwnedRequirements", context);
             this.WriteContainedElements(xmlWriter, "ownedAttributes", poco.OwnedAttributes, poco, "OwnedAttributes", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedRequirements", poco.OwnedRequirements, poco, "OwnedRequirements", context);
         }
     }
 }

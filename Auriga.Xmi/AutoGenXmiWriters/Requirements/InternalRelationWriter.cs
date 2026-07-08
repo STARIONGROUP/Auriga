@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public InternalRelationWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public InternalRelationWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>Requirements</c>) of the package that
+        /// declares <c>InternalRelation</c>.
+        /// </summary>
         public override string NamespacePrefix => "Requirements";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>InternalRelation</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "InternalRelation";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/kitalpha/requirements</c>) of the package that declares
+        /// <c>InternalRelation</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/kitalpha/requirements";
 
         /// <summary>
@@ -56,13 +65,13 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Requirements.IInternalRelation poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
             this.WriteReferenceAttribute(xmlWriter, "relationType", poco.RelationType, poco, "RelationType", context);
             WriteStringAttribute(xmlWriter, "relationTypeProxy", poco.RelationTypeProxy);
-            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
+            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
+            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
         }
     }

@@ -59,8 +59,8 @@ reopen cleanly):
 
 - EMF wraps long start-tags across several lines (one `xmlns:`/attribute per line); the writer relies on
   `XmlWriter`, which keeps a tag's attributes on one line.
-- Attribute and child ordering follows the Ecore feature declaration order, which approaches but does not
-  always match Capella's ordering.
+- Attribute and child ordering is alphabetical by feature name (a stable, deterministic order that matches
+  the reader), which does not always match Capella's ordering.
 - The XML declaration encoding renders as `utf-8` (lower-case) rather than `UTF-8`.
 
 Verifying that a written file opens in Capella 7.0.0 is a manual step; the automated proxy is the

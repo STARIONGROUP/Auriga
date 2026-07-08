@@ -22,8 +22,8 @@ namespace Auriga.CodeGenerator.Helpers
     /// from the ECoreNetto POCOs. It is the inverse of <see cref="XmiReaderHelper"/>: it classifies each
     /// stored structural feature the same way — scalar / enum / containment / cross-reference, single or
     /// multi — and emits the matching write code. Capella encodes non-containment references as <c>#id</c>
-    /// attributes and containment as child elements carrying an <c>xsi:type</c>. Features are emitted in
-    /// Ecore declaration order to approach Capella's own attribute and child ordering.
+    /// attributes and containment as child elements carrying an <c>xsi:type</c>. Features are emitted
+    /// alphabetically by member name (matching the reader) for a stable, deterministic order.
     /// </summary>
     public static class XmiWriterHelper
     {
@@ -139,9 +139,8 @@ namespace Auriga.CodeGenerator.Helpers
 
         /// <summary>
         /// The stored (non-derived) structural features of the concrete class, flattened over its
-        /// supertypes and de-duplicated by member name, kept in Ecore declaration order (unlike the reader,
-        /// which sorts alphabetically) so the written attributes and children approximate Capella's own
-        /// ordering.
+        /// supertypes and de-duplicated by member name, ordered alphabetically by member name (matching the
+        /// reader) so the written attributes and children are emitted in a stable, deterministic order.
         /// </summary>
         private static IEnumerable<EStructuralFeature> WriterFeatures(EClass eClass)
         {
@@ -161,7 +160,7 @@ namespace Auriga.CodeGenerator.Helpers
                 }
             }
 
-            return features;
+            return features.OrderBy(MemberName, StringComparer.Ordinal);
         }
 
         private static string AttributeWrite(EStructuralFeature feature)

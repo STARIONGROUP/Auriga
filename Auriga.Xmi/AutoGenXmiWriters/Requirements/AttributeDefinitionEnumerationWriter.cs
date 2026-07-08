@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public AttributeDefinitionEnumerationWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public AttributeDefinitionEnumerationWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>Requirements</c>) of the package that
+        /// declares <c>AttributeDefinitionEnumeration</c>.
+        /// </summary>
         public override string NamespacePrefix => "Requirements";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>AttributeDefinitionEnumeration</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "AttributeDefinitionEnumeration";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/kitalpha/requirements</c>) of the package that declares
+        /// <c>AttributeDefinitionEnumeration</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/kitalpha/requirements";
 
         /// <summary>
@@ -56,10 +65,10 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Requirements.IAttributeDefinitionEnumeration poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "multiValued", poco.MultiValued);
             this.WriteReferenceAttribute(xmlWriter, "definitionType", poco.DefinitionType, poco, "DefinitionType", context);
-            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
+            WriteBooleanAttribute(xmlWriter, "multiValued", poco.MultiValued);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
+            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
             this.WriteContainedElement(xmlWriter, "defaultValue", poco.DefaultValue, poco, "DefaultValue", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);

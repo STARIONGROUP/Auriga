@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Information.Datatype
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Information.Datatype
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public NumericTypeWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public NumericTypeWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>org.polarsys.capella.core.data.information.datatype</c>) of the package that
+        /// declares <c>NumericType</c>.
+        /// </summary>
         public override string NamespacePrefix => "org.polarsys.capella.core.data.information.datatype";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>NumericType</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "NumericType";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/capella/core/information/datatype/7.0.0</c>) of the package that declares
+        /// <c>NumericType</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/capella/core/information/datatype/7.0.0";
 
         /// <summary>
@@ -56,41 +65,41 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Information.Datatype
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Information.Datatype.INumericType poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Information.Datatype.NumericTypeKind>(xmlWriter, "kind", poco.Kind);
-            WriteBooleanAttribute(xmlWriter, "discrete", poco.Discrete);
-            WriteBooleanAttribute(xmlWriter, "minInclusive", poco.MinInclusive);
-            WriteBooleanAttribute(xmlWriter, "maxInclusive", poco.MaxInclusive);
-            WriteStringAttribute(xmlWriter, "pattern", poco.Pattern);
-            WriteEnumAttribute<Auriga.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility);
             WriteBooleanAttribute(xmlWriter, "abstract", poco.Abstract);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteStringAttribute(xmlWriter, "description", poco.Description);
-            WriteStringAttribute(xmlWriter, "review", poco.Review);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteStringAttribute(xmlWriter, "description", poco.Description);
+            WriteBooleanAttribute(xmlWriter, "discrete", poco.Discrete);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteBooleanAttribute(xmlWriter, "final", poco.Final);
+            WriteEnumAttribute<Auriga.Information.Datatype.NumericTypeKind>(xmlWriter, "kind", poco.Kind);
+            WriteBooleanAttribute(xmlWriter, "maxInclusive", poco.MaxInclusive);
+            WriteBooleanAttribute(xmlWriter, "minInclusive", poco.MinInclusive);
+            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "pattern", poco.Pattern);
+            WriteStringAttribute(xmlWriter, "review", poco.Review);
+            WriteStringAttribute(xmlWriter, "sid", poco.Sid);
+            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteStringAttribute(xmlWriter, "summary", poco.Summary);
+            WriteEnumAttribute<Auriga.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
-            WriteBooleanAttribute(xmlWriter, "final", poco.Final);
-            this.WriteContainedElement(xmlWriter, "ownedDefaultValue", poco.OwnedDefaultValue, poco, "OwnedDefaultValue", context);
-            this.WriteContainedElement(xmlWriter, "ownedNullValue", poco.OwnedNullValue, poco, "OwnedNullValue", context);
-            this.WriteContainedElement(xmlWriter, "ownedMinValue", poco.OwnedMinValue, poco, "OwnedMinValue", context);
-            this.WriteContainedElement(xmlWriter, "ownedMaxValue", poco.OwnedMaxValue, poco, "OwnedMaxValue", context);
-            this.WriteContainedElements(xmlWriter, "ownedInformationRealizations", poco.OwnedInformationRealizations, poco, "OwnedInformationRealizations", context);
-            this.WriteContainedElements(xmlWriter, "ownedGeneralizations", poco.OwnedGeneralizations, poco, "OwnedGeneralizations", context);
-            this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
-            this.WriteContainedElements(xmlWriter, "ownedMigratedElements", poco.OwnedMigratedElements, poco, "OwnedMigratedElements", context);
-            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
-            this.WriteContainedElements(xmlWriter, "ownedTraces", poco.OwnedTraces, poco, "OwnedTraces", context);
             this.WriteContainedElements(xmlWriter, "namingRules", poco.NamingRules, poco, "NamingRules", context);
-            this.WriteContainedElements(xmlWriter, "ownedPropertyValues", poco.OwnedPropertyValues, poco, "OwnedPropertyValues", context);
-            this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
-            this.WriteContainedElements(xmlWriter, "ownedPropertyValueGroups", poco.OwnedPropertyValueGroups, poco, "OwnedPropertyValueGroups", context);
+            this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
             this.WriteContainedElements(xmlWriter, "ownedDataValues", poco.OwnedDataValues, poco, "OwnedDataValues", context);
+            this.WriteContainedElement(xmlWriter, "ownedDefaultValue", poco.OwnedDefaultValue, poco, "OwnedDefaultValue", context);
+            this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
+            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedGeneralizations", poco.OwnedGeneralizations, poco, "OwnedGeneralizations", context);
+            this.WriteContainedElements(xmlWriter, "ownedInformationRealizations", poco.OwnedInformationRealizations, poco, "OwnedInformationRealizations", context);
+            this.WriteContainedElement(xmlWriter, "ownedMaxValue", poco.OwnedMaxValue, poco, "OwnedMaxValue", context);
+            this.WriteContainedElements(xmlWriter, "ownedMigratedElements", poco.OwnedMigratedElements, poco, "OwnedMigratedElements", context);
+            this.WriteContainedElement(xmlWriter, "ownedMinValue", poco.OwnedMinValue, poco, "OwnedMinValue", context);
+            this.WriteContainedElement(xmlWriter, "ownedNullValue", poco.OwnedNullValue, poco, "OwnedNullValue", context);
+            this.WriteContainedElements(xmlWriter, "ownedPropertyValueGroups", poco.OwnedPropertyValueGroups, poco, "OwnedPropertyValueGroups", context);
             this.WriteContainedElements(xmlWriter, "ownedPropertyValuePkgs", poco.OwnedPropertyValuePkgs, poco, "OwnedPropertyValuePkgs", context);
+            this.WriteContainedElements(xmlWriter, "ownedPropertyValues", poco.OwnedPropertyValues, poco, "OwnedPropertyValues", context);
+            this.WriteContainedElements(xmlWriter, "ownedTraces", poco.OwnedTraces, poco, "OwnedTraces", context);
         }
     }
 }

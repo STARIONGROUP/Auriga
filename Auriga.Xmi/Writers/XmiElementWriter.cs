@@ -344,11 +344,11 @@ namespace Auriga.Xmi.Writers
         /// </summary>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
-        /// <param name="targets">the resolved reference targets</param>
+        /// <param name="targets">the resolved reference targets, or <c>null</c> when the feature is unset</param>
         /// <param name="owner">the element that owns the reference</param>
         /// <param name="propertyName">the PascalCase reference property name</param>
         /// <param name="context">the write context</param>
-        protected void WriteReferenceListAttribute(XmlWriter xmlWriter, string name, IEnumerable targets, IAurigaElement owner, string propertyName, IXmiWriteContext context)
+        protected void WriteReferenceListAttribute(XmlWriter xmlWriter, string name, IEnumerable? targets, IAurigaElement owner, string propertyName, IXmiWriteContext context)
         {
             var hrefs = new List<string>();
 
@@ -408,11 +408,11 @@ namespace Auriga.Xmi.Writers
         /// </summary>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="roleName">the containment feature's XML name</param>
-        /// <param name="children">the contained children</param>
+        /// <param name="children">the contained children, or <c>null</c> when the feature is unset</param>
         /// <param name="owner">the element that owns the feature</param>
         /// <param name="propertyName">the PascalCase feature property name</param>
         /// <param name="context">the write context</param>
-        protected void WriteContainedElements(XmlWriter xmlWriter, string roleName, IEnumerable children, IAurigaElement owner, string propertyName, IXmiWriteContext context)
+        protected void WriteContainedElements(XmlWriter xmlWriter, string roleName, IEnumerable? children, IAurigaElement owner, string propertyName, IXmiWriteContext context)
         {
             var any = false;
 

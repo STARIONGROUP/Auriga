@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Fa
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Fa
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public FunctionalChainInvolvementLinkWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public FunctionalChainInvolvementLinkWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>org.polarsys.capella.core.data.fa</c>) of the package that
+        /// declares <c>FunctionalChainInvolvementLink</c>.
+        /// </summary>
         public override string NamespacePrefix => "org.polarsys.capella.core.data.fa";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>FunctionalChainInvolvementLink</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "FunctionalChainInvolvementLink";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/capella/core/fa/7.0.0</c>) of the package that declares
+        /// <c>FunctionalChainInvolvementLink</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/capella/core/fa/7.0.0";
 
         /// <summary>
@@ -56,30 +65,30 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Fa
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Fa.IFunctionalChainInvolvementLink poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
+            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteStringAttribute(xmlWriter, "description", poco.Description);
             this.WriteReferenceAttribute(xmlWriter, "exchangeContext", poco.ExchangeContext, poco, "ExchangeContext", context);
             this.WriteReferenceListAttribute(xmlWriter, "exchangedItems", poco.ExchangedItems, poco, "ExchangedItems", context);
-            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
+            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             this.WriteReferenceAttribute(xmlWriter, "involved", poco.Involved, poco, "Involved", context);
             this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
-            WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteStringAttribute(xmlWriter, "description", poco.Description);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteStringAttribute(xmlWriter, "sid", poco.Sid);
+            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            this.WriteReferenceListAttribute(xmlWriter, "sourceReferenceHierarchy", poco.SourceReferenceHierarchy, poco, "SourceReferenceHierarchy", context);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteStringAttribute(xmlWriter, "summary", poco.Summary);
+            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
+            this.WriteReferenceListAttribute(xmlWriter, "targetReferenceHierarchy", poco.TargetReferenceHierarchy, poco, "TargetReferenceHierarchy", context);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
-            this.WriteReferenceListAttribute(xmlWriter, "sourceReferenceHierarchy", poco.SourceReferenceHierarchy, poco, "SourceReferenceHierarchy", context);
-            this.WriteReferenceListAttribute(xmlWriter, "targetReferenceHierarchy", poco.TargetReferenceHierarchy, poco, "TargetReferenceHierarchy", context);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
-            this.WriteContainedElements(xmlWriter, "ownedMigratedElements", poco.OwnedMigratedElements, poco, "OwnedMigratedElements", context);
-            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
-            this.WriteContainedElements(xmlWriter, "ownedPropertyValues", poco.OwnedPropertyValues, poco, "OwnedPropertyValues", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
+            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedMigratedElements", poco.OwnedMigratedElements, poco, "OwnedMigratedElements", context);
             this.WriteContainedElements(xmlWriter, "ownedPropertyValueGroups", poco.OwnedPropertyValueGroups, poco, "OwnedPropertyValueGroups", context);
+            this.WriteContainedElements(xmlWriter, "ownedPropertyValues", poco.OwnedPropertyValues, poco, "OwnedPropertyValues", context);
         }
     }
 }

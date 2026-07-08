@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.CapellaRequirements
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.CapellaRequirements
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public CapellaTypesFolderWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public CapellaTypesFolderWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>CapellaRequirements</c>) of the package that
+        /// declares <c>CapellaTypesFolder</c>.
+        /// </summary>
         public override string NamespacePrefix => "CapellaRequirements";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>CapellaTypesFolder</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "CapellaTypesFolder";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/capella/requirements</c>) of the package that declares
+        /// <c>CapellaTypesFolder</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/capella/requirements";
 
         /// <summary>
@@ -56,12 +65,12 @@ namespace Auriga.Xmi.AutoGenXmiWriters.CapellaRequirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.CapellaRequirements.ICapellaTypesFolder poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
+            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
             this.WriteContainedElements(xmlWriter, "ownedDefinitionTypes", poco.OwnedDefinitionTypes, poco, "OwnedDefinitionTypes", context);
-            this.WriteContainedElements(xmlWriter, "ownedTypes", poco.OwnedTypes, poco, "OwnedTypes", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedTypes", poco.OwnedTypes, poco, "OwnedTypes", context);
         }
     }
 }

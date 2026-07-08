@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters
 {
@@ -35,7 +35,7 @@ namespace Auriga.Xmi.AutoGenXmiWriters
         /// Initializes a new instance of the <see cref="XmiElementWriterFacade"/> class.
         /// </summary>
         /// <param name="loggerFactory">the logger factory shared with every writer, or <c>null</c> to disable logging</param>
-        public XmiElementWriterFacade(ILoggerFactory loggerFactory = null)
+        public XmiElementWriterFacade(ILoggerFactory? loggerFactory = null)
         {
             this.writers = new Dictionary<Type, IXmiElementWriter>()
             {
@@ -45,13 +45,25 @@ namespace Auriga.Xmi.AutoGenXmiWriters
             };
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Writes <paramref name="element"/> as a contained child under <paramref name="roleName"/> by
+        /// dispatching to the writer registered for its runtime type.
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="element">the element to write</param>
+        /// <param name="roleName">the containment feature's XML name</param>
+        /// <param name="context">the write context</param>
         public void WriteElement(XmlWriter xmlWriter, IAurigaElement element, string roleName, IXmiWriteContext context)
         {
             this.ResolveWriter(element).Write(xmlWriter, element, roleName, context);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Resolves the per-type writer registered for <paramref name="element"/>'s runtime type.
+        /// </summary>
+        /// <param name="element">the element to resolve a writer for</param>
+        /// <returns>the writer registered for the element's runtime type</returns>
+        /// <exception cref="InvalidOperationException">no writer is registered for the element's type</exception>
         public IXmiElementWriter ResolveWriter(IAurigaElement element)
         {
             if (!this.writers.TryGetValue(element.GetType(), out var writer))

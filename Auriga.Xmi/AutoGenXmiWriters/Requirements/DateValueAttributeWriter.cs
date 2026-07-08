@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public DateValueAttributeWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public DateValueAttributeWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>Requirements</c>) of the package that
+        /// declares <c>DateValueAttribute</c>.
+        /// </summary>
         public override string NamespacePrefix => "Requirements";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>DateValueAttribute</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "DateValueAttribute";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/kitalpha/requirements</c>) of the package that declares
+        /// <c>DateValueAttribute</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/kitalpha/requirements";
 
         /// <summary>
@@ -56,9 +65,9 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Requirements.IDateValueAttribute poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteDateTimeAttribute(xmlWriter, "value", poco.Value);
             this.WriteReferenceAttribute(xmlWriter, "definition", poco.Definition, poco, "Definition", context);
             WriteStringAttribute(xmlWriter, "definitionProxy", poco.DefinitionProxy);
+            WriteDateTimeAttribute(xmlWriter, "value", poco.Value);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
         }
     }

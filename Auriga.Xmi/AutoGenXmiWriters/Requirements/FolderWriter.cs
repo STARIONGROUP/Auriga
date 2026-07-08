@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public FolderWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public FolderWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>Requirements</c>) of the package that
+        /// declares <c>Folder</c>.
+        /// </summary>
         public override string NamespacePrefix => "Requirements";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>Folder</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "Folder";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/kitalpha/requirements</c>) of the package that declares
+        /// <c>Folder</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/kitalpha/requirements";
 
         /// <summary>
@@ -56,20 +65,20 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Requirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Requirements.IFolder poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "requirementType", poco.RequirementType, poco, "RequirementType", context);
             WriteStringAttribute(xmlWriter, "ReqIFChapterName", poco.ReqIFChapterName);
-            WriteBigIntegerAttribute(xmlWriter, "ReqIFForeignID", poco.ReqIFForeignID);
-            WriteStringAttribute(xmlWriter, "ReqIFText", poco.ReqIFText);
-            WriteStringAttribute(xmlWriter, "requirementTypeProxy", poco.RequirementTypeProxy);
-            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
+            WriteBigIntegerAttribute(xmlWriter, "ReqIFForeignID", poco.ReqIFForeignID);
+            WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
             WriteStringAttribute(xmlWriter, "ReqIFName", poco.ReqIFName);
             WriteStringAttribute(xmlWriter, "ReqIFPrefix", poco.ReqIFPrefix);
-            this.WriteContainedElements(xmlWriter, "ownedRequirements", poco.OwnedRequirements, poco, "OwnedRequirements", context);
-            this.WriteContainedElements(xmlWriter, "ownedRelations", poco.OwnedRelations, poco, "OwnedRelations", context);
+            WriteStringAttribute(xmlWriter, "ReqIFText", poco.ReqIFText);
+            this.WriteReferenceAttribute(xmlWriter, "requirementType", poco.RequirementType, poco, "RequirementType", context);
+            WriteStringAttribute(xmlWriter, "requirementTypeProxy", poco.RequirementTypeProxy);
             this.WriteContainedElements(xmlWriter, "ownedAttributes", poco.OwnedAttributes, poco, "OwnedAttributes", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedRelations", poco.OwnedRelations, poco, "OwnedRelations", context);
+            this.WriteContainedElements(xmlWriter, "ownedRequirements", poco.OwnedRequirements, poco, "OwnedRequirements", context);
         }
     }
 }

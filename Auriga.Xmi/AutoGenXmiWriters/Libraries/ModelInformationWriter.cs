@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Libraries
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Libraries
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public ModelInformationWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public ModelInformationWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>libraries</c>) of the package that
+        /// declares <c>ModelInformation</c>.
+        /// </summary>
         public override string NamespacePrefix => "libraries";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>ModelInformation</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "ModelInformation";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/capella/common/libraries/7.0.0</c>) of the package that declares
+        /// <c>ModelInformation</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/capella/common/libraries/7.0.0";
 
         /// <summary>
@@ -57,8 +66,8 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Libraries
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "version", poco.Version, poco, "Version", context);
-            this.WriteContainedElements(xmlWriter, "ownedReferences", poco.OwnedReferences, poco, "OwnedReferences", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedReferences", poco.OwnedReferences, poco, "OwnedReferences", context);
         }
     }
 }

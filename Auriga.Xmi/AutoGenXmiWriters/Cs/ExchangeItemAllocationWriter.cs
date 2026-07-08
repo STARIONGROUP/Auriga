@@ -11,7 +11,7 @@
 // --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
 // ------------------------------------------------------------------------------------------------
 
-#nullable disable
+#nullable enable
 
 namespace Auriga.Xmi.AutoGenXmiWriters.Cs
 {
@@ -33,18 +33,27 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Cs
         /// </summary>
         /// <param name="facade">the writer facade used to write contained elements</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public ExchangeItemAllocationWriter(IXmiElementWriterFacade facade, ILoggerFactory loggerFactory)
+        public ExchangeItemAllocationWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
             : base(facade, loggerFactory)
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>org.polarsys.capella.core.data.cs</c>) of the package that
+        /// declares <c>ExchangeItemAllocation</c>.
+        /// </summary>
         public override string NamespacePrefix => "org.polarsys.capella.core.data.cs";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>ExchangeItemAllocation</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
         public override string TypeName => "ExchangeItemAllocation";
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.polarsys.org/capella/core/cs/7.0.0</c>) of the package that declares
+        /// <c>ExchangeItemAllocation</c>.
+        /// </summary>
         public override string NamespaceUri => "http://www.polarsys.org/capella/core/cs/7.0.0";
 
         /// <summary>
@@ -56,28 +65,28 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Cs
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Cs.IExchangeItemAllocation poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "sendProtocol", poco.SendProtocol);
-            WriteEnumAttribute<Auriga.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "receiveProtocol", poco.ReceiveProtocol);
             this.WriteReferenceAttribute(xmlWriter, "allocatedItem", poco.AllocatedItem, poco, "AllocatedItem", context);
-            this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
-            WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteStringAttribute(xmlWriter, "description", poco.Description);
-            WriteStringAttribute(xmlWriter, "review", poco.Review);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteStringAttribute(xmlWriter, "description", poco.Description);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteBooleanAttribute(xmlWriter, "final", poco.Final);
+            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
+            WriteEnumAttribute<Auriga.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "receiveProtocol", poco.ReceiveProtocol);
+            WriteStringAttribute(xmlWriter, "review", poco.Review);
+            WriteEnumAttribute<Auriga.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "sendProtocol", poco.SendProtocol);
+            WriteStringAttribute(xmlWriter, "sid", poco.Sid);
+            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteBooleanAttribute(xmlWriter, "final", poco.Final);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
-            this.WriteContainedElements(xmlWriter, "ownedMigratedElements", poco.OwnedMigratedElements, poco, "OwnedMigratedElements", context);
-            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
-            this.WriteContainedElements(xmlWriter, "ownedPropertyValues", poco.OwnedPropertyValues, poco, "OwnedPropertyValues", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
+            this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            this.WriteContainedElements(xmlWriter, "ownedMigratedElements", poco.OwnedMigratedElements, poco, "OwnedMigratedElements", context);
             this.WriteContainedElements(xmlWriter, "ownedPropertyValueGroups", poco.OwnedPropertyValueGroups, poco, "OwnedPropertyValueGroups", context);
+            this.WriteContainedElements(xmlWriter, "ownedPropertyValues", poco.OwnedPropertyValues, poco, "OwnedPropertyValues", context);
         }
     }
 }
