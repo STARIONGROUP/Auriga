@@ -24,10 +24,11 @@ Then open `report/index.html` in a browser. Both options have defaults (`resourc
 
 ## Build and serve with Docker
 
-The report is served from a lightweight `nginx:alpine` image ([`HtmlDocs/Dockerfile`](../HtmlDocs/Dockerfile))
-that hosts the pre-generated `HtmlDocs/index.html`; the image contains only the static report — no .NET
-runtime. Two helper scripts (mirroring the sibling SysML2.NET project) generate the report and build the
-image:
+The report is served from a lightweight, rootless `nginxinc/nginx-unprivileged:alpine` image
+([`HtmlDocs/Dockerfile`](../HtmlDocs/Dockerfile)) that hosts the pre-generated `HtmlDocs/index.html`; the
+image contains only the static report — no .NET runtime — and nginx runs as a non-root user, listening on
+port `8080` inside the container. Two helper scripts (mirroring the sibling SysML2.NET project) generate
+the report and build the image:
 
 - [`docker-build-docs-local.sh`](../docker-build-docs-local.sh) `<version>` — generate the report and build
   the image locally, tagged `stariongroup/auriga.docs:latest` and `:<version>`.
@@ -36,6 +37,6 @@ image:
 
 ```bash
 ./docker-build-docs-local.sh 1.0.0
-docker run --rm -p 8080:80 stariongroup/auriga.docs:latest
+docker run --rm -p 8080:8080 stariongroup/auriga.docs:latest
 # then browse http://localhost:8080
 ```

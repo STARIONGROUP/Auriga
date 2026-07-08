@@ -12,8 +12,8 @@ VERSION="$1"
 echo "Generating the Capella metamodel HTML report"
 dotnet run --project Auriga.Reporting -c Release -- --ecore resources/ecore --output HtmlDocs/index.html
 
-echo "pulling latest version of nginx:alpine"
-docker pull nginx:alpine
+echo "pulling latest version of nginxinc/nginx-unprivileged:alpine"
+docker pull nginxinc/nginx-unprivileged:alpine
 
 echo "Building local Docker image for version: $VERSION"
 docker build \
