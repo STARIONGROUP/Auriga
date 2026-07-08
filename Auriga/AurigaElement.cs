@@ -37,6 +37,22 @@ namespace Auriga
         public string? SourceDocument { get; set; }
 
         /// <summary>
+        /// Gets or sets the <c>xsi:type</c> the element was read from, verbatim (e.g.
+        /// <c>org.polarsys.capella.core.data.capellacommon:AbstractStateRealization</c>), or <c>null</c>
+        /// for a document root whose type is fixed by its element tag. Recorded by the reader as
+        /// round-trip groundwork so a write can re-emit the exact declared type. (Type dispatch on read is
+        /// done by the reader facade, not from this value.)
+        /// </summary>
+        public string? XsiType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the XML namespace URI in scope when the element was read (e.g.
+        /// <c>http://www.polarsys.org/capella/core/capellacommon/7.0.0</c>). <c>null</c> until set by the
+        /// reader; round-trip groundwork alongside <see cref="XsiType"/>.
+        /// </summary>
+        public string? XmiNamespaceUri { get; set; }
+
+        /// <summary>
         /// Gets the single-valued reference features whose targets are not yet resolved, keyed by the
         /// property name, with the referenced <c>xmi:id</c> as the value. Populated on the reader's
         /// first pass and resolved on the second.

@@ -30,6 +30,11 @@ namespace Auriga.Xmi.Readers
         where T : IAurigaElement
     {
         /// <summary>
+        /// The XML Schema instance namespace, in which the <c>xsi:type</c> attribute is declared.
+        /// </summary>
+        protected const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
+
+        /// <summary>
         /// The characters used to split a whitespace-delimited attribute value — a reference list such as
         /// <c>linkEnds</c>, or a multi-valued primitive attribute.
         /// </summary>
