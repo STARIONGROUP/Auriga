@@ -55,12 +55,18 @@ Primary source: `capellambse/loader/core.py` (`MelodyLoader`, `ModelFile`) and `
 ## What Auriga adopts, and where it diverges
 
 Auriga's reader (`Auriga.Xmi.XmiReader`) implements the load + cross-fragment resolution for the
-**semantic** graph:
+**semantic** graph, following the [uml4net](https://github.com/STARIONGROUP/uml4net) XMI-reader
+pattern: every `Read` carries the document it is reading (`Read(XmlReader, string documentName,
+string namespaceUri)`), references are stored raw at read time and only resolved in a second pass, and
+elements are cached under a document-scoped key.
 
-- **Single global UUID cache.** Every element from the main file and all fragments goes into one
-  `IXmiElementCache` keyed by the bare `id`. This is the direct analogue of py-capellambse's global
-  UUID space, and makes resolution an O(1) dictionary lookup rather than a fan-out over per-file
-  caches — a deliberate improvement that is still compatible with the on-disk format.
+- **Document-scoped cache.** Every element from the main file and all fragments goes into one
+  `IXmiElementCache`, but keyed by `documentName#id` (`XmiElementCache.Key`), where `documentName` is
+  the reading document's path relative to the main file. This is the faithful uml4net key: it lets the
+  same physical file be identified consistently no matter which document referenced it, so a fragment
+  that references another fragment — or references back into the main file — resolves to a single,
+  stable key. The public `XmiReaderResult.Elements` index is still built by the bare `id` (Capella
+  UUIDs are globally unique), so the public API and `Elements[bareId]` lookups are unchanged.
 - **Discovery by following hrefs, not the `.aird`.** `Read(string path)` takes the main
   `.capella`/`.melodymodeller` as the entry point and discovers fragments by scanning the collected
   references for path-qualified `href` tokens (`…​.capellafragment#uuid`), loading each transitively.
@@ -68,16 +74,32 @@ Auriga's reader (`Auriga.Xmi.XmiReader`) implements the load + cross-fragment re
   semantic graph without parsing the `.aird`. The trade-off: fragments that hold *only* diagrams
   (reachable solely via the `.aird`'s `referencedAnalysis`) are not loaded — out of scope, as Auriga
   is a semantic-model library.
-- **href parsing.** A collected token keeps its full `href` verbatim; the resolver takes the substring
-  after `#` as the cache key (`ReferenceResolver.ReferenceIdentifier`), so both intra-file `#uuid`
-  and cross-file `type path#uuid` resolve against the global cache. Relative paths are URL-decoded
-  (`Uri.UnescapeDataString`) and resolved against the main file's directory; discovery is filtered to
-  `.capellafragment`, so `hlink://` rich-text links, `platform:/resource` library links, and `.aird`
-  diagram references are ignored.
+- **Referring-document-relative href resolution.** A collected token keeps its full `href` verbatim.
+  Both discovery and resolution parse it through `HrefReference` (strip the optional `xsi:type`
+  prefix, split on `#`) and canonicalize the document part **relative to the referring element's own
+  `SourceDocument`** — URL-decoded (`Uri.UnescapeDataString`), `..`-collapsed, normalized to a path
+  relative to the main file. `ReferenceResolver.ResolveKey` then builds the `documentName#id` cache
+  key: a bare intra-document `#uuid` is qualified with the owner's own document; a cross-file
+  `type path#uuid` is qualified with the resolved target document. Resolving against the *referring*
+  document (not the main directory) is what makes fragment→fragment and back-to-main links resolve to
+  the same key the target was cached under. Discovery is filtered to `.capellafragment`, so `hlink://`
+  rich-text links, `platform:/resource` library links, and `.aird` diagram references are ignored.
+- **Known Capella namespaces.** `INamespaceResolver.RegisterNamespace` lets the known Capella
+  namespace URIs (the generated `AutoGenNamespaceRegistry`) be seeded up front, mirroring uml4net's
+  registration, and each document's root namespace URI is threaded through every `Read` as
+  `namespaceUri`.
 - **Explicit per-element source tracking.** Rather than an on-demand ancestor walk, Auriga records the
   originating document on each element (`IAurigaElement.SourceDocument`, relative to the main file,
-  e.g. `sysmodel.capella` or `fragments/SA-Data.capellafragment`). This is simpler to query and is the
-  hook a fragment-preserving write (#18) will use to route each element back to its file.
+  e.g. `sysmodel.capella` or `fragments/SA-Data.capellafragment`) — set by the reader from the
+  `documentName` it was read under. This is simpler to query, is the document part of the cache key,
+  and is the hook a fragment-preserving write (#18) will use to route each element back to its file.
+- **Containment navigation (#15).** Both single- and multi-valued containment re-parent their targets:
+  a multi-valued containment collection is a bypass-proof `ContainerList<T>` (built on
+  `Collection<T>`, so every mutation path — including the resolver's non-generic `IList.Add` — sets
+  `Container`), and a single-valued containment property's setter sets `Container` on assignment. The
+  reader and resolver therefore produce a fully navigable graph: `IAurigaElement.Container` walks up to
+  the root across fragment boundaries, and generated `QueryContainedElements()` /
+  `QueryAllContainedElements()` walk down (`result.Root.QueryAllContainedElements().OfType<…>()`).
 - **Robustness.** The main document's failures propagate; a missing or unparsable fragment is logged
   and skipped. References whose target is absent from every provided file remain in
   `XmiReaderResult.UnresolvedReferences` (see [two-pass resolution](#) / issue #11) rather than
@@ -86,10 +108,6 @@ Auriga's reader (`Auriga.Xmi.XmiReader`) implements the load + cross-fragment re
 
 ## Known limitations / future work
 
-- **Containment back-pointers.** An href-resolved containment target is added to its owner's
-  collection but its `Container` is not set (the resolver cannot distinguish containment from
-  non-containment references generically). The graph is navigable forward through containment
-  collections; reverse navigation for fragment roots is future work.
 - **`.aird` manifest and visual fragments.** Not read; diagram-only fragments are not loaded.
 - **Library / cross-project links.** `platform:/resource/…` references to other projects are treated
   as external (reported unresolved), not loaded.
@@ -100,5 +118,9 @@ Auriga's reader (`Auriga.Xmi.XmiReader`) implements the load + cross-fragment re
 - py-capellambse: `capellambse/loader/core.py` (`MelodyLoader`, `ModelFile`, `FragmentType`),
   `capellambse/helpers.py` (`CROSS_FRAGMENT_LINK`, `normalize_pure_path`), `capellambse/loader/exs.py`.
 - Auriga: `Auriga.Xmi/XmiReader.cs`, `Auriga.Xmi/ReferenceResolver/ReferenceResolver.cs`,
-  `Auriga/IAurigaElement.cs` (`SourceDocument`).
-- Depends on #11 (two-pass resolution); related to #4 (fixtures) and #18 (fragment-preserving writes).
+  `Auriga.Xmi/HrefReference.cs`, `Auriga.Xmi/Cache/XmiElementCache.cs`,
+  `Auriga.Xmi/Namespaces/NamespaceResolver.cs`, `Auriga/IAurigaElement.cs` (`SourceDocument`,
+  `QueryContainedElements`), `Auriga/ContainerList.cs`.
+- Follows the uml4net XMI-reader pattern (`STARIONGROUP/uml4net`).
+- Depends on #11 (two-pass resolution); implements #12 (fragment loading) and #15 (containment
+  navigation); related to #4 (fixtures) and #18 (fragment-preserving writes).
