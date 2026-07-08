@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi
+namespace Auriga.Xmi.Readers
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,6 @@ namespace Auriga.Xmi
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Namespaces;
     using Auriga.Xmi.ReferenceResolver;
-    using Auriga.Xmi.Readers;
 
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Abstractions;

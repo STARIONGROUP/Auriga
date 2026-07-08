@@ -12,6 +12,7 @@ namespace Auriga.Xmi
     using Auriga.Xmi.AutoGenXmiReaders;
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Namespaces;
+    using Auriga.Xmi.Readers;
     using Auriga.Xmi.ReferenceResolver;
 
     using Microsoft.Extensions.Logging;
