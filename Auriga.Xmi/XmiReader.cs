@@ -231,10 +231,12 @@ namespace Auriga.Xmi
         }
 
         /// <summary>
-        /// Scans every collected reference for cross-document <c>href</c> tokens (<c>path#id</c>) and
-        /// returns the absolute paths of the referenced documents that have not yet been loaded.
+        /// Scans every collected reference for cross-document <c>href</c> tokens and returns the absolute
+        /// paths of the referenced fragment documents that have not yet been loaded. Each href is resolved
+        /// relative to the directory of the document that owns it, so a fragment referencing another
+        /// fragment (or referencing back to the main file) resolves correctly.
         /// </summary>
-        /// <param name="baseDirectory">the directory the relative href paths are resolved against</param>
+        /// <param name="baseDirectory">the directory of the model's main document</param>
         /// <param name="loaded">the set of already-loaded document paths</param>
         /// <returns>the absolute paths of the not-yet-loaded referenced documents</returns>
         private IEnumerable<string> DiscoverReferencedDocuments(string baseDirectory, HashSet<string> loaded)
@@ -245,14 +247,14 @@ namespace Auriga.Xmi
             {
                 foreach (var token in element.SingleValueReferencePropertyIdentifiers.Values)
                 {
-                    AddReferencedDocument(token, baseDirectory, loaded, documents);
+                    AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents);
                 }
 
                 foreach (var tokens in element.MultiValueReferencePropertyIdentifiers.Values)
                 {
                     foreach (var token in tokens)
                     {
-                        AddReferencedDocument(token, baseDirectory, loaded, documents);
+                        AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents);
                     }
                 }
             }
@@ -266,30 +268,32 @@ namespace Auriga.Xmi
         /// references (a bare id) and references to anything other than a fragment — <c>hlink://</c> in
         /// rich text, <c>platform:/resource</c> library links, <c>.aird</c> diagrams — are ignored.
         /// </summary>
+        /// <param name="referringDocument">the document that owns the reference, whose directory the href
+        /// path is resolved relative to</param>
         /// <param name="token">the collected reference token</param>
-        /// <param name="baseDirectory">the directory the relative path is resolved against</param>
+        /// <param name="baseDirectory">the directory of the model's main document</param>
         /// <param name="loaded">the set of already-loaded document paths</param>
         /// <param name="documents">the set the referenced document path is added to</param>
-        private static void AddReferencedDocument(string token, string baseDirectory, HashSet<string> loaded, HashSet<string> documents)
+        private static void AddReferencedDocument(string? referringDocument, string token, string baseDirectory, HashSet<string> loaded, HashSet<string> documents)
         {
-            var separator = token.IndexOf('#');
-            if (separator <= 0)
+            var (documentPath, _) = HrefReference.Parse(token);
+            if (documentPath.Length == 0)
             {
                 return;
             }
 
-            var relative = token.Substring(0, separator);
+            var canonical = HrefReference.Canonicalize(referringDocument, documentPath);
 
-            if (!relative.EndsWith(".capellafragment", StringComparison.OrdinalIgnoreCase))
+            if (!canonical.EndsWith(".capellafragment", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
 
-            var documentPath = Path.GetFullPath(Path.Combine(baseDirectory, Uri.UnescapeDataString(relative)));
+            var fullPath = Path.GetFullPath(Path.Combine(baseDirectory, canonical));
 
-            if (!loaded.Contains(documentPath))
+            if (!loaded.Contains(fullPath))
             {
-                documents.Add(documentPath);
+                documents.Add(fullPath);
             }
         }
 
