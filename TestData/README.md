@@ -4,7 +4,7 @@
 
 Capella model fixtures for reader, writer, and round-trip tests. Layout follows the EcoreNetto/uml4net `TestData` convention: one directory per fixture, each with its license text and the provenance recorded here.
 
-Each obtained fixture is committed as the **complete Capella project set**: semantic files (`.capella`/`.melodymodeller`, `.capellafragment`), the `.aird`/`.airdfragment` representation files, the `.afm`/`.project` sidecars, and any referenced image resources. Parsing `.aird` is out of v1 scope, but the diagram files are kept so the fixtures open unmodified in the Capella tool and so writer tests can verify that sibling files are preserved untouched. Note the In-Flight Entertainment System `.aird` alone is ~20 MB.
+Each obtained fixture is committed as the **complete Capella project set**: semantic files (`.capella`/`.melodymodeller`, `.capellafragment`), the `.aird`/`.airdfragment` representation files, the `.afm`/`.project` sidecars, and any referenced image resources. Parsing `.aird` is out of v1 scope, but the diagram files are kept so the fixtures open unmodified in the Capella tool and so writer tests can verify that sibling files are preserved untouched. Note that the Level Crossing Traffic Control `.aird` is ~37 MB and the In-Flight Entertainment System `.aird` ~20 MB.
 
 | Fixture | Capella version | License | Purpose |
 | --- | --- | --- | --- |
@@ -12,6 +12,8 @@ Each obtained fixture is committed as the **complete Capella project set**: sema
 | [`coffee-machine/`](coffee-machine) | **6.0.0** | Apache-2.0 | py-capellambse demo model; the "unsupported metamodel version" fixture for the v1 reader |
 | [`in-flight-entertainment-system/`](in-flight-entertainment-system) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Official Capella sample; large realistic model, all five Arcadia layers |
 | [`fragmented-sysmodel/`](fragmented-sysmodel) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Model split across four `.capellafragment` files; exercises cross-fragment `href` resolution |
+| [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; Physical Architecture deployment (`PartDeploymentLink`s, deployed parts) |
+| [`Level Crossing Traffic Control/`](Level%20Crossing%20Traffic%20Control) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; large model (~1.5 MB semantic, ~37 MB `.aird`) |
 
 ## minimal/
 
@@ -41,3 +43,11 @@ href="fragments/LA-Logical%20Functions-RLF-OA2-SysOA2_1.capellafragment#dc08ee20
 ```
 
 Note the **URL-encoded space (`%20`)** in the fragment file names — the reader's href resolution must URL-decode. The `sysmodel.aird`, the four `.airdfragment` files, and the `ressources/` icons (EPL-2.0, see `ressources/license.txt`) are included, so the fixture is the complete fragmented project as used by the Capella fragmentation test suite.
+
+## Crowd_Surveillance_System_in_DARC/
+
+The official Capella "Crowd Surveillance System in DARC" sample, downloaded from the Capella 7.0.0 sample models at <https://download.eclipse.org/capella/samples/7.0.0/> (`Crowd_Surveillance_System_in_DARC.zip`). EPL-2.0 ([LICENSE-EPL-2.0.md](Crowd_Surveillance_System_in_DARC/LICENSE-EPL-2.0.md)). ~0.5 MB semantic model that exercises Physical Architecture deployment (`PartDeploymentLink`s deploying software parts onto node parts). Includes the ~7.7 MB `.aird` and the `img/` folder referenced from element descriptions.
+
+## Level Crossing Traffic Control/
+
+The official Capella "Level Crossing Traffic Control" sample, downloaded from the Capella 7.0.0 sample models at <https://download.eclipse.org/capella/samples/7.0.0/> (`LevelCrossingTrafficControl.zip`; the French `LevelCrossingTrafficControl_fr` variant was not added). EPL-2.0 ([LICENSE-EPL-2.0.md](Level%20Crossing%20Traffic%20Control/LICENSE-EPL-2.0.md)). ~1.5 MB semantic model across the Arcadia layers, with the ~37 MB `.aird` — the largest fixture in this repository.
