@@ -1,0 +1,32 @@
+root = true
+
+# ---------------------------------------------------------------------------
+# Auriga analyzer policy
+#
+# The default .NET analysis level stays as-is (no AnalysisLevel override in
+# Directory.Build.props, which at latest-all/-recommended floods the build with
+# ~2000 convention/generated-code warnings). Instead we promote a curated set of
+# performance / reliability CA rules to `warning` so the SonarCloud
+# `external_roslyn` smells of that class are caught at `dotnet build` time,
+# locally, without the noise. Keep this list in sync with the rules Sonar flags.
+# ---------------------------------------------------------------------------
+[*.cs]
+
+# Performance
+dotnet_diagnostic.CA1827.severity = warning   # do not use Count()/LongCount() when Any() can be used
+dotnet_diagnostic.CA1829.severity = warning   # use Length/Count property instead of Enumerable.Count()
+dotnet_diagnostic.CA1836.severity = warning   # prefer IsEmpty over Count when available
+dotnet_diagnostic.CA1845.severity = warning   # use span-based string.Concat
+dotnet_diagnostic.CA1846.severity = warning   # prefer AsSpan over Substring
+dotnet_diagnostic.CA1854.severity = warning   # prefer the IDictionary.TryGetValue method
+dotnet_diagnostic.CA1858.severity = warning   # use StartsWith instead of IndexOf to test prefixes
+dotnet_diagnostic.CA1859.severity = warning   # use concrete types when possible for improved performance
+dotnet_diagnostic.CA1860.severity = warning   # avoid using 'Enumerable.Any()' extension method
+dotnet_diagnostic.CA1861.severity = warning   # avoid constant arrays as arguments
+dotnet_diagnostic.CA1865.severity = warning   # use char overload of string methods
+dotnet_diagnostic.CA1866.severity = warning   # use char overload of string methods
+dotnet_diagnostic.CA1867.severity = warning   # use char overload of string methods
+dotnet_diagnostic.CA1868.severity = warning   # unnecessary call to 'Contains' for sets
+
+# Reliability / correctness
+dotnet_diagnostic.CA2249.severity = warning   # use 'string.Contains' instead of 'string.IndexOf'

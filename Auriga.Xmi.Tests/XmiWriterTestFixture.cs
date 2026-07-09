@@ -172,7 +172,7 @@ namespace Auriga.Xmi.Tests
             });
         }
 
-        private static IEnumerable<string> Dangling(XmiReaderResult result)
+        private static List<string> Dangling(XmiReaderResult result)
         {
             return result.UnresolvedReferences
                 .Select(reference => $"{reference.OwningElementId}.{reference.PropertyName}->{TargetId(reference.TargetIdentifier)}")

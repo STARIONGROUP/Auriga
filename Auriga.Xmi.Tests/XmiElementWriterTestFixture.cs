@@ -29,6 +29,8 @@ namespace Auriga.Xmi.Tests
     [TestFixture]
     public class XmiElementWriterTestFixture
     {
+        private static readonly string[] AbcValues = { "a", "b", "c" };
+
         private ProbeWriter writer = null!;
 
         [SetUp]
@@ -100,7 +102,7 @@ namespace Auriga.Xmi.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(Fragment(w => ProbeWriter.StringList(w, "l", new[] { "a", "b", "c" })), Does.Contain("l=\"a b c\""));
+                Assert.That(Fragment(w => ProbeWriter.StringList(w, "l", AbcValues)), Does.Contain("l=\"a b c\""));
                 Assert.That(Fragment(w => ProbeWriter.StringList(w, "l", Array.Empty<string>())), Does.Not.Contain("l="));
                 Assert.That(Fragment(w => ProbeWriter.StringList(w, "l", null)), Does.Not.Contain("l="));
             });

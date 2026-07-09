@@ -29,6 +29,8 @@ namespace Auriga.Xmi.Tests
         private const string Modeller = "http://www.polarsys.org/capella/core/modeller/7.0.0";
         private const string Pa = "http://www.polarsys.org/capella/core/pa/7.0.0";
 
+        private static readonly string[] ExpectedElementKeys = { "proj-1", "se-1", "pa-1" };
+
         private string directory = null!;
         private XmiReaderResult result = null!;
 
@@ -85,7 +87,7 @@ namespace Auriga.Xmi.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(this.result.Elements.Keys, Is.EquivalentTo(new[] { "proj-1", "se-1", "pa-1" }));
+                Assert.That(this.result.Elements.Keys, Is.EquivalentTo(ExpectedElementKeys));
                 Assert.That(this.result.UnresolvedReferences, Is.Empty);
             });
         }

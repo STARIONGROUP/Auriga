@@ -97,7 +97,7 @@ namespace Auriga.CodeGenerator.Helpers
 
         private static string ReaderNamespace(EClass eClass)
         {
-            return ReaderRootNamespace + CSharpNaming.Namespace(eClass).Substring(CSharpNaming.RootNamespace.Length);
+            return string.Concat(ReaderRootNamespace, CSharpNaming.Namespace(eClass).AsSpan(CSharpNaming.RootNamespace.Length));
         }
 
         private static string ReaderClassName(EClass eClass)
