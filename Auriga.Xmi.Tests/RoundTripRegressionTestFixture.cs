@@ -346,13 +346,13 @@ namespace Auriga.Xmi.Tests
 
         private static string NormalizeValue(string value)
         {
-            if (value.IndexOf('#') < 0)
+            if (!value.Contains('#'))
             {
                 return value;
             }
 
             var ids = value.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)
-                .Where(token => token.IndexOf('#') >= 0)
+                .Where(token => token.Contains('#'))
                 .Select(token => token.Substring(token.LastIndexOf('#') + 1));
 
             return string.Join(" ", ids);
@@ -385,7 +385,7 @@ namespace Auriga.Xmi.Tests
             });
         }
 
-        private static IEnumerable<string> Dangling(XmiReaderResult result)
+        private static List<string> Dangling(XmiReaderResult result)
         {
             return result.UnresolvedReferences
                 .Select(reference => $"{reference.OwningElementId}.{reference.PropertyName}->{TargetId(reference.TargetIdentifier)}")
