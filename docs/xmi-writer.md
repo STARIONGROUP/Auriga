@@ -45,6 +45,11 @@ sibling path relative to it, and serializes references between documents as rela
 - **Fragments.** A containment child that belongs to another document is written as an `href` proxy
   (`<ownedX href="fragments/…capellafragment#id"/>`); the child itself is written, in full, as the root
   of its own document.
+- **New-element placement.** An element with no `SourceDocument` — one built in memory rather than read —
+  is written into **its container's document**: it is emitted inline wherever its container is written. So
+  a new child added to an element that lives in a fragment is written into that fragment, and a new child
+  under the main document's tree is written into the main file. (Only an element read from disk carries a
+  `SourceDocument`; the reader sets it, and a fragment-preserving write routes it back to that file.)
 
 ## Fidelity
 
