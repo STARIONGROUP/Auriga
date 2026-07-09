@@ -87,8 +87,10 @@ round-trip equivalence, well-formedness, and correct namespace declarations.
 ## Round-trip regression suite
 
 [`RoundTripRegressionTestFixture`](../Auriga.Xmi.Tests/RoundTripRegressionTestFixture.cs) runs read → write
-→ compare over **every** fixture under [`TestData/`](../TestData) (issue #19), skipping any model whose
-metamodel version the reader does not support (the 6.0.0 coffee-machine fixture). Two complementary checks:
+→ compare over **every** fixture under [`TestData/`](../TestData) (issue #19), skipping any model the v1
+reader does not support — either its metamodel version (the 6.0.0 coffee-machine fixture) or an add-on
+viewpoint outside the vendored metamodel (the Cybersecurity viewpoint in the Crowd Surveillance sample).
+Two complementary checks:
 
 - **Semantic round-trip (CI gate).** Read → write → re-read → compare object graphs (element set, types,
   containment, source document, resolved references, and dangling references). This is the enforced check

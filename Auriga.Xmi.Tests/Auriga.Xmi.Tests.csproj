@@ -39,6 +39,14 @@
             <Link>TestData\in-flight-entertainment-system.capella</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="..\TestData\Crowd_Surveillance_System_in_DARC\Crowd_Surveillance_System_in_DARC.capella">
+            <Link>TestData\Crowd_Surveillance_System_in_DARC.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\Level Crossing Traffic Control\Level Crossing Traffic Control.capella">
+            <Link>TestData\Level Crossing Traffic Control.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Include="..\TestData\fragmented-sysmodel\sysmodel.capella">
             <Link>TestData\fragmented-sysmodel\sysmodel.capella</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

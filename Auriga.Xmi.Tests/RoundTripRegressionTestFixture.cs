@@ -185,9 +185,11 @@ namespace Auriga.Xmi.Tests
         }
 
         /// <summary>
-        /// Reads the fixture, or ignores the test when the model targets a metamodel version other than
-        /// 7.0.0 (its round-trip is out of v1 scope — the writer emits 7.0.0 namespaces, so an older model
-        /// such as the 6.0.0 coffee-machine fixture would be silently upgraded; see <c>TestData/README.md</c>).
+        /// Reads the fixture, or ignores the test when the model is out of v1 scope: either it targets a
+        /// metamodel version other than 7.0.0 (the writer emits 7.0.0 namespaces, so an older model such as
+        /// the 6.0.0 coffee-machine fixture would be silently upgraded), or it references a package outside
+        /// the vendored metamodel — an add-on viewpoint the v1 reader does not know (e.g. the Cybersecurity
+        /// viewpoint in the Crowd Surveillance sample). Both cases are documented in <c>TestData/README.md</c>.
         /// </summary>
         /// <param name="mainPath">the fixture's main semantic file</param>
         /// <returns>the read result</returns>
@@ -199,7 +201,15 @@ namespace Auriga.Xmi.Tests
                 Assert.Ignore($"{Path.GetFileName(mainPath)} targets metamodel namespace '{rootNamespace}', not 7.0.0; round-trip is out of v1 scope (see TestData/README.md).");
             }
 
-            return XmiReaderBuilder.Create().Build().Read(mainPath);
+            try
+            {
+                return XmiReaderBuilder.Create().Build().Read(mainPath);
+            }
+            catch (InvalidDataException exception) when (exception.Message.Contains("to a known Capella package", StringComparison.Ordinal))
+            {
+                Assert.Ignore($"{Path.GetFileName(mainPath)} references a package outside the vendored metamodel (an add-on viewpoint the v1 reader does not support): {exception.Message}");
+                throw; // unreachable — Assert.Ignore throws
+            }
         }
 
         private static string RootNamespace(string path)

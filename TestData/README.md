@@ -12,7 +12,7 @@ Each obtained fixture is committed as the **complete Capella project set**: sema
 | [`coffee-machine/`](coffee-machine) | **6.0.0** | Apache-2.0 | py-capellambse demo model; the "unsupported metamodel version" fixture for the v1 reader |
 | [`in-flight-entertainment-system/`](in-flight-entertainment-system) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Official Capella sample; large realistic model, all five Arcadia layers |
 | [`fragmented-sysmodel/`](fragmented-sysmodel) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Model split across four `.capellafragment` files; exercises cross-fragment `href` resolution |
-| [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; Physical Architecture deployment (`PartDeploymentLink`s, deployed parts) |
+| [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; uses the **Cybersecurity** add-on viewpoint (out of v1 metamodel scope — the round-trip suite skips it) |
 | [`Level Crossing Traffic Control/`](Level%20Crossing%20Traffic%20Control) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; large model (~1.5 MB semantic, ~37 MB `.aird`) |
 
 ## minimal/
@@ -46,7 +46,7 @@ Note the **URL-encoded space (`%20`)** in the fragment file names — the reader
 
 ## Crowd_Surveillance_System_in_DARC/
 
-The official Capella "Crowd Surveillance System in DARC" sample, downloaded from the Capella 7.0.0 sample models at <https://download.eclipse.org/capella/samples/7.0.0/> (`Crowd_Surveillance_System_in_DARC.zip`). EPL-2.0 ([LICENSE-EPL-2.0.md](Crowd_Surveillance_System_in_DARC/LICENSE-EPL-2.0.md)). ~0.5 MB semantic model that exercises Physical Architecture deployment (`PartDeploymentLink`s deploying software parts onto node parts). Includes the ~7.7 MB `.aird` and the `img/` folder referenced from element descriptions.
+The official Capella "Crowd Surveillance System in DARC" sample, downloaded from the Capella 7.0.0 sample models at <https://download.eclipse.org/capella/samples/7.0.0/> (`Crowd_Surveillance_System_in_DARC.zip`). EPL-2.0 ([LICENSE-EPL-2.0.md](Crowd_Surveillance_System_in_DARC/LICENSE-EPL-2.0.md)). ~0.5 MB semantic model that exercises Physical Architecture deployment (`PartDeploymentLink`s deploying software parts onto node parts). Includes the ~7.7 MB `.aird` and the `img/` folder referenced from element descriptions. The model also uses the **Cybersecurity** add-on viewpoint (`cybersecurity:CybersecurityConfiguration`), which is not part of the metamodel the v1 reader vendors (core Capella + Requirements VP + Kitalpha); the reader rejects it with a clear "unknown Capella package" error, so the round-trip regression suite skips this fixture — it is retained as the "unsupported add-on viewpoint" case (the counterpart to the version-unsupported coffee-machine).
 
 ## Level Crossing Traffic Control/
 
