@@ -41,12 +41,15 @@ jobs:
         run: |
           dotnet tool install --global dotnet-sonarscanner
           dotnet tool install --global dotnet-coverage
-          # AutoGen*/** are machine-generated data holders (interfaces, classes, enums) emitted by the
-          # code generator. They are near-identical by construction and not hand-maintained, so they are
-          # excluded from coverage and duplication so those gates reflect the hand-written code. The same
-          # pattern also matches the golden copies under Auriga.CodeGenerator.Tests/Expected/AutoGen*.
+          # AutoGen*/** are machine-generated data holders / readers / writers emitted by the code
+          # generator. They are near-identical by construction and not hand-maintained, so they are
+          # excluded from analysis entirely (issues, coverage and duplication) so the gates reflect the
+          # hand-written code. The same pattern also matches the golden copies under
+          # Auriga.CodeGenerator.Tests/Expected/AutoGen*. Test projects (**/*.Tests/**) are excluded from
+          # coverage so the coverage figure reflects production code only.
           GENERATED='**/AutoGenClasses/**/*.cs,**/AutoGenInterfaces/**/*.cs,**/AutoGenEnumeration/**/*.cs,**/AutoGenXmiReaders/**/*.cs,**/AutoGenXmiWriters/**/*.cs'
-          dotnet sonarscanner begin /k:"STARIONGROUP_Auriga" /o:"stariongroup" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.coverage.exclusions="$GENERATED" /d:sonar.cpd.exclusions="$GENERATED"
+          TESTS='**/*.Tests/**/*.cs'
+          dotnet sonarscanner begin /k:"STARIONGROUP_Auriga" /o:"stariongroup" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.exclusions="$GENERATED" /d:sonar.coverage.exclusions="$GENERATED,$TESTS" /d:sonar.cpd.exclusions="$GENERATED"
 
       - name: Build
         run: dotnet build Auriga.sln --no-restore --no-incremental /p:ContinuousIntegrationBuild=true
