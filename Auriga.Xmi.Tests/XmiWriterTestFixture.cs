@@ -82,6 +82,44 @@ namespace Auriga.Xmi.Tests
         }
 
         [Test]
+        public void Verify_that_a_new_element_is_written_into_its_containers_document()
+        {
+            var original = XmiReaderBuilder.Create().Build().Read(ModelFile("fragmented-sysmodel/sysmodel.capella"));
+
+            // A container that was read from a fragment file, and a brand-new element (no SourceDocument of
+            // its own) added to it. The policy is that an untracked new element belongs to its container's
+            // document, so it must be written into the fragment — not the main file.
+            var container = (Auriga.Modellingcore.IModelElement)original.Elements.Values
+                .First(e => e.SourceDocument is string document && document.EndsWith(".capellafragment", System.StringComparison.Ordinal));
+
+            var newElement = new Auriga.Capellacore.Constraint { Id = "aabbccdd-0000-4000-8000-000000000f18" };
+            container.OwnedConstraints.Add(newElement);
+
+            Assert.That(newElement.SourceDocument, Is.Null, "the new element has no source document of its own");
+
+            var directory = Path.Combine(Path.GetTempPath(), "auriga-writer-" + System.Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(directory);
+
+            try
+            {
+                var mainPath = Path.Combine(directory, "sysmodel.capella");
+                XmiWriterBuilder.Create().Build().Write(original.Root, mainPath);
+
+                var fragmentPath = Path.Combine(directory, container.SourceDocument!.Replace('/', Path.DirectorySeparatorChar));
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(File.ReadAllText(fragmentPath), Does.Contain(newElement.Id), "the new element is written into its container's fragment");
+                    Assert.That(File.ReadAllText(mainPath), Does.Not.Contain(newElement.Id), "the new element is not written into the main document");
+                });
+            }
+            finally
+            {
+                Directory.Delete(directory, recursive: true);
+            }
+        }
+
+        [Test]
         public void Verify_that_the_writer_guards_its_arguments()
         {
             var writer = XmiWriterBuilder.Create().Build();
