@@ -102,7 +102,7 @@ namespace Auriga.CodeGenerator.Helpers
 
         private static string WriterNamespace(EClass eClass)
         {
-            return WriterRootNamespace + CSharpNaming.Namespace(eClass).Substring(CSharpNaming.RootNamespace.Length);
+            return string.Concat(WriterRootNamespace, CSharpNaming.Namespace(eClass).AsSpan(CSharpNaming.RootNamespace.Length));
         }
 
         private static string PocoType(EClass eClass)

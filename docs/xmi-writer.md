@@ -60,13 +60,44 @@ reopens in the Capella tool. The round-trip is proven by
 fragmented `sysmodel` fixture.
 
 The following differences from Capella's own serialization are **benign** (they do not change meaning and
-reopen cleanly):
+reopen cleanly). Each is the reason byte-for-byte equality is not attainable, and each is neutralized by
+the normalized comparison in the round-trip regression suite (below):
 
-- EMF wraps long start-tags across several lines (one `xmlns:`/attribute per line); the writer relies on
-  `XmlWriter`, which keeps a tag's attributes on one line.
-- Attribute and child ordering is alphabetical by feature name (a stable, deterministic order that matches
-  the reader), which does not always match Capella's ordering.
-- The XML declaration encoding renders as `utf-8` (lower-case) rather than `UTF-8`.
+- **Tag wrapping.** EMF wraps long start-tags across several lines (one `xmlns:`/attribute per line); the
+  writer relies on `XmlWriter`, which keeps a tag's attributes on one line.
+- **Ordering.** Attribute and child ordering is alphabetical by feature name (a stable, deterministic
+  order that matches the reader), which does not always match Capella's ordering.
+- **Encoding case.** The XML declaration encoding renders as `utf-8` (lower-case) rather than `UTF-8`.
+- **Namespace declarations.** The writer declares exactly the packages a document uses; Capella's declared
+  set and prefix order can differ.
+- **Default values.** Capella omits an attribute whose value equals its Ecore default (e.g. `actor="false"`);
+  the writer emits it. The value is identical, so the meaning is unchanged.
+- **Multi-valued features as elements.** Capella serializes some multi-valued features as repeated child
+  elements (e.g. `bodies`/`languages` of an `OpaqueExpression`, `unsynchronizedFeatures`); the writer emits
+  them as a single whitespace-delimited attribute. The values are the same.
+- **Typed-reference spelling.** A reference that carries an `xsi:type` hint (e.g. `exchangedItems`,
+  `triggers`) and same-/cross-document `#id` / `path#id` tokens are spelled differently but resolve to the
+  same target.
+- **Inline vs. href proxy.** At a fragment boundary an element may be inlined on one side and written as an
+  `href` proxy on the other; both denote the same element in the same document.
 
 Verifying that a written file opens in Capella 7.0.0 is a manual step; the automated proxy is the
 round-trip equivalence, well-formedness, and correct namespace declarations.
+
+## Round-trip regression suite
+
+[`RoundTripRegressionTestFixture`](../Auriga.Xmi.Tests/RoundTripRegressionTestFixture.cs) runs read → write
+→ compare over **every** fixture under [`TestData/`](../TestData) (issue #19), skipping any model the v1
+reader does not support — either its metamodel version (the 6.0.0 coffee-machine fixture) or an add-on
+viewpoint outside the vendored metamodel (the Cybersecurity viewpoint in the Crowd Surveillance sample).
+Two complementary checks:
+
+- **Semantic round-trip (CI gate).** Read → write → re-read → compare object graphs (element set, types,
+  containment, source document, resolved references, and dangling references). This is the enforced check
+  — it runs on every CI build through the normal `dotnet test` and catches any change to what a model
+  round-trips to. The reader is the normalizer here: every benign textual difference above is invisible to
+  the object graph, so a green run means no *semantic* regression.
+- **Normalized text diff (on-demand audit).** An `[Explicit]` test compares the written files against the
+  originals after normalizing the benign differences away, and buckets every residual difference into the
+  categories above. It is not a CI gate — byte-level fidelity is not a v1 goal — but running it produces the
+  auditable list of accepted differences and flags any new, `UNCLASSIFIED` divergence for investigation.
