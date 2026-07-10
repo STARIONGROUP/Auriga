@@ -97,6 +97,42 @@ namespace Auriga
         }
 
         /// <summary>
+        /// Moves the element at <paramref name="oldIndex"/> to <paramref name="newIndex"/> within this list.
+        /// Because the element stays in the same list its <see cref="IAurigaElement.Container"/> is left
+        /// unchanged (the owner does not change), so this is the supported way to reorder a containment
+        /// feature — the indexer set replaces the element at a position, it does not move one.
+        /// </summary>
+        /// <param name="oldIndex">the current zero-based index of the element</param>
+        /// <param name="newIndex">the zero-based index to move it to</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// thrown when <paramref name="oldIndex"/> or <paramref name="newIndex"/> is outside the list bounds
+        /// </exception>
+        public void Move(int oldIndex, int newIndex)
+        {
+            if (oldIndex < 0 || oldIndex >= this.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(oldIndex));
+            }
+
+            if (newIndex < 0 || newIndex >= this.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(newIndex));
+            }
+
+            if (oldIndex == newIndex)
+            {
+                return;
+            }
+
+            // Reorder through the base Collection<T> hooks, not the overridden ones: the element keeps its
+            // container (the owner is unchanged), so the re-parenting and the ownership/duplicate guards of
+            // RemoveItem/InsertItem must not run.
+            var item = this[oldIndex];
+            base.RemoveItem(oldIndex);
+            base.InsertItem(newIndex, item);
+        }
+
+        /// <summary>
         /// Removes the first occurrence of an element, resetting its container via the removal hook and
         /// rejecting a <c>null</c> argument. (The container reset itself happens in
         /// <see cref="RemoveItem"/>, so removing through any base interface is equally safe.)

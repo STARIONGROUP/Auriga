@@ -35,5 +35,15 @@ namespace Auriga
         /// </summary>
         /// <param name="elements">the elements to add</param>
         void AddRange(IEnumerable<T> elements);
+
+        /// <summary>
+        /// Moves the element at <paramref name="oldIndex"/> to <paramref name="newIndex"/> within this list.
+        /// The element stays in the same list, so its <see cref="IAurigaElement.Container"/> is unchanged —
+        /// this is the supported way to reorder a containment feature (the indexer set replaces, it does not
+        /// move).
+        /// </summary>
+        /// <param name="oldIndex">the current zero-based index of the element</param>
+        /// <param name="newIndex">the zero-based index to move it to</param>
+        void Move(int oldIndex, int newIndex);
     }
 }

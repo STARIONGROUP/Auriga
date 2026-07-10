@@ -381,6 +381,71 @@ namespace Auriga.Tests
             Assert.That(element.Container, Is.SameAs(this.owner));
         }
 
+        // ---- Move: reorder within the list without changing ownership -------------------------------
+
+        [Test]
+        public void Verify_that_Move_reorders_the_element_and_leaves_containers_intact()
+        {
+            var a = new TestElement { Id = "a" };
+            var b = new TestElement { Id = "b" };
+            var c = new TestElement { Id = "c" };
+            this.list.AddRange(new[] { a, b, c });
+
+            this.list.Move(0, 2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.list, Is.EqualTo(new[] { b, c, a }));
+                Assert.That(a.Container, Is.SameAs(this.owner));
+                Assert.That(b.Container, Is.SameAs(this.owner));
+                Assert.That(c.Container, Is.SameAs(this.owner));
+            });
+        }
+
+        [Test]
+        public void Verify_that_Move_backwards_reorders_the_element()
+        {
+            var a = new TestElement { Id = "a" };
+            var b = new TestElement { Id = "b" };
+            var c = new TestElement { Id = "c" };
+            this.list.AddRange(new[] { a, b, c });
+
+            this.list.Move(2, 0);
+
+            Assert.That(this.list, Is.EqualTo(new[] { c, a, b }));
+        }
+
+        [Test]
+        public void Verify_that_Move_to_the_same_index_is_a_noop()
+        {
+            var a = new TestElement { Id = "a" };
+            var b = new TestElement { Id = "b" };
+            this.list.AddRange(new[] { a, b });
+
+            this.list.Move(1, 1);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.list, Is.EqualTo(new[] { a, b }));
+                Assert.That(b.Container, Is.SameAs(this.owner));
+            });
+        }
+
+        [Test]
+        public void Verify_that_Move_throws_on_an_out_of_range_index()
+        {
+            this.list.Add(new TestElement { Id = "a" });
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(() => this.list.Move(-1, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(() => this.list.Move(3, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(() => this.list.Move(0, -1), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(() => this.list.Move(0, 1), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(this.list, Has.Count.EqualTo(1), "a rejected move leaves the list unchanged");
+            });
+        }
+
         /// <summary>
         /// A minimal <see cref="IAurigaElement"/> test double.
         /// </summary>

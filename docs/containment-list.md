@@ -62,6 +62,15 @@ oldParent.OwnedThings.Remove(element);   // element.Container -> null
 newParent.OwnedThings.Add(element);      // element.Container -> newParent
 ```
 
+To **reorder** an element *within* one list (the owner does not change), use `Move(oldIndex, newIndex)`
+rather than the indexer set — the indexer set is a *replace at a position*, so assigning an element already
+in the list to another index is a duplicate and is rejected. `Move` reorders through the base collection and
+leaves `Container` untouched:
+
+```csharp
+parent.OwnedThings.Move(0, 2);           // element.Container unchanged
+```
+
 The guards enforced on the insert/set paths, all raising `InvalidOperationException` (except the `null`
 check, which raises `ArgumentNullException`):
 
