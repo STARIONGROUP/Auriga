@@ -6,7 +6,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>10.0</LangVersion>
         <Title>Auriga</Title>
-        <Version>0.1.0</Version>
+        <Version>1.0.0</Version>
         <Description>Auriga is a dotnet library for reading, manipulating and writing Eclipse Capella models. This library contains the Capella object model: the C# implementation of the Capella metamodel (Arcadia architecture layers and common packages), generated from the Capella Ecore metamodel.</Description>
         <PackageId>Auriga</PackageId>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
