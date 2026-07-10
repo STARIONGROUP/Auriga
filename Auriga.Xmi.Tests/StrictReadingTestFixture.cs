@@ -134,7 +134,6 @@ namespace Auriga.Xmi.Tests
                 }
 
                 public IDisposable BeginScope<TState>(TState state)
-                    where TState : notnull
                 {
                     return NullScope.Instance;
                 }
