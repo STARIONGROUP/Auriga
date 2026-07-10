@@ -15,7 +15,12 @@ namespace Auriga.Xmi.Readers
     /// </summary>
     public sealed class XmiReaderSettings : IXmiReaderSettings
     {
-        /// <inheritdoc />
+        /// <summary>
+        /// Gets or sets a value indicating whether the reader reads strictly. When <c>true</c>, a child
+        /// element whose role is not part of the vendored metamodel makes the reader throw a
+        /// <see cref="System.NotSupportedException"/>; when <c>false</c> (the default) that element is
+        /// logged as a warning and skipped, so a model carrying unknown content still loads.
+        /// </summary>
         public bool UseStrictReading { get; set; }
     }
 }
