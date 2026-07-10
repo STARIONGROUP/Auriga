@@ -4,8 +4,6 @@ Auriga is a suite of dotnet libraries and tools that are used to deserialize (re
 
 Auriga builds on [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) for reading the Capella Ecore metamodel, and is a sibling of [uml4net](https://github.com/STARIONGROUP/uml4net) and [SysML2.NET](https://github.com/STARIONGROUP/SysML2.NET). Auriga provides a number of libraries that are described in the following sections.
 
-> **Scope note.** Version 1 targets the Capella **semantic model** (`.capella` / `.melodymodeller` and `.capellafragment` files). The Sirius diagram/representation files (`.aird`) are out of scope for v1.
-
 ## Auriga
 
 The core library that contains the Capella object model: the C# implementation of the Capella metamodel (the Arcadia layers — Operational Analysis, System Analysis, Logical Architecture, Physical Architecture, EPBS — and the common packages), generated from the Capella Ecore metamodel. Together with **Auriga.Xmi** it provides the capability to read and write Capella models and make them available as an in-memory object graph.
@@ -17,10 +15,6 @@ The **Auriga.Xmi** library provides an XMI reader implementation to read Capella
 ## Auriga.Extensions
 
 The **Auriga.Extensions** library provides LINQ-style query extension methods over the Auriga object graph, following the `uml4net.Extensions` pattern: containment navigation (`QueryAncestors`, `QueryRoot`, `QueryAllFunctions`, `QueryAllComponents`), component-functional allocation (`QueryAllocatedFunctions`, `IsAllocatedTo`, `QueryAllocatingBlocks`), function/component ports and functional exchanges, and cross-layer realization (`QueryRealizedFunctions`/`QueryRealizingFunctions` and the component equivalents). See [Query Extension Methods](docs/query-extensions.md).
-
-## Auriga.CodeGenerator
-
-The **Auriga.CodeGenerator** is an Ecore-to-C# code generator, built on [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) and [ECoreNetto.HandleBars](https://github.com/STARIONGROUP/EcoreNetto), that emits the Auriga object model from the vendored Capella `.ecore` files. It is a development-time tool and is not published as a package.
 
 ## Auriga.Reporting
 
