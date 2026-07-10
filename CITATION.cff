@@ -3,7 +3,7 @@ message: "If you use this software, please cite it as below."
 
 title: "Auriga: A .NET library for reading, manipulating and writing Eclipse Capella models"
 abstract: "Auriga is a suite of .NET libraries for reading, manipulating and writing Eclipse Capella (Arcadia) models in XMI form, exposing the Capella semantic model as a fully resolved in-memory object graph."
-version: "0.1.0"
+version: "1.0.0"
 date-released: "2026-07-10"
 url: "https://github.com/stariongroup/Auriga"
 
@@ -25,6 +25,6 @@ preferred-citation:
       family-names: "Gerené"
       orcid: "https://orcid.org/0009-0000-1848-550X"
     - name: "Starion Group S.A."
-  version: "0.1.0"
+  version: "1.0.0"
   url: "https://github.com/stariongroup/Auriga"
   date-released: "2026-07-10"
