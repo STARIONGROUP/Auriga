@@ -82,9 +82,21 @@ Kitalpha/EMDE) at metamodel version 7.0.0. Anything else is handled by one of fo
 | Model saved by a different Capella minor version (e.g. 6.0.0 coffee-machine) | **read: normalize · write: migrate** | The reader resolves packages by a version-stripped namespace match ([`NamespaceResolver`](../Auriga.Xmi/Namespaces/NamespaceResolver.cs)), so a structurally-compatible model of another version loads into a fully resolved graph. **The writer always emits 7.0.0 namespaces**, so writing such a model back silently migrates its version — hence these models are read-only in v1 and excluded from the round-trip suite. |
 | Add-on viewpoint / any package outside the vendored metamodel (e.g. the Cybersecurity viewpoint) | **reject** | The whole load fails fast with `InvalidDataException`: *"Cannot resolve the xsi:type '…' to a known Capella package"* (or, for a document root, *"The root namespace '…' … is not a known Capella package"*). Nothing is silently dropped — the model is refused until the viewpoint is vendored. |
 | Unknown element **type** within a known package | **reject** | `InvalidOperationException`: *"No XMI reader is registered for the type '…'."* |
-| Unrecognized child element (a role not in the metamodel) on an otherwise-known element | **skip** | The subtree is consumed and discarded, logged at `Trace` so discarded content stays diagnosable. This is the graceful-degradation path for a stray feature from another version/extension; it does not abort the load. |
+| Unrecognized child element (a role not in the metamodel) on an otherwise-known element | **skip** (default) or **reject** (strict) | By default the subtree is consumed and discarded and a `Warning` is logged, so discarded content stays diagnosable — the graceful-degradation path for a stray feature from another version/extension, which does not abort the load. Under **strict reading** (`UseStrictReading`, see below) the reader instead throws `NotSupportedException` naming the reader, element and line/position. |
 | Missing or unparseable `.capellafragment` | **skip (warn)** | Logged as a `Warning` and skipped so one bad fragment does not fail the whole model; the rest loads. |
 | A reference whose target is absent from every loaded file (dangling) | **preserve** | Kept in [`XmiReaderResult.UnresolvedReferences`](../Auriga.Xmi/Readers/XmiReaderResult.cs) (a `Warning` reports the count), and the verbatim reference token is re-emitted on write, so an intentionally-external `href` round-trips intact. |
+
+### Strict vs. lenient reading
+
+The "skip" row above is the one strategy the caller can switch. By default the reader is **lenient** — an unrecognized child element is skipped with a warning so a model carrying a stray feature still loads. Set `UseStrictReading` to make the reader **strict** — the same element then throws `NotSupportedException`, naming the reader, the offending element and its line/position. Strict reading is the tool for a validation run: it surfaces unexpected content as a hard error instead of dropping it silently.
+
+```csharp
+var reader = XmiReaderBuilder.Create()
+    .UsingSettings(x => x.UseStrictReading = true)
+    .Build();
+```
+
+`UseStrictReading` governs only the unrecognized-child-element case. An unknown **package** (add-on viewpoint) and an unknown element **type** are rejected regardless of the setting (the `reject` rows above), because those cannot be represented at all.
 
 ## Known limitations
 

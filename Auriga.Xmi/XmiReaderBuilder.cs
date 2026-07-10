@@ -9,6 +9,8 @@
 
 namespace Auriga.Xmi
 {
+    using System;
+
     using Auriga.Xmi.AutoGenXmiReaders;
     using Auriga.Xmi.Cache;
     using Auriga.Xmi.Namespaces;
@@ -31,12 +33,34 @@ namespace Auriga.Xmi
         private ILoggerFactory? loggerFactory;
 
         /// <summary>
+        /// The settings that tune how the built reader behaves, configured through
+        /// <see cref="UsingSettings"/>.
+        /// </summary>
+        private readonly XmiReaderSettings settings = new XmiReaderSettings();
+
+        /// <summary>
         /// Creates a new <see cref="XmiReaderBuilder"/>.
         /// </summary>
         /// <returns>the builder</returns>
         public static XmiReaderBuilder Create()
         {
             return new XmiReaderBuilder();
+        }
+
+        /// <summary>
+        /// Configures the reader's settings (e.g. <see cref="IXmiReaderSettings.UseStrictReading"/>).
+        /// </summary>
+        /// <param name="configure">an action that mutates the settings</param>
+        /// <returns>the builder</returns>
+        public XmiReaderBuilder UsingSettings(Action<XmiReaderSettings> configure)
+        {
+            if (configure == null)
+            {
+                throw new ArgumentNullException(nameof(configure));
+            }
+
+            configure(this.settings);
+            return this;
         }
 
         /// <summary>
@@ -58,7 +82,7 @@ namespace Auriga.Xmi
         {
             var cache = new XmiElementCache();
             var namespaceResolver = new NamespaceResolver(AutoGenNamespaceRegistry.NamespaceToPackage);
-            var facade = new XmiReaderFacade(cache, namespaceResolver, this.loggerFactory);
+            var facade = new XmiReaderFacade(cache, namespaceResolver, this.settings, this.loggerFactory);
             var referenceResolver = new ReferenceResolver.ReferenceResolver(this.loggerFactory);
 
             return new XmiReader(cache, facade, namespaceResolver, referenceResolver, this.loggerFactory);

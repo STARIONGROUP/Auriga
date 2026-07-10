@@ -35,9 +35,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders.La
         /// </summary>
         /// <param name="cache">the element cache</param>
         /// <param name="facade">the reader facade used to read contained elements</param>
+        /// <param name="settings">the reader settings (e.g. strict vs. lenient reading)</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public LogicalComponentPkgReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory loggerFactory)
-            : base(cache, facade, loggerFactory)
+        public LogicalComponentPkgReader(IXmiElementCache cache, IXmiReaderFacade facade, IXmiReaderSettings settings, ILoggerFactory loggerFactory)
+            : base(cache, facade, settings, loggerFactory)
         {
         }
 
@@ -486,6 +487,12 @@ namespace Auriga.Xmi.AutoGenXmiReaders.La
                                 break;
                             }
                             default:
+                                if (this.XmiReaderSettings.UseStrictReading)
+                                {
+                                    throw new NotSupportedException($"LogicalComponentPkgReader: {xmlReader.LocalName} at line:position {xmlLineInfo?.LineNumber}:{xmlLineInfo?.LinePosition}");
+                                }
+
+                                this.Logger.LogWarning("Not supported by LogicalComponentPkgReader: the '{LocalName}' element at line:position {LineNumber}:{LinePosition} is not part of the metamodel and was skipped", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
                                 SkipElement(xmlReader);
                                 break;
                         }

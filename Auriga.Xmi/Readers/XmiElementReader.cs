@@ -45,11 +45,13 @@ namespace Auriga.Xmi.Readers
         /// </summary>
         /// <param name="cache">the cache in which every read element is registered by <c>xmi:id</c></param>
         /// <param name="facade">the facade used to read contained elements</param>
+        /// <param name="settings">the reader settings, or <c>null</c> for the lenient defaults</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        protected XmiElementReader(IXmiElementCache cache, IXmiReaderFacade facade, ILoggerFactory? loggerFactory = null)
+        protected XmiElementReader(IXmiElementCache cache, IXmiReaderFacade facade, IXmiReaderSettings? settings = null, ILoggerFactory? loggerFactory = null)
         {
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.Facade = facade ?? throw new ArgumentNullException(nameof(facade));
+            this.XmiReaderSettings = settings ?? new XmiReaderSettings();
             this.Logger = (loggerFactory ?? NullLoggerFactory.Instance).CreateLogger(this.GetType());
         }
 
@@ -62,6 +64,11 @@ namespace Auriga.Xmi.Readers
         /// Gets the facade used to read contained elements.
         /// </summary>
         protected IXmiReaderFacade Facade { get; }
+
+        /// <summary>
+        /// Gets the settings that tune how the reader behaves (e.g. strict vs. lenient reading).
+        /// </summary>
+        protected IXmiReaderSettings XmiReaderSettings { get; }
 
         /// <summary>
         /// Gets the logger used to report unexpected content (categorized by the concrete reader type).
