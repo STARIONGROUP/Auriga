@@ -26,6 +26,52 @@ The **Auriga.CodeGenerator** is an Ecore-to-C# code generator, built on [ECoreNe
 
 The **Auriga.Reporting** tool renders a browsable HTML report of the Capella metamodel from the vendored `.ecore` files, using the [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
 
+# Getting Started
+
+Install the packages from NuGet (once published):
+
+```
+dotnet add package Auriga
+dotnet add package Auriga.Xmi
+dotnet add package Auriga.Extensions
+```
+
+Load a Capella project, navigate the Arcadia layers, query it, and write it back:
+
+```csharp
+using Auriga.Xmi;
+using Auriga.Extensions;
+
+// 1) Load a project — pass the .capella / .melodymodeller file or the project directory.
+//    Referenced .capellafragment files are discovered and resolved into one object graph.
+var project = CapellaProject.Load("In-Flight Entertainment System/In-Flight Entertainment System.capella");
+
+// 2) Navigate the Arcadia layers as first-class properties (null when a layer is absent).
+var logical = project.LogicalArchitecture;
+var physical = project.PhysicalArchitecture;
+
+// 3) Query with LINQ and the Auriga.Extensions methods.
+foreach (var component in logical!.QueryAllComponents())
+{
+    foreach (var function in component.QueryAllocatedFunctions())
+    {
+        // function.IsAllocatedTo(component) == true
+    }
+}
+
+// Any element can walk its own subtree; combine with LINQ for ad-hoc queries.
+var exchanges = project.Project!
+    .QueryAllContainedElements()
+    .OfType<Auriga.Fa.IFunctionalExchange>();
+
+// 4) Write the (possibly modified) model back to disk — the fragment layout is preserved.
+var writer = XmiWriterBuilder.Create().Build();
+writer.Write(project.Project!, "out/In-Flight Entertainment System.capella");
+```
+
+See [ContainerList Design](docs/containment-list.md), [Query Extension Methods](docs/query-extensions.md)
+and [XMI Writer](docs/xmi-writer.md) for the containment, query and write-back APIs in depth.
+
 # Code Quality
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=STARIONGROUP_Auriga&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=STARIONGROUP_Auriga)

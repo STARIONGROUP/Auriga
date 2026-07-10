@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+
+title: "Auriga: A .NET library for reading, manipulating and writing Eclipse Capella models"
+abstract: "Auriga is a suite of .NET libraries for reading, manipulating and writing Eclipse Capella (Arcadia) models in XMI form, exposing the Capella semantic model as a fully resolved in-memory object graph."
+version: "0.1.0"
+date-released: "2026-07-10"
+url: "https://github.com/stariongroup/Auriga"
+
+authors:
+  - given-names: "Sam"
+    family-names: "Gerené"
+    affiliation: "Starion Group S.A."
+    orcid: "https://orcid.org/0009-0000-1848-550X"
+  - name: "Starion Group S.A."
+
+repository-code: "https://github.com/stariongroup/Auriga"
+license: "Apache-2.0"
+
+preferred-citation:
+  type: software
+  title: "Auriga: A .NET library for reading, manipulating and writing Eclipse Capella models"
+  authors:
+    - given-names: "Sam"
+      family-names: "Gerené"
+      orcid: "https://orcid.org/0009-0000-1848-550X"
+    - name: "Starion Group S.A."
+  version: "0.1.0"
+  url: "https://github.com/stariongroup/Auriga"
+  date-released: "2026-07-10"
