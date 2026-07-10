@@ -65,6 +65,7 @@ Background and design documentation lives in the [`docs`](docs) folder:
   - [ECoreNetto Validation Against the Capella Metamodel](docs/ecorenetto-validation.md) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
   - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with Docker build scripts)
   - [Query Extension Methods](docs/query-extensions.md) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
+  - [ContainerList Design](docs/containment-list.md) — the non-bypassable `Collection<T>`-based containment collection and its exclusive-ownership (reject-not-steal) semantics
   - [XMI Writer](docs/xmi-writer.md) — serializing the object graph back to Capella-faithful XMI (`Auriga.Xmi`), fragment layout, and the fidelity model
   - [Validation Against Real Capella Models](docs/validation.md) — the round-trip validation harness, per-model results, and exactly how out-of-scope content (other versions, add-on viewpoints, diagrams) is handled
 

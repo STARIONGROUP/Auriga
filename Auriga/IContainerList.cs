@@ -16,6 +16,10 @@ namespace Auriga
     /// an element sets its <see cref="IAurigaElement.Container"/> to the <see cref="Owner"/> and removing
     /// it clears that container again (the analogue of an EMF containment <c>EList</c>). Non-containment
     /// (cross-reference) collections use a plain <see cref="List{T}"/> instead.
+    ///
+    /// <para>Containment is <b>exclusive</b>: an element already held by another container is rejected
+    /// (not silently stolen), so it belongs to exactly one owner. Move it by removing it from its current
+    /// container first. See <c>docs/containment-list.md</c>.</para>
     /// </summary>
     /// <typeparam name="T">the element type, an <see cref="IAurigaElement"/></typeparam>
     public interface IContainerList<T> : IList<T> where T : class, IAurigaElement

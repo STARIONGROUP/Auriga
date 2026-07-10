@@ -22,6 +22,15 @@ namespace Auriga
     /// mutation path — <c>Add</c>, <c>Insert</c>, the indexer, <c>Remove</c>, <c>RemoveAt</c>, <c>Clear</c>,
     /// and the non-generic <see cref="System.Collections.IList"/> members — maintains it, and it cannot be
     /// bypassed through a base-interface reference (unlike a <c>List{T}</c>-with-<c>new</c> design).
+    ///
+    /// <para><b>Ownership is exclusive (reject, not steal).</b> Containment is a single-parent relationship,
+    /// so an element that already has a <see cref="IAurigaElement.Container"/> cannot be added to another
+    /// containment list: <see cref="InsertItem"/> and <see cref="SetItem"/> throw an
+    /// <see cref="InvalidOperationException"/> rather than silently re-pointing its container (which would
+    /// leave the element in two lists). To move an element between containers, remove it from its current
+    /// container first, then add it to the new one. This mirrors SysML2.NET's "reject when already owned"
+    /// choice — see <c>docs/containment-list.md</c> for the full rationale and the three-way comparison with
+    /// uml4net and SysML2.NET.</para>
     /// </summary>
     /// <typeparam name="T">the element type, an <see cref="IAurigaElement"/></typeparam>
     public class ContainerList<T> : Collection<T>, IContainerList<T> where T : class, IAurigaElement
@@ -113,7 +122,8 @@ namespace Auriga
         /// <param name="item">the element to insert</param>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="item"/> is <c>null</c></exception>
         /// <exception cref="InvalidOperationException">
-        /// thrown when <paramref name="item"/> is the <see cref="Owner"/> itself, or already in the list
+        /// thrown when <paramref name="item"/> is the <see cref="Owner"/> itself, is already in the list, or
+        /// already belongs to another container (see the ownership-transfer note on the class)
         /// </exception>
         protected override void InsertItem(int index, T item)
         {
@@ -132,6 +142,11 @@ namespace Auriga
                 throw new InvalidOperationException($"The item already exists in the list: {item.Id}.");
             }
 
+            if (item.Container != null)
+            {
+                throw new InvalidOperationException($"The item already belongs to another container: {item.Id}. Remove it from its current container before adding it here.");
+            }
+
             base.InsertItem(index, item);
             item.Container = this.Owner;
         }
@@ -144,7 +159,8 @@ namespace Auriga
         /// <param name="item">the replacement element</param>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="item"/> is <c>null</c></exception>
         /// <exception cref="InvalidOperationException">
-        /// thrown when <paramref name="item"/> is the <see cref="Owner"/> itself, or already at a different index
+        /// thrown when <paramref name="item"/> is the <see cref="Owner"/> itself, is already at a different
+        /// index, or already belongs to another container (see the ownership-transfer note on the class)
         /// </exception>
         protected override void SetItem(int index, T item)
         {
@@ -162,6 +178,11 @@ namespace Auriga
             if (existingIndex >= 0 && existingIndex != index)
             {
                 throw new InvalidOperationException($"The item already exists in the list: {item.Id}.");
+            }
+
+            if (existingIndex < 0 && item.Container != null)
+            {
+                throw new InvalidOperationException($"The item already belongs to another container: {item.Id}. Remove it from its current container before adding it here.");
             }
 
             var replaced = this[index];
