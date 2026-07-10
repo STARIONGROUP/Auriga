@@ -38,6 +38,8 @@ namespace Auriga.Xmi.AutoGenXmiReaders
 
         private readonly INamespaceResolver namespaceResolver;
 
+        private readonly IXmiReaderSettings settings;
+
         private readonly ILoggerFactory loggerFactory;
 
         private readonly Dictionary<string, string> prefixToNamespace = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -49,11 +51,13 @@ namespace Auriga.Xmi.AutoGenXmiReaders
         /// </summary>
         /// <param name="cache">the element cache shared with every reader</param>
         /// <param name="namespaceResolver">the namespace-URI-to-package resolver</param>
+        /// <param name="settings">the reader settings shared with every reader, or <c>null</c> for the lenient defaults</param>
         /// <param name="loggerFactory">the logger factory shared with every reader, or <c>null</c> to disable logging</param>
-        public XmiReaderFacade(IXmiElementCache cache, INamespaceResolver namespaceResolver, ILoggerFactory loggerFactory = null)
+        public XmiReaderFacade(IXmiElementCache cache, INamespaceResolver namespaceResolver, IXmiReaderSettings settings = null, ILoggerFactory loggerFactory = null)
         {
             this.cache = cache;
             this.namespaceResolver = namespaceResolver;
+            this.settings = settings ?? new XmiReaderSettings();
             this.loggerFactory = loggerFactory;
             this.readerFactories = new Dictionary<string, Func<XmlReader, string, string, IAurigaElement>>(StringComparer.Ordinal)
             {

@@ -109,7 +109,7 @@ namespace Auriga.CodeGenerator.Helpers
         {
             var key = $"{eClass.EPackage.Name}:{eClass.Name}";
             var readerType = ReaderNamespace(eClass) + "." + ReaderClassName(eClass);
-            return $"[\"{key}\"] = (xmlReader, documentName, namespaceUri) => new {readerType}(this.cache, this, this.loggerFactory).Read(xmlReader, documentName, namespaceUri),";
+            return $"[\"{key}\"] = (xmlReader, documentName, namespaceUri) => new {readerType}(this.cache, this, this.settings, this.loggerFactory).Read(xmlReader, documentName, namespaceUri),";
         }
 
         private static string RegistryEntry(EPackage package)
