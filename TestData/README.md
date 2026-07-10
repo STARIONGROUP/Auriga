@@ -9,7 +9,7 @@ Each obtained fixture is committed as the **complete Capella project set**: sema
 | Fixture | Capella version | License | Purpose |
 | --- | --- | --- | --- |
 | [`minimal/`](minimal) | 7.0.0 nsURIs | Apache-2.0 (this repo) | First reader target: smallest well-formed model |
-| [`coffee-machine/`](coffee-machine) | **6.0.0** | Apache-2.0 | py-capellambse demo model; the "unsupported metamodel version" fixture for the v1 reader |
+| [`coffee-machine/`](coffee-machine) | **6.0.0** | Apache-2.0 | py-capellambse demo model; the different-version fixture — reads via version-tolerant resolution, read-only in v1 (out of round-trip scope) |
 | [`in-flight-entertainment-system/`](in-flight-entertainment-system) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Official Capella sample; large realistic model, all five Arcadia layers |
 | [`fragmented-sysmodel/`](fragmented-sysmodel) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Model split across four `.capellafragment` files; exercises cross-fragment `href` resolution |
 | [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; uses the **Cybersecurity** add-on viewpoint (out of v1 metamodel scope — the round-trip suite skips it) |
@@ -27,7 +27,7 @@ Each obtained fixture is committed as the **complete Capella project set**: sema
 
 ## coffee-machine/
 
-From [DSD-DBS/coffee-machine](https://github.com/DSD-DBS/coffee-machine) (commit `db45166`), the demo model of [py-capellambse](https://github.com/dbinfrago/py-capellambse). Copyright DB Netz AG and contributors, Apache-2.0 ([LICENSE-Apache-2.0.txt](coffee-machine/LICENSE-Apache-2.0.txt)); the `*.license` files are the upstream REUSE sidecars. **Saved by Capella 6.0.0** — its nsURIs are `6.0.0`, so the v1 reader (which targets `7.0.0`) must reject it with a clear "unsupported metamodel version" error; it becomes a migration fixture later.
+From [DSD-DBS/coffee-machine](https://github.com/DSD-DBS/coffee-machine) (commit `db45166`), the demo model of [py-capellambse](https://github.com/dbinfrago/py-capellambse). Copyright DB Netz AG and contributors, Apache-2.0 ([LICENSE-Apache-2.0.txt](coffee-machine/LICENSE-Apache-2.0.txt)); the `*.license` files are the upstream REUSE sidecars. **Saved by Capella 6.0.0** — its nsURIs are `6.0.0`. The v1 reader is version-tolerant (it resolves packages by a version-stripped namespace match), so this model still **reads** into a fully resolved graph. It is nonetheless **read-only in v1** and excluded from the round-trip suite, because the writer always emits `7.0.0` namespaces — a round-trip would silently migrate the version. It is the different-version fixture; see [`docs/validation.md`](../docs/validation.md).
 
 ## in-flight-entertainment-system/
 
