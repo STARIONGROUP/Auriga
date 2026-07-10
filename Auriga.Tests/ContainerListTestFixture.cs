@@ -10,6 +10,8 @@
 namespace Auriga.Tests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     using NUnit.Framework;
 
@@ -261,6 +263,186 @@ namespace Auriga.Tests
             {
                 Assert.That(() => new ContainerList<TestElement>(null!, this.owner), Throws.ArgumentNullException);
                 Assert.That(() => new ContainerList<TestElement>(this.list, null!), Throws.ArgumentNullException);
+            });
+        }
+
+        // ---- ownership-transfer semantics: containment is exclusive (reject, not steal) -------------
+
+        [Test]
+        public void Verify_that_Add_rejects_an_element_already_owned_by_another_container()
+        {
+            var element = new TestElement { Id = "child" };
+            new ContainerList<TestElement>(new TestElement { Id = "other-owner" }).Add(element);
+
+            Assert.That(() => this.list.Add(element), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Verify_that_Insert_rejects_an_element_already_owned_by_another_container()
+        {
+            var element = new TestElement { Id = "child" };
+            new ContainerList<TestElement>(new TestElement { Id = "other-owner" }).Add(element);
+
+            Assert.That(() => this.list.Insert(0, element), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Verify_that_adding_to_a_second_list_of_the_same_owner_is_rejected()
+        {
+            // Exclusivity holds even within one owner: an element already held by one of the owner's
+            // containment features may not also be added to another.
+            var element = new TestElement { Id = "child" };
+            this.list.Add(element);
+
+            var secondList = new ContainerList<TestElement>(this.owner);
+
+            Assert.That(() => secondList.Add(element), Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Verify_that_an_element_can_be_moved_between_containers_after_removal()
+        {
+            var otherOwner = new TestElement { Id = "other-owner" };
+            var otherList = new ContainerList<TestElement>(otherOwner);
+            var element = new TestElement { Id = "child" };
+            otherList.Add(element);
+
+            // The documented move flow: remove from the current container, then add to the new one.
+            otherList.Remove(element);
+            this.list.Add(element);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(otherList, Is.Empty);
+                Assert.That(this.list, Has.Count.EqualTo(1));
+                Assert.That(element.Container, Is.SameAs(this.owner));
+            });
+        }
+
+        [Test]
+        public void Verify_that_the_indexer_setter_rejects_an_element_owned_by_another_container()
+        {
+            this.list.Add(new TestElement { Id = "child" });
+
+            var owned = new TestElement { Id = "owned" };
+            new ContainerList<TestElement>(new TestElement { Id = "other-owner" }).Add(owned);
+
+            Assert.That(() => this.list[0] = owned, Throws.InvalidOperationException);
+        }
+
+        [Test]
+        public void Verify_that_setting_an_element_onto_its_own_index_is_idempotent()
+        {
+            var element = new TestElement { Id = "child" };
+            this.list.Add(element);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(() => this.list[0] = element, Throws.Nothing);
+                Assert.That(this.list[0], Is.SameAs(element));
+                Assert.That(element.Container, Is.SameAs(this.owner));
+            });
+        }
+
+        // ---- non-bypassable: mutating through base-class / interface references still maintains it ---
+
+        [Test]
+        public void Verify_that_mutating_through_generic_interface_references_maintains_the_container()
+        {
+            var a = new TestElement { Id = "a" };
+            var b = new TestElement { Id = "b" };
+            var c = new TestElement { Id = "c" };
+
+            ((ICollection<TestElement>)this.list).Add(a);   // ICollection<T>.Add
+            ((IList<TestElement>)this.list).Insert(1, b);   // IList<T>.Insert
+            ((IList<TestElement>)this.list)[0] = c;         // IList<T> indexer set, replacing a
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(a.Container, Is.Null, "the replaced element's container is reset");
+                Assert.That(b.Container, Is.SameAs(this.owner));
+                Assert.That(c.Container, Is.SameAs(this.owner));
+            });
+
+            ((ICollection<TestElement>)this.list).Remove(b);   // ICollection<T>.Remove
+            Assert.That(b.Container, Is.Null);
+
+            ((ICollection<TestElement>)this.list).Clear();     // ICollection<T>.Clear
+            Assert.That(c.Container, Is.Null);
+        }
+
+        [Test]
+        public void Verify_that_adding_through_a_base_Collection_reference_sets_the_container()
+        {
+            var element = new TestElement { Id = "child" };
+
+            ((Collection<TestElement>)this.list).Add(element);
+
+            Assert.That(element.Container, Is.SameAs(this.owner));
+        }
+
+        // ---- Move: reorder within the list without changing ownership -------------------------------
+
+        [Test]
+        public void Verify_that_Move_reorders_the_element_and_leaves_containers_intact()
+        {
+            var a = new TestElement { Id = "a" };
+            var b = new TestElement { Id = "b" };
+            var c = new TestElement { Id = "c" };
+            this.list.AddRange(new[] { a, b, c });
+
+            this.list.Move(0, 2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.list, Is.EqualTo(new[] { b, c, a }));
+                Assert.That(a.Container, Is.SameAs(this.owner));
+                Assert.That(b.Container, Is.SameAs(this.owner));
+                Assert.That(c.Container, Is.SameAs(this.owner));
+            });
+        }
+
+        [Test]
+        public void Verify_that_Move_backwards_reorders_the_element()
+        {
+            var a = new TestElement { Id = "a" };
+            var b = new TestElement { Id = "b" };
+            var c = new TestElement { Id = "c" };
+            this.list.AddRange(new[] { a, b, c });
+
+            this.list.Move(2, 0);
+
+            Assert.That(this.list, Is.EqualTo(new[] { c, a, b }));
+        }
+
+        [Test]
+        public void Verify_that_Move_to_the_same_index_is_a_noop()
+        {
+            var a = new TestElement { Id = "a" };
+            var b = new TestElement { Id = "b" };
+            this.list.AddRange(new[] { a, b });
+
+            this.list.Move(1, 1);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(this.list, Is.EqualTo(new[] { a, b }));
+                Assert.That(b.Container, Is.SameAs(this.owner));
+            });
+        }
+
+        [Test]
+        public void Verify_that_Move_throws_on_an_out_of_range_index()
+        {
+            this.list.Add(new TestElement { Id = "a" });
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(() => this.list.Move(-1, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(() => this.list.Move(3, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(() => this.list.Move(0, -1), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(() => this.list.Move(0, 1), Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(this.list, Has.Count.EqualTo(1), "a rejected move leaves the list unchanged");
             });
         }
 
