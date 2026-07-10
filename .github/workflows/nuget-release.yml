@@ -29,10 +29,11 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Validate version (SemVer)
+        id: semver
         run: |
           set -euo pipefail
           VERSION="${{ github.event.inputs.version }}"
-          if [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+          if [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?$ ]]; then
             echo "VERSION=$VERSION" >> "$GITHUB_ENV"
             if [[ "$VERSION" == *-* ]]; then
               echo "PRERELEASE=true" >> "$GITHUB_ENV"
@@ -50,7 +51,9 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Set date
-        run: echo "DATE=$(date +'%Y-%m-%d')" >> "$GITHUB_ENV"
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          echo "DATE=$DATE" >> $GITHUB_ENV
 
       - name: Update CITATION.cff (version + date)
         run: |
