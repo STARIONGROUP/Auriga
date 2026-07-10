@@ -40,6 +40,7 @@
     <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('.Tests'))">
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>cdp4-icon.png</PackageIcon>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GenerateSBOM>true</GenerateSBOM>
     </PropertyGroup>
@@ -49,6 +50,7 @@
         <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
         <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="\" />
         <None Include="$(MSBuildThisFileDirectory)NOTICE" Pack="true" PackagePath="\" />
+        <None Include="$(MSBuildThisFileDirectory)cdp4-icon.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <!--
