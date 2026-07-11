@@ -348,7 +348,7 @@ namespace Auriga.CodeGenerator.Helpers
 
         private const string GenModelAnnotationSource = "http://www.eclipse.org/emf/2002/GenModel";
 
-        private static string RawDocumentation(EModelElement element)
+        private static string? RawDocumentation(EModelElement element)
         {
             var annotation = element.EAnnotations?.FirstOrDefault(a => a.Source == GenModelAnnotationSource);
 

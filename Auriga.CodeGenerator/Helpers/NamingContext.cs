@@ -79,7 +79,21 @@ namespace Auriga.CodeGenerator.Helpers
         /// <returns>a token that restores the previous configuration when disposed</returns>
         public static IDisposable Use(string rootNamespace, ISet<EStructuralFeature>? collidingFeatures = null)
         {
-            return new Scope(rootNamespace, collidingFeatures);
+            var scope = new Scope(modelRoot, renamedFeatures);
+            Apply(rootNamespace, collidingFeatures);
+            return scope;
+        }
+
+        /// <summary>
+        /// Sets the thread-scoped configuration. Kept as a static method so the thread-static fields are
+        /// only ever written from static code, not from an instance constructor or method.
+        /// </summary>
+        /// <param name="rootNamespace">the object-model root namespace, or <c>null</c> for the default</param>
+        /// <param name="collidingFeatures">the features whose member names must be de-collided, or <c>null</c></param>
+        private static void Apply(string? rootNamespace, ISet<EStructuralFeature>? collidingFeatures)
+        {
+            modelRoot = rootNamespace;
+            renamedFeatures = collidingFeatures;
         }
 
         private sealed class Scope : IDisposable
@@ -88,18 +102,15 @@ namespace Auriga.CodeGenerator.Helpers
 
             private readonly ISet<EStructuralFeature>? previousRenamedFeatures;
 
-            public Scope(string rootNamespace, ISet<EStructuralFeature>? collidingFeatures)
+            public Scope(string? previousModelRoot, ISet<EStructuralFeature>? previousRenamedFeatures)
             {
-                this.previousModelRoot = modelRoot;
-                this.previousRenamedFeatures = renamedFeatures;
-                modelRoot = rootNamespace;
-                renamedFeatures = collidingFeatures;
+                this.previousModelRoot = previousModelRoot;
+                this.previousRenamedFeatures = previousRenamedFeatures;
             }
 
             public void Dispose()
             {
-                modelRoot = this.previousModelRoot;
-                renamedFeatures = this.previousRenamedFeatures;
+                Apply(this.previousModelRoot, this.previousRenamedFeatures);
             }
         }
     }

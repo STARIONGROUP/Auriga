@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Xmi
     /// <summary>
     /// Fluent factory that wires together the collaborators of an <see cref="IXmiReader"/> for the Sirius /
     /// GMF metamodels — the element cache, the generated Sirius namespace registry and reader facade, and
-    /// the reference resolver. It is the <c>.aird</c> analogue of <see cref="Auriga.Xmi.XmiReaderBuilder"/>:
+    /// the reference resolver. It is the <c>.aird</c> analogue of Capella's <c>XmiReaderBuilder</c>:
     /// the same metamodel-agnostic <see cref="XmiReader"/> is used, only the facade and namespace registry
     /// differ. The reader's <c>xmi:XMI</c> multi-root handling reads every top-level representation of an
     /// <c>.aird</c> into one shared graph.
