@@ -22,11 +22,12 @@ be included in all copies or substantial portions of the Software.
 
 THIRD-PARTY CONTENT
 
-The directory resources/ecore contains Ecore metamodel files (*.ecore)
-redistributed from the following Eclipse Foundation projects. These files are
-NOT covered by the Apache License above; they are and remain licensed under
-the Eclipse Public License v. 2.0 (EPL-2.0), a copy of which is included at
-resources/ecore/LICENSE-EPL-2.0.md and is also available at
+The directories resources/ecore and resources/ecore-sirius contain Ecore
+metamodel files (*.ecore) redistributed from the following Eclipse Foundation
+projects. These files are NOT covered by the Apache License above; they are and
+remain licensed under the Eclipse Public License v. 2.0 (EPL-2.0), a copy of
+which is included at resources/ecore/LICENSE-EPL-2.0.md and
+resources/ecore-sirius/LICENSE-EPL-2.0.md, and is also available at
 https://www.eclipse.org/legal/epl-2.0.
 
 SPDX-License-Identifier for these files: EPL-2.0
@@ -51,6 +52,17 @@ SPDX-License-Identifier for these files: EPL-2.0
    Project: https://projects.eclipse.org/projects/polarsys.kitalpha
    Files: eMDE.ecore
 
+4. Eclipse Sirius
+   Source: https://github.com/eclipse-sirius/sirius-desktop (tag v7.6.0)
+   Project: https://projects.eclipse.org/projects/modeling.sirius
+   Files (in resources/ecore-sirius): viewpoint.ecore, diagram.ecore,
+          sequence.ecore, table.ecore
+
+5. Eclipse GMF Runtime (Notation)
+   Source: https://github.com/eclipse-gmf-runtime/gmf-notation (commit 9655137)
+   Project: https://projects.eclipse.org/projects/modeling.gmf-runtime
+   Files (in resources/ecore-sirius): notation.ecore
+
 Copyright of these files remains with the respective authors or their
 employers; consult the source repository logs of the projects listed above
 for authorship information.
@@ -59,6 +71,11 @@ Modifications: relative and platform:/plugin/ cross-file reference paths
 inside the redistributed *.ecore files were rewritten to same-directory form
 (e.g. "platform:/plugin/<plugin>/model/X.ecore#..." becomes "X.ecore#...") so
 that the file set is self-contained. No semantic content was altered. See
-resources/ecore/README.md for per-file provenance.
+resources/ecore/README.md and resources/ecore-sirius/README.md for per-file
+provenance. For the Sirius set, 10 documentation-only "TagValues" annotations
+in diagram.ecore that referenced cross-file annotation-detail entries were also
+removed (see resources/ecore-sirius/README.md); no EClass, feature, or
+enumeration was affected.
 
-Capella is a registered trademark of the Eclipse Foundation.
+Capella is a registered trademark of the Eclipse Foundation. Sirius and GMF are
+projects of the Eclipse Foundation.
