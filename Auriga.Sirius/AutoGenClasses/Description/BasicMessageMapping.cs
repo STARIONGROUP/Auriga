@@ -53,8 +53,7 @@ namespace Auriga.Sirius.Sequence.Description
         public string Documentation { get; set; }
 
         /// <summary>
-        /// The type of the target elements that are represented by this edge. Useful only if useDomainElement
-        /// is true.
+        /// The type of the target elements that are represented by this edge. Useful only if useDomainElement is true.
         /// </summary>
         public string DomainClass { get; set; }
 
@@ -74,8 +73,7 @@ namespace Auriga.Sirius.Sequence.Description
         public Auriga.Sirius.Diagram.Description.Tool.IDirectEditLabel LabelDirectEdit { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 
@@ -120,10 +118,7 @@ namespace Auriga.Sirius.Sequence.Description
         public List<Auriga.Sirius.Diagram.Description.Tool.IReconnectEdgeDescription> Reconnections { get; } = new List<Auriga.Sirius.Diagram.Description.Tool.IReconnectEdgeDescription>();
 
         /// <summary>
-        /// In the default case, candidates of a mapping are all EObjet owned by the semantic element of the
-        /// view container. The semanticCandidatesExpression is an expression that returns the list of EObject
-        /// that are candidates of the mapping instead of the candidates of the default case. The context of the
-        /// expression is the semantic element of the view container.
+        /// In the default case, candidates of a mapping are all EObjet owned by the semantic element of the view container. The semanticCandidatesExpression is an expression that returns the list of EObject that are candidates of the mapping instead of the candidates of the default case. The context of the expression is the semantic element of the view container.
         /// </summary>
         public string SemanticCandidatesExpression { get; set; }
 
@@ -138,17 +133,14 @@ namespace Auriga.Sirius.Sequence.Description
         public string SendingEndFinderExpression { get; set; }
 
         /// <summary>
-        /// An expression to retrieve the sources of an edge.All this objects will depends on the
-        /// semanticCandidatesExpression. By default all objects are the objects that are in the enclosing
-        /// viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the
-        /// objects will be the objects of the returned list.This attribute is taking in account only if the
-        /// useDomainElement is true.
+        /// An expression to retrieve the sources of an edge.
+        /// All this objects will depends on the semanticCandidatesExpression. By default all objects are the objects that are in the enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the objects will be the objects of the returned list.
+        /// This attribute is taking in account only if the useDomainElement is true.
         /// </summary>
         public string SourceFinderExpression { get; set; }
 
         /// <summary>
-        /// The mapping that creates EdgeTargets that are the sources of the ViewEdges that are created by this
-        /// EdgeMapping.
+        /// The mapping that creates EdgeTargets that are the sources of the ViewEdges that are created by this EdgeMapping.
         /// </summary>
         public List<Auriga.Sirius.Diagram.Description.IDiagramElementMapping> SourceMapping { get; } = new List<Auriga.Sirius.Diagram.Description.IDiagramElementMapping>();
 
@@ -175,32 +167,28 @@ namespace Auriga.Sirius.Sequence.Description
         private Auriga.Sirius.Diagram.Description.Style.IEdgeStyleDescription backingStyle;
 
         /// <summary>
-        /// Set to true to force the synchronization of the elements of this mapping when the current diagram is
-        /// in an unsynchronized mode.This option is used only if createElements is true and the diagram which
-        /// contain the elements of this mapping is unsynchronized.
+        /// Set to true to force the synchronization of the elements of this mapping when the current diagram is in an unsynchronized mode.
+        /// This option is used only if createElements is true and the diagram which contain the elements of this mapping is unsynchronized.
         /// </summary>
         public bool? SynchronizationLock { get; set; }
 
         /// <summary>
-        /// An expression computing the targeted semantic element of this edge.If this attribut is not filled
-        /// in. Then the target element will be : - The target element of the source node if useDomainElement is
-        /// false. - The object that is an instance of domainClass value if useDomainElement is true.
+        /// An expression computing the targeted semantic element of this edge.
+        /// If this attribut is not filled in. Then the target element will be :
+        /// - The target element of the source node if useDomainElement is false.
+        /// - The object that is an instance of domainClass value if useDomainElement is true.
         /// </summary>
         public string TargetExpression { get; set; }
 
         /// <summary>
-        /// An expression  to retrieve the targets of an edge.The context of the expression depends on the
-        /// useDomainElement value. If useDomainElement is true, the expression will be evaluated with all
-        /// objects that are instances of the type represented by the domainClass value.All this objects will
-        /// depends on the semanticCandidatesExpression. By default all objects are the objects that are in the
-        /// enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all
-        /// the objects will be the objects of the returned list.
+        /// An expression  to retrieve the targets of an edge.
+        /// The context of the expression depends on the useDomainElement value. If useDomainElement is true, the expression will be evaluated with all objects that are instances of the type represented by the domainClass value.
+        /// All this objects will depends on the semanticCandidatesExpression. By default all objects are the objects that are in the enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the objects will be the objects of the returned list.
         /// </summary>
         public string TargetFinderExpression { get; set; }
 
         /// <summary>
-        /// The mapping that creates EdgeTargets that are the targets of the ViewEdges that are created by this
-        /// EdgeMapping.
+        /// The mapping that creates EdgeTargets that are the targets of the ViewEdges that are created by this EdgeMapping.
         /// </summary>
         public List<Auriga.Sirius.Diagram.Description.IDiagramElementMapping> TargetMapping { get; } = new List<Auriga.Sirius.Diagram.Description.IDiagramElementMapping>();
 

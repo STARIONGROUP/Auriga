@@ -21,8 +21,9 @@ namespace Auriga.Sirius.Diagram
     public partial interface INodeStyle : Auriga.Sirius.Viewpoint.ILabelStyle, Auriga.Sirius.Viewpoint.IStyle, Auriga.Sirius.Diagram.IBorderedStyle, Auriga.Sirius.Diagram.IHideLabelCapabilityStyle
     {
         /// <summary>
-        /// The position of the label :BORDER : The label is around the node, on the border.NODE : the label is
-        /// in the node.
+        /// The position of the label :
+        /// BORDER : The label is around the node, on the border.
+        /// NODE : the label is in the node.
         /// </summary>
         Auriga.Sirius.Diagram.LabelPosition? LabelPosition { get; set; }
 

@@ -28,8 +28,7 @@ namespace Auriga.Sirius.Diagram.Description
         Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles { get; }
 
         /// <summary>
-        /// The type of the target elements that are represented by this edge. Useful only if useDomainElement
-        /// is true.
+        /// The type of the target elements that are represented by this edge. Useful only if useDomainElement is true.
         /// </summary>
         string DomainClass { get; set; }
 
@@ -49,17 +48,14 @@ namespace Auriga.Sirius.Diagram.Description
         List<Auriga.Sirius.Diagram.Description.Tool.IReconnectEdgeDescription> Reconnections { get; }
 
         /// <summary>
-        /// An expression to retrieve the sources of an edge.All this objects will depends on the
-        /// semanticCandidatesExpression. By default all objects are the objects that are in the enclosing
-        /// viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the
-        /// objects will be the objects of the returned list.This attribute is taking in account only if the
-        /// useDomainElement is true.
+        /// An expression to retrieve the sources of an edge.
+        /// All this objects will depends on the semanticCandidatesExpression. By default all objects are the objects that are in the enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the objects will be the objects of the returned list.
+        /// This attribute is taking in account only if the useDomainElement is true.
         /// </summary>
         string SourceFinderExpression { get; set; }
 
         /// <summary>
-        /// The mapping that creates EdgeTargets that are the sources of the ViewEdges that are created by this
-        /// EdgeMapping.
+        /// The mapping that creates EdgeTargets that are the sources of the ViewEdges that are created by this EdgeMapping.
         /// </summary>
         List<Auriga.Sirius.Diagram.Description.IDiagramElementMapping> SourceMapping { get; }
 
@@ -69,25 +65,22 @@ namespace Auriga.Sirius.Diagram.Description
         Auriga.Sirius.Diagram.Description.Style.IEdgeStyleDescription Style { get; set; }
 
         /// <summary>
-        /// An expression computing the targeted semantic element of this edge.If this attribut is not filled
-        /// in. Then the target element will be : - The target element of the source node if useDomainElement is
-        /// false. - The object that is an instance of domainClass value if useDomainElement is true.
+        /// An expression computing the targeted semantic element of this edge.
+        /// If this attribut is not filled in. Then the target element will be :
+        /// - The target element of the source node if useDomainElement is false.
+        /// - The object that is an instance of domainClass value if useDomainElement is true.
         /// </summary>
         string TargetExpression { get; set; }
 
         /// <summary>
-        /// An expression  to retrieve the targets of an edge.The context of the expression depends on the
-        /// useDomainElement value. If useDomainElement is true, the expression will be evaluated with all
-        /// objects that are instances of the type represented by the domainClass value.All this objects will
-        /// depends on the semanticCandidatesExpression. By default all objects are the objects that are in the
-        /// enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all
-        /// the objects will be the objects of the returned list.
+        /// An expression  to retrieve the targets of an edge.
+        /// The context of the expression depends on the useDomainElement value. If useDomainElement is true, the expression will be evaluated with all objects that are instances of the type represented by the domainClass value.
+        /// All this objects will depends on the semanticCandidatesExpression. By default all objects are the objects that are in the enclosing viewpoint's rootContent subtree. If the semanticCandidatesExpression is filled in then all the objects will be the objects of the returned list.
         /// </summary>
         string TargetFinderExpression { get; set; }
 
         /// <summary>
-        /// The mapping that creates EdgeTargets that are the targets of the ViewEdges that are created by this
-        /// EdgeMapping.
+        /// The mapping that creates EdgeTargets that are the targets of the ViewEdges that are created by this EdgeMapping.
         /// </summary>
         List<Auriga.Sirius.Diagram.Description.IDiagramElementMapping> TargetMapping { get; }
 

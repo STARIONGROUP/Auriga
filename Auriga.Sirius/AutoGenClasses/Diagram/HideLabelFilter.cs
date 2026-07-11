@@ -23,8 +23,7 @@ namespace Auriga.Sirius.Diagram
     public partial class HideLabelFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.IHideLabelFilter
     {
         /// <summary>
-        /// List of VisualIDs of the labels that should be filtered. This feature is only used for the labels of
-        /// a DEdge
+        /// List of VisualIDs of the labels that should be filtered. This feature is only used for the labels of a DEdge
         /// </summary>
         public List<int> HiddenLabels { get; } = new List<int>();
 

@@ -33,8 +33,7 @@ namespace Auriga.Sirius.Diagram
         List<Auriga.Sirius.Diagram.Description.INodeMapping> CandidatesMapping { get; }
 
         /// <summary>
-        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of
-        /// this style.
+        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.
         /// </summary>
         Auriga.Sirius.Viewpoint.IStyle OriginalStyle { get; set; }
 

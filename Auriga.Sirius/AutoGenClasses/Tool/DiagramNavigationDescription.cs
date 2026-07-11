@@ -48,8 +48,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         private Auriga.Sirius.Viewpoint.Description.Tool.IElementSelectVariable backingContainerVariable;
 
         /// <summary>
-        /// The variable containerView that represents the clickedView (instance of ViewPoint or
-        /// ViewPointElement).
+        /// The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).
         /// </summary>
         public Auriga.Sirius.Viewpoint.Description.Tool.IContainerViewVariable ContainerViewVariable
         {
@@ -111,8 +110,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         public string Label { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Diagram
 {
     /// <summary>
-    /// Graphical filter specifying that the owner element has been folded indirectly because it is
-    /// accessible from a folded folding point through folable edges.
+    /// Graphical filter specifying that the owner element has been folded indirectly because it is accessible from a folded folding point through folable edges.
     /// </summary>
     public partial interface IFoldingFilter : Auriga.Sirius.Diagram.IGraphicalFilter
     {

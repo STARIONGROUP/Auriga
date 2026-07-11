@@ -16,9 +16,7 @@
 namespace Auriga.Sirius.Viewpoint.Description.Tool
 {
     /// <summary>
-    /// Swich contains 1 or more Case and 1 Default Case. If no Case condition return true, Default Case is
-    /// executed. If there are more Case condition who return true it's the first Condition Case true who is
-    /// executed.
+    /// Swich contains 1 or more Case and 1 Default Case. If no Case condition return true, Default Case is executed. If there are more Case condition who return true it's the first Condition Case true who is executed.
     /// </summary>
     public partial class Switch : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ISwitch
     {

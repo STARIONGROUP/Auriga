@@ -21,8 +21,7 @@ namespace Auriga.Sirius.Table.Description
     public partial interface ICellEditorTool : Auriga.Sirius.Table.Description.ITableTool
     {
         /// <summary>
-        /// The qualified name of the CellEditorFactory class to provide a CellEditor. This class must implement
-        /// "org.eclipse.sirius.table.ui.tools.api.editor.ITableCellEditorFactory".
+        /// The qualified name of the CellEditorFactory class to provide a CellEditor. This class must implement "org.eclipse.sirius.table.ui.tools.api.editor.ITableCellEditorFactory".
         /// </summary>
         string QualifiedClassName { get; set; }
 

@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Diagram
 {
     /// <summary>
-    /// Graphical filter specifying that the owner element has been folded explictly. It should itself be
-    /// visible, but other elements accesible from it through folded edges should not be.
+    /// Graphical filter specifying that the owner element has been folded explictly. It should itself be visible, but other elements accesible from it through folded edges should not be.
     /// </summary>
     public partial class FoldingPointFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.IFoldingPointFilter
     {

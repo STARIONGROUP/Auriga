@@ -6,6 +6,15 @@ Auriga/AutoGenInterfaces/**/*.cs     text eol=lf
 Auriga/AutoGenEnumeration/**/*.cs    text eol=lf
 Auriga.Xmi/AutoGenXmiReaders/**/*.cs text eol=lf
 Auriga.Xmi/AutoGenXmiWriters/**/*.cs text eol=lf
+Auriga.Sirius/AutoGenClasses/**/*.cs        text eol=lf
+Auriga.Sirius/AutoGenInterfaces/**/*.cs     text eol=lf
+Auriga.Sirius/AutoGenEnumeration/**/*.cs    text eol=lf
+Auriga.Sirius.Xmi/AutoGenXmiReaders/**/*.cs text eol=lf
+Auriga.Sirius.Xmi/AutoGenXmiWriters/**/*.cs text eol=lf
+
+# The vendored Sirius/GMF metamodels are read verbatim by the generator; pin them to LF so a Windows
+# checkout does not smudge them to CRLF and perturb local regeneration.
+resources/ecore-sirius/*.ecore text eol=lf
 
 # The golden files mirror generated output and are compared byte-for-byte, so pin them to LF too.
 Auriga.CodeGenerator.Tests/Expected/**/*.cs text eol=lf

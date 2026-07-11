@@ -107,8 +107,7 @@ namespace Auriga.Sirius.Sequence.Description.Tool
         public List<Auriga.Sirius.Sequence.Description.IEventMapping> Mappings { get; } = new List<Auriga.Sirius.Sequence.Description.IEventMapping>();
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

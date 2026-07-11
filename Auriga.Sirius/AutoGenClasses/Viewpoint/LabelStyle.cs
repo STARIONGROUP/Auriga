@@ -28,8 +28,7 @@ namespace Auriga.Sirius.Viewpoint
         public List<string> CustomFeatures { get; } = new List<string>();
 
         /// <summary>
-        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic
-        /// element will be displayed.
+        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
         public string IconPath { get; set; }
 

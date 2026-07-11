@@ -69,14 +69,12 @@ namespace Auriga.Sirius.Diagram
 
         /// <summary>
         /// The default visibility of the label (available only if labelPosition equals BORDER).
-        /// A change of
-        /// this option does not affect already existing elements.
+        /// A change of this option does not affect already existing elements.
         /// </summary>
         public bool? HideLabelByDefault { get; set; }
 
         /// <summary>
-        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic
-        /// element will be displayed.
+        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
         public string IconPath { get; set; }
 

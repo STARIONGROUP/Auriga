@@ -24,8 +24,7 @@ namespace Auriga.Sirius.Viewpoint
     public partial interface IUIState : Auriga.IAurigaElement
     {
         /// <summary>
-        /// This map associates a Decoration to its computed image (Object as value) which can be either an
-        /// Image or an IFigure.
+        /// This map associates a Decoration to its computed image (Object as value) which can be either an Image or an IFigure.
         /// </summary>
         object DecorationImage { get; }
 
@@ -40,8 +39,7 @@ namespace Auriga.Sirius.Viewpoint
         bool? InverseSelectionOrder { get; }
 
         /// <summary>
-        /// This map associates a Decoration to its computed image (Object as value) which can be either an
-        /// Image or an IFigure.
+        /// This map associates a Decoration to its computed image (Object as value) which can be either an Image or an IFigure.
         /// </summary>
         object SubDiagramDecorationDescriptors { get; }
 

@@ -21,8 +21,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     public partial interface IWorkspaceImageDescription : Auriga.Sirius.Diagram.Description.Style.INodeStyleDescription, Auriga.Sirius.Diagram.Description.Style.IContainerStyleDescription
     {
         /// <summary>
-        /// The path of the image to use in the form of /myProjectID/path/to/image.png,  if the image is not
-        /// found in the workspace it will be looked for in the plugins.
+        /// The path of the image to use in the form of /myProjectID/path/to/image.png,  if the image is not found in the workspace it will be looked for in the plugins.
         /// </summary>
         string WorkspacePath { get; set; }
 

@@ -24,8 +24,7 @@ namespace Auriga.Sirius.Table
     public partial class DLine : Auriga.AurigaElement, Auriga.Sirius.Table.IDLine
     {
         /// <summary>
-        /// List of cells of this line. This list does not necessarily have as many cells as there are columns.
-        /// Indeed, the «blank cells» are not created.
+        /// List of cells of this line. This list does not necessarily have as many cells as there are columns. Indeed, the «blank cells» are not created.
         /// </summary>
         public Auriga.IContainerList<Auriga.Sirius.Table.IDCell> Cells => this.backingCells ??= new Auriga.ContainerList<Auriga.Sirius.Table.IDCell>(this);
 
@@ -40,12 +39,9 @@ namespace Auriga.Sirius.Table
         public bool Collapsed { get; set; }
 
         /// <summary>
-        /// Stores the best style of the LineMapping style updater : 
-        /// * The first conditional foreground style
-        /// (with predicate expression that returns true), otherwise the default foreground style.
-        /// * The first
-        /// conditional background style (with predicate expression that returns true), otherwise the default
-        /// background style.
+        /// Stores the best style of the LineMapping style updater :
+        /// * The first conditional foreground style (with predicate expression that returns true), otherwise the default foreground style.
+        /// * The first conditional background style (with predicate expression that returns true), otherwise the default background style.
         /// </summary>
         public Auriga.Sirius.Table.IDTableElementStyle CurrentStyle
         {

@@ -313,14 +313,21 @@ namespace Auriga.CodeGenerator.Helpers
 
             try
             {
-                // A single documentation entry can itself span several physical lines (Sirius/GMF docs
-                // embed CR/LF); split them so every physical line is emitted on its own '///' comment line
-                // rather than leaking past the first one into code. Capella docs are single-line, so this
-                // is a no-op for them.
-                lines = element.QueryDocumentation()
-                    .SelectMany(SplitLines)
-                    .Where(l => !string.IsNullOrWhiteSpace(l))
-                    .ToList();
+                // Read the raw GenModel documentation annotation rather than ECoreNetto's
+                // QueryDocumentation(): the latter word-wraps long documentation, and that wrapping is
+                // platform-dependent (it breaks at different positions on Windows and Linux, and can even
+                // insert a space that is not in the source, e.g. "edge.All" -> "edge. All"), which makes
+                // generation non-deterministic. The raw annotation value is the verbatim ecore text, so it
+                // is identical on every platform. Its only line breaks are the source's own (deterministic).
+                // Capella's short single-line documentation is unchanged by this.
+                var documentation = RawDocumentation(element);
+
+                lines = documentation == null
+                    ? new List<string>()
+                    : documentation.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n')
+                        .Select(l => l.Trim())
+                        .Where(l => l.Length > 0)
+                        .ToList();
             }
             catch (Exception)
             {
@@ -339,9 +346,15 @@ namespace Auriga.CodeGenerator.Helpers
             return result;
         }
 
-        private static IEnumerable<string> SplitLines(string documentation)
+        private const string GenModelAnnotationSource = "http://www.eclipse.org/emf/2002/GenModel";
+
+        private static string RawDocumentation(EModelElement element)
         {
-            return documentation.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
+            var annotation = element.EAnnotations?.FirstOrDefault(a => a.Source == GenModelAnnotationSource);
+
+            return annotation != null && annotation.Details.TryGetValue("documentation", out var documentation)
+                ? documentation
+                : null;
         }
 
         private static string Humanize(string name)

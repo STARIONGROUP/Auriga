@@ -23,8 +23,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     public partial interface IRepresentationExtensionDescription : Auriga.IAurigaElement
     {
         /// <summary>
-        /// You might use this reference to statically bind your representation extension with a set of Ecore
-        /// packages. Keep in mind that this is not mandatory.
+        /// You might use this reference to statically bind your representation extension with a set of Ecore packages. Keep in mind that this is not mandatory.
         /// </summary>
         List<object> Metamodel { get; }
 
@@ -39,8 +38,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         string RepresentationName { get; set; }
 
         /// <summary>
-        /// The logical URI of the viewpoint you want to extend, in the form of
-        /// viewpoint:/pluginID/ViewpointName
+        /// The logical URI of the viewpoint you want to extend, in the form of viewpoint:/pluginID/ViewpointName
         /// </summary>
         string ViewpointURI { get; set; }
 

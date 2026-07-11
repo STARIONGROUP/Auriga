@@ -122,8 +122,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         public string Label { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 
@@ -133,8 +132,9 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         public string Precondition { get; set; }
 
         /// <summary>
-        /// The kind of reconnection :SOURCE : the source of the ViewEdge can be reconnected but not the
-        /// target.TARGET : the target of the ViewEdge can be reconnected but not the source.
+        /// The kind of reconnection :
+        /// SOURCE : the source of the ViewEdge can be reconnected but not the target.
+        /// TARGET : the target of the ViewEdge can be reconnected but not the source.
         /// </summary>
         public Auriga.Sirius.Diagram.Description.Tool.ReconnectionKind ReconnectionKind { get; set; }
 

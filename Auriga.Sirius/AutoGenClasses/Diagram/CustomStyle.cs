@@ -54,14 +54,12 @@ namespace Auriga.Sirius.Diagram
 
         /// <summary>
         /// The default visibility of the label (available only if labelPosition equals BORDER).
-        /// A change of
-        /// this option does not affect already existing elements.
+        /// A change of this option does not affect already existing elements.
         /// </summary>
         public bool? HideLabelByDefault { get; set; }
 
         /// <summary>
-        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic
-        /// element will be displayed.
+        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
         public string IconPath { get; set; }
 
@@ -81,8 +79,9 @@ namespace Auriga.Sirius.Diagram
         public List<Auriga.Sirius.Viewpoint.FontFormat> LabelFormat { get; } = new List<Auriga.Sirius.Viewpoint.FontFormat>();
 
         /// <summary>
-        /// The position of the label :BORDER : The label is around the node, on the border.NODE : the label is
-        /// in the node.
+        /// The position of the label :
+        /// BORDER : The label is around the node, on the border.
+        /// NODE : the label is in the node.
         /// </summary>
         public Auriga.Sirius.Diagram.LabelPosition? LabelPosition { get; set; }
 

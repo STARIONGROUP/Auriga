@@ -74,8 +74,9 @@ namespace Auriga.Sirius.Diagram
         public List<Auriga.Sirius.Diagram.IDEdge> IncomingEdges { get; } = new List<Auriga.Sirius.Diagram.IDEdge>();
 
         /// <summary>
-        /// The position of the label :BORDER : The label is around the node, on the border.NODE : the label is
-        /// in the node.
+        /// The position of the label :
+        /// BORDER : The label is around the node, on the border.
+        /// NODE : the label is in the node.
         /// </summary>
         public Auriga.Sirius.Diagram.LabelPosition? LabelPosition { get; set; }
 
@@ -85,8 +86,7 @@ namespace Auriga.Sirius.Diagram
         public string Name { get; set; }
 
         /// <summary>
-        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of
-        /// this style.
+        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.
         /// </summary>
         public Auriga.Sirius.Viewpoint.IStyle OriginalStyle { get; set; }
 
@@ -133,7 +133,7 @@ namespace Auriga.Sirius.Diagram
         public List<Auriga.Sirius.Diagram.Description.ILayer> ParentLayers { get; } = new List<Auriga.Sirius.Diagram.Description.ILayer>();
 
         /// <summary>
-        /// true if the node is resizable.
+        /// <code>true</code> if the node is resizable.
         /// </summary>
         public Auriga.Sirius.Diagram.ResizeKind? ResizeKind { get; set; }
 

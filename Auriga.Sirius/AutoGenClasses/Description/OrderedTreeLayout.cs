@@ -23,8 +23,7 @@ namespace Auriga.Sirius.Diagram.Description
     public partial class OrderedTreeLayout : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IOrderedTreeLayout
     {
         /// <summary>
-        /// An expression returning the semantic children of an element, the result of this expression is used
-        /// to compute a hiearchical tree for the layout.
+        /// An expression returning the semantic children of an element, the result of this expression is used to compute a hiearchical tree for the layout.
         /// </summary>
         public string ChildrenExpression { get; set; }
 

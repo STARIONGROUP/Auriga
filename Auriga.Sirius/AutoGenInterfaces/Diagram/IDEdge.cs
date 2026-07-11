@@ -43,18 +43,17 @@ namespace Auriga.Sirius.Diagram
         string EndLabel { get; set; }
 
         /// <summary>
-        /// true if the view edge is folded.
+        /// <code>true</code> if the view edge is folded.
         /// </summary>
         bool? IsFold { get; set; }
 
         /// <summary>
-        /// true if the edge is an edge that is displayed only to have the plus image to decollapse a branch.
+        /// <code>true</code> if the edge is an edge that is displayed only to have the plus image to decollapse a branch.
         /// </summary>
         bool? IsMockEdge { get; set; }
 
         /// <summary>
-        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of
-        /// this style.
+        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.
         /// </summary>
         Auriga.Sirius.Viewpoint.IStyle OriginalStyle { get; set; }
 

@@ -19,9 +19,8 @@ namespace Auriga.Sirius.Diagram
     using System.Linq;
 
     /// <summary>
-    /// ViewPoint is the type of all diagrams in AIR.A viewpoint is composed of nodes, containers and
-    /// connections. It is owned by an anlysis or by a parent viewpoint. In this last case the viewpoint
-    /// should be called detailed viewpoint.
+    /// ViewPoint is the type of all diagrams in AIR.
+    /// A viewpoint is composed of nodes, containers and connections. It is owned by an anlysis or by a parent viewpoint. In this last case the viewpoint should be called detailed viewpoint.
     /// </summary>
     public partial interface IDDiagram : Auriga.Sirius.Viewpoint.IDRepresentation, Auriga.Sirius.Diagram.IDragAndDropTarget
     {
@@ -86,8 +85,7 @@ namespace Auriga.Sirius.Diagram
         Auriga.Sirius.Diagram.IFilterVariableHistory FilterVariableHistory { get; set; }
 
         /// <summary>
-        /// The number of lines to display the header labels (1 by default). This field is used only if the
-        /// IDiagramDescriptionProvider.supportHeader() return true for this DDiagram.
+        /// The number of lines to display the header labels (1 by default). This field is used only if the IDiagramDescriptionProvider.supportHeader() return true for this DDiagram.
         /// </summary>
         int? HeaderHeight { get; set; }
 

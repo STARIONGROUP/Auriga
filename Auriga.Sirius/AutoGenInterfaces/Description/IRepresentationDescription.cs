@@ -23,14 +23,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     public partial interface IRepresentationDescription : Auriga.Sirius.Viewpoint.Description.IDocumentedElement, Auriga.Sirius.Viewpoint.Description.IEndUserDocumentedElement, Auriga.Sirius.Viewpoint.Description.IIdentifiedElement
     {
         /// <summary>
-        /// Set to true if your want your representation to be automatically created when initializing a new
-        /// session.
+        /// Set to true if your want your representation to be automatically created when initializing a new session.
         /// </summary>
         bool Initialisation { get; set; }
 
         /// <summary>
-        /// You might use this reference to statically bind your representation with a set of Ecore packages.
-        /// Keep in mind that this is not mandatory.
+        /// You might use this reference to statically bind your representation with a set of Ecore packages. Keep in mind that this is not mandatory.
         /// </summary>
         List<object> Metamodel { get; }
 

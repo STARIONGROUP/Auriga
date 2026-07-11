@@ -16,8 +16,8 @@
 namespace Auriga.Sirius.Viewpoint
 {
     /// <summary>
-    /// Represent a Meta Model extension.A meta model extension adds types, attributes and references into
-    /// an existing meta model
+    /// Represent a Meta Model extension.
+    /// A meta model extension adds types, attributes and references into an existing meta model
     /// </summary>
     public partial interface IMetaModelExtension : Auriga.Sirius.Viewpoint.IIdentifiedElement
     {

@@ -21,8 +21,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     public partial interface IRequestDescription : Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription
     {
         /// <summary>
-        /// An Identifier for your request. This request will be send through GEF and any EditPolicy handling
-        /// this request will then be able to perform commands.
+        /// An Identifier for your request. This request will be send through GEF and any EditPolicy handling this request will then be able to perform commands.
         /// </summary>
         string Type { get; set; }
 

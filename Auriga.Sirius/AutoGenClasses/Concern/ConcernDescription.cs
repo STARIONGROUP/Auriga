@@ -18,8 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Concern
     using System.Collections.Generic;
 
     /// <summary>
-    /// Describe a concern. A concern could be seen as an aspect. It allows to enable some filters,
-    /// validation rules or behaviors in one click.
+    /// Describe a concern. A concern could be seen as an aspect. It allows to enable some filters, validation rules or behaviors in one click.
     /// </summary>
     public partial class ConcernDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Concern.IConcernDescription
     {
@@ -44,8 +43,7 @@ namespace Auriga.Sirius.Diagram.Description.Concern
         public string Label { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

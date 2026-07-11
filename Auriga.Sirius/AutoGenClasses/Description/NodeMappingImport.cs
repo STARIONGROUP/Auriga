@@ -18,8 +18,7 @@ namespace Auriga.Sirius.Diagram.Description
     using System.Collections.Generic;
 
     /// <summary>
-    /// Ease the reuse of existing mappings. If the feature is not defined in this instance it will re-use
-    /// the feature value of the imported one.
+    /// Ease the reuse of existing mappings. If the feature is not defined in this instance it will re-use the feature value of the imported one.
     /// </summary>
     public partial class NodeMappingImport : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.INodeMappingImport
     {
@@ -104,8 +103,7 @@ namespace Auriga.Sirius.Diagram.Description
         public Auriga.Sirius.Diagram.Description.Tool.IDirectEditLabel LabelDirectEdit { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 
@@ -130,10 +128,7 @@ namespace Auriga.Sirius.Diagram.Description
         public List<Auriga.Sirius.Diagram.Description.INodeMapping> ReusedBorderedNodeMappings { get; } = new List<Auriga.Sirius.Diagram.Description.INodeMapping>();
 
         /// <summary>
-        /// In the default case, candidates of a mapping are all EObjet owned by the semantic element of the
-        /// view container. The semanticCandidatesExpression is an expression that returns the list of EObject
-        /// that are candidates of the mapping instead of the candidates of the default case. The context of the
-        /// expression is the semantic element of the view container.
+        /// In the default case, candidates of a mapping are all EObjet owned by the semantic element of the view container. The semanticCandidatesExpression is an expression that returns the list of EObject that are candidates of the mapping instead of the candidates of the default case. The context of the expression is the semantic element of the view container.
         /// </summary>
         public string SemanticCandidatesExpression { get; set; }
 
@@ -165,9 +160,8 @@ namespace Auriga.Sirius.Diagram.Description
         private Auriga.Sirius.Diagram.Description.Style.INodeStyleDescription backingStyle;
 
         /// <summary>
-        /// Set to true to force the synchronization of the elements of this mapping when the current diagram is
-        /// in an unsynchronized mode.This option is used only if createElements is true and the diagram which
-        /// contain the elements of this mapping is unsynchronized.
+        /// Set to true to force the synchronization of the elements of this mapping when the current diagram is in an unsynchronized mode.
+        /// This option is used only if createElements is true and the diagram which contain the elements of this mapping is unsynchronized.
         /// </summary>
         public bool? SynchronizationLock { get; set; }
 

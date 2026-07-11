@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Viewpoint.Description
 {
     /// <summary>
-    /// A GenericDecorationDescription applies decoration on views targeting an element that fulfill the
-    /// preconditionExpression.
+    /// A GenericDecorationDescription applies decoration on views targeting an element that fulfill the preconditionExpression.
     /// </summary>
     public partial interface IGenericDecorationDescription : Auriga.Sirius.Viewpoint.Description.IDecorationDescription
     {

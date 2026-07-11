@@ -23,8 +23,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     public partial interface IBasicLabelStyleDescription : Auriga.IAurigaElement
     {
         /// <summary>
-        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic
-        /// element will be displayed.
+        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
         string IconPath { get; set; }
 

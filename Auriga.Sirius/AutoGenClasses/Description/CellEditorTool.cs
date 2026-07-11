@@ -43,8 +43,7 @@ namespace Auriga.Sirius.Table.Description
         private Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation backingFirstModelOperation;
 
         /// <summary>
-        /// The qualified name of the CellEditorFactory class to provide a CellEditor. This class must implement
-        /// "org.eclipse.sirius.table.ui.tools.api.editor.ITableCellEditorFactory".
+        /// The qualified name of the CellEditorFactory class to provide a CellEditor. This class must implement "org.eclipse.sirius.table.ui.tools.api.editor.ITableCellEditorFactory".
         /// </summary>
         public string QualifiedClassName { get; set; }
 

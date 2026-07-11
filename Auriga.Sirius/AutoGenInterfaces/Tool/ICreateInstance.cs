@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Viewpoint.Description.Tool
 {
     /// <summary>
-    /// This operation allows to create a new instance. The context must be the container of the new
-    /// instance.
+    /// This operation allows to create a new instance. The context must be the container of the new instance.
     /// </summary>
     public partial interface ICreateInstance : Auriga.Sirius.Viewpoint.Description.Tool.IContainerModelOperation
     {
@@ -32,8 +31,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         string TypeName { get; set; }
 
         /// <summary>
-        /// Once the instance is created, a new variable will be bound with the name given here and will be
-        /// available to any contained operation.
+        /// Once the instance is created, a new variable will be bound with the name given here and will be available to any contained operation.
         /// </summary>
         string VariableName { get; set; }
 

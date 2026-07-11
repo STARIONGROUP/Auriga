@@ -21,8 +21,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     public partial interface ITooltipStyleDescription : Auriga.IAurigaElement
     {
         /// <summary>
-        /// This expression is used to compute the text of the optional tooltip shown when the user leaves the
-        /// mouse on an element.
+        /// This expression is used to compute the text of the optional tooltip shown when the user leaves the mouse on an element.
         /// </summary>
         string TooltipExpression { get; set; }
 

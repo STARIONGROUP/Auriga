@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Viewpoint.Description
 {
     /// <summary>
-    /// All elements which are identified by its name (id) and which have a label to display it to the
-    /// end-user.
+    /// All elements which are identified by its name (id) and which have a label to display it to the end-user.
     /// </summary>
     public partial interface IIdentifiedElement : Auriga.IAurigaElement
     {
@@ -27,8 +26,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         string Label { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         string Name { get; set; }
 

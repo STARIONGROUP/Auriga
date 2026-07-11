@@ -99,8 +99,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
         private Auriga.Sirius.Diagram.Description.Style.IEndLabelStyleDescription backingEndLabelStyleDescription;
 
         /// <summary>
-        /// Use this feature to generalize the ends centering behavior to all source mappings, all target
-        /// mappings or both. If "None", you have to select the source and target mappings manually.
+        /// Use this feature to generalize the ends centering behavior to all source mappings, all target mappings or both. If "None", you have to select the source and target mappings manually.
         /// </summary>
         public Auriga.Sirius.Diagram.Description.CenteringStyle? EndsCentering { get; set; }
 

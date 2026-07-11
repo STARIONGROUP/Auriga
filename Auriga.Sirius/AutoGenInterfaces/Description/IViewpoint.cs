@@ -18,9 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     using System.Collections.Generic;
 
     /// <summary>
-    /// A Viewpoint defines a "way of looking at your model", you could make an analogy with "What is your
-    /// current concern about your analysis". It defines representations and might also define specific data
-    /// only relevant for this concern.
+    /// A Viewpoint defines a "way of looking at your model", you could make an analogy with "What is your current concern about your analysis". It defines representations and might also define specific data only relevant for this concern.
     /// </summary>
     public partial interface IViewpoint : Auriga.Sirius.Viewpoint.Description.IDocumentedElement, Auriga.Sirius.Viewpoint.Description.IComponent, Auriga.Sirius.Viewpoint.Description.IEndUserDocumentedElement, Auriga.Sirius.Viewpoint.Description.IIdentifiedElement
     {

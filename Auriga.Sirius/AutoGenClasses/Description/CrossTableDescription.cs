@@ -84,8 +84,7 @@ namespace Auriga.Sirius.Table.Description
         public int? InitialHeaderColumnWidth { get; set; }
 
         /// <summary>
-        /// Set to true if your want your representation to be automatically created when initializing a new
-        /// session.
+        /// Set to true if your want your representation to be automatically created when initializing a new session.
         /// </summary>
         public bool Initialisation { get; set; }
 
@@ -105,14 +104,12 @@ namespace Auriga.Sirius.Table.Description
         public string Label { get; set; }
 
         /// <summary>
-        /// You might use this reference to statically bind your representation with a set of Ecore packages.
-        /// Keep in mind that this is not mandatory.
+        /// You might use this reference to statically bind your representation with a set of Ecore packages. Keep in mind that this is not mandatory.
         /// </summary>
         public List<object> Metamodel { get; } = new List<object>();
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

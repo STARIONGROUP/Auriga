@@ -56,8 +56,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         public string Label { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 
@@ -67,8 +66,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         public string Precondition { get; set; }
 
         /// <summary>
-        /// An Identifier for your request. This request will be send through GEF and any EditPolicy handling
-        /// this request will then be able to perform commands.
+        /// An Identifier for your request. This request will be send through GEF and any EditPolicy handling this request will then be able to perform commands.
         /// </summary>
         public string Type { get; set; }
 

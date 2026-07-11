@@ -54,8 +54,7 @@ namespace Auriga.Sirius.Diagram
         IEnumerable<Auriga.Sirius.Diagram.IDNode> Nodes { get; }
 
         /// <summary>
-        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of
-        /// this style.
+        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.
         /// </summary>
         Auriga.Sirius.Viewpoint.IStyle OriginalStyle { get; set; }
 

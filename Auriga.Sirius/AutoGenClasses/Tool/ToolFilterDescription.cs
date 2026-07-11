@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Viewpoint.Description.Tool
 {
     /// <summary>
-    /// filter to hide a tool in UI based on preconditon evaluated when specified elements to listen are
-    /// modified
+    /// filter to hide a tool in UI based on preconditon evaluated when specified elements to listen are modified
     /// </summary>
     public partial class ToolFilterDescription : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription
     {

@@ -21,14 +21,12 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     public partial class DiagramCreationDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.IDiagramCreationDescription
     {
         /// <summary>
-        /// You might put here an expression to browse the semantic model to get to a new place before creating
-        /// the representation.
+        /// You might put here an expression to browse the semantic model to get to a new place before creating the representation.
         /// </summary>
         public string BrowseExpression { get; set; }
 
         /// <summary>
-        /// The variable containerView that represents the clickedView (instance of ViewPoint or
-        /// ViewPointElement).
+        /// The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).
         /// </summary>
         public Auriga.Sirius.Viewpoint.Description.Tool.IContainerViewVariable ContainerViewVariable
         {
@@ -112,8 +110,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         public string Label { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

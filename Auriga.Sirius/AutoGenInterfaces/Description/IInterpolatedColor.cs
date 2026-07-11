@@ -16,9 +16,9 @@
 namespace Auriga.Sirius.Viewpoint.Description
 {
     /// <summary>
-    /// Describes a color which varies between two level color depending on the values of dynamically
-    /// computed expressions.@Deprecated : Describes a color which varies between two extremes (red and
-    /// green)depending on the values of dynamically computed expressions.
+    /// Describes a color which varies between two level color depending on the values of dynamically computed expressions.
+    /// @Deprecated : Describes a color which varies between two extremes (red and green)
+    /// depending on the values of dynamically computed expressions.
     /// </summary>
     public partial interface IInterpolatedColor : Auriga.Sirius.Viewpoint.Description.IColorDescription, Auriga.Sirius.Viewpoint.Description.IUserColor
     {
@@ -28,8 +28,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep> ColorSteps { get; }
 
         /// <summary>
-        /// An expression computing the value of the color. The value of the color must be include in the scale
-        /// bounds
+        /// An expression computing the value of the color. The value of the color must be include in the scale bounds
         /// </summary>
         string ColorValueComputationExpression { get; set; }
 

@@ -28,22 +28,18 @@ namespace Auriga.Sirius.Table
         public string BackgroundColor { get; set; }
 
         /// <summary>
-        /// Needed to know the origin of the background part of this DCellStyle to respect the style priority
-        /// rules between Cell, Line and Column.
-        /// This TableMapping can be only an IntersectionMapping or a 
-        /// ColumnMapping.
+        /// Needed to know the origin of the background part of this DCellStyle to respect the style priority rules between Cell, Line and Column.
+        /// This TableMapping can be only an IntersectionMapping or a  ColumnMapping.
         /// </summary>
         public Auriga.Sirius.Table.Description.ITableMapping BackgroundStyleOrigin { get; set; }
 
         /// <summary>
-        /// Determine if the background part of the style is computed from a conditional style or not (default
-        /// style).
+        /// Determine if the background part of the style is computed from a conditional style or not (default style).
         /// </summary>
         public bool? DefaultBackgroundStyle { get; set; }
 
         /// <summary>
-        /// Determine if the foreground part of the style is computed from a conditional style or not (default
-        /// style).
+        /// Determine if the foreground part of the style is computed from a conditional style or not (default style).
         /// </summary>
         public bool? DefaultForegroundStyle { get; set; }
 
@@ -53,10 +49,8 @@ namespace Auriga.Sirius.Table
         public string ForegroundColor { get; set; }
 
         /// <summary>
-        /// Needed to know the origin of the foreground part of this DCellStyle to respect the style priority
-        /// rules between Cell, Line and Column.
-        /// This TableMapping can be only an IntersectionMapping or a 
-        /// ColumnMapping.
+        /// Needed to know the origin of the foreground part of this DCellStyle to respect the style priority rules between Cell, Line and Column.
+        /// This TableMapping can be only an IntersectionMapping or a  ColumnMapping.
         /// </summary>
         public Auriga.Sirius.Table.Description.ITableMapping ForegroundStyleOrigin { get; set; }
 

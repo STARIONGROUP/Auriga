@@ -63,10 +63,7 @@ namespace Auriga.Sirius.Sequence.Template
         public string ReceivingEndFinderExpression { get; set; }
 
         /// <summary>
-        /// In the default case, candidates of a mapping are all EObjet owned by the semantic element of the
-        /// view container. The semanticCandidatesExpression is an expression that returns the list of EObject
-        /// that are candidates of the mapping instead of the candidates of the default case. The context of the
-        /// expression is the semantic element of the view container.
+        /// In the default case, candidates of a mapping are all EObjet owned by the semantic element of the view container. The semanticCandidatesExpression is an expression that returns the list of EObject that are candidates of the mapping instead of the candidates of the default case. The context of the expression is the semantic element of the view container.
         /// </summary>
         public string SemanticCandidatesExpression { get; set; }
 

@@ -22,8 +22,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     {
         /// <summary>
         /// The default visibility of the label (available only if labelPosition equals BORDER).
-        /// A change of
-        /// this option does not affect already existing elements.
+        /// A change of this option does not affect already existing elements.
         /// </summary>
         bool? HideLabelByDefault { get; set; }
 

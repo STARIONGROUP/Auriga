@@ -31,8 +31,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         Auriga.Sirius.Viewpoint.Description.Tool.IElementSelectVariable ContainerVariable { get; set; }
 
         /// <summary>
-        /// The variable containerView that represents the clickedView (instance of ViewPoint or
-        /// ViewPointElement).
+        /// The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).
         /// </summary>
         Auriga.Sirius.Viewpoint.Description.Tool.IContainerViewVariable ContainerViewVariable { get; set; }
 

@@ -21,14 +21,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     public partial interface IRepresentationCreationDescription : Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription
     {
         /// <summary>
-        /// You might put here an expression to browse the semantic model to get to a new place before creating
-        /// the representation.
+        /// You might put here an expression to browse the semantic model to get to a new place before creating the representation.
         /// </summary>
         string BrowseExpression { get; set; }
 
         /// <summary>
-        /// The variable containerView that represents the clickedView (instance of ViewPoint or
-        /// ViewPointElement).
+        /// The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).
         /// </summary>
         Auriga.Sirius.Viewpoint.Description.Tool.IContainerViewVariable ContainerViewVariable { get; set; }
 

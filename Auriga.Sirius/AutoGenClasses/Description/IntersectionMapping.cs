@@ -198,8 +198,7 @@ namespace Auriga.Sirius.Table.Description
         public List<Auriga.Sirius.Table.Description.ILineMapping> LineMapping { get; } = new List<Auriga.Sirius.Table.Description.ILineMapping>();
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

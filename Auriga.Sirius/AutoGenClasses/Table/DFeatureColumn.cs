@@ -24,19 +24,14 @@ namespace Auriga.Sirius.Table
     public partial class DFeatureColumn : Auriga.AurigaElement, Auriga.Sirius.Table.IDFeatureColumn
     {
         /// <summary>
-        /// List of cells of this column. This list does not necessarily have as many cells as there are lines.
-        /// Indeed, the «blank cells» are not created.
+        /// List of cells of this column. This list does not necessarily have as many cells as there are lines. Indeed, the «blank cells» are not created.
         /// </summary>
         public List<Auriga.Sirius.Table.IDCell> Cells { get; } = new List<Auriga.Sirius.Table.IDCell>();
 
         /// <summary>
         /// Stores the best style of the ColumnMapping style updater :
-        /// * The best style is only the default
-        /// foreground style and the default background style (and only if the color use for it is not with
-        /// variable parts: ComputedColor or InterpolatedColor). 
-        /// * We can not store the result of the
-        /// conditional styles (foreground and background) because the predicateExpression depend on the
-        /// semantic element of each line.
+        /// * The best style is only the default foreground style and the default background style (and only if the color use for it is not with variable parts: ComputedColor or InterpolatedColor).
+        /// * We can not store the result of the conditional styles (foreground and background) because the predicateExpression depend on the semantic element of each line.
         /// </summary>
         public Auriga.Sirius.Table.IDTableElementStyle CurrentStyle
         {

@@ -16,14 +16,12 @@
 namespace Auriga.Sirius.Diagram.Description.Filter
 {
     /// <summary>
-    /// A filter that filters viewpoint elements considering an expression and some variables defined by the
-    /// user.
+    /// A filter that filters viewpoint elements considering an expression and some variables defined by the user.
     /// </summary>
     public partial class VariableFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.IVariableFilter
     {
         /// <summary>
-        /// A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this
-        /// element will be kept.
+        /// A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this element will be kept.
         /// </summary>
         public Auriga.Sirius.Diagram.Description.Filter.FilterKind? FilterKind { get; set; }
 

@@ -28,14 +28,12 @@ namespace Auriga.Sirius.Table
         public string BackgroundColor { get; set; }
 
         /// <summary>
-        /// Determine if the background part of the style is computed from a conditional style or not (default
-        /// style).
+        /// Determine if the background part of the style is computed from a conditional style or not (default style).
         /// </summary>
         public bool? DefaultBackgroundStyle { get; set; }
 
         /// <summary>
-        /// Determine if the foreground part of the style is computed from a conditional style or not (default
-        /// style).
+        /// Determine if the foreground part of the style is computed from a conditional style or not (default style).
         /// </summary>
         public bool? DefaultForegroundStyle { get; set; }
 

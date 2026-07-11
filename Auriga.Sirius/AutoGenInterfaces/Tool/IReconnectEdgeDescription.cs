@@ -36,8 +36,9 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         Auriga.Sirius.Viewpoint.Description.Tool.IInitialOperation InitialOperation { get; set; }
 
         /// <summary>
-        /// The kind of reconnection :SOURCE : the source of the ViewEdge can be reconnected but not the
-        /// target.TARGET : the target of the ViewEdge can be reconnected but not the source.
+        /// The kind of reconnection :
+        /// SOURCE : the source of the ViewEdge can be reconnected but not the target.
+        /// TARGET : the target of the ViewEdge can be reconnected but not the source.
         /// </summary>
         Auriga.Sirius.Diagram.Description.Tool.ReconnectionKind ReconnectionKind { get; set; }
 

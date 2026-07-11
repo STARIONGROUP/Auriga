@@ -74,12 +74,12 @@ namespace Auriga.Sirius.Diagram
         public List<Auriga.Sirius.Diagram.IDEdge> IncomingEdges { get; } = new List<Auriga.Sirius.Diagram.IDEdge>();
 
         /// <summary>
-        /// true if the view edge is folded.
+        /// <code>true</code> if the view edge is folded.
         /// </summary>
         public bool? IsFold { get; set; }
 
         /// <summary>
-        /// true if the edge is an edge that is displayed only to have the plus image to decollapse a branch.
+        /// <code>true</code> if the edge is an edge that is displayed only to have the plus image to decollapse a branch.
         /// </summary>
         public bool? IsMockEdge { get; set; }
 
@@ -89,8 +89,7 @@ namespace Auriga.Sirius.Diagram
         public string Name { get; set; }
 
         /// <summary>
-        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of
-        /// this style.
+        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.
         /// </summary>
         public Auriga.Sirius.Viewpoint.IStyle OriginalStyle { get; set; }
 

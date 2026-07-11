@@ -28,8 +28,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         List<Auriga.Sirius.Diagram.Description.IAbstractNodeMapping> ExtraMappings { get; }
 
         /// <summary>
-        /// The path of the icon to display in the palette. If unset, the icon corresponding to the semantic
-        /// element associated with the mapping will be displayed.
+        /// The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed.
         /// </summary>
         string IconPath { get; set; }
 
@@ -49,8 +48,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         Auriga.Sirius.Diagram.Description.Tool.INodeCreationVariable Variable { get; set; }
 
         /// <summary>
-        /// The variable containerView that represents the clickedView (instance of ViewPoint or
-        /// ViewPointElement).
+        /// The variable containerView that represents the clickedView (instance of ViewPoint or ViewPointElement).
         /// </summary>
         Auriga.Sirius.Viewpoint.Description.Tool.IContainerViewVariable ViewVariable { get; set; }
 

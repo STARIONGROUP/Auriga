@@ -41,8 +41,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
 
         /// <summary>
-        /// Once the view is created, a new variable will be bound with the name given here and will be
-        /// available to any contained operation.
+        /// Once the view is created, a new variable will be bound with the name given here and will be available to any contained operation.
         /// </summary>
         public string VariableName { get; set; }
 

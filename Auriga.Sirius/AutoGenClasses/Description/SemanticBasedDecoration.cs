@@ -31,10 +31,11 @@ namespace Auriga.Sirius.Viewpoint.Description
         public string DomainClass { get; set; }
 
         /// <summary>
-        /// Expression that provides the decoration as the following choices :* a path to an image in the form
-        /// of /myProjectID/path/to/image.png* an expression that gives a path to an image* an expression that
-        /// provides an instance of org.eclipse.swt.graphics.Image* an expression that provides an instance of
-        /// org.eclipse.draw2d.IFigure
+        /// Expression that provides the decoration as the following choices :
+        /// * a path to an image in the form of /myProjectID/path/to/image.png
+        /// * an expression that gives a path to an image
+        /// * an expression that provides an instance of org.eclipse.swt.graphics.Image
+        /// * an expression that provides an instance of org.eclipse.draw2d.IFigure
         /// </summary>
         public string ImageExpression { get; set; }
 
@@ -54,9 +55,10 @@ namespace Auriga.Sirius.Viewpoint.Description
         public string PreconditionExpression { get; set; }
 
         /// <summary>
-        /// Expression that provides the tool-tip as the following choices :* a fixed tool-tip string* an
-        /// expression that provides a tool-tip string* an expression that provides an instance of
-        /// org.eclipse.draw2d.IFigure
+        /// Expression that provides the tool-tip as the following choices :
+        /// * a fixed tool-tip string
+        /// * an expression that provides a tool-tip string
+        /// * an expression that provides an instance of org.eclipse.draw2d.IFigure
         /// </summary>
         public string TooltipExpression { get; set; }
 

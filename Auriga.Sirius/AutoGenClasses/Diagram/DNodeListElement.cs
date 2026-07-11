@@ -69,8 +69,7 @@ namespace Auriga.Sirius.Diagram
         public string Name { get; set; }
 
         /// <summary>
-        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of
-        /// this style.
+        /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.
         /// </summary>
         public Auriga.Sirius.Viewpoint.IStyle OriginalStyle { get; set; }
 

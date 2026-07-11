@@ -66,8 +66,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription> backingMenuItemDescription;
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

@@ -23,8 +23,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     public partial class CenterLabelStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.ICenterLabelStyleDescription
     {
         /// <summary>
-        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic
-        /// element will be displayed.
+        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
         public string IconPath { get; set; }
 

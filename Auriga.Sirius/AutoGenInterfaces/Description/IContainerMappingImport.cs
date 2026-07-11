@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Diagram.Description
 {
     /// <summary>
-    /// Ease the reuse of existing mappings. If the feature is not defined in this instance it will re-use
-    /// the feature value of the imported one.
+    /// Ease the reuse of existing mappings. If the feature is not defined in this instance it will re-use the feature value of the imported one.
     /// </summary>
     public partial interface IContainerMappingImport : Auriga.Sirius.Diagram.Description.IContainerMapping, Auriga.Sirius.Viewpoint.Description.IAbstractMappingImport
     {

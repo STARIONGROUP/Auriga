@@ -18,9 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     using System.Collections.Generic;
 
     /// <summary>
-    /// A Viewpoint defines a "way of looking at your model", you could make an analogy with "What is your
-    /// current concern about your analysis". It defines representations and might also define specific data
-    /// only relevant for this concern.
+    /// A Viewpoint defines a "way of looking at your model", you could make an analogy with "What is your current concern about your analysis". It defines representations and might also define specific data only relevant for this concern.
     /// </summary>
     public partial class Viewpoint : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IViewpoint
     {
@@ -60,8 +58,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         public string ModelFileExtension { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

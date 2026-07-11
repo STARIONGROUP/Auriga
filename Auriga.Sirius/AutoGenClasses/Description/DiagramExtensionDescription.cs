@@ -55,8 +55,7 @@ namespace Auriga.Sirius.Diagram.Description
         private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> backingLayers;
 
         /// <summary>
-        /// You might use this reference to statically bind your representation extension with a set of Ecore
-        /// packages. Keep in mind that this is not mandatory.
+        /// You might use this reference to statically bind your representation extension with a set of Ecore packages. Keep in mind that this is not mandatory.
         /// </summary>
         public List<object> Metamodel { get; } = new List<object>();
 
@@ -93,8 +92,7 @@ namespace Auriga.Sirius.Diagram.Description
         private Auriga.Sirius.Viewpoint.Description.Validation.IValidationSet backingValidationSet;
 
         /// <summary>
-        /// The logical URI of the viewpoint you want to extend, in the form of
-        /// viewpoint:/pluginID/ViewpointName
+        /// The logical URI of the viewpoint you want to extend, in the form of viewpoint:/pluginID/ViewpointName
         /// </summary>
         public string ViewpointURI { get; set; }
 

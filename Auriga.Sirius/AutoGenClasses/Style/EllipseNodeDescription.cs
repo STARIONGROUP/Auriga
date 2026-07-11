@@ -49,8 +49,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
 
         /// <summary>
         /// The default visibility of the label (available only if labelPosition equals BORDER).
-        /// A change of
-        /// this option does not affect already existing elements.
+        /// A change of this option does not affect already existing elements.
         /// </summary>
         public bool? HideLabelByDefault { get; set; }
 
@@ -60,8 +59,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
         public string HorizontalDiameterComputationExpression { get; set; }
 
         /// <summary>
-        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic
-        /// element will be displayed.
+        /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
         public string IconPath { get; set; }
 
@@ -111,8 +109,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
         public string SizeComputationExpression { get; set; }
 
         /// <summary>
-        /// This expression is used to compute the text of the optional tooltip shown when the user leaves the
-        /// mouse on an element.
+        /// This expression is used to compute the text of the optional tooltip shown when the user leaves the mouse on an element.
         /// </summary>
         public string TooltipExpression { get; set; }
 

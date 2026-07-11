@@ -116,8 +116,7 @@ namespace Auriga.Sirius.Diagram
         private Auriga.Sirius.Diagram.IFilterVariableHistory backingFilterVariableHistory;
 
         /// <summary>
-        /// The number of lines to display the header labels (1 by default). This field is used only if the
-        /// IDiagramDescriptionProvider.supportHeader() return true for this DDiagram.
+        /// The number of lines to display the header labels (1 by default). This field is used only if the IDiagramDescriptionProvider.supportHeader() return true for this DDiagram.
         /// </summary>
         public int? HeaderHeight { get; set; }
 

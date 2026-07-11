@@ -16,8 +16,7 @@
 namespace Auriga.Sirius.Diagram.Description.Filter
 {
     /// <summary>
-    /// A filter that filters viewpoint elements considering an expression and some variables defined by the
-    /// user.
+    /// A filter that filters viewpoint elements considering an expression and some variables defined by the user.
     /// </summary>
     public partial interface IVariableFilter : Auriga.Sirius.Diagram.Description.Filter.IFilter
     {

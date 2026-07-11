@@ -26,8 +26,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         public string FeatureName { get; set; }
 
         /// <summary>
-        /// An instance to set, you might need to use "load resource" in the editor in order to be able to pick
-        /// it.
+        /// An instance to set, you might need to use "load resource" in the editor in order to be able to pick it.
         /// </summary>
         public object Object { get; set; }
 

@@ -43,8 +43,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         List<Auriga.Sirius.Diagram.Description.IDiagramElementMapping> ExtraTargetMappings { get; }
 
         /// <summary>
-        /// The path of the icon to display in the palette. If unset, the icon corresponding to the semantic
-        /// element associated with the mapping will be displayed.
+        /// The path of the icon to display in the palette. If unset, the icon corresponding to the semantic element associated with the mapping will be displayed.
         /// </summary>
         string IconPath { get; set; }
 

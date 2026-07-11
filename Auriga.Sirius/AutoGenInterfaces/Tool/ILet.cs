@@ -26,8 +26,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         string ValueExpression { get; set; }
 
         /// <summary>
-        /// Once the variable is created, it will be bound with the name given here and will be available to any
-        /// contained operation.
+        /// Once the variable is created, it will be bound with the name given here and will be available to any contained operation.
         /// </summary>
         string VariableName { get; set; }
 

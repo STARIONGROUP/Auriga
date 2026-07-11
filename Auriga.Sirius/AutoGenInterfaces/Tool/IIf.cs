@@ -16,14 +16,12 @@
 namespace Auriga.Sirius.Viewpoint.Description.Tool
 {
     /// <summary>
-    /// If the evaluation of the condition returns true then all operations contains by this If statement
-    /// will be executed, otherwise all operations will be ignored.
+    /// If the evaluation of the condition returns true then all operations contains by this If statement will be executed, otherwise all operations will be ignored.
     /// </summary>
     public partial interface IIf : Auriga.Sirius.Viewpoint.Description.Tool.IContainerModelOperation
     {
         /// <summary>
-        /// Expression representing the condition, if it returns true, every operation contained by this
-        /// statement will be executed.
+        /// Expression representing the condition, if it returns true, every operation contained by this statement will be executed.
         /// </summary>
         string ConditionExpression { get; set; }
 

@@ -18,8 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Concern
     using System.Collections.Generic;
 
     /// <summary>
-    /// Describe a concern. A concern could be seen as an aspect. It allows to enable some filters,
-    /// validation rules or behaviors in one click.
+    /// Describe a concern. A concern could be seen as an aspect. It allows to enable some filters, validation rules or behaviors in one click.
     /// </summary>
     public partial interface IConcernDescription : Auriga.Sirius.Viewpoint.Description.IDocumentedElement, Auriga.Sirius.Viewpoint.Description.IIdentifiedElement
     {

@@ -26,8 +26,7 @@ namespace Auriga.Sirius.Table.Description
         string FeatureName { get; set; }
 
         /// <summary>
-        /// An expression to get the parent of the feature. By default, the parent of the feature is the
-        /// semantic element of the line.
+        /// An expression to get the parent of the feature. By default, the parent of the feature is the semantic element of the line.
         /// </summary>
         string FeatureParentExpression { get; set; }
 

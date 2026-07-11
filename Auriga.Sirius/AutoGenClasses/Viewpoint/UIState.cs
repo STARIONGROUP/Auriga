@@ -24,8 +24,7 @@ namespace Auriga.Sirius.Viewpoint
     public partial class UIState : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IUIState
     {
         /// <summary>
-        /// This map associates a Decoration to its computed image (Object as value) which can be either an
-        /// Image or an IFigure.
+        /// This map associates a Decoration to its computed image (Object as value) which can be either an Image or an IFigure.
         /// </summary>
         public object DecorationImage => default;
 
@@ -40,8 +39,7 @@ namespace Auriga.Sirius.Viewpoint
         public bool? InverseSelectionOrder => default;
 
         /// <summary>
-        /// This map associates a Decoration to its computed image (Object as value) which can be either an
-        /// Image or an IFigure.
+        /// This map associates a Decoration to its computed image (Object as value) which can be either an Image or an IFigure.
         /// </summary>
         public object SubDiagramDecorationDescriptors => default;
 

@@ -21,18 +21,14 @@ namespace Auriga.Sirius.Table
     public partial interface IDCellStyle : Auriga.Sirius.Table.IDTableElementStyle
     {
         /// <summary>
-        /// Needed to know the origin of the background part of this DCellStyle to respect the style priority
-        /// rules between Cell, Line and Column.
-        /// This TableMapping can be only an IntersectionMapping or a 
-        /// ColumnMapping.
+        /// Needed to know the origin of the background part of this DCellStyle to respect the style priority rules between Cell, Line and Column.
+        /// This TableMapping can be only an IntersectionMapping or a  ColumnMapping.
         /// </summary>
         Auriga.Sirius.Table.Description.ITableMapping BackgroundStyleOrigin { get; set; }
 
         /// <summary>
-        /// Needed to know the origin of the foreground part of this DCellStyle to respect the style priority
-        /// rules between Cell, Line and Column.
-        /// This TableMapping can be only an IntersectionMapping or a 
-        /// ColumnMapping.
+        /// Needed to know the origin of the foreground part of this DCellStyle to respect the style priority rules between Cell, Line and Column.
+        /// This TableMapping can be only an IntersectionMapping or a  ColumnMapping.
         /// </summary>
         Auriga.Sirius.Table.Description.ITableMapping ForegroundStyleOrigin { get; set; }
 

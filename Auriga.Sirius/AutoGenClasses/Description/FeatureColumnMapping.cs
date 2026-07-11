@@ -136,8 +136,7 @@ namespace Auriga.Sirius.Table.Description
         public string FeatureName { get; set; }
 
         /// <summary>
-        /// An expression to get the parent of the feature. By default, the parent of the feature is the
-        /// semantic element of the line.
+        /// An expression to get the parent of the feature. By default, the parent of the feature is the semantic element of the line.
         /// </summary>
         public string FeatureParentExpression { get; set; }
 
@@ -172,8 +171,7 @@ namespace Auriga.Sirius.Table.Description
         public string LabelExpression { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 

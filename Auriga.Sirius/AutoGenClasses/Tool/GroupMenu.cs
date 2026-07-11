@@ -69,16 +69,15 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         public string Label { get; set; }
 
         /// <summary>
-        /// A URI specification that defines the insertion point at which the group will be added.The format for
-        /// the URI is comprised of two basic parts:* Scheme: One of "menu", "tabbar". Indicates the type of the
-        /// manager used to handle the contributions.* Id: This is either the id of an existing menu or tabbar
-        /// menu
+        /// A <code>URI</code> specification that defines the insertion point at which the group will be added.
+        /// The format for the URI is comprised of two basic parts:
+        /// * Scheme: One of "menu", "tabbar". Indicates the type of the manager used to handle the contributions.
+        /// * Id: This is either the id of an existing menu or tabbar menu
         /// </summary>
         public string LocationURI { get; set; }
 
         /// <summary>
-        /// The identifier of this element. Must be unique. Changing this identifier will break existing user
-        /// models which reference the old identifier.
+        /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
         public string Name { get; set; }
 
