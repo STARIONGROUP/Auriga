@@ -31,6 +31,9 @@
         <None Include="..\resources\ecore\*.ecore" Link="Data\ecore\%(Filename)%(Extension)">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Include="..\resources\ecore-sirius\*.ecore" Link="Data\ecore-sirius\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <!--
