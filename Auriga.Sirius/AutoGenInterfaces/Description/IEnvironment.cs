@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>Environment</c> interface.
     /// </summary>
-    public partial interface IEnvironment : Auriga.IAurigaElement
+    public partial interface IEnvironment : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the default tools.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> DefaultTools { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> DefaultTools { get; }
 
         /// <summary>
         /// Gets or sets the label border styles.

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>ShapeContainerStyle</c> class.
     /// </summary>
-    public partial class ShapeContainerStyle : Auriga.AurigaElement, Auriga.Sirius.Diagram.IShapeContainerStyle
+    public partial class ShapeContainerStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IShapeContainerStyle
     {
         /// <summary>
         /// The background color.

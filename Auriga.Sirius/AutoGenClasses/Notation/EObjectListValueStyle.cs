@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>EObjectListValueStyle</c> class.
     /// </summary>
-    public partial class EObjectListValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IEObjectListValueStyle
+    public partial class EObjectListValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IEObjectListValueStyle
     {
         /// <summary>
         /// Gets the e object list value.

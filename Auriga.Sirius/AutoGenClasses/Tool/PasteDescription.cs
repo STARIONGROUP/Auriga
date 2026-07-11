@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Tool that describes a paste operation.
     /// </summary>
-    public partial class PasteDescription : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IPasteDescription
+    public partial class PasteDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IPasteDescription
     {
         /// <summary>
         /// The new view container (DRepresentation of DRepresentationElement).
@@ -99,12 +99,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the filters.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="Filters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
 
         /// <summary>
         /// If true then a refresh for the whole representation is executed after every execution of the tool.
@@ -157,7 +157,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>PasteDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.ContainerView != null)
             {

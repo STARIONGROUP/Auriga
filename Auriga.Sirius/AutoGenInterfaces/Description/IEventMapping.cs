@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Description
     /// <summary>
     /// Definition of the <c>EventMapping</c> interface.
     /// </summary>
-    public partial interface IEventMapping : Auriga.IAurigaElement
+    public partial interface IEventMapping : Auriga.Core.IAurigaElement
     {
     }
 }

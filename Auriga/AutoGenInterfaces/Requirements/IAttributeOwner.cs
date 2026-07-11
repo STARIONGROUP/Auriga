@@ -23,7 +23,7 @@ namespace Auriga.Requirements
         /// <summary>
         /// Gets the owned attributes.
         /// </summary>
-        Auriga.IContainerList<Auriga.Requirements.IAttribute> OwnedAttributes { get; }
+        Auriga.Core.IContainerList<Auriga.Requirements.IAttribute> OwnedAttributes { get; }
 
     }
 }

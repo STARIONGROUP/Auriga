@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Audit
     /// <summary>
     /// The section that displays informations about the selected element.
     /// </summary>
-    public partial interface IInformationSection : Auriga.IAurigaElement
+    public partial interface IInformationSection : Auriga.Core.IAurigaElement
     {
     }
 }

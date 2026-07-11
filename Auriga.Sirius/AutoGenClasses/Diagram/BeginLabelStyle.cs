@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The style of a label.
     /// </summary>
-    public partial class BeginLabelStyle : Auriga.AurigaElement, Auriga.Sirius.Diagram.IBeginLabelStyle
+    public partial class BeginLabelStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IBeginLabelStyle
     {
         /// <summary>
         /// Gets the custom features.

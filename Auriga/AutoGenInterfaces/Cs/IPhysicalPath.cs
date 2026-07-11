@@ -36,12 +36,12 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned physical path involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalPathInvolvement> OwnedPhysicalPathInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPathInvolvement> OwnedPhysicalPathInvolvements { get; }
 
         /// <summary>
         /// Gets the owned physical path realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalPathRealization> OwnedPhysicalPathRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPathRealization> OwnedPhysicalPathRealizations { get; }
 
         /// <summary>
         /// Gets the realized physical paths.

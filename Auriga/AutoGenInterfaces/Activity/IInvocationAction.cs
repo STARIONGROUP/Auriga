@@ -23,7 +23,7 @@ namespace Auriga.Activity
         /// <summary>
         /// Gets the arguments.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IInputPin> Arguments { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IInputPin> Arguments { get; }
 
     }
 }

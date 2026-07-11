@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>EStructuralFeatureCustomization</c> interface.
     /// </summary>
-    public partial interface IEStructuralFeatureCustomization : Auriga.IAurigaElement
+    public partial interface IEStructuralFeatureCustomization : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the applied on.

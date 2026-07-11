@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the choices.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> Choices { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> Choices { get; }
 
     }
 }

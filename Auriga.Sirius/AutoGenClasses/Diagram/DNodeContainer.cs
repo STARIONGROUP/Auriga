@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// A classic container.
     /// </summary>
-    public partial class DNodeContainer : Auriga.AurigaElement, Auriga.Sirius.Diagram.IDNodeContainer
+    public partial class DNodeContainer : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IDNodeContainer
     {
         /// <summary>
         /// The actual mapping of this node.
@@ -51,12 +51,12 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Gets the decorations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> Decorations => this.backingDecorations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IDecoration>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> Decorations => this.backingDecorations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IDecoration>(this);
 
         /// <summary>
         /// Backing field for <see cref="Decorations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> backingDecorations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> backingDecorations;
 
         /// <summary>
         /// The mapping of the element.
@@ -71,12 +71,12 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Graphical filters allowing to handle this element.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> GraphicalFilters => this.backingGraphicalFilters ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.IGraphicalFilter>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> GraphicalFilters => this.backingGraphicalFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.IGraphicalFilter>(this);
 
         /// <summary>
         /// Backing field for <see cref="GraphicalFilters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> backingGraphicalFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> backingGraphicalFilters;
 
         /// <summary>
         /// Gets or sets the height.
@@ -111,22 +111,22 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// The nodes that are on the border of the container.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.IDNode> OwnedBorderedNodes => this.backingOwnedBorderedNodes ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.IDNode>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDNode> OwnedBorderedNodes => this.backingOwnedBorderedNodes ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.IDNode>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedBorderedNodes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.IDNode> backingOwnedBorderedNodes;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDNode> backingOwnedBorderedNodes;
 
         /// <summary>
         /// elements owned by this container.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements => this.backingOwnedDiagramElements ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.IDDiagramElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements => this.backingOwnedDiagramElements ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.IDDiagramElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedDiagramElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> backingOwnedDiagramElements;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> backingOwnedDiagramElements;
 
         /// <summary>
         /// The style of the container.
@@ -194,7 +194,7 @@ namespace Auriga.Sirius.Diagram
         /// Gets the elements directly contained by this <c>DNodeContainer</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Decorations)
             {

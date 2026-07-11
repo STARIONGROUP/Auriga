@@ -20,9 +20,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders
     using System.IO;
     using System.Xml;
 
-    using Auriga.Xmi.Cache;
-    using Auriga.Xmi.Namespaces;
-    using Auriga.Xmi.Readers;
+    using Auriga.Core;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Namespaces;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 

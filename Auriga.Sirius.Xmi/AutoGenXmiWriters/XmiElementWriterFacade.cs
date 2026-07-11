@@ -17,7 +17,8 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters
     using System.Collections.Generic;
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Core;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 

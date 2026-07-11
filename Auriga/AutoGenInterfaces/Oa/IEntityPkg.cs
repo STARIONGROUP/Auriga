@@ -23,22 +23,22 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned communication means.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
 
         /// <summary>
         /// Gets the owned entities.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IEntity> OwnedEntities { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IEntity> OwnedEntities { get; }
 
         /// <summary>
         /// Gets the owned entity pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IEntityPkg> OwnedEntityPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IEntityPkg> OwnedEntityPkgs { get; }
 
         /// <summary>
         /// Gets the owned locations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.ILocation> OwnedLocations { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.ILocation> OwnedLocations { get; }
 
     }
 }

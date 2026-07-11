@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Table
         /// <summary>
         /// Gets the columns.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.IDColumn> Columns { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.IDColumn> Columns { get; }
 
         /// <summary>
         /// Gets or sets the description.

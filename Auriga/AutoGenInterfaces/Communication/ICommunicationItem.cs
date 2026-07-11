@@ -26,7 +26,7 @@ namespace Auriga.Information.Communication
         /// <summary>
         /// Gets the owned state machines.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
         /// <summary>
         /// Gets the properties.

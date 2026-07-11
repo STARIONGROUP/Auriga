@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>ConnectorStyle</c> class.
     /// </summary>
-    public partial class ConnectorStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IConnectorStyle
+    public partial class ConnectorStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IConnectorStyle
     {
         /// <summary>
         /// Gets or sets the avoid obstructions.

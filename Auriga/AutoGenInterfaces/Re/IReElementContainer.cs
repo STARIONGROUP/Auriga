@@ -18,12 +18,12 @@ namespace Auriga.Re
     /// <summary>
     /// Definition of the <c>ReElementContainer</c> interface.
     /// </summary>
-    public partial interface IReElementContainer : Auriga.IAurigaElement
+    public partial interface IReElementContainer : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the owned elements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Re.ICatalogElement> OwnedElements { get; }
+        Auriga.Core.IContainerList<Auriga.Re.ICatalogElement> OwnedElements { get; }
 
     }
 }

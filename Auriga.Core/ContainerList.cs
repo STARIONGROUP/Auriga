@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga
+namespace Auriga.Core
 {
     using System;
     using System.Collections.Generic;

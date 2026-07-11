@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>UserColorsPalette</c> interface.
     /// </summary>
-    public partial interface IUserColorsPalette : Auriga.IAurigaElement
+    public partial interface IUserColorsPalette : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the entries.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor> Entries { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor> Entries { get; }
 
         /// <summary>
         /// Gets or sets the name.

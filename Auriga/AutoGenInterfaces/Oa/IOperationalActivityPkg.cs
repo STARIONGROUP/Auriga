@@ -23,12 +23,12 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned operational activities.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IOperationalActivity> OwnedOperationalActivities { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IOperationalActivity> OwnedOperationalActivities { get; }
 
         /// <summary>
         /// Gets the owned operational activity pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IOperationalActivityPkg> OwnedOperationalActivityPkgs { get; }
 
     }
 }

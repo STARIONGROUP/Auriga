@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// elements owned by this list.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.IDNodeListElement> OwnedElements { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDNodeListElement> OwnedElements { get; }
 
     }
 }

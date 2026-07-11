@@ -23,17 +23,17 @@ namespace Auriga.Capellamodeller
         /// <summary>
         /// Gets the key value pairs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
 
         /// <summary>
         /// Gets the owned folders.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellamodeller.IFolder> OwnedFolders { get; }
+        Auriga.Core.IContainerList<Auriga.Capellamodeller.IFolder> OwnedFolders { get; }
 
         /// <summary>
         /// Gets the owned model roots.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellamodeller.IModelRoot> OwnedModelRoots { get; }
+        Auriga.Core.IContainerList<Auriga.Capellamodeller.IModelRoot> OwnedModelRoots { get; }
 
     }
 }

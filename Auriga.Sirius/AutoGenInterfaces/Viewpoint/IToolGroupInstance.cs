@@ -23,12 +23,12 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets or sets the group.
         /// </summary>
-        Auriga.IAurigaElement Group { get; set; }
+        Auriga.Core.IAurigaElement Group { get; set; }
 
         /// <summary>
         /// Gets the tools.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools { get; }
 
     }
 }

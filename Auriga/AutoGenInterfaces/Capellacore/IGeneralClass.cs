@@ -31,7 +31,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the nested general classes.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IGeneralClass> NestedGeneralClasses { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IGeneralClass> NestedGeneralClasses { get; }
 
         /// <summary>
         /// Gets or sets the visibility.

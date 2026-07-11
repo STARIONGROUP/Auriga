@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Viewpoint
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -65,7 +65,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Viewpoint
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "enabled", poco.Enabled);
             WriteBooleanAttribute(xmlWriter, "filtered", poco.Filtered);
-            this.WriteReferenceAttribute(xmlWriter, "section", poco.Section as Auriga.IAurigaElement, poco, "Section", context);
+            this.WriteReferenceAttribute(xmlWriter, "section", poco.Section as Auriga.Core.IAurigaElement, poco, "Section", context);
             this.WriteReferenceAttribute(xmlWriter, "toolEntry", poco.ToolEntry, poco, "ToolEntry", context);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
             this.WriteContainedElements(xmlWriter, "subSections", poco.SubSections, poco, "SubSections", context);

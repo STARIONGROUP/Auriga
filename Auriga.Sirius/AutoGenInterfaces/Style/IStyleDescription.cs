@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     /// <summary>
     /// Definition of the <c>StyleDescription</c> interface.
     /// </summary>
-    public partial interface IStyleDescription : Auriga.IAurigaElement
+    public partial interface IStyleDescription : Auriga.Core.IAurigaElement
     {
     }
 }

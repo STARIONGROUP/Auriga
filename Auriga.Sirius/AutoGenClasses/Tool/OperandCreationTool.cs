@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Description.Tool
     /// <summary>
     /// Definition of the <c>OperandCreationTool</c> class.
     /// </summary>
-    public partial class OperandCreationTool : Auriga.AurigaElement, Auriga.Sirius.Sequence.Description.Tool.IOperandCreationTool
+    public partial class OperandCreationTool : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Description.Tool.IOperandCreationTool
     {
         /// <summary>
         /// The ContainerMapping to use.
@@ -45,12 +45,12 @@ namespace Auriga.Sirius.Sequence.Description.Tool
         /// <summary>
         /// Gets the filters.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="Filters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
 
         /// <summary>
         /// Gets or sets the finishing end predecessor.
@@ -196,7 +196,7 @@ namespace Auriga.Sirius.Sequence.Description.Tool
         /// Gets the elements directly contained by this <c>OperandCreationTool</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Filters)
             {

@@ -25,7 +25,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the color steps.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep> ColorSteps { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep> ColorSteps { get; }
 
         /// <summary>
         /// An expression computing the value of the color. The value of the color must be include in the scale bounds

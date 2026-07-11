@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// A container mapping allows to create containers (ViewNodeContainer or ViewNodeList).
     /// </summary>
-    public partial class ContainerMapping : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IContainerMapping
+    public partial class ContainerMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IContainerMapping
     {
         /// <summary>
         /// The mapping for nodes that are on the border of nodes created by this mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings => this.backingBorderedNodeMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings => this.backingBorderedNodeMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="BorderedNodeMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingBorderedNodeMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingBorderedNodeMappings;
 
         /// <summary>
         /// Set to List if you want a container acting like a list.
@@ -40,12 +40,12 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the conditionnal styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionnalStyles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription> backingConditionnalStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription> backingConditionnalStyles;
 
         /// <summary>
         /// true if the init/refresh operations should create elements for this mapping.
@@ -162,22 +162,22 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the sub container mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> SubContainerMappings => this.backingSubContainerMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> SubContainerMappings => this.backingSubContainerMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubContainerMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> backingSubContainerMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> backingSubContainerMappings;
 
         /// <summary>
         /// Gets the sub node mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> SubNodeMappings => this.backingSubNodeMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> SubNodeMappings => this.backingSubNodeMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubNodeMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingSubNodeMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingSubNodeMappings;
 
         /// <summary>
         /// Set to true to force the synchronization of the elements of this mapping when the current diagram is in an unsynchronized mode.
@@ -189,7 +189,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// Gets the elements directly contained by this <c>ContainerMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.BorderedNodeMappings)
             {

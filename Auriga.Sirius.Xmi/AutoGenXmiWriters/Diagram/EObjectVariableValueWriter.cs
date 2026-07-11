@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Diagram
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -63,7 +63,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Sirius.Diagram.IEObjectVariableValue poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "modelElement", poco.ModelElement as Auriga.IAurigaElement, poco, "ModelElement", context);
+            this.WriteReferenceAttribute(xmlWriter, "modelElement", poco.ModelElement as Auriga.Core.IAurigaElement, poco, "ModelElement", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             this.WriteReferenceAttribute(xmlWriter, "variableDefinition", poco.VariableDefinition, poco, "VariableDefinition", context);
         }

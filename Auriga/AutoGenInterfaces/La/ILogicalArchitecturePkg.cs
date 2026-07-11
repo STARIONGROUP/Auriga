@@ -23,7 +23,7 @@ namespace Auriga.La
         /// <summary>
         /// Gets the owned logical architectures.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ILogicalArchitecture> OwnedLogicalArchitectures { get; }
+        Auriga.Core.IContainerList<Auriga.La.ILogicalArchitecture> OwnedLogicalArchitectures { get; }
 
     }
 }

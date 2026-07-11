@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>RepresentationExtensionDescription</c> interface.
     /// </summary>
-    public partial interface IRepresentationExtensionDescription : Auriga.IAurigaElement
+    public partial interface IRepresentationExtensionDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// You might use this reference to statically bind your representation extension with a set of Ecore packages. Keep in mind that this is not mandatory.

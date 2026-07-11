@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DResource</c> interface.
     /// </summary>
-    public partial interface IDResource : Auriga.IAurigaElement
+    public partial interface IDResource : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the name.

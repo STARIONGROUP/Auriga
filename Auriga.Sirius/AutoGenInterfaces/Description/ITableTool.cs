@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>TableTool</c> interface.
     /// </summary>
-    public partial interface ITableTool : Auriga.IAurigaElement
+    public partial interface ITableTool : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the first model operation.
@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the variables.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> Variables { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> Variables { get; }
 
     }
 }

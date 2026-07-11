@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// Definition of the <c>TargetEdgeCreationVariable</c> class.
     /// </summary>
-    public partial class TargetEdgeCreationVariable : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.ITargetEdgeCreationVariable
+    public partial class TargetEdgeCreationVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.ITargetEdgeCreationVariable
     {
         /// <summary>
         /// Gets or sets the name.
@@ -28,18 +28,18 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the sub variables.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables => this.backingSubVariables ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables => this.backingSubVariables ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubVariables"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> backingSubVariables;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> backingSubVariables;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>TargetEdgeCreationVariable</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubVariables)
             {

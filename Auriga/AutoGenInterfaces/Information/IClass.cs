@@ -36,17 +36,17 @@ namespace Auriga.Information
         /// <summary>
         /// Gets the owned data values.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
 
         /// <summary>
         /// Gets the owned information realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
 
         /// <summary>
         /// Gets the owned state machines.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
         /// <summary>
         /// Gets the realized classes.

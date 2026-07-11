@@ -26,7 +26,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Gets the decorations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> Decorations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> Decorations { get; }
 
         /// <summary>
         /// The mapping of the element.
@@ -36,7 +36,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Graphical filters allowing to handle this element.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> GraphicalFilters { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> GraphicalFilters { get; }
 
         /// <summary>
         /// Gets the parent layers.

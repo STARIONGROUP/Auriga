@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>InitEdgeCreationOperation</c> class.
     /// </summary>
-    public partial class InitEdgeCreationOperation : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitEdgeCreationOperation
+    public partial class InitEdgeCreationOperation : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitEdgeCreationOperation
     {
         /// <summary>
         /// Gets or sets the first model operations.
@@ -46,7 +46,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>InitEdgeCreationOperation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.FirstModelOperations != null)
             {

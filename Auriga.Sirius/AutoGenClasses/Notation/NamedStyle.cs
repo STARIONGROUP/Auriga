@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>NamedStyle</c> class.
     /// </summary>
-    public partial class NamedStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.INamedStyle
+    public partial class NamedStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.INamedStyle
     {
         /// <summary>
         /// Gets or sets the name.

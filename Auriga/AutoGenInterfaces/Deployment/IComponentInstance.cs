@@ -26,12 +26,12 @@ namespace Auriga.Pa.Deployment
         /// <summary>
         /// Gets the owned abstract physical instances.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedAbstractPhysicalInstances { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedAbstractPhysicalInstances { get; }
 
         /// <summary>
         /// Gets the owned instance deployment links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.Deployment.IInstanceDeploymentLink> OwnedInstanceDeploymentLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.Deployment.IInstanceDeploymentLink> OwnedInstanceDeploymentLinks { get; }
 
         /// <summary>
         /// Gets the port instances.

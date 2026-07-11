@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TAbstractMapping</c> class.
     /// </summary>
-    public partial class TAbstractMapping : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITAbstractMapping
+    public partial class TAbstractMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITAbstractMapping
     {
         /// <summary>
         /// The domain class of the mapping.

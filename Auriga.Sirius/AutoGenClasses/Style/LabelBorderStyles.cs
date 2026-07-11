@@ -18,23 +18,23 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     /// <summary>
     /// A group of LabelBorderStyleDescription to store in Environment.odesign.
     /// </summary>
-    public partial class LabelBorderStyles : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyles
+    public partial class LabelBorderStyles : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyles
     {
         /// <summary>
         /// Gets the label border style descriptions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription> LabelBorderStyleDescriptions => this.backingLabelBorderStyleDescriptions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription> LabelBorderStyleDescriptions => this.backingLabelBorderStyleDescriptions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="LabelBorderStyleDescriptions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription> backingLabelBorderStyleDescriptions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription> backingLabelBorderStyleDescriptions;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>LabelBorderStyles</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.LabelBorderStyleDescriptions)
             {

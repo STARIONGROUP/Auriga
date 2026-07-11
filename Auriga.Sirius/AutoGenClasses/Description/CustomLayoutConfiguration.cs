@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>CustomLayoutConfiguration</c> class.
     /// </summary>
-    public partial class CustomLayoutConfiguration : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.ICustomLayoutConfiguration
+    public partial class CustomLayoutConfiguration : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.ICustomLayoutConfiguration
     {
         /// <summary>
         /// Gets or sets the description.
@@ -38,18 +38,18 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the layout options.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption> LayoutOptions => this.backingLayoutOptions ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption> LayoutOptions => this.backingLayoutOptions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption>(this);
 
         /// <summary>
         /// Backing field for <see cref="LayoutOptions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption> backingLayoutOptions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption> backingLayoutOptions;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CustomLayoutConfiguration</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.LayoutOptions)
             {

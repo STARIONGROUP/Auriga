@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The ellipse style to display a node as an ellipse.
     /// </summary>
-    public partial class Ellipse : Auriga.AurigaElement, Auriga.Sirius.Diagram.IEllipse
+    public partial class Ellipse : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IEllipse
     {
         /// <summary>
         /// Gets or sets the border color.

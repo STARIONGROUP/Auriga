@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets or sets the data.
         /// </summary>
-        Auriga.IAurigaElement Data { get; set; }
+        Auriga.Core.IAurigaElement Data { get; set; }
 
         /// <summary>
         /// Gets or sets the source.

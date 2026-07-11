@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// Open or create a representation for the element.
     /// </summary>
-    public partial class Navigation : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.INavigation
+    public partial class Navigation : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.INavigation
     {
         /// <summary>
         /// Gets or sets the create if not existent.
@@ -33,18 +33,18 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the sub model operations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubModelOperations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Navigation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubModelOperations)
             {

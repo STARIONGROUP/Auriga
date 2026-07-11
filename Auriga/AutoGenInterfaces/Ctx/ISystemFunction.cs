@@ -41,7 +41,7 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the owned system function pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ISystemFunctionPkg> OwnedSystemFunctionPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ISystemFunctionPkg> OwnedSystemFunctionPkgs { get; }
 
         /// <summary>
         /// Gets the realized operational activities.

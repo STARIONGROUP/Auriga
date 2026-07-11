@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// A DragAndDropTarget is an element that can managed drop requests.
     /// </summary>
-    public partial class DragAndDropTarget : Auriga.AurigaElement, Auriga.Sirius.Diagram.IDragAndDropTarget
+    public partial class DragAndDropTarget : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IDragAndDropTarget
     {
         /// <summary>
         /// Gets or sets the uid.

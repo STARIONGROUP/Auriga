@@ -81,22 +81,22 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned functional chain involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionalChainInvolvement> OwnedFunctionalChainInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChainInvolvement> OwnedFunctionalChainInvolvements { get; }
 
         /// <summary>
         /// Gets the owned functional chain realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionalChainRealization> OwnedFunctionalChainRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChainRealization> OwnedFunctionalChainRealizations { get; }
 
         /// <summary>
         /// Gets the owned sequence links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.ISequenceLink> OwnedSequenceLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.ISequenceLink> OwnedSequenceLinks { get; }
 
         /// <summary>
         /// Gets the owned sequence nodes.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IControlNode> OwnedSequenceNodes { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IControlNode> OwnedSequenceNodes { get; }
 
         /// <summary>
         /// Gets or sets the post condition.

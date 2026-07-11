@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>MultiDiagramLinkStyle</c> class.
     /// </summary>
-    public partial class MultiDiagramLinkStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IMultiDiagramLinkStyle
+    public partial class MultiDiagramLinkStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IMultiDiagramLinkStyle
     {
         /// <summary>
         /// Gets the diagram links.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>StringToPropertyValueMapEntry</c> class.
     /// </summary>
-    public partial class StringToPropertyValueMapEntry : Auriga.AurigaElement, Auriga.Sirius.Notation.IStringToPropertyValueMapEntry
+    public partial class StringToPropertyValueMapEntry : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IStringToPropertyValueMapEntry
     {
         /// <summary>
         /// Gets or sets the key.
@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Notation
         /// Gets the elements directly contained by this <c>StringToPropertyValueMapEntry</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Value != null)
             {

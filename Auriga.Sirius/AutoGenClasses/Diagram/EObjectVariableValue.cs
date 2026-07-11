@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>EObjectVariableValue</c> class.
     /// </summary>
-    public partial class EObjectVariableValue : Auriga.AurigaElement, Auriga.Sirius.Diagram.IEObjectVariableValue
+    public partial class EObjectVariableValue : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IEObjectVariableValue
     {
         /// <summary>
         /// Gets or sets the model element.

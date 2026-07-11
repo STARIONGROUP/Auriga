@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// A semantic viewpoint is a viewpoint that is rattached to a semantic element.
     /// </summary>
-    public partial class DSemanticDiagram : Auriga.AurigaElement, Auriga.Sirius.Diagram.IDSemanticDiagram
+    public partial class DSemanticDiagram : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IDSemanticDiagram
     {
         /// <summary>
         /// Behaviors that are currently activated for this viewpoint.
@@ -81,12 +81,12 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Gets the e annotations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
 
         /// <summary>
         /// Backing field for <see cref="EAnnotations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
 
         /// <summary>
         /// All edges of the diagram. It is a subset of diagramElements
@@ -153,22 +153,22 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Gets the owned annotation entries.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> OwnedAnnotationEntries => this.backingOwnedAnnotationEntries ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> OwnedAnnotationEntries => this.backingOwnedAnnotationEntries ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAnnotationEntries"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> backingOwnedAnnotationEntries;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> backingOwnedAnnotationEntries;
 
         /// <summary>
         /// The DDiagramElements directly owned by this diagram.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements => this.backingOwnedDiagramElements ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.IDDiagramElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements => this.backingOwnedDiagramElements ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.IDDiagramElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedDiagramElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> backingOwnedDiagramElements;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> backingOwnedDiagramElements;
 
         /// <summary>
         /// The directly contained representation elements
@@ -204,7 +204,7 @@ namespace Auriga.Sirius.Diagram
         /// Gets the elements directly contained by this <c>DSemanticDiagram</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.EAnnotations)
             {

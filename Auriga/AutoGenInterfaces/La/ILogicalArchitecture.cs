@@ -56,7 +56,7 @@ namespace Auriga.La
         /// <summary>
         /// Gets the owned system analysis realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ISystemAnalysisRealization> OwnedSystemAnalysisRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.La.ISystemAnalysisRealization> OwnedSystemAnalysisRealizations { get; }
 
     }
 }

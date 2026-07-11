@@ -14,7 +14,7 @@ namespace Auriga.Xmi
     using System.IO;
     using System.Linq;
 
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Abstractions;

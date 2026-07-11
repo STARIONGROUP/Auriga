@@ -25,7 +25,7 @@ namespace Auriga.Requirements
         /// <summary>
         /// Gets the owned relations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Requirements.IAbstractRelation> OwnedRelations { get; }
+        Auriga.Core.IContainerList<Auriga.Requirements.IAbstractRelation> OwnedRelations { get; }
 
         /// <summary>
         /// Gets or sets the req i f chapter name.

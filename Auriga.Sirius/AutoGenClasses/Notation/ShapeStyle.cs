@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>ShapeStyle</c> class.
     /// </summary>
-    public partial class ShapeStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IShapeStyle
+    public partial class ShapeStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IShapeStyle
     {
         /// <summary>
         /// Gets or sets the bold.

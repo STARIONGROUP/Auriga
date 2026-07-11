@@ -18,8 +18,8 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiReaders.Table.Description
     using System;
     using System.Xml;
 
-    using Auriga.Xmi.Cache;
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 
@@ -164,7 +164,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiReaders.Table.Description
                                 }
                                 else
                                 {
-                                    poco.ImportedElements.Add((Auriga.IAurigaElement)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
+                                    poco.ImportedElements.Add((Auriga.Core.IAurigaElement)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
 
                                 break;

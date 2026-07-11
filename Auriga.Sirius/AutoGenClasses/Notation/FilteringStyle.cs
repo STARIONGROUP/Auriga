@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>FilteringStyle</c> class.
     /// </summary>
-    public partial class FilteringStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IFilteringStyle
+    public partial class FilteringStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IFilteringStyle
     {
         /// <summary>
         /// Gets the filtered objects.

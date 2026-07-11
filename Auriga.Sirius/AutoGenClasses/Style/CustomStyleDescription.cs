@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// Definition of the <c>CustomStyleDescription</c> class.
     /// </summary>
-    public partial class CustomStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.ICustomStyleDescription
+    public partial class CustomStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.ICustomStyleDescription
     {
         /// <summary>
         /// Gets or sets the border color.

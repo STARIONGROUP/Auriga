@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>TableTool</c> class.
     /// </summary>
-    public partial class TableTool : Auriga.AurigaElement, Auriga.Sirius.Table.Description.ITableTool
+    public partial class TableTool : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.ITableTool
     {
         /// <summary>
         /// Gets or sets the first model operation.
@@ -45,18 +45,18 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the variables.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> Variables => this.backingVariables ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.ITableVariable>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> Variables => this.backingVariables ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.ITableVariable>(this);
 
         /// <summary>
         /// Backing field for <see cref="Variables"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> backingVariables;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> backingVariables;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>TableTool</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.FirstModelOperation != null)
             {

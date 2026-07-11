@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>PopupMenu</c> class.
     /// </summary>
-    public partial class PopupMenu : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IPopupMenu
+    public partial class PopupMenu : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IPopupMenu
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -33,12 +33,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the filters.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="Filters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
 
         /// <summary>
         /// If true then a refresh for the whole representation is executed after every execution of the tool.
@@ -58,12 +58,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the menu item description.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription> MenuItemDescription => this.backingMenuItemDescription ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription> MenuItemDescription => this.backingMenuItemDescription ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="MenuItemDescription"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription> backingMenuItemDescription;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription> backingMenuItemDescription;
 
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
@@ -79,7 +79,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>PopupMenu</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Filters)
             {

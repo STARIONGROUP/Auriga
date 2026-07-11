@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>RoundedCornersStyle</c> class.
     /// </summary>
-    public partial class RoundedCornersStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IRoundedCornersStyle
+    public partial class RoundedCornersStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IRoundedCornersStyle
     {
         /// <summary>
         /// Gets or sets the rounded bendpoints radius.

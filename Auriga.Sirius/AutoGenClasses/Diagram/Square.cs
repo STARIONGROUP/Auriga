@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The square style to display a node as a square.
     /// </summary>
-    public partial class Square : Auriga.AurigaElement, Auriga.Sirius.Diagram.ISquare
+    public partial class Square : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.ISquare
     {
         /// <summary>
         /// Gets or sets the border color.

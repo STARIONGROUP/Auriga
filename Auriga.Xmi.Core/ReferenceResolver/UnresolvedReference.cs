@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.ReferenceResolver
+namespace Auriga.Xmi.Core.ReferenceResolver
 {
     /// <summary>
     /// A single cross-reference that could not be resolved because no element with the referenced

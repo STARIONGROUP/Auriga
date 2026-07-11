@@ -10,6 +10,7 @@
 
 namespace Auriga.Sirius.Tests
 {
+    using Auriga.Core;
     using System.Linq;
 
     using Auriga.Sirius.Diagram;
@@ -19,10 +20,10 @@ namespace Auriga.Sirius.Tests
 
     /// <summary>
     /// Exercises the generated <c>Auriga.Sirius</c> object model: that its containment features are wired
-    /// through the shared <see cref="Auriga.ContainerList{T}"/> (setting the child's
-    /// <see cref="Auriga.IAurigaElement.Container"/> and surfacing it from
-    /// <see cref="Auriga.IAurigaElement.QueryContainedElements"/>) exactly as the Capella object model is,
-    /// since both are produced by the same generator over the reused <see cref="Auriga.AurigaElement"/> base.
+    /// through the shared <see cref="Auriga.Core.ContainerList{T}"/> (setting the child's
+    /// <see cref="Auriga.Core.IAurigaElement.Container"/> and surfacing it from
+    /// <see cref="Auriga.Core.IAurigaElement.QueryContainedElements"/>) exactly as the Capella object model is,
+    /// since both are produced by the same generator over the reused <see cref="Auriga.Core.AurigaElement"/> base.
     /// </summary>
     [TestFixture]
     public class SiriusObjectModelTestFixture

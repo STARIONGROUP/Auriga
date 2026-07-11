@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// Definition of the <c>SizeComputationContainerStyleDescription</c> interface.
     /// </summary>
-    public partial interface ISizeComputationContainerStyleDescription : Auriga.IAurigaElement
+    public partial interface ISizeComputationContainerStyleDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Expression that computes the size of the node.

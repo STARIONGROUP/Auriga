@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     /// <summary>
     /// Definition of the <c>TooltipStyleDescription</c> class.
     /// </summary>
-    public partial class TooltipStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Style.ITooltipStyleDescription
+    public partial class TooltipStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Style.ITooltipStyleDescription
     {
         /// <summary>
         /// This expression is used to compute the text of the optional tooltip shown when the user leaves the mouse on an element.

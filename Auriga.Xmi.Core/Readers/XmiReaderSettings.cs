@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Readers
+namespace Auriga.Xmi.Core.Readers
 {
     /// <summary>
     /// The default <see cref="IXmiReaderSettings"/>. Its defaults preserve the reader's lenient behavior:

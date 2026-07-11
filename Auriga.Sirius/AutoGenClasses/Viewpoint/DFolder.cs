@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DFolder</c> class.
     /// </summary>
-    public partial class DFolder : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDFolder
+    public partial class DFolder : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDFolder
     {
         /// <summary>
         /// Gets the members.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDResource> Members => this.backingMembers ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IDResource>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDResource> Members => this.backingMembers ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IDResource>(this);
 
         /// <summary>
         /// Backing field for <see cref="Members"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDResource> backingMembers;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDResource> backingMembers;
 
         /// <summary>
         /// Gets or sets the name.
@@ -49,7 +49,7 @@ namespace Auriga.Sirius.Viewpoint
         /// Gets the elements directly contained by this <c>DFolder</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Members)
             {

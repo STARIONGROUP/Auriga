@@ -179,7 +179,7 @@ namespace Auriga.CodeGenerator.Helpers
                 }
 
                 var target = CSharpType.BaseType(feature.EType) == "object"
-                    ? $"poco.{propertyName} as Auriga.IAurigaElement"
+                    ? $"poco.{propertyName} as Auriga.Core.IAurigaElement"
                     : $"poco.{propertyName}";
                 return $"this.WriteReferenceAttribute(xmlWriter, \"{xmlName}\", {target}, poco, \"{propertyName}\", context);";
             }

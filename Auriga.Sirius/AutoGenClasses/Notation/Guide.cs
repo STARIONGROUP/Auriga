@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Guide</c> class.
     /// </summary>
-    public partial class Guide : Auriga.AurigaElement, Auriga.Sirius.Notation.IGuide
+    public partial class Guide : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IGuide
     {
         /// <summary>
         /// Gets the node map.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.INodeEntry> NodeMap => this.backingNodeMap ??= new Auriga.ContainerList<Auriga.Sirius.Notation.INodeEntry>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.INodeEntry> NodeMap => this.backingNodeMap ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.INodeEntry>(this);
 
         /// <summary>
         /// Backing field for <see cref="NodeMap"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.INodeEntry> backingNodeMap;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.INodeEntry> backingNodeMap;
 
         /// <summary>
         /// Gets or sets the position.
@@ -39,7 +39,7 @@ namespace Auriga.Sirius.Notation
         /// Gets the elements directly contained by this <c>Guide</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.NodeMap)
             {

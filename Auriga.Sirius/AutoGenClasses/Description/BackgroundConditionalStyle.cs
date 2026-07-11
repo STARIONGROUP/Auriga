@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>BackgroundConditionalStyle</c> class.
     /// </summary>
-    public partial class BackgroundConditionalStyle : Auriga.AurigaElement, Auriga.Sirius.Table.Description.IBackgroundConditionalStyle
+    public partial class BackgroundConditionalStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.IBackgroundConditionalStyle
     {
         /// <summary>
         /// Gets or sets the predicate expression.
@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Table.Description
         /// Gets the elements directly contained by this <c>BackgroundConditionalStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Style != null)
             {

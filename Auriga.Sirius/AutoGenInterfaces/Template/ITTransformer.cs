@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TTransformer</c> interface.
     /// </summary>
-    public partial interface ITTransformer : Auriga.IAurigaElement
+    public partial interface ITTransformer : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the outputs.

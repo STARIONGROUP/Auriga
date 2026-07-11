@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Writers
+namespace Auriga.Xmi.Core.Writers
 {
     /// <summary>
     /// The per-document state threaded through a write. It carries the name of the document currently

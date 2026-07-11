@@ -9,6 +9,7 @@
 
 namespace Auriga.Xmi.Tests
 {
+    using Auriga.Core;
     using System;
     using System.IO;
 

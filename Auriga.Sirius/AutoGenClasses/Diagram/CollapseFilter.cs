@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>CollapseFilter</c> class.
     /// </summary>
-    public partial class CollapseFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.ICollapseFilter
+    public partial class CollapseFilter : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.ICollapseFilter
     {
         /// <summary>
         /// Gets or sets the height.

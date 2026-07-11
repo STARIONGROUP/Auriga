@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>RelativeBendpoints</c> class.
     /// </summary>
-    public partial class RelativeBendpoints : Auriga.AurigaElement, Auriga.Sirius.Notation.IRelativeBendpoints
+    public partial class RelativeBendpoints : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IRelativeBendpoints
     {
         /// <summary>
         /// Gets or sets the points.

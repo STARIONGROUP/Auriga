@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     /// <summary>
     /// A group of LabelBorderStyleDescription to store in Environment.odesign.
     /// </summary>
-    public partial interface ILabelBorderStyles : Auriga.IAurigaElement
+    public partial interface ILabelBorderStyles : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the label border style descriptions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription> LabelBorderStyleDescriptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.ILabelBorderStyleDescription> LabelBorderStyleDescriptions { get; }
 
     }
 }

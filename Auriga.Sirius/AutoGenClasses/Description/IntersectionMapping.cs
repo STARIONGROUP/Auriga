@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>IntersectionMapping</c> class.
     /// </summary>
-    public partial class IntersectionMapping : Auriga.AurigaElement, Auriga.Sirius.Table.Description.IIntersectionMapping
+    public partial class IntersectionMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.IIntersectionMapping
     {
         /// <summary>
         /// Gets the background conditional style.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> BackgroundConditionalStyle => this.backingBackgroundConditionalStyle ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> BackgroundConditionalStyle => this.backingBackgroundConditionalStyle ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="BackgroundConditionalStyle"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> backingBackgroundConditionalStyle;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> backingBackgroundConditionalStyle;
 
         /// <summary>
         /// Gets or sets the can edit.
@@ -170,12 +170,12 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the foreground conditional style.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> ForegroundConditionalStyle => this.backingForegroundConditionalStyle ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> ForegroundConditionalStyle => this.backingForegroundConditionalStyle ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="ForegroundConditionalStyle"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> backingForegroundConditionalStyle;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> backingForegroundConditionalStyle;
 
         /// <summary>
         /// The label used to display this viewpoint to the end-user.
@@ -231,7 +231,7 @@ namespace Auriga.Sirius.Table.Description
         /// Gets the elements directly contained by this <c>IntersectionMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.BackgroundConditionalStyle)
             {

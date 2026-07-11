@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
     /// <summary>
     /// A set of validation rules.
     /// </summary>
-    public partial class ValidationSet : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Validation.IValidationSet
+    public partial class ValidationSet : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Validation.IValidationSet
     {
         /// <summary>
         /// All rules of the set.
@@ -41,12 +41,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
         /// <summary>
         /// The validation rules owned by this set.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule> OwnedRules => this.backingOwnedRules ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule> OwnedRules => this.backingOwnedRules ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRules"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule> backingOwnedRules;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule> backingOwnedRules;
 
         /// <summary>
         /// The validations rules that are reused by this set.
@@ -57,7 +57,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
         /// Gets the elements directly contained by this <c>ValidationSet</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedRules)
             {

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Table
     /// <summary>
     /// Definition of the <c>DTableElementStyle</c> class.
     /// </summary>
-    public partial class DTableElementStyle : Auriga.AurigaElement, Auriga.Sirius.Table.IDTableElementStyle
+    public partial class DTableElementStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Table.IDTableElementStyle
     {
         /// <summary>
         /// Gets or sets the background color.

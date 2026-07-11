@@ -56,7 +56,7 @@ namespace Auriga.Re
         /// <summary>
         /// Gets the owned links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Re.ICatalogElementLink> OwnedLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Re.ICatalogElementLink> OwnedLinks { get; }
 
         /// <summary>
         /// Gets or sets the purpose.

@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>DecorationDescriptionsSet</c> interface.
     /// </summary>
-    public partial interface IDecorationDescriptionsSet : Auriga.IAurigaElement
+    public partial interface IDecorationDescriptionsSet : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the decoration descriptions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription> DecorationDescriptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription> DecorationDescriptions { get; }
 
     }
 }

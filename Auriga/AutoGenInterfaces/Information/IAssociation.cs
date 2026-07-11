@@ -30,7 +30,7 @@ namespace Auriga.Information
         /// <summary>
         /// Gets the owned members.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IProperty> OwnedMembers { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IProperty> OwnedMembers { get; }
 
     }
 }

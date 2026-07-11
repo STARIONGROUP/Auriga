@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Table
     /// <summary>
     /// Definition of the <c>DTargetColumn</c> class.
     /// </summary>
-    public partial class DTargetColumn : Auriga.AurigaElement, Auriga.Sirius.Table.IDTargetColumn
+    public partial class DTargetColumn : Auriga.Core.AurigaElement, Auriga.Sirius.Table.IDTargetColumn
     {
         /// <summary>
         /// List of cells of this column. This list does not necessarily have as many cells as there are lines. Indeed, the «blank cells» are not created.
@@ -111,7 +111,7 @@ namespace Auriga.Sirius.Table
         /// Gets the elements directly contained by this <c>DTargetColumn</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.CurrentStyle != null)
             {

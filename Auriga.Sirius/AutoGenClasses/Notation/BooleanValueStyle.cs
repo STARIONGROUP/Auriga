@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>BooleanValueStyle</c> class.
     /// </summary>
-    public partial class BooleanValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IBooleanValueStyle
+    public partial class BooleanValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IBooleanValueStyle
     {
         /// <summary>
         /// Gets or sets the boolean value.

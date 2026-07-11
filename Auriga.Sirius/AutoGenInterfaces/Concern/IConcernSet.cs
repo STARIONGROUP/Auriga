@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description.Concern
         /// <summary>
         /// All concerns
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription> OwnedConcernDescriptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription> OwnedConcernDescriptions { get; }
 
     }
 }

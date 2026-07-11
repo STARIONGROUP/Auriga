@@ -25,7 +25,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles { get; }
 
         /// <summary>
         /// The type of the target elements that are represented by this edge. Useful only if useDomainElement is true.

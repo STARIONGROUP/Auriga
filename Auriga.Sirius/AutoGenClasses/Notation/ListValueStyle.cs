@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>ListValueStyle</c> class.
     /// </summary>
-    public partial class ListValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IListValueStyle
+    public partial class ListValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IListValueStyle
     {
         /// <summary>
         /// Gets or sets the instance type.

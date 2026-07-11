@@ -23,27 +23,27 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned categories.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IExchangeCategory> OwnedCategories { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IExchangeCategory> OwnedCategories { get; }
 
         /// <summary>
         /// Gets the owned exchange specification realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IExchangeSpecificationRealization> OwnedExchangeSpecificationRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IExchangeSpecificationRealization> OwnedExchangeSpecificationRealizations { get; }
 
         /// <summary>
         /// Gets the owned exchanges.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionalExchangeSpecification> OwnedExchanges { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionalExchangeSpecification> OwnedExchanges { get; }
 
         /// <summary>
         /// Gets the owned function specifications.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionSpecification> OwnedFunctionSpecifications { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionSpecification> OwnedFunctionSpecifications { get; }
 
         /// <summary>
         /// Gets the owned functional links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IExchangeLink> OwnedFunctionalLinks { get; }
 
     }
 }

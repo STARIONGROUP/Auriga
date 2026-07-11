@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// This operation allows the creation of a new variable.
     /// </summary>
-    public partial class Let : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ILet
+    public partial class Let : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ILet
     {
         /// <summary>
         /// Gets the sub model operations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubModelOperations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
 
         /// <summary>
         /// Expression used to initialize the value of the new variable.
@@ -44,7 +44,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>Let</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubModelOperations)
             {

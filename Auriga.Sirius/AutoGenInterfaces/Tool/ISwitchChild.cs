@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>SwitchChild</c> interface.
     /// </summary>
-    public partial interface ISwitchChild : Auriga.IAurigaElement
+    public partial interface ISwitchChild : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the sub model operations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations { get; }
 
     }
 }

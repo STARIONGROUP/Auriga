@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>TitleStyle</c> class.
     /// </summary>
-    public partial class TitleStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.ITitleStyle
+    public partial class TitleStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ITitleStyle
     {
         /// <summary>
         /// Gets or sets the show title.

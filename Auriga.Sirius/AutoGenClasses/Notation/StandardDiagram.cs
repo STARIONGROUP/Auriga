@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>StandardDiagram</c> class.
     /// </summary>
-    public partial class StandardDiagram : Auriga.AurigaElement, Auriga.Sirius.Notation.IStandardDiagram
+    public partial class StandardDiagram : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IStandardDiagram
     {
         /// <summary>
         /// Gets or sets the description.
@@ -41,12 +41,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the horizontal guides.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> HorizontalGuides => this.backingHorizontalGuides ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> HorizontalGuides => this.backingHorizontalGuides ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
 
         /// <summary>
         /// Backing field for <see cref="HorizontalGuides"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> backingHorizontalGuides;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> backingHorizontalGuides;
 
         /// <summary>
         /// Gets or sets the measurement unit.
@@ -86,22 +86,22 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the persisted children.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren => this.backingPersistedChildren ??= new Auriga.ContainerList<Auriga.Sirius.Notation.INode>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren => this.backingPersistedChildren ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.INode>(this);
 
         /// <summary>
         /// Backing field for <see cref="PersistedChildren"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.INode> backingPersistedChildren;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.INode> backingPersistedChildren;
 
         /// <summary>
         /// Gets the persisted edges.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IEdge> PersistedEdges => this.backingPersistedEdges ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IEdge>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IEdge> PersistedEdges => this.backingPersistedEdges ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IEdge>(this);
 
         /// <summary>
         /// Backing field for <see cref="PersistedEdges"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IEdge> backingPersistedEdges;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IEdge> backingPersistedEdges;
 
         /// <summary>
         /// Gets the source edges.
@@ -111,12 +111,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IStyle> Styles => this.backingStyles ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStyle> Styles => this.backingStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="Styles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IStyle> backingStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStyle> backingStyles;
 
         /// <summary>
         /// Gets the target edges.
@@ -141,12 +141,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the vertical guides.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> VerticalGuides => this.backingVerticalGuides ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> VerticalGuides => this.backingVerticalGuides ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
 
         /// <summary>
         /// Backing field for <see cref="VerticalGuides"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> backingVerticalGuides;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> backingVerticalGuides;
 
         /// <summary>
         /// Gets or sets the visible.
@@ -157,7 +157,7 @@ namespace Auriga.Sirius.Notation
         /// Gets the elements directly contained by this <c>StandardDiagram</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.HorizontalGuides)
             {

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Location</c> class.
     /// </summary>
-    public partial class Location : Auriga.AurigaElement, Auriga.Sirius.Notation.ILocation
+    public partial class Location : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ILocation
     {
         /// <summary>
         /// Gets or sets the x.

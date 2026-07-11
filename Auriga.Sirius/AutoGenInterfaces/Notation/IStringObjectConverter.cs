@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>StringObjectConverter</c> interface.
     /// </summary>
-    public partial interface IStringObjectConverter : Auriga.IAurigaElement
+    public partial interface IStringObjectConverter : Auriga.Core.IAurigaElement
     {
     }
 }

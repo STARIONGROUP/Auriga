@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// The style of a center label.
     /// </summary>
-    public partial class CenterLabelStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.ICenterLabelStyleDescription
+    public partial class CenterLabelStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.ICenterLabelStyleDescription
     {
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.

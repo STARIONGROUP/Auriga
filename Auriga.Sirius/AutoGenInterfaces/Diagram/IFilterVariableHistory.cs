@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Gets the owned values.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.IVariableValue> OwnedValues { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IVariableValue> OwnedValues { get; }
 
     }
 }

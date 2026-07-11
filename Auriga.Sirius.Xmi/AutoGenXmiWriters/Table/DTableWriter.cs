@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Table
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -65,7 +65,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Table
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
             WriteIntegerAttribute(xmlWriter, "headerColumnWidth", poco.HeaderColumnWidth);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.IAurigaElement, poco, "Target", context);
+            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             this.WriteContainedElements(xmlWriter, "columns", poco.Columns, poco, "Columns", context);
             this.WriteContainedElements(xmlWriter, "eAnnotations", poco.EAnnotations, poco, "EAnnotations", context);

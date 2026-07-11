@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// An element that has a mapping.
     /// </summary>
-    public partial interface IDMappingBased : Auriga.IAurigaElement
+    public partial interface IDMappingBased : Auriga.Core.IAurigaElement
     {
     }
 }

@@ -41,12 +41,12 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned activity allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IActivityAllocation> OwnedActivityAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IActivityAllocation> OwnedActivityAllocations { get; }
 
         /// <summary>
         /// Gets the owned role assembly usages.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IRoleAssemblyUsage> OwnedRoleAssemblyUsages { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IRoleAssemblyUsage> OwnedRoleAssemblyUsages { get; }
 
         /// <summary>
         /// Gets the role allocations.

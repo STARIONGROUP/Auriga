@@ -23,12 +23,12 @@ namespace Auriga.Pa.Deployment
         /// <summary>
         /// Gets the owned deployment links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
 
         /// <summary>
         /// Gets the owned physical instances.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedPhysicalInstances { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.Deployment.IAbstractPhysicalInstance> OwnedPhysicalInstances { get; }
 
     }
 }

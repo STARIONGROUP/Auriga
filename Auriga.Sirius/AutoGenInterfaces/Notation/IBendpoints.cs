@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Bendpoints</c> interface.
     /// </summary>
-    public partial interface IBendpoints : Auriga.IAurigaElement
+    public partial interface IBendpoints : Auriga.Core.IAurigaElement
     {
     }
 }

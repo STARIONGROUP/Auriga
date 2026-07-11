@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>RepresentationTemplate</c> interface.
     /// </summary>
-    public partial interface IRepresentationTemplate : Auriga.IAurigaElement
+    public partial interface IRepresentationTemplate : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the name.
@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the owned representations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations { get; }
 
     }
 }

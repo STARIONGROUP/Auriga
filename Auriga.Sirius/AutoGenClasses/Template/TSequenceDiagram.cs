@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TSequenceDiagram</c> class.
     /// </summary>
-    public partial class TSequenceDiagram : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITSequenceDiagram
+    public partial class TSequenceDiagram : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITSequenceDiagram
     {
         /// <summary>
         /// The domain class of the mapping.
@@ -35,22 +35,22 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the lifeline mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping> LifelineMappings => this.backingLifelineMappings ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping> LifelineMappings => this.backingLifelineMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="LifelineMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping> backingLifelineMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping> backingLifelineMappings;
 
         /// <summary>
         /// Gets the message mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping> MessageMappings => this.backingMessageMappings ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping> MessageMappings => this.backingMessageMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="MessageMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping> backingMessageMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping> backingMessageMappings;
 
         /// <summary>
         /// Gets or sets the name.
@@ -65,18 +65,18 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the owned representations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations => this.backingOwnedRepresentations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations => this.backingOwnedRepresentations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRepresentations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> backingOwnedRepresentations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> backingOwnedRepresentations;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>TSequenceDiagram</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.LifelineMappings)
             {

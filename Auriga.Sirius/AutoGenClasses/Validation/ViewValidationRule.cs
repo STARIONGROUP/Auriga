@@ -20,27 +20,27 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
     /// <summary>
     /// A validation rule that is applied on a view element.
     /// </summary>
-    public partial class ViewValidationRule : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Validation.IViewValidationRule
+    public partial class ViewValidationRule : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Validation.IViewValidationRule
     {
         /// <summary>
         /// Gets the audits.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit> Audits => this.backingAudits ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit> Audits => this.backingAudits ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit>(this);
 
         /// <summary>
         /// Backing field for <see cref="Audits"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit> backingAudits;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit> backingAudits;
 
         /// <summary>
         /// Gets the fixes.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix> Fixes => this.backingFixes ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix> Fixes => this.backingFixes ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix>(this);
 
         /// <summary>
         /// Backing field for <see cref="Fixes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix> backingFixes;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix> backingFixes;
 
         /// <summary>
         /// The label used to display this viewpoint to the end-user.
@@ -71,7 +71,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
         /// Gets the elements directly contained by this <c>ViewValidationRule</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Audits)
             {

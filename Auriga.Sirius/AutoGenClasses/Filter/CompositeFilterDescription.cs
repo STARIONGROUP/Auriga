@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
     /// <summary>
     /// A composite filter description.
     /// </summary>
-    public partial class CompositeFilterDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.ICompositeFilterDescription
+    public partial class CompositeFilterDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.ICompositeFilterDescription
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -28,12 +28,12 @@ namespace Auriga.Sirius.Diagram.Description.Filter
         /// <summary>
         /// All filters.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter> Filters => this.backingFilters ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter> Filters => this.backingFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter>(this);
 
         /// <summary>
         /// Backing field for <see cref="Filters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter> backingFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter> backingFilters;
 
         /// <summary>
         /// The label used to display this viewpoint to the end-user.
@@ -49,7 +49,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
         /// Gets the elements directly contained by this <c>CompositeFilterDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Filters)
             {

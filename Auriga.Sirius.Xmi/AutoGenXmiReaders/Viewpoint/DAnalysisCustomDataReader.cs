@@ -18,8 +18,8 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiReaders.Viewpoint
     using System;
     using System.Xml;
 
-    using Auriga.Xmi.Cache;
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 
@@ -118,7 +118,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiReaders.Viewpoint
                                 }
                                 else
                                 {
-                                    poco.Data = (Auriga.IAurigaElement)this.Facade.QueryElement(xmlReader, documentName, namespaceUri);
+                                    poco.Data = (Auriga.Core.IAurigaElement)this.Facade.QueryElement(xmlReader, documentName, namespaceUri);
                                 }
 
                                 break;

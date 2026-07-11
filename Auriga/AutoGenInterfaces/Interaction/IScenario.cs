@@ -46,42 +46,42 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the owned constraint durations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IConstraintDuration> OwnedConstraintDurations { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IConstraintDuration> OwnedConstraintDurations { get; }
 
         /// <summary>
         /// Gets the owned events.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IEvent> OwnedEvents { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IEvent> OwnedEvents { get; }
 
         /// <summary>
         /// Gets the owned formal gates.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IGate> OwnedFormalGates { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IGate> OwnedFormalGates { get; }
 
         /// <summary>
         /// Gets the owned instance roles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IInstanceRole> OwnedInstanceRoles { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IInstanceRole> OwnedInstanceRoles { get; }
 
         /// <summary>
         /// Gets the owned interaction fragments.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IInteractionFragment> OwnedInteractionFragments { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IInteractionFragment> OwnedInteractionFragments { get; }
 
         /// <summary>
         /// Gets the owned messages.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.ISequenceMessage> OwnedMessages { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.ISequenceMessage> OwnedMessages { get; }
 
         /// <summary>
         /// Gets the owned scenario realization.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IScenarioRealization> OwnedScenarioRealization { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IScenarioRealization> OwnedScenarioRealization { get; }
 
         /// <summary>
         /// Gets the owned time lapses.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.ITimeLapse> OwnedTimeLapses { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.ITimeLapse> OwnedTimeLapses { get; }
 
         /// <summary>
         /// Gets or sets the post condition.

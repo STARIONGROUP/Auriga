@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>StringValueStyle</c> class.
     /// </summary>
-    public partial class StringValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IStringValueStyle
+    public partial class StringValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IStringValueStyle
     {
         /// <summary>
         /// Gets or sets the name.

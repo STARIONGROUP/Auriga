@@ -41,7 +41,7 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets the owned physical function pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.IPhysicalFunctionPkg> OwnedPhysicalFunctionPkgs { get; }
 
         /// <summary>
         /// Gets the realized logical functions.

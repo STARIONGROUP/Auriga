@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// The bundled image style allows to use the default images provide by the Viewpoint editor.
     /// </summary>
-    public partial class BundledImageDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IBundledImageDescription
+    public partial class BundledImageDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IBundledImageDescription
     {
         /// <summary>
         /// Gets or sets the border color.

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>ForegroundStyleDescription</c> class.
     /// </summary>
-    public partial class ForegroundStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Table.Description.IForegroundStyleDescription
+    public partial class ForegroundStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.IForegroundStyleDescription
     {
         /// <summary>
         /// Gets or sets the fore ground color.

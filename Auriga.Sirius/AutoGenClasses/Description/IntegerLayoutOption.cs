@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>IntegerLayoutOption</c> class.
     /// </summary>
-    public partial class IntegerLayoutOption : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IIntegerLayoutOption
+    public partial class IntegerLayoutOption : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IIntegerLayoutOption
     {
         /// <summary>
         /// Gets the description.

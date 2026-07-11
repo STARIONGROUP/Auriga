@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>DiagramExtensionDescription</c> class.
     /// </summary>
-    public partial class DiagramExtensionDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IDiagramExtensionDescription
+    public partial class DiagramExtensionDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IDiagramExtensionDescription
     {
         /// <summary>
         /// All concerns of the diagrams to add. A concern is a set of filters, validations and behaviors.
@@ -47,12 +47,12 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the layers.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> Layers => this.backingLayers ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> Layers => this.backingLayers ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer>(this);
 
         /// <summary>
         /// Backing field for <see cref="Layers"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> backingLayers;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> backingLayers;
 
         /// <summary>
         /// You might use this reference to statically bind your representation extension with a set of Ecore packages. Keep in mind that this is not mandatory.
@@ -100,7 +100,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// Gets the elements directly contained by this <c>DiagramExtensionDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Concerns != null)
             {

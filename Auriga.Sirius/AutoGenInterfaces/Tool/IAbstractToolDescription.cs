@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the filters.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters { get; }
 
         /// <summary>
         /// If true then a refresh for the whole representation is executed after every execution of the tool.

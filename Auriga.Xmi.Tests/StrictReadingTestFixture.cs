@@ -14,7 +14,7 @@ namespace Auriga.Xmi.Tests
     using System.IO;
     using System.Text;
 
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 

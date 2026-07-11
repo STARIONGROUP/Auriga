@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// Definition of the <c>BracketEdgeStyleDescription</c> class.
     /// </summary>
-    public partial class BracketEdgeStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IBracketEdgeStyleDescription
+    public partial class BracketEdgeStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IBracketEdgeStyleDescription
     {
         /// <summary>
         /// Gets or sets the begin label style description.
@@ -142,7 +142,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
         /// Gets the elements directly contained by this <c>BracketEdgeStyleDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.BeginLabelStyleDescription != null)
             {

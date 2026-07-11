@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Ordering
     /// <summary>
     /// Definition of the <c>EventEndsOrdering</c> interface.
     /// </summary>
-    public partial interface IEventEndsOrdering : Auriga.IAurigaElement
+    public partial interface IEventEndsOrdering : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the event ends.

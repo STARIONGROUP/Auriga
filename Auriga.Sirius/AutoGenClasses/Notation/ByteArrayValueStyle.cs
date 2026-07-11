@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>ByteArrayValueStyle</c> class.
     /// </summary>
-    public partial class ByteArrayValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IByteArrayValueStyle
+    public partial class ByteArrayValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IByteArrayValueStyle
     {
         /// <summary>
         /// Gets or sets the byte array value.

@@ -26,7 +26,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the item descriptions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IGroupMenuItem> ItemDescriptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IGroupMenuItem> ItemDescriptions { get; }
 
         /// <summary>
         /// A <code>URI</code> specification that defines the insertion point at which the group will be added.

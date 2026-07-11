@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>IndirectlyCollapseFilter</c> class.
     /// </summary>
-    public partial class IndirectlyCollapseFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.IIndirectlyCollapseFilter
+    public partial class IndirectlyCollapseFilter : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IIndirectlyCollapseFilter
     {
         /// <summary>
         /// Gets or sets the height.

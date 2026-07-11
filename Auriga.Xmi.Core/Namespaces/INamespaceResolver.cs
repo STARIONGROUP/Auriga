@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Namespaces
+namespace Auriga.Xmi.Core.Namespaces
 {
     /// <summary>
     /// Resolves a Capella XML namespace URI (e.g. <c>http://www.polarsys.org/capella/core/pa/7.0.0</c>)

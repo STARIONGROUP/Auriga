@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Describes a color which each value red, blue and green are computed expressions.
     /// </summary>
-    public partial class ComputedColor : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IComputedColor
+    public partial class ComputedColor : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IComputedColor
     {
         /// <summary>
         /// Gets or sets the blue.

@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>DecorationNode</c> class.
     /// </summary>
-    public partial class DecorationNode : Auriga.AurigaElement, Auriga.Sirius.Notation.IDecorationNode
+    public partial class DecorationNode : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IDecorationNode
     {
         /// <summary>
         /// Gets the diagram.
@@ -63,12 +63,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the persisted children.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren => this.backingPersistedChildren ??= new Auriga.ContainerList<Auriga.Sirius.Notation.INode>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren => this.backingPersistedChildren ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.INode>(this);
 
         /// <summary>
         /// Backing field for <see cref="PersistedChildren"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.INode> backingPersistedChildren;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.INode> backingPersistedChildren;
 
         /// <summary>
         /// Gets the source edges.
@@ -78,12 +78,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IStyle> Styles => this.backingStyles ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStyle> Styles => this.backingStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="Styles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IStyle> backingStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStyle> backingStyles;
 
         /// <summary>
         /// Gets the target edges.
@@ -109,7 +109,7 @@ namespace Auriga.Sirius.Notation
         /// Gets the elements directly contained by this <c>DecorationNode</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.LayoutConstraint != null)
             {

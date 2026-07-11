@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Description.Tool
     /// <summary>
     /// Definition of the <c>OrderedElementCreationTool</c> interface.
     /// </summary>
-    public partial interface IOrderedElementCreationTool : Auriga.IAurigaElement
+    public partial interface IOrderedElementCreationTool : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the finishing end predecessor.

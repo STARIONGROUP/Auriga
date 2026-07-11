@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Graphical filter specifying that the owner element has been folded indirectly because it is accessible from a folded folding point through folable edges.
     /// </summary>
-    public partial class FoldingFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.IFoldingFilter
+    public partial class FoldingFilter : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IFoldingFilter
     {
         /// <summary>
         /// Gets or sets the uid.

@@ -51,7 +51,7 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the owned information realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
 
         /// <summary>
         /// Gets or sets the pattern.

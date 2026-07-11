@@ -21,17 +21,17 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DAnalysis</c> class.
     /// </summary>
-    public partial class DAnalysis : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDAnalysis
+    public partial class DAnalysis : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDAnalysis
     {
         /// <summary>
         /// Gets the e annotations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry> EAnnotations => this.backingEAnnotations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry> EAnnotations => this.backingEAnnotations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry>(this);
 
         /// <summary>
         /// Backing field for <see cref="EAnnotations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry> backingEAnnotations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry> backingEAnnotations;
 
         /// <summary>
         /// Gets the models.
@@ -41,22 +41,22 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the owned feature extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension> OwnedFeatureExtensions => this.backingOwnedFeatureExtensions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension> OwnedFeatureExtensions => this.backingOwnedFeatureExtensions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedFeatureExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension> backingOwnedFeatureExtensions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension> backingOwnedFeatureExtensions;
 
         /// <summary>
         /// Gets the owned views.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDView> OwnedViews => this.backingOwnedViews ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IDView>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDView> OwnedViews => this.backingOwnedViews ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IDView>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedViews"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDView> backingOwnedViews;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDView> backingOwnedViews;
 
         /// <summary>
         /// Gets the referenced analysis.
@@ -87,7 +87,7 @@ namespace Auriga.Sirius.Viewpoint
         /// Gets the elements directly contained by this <c>DAnalysis</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.EAnnotations)
             {

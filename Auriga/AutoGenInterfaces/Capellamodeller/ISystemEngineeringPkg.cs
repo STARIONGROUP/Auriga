@@ -23,7 +23,7 @@ namespace Auriga.Capellamodeller
         /// <summary>
         /// Gets the owned system engineerings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellamodeller.ISystemEngineering> OwnedSystemEngineerings { get; }
+        Auriga.Core.IContainerList<Auriga.Capellamodeller.ISystemEngineering> OwnedSystemEngineerings { get; }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>NodeEntry</c> interface.
     /// </summary>
-    public partial interface INodeEntry : Auriga.IAurigaElement
+    public partial interface INodeEntry : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the key.

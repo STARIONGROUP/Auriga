@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>ForegroundConditionalStyle</c> interface.
     /// </summary>
-    public partial interface IForegroundConditionalStyle : Auriga.IAurigaElement
+    public partial interface IForegroundConditionalStyle : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the predicate expression.

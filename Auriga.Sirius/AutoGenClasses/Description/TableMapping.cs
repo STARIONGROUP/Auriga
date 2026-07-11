@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>TableMapping</c> class.
     /// </summary>
-    public partial class TableMapping : Auriga.AurigaElement, Auriga.Sirius.Table.Description.ITableMapping
+    public partial class TableMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.ITableMapping
     {
         /// <summary>
         /// All details that can be created from this node.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>InitialNodeCreationOperation</c> class.
     /// </summary>
-    public partial class InitialNodeCreationOperation : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitialNodeCreationOperation
+    public partial class InitialNodeCreationOperation : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitialNodeCreationOperation
     {
         /// <summary>
         /// Gets or sets the first model operations.
@@ -46,7 +46,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>InitialNodeCreationOperation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.FirstModelOperations != null)
             {

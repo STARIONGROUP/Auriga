@@ -31,7 +31,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// container mappings that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> ContainerMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> ContainerMappings { get; }
 
         /// <summary>
         /// Gets or sets the customization.
@@ -46,12 +46,12 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Edge mapping imports that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> EdgeMappingImports { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> EdgeMappingImports { get; }
 
         /// <summary>
         /// Edge mappings that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> EdgeMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> EdgeMappings { get; }
 
         /// <summary>
         /// image path to use as an icon for the layer
@@ -61,7 +61,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Node mappings that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> NodeMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> NodeMappings { get; }
 
         /// <summary>
         /// Add here any mapping you want to reuse from another layer or diagram.
@@ -76,7 +76,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// A tool section encloses many tools
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> ToolSections { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> ToolSections { get; }
 
     }
 }

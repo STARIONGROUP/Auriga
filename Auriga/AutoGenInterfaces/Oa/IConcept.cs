@@ -30,7 +30,7 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the composite links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IItemInConcept> CompositeLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IItemInConcept> CompositeLinks { get; }
 
     }
 }

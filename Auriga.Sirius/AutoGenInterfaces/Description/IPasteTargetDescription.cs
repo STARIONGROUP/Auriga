@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// A PasteTargetDescription is a Description or Mapping that can have many PasteTools.
     /// </summary>
-    public partial interface IPasteTargetDescription : Auriga.IAurigaElement
+    public partial interface IPasteTargetDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the paste descriptions.

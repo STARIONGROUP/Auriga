@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
     /// <summary>
     /// Definition of the <c>ValidationFix</c> interface.
     /// </summary>
-    public partial interface IValidationFix : Auriga.IAurigaElement
+    public partial interface IValidationFix : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// The first operation.

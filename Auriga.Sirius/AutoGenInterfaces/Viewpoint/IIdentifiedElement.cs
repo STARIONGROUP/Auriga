@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>IdentifiedElement</c> interface.
     /// </summary>
-    public partial interface IIdentifiedElement : Auriga.IAurigaElement
+    public partial interface IIdentifiedElement : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the uid.

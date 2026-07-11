@@ -7,13 +7,14 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Readers
+namespace Auriga.Xmi.Core.Readers
 {
+    using Auriga.Core;
     using System;
     using System.Collections.Generic;
     using System.Xml;
 
-    using Auriga.Xmi.Cache;
+    using Auriga.Xmi.Core.Cache;
 
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Abstractions;

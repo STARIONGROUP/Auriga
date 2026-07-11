@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>InitialContainerDropOperation</c> class.
     /// </summary>
-    public partial class InitialContainerDropOperation : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitialContainerDropOperation
+    public partial class InitialContainerDropOperation : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitialContainerDropOperation
     {
         /// <summary>
         /// Gets or sets the first model operations.
@@ -46,7 +46,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>InitialContainerDropOperation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.FirstModelOperations != null)
             {

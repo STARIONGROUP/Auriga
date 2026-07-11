@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>InitialContainerDropOperation</c> interface.
     /// </summary>
-    public partial interface IInitialContainerDropOperation : Auriga.IAurigaElement
+    public partial interface IInitialContainerDropOperation : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the first model operations.

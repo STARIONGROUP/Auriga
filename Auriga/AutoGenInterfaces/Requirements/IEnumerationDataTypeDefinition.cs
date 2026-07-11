@@ -23,7 +23,7 @@ namespace Auriga.Requirements
         /// <summary>
         /// Gets the specified values.
         /// </summary>
-        Auriga.IContainerList<Auriga.Requirements.IEnumValue> SpecifiedValues { get; }
+        Auriga.Core.IContainerList<Auriga.Requirements.IEnumValue> SpecifiedValues { get; }
 
     }
 }

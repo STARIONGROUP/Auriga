@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>TextStyle</c> class.
     /// </summary>
-    public partial class TextStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.ITextStyle
+    public partial class TextStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ITextStyle
     {
         /// <summary>
         /// Gets or sets the text alignment.

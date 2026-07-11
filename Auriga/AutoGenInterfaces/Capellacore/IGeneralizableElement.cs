@@ -31,7 +31,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned generalizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations { get; }
 
         /// <summary>
         /// Gets the sub.

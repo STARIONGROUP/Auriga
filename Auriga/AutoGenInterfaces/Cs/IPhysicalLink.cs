@@ -36,17 +36,17 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned component exchange functional exchange allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
 
         /// <summary>
         /// Gets the owned physical link ends.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalLinkEnd> OwnedPhysicalLinkEnds { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalLinkEnd> OwnedPhysicalLinkEnds { get; }
 
         /// <summary>
         /// Gets the owned physical link realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalLinkRealization> OwnedPhysicalLinkRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalLinkRealization> OwnedPhysicalLinkRealizations { get; }
 
         /// <summary>
         /// Gets the realized physical links.

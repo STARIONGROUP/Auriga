@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// This operation allows to set a value of a feature of the current context.
     /// </summary>
-    public partial class SetValue : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ISetValue
+    public partial class SetValue : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ISetValue
     {
         /// <summary>
         /// The name of the feature to set.
@@ -28,12 +28,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the sub model operations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubModelOperations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
 
         /// <summary>
         /// An expression computing the value to set.
@@ -44,7 +44,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>SetValue</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubModelOperations)
             {

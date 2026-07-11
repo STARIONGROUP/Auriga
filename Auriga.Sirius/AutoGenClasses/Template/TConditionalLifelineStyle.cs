@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TConditionalLifelineStyle</c> class.
     /// </summary>
-    public partial class TConditionalLifelineStyle : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle
+    public partial class TConditionalLifelineStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle
     {
         /// <summary>
         /// Gets the outputs.
@@ -58,7 +58,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// Gets the elements directly contained by this <c>TConditionalLifelineStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Style != null)
             {

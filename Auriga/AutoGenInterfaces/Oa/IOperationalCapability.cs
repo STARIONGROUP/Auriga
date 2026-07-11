@@ -41,7 +41,7 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned entity operational capability involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IEntityOperationalCapabilityInvolvement> OwnedEntityOperationalCapabilityInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IEntityOperationalCapabilityInvolvement> OwnedEntityOperationalCapabilityInvolvements { get; }
 
         /// <summary>
         /// Gets the realizing capabilities.

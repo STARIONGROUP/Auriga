@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TTransformer</c> class.
     /// </summary>
-    public partial class TTransformer : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITTransformer
+    public partial class TTransformer : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITTransformer
     {
         /// <summary>
         /// Gets the outputs.

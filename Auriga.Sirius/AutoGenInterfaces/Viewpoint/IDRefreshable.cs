@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// An element that can be refreshed.
     /// </summary>
-    public partial interface IDRefreshable : Auriga.IAurigaElement
+    public partial interface IDRefreshable : Auriga.Core.IAurigaElement
     {
     }
 }

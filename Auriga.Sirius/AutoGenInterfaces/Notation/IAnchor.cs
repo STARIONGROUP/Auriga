@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Anchor</c> interface.
     /// </summary>
-    public partial interface IAnchor : Auriga.IAurigaElement
+    public partial interface IAnchor : Auriga.Core.IAurigaElement
     {
     }
 }

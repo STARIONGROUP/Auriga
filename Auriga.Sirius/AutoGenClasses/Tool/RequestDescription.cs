@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// Definition of the <c>RequestDescription</c> class.
     /// </summary>
-    public partial class RequestDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.IRequestDescription
+    public partial class RequestDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.IRequestDescription
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -33,12 +33,12 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the filters.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="Filters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
 
         /// <summary>
         /// If true then a refresh for the whole representation is executed after every execution of the tool.
@@ -74,7 +74,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// Gets the elements directly contained by this <c>RequestDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Filters)
             {

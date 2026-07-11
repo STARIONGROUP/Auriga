@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>PropertyValue</c> class.
     /// </summary>
-    public partial class PropertyValue : Auriga.AurigaElement, Auriga.Sirius.Notation.IPropertyValue
+    public partial class PropertyValue : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IPropertyValue
     {
         /// <summary>
         /// Gets or sets the instance type.

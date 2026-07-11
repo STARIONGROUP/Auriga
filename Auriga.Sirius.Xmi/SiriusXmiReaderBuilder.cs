@@ -12,9 +12,9 @@ namespace Auriga.Sirius.Xmi
     using System;
 
     using Auriga.Sirius.Xmi.AutoGenXmiReaders;
-    using Auriga.Xmi.Cache;
-    using Auriga.Xmi.Namespaces;
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Namespaces;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 
@@ -86,7 +86,7 @@ namespace Auriga.Sirius.Xmi
             var cache = new XmiElementCache();
             var namespaceResolver = new NamespaceResolver(AutoGenNamespaceRegistry.NamespaceToPackage);
             var facade = new XmiReaderFacade(cache, namespaceResolver, this.settings, this.loggerFactory);
-            var referenceResolver = new Auriga.Xmi.ReferenceResolver.ReferenceResolver(this.loggerFactory);
+            var referenceResolver = new Auriga.Xmi.Core.ReferenceResolver.ReferenceResolver(this.loggerFactory);
 
             return new XmiReader(cache, facade, namespaceResolver, referenceResolver, this.loggerFactory);
         }

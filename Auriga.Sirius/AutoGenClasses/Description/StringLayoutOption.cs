@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>StringLayoutOption</c> class.
     /// </summary>
-    public partial class StringLayoutOption : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IStringLayoutOption
+    public partial class StringLayoutOption : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IStringLayoutOption
     {
         /// <summary>
         /// Gets the description.

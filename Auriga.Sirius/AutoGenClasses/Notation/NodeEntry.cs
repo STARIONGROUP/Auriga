@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>NodeEntry</c> class.
     /// </summary>
-    public partial class NodeEntry : Auriga.AurigaElement, Auriga.Sirius.Notation.INodeEntry
+    public partial class NodeEntry : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.INodeEntry
     {
         /// <summary>
         /// Gets or sets the key.

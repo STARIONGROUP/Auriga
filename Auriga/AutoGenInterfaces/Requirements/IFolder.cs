@@ -23,7 +23,7 @@ namespace Auriga.Requirements
         /// <summary>
         /// Gets the owned requirements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Requirements.IRequirement> OwnedRequirements { get; }
+        Auriga.Core.IContainerList<Auriga.Requirements.IRequirement> OwnedRequirements { get; }
 
     }
 }

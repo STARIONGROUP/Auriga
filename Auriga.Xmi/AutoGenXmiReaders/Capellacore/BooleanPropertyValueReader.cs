@@ -18,8 +18,8 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Capellacore
     using System;
     using System.Xml;
 
-    using Auriga.Xmi.Cache;
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>UserFixedColor</c> class.
     /// </summary>
-    public partial class UserFixedColor : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IUserFixedColor
+    public partial class UserFixedColor : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IUserFixedColor
     {
         /// <summary>
         /// The blue value of the RGB color.

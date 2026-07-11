@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TConditionalExecutionStyle</c> class.
     /// </summary>
-    public partial class TConditionalExecutionStyle : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle
+    public partial class TConditionalExecutionStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle
     {
         /// <summary>
         /// Gets the outputs.
@@ -58,7 +58,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// Gets the elements directly contained by this <c>TConditionalExecutionStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Style != null)
             {

@@ -25,7 +25,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the details.
         /// </summary>
-        Auriga.IContainerList<Auriga.IAurigaElement> Details { get; }
+        Auriga.Core.IContainerList<Auriga.Core.IAurigaElement> Details { get; }
 
         /// <summary>
         /// Gets the references.

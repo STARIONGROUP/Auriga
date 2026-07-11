@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DAnalysisSessionEObject</c> class.
     /// </summary>
-    public partial class DAnalysisSessionEObject : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject
+    public partial class DAnalysisSessionEObject : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject
     {
         /// <summary>
         /// Gets the activated viewpoints.

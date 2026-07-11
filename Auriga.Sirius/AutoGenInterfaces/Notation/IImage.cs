@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Image</c> interface.
     /// </summary>
-    public partial interface IImage : Auriga.IAurigaElement
+    public partial interface IImage : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the data.

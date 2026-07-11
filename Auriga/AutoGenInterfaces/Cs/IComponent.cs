@@ -61,32 +61,32 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned component realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IComponentRealization> OwnedComponentRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IComponentRealization> OwnedComponentRealizations { get; }
 
         /// <summary>
         /// Gets the owned interface implementations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IInterfaceImplementation> OwnedInterfaceImplementations { get; }
 
         /// <summary>
         /// Gets the owned interface uses.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IInterfaceUse> OwnedInterfaceUses { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IInterfaceUse> OwnedInterfaceUses { get; }
 
         /// <summary>
         /// Gets the owned physical link categories.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalLinkCategory> OwnedPhysicalLinkCategories { get; }
 
         /// <summary>
         /// Gets the owned physical links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalLink> OwnedPhysicalLinks { get; }
 
         /// <summary>
         /// Gets the owned physical path.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalPath> OwnedPhysicalPath { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPath> OwnedPhysicalPath { get; }
 
         /// <summary>
         /// Gets the provided interfaces.

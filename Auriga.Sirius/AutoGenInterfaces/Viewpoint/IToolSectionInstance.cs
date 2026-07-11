@@ -28,12 +28,12 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the sub sections.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance> SubSections { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance> SubSections { get; }
 
         /// <summary>
         /// Gets the tools.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools { get; }
 
     }
 }

@@ -20,27 +20,27 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Ease the reuse of existing mappings. If the feature is not defined in this instance it will re-use the feature value of the imported one.
     /// </summary>
-    public partial class NodeMappingImport : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.INodeMappingImport
+    public partial class NodeMappingImport : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.INodeMappingImport
     {
         /// <summary>
         /// The mapping for nodes that are on the border of nodes created by this mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings => this.backingBorderedNodeMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings => this.backingBorderedNodeMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="BorderedNodeMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingBorderedNodeMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingBorderedNodeMappings;
 
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionnalStyles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> backingConditionnalStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> backingConditionnalStyles;
 
         /// <summary>
         /// true if the init/refresh operations should create elements for this mapping.
@@ -169,7 +169,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// Gets the elements directly contained by this <c>NodeMappingImport</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.BorderedNodeMappings)
             {

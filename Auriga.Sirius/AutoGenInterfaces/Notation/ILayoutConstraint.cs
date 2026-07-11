@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>LayoutConstraint</c> interface.
     /// </summary>
-    public partial interface ILayoutConstraint : Auriga.IAurigaElement
+    public partial interface ILayoutConstraint : Auriga.Core.IAurigaElement
     {
     }
 }

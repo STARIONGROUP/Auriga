@@ -23,12 +23,12 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the owned system component pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ISystemComponentPkg> OwnedSystemComponentPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ISystemComponentPkg> OwnedSystemComponentPkgs { get; }
 
         /// <summary>
         /// Gets the owned system components.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ISystemComponent> OwnedSystemComponents { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ISystemComponent> OwnedSystemComponents { get; }
 
     }
 }

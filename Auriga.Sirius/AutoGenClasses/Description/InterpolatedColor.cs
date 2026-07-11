@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// @Deprecated : Describes a color which varies between two extremes (red and green)
     /// depending on the values of dynamically computed expressions.
     /// </summary>
-    public partial class InterpolatedColor : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IInterpolatedColor
+    public partial class InterpolatedColor : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IInterpolatedColor
     {
         /// <summary>
         /// Gets the color steps.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep> ColorSteps => this.backingColorSteps ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep> ColorSteps => this.backingColorSteps ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep>(this);
 
         /// <summary>
         /// Backing field for <see cref="ColorSteps"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep> backingColorSteps;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IColorStep> backingColorSteps;
 
         /// <summary>
         /// An expression computing the value of the color. The value of the color must be include in the scale bounds
@@ -56,7 +56,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// Gets the elements directly contained by this <c>InterpolatedColor</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.ColorSteps)
             {

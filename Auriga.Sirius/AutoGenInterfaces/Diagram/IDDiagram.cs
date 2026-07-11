@@ -117,7 +117,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// The DDiagramElements directly owned by this diagram.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements { get; }
 
         /// <summary>
         /// Gets or sets the synchronized.

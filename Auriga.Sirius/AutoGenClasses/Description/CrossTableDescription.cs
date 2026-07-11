@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>CrossTableDescription</c> class.
     /// </summary>
-    public partial class CrossTableDescription : Auriga.AurigaElement, Auriga.Sirius.Table.Description.ICrossTableDescription
+    public partial class CrossTableDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.ICrossTableDescription
     {
         /// <summary>
         /// Gets the all create line.
@@ -46,12 +46,12 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the create column.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool> CreateColumn => this.backingCreateColumn ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool> CreateColumn => this.backingCreateColumn ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool>(this);
 
         /// <summary>
         /// Backing field for <see cref="CreateColumn"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool> backingCreateColumn;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool> backingCreateColumn;
 
         /// <summary>
         /// Gets or sets the documentation.
@@ -71,12 +71,12 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the imported elements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.IAurigaElement> ImportedElements => this.backingImportedElements ??= new Auriga.ContainerList<Auriga.IAurigaElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Core.IAurigaElement> ImportedElements => this.backingImportedElements ??= new Auriga.Core.ContainerList<Auriga.Core.IAurigaElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="ImportedElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.IAurigaElement> backingImportedElements;
+        private Auriga.Core.IContainerList<Auriga.Core.IAurigaElement> backingImportedElements;
 
         /// <summary>
         /// The initial width of the column header (calculated if not available).
@@ -91,12 +91,12 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the intersection.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping> Intersection => this.backingIntersection ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping> Intersection => this.backingIntersection ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="Intersection"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping> backingIntersection;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping> backingIntersection;
 
         /// <summary>
         /// The label used to display this viewpoint to the end-user.
@@ -116,52 +116,52 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the owned column mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping> OwnedColumnMappings => this.backingOwnedColumnMappings ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping> OwnedColumnMappings => this.backingOwnedColumnMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedColumnMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping> backingOwnedColumnMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping> backingOwnedColumnMappings;
 
         /// <summary>
         /// Gets the owned create line.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> OwnedCreateLine => this.backingOwnedCreateLine ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.ICreateLineTool>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> OwnedCreateLine => this.backingOwnedCreateLine ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.ICreateLineTool>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedCreateLine"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> backingOwnedCreateLine;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> backingOwnedCreateLine;
 
         /// <summary>
         /// Gets the owned line mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedLineMappings => this.backingOwnedLineMappings ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.ILineMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedLineMappings => this.backingOwnedLineMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.ILineMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedLineMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> backingOwnedLineMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> backingOwnedLineMappings;
 
         /// <summary>
         /// All tools of the section.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription> OwnedRepresentationCreationDescriptions => this.backingOwnedRepresentationCreationDescriptions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription> OwnedRepresentationCreationDescriptions => this.backingOwnedRepresentationCreationDescriptions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRepresentationCreationDescriptions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription> backingOwnedRepresentationCreationDescriptions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription> backingOwnedRepresentationCreationDescriptions;
 
         /// <summary>
         /// All navigation tools.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription> OwnedRepresentationNavigationDescriptions => this.backingOwnedRepresentationNavigationDescriptions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription> OwnedRepresentationNavigationDescriptions => this.backingOwnedRepresentationNavigationDescriptions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRepresentationNavigationDescriptions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription> backingOwnedRepresentationNavigationDescriptions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription> backingOwnedRepresentationNavigationDescriptions;
 
         /// <summary>
         /// The precondition (Acceleo Expression).
@@ -202,7 +202,7 @@ namespace Auriga.Sirius.Table.Description
         /// Gets the elements directly contained by this <c>CrossTableDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.CreateColumn)
             {

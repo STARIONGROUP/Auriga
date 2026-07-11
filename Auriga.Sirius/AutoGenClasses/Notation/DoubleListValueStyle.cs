@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>DoubleListValueStyle</c> class.
     /// </summary>
-    public partial class DoubleListValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IDoubleListValueStyle
+    public partial class DoubleListValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IDoubleListValueStyle
     {
         /// <summary>
         /// Gets the double list value.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>DoubleValueStyle</c> class.
     /// </summary>
-    public partial class DoubleValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IDoubleValueStyle
+    public partial class DoubleValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IDoubleValueStyle
     {
         /// <summary>
         /// Gets or sets the double value.

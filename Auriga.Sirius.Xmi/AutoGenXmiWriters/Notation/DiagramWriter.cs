@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Notation
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -63,7 +63,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Sirius.Notation.IDiagram poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.IAurigaElement, poco, "Element", context);
+            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             WriteEnumAttribute<Auriga.Sirius.Notation.MeasurementUnit>(xmlWriter, "measurementUnit", poco.MeasurementUnit);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             WriteStringAttribute(xmlWriter, "type", poco.Type);

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>IEdgeMapping</c> interface.
     /// </summary>
-    public partial interface IIEdgeMapping : Auriga.IAurigaElement
+    public partial interface IIEdgeMapping : Auriga.Core.IAurigaElement
     {
     }
 }

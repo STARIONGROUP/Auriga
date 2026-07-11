@@ -18,17 +18,17 @@ namespace Auriga.Requirements
     /// <summary>
     /// Definition of the <c>InternalRelation</c> class.
     /// </summary>
-    public partial class InternalRelation : Auriga.AurigaElement, Auriga.Requirements.IInternalRelation
+    public partial class InternalRelation : Auriga.Core.AurigaElement, Auriga.Requirements.IInternalRelation
     {
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets or sets the relation type.
@@ -69,7 +69,7 @@ namespace Auriga.Requirements
         /// Gets the elements directly contained by this <c>InternalRelation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedExtensions)
             {

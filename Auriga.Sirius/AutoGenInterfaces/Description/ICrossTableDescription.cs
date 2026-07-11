@@ -23,17 +23,17 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the create column.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool> CreateColumn { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateCrossColumnTool> CreateColumn { get; }
 
         /// <summary>
         /// Gets the intersection.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping> Intersection { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IIntersectionMapping> Intersection { get; }
 
         /// <summary>
         /// Gets the owned column mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping> OwnedColumnMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IElementColumnMapping> OwnedColumnMappings { get; }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// A color definition, which can produce a concrete RGB triplet.
     /// </summary>
-    public partial interface IColorDescription : Auriga.IAurigaElement
+    public partial interface IColorDescription : Auriga.Core.IAurigaElement
     {
     }
 }

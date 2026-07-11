@@ -33,7 +33,7 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned component port allocation ends.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentPortAllocationEnd> OwnedComponentPortAllocationEnds { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentPortAllocationEnd> OwnedComponentPortAllocationEnds { get; }
 
     }
 }

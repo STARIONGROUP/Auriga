@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Ordering
     /// <summary>
     /// Definition of the <c>EventEndsOrdering</c> class.
     /// </summary>
-    public partial class EventEndsOrdering : Auriga.AurigaElement, Auriga.Sirius.Sequence.Ordering.IEventEndsOrdering
+    public partial class EventEndsOrdering : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Ordering.IEventEndsOrdering
     {
         /// <summary>
         /// Gets the event ends.

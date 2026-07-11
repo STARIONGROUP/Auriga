@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the menu item description.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription> MenuItemDescription { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescription> MenuItemDescription { get; }
 
     }
 }

@@ -23,12 +23,12 @@ namespace Auriga.Requirements
         /// <summary>
         /// Gets the owned definition types.
         /// </summary>
-        Auriga.IContainerList<Auriga.Requirements.IDataTypeDefinition> OwnedDefinitionTypes { get; }
+        Auriga.Core.IContainerList<Auriga.Requirements.IDataTypeDefinition> OwnedDefinitionTypes { get; }
 
         /// <summary>
         /// Gets the owned types.
         /// </summary>
-        Auriga.IContainerList<Auriga.Requirements.IAbstractType> OwnedTypes { get; }
+        Auriga.Core.IContainerList<Auriga.Requirements.IAbstractType> OwnedTypes { get; }
 
     }
 }

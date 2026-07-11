@@ -23,7 +23,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the naming rules.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.INamingRule> NamingRules { get; }
 
     }
 }

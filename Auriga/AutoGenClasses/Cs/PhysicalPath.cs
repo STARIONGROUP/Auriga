@@ -21,7 +21,7 @@ namespace Auriga.Cs
     /// <summary>
     /// Definition of the <c>PhysicalPath</c> class.
     /// </summary>
-    public partial class PhysicalPath : Auriga.AurigaElement, Auriga.Cs.IPhysicalPath
+    public partial class PhysicalPath : Auriga.Core.AurigaElement, Auriga.Cs.IPhysicalPath
     {
         /// <summary>
         /// Gets the allocated component exchanges.
@@ -91,92 +91,92 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned component exchange allocations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Fa.IComponentExchangeAllocation> OwnedComponentExchangeAllocations => this.backingOwnedComponentExchangeAllocations ??= new Auriga.ContainerList<Auriga.Fa.IComponentExchangeAllocation>(this);
+        public Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeAllocation> OwnedComponentExchangeAllocations => this.backingOwnedComponentExchangeAllocations ??= new Auriga.Core.ContainerList<Auriga.Fa.IComponentExchangeAllocation>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedComponentExchangeAllocations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Fa.IComponentExchangeAllocation> backingOwnedComponentExchangeAllocations;
+        private Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeAllocation> backingOwnedComponentExchangeAllocations;
 
         /// <summary>
         /// Gets the owned constraints.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedConstraints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
         /// <summary>
         /// Gets the owned enumeration property types.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedEnumerationPropertyTypes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned migrated elements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedMigratedElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
         /// <summary>
         /// Gets the owned physical path involvements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Cs.IPhysicalPathInvolvement> OwnedPhysicalPathInvolvements => this.backingOwnedPhysicalPathInvolvements ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalPathInvolvement>(this);
+        public Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPathInvolvement> OwnedPhysicalPathInvolvements => this.backingOwnedPhysicalPathInvolvements ??= new Auriga.Core.ContainerList<Auriga.Cs.IPhysicalPathInvolvement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPhysicalPathInvolvements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Cs.IPhysicalPathInvolvement> backingOwnedPhysicalPathInvolvements;
+        private Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPathInvolvement> backingOwnedPhysicalPathInvolvements;
 
         /// <summary>
         /// Gets the owned physical path realizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Cs.IPhysicalPathRealization> OwnedPhysicalPathRealizations => this.backingOwnedPhysicalPathRealizations ??= new Auriga.ContainerList<Auriga.Cs.IPhysicalPathRealization>(this);
+        public Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPathRealization> OwnedPhysicalPathRealizations => this.backingOwnedPhysicalPathRealizations ??= new Auriga.Core.ContainerList<Auriga.Cs.IPhysicalPathRealization>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPhysicalPathRealizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Cs.IPhysicalPathRealization> backingOwnedPhysicalPathRealizations;
+        private Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPathRealization> backingOwnedPhysicalPathRealizations;
 
         /// <summary>
         /// Gets the owned property value groups.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValueGroups"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
         /// <summary>
         /// Gets the owned property values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
         /// <summary>
         /// Gets the realized physical paths.
@@ -222,7 +222,7 @@ namespace Auriga.Cs
         /// Gets the elements directly contained by this <c>PhysicalPath</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedComponentExchangeAllocations)
             {

@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Readers
+namespace Auriga.Xmi.Core.Readers
 {
     /// <summary>
     /// The settings that tune how the XMI reader behaves, shared with every generated per-type reader.

@@ -36,7 +36,7 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the owned annotation entries.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> OwnedAnnotationEntries { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> OwnedAnnotationEntries { get; }
 
         /// <summary>
         /// The directly contained representation elements

@@ -45,32 +45,32 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the owned feature extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription> OwnedFeatureExtensions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription> OwnedFeatureExtensions { get; }
 
         /// <summary>
         /// Gets the owned java extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension> OwnedJavaExtensions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension> OwnedJavaExtensions { get; }
 
         /// <summary>
         /// Gets the owned m m extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting> OwnedMMExtensions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting> OwnedMMExtensions { get; }
 
         /// <summary>
         /// Gets the owned representation extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription> OwnedRepresentationExtensions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription> OwnedRepresentationExtensions { get; }
 
         /// <summary>
         /// Gets the owned representations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations { get; }
 
         /// <summary>
         /// Gets the owned templates.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate> OwnedTemplates { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate> OwnedTemplates { get; }
 
         /// <summary>
         /// Gets the reuses.

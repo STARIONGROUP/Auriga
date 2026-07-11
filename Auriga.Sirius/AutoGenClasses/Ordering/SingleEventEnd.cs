@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Ordering
     /// <summary>
     /// Definition of the <c>SingleEventEnd</c> class.
     /// </summary>
-    public partial class SingleEventEnd : Auriga.AurigaElement, Auriga.Sirius.Sequence.Ordering.ISingleEventEnd
+    public partial class SingleEventEnd : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Ordering.ISingleEventEnd
     {
         /// <summary>
         /// Gets or sets the semantic end.

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// Graphical elements which only support colors from the system
     /// palette can use this type instead of the more general FixedColor.
     /// </summary>
-    public partial class SystemColor : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.ISystemColor
+    public partial class SystemColor : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.ISystemColor
     {
         /// <summary>
         /// The blue value of the RGB color.

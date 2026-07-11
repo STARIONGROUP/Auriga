@@ -18,23 +18,23 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>DecorationDescriptionsSet</c> class.
     /// </summary>
-    public partial class DecorationDescriptionsSet : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IDecorationDescriptionsSet
+    public partial class DecorationDescriptionsSet : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IDecorationDescriptionsSet
     {
         /// <summary>
         /// Gets the decoration descriptions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription> DecorationDescriptions => this.backingDecorationDescriptions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription> DecorationDescriptions => this.backingDecorationDescriptions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="DecorationDescriptions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription> backingDecorationDescriptions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDecorationDescription> backingDecorationDescriptions;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>DecorationDescriptionsSet</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.DecorationDescriptions)
             {

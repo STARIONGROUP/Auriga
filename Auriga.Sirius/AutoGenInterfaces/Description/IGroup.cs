@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IExtension> Extensions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IExtension> Extensions { get; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -33,7 +33,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the owned viewpoints.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint> OwnedViewpoints { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint> OwnedViewpoints { get; }
 
         /// <summary>
         /// Gets the system colors palette.
@@ -43,7 +43,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the user colors palettes.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette> UserColorsPalettes { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette> UserColorsPalettes { get; }
 
         /// <summary>
         /// Gets or sets the version.

@@ -26,7 +26,7 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the e annotations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry> EAnnotations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry> EAnnotations { get; }
 
         /// <summary>
         /// Gets the models.
@@ -36,12 +36,12 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the owned feature extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension> OwnedFeatureExtensions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDFeatureExtension> OwnedFeatureExtensions { get; }
 
         /// <summary>
         /// Gets the owned views.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDView> OwnedViews { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDView> OwnedViews { get; }
 
         /// <summary>
         /// Gets the referenced analysis.

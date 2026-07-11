@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// Definition of the <c>FlatContainerStyleDescription</c> class.
     /// </summary>
-    public partial class FlatContainerStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IFlatContainerStyleDescription
+    public partial class FlatContainerStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IFlatContainerStyleDescription
     {
         /// <summary>
         /// The height of the ellipse used to draw the corners.

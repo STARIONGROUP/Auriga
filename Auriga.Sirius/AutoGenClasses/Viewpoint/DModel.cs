@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DModel</c> class.
     /// </summary>
-    public partial class DModel : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDModel
+    public partial class DModel : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDModel
     {
         /// <summary>
         /// Gets or sets the name.

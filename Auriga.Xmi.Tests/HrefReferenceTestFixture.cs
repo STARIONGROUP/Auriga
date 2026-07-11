@@ -9,6 +9,7 @@
 
 namespace Auriga.Xmi.Tests
 {
+    using Auriga.Xmi.Core;
     using NUnit.Framework;
 
     /// <summary>

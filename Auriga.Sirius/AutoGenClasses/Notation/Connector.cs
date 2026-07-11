@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Connector</c> class.
     /// </summary>
-    public partial class Connector : Auriga.AurigaElement, Auriga.Sirius.Notation.IConnector
+    public partial class Connector : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IConnector
     {
         /// <summary>
         /// Gets or sets the avoid obstructions.
@@ -98,12 +98,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the persisted children.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren => this.backingPersistedChildren ??= new Auriga.ContainerList<Auriga.Sirius.Notation.INode>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren => this.backingPersistedChildren ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.INode>(this);
 
         /// <summary>
         /// Backing field for <see cref="PersistedChildren"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.INode> backingPersistedChildren;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.INode> backingPersistedChildren;
 
         /// <summary>
         /// Gets or sets the rounded bendpoints radius.
@@ -155,12 +155,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IStyle> Styles => this.backingStyles ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStyle> Styles => this.backingStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="Styles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IStyle> backingStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStyle> backingStyles;
 
         /// <summary>
         /// Gets or sets the target.
@@ -213,7 +213,7 @@ namespace Auriga.Sirius.Notation
         /// Gets the elements directly contained by this <c>Connector</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Bendpoints != null)
             {

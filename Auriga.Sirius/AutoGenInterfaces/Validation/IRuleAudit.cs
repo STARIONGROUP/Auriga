@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
     /// <summary>
     /// The validation expression.
     /// </summary>
-    public partial interface IRuleAudit : Auriga.IAurigaElement
+    public partial interface IRuleAudit : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// An expression checked on the model, if the audit fails (return false) then the rule fail.

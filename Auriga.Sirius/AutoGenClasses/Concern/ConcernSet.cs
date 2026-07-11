@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Concern
     /// <summary>
     /// A set of many concerns.
     /// </summary>
-    public partial class ConcernSet : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Concern.IConcernSet
+    public partial class ConcernSet : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Concern.IConcernSet
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -28,18 +28,18 @@ namespace Auriga.Sirius.Diagram.Description.Concern
         /// <summary>
         /// All concerns
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription> OwnedConcernDescriptions => this.backingOwnedConcernDescriptions ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription> OwnedConcernDescriptions => this.backingOwnedConcernDescriptions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedConcernDescriptions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription> backingOwnedConcernDescriptions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Concern.IConcernDescription> backingOwnedConcernDescriptions;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ConcernSet</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedConcernDescriptions)
             {

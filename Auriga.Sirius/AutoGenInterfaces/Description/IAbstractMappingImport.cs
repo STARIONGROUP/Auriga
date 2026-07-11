@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>AbstractMappingImport</c> interface.
     /// </summary>
-    public partial interface IAbstractMappingImport : Auriga.IAurigaElement
+    public partial interface IAbstractMappingImport : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Set to true if you don't want to inherit the sub mappings of the imported mapping.

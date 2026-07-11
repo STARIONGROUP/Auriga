@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Notation
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -64,7 +64,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed);
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.IAurigaElement, poco, "Element", context);
+            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             WriteStringAttribute(xmlWriter, "type", poco.Type);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
             this.WriteContainedElement(xmlWriter, "layoutConstraint", poco.LayoutConstraint, poco, "LayoutConstraint", context);

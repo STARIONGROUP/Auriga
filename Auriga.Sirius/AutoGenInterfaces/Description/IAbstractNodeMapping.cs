@@ -25,7 +25,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// The mapping for nodes that are on the border of nodes created by this mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings { get; }
 
         /// <summary>
         /// The domain class of the mapping.

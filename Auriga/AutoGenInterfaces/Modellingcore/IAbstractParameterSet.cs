@@ -25,7 +25,7 @@ namespace Auriga.Modellingcore
         /// <summary>
         /// Gets the owned conditions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConditions { get; }
+        Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConditions { get; }
 
         /// <summary>
         /// Gets the parameters.

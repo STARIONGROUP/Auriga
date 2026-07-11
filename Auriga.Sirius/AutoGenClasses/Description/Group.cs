@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>Group</c> class.
     /// </summary>
-    public partial class Group : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IGroup
+    public partial class Group : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IGroup
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -28,22 +28,22 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the e annotations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
 
         /// <summary>
         /// Backing field for <see cref="EAnnotations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
 
         /// <summary>
         /// Gets the extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IExtension> Extensions => this.backingExtensions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IExtension> Extensions => this.backingExtensions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="Extensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IExtension> backingExtensions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IExtension> backingExtensions;
 
         /// <summary>
         /// Gets or sets the name.
@@ -53,12 +53,12 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the owned viewpoints.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint> OwnedViewpoints => this.backingOwnedViewpoints ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint> OwnedViewpoints => this.backingOwnedViewpoints ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedViewpoints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint> backingOwnedViewpoints;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IViewpoint> backingOwnedViewpoints;
 
         /// <summary>
         /// Gets the system colors palette.
@@ -68,12 +68,12 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the user colors palettes.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette> UserColorsPalettes => this.backingUserColorsPalettes ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette> UserColorsPalettes => this.backingUserColorsPalettes ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette>(this);
 
         /// <summary>
         /// Backing field for <see cref="UserColorsPalettes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette> backingUserColorsPalettes;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColorsPalette> backingUserColorsPalettes;
 
         /// <summary>
         /// Gets or sets the version.
@@ -84,7 +84,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// Gets the elements directly contained by this <c>Group</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.EAnnotations)
             {

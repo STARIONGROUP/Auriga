@@ -18,27 +18,27 @@ namespace Auriga.Libraries
     /// <summary>
     /// Definition of the <c>ModelInformation</c> class.
     /// </summary>
-    public partial class ModelInformation : Auriga.AurigaElement, Auriga.Libraries.IModelInformation
+    public partial class ModelInformation : Auriga.Core.AurigaElement, Auriga.Libraries.IModelInformation
     {
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned references.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Libraries.ILibraryReference> OwnedReferences => this.backingOwnedReferences ??= new Auriga.ContainerList<Auriga.Libraries.ILibraryReference>(this);
+        public Auriga.Core.IContainerList<Auriga.Libraries.ILibraryReference> OwnedReferences => this.backingOwnedReferences ??= new Auriga.Core.ContainerList<Auriga.Libraries.ILibraryReference>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedReferences"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Libraries.ILibraryReference> backingOwnedReferences;
+        private Auriga.Core.IContainerList<Auriga.Libraries.ILibraryReference> backingOwnedReferences;
 
         /// <summary>
         /// Gets or sets the version.
@@ -49,7 +49,7 @@ namespace Auriga.Libraries
         /// Gets the elements directly contained by this <c>ModelInformation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedExtensions)
             {

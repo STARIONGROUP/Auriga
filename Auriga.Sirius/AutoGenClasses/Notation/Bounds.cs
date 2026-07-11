@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Bounds</c> class.
     /// </summary>
-    public partial class Bounds : Auriga.AurigaElement, Auriga.Sirius.Notation.IBounds
+    public partial class Bounds : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IBounds
     {
         /// <summary>
         /// Gets or sets the height.

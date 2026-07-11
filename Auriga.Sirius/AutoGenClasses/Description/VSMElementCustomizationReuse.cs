@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>VSMElementCustomizationReuse</c> class.
     /// </summary>
-    public partial class VSMElementCustomizationReuse : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IVSMElementCustomizationReuse
+    public partial class VSMElementCustomizationReuse : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IVSMElementCustomizationReuse
     {
         /// <summary>
         /// Gets the applied on.

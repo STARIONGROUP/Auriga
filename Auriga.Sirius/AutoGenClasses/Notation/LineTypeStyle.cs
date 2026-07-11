@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>LineTypeStyle</c> class.
     /// </summary>
-    public partial class LineTypeStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.ILineTypeStyle
+    public partial class LineTypeStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ILineTypeStyle
     {
         /// <summary>
         /// Gets or sets the line type.

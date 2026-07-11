@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Viewpoint.Description
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -66,7 +66,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Viewpoint.Description
             WriteStringAttribute(xmlWriter, "defaultValueExpression", poco.DefaultValueExpression);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             WriteStringAttribute(xmlWriter, "userDocumentation", poco.UserDocumentation);
-            this.WriteReferenceAttribute(xmlWriter, "valueType", poco.ValueType as Auriga.IAurigaElement, poco, "ValueType", context);
+            this.WriteReferenceAttribute(xmlWriter, "valueType", poco.ValueType as Auriga.Core.IAurigaElement, poco, "ValueType", context);
         }
     }
 }

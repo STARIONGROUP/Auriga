@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Graphical filter to store absolute bounds.
     /// </summary>
-    public partial class AbsoluteBoundsFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.IAbsoluteBoundsFilter
+    public partial class AbsoluteBoundsFilter : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IAbsoluteBoundsFilter
     {
         /// <summary>
         /// Gets or sets the height.

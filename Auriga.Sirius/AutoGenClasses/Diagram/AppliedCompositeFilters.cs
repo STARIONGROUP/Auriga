@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Graphical filter listing the active filters applied on a diagram element.
     /// </summary>
-    public partial class AppliedCompositeFilters : Auriga.AurigaElement, Auriga.Sirius.Diagram.IAppliedCompositeFilters
+    public partial class AppliedCompositeFilters : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IAppliedCompositeFilters
     {
         /// <summary>
         /// Gets the composite filter descriptions.

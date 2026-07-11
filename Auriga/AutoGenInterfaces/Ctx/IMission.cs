@@ -36,12 +36,12 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the owned capability exploitations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ICapabilityExploitation> OwnedCapabilityExploitations { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ICapabilityExploitation> OwnedCapabilityExploitations { get; }
 
         /// <summary>
         /// Gets the owned mission involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.IMissionInvolvement> OwnedMissionInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.IMissionInvolvement> OwnedMissionInvolvements { get; }
 
     }
 }

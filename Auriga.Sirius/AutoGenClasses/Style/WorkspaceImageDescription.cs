@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// A custom image that is present in the user workspace.
     /// </summary>
-    public partial class WorkspaceImageDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IWorkspaceImageDescription
+    public partial class WorkspaceImageDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IWorkspaceImageDescription
     {
         /// <summary>
         /// The height of the ellipse used to draw the corners.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Image</c> class.
     /// </summary>
-    public partial class Image : Auriga.AurigaElement, Auriga.Sirius.Notation.IImage
+    public partial class Image : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IImage
     {
         /// <summary>
         /// Gets or sets the data.

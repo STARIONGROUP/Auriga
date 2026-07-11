@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>ImageBufferStyle</c> class.
     /// </summary>
-    public partial class ImageBufferStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IImageBufferStyle
+    public partial class ImageBufferStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IImageBufferStyle
     {
         /// <summary>
         /// Gets or sets the anti alias.
@@ -78,7 +78,7 @@ namespace Auriga.Sirius.Notation
         /// Gets the elements directly contained by this <c>ImageBufferStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.CropBound != null)
             {

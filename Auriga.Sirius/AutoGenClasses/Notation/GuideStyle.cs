@@ -18,33 +18,33 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>GuideStyle</c> class.
     /// </summary>
-    public partial class GuideStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IGuideStyle
+    public partial class GuideStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IGuideStyle
     {
         /// <summary>
         /// Gets the horizontal guides.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> HorizontalGuides => this.backingHorizontalGuides ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> HorizontalGuides => this.backingHorizontalGuides ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
 
         /// <summary>
         /// Backing field for <see cref="HorizontalGuides"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> backingHorizontalGuides;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> backingHorizontalGuides;
 
         /// <summary>
         /// Gets the vertical guides.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> VerticalGuides => this.backingVerticalGuides ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> VerticalGuides => this.backingVerticalGuides ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IGuide>(this);
 
         /// <summary>
         /// Backing field for <see cref="VerticalGuides"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> backingVerticalGuides;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> backingVerticalGuides;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>GuideStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.HorizontalGuides)
             {

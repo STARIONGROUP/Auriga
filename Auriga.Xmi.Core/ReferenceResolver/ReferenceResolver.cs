@@ -7,14 +7,15 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.ReferenceResolver
+namespace Auriga.Xmi.Core.ReferenceResolver
 {
+    using Auriga.Core;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
 
-    using Auriga.Xmi.Cache;
+    using Auriga.Xmi.Core.Cache;
 
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Abstractions;

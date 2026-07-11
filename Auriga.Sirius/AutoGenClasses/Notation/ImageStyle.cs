@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>ImageStyle</c> class.
     /// </summary>
-    public partial class ImageStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IImageStyle
+    public partial class ImageStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IImageStyle
     {
         /// <summary>
         /// Gets or sets the anti alias.
@@ -56,7 +56,7 @@ namespace Auriga.Sirius.Notation
         /// Gets the elements directly contained by this <c>ImageStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.CropBound != null)
             {

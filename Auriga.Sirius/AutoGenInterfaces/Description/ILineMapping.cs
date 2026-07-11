@@ -31,7 +31,7 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the create.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> Create { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> Create { get; }
 
         /// <summary>
         /// Gets or sets the delete.
@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the owned sub lines.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedSubLines { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedSubLines { get; }
 
         /// <summary>
         /// Gets the reused in mappings.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DRepresentationDescriptor</c> class.
     /// </summary>
-    public partial class DRepresentationDescriptor : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDRepresentationDescriptor
+    public partial class DRepresentationDescriptor : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDRepresentationDescriptor
     {
         /// <summary>
         /// Gets or sets the change id.
@@ -38,12 +38,12 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the e annotations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
 
         /// <summary>
         /// Backing field for <see cref="EAnnotations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
 
         /// <summary>
         /// The name of the representation.
@@ -74,7 +74,7 @@ namespace Auriga.Sirius.Viewpoint
         /// Gets the elements directly contained by this <c>DRepresentationDescriptor</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.EAnnotations)
             {

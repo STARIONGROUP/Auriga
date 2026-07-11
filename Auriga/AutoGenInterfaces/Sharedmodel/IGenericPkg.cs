@@ -23,12 +23,12 @@ namespace Auriga.Sharedmodel
         /// <summary>
         /// Gets the capella elements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.ICapellaElement> CapellaElements { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.ICapellaElement> CapellaElements { get; }
 
         /// <summary>
         /// Gets the sub generic pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sharedmodel.IGenericPkg> SubGenericPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Sharedmodel.IGenericPkg> SubGenericPkgs { get; }
 
     }
 }

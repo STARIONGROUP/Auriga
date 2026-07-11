@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The dot style.
     /// </summary>
-    public partial class Dot : Auriga.AurigaElement, Auriga.Sirius.Diagram.IDot
+    public partial class Dot : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IDot
     {
         /// <summary>
         /// The background color.

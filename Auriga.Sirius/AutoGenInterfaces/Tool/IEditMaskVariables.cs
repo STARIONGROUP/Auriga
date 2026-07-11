@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>EditMaskVariables</c> interface.
     /// </summary>
-    public partial interface IEditMaskVariables : Auriga.IAurigaElement
+    public partial interface IEditMaskVariables : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Editing mask, in the form of {0} : {1} for instance.

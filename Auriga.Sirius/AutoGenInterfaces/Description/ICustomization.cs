@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>Customization</c> interface.
     /// </summary>
-    public partial interface ICustomization : Auriga.IAurigaElement
+    public partial interface ICustomization : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the vsm element customizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization> VsmElementCustomizations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization> VsmElementCustomizations { get; }
 
     }
 }

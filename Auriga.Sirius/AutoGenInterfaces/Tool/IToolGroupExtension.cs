@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// Definition of the <c>ToolGroupExtension</c> interface.
     /// </summary>
-    public partial interface IToolGroupExtension : Auriga.IAurigaElement
+    public partial interface IToolGroupExtension : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the group.
@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the tools.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> Tools { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> Tools { get; }
 
     }
 }

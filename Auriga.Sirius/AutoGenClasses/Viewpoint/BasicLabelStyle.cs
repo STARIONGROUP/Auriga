@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// The style of a label.
     /// </summary>
-    public partial class BasicLabelStyle : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IBasicLabelStyle
+    public partial class BasicLabelStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IBasicLabelStyle
     {
         /// <summary>
         /// Gets the custom features.

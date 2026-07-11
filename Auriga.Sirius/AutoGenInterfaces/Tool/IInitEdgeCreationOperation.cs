@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>InitEdgeCreationOperation</c> interface.
     /// </summary>
-    public partial interface IInitEdgeCreationOperation : Auriga.IAurigaElement
+    public partial interface IInitEdgeCreationOperation : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the first model operations.

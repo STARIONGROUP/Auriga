@@ -31,7 +31,7 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the owned column mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.IFeatureColumnMapping> OwnedColumnMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IFeatureColumnMapping> OwnedColumnMappings { get; }
 
         /// <summary>
         /// Gets the reused column mappings.

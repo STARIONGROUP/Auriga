@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TConditionalMessageStyle</c> class.
     /// </summary>
-    public partial class TConditionalMessageStyle : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle
+    public partial class TConditionalMessageStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle
     {
         /// <summary>
         /// Gets the outputs.
@@ -58,7 +58,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// Gets the elements directly contained by this <c>TConditionalMessageStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Style != null)
             {

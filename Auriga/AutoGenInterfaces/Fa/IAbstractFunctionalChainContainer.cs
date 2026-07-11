@@ -23,7 +23,7 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned functional chains.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionalChain> OwnedFunctionalChains { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChain> OwnedFunctionalChains { get; }
 
     }
 }

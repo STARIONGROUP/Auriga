@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
     /// <summary>
     /// A filter that filters mappings.
     /// </summary>
-    public partial class MappingFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.IMappingFilter
+    public partial class MappingFilter : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.IMappingFilter
     {
         /// <summary>
         /// A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this element will be kept.

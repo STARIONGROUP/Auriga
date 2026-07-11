@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>TableVariable</c> class.
     /// </summary>
-    public partial class TableVariable : Auriga.AurigaElement, Auriga.Sirius.Table.Description.ITableVariable
+    public partial class TableVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.ITableVariable
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -33,18 +33,18 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the sub variables.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables => this.backingSubVariables ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables => this.backingSubVariables ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubVariables"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> backingSubVariables;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> backingSubVariables;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>TableVariable</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubVariables)
             {

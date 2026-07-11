@@ -23,7 +23,7 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the owned gates.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IGate> OwnedGates { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IGate> OwnedGates { get; }
 
     }
 }

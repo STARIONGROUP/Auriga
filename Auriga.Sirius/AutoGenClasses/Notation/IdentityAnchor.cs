@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>IdentityAnchor</c> class.
     /// </summary>
-    public partial class IdentityAnchor : Auriga.AurigaElement, Auriga.Sirius.Notation.IIdentityAnchor
+    public partial class IdentityAnchor : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IIdentityAnchor
     {
     }
 }

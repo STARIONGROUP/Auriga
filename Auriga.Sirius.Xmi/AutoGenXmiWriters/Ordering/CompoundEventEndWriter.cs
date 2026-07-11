@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Sequence.Ordering
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -63,7 +63,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Sequence.Ordering
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Sirius.Sequence.Ordering.ICompoundEventEnd poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "semanticEnd", poco.SemanticEnd as Auriga.IAurigaElement, poco, "SemanticEnd", context);
+            this.WriteReferenceAttribute(xmlWriter, "semanticEnd", poco.SemanticEnd as Auriga.Core.IAurigaElement, poco, "SemanticEnd", context);
             this.WriteContainedElements(xmlWriter, "eventEnds", poco.EventEnds, poco, "EventEnds", context);
         }
     }

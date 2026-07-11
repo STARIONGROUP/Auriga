@@ -25,7 +25,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the additional layers.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> AdditionalLayers { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> AdditionalLayers { get; }
 
         /// <summary>
         /// Color of the diagram background, white if unset.
@@ -40,7 +40,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// container mappings that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> ContainerMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> ContainerMappings { get; }
 
         /// <summary>
         /// The default concern to use.
@@ -65,12 +65,12 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Edge mapping imports that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> EdgeMappingImports { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> EdgeMappingImports { get; }
 
         /// <summary>
         /// Edge mappings that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> EdgeMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> EdgeMappings { get; }
 
         /// <summary>
         /// Boolean indicating whether or not to show dynamic popup bars with creation tools.
@@ -80,7 +80,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Filters that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription> Filters { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription> Filters { get; }
 
         /// <summary>
         /// Gets or sets the init.
@@ -95,7 +95,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Node mappings that are owned by this simple mapping.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> NodeMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> NodeMappings { get; }
 
         /// <summary>
         /// The predicate that allows (or not) to create a viewpoint from a Meta Class.

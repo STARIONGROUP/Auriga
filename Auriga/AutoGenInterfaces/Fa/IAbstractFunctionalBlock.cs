@@ -46,17 +46,17 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned component exchange categories.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeCategory> OwnedComponentExchangeCategories { get; }
 
         /// <summary>
         /// Gets the owned component exchanges.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentExchange> OwnedComponentExchanges { get; }
 
         /// <summary>
         /// Gets the owned functional allocation.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentFunctionalAllocation> OwnedFunctionalAllocation { get; }
 
     }
 }

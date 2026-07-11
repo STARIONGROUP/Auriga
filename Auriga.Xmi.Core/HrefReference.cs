@@ -7,8 +7,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi
+namespace Auriga.Xmi.Core
 {
+    using Auriga.Core;
     using System;
     using System.Collections.Generic;
 

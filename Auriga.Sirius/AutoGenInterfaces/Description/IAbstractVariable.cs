@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>AbstractVariable</c> interface.
     /// </summary>
-    public partial interface IAbstractVariable : Auriga.IAurigaElement
+    public partial interface IAbstractVariable : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the name.

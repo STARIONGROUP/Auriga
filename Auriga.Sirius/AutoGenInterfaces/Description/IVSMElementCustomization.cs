@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the feature customizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization> FeatureCustomizations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization> FeatureCustomizations { get; }
 
         /// <summary>
         /// Gets or sets the predicate expression.

@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the values.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> Values { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> Values { get; }
 
     }
 }

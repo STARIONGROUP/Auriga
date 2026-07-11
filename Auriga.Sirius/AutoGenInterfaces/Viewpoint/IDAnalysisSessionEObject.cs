@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DAnalysisSessionEObject</c> interface.
     /// </summary>
-    public partial interface IDAnalysisSessionEObject : Auriga.IAurigaElement
+    public partial interface IDAnalysisSessionEObject : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the activated viewpoints.

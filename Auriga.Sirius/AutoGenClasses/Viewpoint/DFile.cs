@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>DFile</c> class.
     /// </summary>
-    public partial class DFile : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDFile
+    public partial class DFile : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDFile
     {
         /// <summary>
         /// Gets or sets the name.

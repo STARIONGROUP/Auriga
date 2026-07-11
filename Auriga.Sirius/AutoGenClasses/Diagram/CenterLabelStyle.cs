@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The style of a label.
     /// </summary>
-    public partial class CenterLabelStyle : Auriga.AurigaElement, Auriga.Sirius.Diagram.ICenterLabelStyle
+    public partial class CenterLabelStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.ICenterLabelStyle
     {
         /// <summary>
         /// Gets the custom features.

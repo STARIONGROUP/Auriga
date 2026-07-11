@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Diagram
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -79,7 +79,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Diagram
             this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
             WriteIntegerAttribute(xmlWriter, "size", poco.Size);
             this.WriteReferenceAttribute(xmlWriter, "sourceNode", poco.SourceNode, poco, "SourceNode", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.IAurigaElement, poco, "Target", context);
+            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             this.WriteReferenceAttribute(xmlWriter, "targetNode", poco.TargetNode, poco, "TargetNode", context);
             WriteStringAttribute(xmlWriter, "tooltipText", poco.TooltipText);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);

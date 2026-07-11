@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Writers
+namespace Auriga.Xmi.Core.Writers
 {
     /// <summary>
     /// The formatting options the <see cref="IXmiWriter"/> applies when serializing a Capella model.

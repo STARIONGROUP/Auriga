@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// A MappingBasedDecoration applies decorations on views that are issued from one or more mappings.
     /// </summary>
-    public partial class MappingBasedDecoration : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IMappingBasedDecoration
+    public partial class MappingBasedDecoration : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IMappingBasedDecoration
     {
         /// <summary>
         /// Gets or sets the distribution direction.

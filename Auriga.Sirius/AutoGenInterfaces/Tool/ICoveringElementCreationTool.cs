@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Description.Tool
     /// <summary>
     /// Definition of the <c>CoveringElementCreationTool</c> interface.
     /// </summary>
-    public partial interface ICoveringElementCreationTool : Auriga.IAurigaElement
+    public partial interface ICoveringElementCreationTool : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the covered lifelines.

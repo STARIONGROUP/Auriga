@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// Definition of the <c>DeleteHookParameter</c> interface.
     /// </summary>
-    public partial interface IDeleteHookParameter : Auriga.IAurigaElement
+    public partial interface IDeleteHookParameter : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Name of the parameter

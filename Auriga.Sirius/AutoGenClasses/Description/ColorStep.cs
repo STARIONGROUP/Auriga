@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// A ColorStep is identified by its associatedValue and references an associatedColor (FixedColor).
     /// </summary>
-    public partial class ColorStep : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IColorStep
+    public partial class ColorStep : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IColorStep
     {
         /// <summary>
         /// Gets or sets the associated color.

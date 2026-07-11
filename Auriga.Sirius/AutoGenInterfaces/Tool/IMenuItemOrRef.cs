@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>MenuItemOrRef</c> interface.
     /// </summary>
-    public partial interface IMenuItemOrRef : Auriga.IAurigaElement
+    public partial interface IMenuItemOrRef : Auriga.Core.IAurigaElement
     {
     }
 }

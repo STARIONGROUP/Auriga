@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>DAnnotation</c> class.
     /// </summary>
-    public partial class DAnnotation : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IDAnnotation
+    public partial class DAnnotation : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IDAnnotation
     {
         /// <summary>
         /// Gets the details.
         /// </summary>
-        public Auriga.IContainerList<Auriga.IAurigaElement> Details => this.backingDetails ??= new Auriga.ContainerList<Auriga.IAurigaElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Core.IAurigaElement> Details => this.backingDetails ??= new Auriga.Core.ContainerList<Auriga.Core.IAurigaElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="Details"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.IAurigaElement> backingDetails;
+        private Auriga.Core.IContainerList<Auriga.Core.IAurigaElement> backingDetails;
 
         /// <summary>
         /// Gets the references.
@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// Gets the elements directly contained by this <c>DAnnotation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Details)
             {

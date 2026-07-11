@@ -23,7 +23,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned property value pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs { get; }
 
     }
 }

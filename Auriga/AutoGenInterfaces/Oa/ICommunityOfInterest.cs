@@ -23,7 +23,7 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the community of interest compositions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.ICommunityOfInterestComposition> CommunityOfInterestCompositions { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.ICommunityOfInterestComposition> CommunityOfInterestCompositions { get; }
 
     }
 }

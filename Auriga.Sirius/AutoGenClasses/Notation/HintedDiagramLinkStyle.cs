@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>HintedDiagramLinkStyle</c> class.
     /// </summary>
-    public partial class HintedDiagramLinkStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IHintedDiagramLinkStyle
+    public partial class HintedDiagramLinkStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IHintedDiagramLinkStyle
     {
         /// <summary>
         /// Gets or sets the diagram link.

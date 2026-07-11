@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> ConditionnalStyles { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> ConditionnalStyles { get; }
 
         /// <summary>
         /// The style of the node.

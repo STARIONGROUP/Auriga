@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Table
     /// <summary>
     /// Definition of the <c>DCellStyle</c> class.
     /// </summary>
-    public partial class DCellStyle : Auriga.AurigaElement, Auriga.Sirius.Table.IDCellStyle
+    public partial class DCellStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Table.IDCellStyle
     {
         /// <summary>
         /// Gets or sets the background color.

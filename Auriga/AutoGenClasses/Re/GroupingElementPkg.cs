@@ -18,7 +18,7 @@ namespace Auriga.Re
     /// <summary>
     /// Definition of the <c>GroupingElementPkg</c> class.
     /// </summary>
-    public partial class GroupingElementPkg : Auriga.AurigaElement, Auriga.Re.IGroupingElementPkg
+    public partial class GroupingElementPkg : Auriga.Core.AurigaElement, Auriga.Re.IGroupingElementPkg
     {
         /// <summary>
         /// Gets or sets the name.
@@ -28,38 +28,38 @@ namespace Auriga.Re
         /// <summary>
         /// Gets the owned element pkgs.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Re.ICatalogElementPkg> OwnedElementPkgs => this.backingOwnedElementPkgs ??= new Auriga.ContainerList<Auriga.Re.ICatalogElementPkg>(this);
+        public Auriga.Core.IContainerList<Auriga.Re.ICatalogElementPkg> OwnedElementPkgs => this.backingOwnedElementPkgs ??= new Auriga.Core.ContainerList<Auriga.Re.ICatalogElementPkg>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedElementPkgs"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Re.ICatalogElementPkg> backingOwnedElementPkgs;
+        private Auriga.Core.IContainerList<Auriga.Re.ICatalogElementPkg> backingOwnedElementPkgs;
 
         /// <summary>
         /// Gets the owned elements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Re.ICatalogElement> OwnedElements => this.backingOwnedElements ??= new Auriga.ContainerList<Auriga.Re.ICatalogElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Re.ICatalogElement> OwnedElements => this.backingOwnedElements ??= new Auriga.Core.ContainerList<Auriga.Re.ICatalogElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Re.ICatalogElement> backingOwnedElements;
+        private Auriga.Core.IContainerList<Auriga.Re.ICatalogElement> backingOwnedElements;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>GroupingElementPkg</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedElementPkgs)
             {

@@ -23,12 +23,12 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the owned capabilities.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ICapability> OwnedCapabilities { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ICapability> OwnedCapabilities { get; }
 
         /// <summary>
         /// Gets the owned capability pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ICapabilityPkg> OwnedCapabilityPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ICapabilityPkg> OwnedCapabilityPkgs { get; }
 
     }
 }

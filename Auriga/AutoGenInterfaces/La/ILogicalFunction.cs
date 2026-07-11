@@ -41,7 +41,7 @@ namespace Auriga.La
         /// <summary>
         /// Gets the owned logical function pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.La.ILogicalFunctionPkg> OwnedLogicalFunctionPkgs { get; }
 
         /// <summary>
         /// Gets the realized system functions.

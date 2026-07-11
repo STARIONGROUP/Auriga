@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>DrawerStyle</c> class.
     /// </summary>
-    public partial class DrawerStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IDrawerStyle
+    public partial class DrawerStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IDrawerStyle
     {
         /// <summary>
         /// Gets or sets the collapsed.

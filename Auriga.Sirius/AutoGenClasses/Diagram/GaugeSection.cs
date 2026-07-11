@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The gauge section represents one gauge of a GaugeCompositeStyle.
     /// </summary>
-    public partial class GaugeSection : Auriga.AurigaElement, Auriga.Sirius.Diagram.IGaugeSection
+    public partial class GaugeSection : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IGaugeSection
     {
         /// <summary>
         /// The background color.

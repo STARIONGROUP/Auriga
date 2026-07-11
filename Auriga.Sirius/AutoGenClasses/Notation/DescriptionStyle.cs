@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>DescriptionStyle</c> class.
     /// </summary>
-    public partial class DescriptionStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IDescriptionStyle
+    public partial class DescriptionStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IDescriptionStyle
     {
         /// <summary>
         /// Gets or sets the description.

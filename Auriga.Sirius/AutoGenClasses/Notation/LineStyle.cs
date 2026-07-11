@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>LineStyle</c> class.
     /// </summary>
-    public partial class LineStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.ILineStyle
+    public partial class LineStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ILineStyle
     {
         /// <summary>
         /// Gets or sets the line color.

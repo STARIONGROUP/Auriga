@@ -16,7 +16,7 @@ namespace Auriga.Sirius.Xmi.Tests
 
     using Auriga.Sirius.Diagram;
     using Auriga.Sirius.Viewpoint;
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Readers;
 
     using NUnit.Framework;
 

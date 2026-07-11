@@ -12,7 +12,7 @@ namespace Auriga.Xmi.Tests
     using System.IO;
     using System.Text;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging.Abstractions;
 

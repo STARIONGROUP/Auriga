@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Ordering
     /// <summary>
     /// Definition of the <c>InstanceRolesOrdering</c> class.
     /// </summary>
-    public partial class InstanceRolesOrdering : Auriga.AurigaElement, Auriga.Sirius.Sequence.Ordering.IInstanceRolesOrdering
+    public partial class InstanceRolesOrdering : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Ordering.IInstanceRolesOrdering
     {
         /// <summary>
         /// Gets the semantic instance roles.

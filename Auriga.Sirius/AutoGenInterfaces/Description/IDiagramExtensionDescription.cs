@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the layers.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> Layers { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> Layers { get; }
 
         /// <summary>
         /// The validations rules to add

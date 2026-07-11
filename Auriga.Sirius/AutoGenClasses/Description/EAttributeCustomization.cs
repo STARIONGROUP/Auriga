@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>EAttributeCustomization</c> class.
     /// </summary>
-    public partial class EAttributeCustomization : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IEAttributeCustomization
+    public partial class EAttributeCustomization : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IEAttributeCustomization
     {
         /// <summary>
         /// Gets the applied on.

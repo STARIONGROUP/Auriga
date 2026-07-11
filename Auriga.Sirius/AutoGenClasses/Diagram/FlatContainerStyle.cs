@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>FlatContainerStyle</c> class.
     /// </summary>
-    public partial class FlatContainerStyle : Auriga.AurigaElement, Auriga.Sirius.Diagram.IFlatContainerStyle
+    public partial class FlatContainerStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IFlatContainerStyle
     {
         /// <summary>
         /// The background color.

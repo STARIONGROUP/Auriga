@@ -23,12 +23,12 @@ namespace Auriga.Epbs
         /// <summary>
         /// Gets the owned configuration item pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Epbs.IConfigurationItemPkg> OwnedConfigurationItemPkgs { get; }
 
         /// <summary>
         /// Gets the owned configuration items.
         /// </summary>
-        Auriga.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
+        Auriga.Core.IContainerList<Auriga.Epbs.IConfigurationItem> OwnedConfigurationItems { get; }
 
     }
 }

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>IntListValueStyle</c> class.
     /// </summary>
-    public partial class IntListValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IIntListValueStyle
+    public partial class IntListValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IIntListValueStyle
     {
         /// <summary>
         /// Gets the int list value.

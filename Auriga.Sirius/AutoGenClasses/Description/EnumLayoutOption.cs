@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>EnumLayoutOption</c> class.
     /// </summary>
-    public partial class EnumLayoutOption : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IEnumLayoutOption
+    public partial class EnumLayoutOption : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IEnumLayoutOption
     {
         /// <summary>
         /// Gets the choices.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> Choices => this.backingChoices ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> Choices => this.backingChoices ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="Choices"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> backingChoices;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEnumLayoutValue> backingChoices;
 
         /// <summary>
         /// Gets the description.
@@ -73,7 +73,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// Gets the elements directly contained by this <c>EnumLayoutOption</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Choices)
             {

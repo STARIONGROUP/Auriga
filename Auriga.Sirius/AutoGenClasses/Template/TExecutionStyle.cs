@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TExecutionStyle</c> class.
     /// </summary>
-    public partial class TExecutionStyle : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITExecutionStyle
+    public partial class TExecutionStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITExecutionStyle
     {
         /// <summary>
         /// Gets or sets the background color.

@@ -37,7 +37,7 @@ namespace Auriga.Sirius.Viewpoint
         /// The representation descriptors that are owned by this DView
         /// .
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor> OwnedRepresentationDescriptors { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor> OwnedRepresentationDescriptors { get; }
 
         /// <summary>
         /// The viewpoint that is used for this view

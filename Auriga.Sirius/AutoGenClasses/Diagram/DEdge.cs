@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// A view edge. It is a connection between two EdgeTarget.
     /// </summary>
-    public partial class DEdge : Auriga.AurigaElement, Auriga.Sirius.Diagram.IDEdge
+    public partial class DEdge : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IDEdge
     {
         /// <summary>
         /// The mapping that has created the view edge.
@@ -41,12 +41,12 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Gets the decorations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> Decorations => this.backingDecorations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IDecoration>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> Decorations => this.backingDecorations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IDecoration>(this);
 
         /// <summary>
         /// Backing field for <see cref="Decorations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> backingDecorations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDecoration> backingDecorations;
 
         /// <summary>
         /// The mapping of the element.
@@ -61,12 +61,12 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Graphical filters allowing to handle this element.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> GraphicalFilters => this.backingGraphicalFilters ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.IGraphicalFilter>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> GraphicalFilters => this.backingGraphicalFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.IGraphicalFilter>(this);
 
         /// <summary>
         /// Backing field for <see cref="GraphicalFilters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> backingGraphicalFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGraphicalFilter> backingGraphicalFilters;
 
         /// <summary>
         /// The incoming view edges.
@@ -184,7 +184,7 @@ namespace Auriga.Sirius.Diagram
         /// Gets the elements directly contained by this <c>DEdge</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Decorations)
             {

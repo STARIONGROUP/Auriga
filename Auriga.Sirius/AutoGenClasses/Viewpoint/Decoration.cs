@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Represent a decoration of a diagram element with a specific icon, based on its relationships with MetaElements of the MetaModel.
     /// </summary>
-    public partial class Decoration : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDecoration
+    public partial class Decoration : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDecoration
     {
         /// <summary>
         /// The referenced DecorationDescription.

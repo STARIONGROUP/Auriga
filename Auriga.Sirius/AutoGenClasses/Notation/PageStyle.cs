@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>PageStyle</c> class.
     /// </summary>
-    public partial class PageStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IPageStyle
+    public partial class PageStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IPageStyle
     {
         /// <summary>
         /// Gets or sets the page height.

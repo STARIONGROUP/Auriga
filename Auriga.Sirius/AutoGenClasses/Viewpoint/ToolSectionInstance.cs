@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>ToolSectionInstance</c> class.
     /// </summary>
-    public partial class ToolSectionInstance : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IToolSectionInstance
+    public partial class ToolSectionInstance : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IToolSectionInstance
     {
         /// <summary>
         /// Gets or sets the enabled.
@@ -38,12 +38,12 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the sub sections.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance> SubSections => this.backingSubSections ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance> SubSections => this.backingSubSections ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubSections"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance> backingSubSections;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolSectionInstance> backingSubSections;
 
         /// <summary>
         /// Gets or sets the tool entry.
@@ -53,12 +53,12 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the tools.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools => this.backingTools ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IToolInstance>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools => this.backingTools ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IToolInstance>(this);
 
         /// <summary>
         /// Backing field for <see cref="Tools"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> backingTools;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> backingTools;
 
         /// <summary>
         /// Gets or sets the visible.
@@ -69,7 +69,7 @@ namespace Auriga.Sirius.Viewpoint
         /// Gets the elements directly contained by this <c>ToolSectionInstance</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubSections)
             {

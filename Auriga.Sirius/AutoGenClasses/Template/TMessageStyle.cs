@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TMessageStyle</c> class.
     /// </summary>
-    public partial class TMessageStyle : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITMessageStyle
+    public partial class TMessageStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITMessageStyle
     {
         /// <summary>
         /// Expression that computes the name of a node.

@@ -143,7 +143,7 @@ namespace Auriga.CodeGenerator.Helpers
             if (containment)
             {
                 var elementType = ContainmentElementType(feature);
-                return collection ? $"Auriga.IContainerList<{elementType}>" : elementType;
+                return collection ? $"Auriga.Core.IContainerList<{elementType}>" : elementType;
             }
 
             if (collection)
@@ -157,7 +157,7 @@ namespace Auriga.CodeGenerator.Helpers
         /// <summary>
         /// Renders the element type of a containment feature. A containment reference always holds model
         /// elements, so a containment of <c>ecore::EObject</c> (whose base type is <c>object</c>) is typed
-        /// as <c>Auriga.IAurigaElement</c> — the shared element base — so it satisfies the
+        /// as <c>Auriga.Core.IAurigaElement</c> — the shared element base — so it satisfies the
         /// <c>IContainerList&lt;T&gt;</c>/<c>ContainerList&lt;T&gt;</c> element constraint. Every other
         /// target keeps its generated interface type. (No Capella containment targets <c>EObject</c>, so
         /// Capella output is unchanged.)
@@ -168,7 +168,7 @@ namespace Auriga.CodeGenerator.Helpers
         {
             var baseType = BaseType(feature.EType);
 
-            return baseType == ObjectType ? "Auriga.IAurigaElement" : baseType;
+            return baseType == ObjectType ? "Auriga.Core.IAurigaElement" : baseType;
         }
 
         /// <summary>

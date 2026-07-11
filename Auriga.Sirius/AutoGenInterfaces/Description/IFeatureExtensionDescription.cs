@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>FeatureExtensionDescription</c> interface.
     /// </summary>
-    public partial interface IFeatureExtensionDescription : Auriga.IAurigaElement
+    public partial interface IFeatureExtensionDescription : Auriga.Core.IAurigaElement
     {
     }
 }

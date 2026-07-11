@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
     /// <summary>
     /// A filter.
     /// </summary>
-    public partial interface IFilter : Auriga.IAurigaElement
+    public partial interface IFilter : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this element will be kept.

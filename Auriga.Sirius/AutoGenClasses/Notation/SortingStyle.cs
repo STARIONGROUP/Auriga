@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>SortingStyle</c> class.
     /// </summary>
-    public partial class SortingStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.ISortingStyle
+    public partial class SortingStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ISortingStyle
     {
         /// <summary>
         /// Gets the sorted objects.

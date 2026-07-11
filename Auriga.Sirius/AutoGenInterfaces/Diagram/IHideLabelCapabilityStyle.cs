@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>HideLabelCapabilityStyle</c> interface.
     /// </summary>
-    public partial interface IHideLabelCapabilityStyle : Auriga.IAurigaElement
+    public partial interface IHideLabelCapabilityStyle : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// The default visibility of the label (available only if labelPosition equals BORDER).

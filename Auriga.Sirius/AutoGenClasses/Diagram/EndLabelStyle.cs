@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The style of a label.
     /// </summary>
-    public partial class EndLabelStyle : Auriga.AurigaElement, Auriga.Sirius.Diagram.IEndLabelStyle
+    public partial class EndLabelStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IEndLabelStyle
     {
         /// <summary>
         /// Gets the custom features.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>FillStyle</c> class.
     /// </summary>
-    public partial class FillStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IFillStyle
+    public partial class FillStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IFillStyle
     {
         /// <summary>
         /// Gets or sets the fill color.

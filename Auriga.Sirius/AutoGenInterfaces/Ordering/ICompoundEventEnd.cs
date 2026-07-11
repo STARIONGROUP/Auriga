@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Sequence.Ordering
         /// <summary>
         /// Gets the event ends.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd> EventEnds { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd> EventEnds { get; }
 
     }
 }

@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the tools.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> Tools { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> Tools { get; }
 
     }
 }

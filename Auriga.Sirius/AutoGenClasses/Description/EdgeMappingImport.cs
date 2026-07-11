@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>EdgeMappingImport</c> class.
     /// </summary>
-    public partial class EdgeMappingImport : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IEdgeMappingImport
+    public partial class EdgeMappingImport : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IEdgeMappingImport
     {
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionnalStyles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> backingConditionnalStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> backingConditionnalStyles;
 
         /// <summary>
         /// Gets or sets the documentation.
@@ -59,7 +59,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// Gets the elements directly contained by this <c>EdgeMappingImport</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.ConditionnalStyles)
             {

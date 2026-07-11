@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>TypedVariable</c> class.
     /// </summary>
-    public partial class TypedVariable : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.ITypedVariable
+    public partial class TypedVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.ITypedVariable
     {
         /// <summary>
         /// An expression used to define the default variable value.

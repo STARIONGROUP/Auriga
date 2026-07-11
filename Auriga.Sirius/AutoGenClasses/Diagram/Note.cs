@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>Note</c> class.
     /// </summary>
-    public partial class Note : Auriga.AurigaElement, Auriga.Sirius.Diagram.INote
+    public partial class Note : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.INote
     {
         /// <summary>
         /// Gets or sets the border color.

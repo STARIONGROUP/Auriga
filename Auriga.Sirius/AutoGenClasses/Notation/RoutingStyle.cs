@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>RoutingStyle</c> class.
     /// </summary>
-    public partial class RoutingStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IRoutingStyle
+    public partial class RoutingStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IRoutingStyle
     {
         /// <summary>
         /// Gets or sets the avoid obstructions.

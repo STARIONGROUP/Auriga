@@ -18,23 +18,23 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>SessionManagerEObject</c> class.
     /// </summary>
-    public partial class SessionManagerEObject : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.ISessionManagerEObject
+    public partial class SessionManagerEObject : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.ISessionManagerEObject
     {
         /// <summary>
         /// Gets the owned sessions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject> OwnedSessions => this.backingOwnedSessions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject> OwnedSessions => this.backingOwnedSessions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedSessions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject> backingOwnedSessions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject> backingOwnedSessions;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>SessionManagerEObject</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedSessions)
             {

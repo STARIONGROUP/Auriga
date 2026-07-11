@@ -26,7 +26,7 @@ namespace Auriga.Sirius.Table
         /// <summary>
         /// List of cells of this line. This list does not necessarily have as many cells as there are columns. Indeed, the «blank cells» are not created.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.IDCell> Cells { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.IDCell> Cells { get; }
 
         /// <summary>
         /// Gets or sets the collapsed.

@@ -31,12 +31,12 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the naming rules.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.INamingRule> NamingRules { get; }
 
         /// <summary>
         /// Gets the owned traces.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces { get; }
 
     }
 }

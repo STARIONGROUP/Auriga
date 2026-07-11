@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
     /// <summary>
     /// A filter that filters viewpoint elements considering an expression and some variables defined by the user.
     /// </summary>
-    public partial class VariableFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.IVariableFilter
+    public partial class VariableFilter : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.IVariableFilter
     {
         /// <summary>
         /// A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this element will be kept.
@@ -28,12 +28,12 @@ namespace Auriga.Sirius.Diagram.Description.Filter
         /// <summary>
         /// Gets the owned variables.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> OwnedVariables => this.backingOwnedVariables ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> OwnedVariables => this.backingOwnedVariables ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedVariables"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> backingOwnedVariables;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> backingOwnedVariables;
 
         /// <summary>
         /// The condition to apply on the semantic element.
@@ -44,7 +44,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
         /// Gets the elements directly contained by this <c>VariableFilter</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedVariables)
             {

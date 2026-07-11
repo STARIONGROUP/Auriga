@@ -23,12 +23,12 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned concept pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IConceptPkg> OwnedConceptPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IConceptPkg> OwnedConceptPkgs { get; }
 
         /// <summary>
         /// Gets the owned concepts.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IConcept> OwnedConcepts { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IConcept> OwnedConcepts { get; }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>CompositeLayout</c> class.
     /// </summary>
-    public partial class CompositeLayout : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.ICompositeLayout
+    public partial class CompositeLayout : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.ICompositeLayout
     {
         /// <summary>
         /// Gets or sets the direction.

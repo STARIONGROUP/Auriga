@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// A tool section enclosed some tools.
     /// </summary>
-    public partial class ToolSection : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.IToolSection
+    public partial class ToolSection : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.IToolSection
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -31,12 +31,12 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the group extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension> GroupExtensions => this.backingGroupExtensions ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension> GroupExtensions => this.backingGroupExtensions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="GroupExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension> backingGroupExtensions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension> backingGroupExtensions;
 
         /// <summary>
         /// Groups available on this layer.
@@ -61,12 +61,12 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// All tools of the section.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> OwnedTools => this.backingOwnedTools ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> OwnedTools => this.backingOwnedTools ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedTools"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> backingOwnedTools;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> backingOwnedTools;
 
         /// <summary>
         /// Popup menus available on this layer.
@@ -81,18 +81,18 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// All sub sections
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> SubSections => this.backingSubSections ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> SubSections => this.backingSubSections ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubSections"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> backingSubSections;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> backingSubSections;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ToolSection</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.GroupExtensions)
             {

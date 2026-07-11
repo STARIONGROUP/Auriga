@@ -28,7 +28,7 @@ namespace Auriga.Activity
         /// <summary>
         /// Gets the result.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IOutputPin> Result { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IOutputPin> Result { get; }
 
     }
 }

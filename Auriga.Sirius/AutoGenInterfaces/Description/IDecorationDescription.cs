@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>DecorationDescription</c> interface.
     /// </summary>
-    public partial interface IDecorationDescription : Auriga.IAurigaElement
+    public partial interface IDecorationDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the distribution direction.

@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the properties map.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry> PropertiesMap { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry> PropertiesMap { get; }
 
     }
 }

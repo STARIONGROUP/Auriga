@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>NameVariable</c> class.
     /// </summary>
-    public partial class NameVariable : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.INameVariable
+    public partial class NameVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.INameVariable
     {
         /// <summary>
         /// Gets or sets the name.

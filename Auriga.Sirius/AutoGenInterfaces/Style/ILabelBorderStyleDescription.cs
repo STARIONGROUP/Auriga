@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     /// <summary>
     /// The style of the border of a container label.
     /// </summary>
-    public partial interface ILabelBorderStyleDescription : Auriga.IAurigaElement
+    public partial interface ILabelBorderStyleDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the corner height.

@@ -18,17 +18,17 @@ namespace Auriga.Requirements
     /// <summary>
     /// Definition of the <c>EnumerationDataTypeDefinition</c> class.
     /// </summary>
-    public partial class EnumerationDataTypeDefinition : Auriga.AurigaElement, Auriga.Requirements.IEnumerationDataTypeDefinition
+    public partial class EnumerationDataTypeDefinition : Auriga.Core.AurigaElement, Auriga.Requirements.IEnumerationDataTypeDefinition
     {
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets or sets the req i f description.
@@ -48,18 +48,18 @@ namespace Auriga.Requirements
         /// <summary>
         /// Gets the specified values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Requirements.IEnumValue> SpecifiedValues => this.backingSpecifiedValues ??= new Auriga.ContainerList<Auriga.Requirements.IEnumValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Requirements.IEnumValue> SpecifiedValues => this.backingSpecifiedValues ??= new Auriga.Core.ContainerList<Auriga.Requirements.IEnumValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="SpecifiedValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Requirements.IEnumValue> backingSpecifiedValues;
+        private Auriga.Core.IContainerList<Auriga.Requirements.IEnumValue> backingSpecifiedValues;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>EnumerationDataTypeDefinition</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedExtensions)
             {

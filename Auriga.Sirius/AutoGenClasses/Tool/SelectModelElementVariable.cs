@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>SelectModelElementVariable</c> class.
     /// </summary>
-    public partial class SelectModelElementVariable : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ISelectModelElementVariable
+    public partial class SelectModelElementVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ISelectModelElementVariable
     {
         /// <summary>
         /// Gets or sets the candidates expression.

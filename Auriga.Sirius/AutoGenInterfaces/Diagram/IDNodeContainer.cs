@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// elements owned by this container.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDDiagramElement> OwnedDiagramElements { get; }
 
     }
 }

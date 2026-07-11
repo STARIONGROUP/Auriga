@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>VariableContainer</c> interface.
     /// </summary>
-    public partial interface IVariableContainer : Auriga.IAurigaElement
+    public partial interface IVariableContainer : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the sub variables.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables { get; }
 
     }
 }

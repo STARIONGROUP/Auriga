@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// This class allows to import a Java Class that is used as an Acceleo Service. All acceleo expressions can use the services.
     /// </summary>
-    public partial class JavaExtension : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IJavaExtension
+    public partial class JavaExtension : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IJavaExtension
     {
         /// <summary>
         /// The name of the class to import.

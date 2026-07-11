@@ -28,7 +28,7 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets the owned state event realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IStateEventRealization> OwnedStateEventRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IStateEventRealization> OwnedStateEventRealizations { get; }
 
     }
 }

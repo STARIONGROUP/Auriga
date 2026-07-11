@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>BooleanLayoutOption</c> class.
     /// </summary>
-    public partial class BooleanLayoutOption : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IBooleanLayoutOption
+    public partial class BooleanLayoutOption : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IBooleanLayoutOption
     {
         /// <summary>
         /// Gets the description.

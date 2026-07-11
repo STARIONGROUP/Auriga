@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// An view is the root element
     /// </summary>
-    public partial class DView : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IDView
+    public partial class DView : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IDView
     {
         /// <summary>
         /// Gets the models.
@@ -54,12 +54,12 @@ namespace Auriga.Sirius.Viewpoint
         /// The representation descriptors that are owned by this DView
         /// .
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor> OwnedRepresentationDescriptors => this.backingOwnedRepresentationDescriptors ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor> OwnedRepresentationDescriptors => this.backingOwnedRepresentationDescriptors ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRepresentationDescriptors"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor> backingOwnedRepresentationDescriptors;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDRepresentationDescriptor> backingOwnedRepresentationDescriptors;
 
         /// <summary>
         /// Gets or sets the uid.
@@ -75,7 +75,7 @@ namespace Auriga.Sirius.Viewpoint
         /// Gets the elements directly contained by this <c>DView</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.OwnedExtensions != null)
             {

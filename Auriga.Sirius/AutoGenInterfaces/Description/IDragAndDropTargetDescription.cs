@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// A DragAndDropTargetDescription is a Description or Mapping that can have many DropTools
     /// </summary>
-    public partial interface IDragAndDropTargetDescription : Auriga.IAurigaElement
+    public partial interface IDragAndDropTargetDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the drop descriptions.

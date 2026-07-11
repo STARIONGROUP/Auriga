@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Style</c> interface.
     /// </summary>
-    public partial interface IStyle : Auriga.IAurigaElement
+    public partial interface IStyle : Auriga.Core.IAurigaElement
     {
     }
 }

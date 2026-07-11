@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>VSMElementCustomization</c> class.
     /// </summary>
-    public partial class VSMElementCustomization : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IVSMElementCustomization
+    public partial class VSMElementCustomization : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IVSMElementCustomization
     {
         /// <summary>
         /// Gets the feature customizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization> FeatureCustomizations => this.backingFeatureCustomizations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization> FeatureCustomizations => this.backingFeatureCustomizations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization>(this);
 
         /// <summary>
         /// Backing field for <see cref="FeatureCustomizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization> backingFeatureCustomizations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IEStructuralFeatureCustomization> backingFeatureCustomizations;
 
         /// <summary>
         /// Gets or sets the predicate expression.
@@ -39,7 +39,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// Gets the elements directly contained by this <c>VSMElementCustomization</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.FeatureCustomizations)
             {

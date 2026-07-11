@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Graphical filter specifying that the owner element has to be hidden.
     /// </summary>
-    public partial class HideFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.IHideFilter
+    public partial class HideFilter : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IHideFilter
     {
         /// <summary>
         /// Gets or sets the uid.

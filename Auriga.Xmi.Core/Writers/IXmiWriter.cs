@@ -7,8 +7,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Writers
+namespace Auriga.Xmi.Core.Writers
 {
+    using Auriga.Core;
     using System.IO;
 
     /// <summary>

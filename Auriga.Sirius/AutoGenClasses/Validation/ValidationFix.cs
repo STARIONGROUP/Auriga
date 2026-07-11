@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
     /// <summary>
     /// Definition of the <c>ValidationFix</c> class.
     /// </summary>
-    public partial class ValidationFix : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix
+    public partial class ValidationFix : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix
     {
         /// <summary>
         /// The first operation.
@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
         /// Gets the elements directly contained by this <c>ValidationFix</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.InitialOperation != null)
             {

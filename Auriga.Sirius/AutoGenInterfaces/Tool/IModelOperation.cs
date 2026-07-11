@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>ModelOperation</c> interface.
     /// </summary>
-    public partial interface IModelOperation : Auriga.IAurigaElement
+    public partial interface IModelOperation : Auriga.Core.IAurigaElement
     {
     }
 }

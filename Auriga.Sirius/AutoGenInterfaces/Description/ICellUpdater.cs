@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>CellUpdater</c> interface.
     /// </summary>
-    public partial interface ICellUpdater : Auriga.IAurigaElement
+    public partial interface ICellUpdater : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the can edit.

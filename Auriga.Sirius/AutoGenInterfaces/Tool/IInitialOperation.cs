@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>InitialOperation</c> interface.
     /// </summary>
-    public partial interface IInitialOperation : Auriga.IAurigaElement
+    public partial interface IInitialOperation : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the first model operations.

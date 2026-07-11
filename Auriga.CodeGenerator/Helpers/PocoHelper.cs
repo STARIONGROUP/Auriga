@@ -28,7 +28,7 @@ namespace Auriga.CodeGenerator.Helpers
     public static class PocoHelper
     {
         /// <summary>
-        /// Member names supplied by <c>Auriga.IAurigaElement</c>; a same-named Capella feature is mapped
+        /// Member names supplied by <c>Auriga.Core.IAurigaElement</c>; a same-named Capella feature is mapped
         /// onto the inherited member rather than re-declared (which would hide the base).
         /// </summary>
         private static readonly HashSet<string> ReservedMembers = new(StringComparer.Ordinal) { "Id", "Container" };
@@ -61,7 +61,7 @@ namespace Auriga.CodeGenerator.Helpers
                 writer.WriteSafeString(Extends((EClass)arguments[0]!)));
 
             handlebars.RegisterHelper("Bases", (writer, _, arguments) =>
-                writer.WriteSafeString($" : Auriga.AurigaElement, {CSharpNaming.InterfaceType((EClass)arguments[0]!)}"));
+                writer.WriteSafeString($" : Auriga.Core.AurigaElement, {CSharpNaming.InterfaceType((EClass)arguments[0]!)}"));
 
             handlebars.RegisterHelper("InterfaceDeclaration", (writer, _, arguments) =>
                 writer.WriteSafeString(Declaration((EStructuralFeature)arguments[0]!, forInterface: true)));
@@ -164,7 +164,7 @@ namespace Auriga.CodeGenerator.Helpers
 
             return supertypes.Count > 0
                 ? " : " + string.Join(", ", supertypes.Select(CSharpNaming.InterfaceType))
-                : " : Auriga.IAurigaElement";
+                : " : Auriga.Core.IAurigaElement";
         }
 
         private static string Declaration(EStructuralFeature feature, bool forInterface)
@@ -193,7 +193,7 @@ namespace Auriga.CodeGenerator.Helpers
             {
                 var field = "backing" + name;
                 var elementType = CSharpType.ContainmentElementType(feature);
-                return $"public {type} {name} => this.{field} ??= new Auriga.ContainerList<{elementType}>(this);\n\n" +
+                return $"public {type} {name} => this.{field} ??= new Auriga.Core.ContainerList<{elementType}>(this);\n\n" +
                        $"        /// <summary>\n" +
                        $"        /// Backing field for <see cref=\"{name}\"/>.\n" +
                        $"        /// </summary>\n" +
@@ -256,7 +256,7 @@ namespace Auriga.CodeGenerator.Helpers
             builder.Append($"        /// Gets the elements directly contained by this <c>{CSharpNaming.Capitalize(eClass.Name)}</c>.\n");
             builder.Append("        /// </summary>\n");
             builder.Append("        /// <returns>the directly contained elements</returns>\n");
-            builder.Append("        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()\n");
+            builder.Append("        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()\n");
             builder.Append("        {\n");
 
             for (var i = 0; i < containments.Count; i++)

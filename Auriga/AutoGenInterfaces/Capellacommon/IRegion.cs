@@ -30,12 +30,12 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets the owned states.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IAbstractState> OwnedStates { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IAbstractState> OwnedStates { get; }
 
         /// <summary>
         /// Gets the owned transitions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IStateTransition> OwnedTransitions { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IStateTransition> OwnedTransitions { get; }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>Ratio</c> class.
     /// </summary>
-    public partial class Ratio : Auriga.AurigaElement, Auriga.Sirius.Notation.IRatio
+    public partial class Ratio : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IRatio
     {
         /// <summary>
         /// Gets or sets the value.

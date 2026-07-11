@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// Gets the computed style descriptions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.IStyleDescription> ComputedStyleDescriptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Style.IStyleDescription> ComputedStyleDescriptions { get; }
 
     }
 }

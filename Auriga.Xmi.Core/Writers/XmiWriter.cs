@@ -7,8 +7,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Writers
+namespace Auriga.Xmi.Core.Writers
 {
+    using Auriga.Core;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -22,7 +23,7 @@ namespace Auriga.Xmi.Writers
     /// Serializes a Capella object graph back to XMI, preserving the fragment layout it was read from. It
     /// writes the document root with the package prefix and the <c>xmlns</c> declarations of every package
     /// the document uses, then delegates each element to its generated per-type writer through the facade.
-    /// The inverse of <see cref="Auriga.Xmi.Readers.XmiReader"/>.
+    /// The inverse of <see cref="Auriga.Xmi.Core.Readers.XmiReader"/>.
     /// </summary>
     public sealed class XmiWriter : IXmiWriter
     {

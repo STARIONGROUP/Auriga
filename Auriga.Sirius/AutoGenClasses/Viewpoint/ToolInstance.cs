@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>ToolInstance</c> class.
     /// </summary>
-    public partial class ToolInstance : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IToolInstance
+    public partial class ToolInstance : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IToolInstance
     {
         /// <summary>
         /// Gets or sets the enabled.

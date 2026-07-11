@@ -31,12 +31,12 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned component port allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentPortAllocation> OwnedComponentPortAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentPortAllocation> OwnedComponentPortAllocations { get; }
 
         /// <summary>
         /// Gets the owned physical port realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IPhysicalPortRealization> OwnedPhysicalPortRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IPhysicalPortRealization> OwnedPhysicalPortRealizations { get; }
 
         /// <summary>
         /// Gets the realized physical ports.

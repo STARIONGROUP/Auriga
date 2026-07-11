@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>FontStyle</c> class.
     /// </summary>
-    public partial class FontStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IFontStyle
+    public partial class FontStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IFontStyle
     {
         /// <summary>
         /// Gets or sets the bold.

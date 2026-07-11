@@ -23,7 +23,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned literals.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyLiteral> OwnedLiterals { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyLiteral> OwnedLiterals { get; }
 
     }
 }

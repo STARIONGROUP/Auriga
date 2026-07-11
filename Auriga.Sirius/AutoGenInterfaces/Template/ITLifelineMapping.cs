@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle> ConditionalLifeLineStyles { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle> ConditionalLifeLineStyles { get; }
 
         /// <summary>
         /// Gets or sets the end of life style.
@@ -38,7 +38,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the execution mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings { get; }
 
         /// <summary>
         /// Gets or sets the instance role style.

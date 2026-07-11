@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the members.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDResource> Members { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDResource> Members { get; }
 
     }
 }

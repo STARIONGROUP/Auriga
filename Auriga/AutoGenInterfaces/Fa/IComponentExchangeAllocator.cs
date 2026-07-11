@@ -31,7 +31,7 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned component exchange allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentExchangeAllocation> OwnedComponentExchangeAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeAllocation> OwnedComponentExchangeAllocations { get; }
 
     }
 }

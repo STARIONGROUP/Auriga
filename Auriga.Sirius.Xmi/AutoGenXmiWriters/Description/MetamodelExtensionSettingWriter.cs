@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Viewpoint.Description
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -63,7 +63,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "extensionGroup", poco.ExtensionGroup as Auriga.IAurigaElement, poco, "ExtensionGroup", context);
+            this.WriteReferenceAttribute(xmlWriter, "extensionGroup", poco.ExtensionGroup as Auriga.Core.IAurigaElement, poco, "ExtensionGroup", context);
         }
     }
 }

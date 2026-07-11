@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>StringToPropertyValueMapEntry</c> interface.
     /// </summary>
-    public partial interface IStringToPropertyValueMapEntry : Auriga.IAurigaElement
+    public partial interface IStringToPropertyValueMapEntry : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the key.

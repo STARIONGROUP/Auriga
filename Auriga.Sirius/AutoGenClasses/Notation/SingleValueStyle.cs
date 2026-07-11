@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>SingleValueStyle</c> class.
     /// </summary>
-    public partial class SingleValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.ISingleValueStyle
+    public partial class SingleValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ISingleValueStyle
     {
         /// <summary>
         /// Gets or sets the instance type.

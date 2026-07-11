@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Description
     /// <summary>
     /// Definition of the <c>CoveredLifelinesVariable</c> class.
     /// </summary>
-    public partial class CoveredLifelinesVariable : Auriga.AurigaElement, Auriga.Sirius.Sequence.Description.ICoveredLifelinesVariable
+    public partial class CoveredLifelinesVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Description.ICoveredLifelinesVariable
     {
         /// <summary>
         /// Gets or sets the name.

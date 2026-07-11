@@ -56,7 +56,7 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the owned operational analysis realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.IOperationalAnalysisRealization> OwnedOperationalAnalysisRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.IOperationalAnalysisRealization> OwnedOperationalAnalysisRealizations { get; }
 
         /// <summary>
         /// Gets or sets the owned system component pkg.

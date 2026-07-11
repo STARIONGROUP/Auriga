@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>ElementSelectVariable</c> class.
     /// </summary>
-    public partial class ElementSelectVariable : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IElementSelectVariable
+    public partial class ElementSelectVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IElementSelectVariable
     {
         /// <summary>
         /// Gets or sets the name.

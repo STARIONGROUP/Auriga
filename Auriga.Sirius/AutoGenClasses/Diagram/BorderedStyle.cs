@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>BorderedStyle</c> class.
     /// </summary>
-    public partial class BorderedStyle : Auriga.AurigaElement, Auriga.Sirius.Diagram.IBorderedStyle
+    public partial class BorderedStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IBorderedStyle
     {
         /// <summary>
         /// Gets or sets the border color.

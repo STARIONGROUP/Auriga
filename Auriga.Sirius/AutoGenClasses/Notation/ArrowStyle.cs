@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>ArrowStyle</c> class.
     /// </summary>
-    public partial class ArrowStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IArrowStyle
+    public partial class ArrowStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IArrowStyle
     {
         /// <summary>
         /// Gets or sets the arrow source.

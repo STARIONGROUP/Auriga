@@ -15,7 +15,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Notation
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -65,7 +65,7 @@ namespace Auriga.Sirius.Xmi.AutoGenXmiWriters.Notation
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "avoidObstructions", poco.AvoidObstructions);
             WriteBooleanAttribute(xmlWriter, "closestDistance", poco.ClosestDistance);
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.IAurigaElement, poco, "Element", context);
+            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             WriteEnumAttribute<Auriga.Sirius.Notation.JumpLinkStatus>(xmlWriter, "jumpLinkStatus", poco.JumpLinkStatus);
             WriteEnumAttribute<Auriga.Sirius.Notation.JumpLinkType>(xmlWriter, "jumpLinkType", poco.JumpLinkType);
             WriteBooleanAttribute(xmlWriter, "jumpLinksReverse", poco.JumpLinksReverse);

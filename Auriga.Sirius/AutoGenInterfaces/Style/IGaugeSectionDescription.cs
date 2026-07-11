@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// The gauge section represents one gauge of a GaugeCompositeStyle.
     /// </summary>
-    public partial interface IGaugeSectionDescription : Auriga.IAurigaElement
+    public partial interface IGaugeSectionDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// The background color.

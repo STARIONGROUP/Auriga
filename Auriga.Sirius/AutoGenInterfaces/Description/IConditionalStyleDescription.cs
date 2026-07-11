@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>ConditionalStyleDescription</c> interface.
     /// </summary>
-    public partial interface IConditionalStyleDescription : Auriga.IAurigaElement
+    public partial interface IConditionalStyleDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// This expression will get evaluated and if it returns true the contained style will be choosen.

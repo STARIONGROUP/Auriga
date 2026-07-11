@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>IntValueStyle</c> class.
     /// </summary>
-    public partial class IntValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IIntValueStyle
+    public partial class IntValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IIntValueStyle
     {
         /// <summary>
         /// Gets or sets the int value.

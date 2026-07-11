@@ -21,17 +21,17 @@ namespace Auriga.Sirius.Table
     /// <summary>
     /// Definition of the <c>DTable</c> class.
     /// </summary>
-    public partial class DTable : Auriga.AurigaElement, Auriga.Sirius.Table.IDTable
+    public partial class DTable : Auriga.Core.AurigaElement, Auriga.Sirius.Table.IDTable
     {
         /// <summary>
         /// Gets the columns.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.IDColumn> Columns => this.backingColumns ??= new Auriga.ContainerList<Auriga.Sirius.Table.IDColumn>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.IDColumn> Columns => this.backingColumns ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.IDColumn>(this);
 
         /// <summary>
         /// Backing field for <see cref="Columns"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.IDColumn> backingColumns;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.IDColumn> backingColumns;
 
         /// <summary>
         /// Gets or sets the description.
@@ -46,12 +46,12 @@ namespace Auriga.Sirius.Table
         /// <summary>
         /// Gets the e annotations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation>(this);
 
         /// <summary>
         /// Backing field for <see cref="EAnnotations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> backingEAnnotations;
 
         /// <summary>
         /// Gets or sets the header column width.
@@ -61,12 +61,12 @@ namespace Auriga.Sirius.Table
         /// <summary>
         /// Gets the lines.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.IDLine> Lines => this.backingLines ??= new Auriga.ContainerList<Auriga.Sirius.Table.IDLine>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.IDLine> Lines => this.backingLines ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.IDLine>(this);
 
         /// <summary>
         /// Backing field for <see cref="Lines"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.IDLine> backingLines;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.IDLine> backingLines;
 
         /// <summary>
         /// Gets the name.
@@ -76,12 +76,12 @@ namespace Auriga.Sirius.Table
         /// <summary>
         /// Gets the owned annotation entries.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> OwnedAnnotationEntries => this.backingOwnedAnnotationEntries ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> OwnedAnnotationEntries => this.backingOwnedAnnotationEntries ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAnnotationEntries"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> backingOwnedAnnotationEntries;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IAnnotationEntry> backingOwnedAnnotationEntries;
 
         /// <summary>
         /// The directly contained representation elements
@@ -112,7 +112,7 @@ namespace Auriga.Sirius.Table
         /// Gets the elements directly contained by this <c>DTable</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Columns)
             {

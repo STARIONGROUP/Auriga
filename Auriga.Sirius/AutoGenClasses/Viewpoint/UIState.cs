@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// This abstraction is used to store transient UI informations.
     /// </summary>
-    public partial class UIState : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IUIState
+    public partial class UIState : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IUIState
     {
         /// <summary>
         /// This map associates a Decoration to its computed image (Object as value) which can be either an Image or an IFigure.

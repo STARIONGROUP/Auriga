@@ -23,12 +23,12 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the conditional styles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle> ConditionalStyles { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle> ConditionalStyles { get; }
 
         /// <summary>
         /// Gets the execution mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings { get; }
 
         /// <summary>
         /// Gets or sets the finishing end finder expression.

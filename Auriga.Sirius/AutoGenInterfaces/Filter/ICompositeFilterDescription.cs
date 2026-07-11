@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
         /// <summary>
         /// All filters.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter> Filters { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilter> Filters { get; }
 
     }
 }

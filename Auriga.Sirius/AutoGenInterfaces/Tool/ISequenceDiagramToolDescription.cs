@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Description.Tool
     /// <summary>
     /// Definition of the <c>SequenceDiagramToolDescription</c> interface.
     /// </summary>
-    public partial interface ISequenceDiagramToolDescription : Auriga.IAurigaElement
+    public partial interface ISequenceDiagramToolDescription : Auriga.Core.IAurigaElement
     {
     }
 }

@@ -26,7 +26,7 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the abstract capability extension points.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint> AbstractCapabilityExtensionPoints { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint> AbstractCapabilityExtensionPoints { get; }
 
         /// <summary>
         /// Gets the available in states.
@@ -51,7 +51,7 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the extends.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtend> Extends { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityExtend> Extends { get; }
 
         /// <summary>
         /// Gets the included abstract capabilities.
@@ -61,7 +61,7 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the includes.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityInclude> Includes { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityInclude> Includes { get; }
 
         /// <summary>
         /// Gets the including.
@@ -96,22 +96,22 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the owned abstract capability realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityRealization> OwnedAbstractCapabilityRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityRealization> OwnedAbstractCapabilityRealizations { get; }
 
         /// <summary>
         /// Gets the owned abstract function abstract capability involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> OwnedAbstractFunctionAbstractCapabilityInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> OwnedAbstractFunctionAbstractCapabilityInvolvements { get; }
 
         /// <summary>
         /// Gets the owned functional chain abstract capability involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> OwnedFunctionalChainAbstractCapabilityInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> OwnedFunctionalChainAbstractCapabilityInvolvements { get; }
 
         /// <summary>
         /// Gets the owned scenarios.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IScenario> OwnedScenarios { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IScenario> OwnedScenarios { get; }
 
         /// <summary>
         /// Gets or sets the post condition.
@@ -141,7 +141,7 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the super generalizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization> SuperGeneralizations { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization> SuperGeneralizations { get; }
 
     }
 }

@@ -15,7 +15,7 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Re
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
@@ -66,7 +66,7 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Re
             this.WriteReferenceAttribute(xmlWriter, "origin", poco.Origin, poco, "Origin", context);
             this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
             WriteBooleanAttribute(xmlWriter, "suffixed", poco.Suffixed);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.IAurigaElement, poco, "Target", context);
+            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringListAttribute(xmlWriter, "unsynchronizedFeatures", poco.UnsynchronizedFeatures);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
         }

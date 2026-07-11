@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>EReferenceCustomization</c> class.
     /// </summary>
-    public partial class EReferenceCustomization : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IEReferenceCustomization
+    public partial class EReferenceCustomization : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IEReferenceCustomization
     {
         /// <summary>
         /// Gets the applied on.

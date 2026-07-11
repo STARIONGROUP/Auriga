@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// filter to hide a tool in UI based on preconditon evaluated when specified elements to listen are modified
     /// </summary>
-    public partial interface IToolFilterDescription : Auriga.IAurigaElement
+    public partial interface IToolFilterDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// The elements to listen by the filter.
@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the listeners.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener> Listeners { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener> Listeners { get; }
 
         /// <summary>
         /// The precondition of the filter.

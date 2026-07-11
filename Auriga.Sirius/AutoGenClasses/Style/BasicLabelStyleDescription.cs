@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Style
     /// <summary>
     /// The style of a label.
     /// </summary>
-    public partial class BasicLabelStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Style.IBasicLabelStyleDescription
+    public partial class BasicLabelStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Style.IBasicLabelStyleDescription
     {
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.

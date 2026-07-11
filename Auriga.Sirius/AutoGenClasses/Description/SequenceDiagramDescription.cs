@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Sequence.Description
     /// <summary>
     /// Definition of the <c>SequenceDiagramDescription</c> class.
     /// </summary>
-    public partial class SequenceDiagramDescription : Auriga.AurigaElement, Auriga.Sirius.Sequence.Description.ISequenceDiagramDescription
+    public partial class SequenceDiagramDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Description.ISequenceDiagramDescription
     {
         /// <summary>
         /// Gets the additional layers.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> AdditionalLayers => this.backingAdditionalLayers ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> AdditionalLayers => this.backingAdditionalLayers ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer>(this);
 
         /// <summary>
         /// Backing field for <see cref="AdditionalLayers"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> backingAdditionalLayers;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IAdditionalLayer> backingAdditionalLayers;
 
         /// <summary>
         /// Color of the diagram background, white if unset.
@@ -62,12 +62,12 @@ namespace Auriga.Sirius.Sequence.Description
         /// <summary>
         /// container mappings that are owned by this simple mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> ContainerMappings => this.backingContainerMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> ContainerMappings => this.backingContainerMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="ContainerMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> backingContainerMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> backingContainerMappings;
 
         /// <summary>
         /// The default concern to use.
@@ -136,22 +136,22 @@ namespace Auriga.Sirius.Sequence.Description
         /// <summary>
         /// Edge mapping imports that are owned by this simple mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> EdgeMappingImports => this.backingEdgeMappingImports ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> EdgeMappingImports => this.backingEdgeMappingImports ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport>(this);
 
         /// <summary>
         /// Backing field for <see cref="EdgeMappingImports"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> backingEdgeMappingImports;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMappingImport> backingEdgeMappingImports;
 
         /// <summary>
         /// Edge mappings that are owned by this simple mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> EdgeMappings => this.backingEdgeMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> EdgeMappings => this.backingEdgeMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="EdgeMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> backingEdgeMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IEdgeMapping> backingEdgeMappings;
 
         /// <summary>
         /// Boolean indicating whether or not to show dynamic popup bars with creation tools.
@@ -171,12 +171,12 @@ namespace Auriga.Sirius.Sequence.Description
         /// <summary>
         /// Filters that are owned by this simple mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription> Filters => this.backingFilters ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription> Filters => this.backingFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="Filters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription> backingFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Filter.IFilterDescription> backingFilters;
 
         /// <summary>
         /// Gets or sets the init.
@@ -233,12 +233,12 @@ namespace Auriga.Sirius.Sequence.Description
         /// <summary>
         /// Node mappings that are owned by this simple mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> NodeMappings => this.backingNodeMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> NodeMappings => this.backingNodeMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="NodeMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingNodeMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingNodeMappings;
 
         /// <summary>
         /// Gets the paste descriptions.
@@ -323,7 +323,7 @@ namespace Auriga.Sirius.Sequence.Description
         /// Gets the elements directly contained by this <c>SequenceDiagramDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.AdditionalLayers)
             {

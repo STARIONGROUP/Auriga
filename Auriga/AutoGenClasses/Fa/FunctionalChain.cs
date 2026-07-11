@@ -21,7 +21,7 @@ namespace Auriga.Fa
     /// <summary>
     /// Definition of the <c>FunctionalChain</c> class.
     /// </summary>
-    public partial class FunctionalChain : Auriga.AurigaElement, Auriga.Fa.IFunctionalChain
+    public partial class FunctionalChain : Auriga.Core.AurigaElement, Auriga.Fa.IFunctionalChain
     {
         /// <summary>
         /// Gets the applied property value groups.
@@ -131,102 +131,102 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned constraints.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedConstraints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
         /// <summary>
         /// Gets the owned enumeration property types.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedEnumerationPropertyTypes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned functional chain involvements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Fa.IFunctionalChainInvolvement> OwnedFunctionalChainInvolvements => this.backingOwnedFunctionalChainInvolvements ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalChainInvolvement>(this);
+        public Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChainInvolvement> OwnedFunctionalChainInvolvements => this.backingOwnedFunctionalChainInvolvements ??= new Auriga.Core.ContainerList<Auriga.Fa.IFunctionalChainInvolvement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedFunctionalChainInvolvements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Fa.IFunctionalChainInvolvement> backingOwnedFunctionalChainInvolvements;
+        private Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChainInvolvement> backingOwnedFunctionalChainInvolvements;
 
         /// <summary>
         /// Gets the owned functional chain realizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Fa.IFunctionalChainRealization> OwnedFunctionalChainRealizations => this.backingOwnedFunctionalChainRealizations ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalChainRealization>(this);
+        public Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChainRealization> OwnedFunctionalChainRealizations => this.backingOwnedFunctionalChainRealizations ??= new Auriga.Core.ContainerList<Auriga.Fa.IFunctionalChainRealization>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedFunctionalChainRealizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Fa.IFunctionalChainRealization> backingOwnedFunctionalChainRealizations;
+        private Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChainRealization> backingOwnedFunctionalChainRealizations;
 
         /// <summary>
         /// Gets the owned migrated elements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedMigratedElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
         /// <summary>
         /// Gets the owned property value groups.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValueGroups"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
         /// <summary>
         /// Gets the owned property values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
         /// <summary>
         /// Gets the owned sequence links.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Fa.ISequenceLink> OwnedSequenceLinks => this.backingOwnedSequenceLinks ??= new Auriga.ContainerList<Auriga.Fa.ISequenceLink>(this);
+        public Auriga.Core.IContainerList<Auriga.Fa.ISequenceLink> OwnedSequenceLinks => this.backingOwnedSequenceLinks ??= new Auriga.Core.ContainerList<Auriga.Fa.ISequenceLink>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedSequenceLinks"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Fa.ISequenceLink> backingOwnedSequenceLinks;
+        private Auriga.Core.IContainerList<Auriga.Fa.ISequenceLink> backingOwnedSequenceLinks;
 
         /// <summary>
         /// Gets the owned sequence nodes.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Fa.IControlNode> OwnedSequenceNodes => this.backingOwnedSequenceNodes ??= new Auriga.ContainerList<Auriga.Fa.IControlNode>(this);
+        public Auriga.Core.IContainerList<Auriga.Fa.IControlNode> OwnedSequenceNodes => this.backingOwnedSequenceNodes ??= new Auriga.Core.ContainerList<Auriga.Fa.IControlNode>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedSequenceNodes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Fa.IControlNode> backingOwnedSequenceNodes;
+        private Auriga.Core.IContainerList<Auriga.Fa.IControlNode> backingOwnedSequenceNodes;
 
         /// <summary>
         /// Gets or sets the post condition.
@@ -282,7 +282,7 @@ namespace Auriga.Fa
         /// Gets the elements directly contained by this <c>FunctionalChain</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedConstraints)
             {

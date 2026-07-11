@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>SelectionDescription</c> interface.
     /// </summary>
-    public partial interface ISelectionDescription : Auriga.IAurigaElement
+    public partial interface ISelectionDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the candidates expression.

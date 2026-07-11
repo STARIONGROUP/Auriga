@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>DocumentedElement</c> interface.
     /// </summary>
-    public partial interface IDocumentedElement : Auriga.IAurigaElement
+    public partial interface IDocumentedElement : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the documentation.

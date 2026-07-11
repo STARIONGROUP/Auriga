@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Writers
+namespace Auriga.Xmi.Core.Writers
 {
     /// <summary>
     /// The default <see cref="IXmiWriterSettings"/>: two-space indentation and the Capella 7.0.0 version

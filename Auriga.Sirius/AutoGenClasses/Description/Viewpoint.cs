@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// A Viewpoint defines a "way of looking at your model", you could make an analogy with "What is your current concern about your analysis". It defines representations and might also define specific data only relevant for this concern.
     /// </summary>
-    public partial class Viewpoint : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IViewpoint
+    public partial class Viewpoint : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IViewpoint
     {
         /// <summary>
         /// Gets the conflicts.
@@ -65,62 +65,62 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Gets the owned feature extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription> OwnedFeatureExtensions => this.backingOwnedFeatureExtensions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription> OwnedFeatureExtensions => this.backingOwnedFeatureExtensions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedFeatureExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription> backingOwnedFeatureExtensions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IFeatureExtensionDescription> backingOwnedFeatureExtensions;
 
         /// <summary>
         /// Gets the owned java extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension> OwnedJavaExtensions => this.backingOwnedJavaExtensions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension> OwnedJavaExtensions => this.backingOwnedJavaExtensions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedJavaExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension> backingOwnedJavaExtensions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IJavaExtension> backingOwnedJavaExtensions;
 
         /// <summary>
         /// Gets the owned m m extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting> OwnedMMExtensions => this.backingOwnedMMExtensions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting> OwnedMMExtensions => this.backingOwnedMMExtensions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedMMExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting> backingOwnedMMExtensions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting> backingOwnedMMExtensions;
 
         /// <summary>
         /// Gets the owned representation extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription> OwnedRepresentationExtensions => this.backingOwnedRepresentationExtensions ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription> OwnedRepresentationExtensions => this.backingOwnedRepresentationExtensions ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRepresentationExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription> backingOwnedRepresentationExtensions;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationExtensionDescription> backingOwnedRepresentationExtensions;
 
         /// <summary>
         /// Gets the owned representations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations => this.backingOwnedRepresentations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations => this.backingOwnedRepresentations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRepresentations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> backingOwnedRepresentations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> backingOwnedRepresentations;
 
         /// <summary>
         /// Gets the owned templates.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate> OwnedTemplates => this.backingOwnedTemplates ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate> OwnedTemplates => this.backingOwnedTemplates ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedTemplates"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate> backingOwnedTemplates;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationTemplate> backingOwnedTemplates;
 
         /// <summary>
         /// Gets the reuses.
@@ -153,7 +153,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// Gets the elements directly contained by this <c>Viewpoint</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedFeatureExtensions)
             {

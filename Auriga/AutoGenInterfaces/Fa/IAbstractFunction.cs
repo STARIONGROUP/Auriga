@@ -86,17 +86,17 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned function realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionRealization> OwnedFunctionRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionRealization> OwnedFunctionRealizations { get; }
 
         /// <summary>
         /// Gets the owned functional exchanges.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionalExchange> OwnedFunctionalExchanges { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionalExchange> OwnedFunctionalExchanges { get; }
 
         /// <summary>
         /// Gets the owned functions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IAbstractFunction> OwnedFunctions { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IAbstractFunction> OwnedFunctions { get; }
 
         /// <summary>
         /// Gets the sub functions.

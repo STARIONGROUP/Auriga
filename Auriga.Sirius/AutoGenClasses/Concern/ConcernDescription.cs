@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Concern
     /// <summary>
     /// Describe a concern. A concern could be seen as an aspect. It allows to enable some filters, validation rules or behaviors in one click.
     /// </summary>
-    public partial class ConcernDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Concern.IConcernDescription
+    public partial class ConcernDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Concern.IConcernDescription
     {
         /// <summary>
         /// All behaviors of the concern.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>DataTypeStyle</c> class.
     /// </summary>
-    public partial class DataTypeStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IDataTypeStyle
+    public partial class DataTypeStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IDataTypeStyle
     {
         /// <summary>
         /// Gets or sets the instance type.

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// The style of an edge.
     /// </summary>
-    public partial class EdgeStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IEdgeStyleDescription
+    public partial class EdgeStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IEdgeStyleDescription
     {
         /// <summary>
         /// Gets or sets the begin label style description.
@@ -142,7 +142,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
         /// Gets the elements directly contained by this <c>EdgeStyleDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.BeginLabelStyleDescription != null)
             {

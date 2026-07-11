@@ -30,7 +30,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the conditionnal styles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription> ConditionnalStyles { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalContainerStyleDescription> ConditionnalStyles { get; }
 
         /// <summary>
         /// Gets the reused container mappings.
@@ -50,12 +50,12 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the sub container mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> SubContainerMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IContainerMapping> SubContainerMappings { get; }
 
         /// <summary>
         /// Gets the sub node mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> SubNodeMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> SubNodeMappings { get; }
 
     }
 }

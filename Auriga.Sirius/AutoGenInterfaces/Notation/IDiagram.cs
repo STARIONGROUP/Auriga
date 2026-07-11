@@ -36,7 +36,7 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the persisted edges.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Notation.IEdge> PersistedEdges { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Notation.IEdge> PersistedEdges { get; }
 
         /// <summary>
         /// Gets the transient edges.

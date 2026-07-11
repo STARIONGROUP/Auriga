@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>OrderedTreeLayout</c> class.
     /// </summary>
-    public partial class OrderedTreeLayout : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IOrderedTreeLayout
+    public partial class OrderedTreeLayout : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IOrderedTreeLayout
     {
         /// <summary>
         /// An expression returning the semantic children of an element, the result of this expression is used to compute a hiearchical tree for the layout.

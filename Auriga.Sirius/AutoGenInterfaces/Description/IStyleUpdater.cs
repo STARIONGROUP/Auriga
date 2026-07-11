@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>StyleUpdater</c> interface.
     /// </summary>
-    public partial interface IStyleUpdater : Auriga.IAurigaElement
+    public partial interface IStyleUpdater : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the background conditional style.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> BackgroundConditionalStyle { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> BackgroundConditionalStyle { get; }
 
         /// <summary>
         /// Gets or sets the default background.
@@ -38,7 +38,7 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the foreground conditional style.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> ForegroundConditionalStyle { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> ForegroundConditionalStyle { get; }
 
     }
 }

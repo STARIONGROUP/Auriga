@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Table
     /// <summary>
     /// Definition of the <c>DCell</c> class.
     /// </summary>
-    public partial class DCell : Auriga.AurigaElement, Auriga.Sirius.Table.IDCell
+    public partial class DCell : Auriga.Core.AurigaElement, Auriga.Sirius.Table.IDCell
     {
         /// <summary>
         /// Gets or sets the column.
@@ -108,7 +108,7 @@ namespace Auriga.Sirius.Table
         /// Gets the elements directly contained by this <c>DCell</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.CurrentStyle != null)
             {

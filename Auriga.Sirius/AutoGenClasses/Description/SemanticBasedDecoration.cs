@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// A SemanticBasedDecoration applies decoration on views that targeted an element of the given type.
     /// </summary>
-    public partial class SemanticBasedDecoration : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.ISemanticBasedDecoration
+    public partial class SemanticBasedDecoration : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.ISemanticBasedDecoration
     {
         /// <summary>
         /// Gets or sets the distribution direction.

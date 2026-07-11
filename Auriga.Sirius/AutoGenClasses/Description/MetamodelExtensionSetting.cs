@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Describe the Meta Model extension to use.
     /// </summary>
-    public partial class MetamodelExtensionSetting : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting
+    public partial class MetamodelExtensionSetting : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IMetamodelExtensionSetting
     {
         /// <summary>
         /// The Meta Model extension.

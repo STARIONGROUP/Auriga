@@ -23,12 +23,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
         /// <summary>
         /// Gets the audits.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit> Audits { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IRuleAudit> Audits { get; }
 
         /// <summary>
         /// Gets the fixes.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix> Fixes { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationFix> Fixes { get; }
 
         /// <summary>
         /// Gets or sets the level.

@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the conditional style.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle> ConditionalStyle { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle> ConditionalStyle { get; }
 
         /// <summary>
         /// Gets or sets the receiving end finder expression.

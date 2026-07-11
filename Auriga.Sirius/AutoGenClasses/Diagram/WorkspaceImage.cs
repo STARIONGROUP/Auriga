@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// A custom image that is present in the user workspace.
     /// </summary>
-    public partial class WorkspaceImage : Auriga.AurigaElement, Auriga.Sirius.Diagram.IWorkspaceImage
+    public partial class WorkspaceImage : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IWorkspaceImage
     {
         /// <summary>
         /// Gets or sets the border color.

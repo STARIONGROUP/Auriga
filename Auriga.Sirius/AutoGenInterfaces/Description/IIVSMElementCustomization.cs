@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>IVSMElementCustomization</c> interface.
     /// </summary>
-    public partial interface IIVSMElementCustomization : Auriga.IAurigaElement
+    public partial interface IIVSMElementCustomization : Auriga.Core.IAurigaElement
     {
     }
 }

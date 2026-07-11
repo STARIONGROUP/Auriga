@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>DAnnotationEntry</c> class.
     /// </summary>
-    public partial class DAnnotationEntry : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry
+    public partial class DAnnotationEntry : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IDAnnotationEntry
     {
         /// <summary>
         /// Gets the details.

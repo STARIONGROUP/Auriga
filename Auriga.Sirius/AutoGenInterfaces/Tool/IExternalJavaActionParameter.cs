@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>ExternalJavaActionParameter</c> interface.
     /// </summary>
-    public partial interface IExternalJavaActionParameter : Auriga.IAurigaElement
+    public partial interface IExternalJavaActionParameter : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Name of the parameter

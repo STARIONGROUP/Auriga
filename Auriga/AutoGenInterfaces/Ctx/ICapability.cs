@@ -31,7 +31,7 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the owned capability involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ICapabilityInvolvement> OwnedCapabilityInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ICapabilityInvolvement> OwnedCapabilityInvolvements { get; }
 
         /// <summary>
         /// Gets the purpose missions.

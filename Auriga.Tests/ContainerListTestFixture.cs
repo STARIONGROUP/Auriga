@@ -9,6 +9,7 @@
 
 namespace Auriga.Tests
 {
+    using Auriga.Core;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

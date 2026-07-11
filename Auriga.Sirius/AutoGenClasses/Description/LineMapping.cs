@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>LineMapping</c> class.
     /// </summary>
-    public partial class LineMapping : Auriga.AurigaElement, Auriga.Sirius.Table.Description.ILineMapping
+    public partial class LineMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.ILineMapping
     {
         /// <summary>
         /// Gets the all sub lines.
@@ -31,22 +31,22 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the background conditional style.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> BackgroundConditionalStyle => this.backingBackgroundConditionalStyle ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> BackgroundConditionalStyle => this.backingBackgroundConditionalStyle ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="BackgroundConditionalStyle"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> backingBackgroundConditionalStyle;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IBackgroundConditionalStyle> backingBackgroundConditionalStyle;
 
         /// <summary>
         /// Gets the create.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> Create => this.backingCreate ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.ICreateLineTool>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> Create => this.backingCreate ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.ICreateLineTool>(this);
 
         /// <summary>
         /// Backing field for <see cref="Create"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> backingCreate;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> backingCreate;
 
         /// <summary>
         /// Gets or sets the default background.
@@ -127,12 +127,12 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the foreground conditional style.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> ForegroundConditionalStyle => this.backingForegroundConditionalStyle ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> ForegroundConditionalStyle => this.backingForegroundConditionalStyle ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="ForegroundConditionalStyle"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> backingForegroundConditionalStyle;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.IForegroundConditionalStyle> backingForegroundConditionalStyle;
 
         /// <summary>
         /// Gets or sets the header label expression.
@@ -157,12 +157,12 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the owned sub lines.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedSubLines => this.backingOwnedSubLines ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.ILineMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedSubLines => this.backingOwnedSubLines ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.ILineMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedSubLines"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> backingOwnedSubLines;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> backingOwnedSubLines;
 
         /// <summary>
         /// Gets the reused in mappings.
@@ -188,7 +188,7 @@ namespace Auriga.Sirius.Table.Description
         /// Gets the elements directly contained by this <c>LineMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.BackgroundConditionalStyle)
             {

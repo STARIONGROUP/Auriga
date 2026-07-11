@@ -31,7 +31,7 @@ namespace Auriga.La
         /// <summary>
         /// Gets the owned capability realization involvements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement> OwnedCapabilityRealizationInvolvements { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement> OwnedCapabilityRealizationInvolvements { get; }
 
         /// <summary>
         /// Gets the realized capabilities.

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// The style of a begin label.
     /// </summary>
-    public partial class BeginLabelStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IBeginLabelStyleDescription
+    public partial class BeginLabelStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IBeginLabelStyleDescription
     {
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.

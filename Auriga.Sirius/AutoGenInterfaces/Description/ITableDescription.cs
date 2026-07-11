@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the imported elements.
         /// </summary>
-        Auriga.IContainerList<Auriga.IAurigaElement> ImportedElements { get; }
+        Auriga.Core.IContainerList<Auriga.Core.IAurigaElement> ImportedElements { get; }
 
         /// <summary>
         /// The initial width of the column header (calculated if not available).
@@ -61,22 +61,22 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the owned create line.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> OwnedCreateLine { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateLineTool> OwnedCreateLine { get; }
 
         /// <summary>
         /// Gets the owned line mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedLineMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ILineMapping> OwnedLineMappings { get; }
 
         /// <summary>
         /// All tools of the section.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription> OwnedRepresentationCreationDescriptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationCreationDescription> OwnedRepresentationCreationDescriptions { get; }
 
         /// <summary>
         /// All navigation tools.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription> OwnedRepresentationNavigationDescriptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IRepresentationNavigationDescription> OwnedRepresentationNavigationDescriptions { get; }
 
         /// <summary>
         /// The precondition (Acceleo Expression).

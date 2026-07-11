@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>AnnotationEntry</c> class.
     /// </summary>
-    public partial class AnnotationEntry : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IAnnotationEntry
+    public partial class AnnotationEntry : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IAnnotationEntry
     {
         /// <summary>
         /// Gets or sets the data.
         /// </summary>
-        public Auriga.IAurigaElement Data
+        public Auriga.Core.IAurigaElement Data
         {
             get => this.backingData;
             set
@@ -40,7 +40,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// <summary>
         /// Backing field for <see cref="Data"/>.
         /// </summary>
-        private Auriga.IAurigaElement backingData;
+        private Auriga.Core.IAurigaElement backingData;
 
         /// <summary>
         /// Gets or sets the source.
@@ -56,7 +56,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// Gets the elements directly contained by this <c>AnnotationEntry</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Data != null)
             {

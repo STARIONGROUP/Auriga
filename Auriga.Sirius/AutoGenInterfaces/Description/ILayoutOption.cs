@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>LayoutOption</c> interface.
     /// </summary>
-    public partial interface ILayoutOption : Auriga.IAurigaElement
+    public partial interface ILayoutOption : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the description.

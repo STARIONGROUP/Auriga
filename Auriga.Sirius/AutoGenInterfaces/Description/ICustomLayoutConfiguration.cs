@@ -33,7 +33,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// Gets the layout options.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption> LayoutOptions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.ILayoutOption> LayoutOptions { get; }
 
     }
 }

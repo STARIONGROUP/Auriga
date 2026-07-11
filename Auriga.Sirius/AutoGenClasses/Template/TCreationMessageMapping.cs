@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TCreationMessageMapping</c> class.
     /// </summary>
-    public partial class TCreationMessageMapping : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITCreationMessageMapping
+    public partial class TCreationMessageMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITCreationMessageMapping
     {
         /// <summary>
         /// Gets the conditional style.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle> ConditionalStyle => this.backingConditionalStyle ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle> ConditionalStyle => this.backingConditionalStyle ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionalStyle"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle> backingConditionalStyle;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalMessageStyle> backingConditionalStyle;
 
         /// <summary>
         /// The domain class of the mapping.
@@ -113,7 +113,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// Gets the elements directly contained by this <c>TCreationMessageMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.ConditionalStyle)
             {

@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Sequence.Description
     /// <summary>
     /// Definition of the <c>CreationMessageMapping</c> class.
     /// </summary>
-    public partial class CreationMessageMapping : Auriga.AurigaElement, Auriga.Sirius.Sequence.Description.ICreationMessageMapping
+    public partial class CreationMessageMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Description.ICreationMessageMapping
     {
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionnalStyles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> backingConditionnalStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> backingConditionnalStyles;
 
         /// <summary>
         /// true if the init/refresh operations should create elements for this mapping.
@@ -196,7 +196,7 @@ namespace Auriga.Sirius.Sequence.Description
         /// Gets the elements directly contained by this <c>CreationMessageMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.ConditionnalStyles)
             {

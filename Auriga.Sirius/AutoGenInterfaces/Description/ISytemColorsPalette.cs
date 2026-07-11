@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>SytemColorsPalette</c> interface.
     /// </summary>
-    public partial interface ISytemColorsPalette : Auriga.IAurigaElement
+    public partial interface ISytemColorsPalette : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the entries.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISystemColor> Entries { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISystemColor> Entries { get; }
 
     }
 }

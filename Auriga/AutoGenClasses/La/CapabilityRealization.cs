@@ -21,17 +21,17 @@ namespace Auriga.La
     /// <summary>
     /// Definition of the <c>CapabilityRealization</c> class.
     /// </summary>
-    public partial class CapabilityRealization : Auriga.AurigaElement, Auriga.La.ICapabilityRealization
+    public partial class CapabilityRealization : Auriga.Core.AurigaElement, Auriga.La.ICapabilityRealization
     {
         /// <summary>
         /// Gets the abstract capability extension points.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint> AbstractCapabilityExtensionPoints => this.backingAbstractCapabilityExtensionPoints ??= new Auriga.ContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint> AbstractCapabilityExtensionPoints => this.backingAbstractCapabilityExtensionPoints ??= new Auriga.Core.ContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint>(this);
 
         /// <summary>
         /// Backing field for <see cref="AbstractCapabilityExtensionPoints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint> backingAbstractCapabilityExtensionPoints;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityExtensionPoint> backingAbstractCapabilityExtensionPoints;
 
         /// <summary>
         /// Gets the applied property value groups.
@@ -81,12 +81,12 @@ namespace Auriga.La
         /// <summary>
         /// Gets the extends.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtend> Extends => this.backingExtends ??= new Auriga.ContainerList<Auriga.Interaction.IAbstractCapabilityExtend>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityExtend> Extends => this.backingExtends ??= new Auriga.Core.ContainerList<Auriga.Interaction.IAbstractCapabilityExtend>(this);
 
         /// <summary>
         /// Backing field for <see cref="Extends"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityExtend> backingExtends;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityExtend> backingExtends;
 
         /// <summary>
         /// Gets the features.
@@ -101,12 +101,12 @@ namespace Auriga.La
         /// <summary>
         /// Gets the includes.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityInclude> Includes => this.backingIncludes ??= new Auriga.ContainerList<Auriga.Interaction.IAbstractCapabilityInclude>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityInclude> Includes => this.backingIncludes ??= new Auriga.Core.ContainerList<Auriga.Interaction.IAbstractCapabilityInclude>(this);
 
         /// <summary>
         /// Backing field for <see cref="Includes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityInclude> backingIncludes;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityInclude> backingIncludes;
 
         /// <summary>
         /// Gets the including.
@@ -156,12 +156,12 @@ namespace Auriga.La
         /// <summary>
         /// Gets the naming rules.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.Core.ContainerList<Auriga.Capellacore.INamingRule>(this);
 
         /// <summary>
         /// Backing field for <see cref="NamingRules"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
 
         /// <summary>
         /// Gets the outgoing capability allocation.
@@ -176,142 +176,142 @@ namespace Auriga.La
         /// <summary>
         /// Gets the owned abstract capability realizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityRealization> OwnedAbstractCapabilityRealizations => this.backingOwnedAbstractCapabilityRealizations ??= new Auriga.ContainerList<Auriga.Interaction.IAbstractCapabilityRealization>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityRealization> OwnedAbstractCapabilityRealizations => this.backingOwnedAbstractCapabilityRealizations ??= new Auriga.Core.ContainerList<Auriga.Interaction.IAbstractCapabilityRealization>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAbstractCapabilityRealizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityRealization> backingOwnedAbstractCapabilityRealizations;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityRealization> backingOwnedAbstractCapabilityRealizations;
 
         /// <summary>
         /// Gets the owned abstract function abstract capability involvements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> OwnedAbstractFunctionAbstractCapabilityInvolvements => this.backingOwnedAbstractFunctionAbstractCapabilityInvolvements ??= new Auriga.ContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> OwnedAbstractFunctionAbstractCapabilityInvolvements => this.backingOwnedAbstractFunctionAbstractCapabilityInvolvements ??= new Auriga.Core.ContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAbstractFunctionAbstractCapabilityInvolvements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> backingOwnedAbstractFunctionAbstractCapabilityInvolvements;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IAbstractFunctionAbstractCapabilityInvolvement> backingOwnedAbstractFunctionAbstractCapabilityInvolvements;
 
         /// <summary>
         /// Gets the owned capability realization involvements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement> OwnedCapabilityRealizationInvolvements => this.backingOwnedCapabilityRealizationInvolvements ??= new Auriga.ContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement> OwnedCapabilityRealizationInvolvements => this.backingOwnedCapabilityRealizationInvolvements ??= new Auriga.Core.ContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedCapabilityRealizationInvolvements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement> backingOwnedCapabilityRealizationInvolvements;
+        private Auriga.Core.IContainerList<Auriga.Capellacommon.ICapabilityRealizationInvolvement> backingOwnedCapabilityRealizationInvolvements;
 
         /// <summary>
         /// Gets the owned constraints.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedConstraints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
         /// <summary>
         /// Gets the owned enumeration property types.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedEnumerationPropertyTypes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned functional chain abstract capability involvements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> OwnedFunctionalChainAbstractCapabilityInvolvements => this.backingOwnedFunctionalChainAbstractCapabilityInvolvements ??= new Auriga.ContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> OwnedFunctionalChainAbstractCapabilityInvolvements => this.backingOwnedFunctionalChainAbstractCapabilityInvolvements ??= new Auriga.Core.ContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedFunctionalChainAbstractCapabilityInvolvements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> backingOwnedFunctionalChainAbstractCapabilityInvolvements;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IFunctionalChainAbstractCapabilityInvolvement> backingOwnedFunctionalChainAbstractCapabilityInvolvements;
 
         /// <summary>
         /// Gets the owned functional chains.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Fa.IFunctionalChain> OwnedFunctionalChains => this.backingOwnedFunctionalChains ??= new Auriga.ContainerList<Auriga.Fa.IFunctionalChain>(this);
+        public Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChain> OwnedFunctionalChains => this.backingOwnedFunctionalChains ??= new Auriga.Core.ContainerList<Auriga.Fa.IFunctionalChain>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedFunctionalChains"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Fa.IFunctionalChain> backingOwnedFunctionalChains;
+        private Auriga.Core.IContainerList<Auriga.Fa.IFunctionalChain> backingOwnedFunctionalChains;
 
         /// <summary>
         /// Gets the owned migrated elements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedMigratedElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
         /// <summary>
         /// Gets the owned property value groups.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValueGroups"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
         /// <summary>
         /// Gets the owned property value pkgs.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs => this.backingOwnedPropertyValuePkgs ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValuePkg>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs => this.backingOwnedPropertyValuePkgs ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IPropertyValuePkg>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValuePkgs"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> backingOwnedPropertyValuePkgs;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValuePkg> backingOwnedPropertyValuePkgs;
 
         /// <summary>
         /// Gets the owned property values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
         /// <summary>
         /// Gets the owned scenarios.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IScenario> OwnedScenarios => this.backingOwnedScenarios ??= new Auriga.ContainerList<Auriga.Interaction.IScenario>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IScenario> OwnedScenarios => this.backingOwnedScenarios ??= new Auriga.Core.ContainerList<Auriga.Interaction.IScenario>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedScenarios"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IScenario> backingOwnedScenarios;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IScenario> backingOwnedScenarios;
 
         /// <summary>
         /// Gets the owned traces.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.Core.ContainerList<Auriga.Capellacore.ITrace>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedTraces"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
 
         /// <summary>
         /// Gets or sets the post condition.
@@ -376,12 +376,12 @@ namespace Auriga.La
         /// <summary>
         /// Gets the super generalizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization> SuperGeneralizations => this.backingSuperGeneralizations ??= new Auriga.ContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization>(this);
+        public Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization> SuperGeneralizations => this.backingSuperGeneralizations ??= new Auriga.Core.ContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization>(this);
 
         /// <summary>
         /// Backing field for <see cref="SuperGeneralizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization> backingSuperGeneralizations;
+        private Auriga.Core.IContainerList<Auriga.Interaction.IAbstractCapabilityGeneralization> backingSuperGeneralizations;
 
         /// <summary>
         /// Gets or sets the visible in doc.
@@ -397,7 +397,7 @@ namespace Auriga.La
         /// Gets the elements directly contained by this <c>CapabilityRealization</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.AbstractCapabilityExtensionPoints)
             {

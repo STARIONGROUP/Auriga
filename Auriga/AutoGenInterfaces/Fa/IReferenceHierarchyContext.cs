@@ -20,7 +20,7 @@ namespace Auriga.Fa
     /// <summary>
     /// Definition of the <c>ReferenceHierarchyContext</c> interface.
     /// </summary>
-    public partial interface IReferenceHierarchyContext : Auriga.IAurigaElement
+    public partial interface IReferenceHierarchyContext : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the source reference hierarchy.

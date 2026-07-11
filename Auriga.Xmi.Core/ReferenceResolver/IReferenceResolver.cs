@@ -7,11 +7,11 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.ReferenceResolver
+namespace Auriga.Xmi.Core.ReferenceResolver
 {
     using System.Collections.Generic;
 
-    using Auriga.Xmi.Cache;
+    using Auriga.Xmi.Core.Cache;
 
     /// <summary>
     /// The second pass of the XMI read: once every element has been instantiated and cached, the

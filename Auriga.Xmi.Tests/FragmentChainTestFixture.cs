@@ -9,11 +9,12 @@
 
 namespace Auriga.Xmi.Tests
 {
+    using Auriga.Core;
     using System;
     using System.IO;
     using System.Linq;
 
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Readers;
 
     using NUnit.Framework;
 
@@ -157,12 +158,12 @@ namespace Auriga.Xmi.Tests
         }
 
         /// <summary>
-        /// Walks the <see cref="Auriga.IAurigaElement.Container"/> chain of an element from its immediate
+        /// Walks the <see cref="Auriga.Core.IAurigaElement.Container"/> chain of an element from its immediate
         /// container up to the root, in order.
         /// </summary>
         /// <param name="element">the element whose ancestors are enumerated</param>
         /// <returns>the ancestor chain, nearest first</returns>
-        private static System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> Ancestors(Auriga.IAurigaElement element)
+        private static System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> Ancestors(Auriga.Core.IAurigaElement element)
         {
             for (var current = element.Container; current != null; current = current.Container)
             {

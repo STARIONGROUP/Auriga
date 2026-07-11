@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>MenuItemDescriptionReference</c> class.
     /// </summary>
-    public partial class MenuItemDescriptionReference : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescriptionReference
+    public partial class MenuItemDescriptionReference : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IMenuItemDescriptionReference
     {
         /// <summary>
         /// Gets or sets the item.

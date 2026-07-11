@@ -45,7 +45,7 @@ namespace Auriga.Interaction
         /// <summary>
         /// Gets the owned sequence message valuations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Interaction.ISequenceMessageValuation> OwnedSequenceMessageValuations { get; }
+        Auriga.Core.IContainerList<Auriga.Interaction.ISequenceMessageValuation> OwnedSequenceMessageValuations { get; }
 
         /// <summary>
         /// Gets or sets the receiving end.

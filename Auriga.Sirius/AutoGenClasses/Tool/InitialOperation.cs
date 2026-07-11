@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>InitialOperation</c> class.
     /// </summary>
-    public partial class InitialOperation : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitialOperation
+    public partial class InitialOperation : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IInitialOperation
     {
         /// <summary>
         /// Gets or sets the first model operations.
@@ -46,7 +46,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>InitialOperation</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.FirstModelOperations != null)
             {

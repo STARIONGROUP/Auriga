@@ -41,7 +41,7 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets the owned abstract state realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IAbstractStateRealization> OwnedAbstractStateRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IAbstractStateRealization> OwnedAbstractStateRealizations { get; }
 
         /// <summary>
         /// Gets the realized abstract states.

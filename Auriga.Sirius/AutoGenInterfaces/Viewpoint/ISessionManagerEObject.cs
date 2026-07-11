@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>SessionManagerEObject</c> interface.
     /// </summary>
-    public partial interface ISessionManagerEObject : Auriga.IAurigaElement
+    public partial interface ISessionManagerEObject : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the owned sessions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject> OwnedSessions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IDAnalysisSessionEObject> OwnedSessions { get; }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Description
     /// <summary>
     /// Definition of the <c>MessageEndVariable</c> class.
     /// </summary>
-    public partial class MessageEndVariable : Auriga.AurigaElement, Auriga.Sirius.Sequence.Description.IMessageEndVariable
+    public partial class MessageEndVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Description.IMessageEndVariable
     {
         /// <summary>
         /// Gets or sets the name.

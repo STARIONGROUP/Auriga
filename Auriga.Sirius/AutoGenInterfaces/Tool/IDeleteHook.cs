@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// Definition of the <c>DeleteHook</c> interface.
     /// </summary>
-    public partial interface IDeleteHook : Auriga.IAurigaElement
+    public partial interface IDeleteHook : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the parameters.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IDeleteHookParameter> Parameters { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IDeleteHookParameter> Parameters { get; }
 
     }
 }

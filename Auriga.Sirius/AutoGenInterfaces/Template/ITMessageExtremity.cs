@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TMessageExtremity</c> interface.
     /// </summary>
-    public partial interface ITMessageExtremity : Auriga.IAurigaElement
+    public partial interface ITMessageExtremity : Auriga.Core.IAurigaElement
     {
     }
 }

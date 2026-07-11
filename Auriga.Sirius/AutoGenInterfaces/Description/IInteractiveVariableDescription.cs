@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// This interface represents a variable which value is given by the user.
     /// </summary>
-    public partial interface IInteractiveVariableDescription : Auriga.IAurigaElement
+    public partial interface IInteractiveVariableDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// A documentation that is displayed to the user.

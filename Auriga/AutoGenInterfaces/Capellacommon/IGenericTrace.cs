@@ -23,7 +23,7 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets the key value pairs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IKeyValue> KeyValuePairs { get; }
 
         /// <summary>
         /// Gets the source.

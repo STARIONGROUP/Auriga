@@ -18,12 +18,12 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>DModelElement</c> interface.
     /// </summary>
-    public partial interface IDModelElement : Auriga.IAurigaElement
+    public partial interface IDModelElement : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the e annotations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IDAnnotation> EAnnotations { get; }
 
     }
 }

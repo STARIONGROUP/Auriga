@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description.Filter
         /// <summary>
         /// Gets the owned variables.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> OwnedVariables { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> OwnedVariables { get; }
 
         /// <summary>
         /// The condition to apply on the semantic element.

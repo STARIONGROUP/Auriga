@@ -66,7 +66,7 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned functional exchange realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionalExchangeRealization> OwnedFunctionalExchangeRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionalExchangeRealization> OwnedFunctionalExchangeRealizations { get; }
 
         /// <summary>
         /// Gets the realized functional exchanges.

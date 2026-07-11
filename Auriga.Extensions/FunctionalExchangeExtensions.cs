@@ -9,6 +9,7 @@
 
 namespace Auriga.Extensions
 {
+    using Auriga.Core;
     using System;
 
     /// <summary>

@@ -30,7 +30,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// The nodes that are on the border of the container.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.IDNode> OwnedBorderedNodes { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IDNode> OwnedBorderedNodes { get; }
 
     }
 }

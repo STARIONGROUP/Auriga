@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>PropertiesSetStyle</c> class.
     /// </summary>
-    public partial class PropertiesSetStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IPropertiesSetStyle
+    public partial class PropertiesSetStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IPropertiesSetStyle
     {
         /// <summary>
         /// Gets or sets the name.
@@ -28,18 +28,18 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the properties map.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry> PropertiesMap => this.backingPropertiesMap ??= new Auriga.ContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry> PropertiesMap => this.backingPropertiesMap ??= new Auriga.Core.ContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry>(this);
 
         /// <summary>
         /// Backing field for <see cref="PropertiesMap"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry> backingPropertiesMap;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStringToPropertyValueMapEntry> backingPropertiesMap;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>PropertiesSetStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.PropertiesMap)
             {

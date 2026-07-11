@@ -23,7 +23,7 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the ends.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.ISystemCommunicationHook> Ends { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.ISystemCommunicationHook> Ends { get; }
 
     }
 }

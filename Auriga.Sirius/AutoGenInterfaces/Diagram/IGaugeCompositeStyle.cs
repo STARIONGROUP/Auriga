@@ -28,7 +28,7 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// The sections.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.IGaugeSection> Sections { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGaugeSection> Sections { get; }
 
     }
 }

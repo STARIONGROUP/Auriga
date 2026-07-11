@@ -31,7 +31,7 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned interface allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IInterfaceAllocation> OwnedInterfaceAllocations { get; }
 
         /// <summary>
         /// Gets the provisioned interface allocations.

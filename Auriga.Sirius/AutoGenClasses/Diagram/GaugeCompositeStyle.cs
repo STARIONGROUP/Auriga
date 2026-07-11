@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// This style groups many GaugeSection.
     /// </summary>
-    public partial class GaugeCompositeStyle : Auriga.AurigaElement, Auriga.Sirius.Diagram.IGaugeCompositeStyle
+    public partial class GaugeCompositeStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IGaugeCompositeStyle
     {
         /// <summary>
         /// The alignment of the gauges
@@ -98,12 +98,12 @@ namespace Auriga.Sirius.Diagram
         /// <summary>
         /// The sections.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.IGaugeSection> Sections => this.backingSections ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.IGaugeSection>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGaugeSection> Sections => this.backingSections ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.IGaugeSection>(this);
 
         /// <summary>
         /// Backing field for <see cref="Sections"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.IGaugeSection> backingSections;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGaugeSection> backingSections;
 
         /// <summary>
         /// True, if the icon shoud be dispayed on the element.
@@ -119,7 +119,7 @@ namespace Auriga.Sirius.Diagram
         /// Gets the elements directly contained by this <c>GaugeCompositeStyle</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Sections)
             {

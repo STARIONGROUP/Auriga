@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// This operation allows to create a view.
     /// </summary>
-    public partial class CreateView : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.ICreateView
+    public partial class CreateView : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.ICreateView
     {
         /// <summary>
         /// Gets or sets the container view expression.
@@ -33,12 +33,12 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the sub model operations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> SubModelOperations => this.backingSubModelOperations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubModelOperations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IModelOperation> backingSubModelOperations;
 
         /// <summary>
         /// Once the view is created, a new variable will be bound with the name given here and will be available to any contained operation.
@@ -49,7 +49,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// Gets the elements directly contained by this <c>CreateView</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubModelOperations)
             {

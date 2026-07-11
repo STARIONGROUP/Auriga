@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>BooleanListValueStyle</c> class.
     /// </summary>
-    public partial class BooleanListValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IBooleanListValueStyle
+    public partial class BooleanListValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IBooleanListValueStyle
     {
         /// <summary>
         /// Gets the boolean list value.

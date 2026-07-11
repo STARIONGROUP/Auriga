@@ -26,7 +26,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the group extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension> GroupExtensions { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension> GroupExtensions { get; }
 
         /// <summary>
         /// Groups available on this layer.
@@ -41,7 +41,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// All tools of the section.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> OwnedTools { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolEntry> OwnedTools { get; }
 
         /// <summary>
         /// Popup menus available on this layer.
@@ -56,7 +56,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// All sub sections
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> SubSections { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.Tool.IToolSection> SubSections { get; }
 
     }
 }

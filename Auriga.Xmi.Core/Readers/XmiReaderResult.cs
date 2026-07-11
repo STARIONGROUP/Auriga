@@ -7,11 +7,12 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Readers
+namespace Auriga.Xmi.Core.Readers
 {
+    using Auriga.Core;
     using System.Collections.Generic;
 
-    using Auriga.Xmi.ReferenceResolver;
+    using Auriga.Xmi.Core.ReferenceResolver;
 
     /// <summary>
     /// The outcome of reading an XMI document: the typed root element and every element that was read,

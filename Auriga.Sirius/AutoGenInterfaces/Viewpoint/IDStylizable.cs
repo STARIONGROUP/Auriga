@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// An element that has a style.
     /// </summary>
-    public partial interface IDStylizable : Auriga.IAurigaElement
+    public partial interface IDStylizable : Auriga.Core.IAurigaElement
     {
     }
 }

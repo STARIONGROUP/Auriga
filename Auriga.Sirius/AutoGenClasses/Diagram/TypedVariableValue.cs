@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>TypedVariableValue</c> class.
     /// </summary>
-    public partial class TypedVariableValue : Auriga.AurigaElement, Auriga.Sirius.Diagram.ITypedVariableValue
+    public partial class TypedVariableValue : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.ITypedVariableValue
     {
         /// <summary>
         /// Gets or sets the uid.

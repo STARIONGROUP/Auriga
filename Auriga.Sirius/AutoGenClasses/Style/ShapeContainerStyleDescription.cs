@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description.Style
     /// <summary>
     /// Definition of the <c>ShapeContainerStyleDescription</c> class.
     /// </summary>
-    public partial class ShapeContainerStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IShapeContainerStyleDescription
+    public partial class ShapeContainerStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Style.IShapeContainerStyleDescription
     {
         /// <summary>
         /// The height of the ellipse used to draw the corners.

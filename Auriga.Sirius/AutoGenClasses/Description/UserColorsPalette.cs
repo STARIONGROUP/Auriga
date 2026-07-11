@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>UserColorsPalette</c> class.
     /// </summary>
-    public partial class UserColorsPalette : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IUserColorsPalette
+    public partial class UserColorsPalette : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IUserColorsPalette
     {
         /// <summary>
         /// Gets the entries.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor> Entries => this.backingEntries ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor> Entries => this.backingEntries ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor>(this);
 
         /// <summary>
         /// Backing field for <see cref="Entries"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor> backingEntries;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IUserColor> backingEntries;
 
         /// <summary>
         /// Gets or sets the name.
@@ -39,7 +39,7 @@ namespace Auriga.Sirius.Viewpoint.Description
         /// Gets the elements directly contained by this <c>UserColorsPalette</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Entries)
             {

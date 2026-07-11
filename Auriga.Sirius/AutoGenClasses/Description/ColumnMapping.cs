@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>ColumnMapping</c> class.
     /// </summary>
-    public partial class ColumnMapping : Auriga.AurigaElement, Auriga.Sirius.Table.Description.IColumnMapping
+    public partial class ColumnMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.IColumnMapping
     {
         /// <summary>
         /// All details that can be created from this node.

@@ -23,12 +23,12 @@ namespace Auriga.La
         /// <summary>
         /// Gets the owned capability realization pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ICapabilityRealizationPkg> OwnedCapabilityRealizationPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.La.ICapabilityRealizationPkg> OwnedCapabilityRealizationPkgs { get; }
 
         /// <summary>
         /// Gets the owned capability realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ICapabilityRealization> OwnedCapabilityRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.La.ICapabilityRealization> OwnedCapabilityRealizations { get; }
 
     }
 }

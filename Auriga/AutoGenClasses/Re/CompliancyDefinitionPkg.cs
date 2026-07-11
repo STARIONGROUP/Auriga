@@ -18,7 +18,7 @@ namespace Auriga.Re
     /// <summary>
     /// Definition of the <c>CompliancyDefinitionPkg</c> class.
     /// </summary>
-    public partial class CompliancyDefinitionPkg : Auriga.AurigaElement, Auriga.Re.ICompliancyDefinitionPkg
+    public partial class CompliancyDefinitionPkg : Auriga.Core.AurigaElement, Auriga.Re.ICompliancyDefinitionPkg
     {
         /// <summary>
         /// Gets or sets the name.
@@ -28,28 +28,28 @@ namespace Auriga.Re
         /// <summary>
         /// Gets the owned definitions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Re.ICompliancyDefinition> OwnedDefinitions => this.backingOwnedDefinitions ??= new Auriga.ContainerList<Auriga.Re.ICompliancyDefinition>(this);
+        public Auriga.Core.IContainerList<Auriga.Re.ICompliancyDefinition> OwnedDefinitions => this.backingOwnedDefinitions ??= new Auriga.Core.ContainerList<Auriga.Re.ICompliancyDefinition>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedDefinitions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Re.ICompliancyDefinition> backingOwnedDefinitions;
+        private Auriga.Core.IContainerList<Auriga.Re.ICompliancyDefinition> backingOwnedDefinitions;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CompliancyDefinitionPkg</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedDefinitions)
             {

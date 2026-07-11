@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Sequence.Ordering
     /// <summary>
     /// Definition of the <c>EventEnd</c> interface.
     /// </summary>
-    public partial interface IEventEnd : Auriga.IAurigaElement
+    public partial interface IEventEnd : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the semantic end.

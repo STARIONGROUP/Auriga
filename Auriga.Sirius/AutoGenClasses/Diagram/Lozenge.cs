@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// The diamond style to display a node as a diamond.
     /// </summary>
-    public partial class Lozenge : Auriga.AurigaElement, Auriga.Sirius.Diagram.ILozenge
+    public partial class Lozenge : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.ILozenge
     {
         /// <summary>
         /// Gets or sets the border color.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description.Tool
     /// <summary>
     /// Definition of the <c>ToolGroupExtension</c> class.
     /// </summary>
-    public partial class ToolGroupExtension : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension
+    public partial class ToolGroupExtension : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.Tool.IToolGroupExtension
     {
         /// <summary>
         /// Gets or sets the group.
@@ -28,18 +28,18 @@ namespace Auriga.Sirius.Diagram.Description.Tool
         /// <summary>
         /// Gets the tools.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> Tools => this.backingTools ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> Tools => this.backingTools ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="Tools"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> backingTools;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IAbstractToolDescription> backingTools;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ToolGroupExtension</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Tools)
             {

@@ -51,12 +51,12 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets the owned deployments.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
 
         /// <summary>
         /// Gets the owned logical architecture realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.ILogicalArchitectureRealization> OwnedLogicalArchitectureRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.ILogicalArchitectureRealization> OwnedLogicalArchitectureRealizations { get; }
 
         /// <summary>
         /// Gets or sets the owned physical component pkg.

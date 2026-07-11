@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>CanonicalStyle</c> class.
     /// </summary>
-    public partial class CanonicalStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.ICanonicalStyle
+    public partial class CanonicalStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.ICanonicalStyle
     {
         /// <summary>
         /// Gets or sets the canonical.

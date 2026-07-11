@@ -36,7 +36,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Validation
         /// <summary>
         /// The validation rules owned by this set.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule> OwnedRules { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Validation.IValidationRule> OwnedRules { get; }
 
         /// <summary>
         /// The validations rules that are reused by this set.

@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TLifelineMapping</c> class.
     /// </summary>
-    public partial class TLifelineMapping : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITLifelineMapping
+    public partial class TLifelineMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITLifelineMapping
     {
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle> ConditionalLifeLineStyles => this.backingConditionalLifeLineStyles ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle> ConditionalLifeLineStyles => this.backingConditionalLifeLineStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionalLifeLineStyles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle> backingConditionalLifeLineStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalLifelineStyle> backingConditionalLifeLineStyles;
 
         /// <summary>
         /// The domain class of the mapping.
@@ -67,12 +67,12 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the execution mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings => this.backingExecutionMappings ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings => this.backingExecutionMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="ExecutionMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> backingExecutionMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> backingExecutionMappings;
 
         /// <summary>
         /// Gets or sets the instance role style.
@@ -137,7 +137,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// Gets the elements directly contained by this <c>TLifelineMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.ConditionalLifeLineStyles)
             {

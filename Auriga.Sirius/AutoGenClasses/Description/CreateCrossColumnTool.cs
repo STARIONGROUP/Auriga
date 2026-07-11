@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>CreateCrossColumnTool</c> class.
     /// </summary>
-    public partial class CreateCrossColumnTool : Auriga.AurigaElement, Auriga.Sirius.Table.Description.ICreateCrossColumnTool
+    public partial class CreateCrossColumnTool : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.ICreateCrossColumnTool
     {
         /// <summary>
         /// Gets or sets the documentation.
@@ -33,12 +33,12 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the filters.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> Filters => this.backingFilters ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="Filters"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription> backingFilters;
 
         /// <summary>
         /// Gets or sets the first model operation.
@@ -95,18 +95,18 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the variables.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> Variables => this.backingVariables ??= new Auriga.ContainerList<Auriga.Sirius.Table.Description.ITableVariable>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> Variables => this.backingVariables ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.Description.ITableVariable>(this);
 
         /// <summary>
         /// Backing field for <see cref="Variables"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> backingVariables;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ITableVariable> backingVariables;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CreateCrossColumnTool</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Filters)
             {

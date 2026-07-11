@@ -7,8 +7,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Readers
+namespace Auriga.Xmi.Core.Readers
 {
+    using Auriga.Core;
     using System.Xml;
 
     /// <summary>

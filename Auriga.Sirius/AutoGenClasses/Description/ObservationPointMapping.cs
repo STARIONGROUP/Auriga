@@ -20,27 +20,27 @@ namespace Auriga.Sirius.Sequence.Description
     /// <summary>
     /// Definition of the <c>ObservationPointMapping</c> class.
     /// </summary>
-    public partial class ObservationPointMapping : Auriga.AurigaElement, Auriga.Sirius.Sequence.Description.IObservationPointMapping
+    public partial class ObservationPointMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Description.IObservationPointMapping
     {
         /// <summary>
         /// The mapping for nodes that are on the border of nodes created by this mapping.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings => this.backingBorderedNodeMappings ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> BorderedNodeMappings => this.backingBorderedNodeMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.INodeMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="BorderedNodeMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingBorderedNodeMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.INodeMapping> backingBorderedNodeMappings;
 
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> ConditionnalStyles => this.backingConditionnalStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionnalStyles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> backingConditionnalStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalNodeStyleDescription> backingConditionnalStyles;
 
         /// <summary>
         /// true if the init/refresh operations should create elements for this mapping.
@@ -154,7 +154,7 @@ namespace Auriga.Sirius.Sequence.Description
         /// Gets the elements directly contained by this <c>ObservationPointMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.BorderedNodeMappings)
             {

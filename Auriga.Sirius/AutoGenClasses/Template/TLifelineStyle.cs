@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TLifelineStyle</c> class.
     /// </summary>
-    public partial class TLifelineStyle : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITLifelineStyle
+    public partial class TLifelineStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITLifelineStyle
     {
         /// <summary>
         /// Gets or sets the lifeline color.

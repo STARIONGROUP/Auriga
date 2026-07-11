@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Table.Description
         /// <summary>
         /// Gets the create.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.Description.ICreateColumnTool> Create { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.Description.ICreateColumnTool> Create { get; }
 
         /// <summary>
         /// Gets or sets the delete.

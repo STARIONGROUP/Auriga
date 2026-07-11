@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>UserColor</c> interface.
     /// </summary>
-    public partial interface IUserColor : Auriga.IAurigaElement
+    public partial interface IUserColor : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// The name of the color description, as shown to the user in color palettes.

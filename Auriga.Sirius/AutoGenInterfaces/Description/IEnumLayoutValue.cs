@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>EnumLayoutValue</c> interface.
     /// </summary>
-    public partial interface IEnumLayoutValue : Auriga.IAurigaElement
+    public partial interface IEnumLayoutValue : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the description.

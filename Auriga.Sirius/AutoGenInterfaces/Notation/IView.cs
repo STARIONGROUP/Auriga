@@ -21,7 +21,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>View</c> interface.
     /// </summary>
-    public partial interface IView : Auriga.IAurigaElement
+    public partial interface IView : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the diagram.
@@ -41,7 +41,7 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the persisted children.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Notation.INode> PersistedChildren { get; }
 
         /// <summary>
         /// Gets the source edges.
@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the styles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Notation.IStyle> Styles { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Notation.IStyle> Styles { get; }
 
         /// <summary>
         /// Gets the target edges.

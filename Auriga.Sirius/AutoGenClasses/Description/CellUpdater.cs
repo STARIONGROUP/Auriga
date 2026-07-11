@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>CellUpdater</c> class.
     /// </summary>
-    public partial class CellUpdater : Auriga.AurigaElement, Auriga.Sirius.Table.Description.ICellUpdater
+    public partial class CellUpdater : Auriga.Core.AurigaElement, Auriga.Sirius.Table.Description.ICellUpdater
     {
         /// <summary>
         /// Gets or sets the can edit.
@@ -73,7 +73,7 @@ namespace Auriga.Sirius.Table.Description
         /// Gets the elements directly contained by this <c>CellUpdater</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.CellEditor != null)
             {

@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// <summary>
         /// All conditional styles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription> ConditionnalStyles { get; }
 
         /// <summary>
         /// The imported mapping used to define default values for the current mapping.

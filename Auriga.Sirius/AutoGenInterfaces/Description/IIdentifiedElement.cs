@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// All elements which are identified by its name (id) and which have a label to display it to the end-user.
     /// </summary>
-    public partial interface IIdentifiedElement : Auriga.IAurigaElement
+    public partial interface IIdentifiedElement : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// The label used to display this viewpoint to the end-user.

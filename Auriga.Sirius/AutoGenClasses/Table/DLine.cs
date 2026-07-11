@@ -21,17 +21,17 @@ namespace Auriga.Sirius.Table
     /// <summary>
     /// Definition of the <c>DLine</c> class.
     /// </summary>
-    public partial class DLine : Auriga.AurigaElement, Auriga.Sirius.Table.IDLine
+    public partial class DLine : Auriga.Core.AurigaElement, Auriga.Sirius.Table.IDLine
     {
         /// <summary>
         /// List of cells of this line. This list does not necessarily have as many cells as there are columns. Indeed, the «blank cells» are not created.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.IDCell> Cells => this.backingCells ??= new Auriga.ContainerList<Auriga.Sirius.Table.IDCell>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.IDCell> Cells => this.backingCells ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.IDCell>(this);
 
         /// <summary>
         /// Backing field for <see cref="Cells"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.IDCell> backingCells;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.IDCell> backingCells;
 
         /// <summary>
         /// Gets or sets the collapsed.
@@ -70,12 +70,12 @@ namespace Auriga.Sirius.Table
         /// <summary>
         /// Gets the lines.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Table.IDLine> Lines => this.backingLines ??= new Auriga.ContainerList<Auriga.Sirius.Table.IDLine>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Table.IDLine> Lines => this.backingLines ??= new Auriga.Core.ContainerList<Auriga.Sirius.Table.IDLine>(this);
 
         /// <summary>
         /// Backing field for <see cref="Lines"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Table.IDLine> backingLines;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Table.IDLine> backingLines;
 
         /// <summary>
         /// The name of the element. It is the name that is displayed on the diagram.
@@ -121,7 +121,7 @@ namespace Auriga.Sirius.Table
         /// Gets the elements directly contained by this <c>DLine</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Cells)
             {

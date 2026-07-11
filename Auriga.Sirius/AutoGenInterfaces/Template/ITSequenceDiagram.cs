@@ -33,12 +33,12 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the lifeline mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping> LifelineMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITLifelineMapping> LifelineMappings { get; }
 
         /// <summary>
         /// Gets the message mappings.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping> MessageMappings { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITMessageMapping> MessageMappings { get; }
 
     }
 }

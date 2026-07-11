@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// Definition of the <c>SelectContainerVariable</c> class.
     /// </summary>
-    public partial class SelectContainerVariable : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ISelectContainerVariable
+    public partial class SelectContainerVariable : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.ISelectContainerVariable
     {
         /// <summary>
         /// Gets or sets the name.
@@ -28,18 +28,18 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the sub variables.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables => this.backingSubVariables ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> SubVariables => this.backingSubVariables ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable>(this);
 
         /// <summary>
         /// Backing field for <see cref="SubVariables"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> backingSubVariables;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.ISubVariable> backingSubVariables;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>SelectContainerVariable</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.SubVariables)
             {

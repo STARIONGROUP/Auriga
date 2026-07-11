@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>DoubleLayoutOption</c> class.
     /// </summary>
-    public partial class DoubleLayoutOption : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IDoubleLayoutOption
+    public partial class DoubleLayoutOption : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IDoubleLayoutOption
     {
         /// <summary>
         /// Gets the description.

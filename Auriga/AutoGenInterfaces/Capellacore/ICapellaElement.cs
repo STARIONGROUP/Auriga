@@ -45,17 +45,17 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned enumeration property types.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes { get; }
 
         /// <summary>
         /// Gets the owned property value groups.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups { get; }
 
         /// <summary>
         /// Gets the owned property values.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues { get; }
 
         /// <summary>
         /// Gets or sets the review.

@@ -20,7 +20,7 @@ namespace Auriga.Sirius.Notation
     /// <summary>
     /// Definition of the <c>StringListValueStyle</c> class.
     /// </summary>
-    public partial class StringListValueStyle : Auriga.AurigaElement, Auriga.Sirius.Notation.IStringListValueStyle
+    public partial class StringListValueStyle : Auriga.Core.AurigaElement, Auriga.Sirius.Notation.IStringListValueStyle
     {
         /// <summary>
         /// Gets or sets the name.

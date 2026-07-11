@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// A GenericDecorationDescription applies decoration on views targeting an element that fulfill the preconditionExpression.
     /// </summary>
-    public partial class GenericDecorationDescription : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.IGenericDecorationDescription
+    public partial class GenericDecorationDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.IGenericDecorationDescription
     {
         /// <summary>
         /// Gets or sets the distribution direction.

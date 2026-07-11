@@ -23,12 +23,12 @@ namespace Auriga.Sirius.Notation
         /// <summary>
         /// Gets the horizontal guides.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> HorizontalGuides { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> HorizontalGuides { get; }
 
         /// <summary>
         /// Gets the vertical guides.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Notation.IGuide> VerticalGuides { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Notation.IGuide> VerticalGuides { get; }
 
     }
 }

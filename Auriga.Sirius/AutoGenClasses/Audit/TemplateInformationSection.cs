@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Audit
     /// <summary>
     /// This information section is based on an Acceleo template.
     /// </summary>
-    public partial class TemplateInformationSection : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Audit.ITemplateInformationSection
+    public partial class TemplateInformationSection : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Audit.ITemplateInformationSection
     {
         /// <summary>
         /// The file path of the template.

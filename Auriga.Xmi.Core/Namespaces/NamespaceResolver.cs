@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Xmi.Namespaces
+namespace Auriga.Xmi.Core.Namespaces
 {
     using System;
     using System.Collections.Generic;

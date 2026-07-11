@@ -18,23 +18,23 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>Customization</c> class.
     /// </summary>
-    public partial class Customization : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.ICustomization
+    public partial class Customization : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.ICustomization
     {
         /// <summary>
         /// Gets the vsm element customizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization> VsmElementCustomizations => this.backingVsmElementCustomizations ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization> VsmElementCustomizations => this.backingVsmElementCustomizations ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization>(this);
 
         /// <summary>
         /// Backing field for <see cref="VsmElementCustomizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization> backingVsmElementCustomizations;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.IIVSMElementCustomization> backingVsmElementCustomizations;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Customization</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.VsmElementCustomizations)
             {

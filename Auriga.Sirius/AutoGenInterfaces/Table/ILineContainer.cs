@@ -23,7 +23,7 @@ namespace Auriga.Sirius.Table
         /// <summary>
         /// Gets the lines.
         /// </summary>
-        Auriga.IContainerList<Auriga.Sirius.Table.IDLine> Lines { get; }
+        Auriga.Core.IContainerList<Auriga.Sirius.Table.IDLine> Lines { get; }
 
     }
 }

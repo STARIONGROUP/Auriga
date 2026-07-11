@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Diagram
     /// <summary>
     /// Definition of the <c>FilterVariableHistory</c> class.
     /// </summary>
-    public partial class FilterVariableHistory : Auriga.AurigaElement, Auriga.Sirius.Diagram.IFilterVariableHistory
+    public partial class FilterVariableHistory : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.IFilterVariableHistory
     {
         /// <summary>
         /// Gets the owned values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Diagram.IVariableValue> OwnedValues => this.backingOwnedValues ??= new Auriga.ContainerList<Auriga.Sirius.Diagram.IVariableValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IVariableValue> OwnedValues => this.backingOwnedValues ??= new Auriga.Core.ContainerList<Auriga.Sirius.Diagram.IVariableValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Diagram.IVariableValue> backingOwnedValues;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IVariableValue> backingOwnedValues;
 
         /// <summary>
         /// Gets or sets the uid.
@@ -39,7 +39,7 @@ namespace Auriga.Sirius.Diagram
         /// Gets the elements directly contained by this <c>FilterVariableHistory</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedValues)
             {

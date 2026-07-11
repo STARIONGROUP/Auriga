@@ -18,17 +18,17 @@ namespace Auriga.Sirius.Sequence.Ordering
     /// <summary>
     /// Definition of the <c>CompoundEventEnd</c> class.
     /// </summary>
-    public partial class CompoundEventEnd : Auriga.AurigaElement, Auriga.Sirius.Sequence.Ordering.ICompoundEventEnd
+    public partial class CompoundEventEnd : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Ordering.ICompoundEventEnd
     {
         /// <summary>
         /// Gets the event ends.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd> EventEnds => this.backingEventEnds ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd> EventEnds => this.backingEventEnds ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd>(this);
 
         /// <summary>
         /// Backing field for <see cref="EventEnds"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd> backingEventEnds;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Ordering.ISingleEventEnd> backingEventEnds;
 
         /// <summary>
         /// Gets or sets the semantic end.
@@ -39,7 +39,7 @@ namespace Auriga.Sirius.Sequence.Ordering
         /// Gets the elements directly contained by this <c>CompoundEventEnd</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.EventEnds)
             {

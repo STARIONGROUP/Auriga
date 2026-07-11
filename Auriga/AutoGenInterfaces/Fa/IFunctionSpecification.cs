@@ -36,7 +36,7 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned function ports.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IFunctionPort> OwnedFunctionPorts { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IFunctionPort> OwnedFunctionPorts { get; }
 
         /// <summary>
         /// Gets the sub function specifications.

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Diagram.Description
     /// <summary>
     /// Definition of the <c>ConditionalEdgeStyleDescription</c> class.
     /// </summary>
-    public partial class ConditionalEdgeStyleDescription : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription
+    public partial class ConditionalEdgeStyleDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Diagram.Description.IConditionalEdgeStyleDescription
     {
         /// <summary>
         /// This expression will get evaluated and if it returns true the contained style will be choosen.
@@ -51,7 +51,7 @@ namespace Auriga.Sirius.Diagram.Description
         /// Gets the elements directly contained by this <c>ConditionalEdgeStyleDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Style != null)
             {

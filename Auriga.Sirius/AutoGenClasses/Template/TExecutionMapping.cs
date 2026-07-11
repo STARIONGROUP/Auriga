@@ -20,17 +20,17 @@ namespace Auriga.Sirius.Sequence.Template
     /// <summary>
     /// Definition of the <c>TExecutionMapping</c> class.
     /// </summary>
-    public partial class TExecutionMapping : Auriga.AurigaElement, Auriga.Sirius.Sequence.Template.ITExecutionMapping
+    public partial class TExecutionMapping : Auriga.Core.AurigaElement, Auriga.Sirius.Sequence.Template.ITExecutionMapping
     {
         /// <summary>
         /// Gets the conditional styles.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle> ConditionalStyles => this.backingConditionalStyles ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle> ConditionalStyles => this.backingConditionalStyles ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle>(this);
 
         /// <summary>
         /// Backing field for <see cref="ConditionalStyles"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle> backingConditionalStyles;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITConditionalExecutionStyle> backingConditionalStyles;
 
         /// <summary>
         /// The domain class of the mapping.
@@ -40,12 +40,12 @@ namespace Auriga.Sirius.Sequence.Template
         /// <summary>
         /// Gets the execution mappings.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings => this.backingExecutionMappings ??= new Auriga.ContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> ExecutionMappings => this.backingExecutionMappings ??= new Auriga.Core.ContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping>(this);
 
         /// <summary>
         /// Backing field for <see cref="ExecutionMappings"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> backingExecutionMappings;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Sequence.Template.ITExecutionMapping> backingExecutionMappings;
 
         /// <summary>
         /// Gets or sets the finishing end finder expression.
@@ -103,7 +103,7 @@ namespace Auriga.Sirius.Sequence.Template
         /// Gets the elements directly contained by this <c>TExecutionMapping</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.ConditionalStyles)
             {

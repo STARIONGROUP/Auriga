@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
     /// <summary>
     /// filter to hide a tool in UI based on preconditon evaluated when specified elements to listen are modified
     /// </summary>
-    public partial class ToolFilterDescription : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription
+    public partial class ToolFilterDescription : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.Description.Tool.IToolFilterDescription
     {
         /// <summary>
         /// The elements to listen by the filter.
@@ -28,12 +28,12 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// <summary>
         /// Gets the listeners.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener> Listeners => this.backingListeners ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener> Listeners => this.backingListeners ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener>(this);
 
         /// <summary>
         /// Backing field for <see cref="Listeners"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener> backingListeners;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.Description.Tool.IFeatureChangeListener> backingListeners;
 
         /// <summary>
         /// The precondition of the filter.
@@ -44,7 +44,7 @@ namespace Auriga.Sirius.Viewpoint.Description.Tool
         /// Gets the elements directly contained by this <c>ToolFilterDescription</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.Listeners)
             {

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint.Description
     /// <summary>
     /// Definition of the <c>Component</c> interface.
     /// </summary>
-    public partial interface IComponent : Auriga.IAurigaElement
+    public partial interface IComponent : Auriga.Core.IAurigaElement
     {
     }
 }

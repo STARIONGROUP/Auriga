@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Viewpoint
     /// <summary>
     /// Definition of the <c>ToolGroupInstance</c> class.
     /// </summary>
-    public partial class ToolGroupInstance : Auriga.AurigaElement, Auriga.Sirius.Viewpoint.IToolGroupInstance
+    public partial class ToolGroupInstance : Auriga.Core.AurigaElement, Auriga.Sirius.Viewpoint.IToolGroupInstance
     {
         /// <summary>
         /// Gets or sets the enabled.
@@ -33,7 +33,7 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets or sets the group.
         /// </summary>
-        public Auriga.IAurigaElement Group
+        public Auriga.Core.IAurigaElement Group
         {
             get => this.backingGroup;
             set
@@ -50,7 +50,7 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Backing field for <see cref="Group"/>.
         /// </summary>
-        private Auriga.IAurigaElement backingGroup;
+        private Auriga.Core.IAurigaElement backingGroup;
 
         /// <summary>
         /// Gets or sets the tool entry.
@@ -60,12 +60,12 @@ namespace Auriga.Sirius.Viewpoint
         /// <summary>
         /// Gets the tools.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools => this.backingTools ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.IToolInstance>(this);
+        public Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> Tools => this.backingTools ??= new Auriga.Core.ContainerList<Auriga.Sirius.Viewpoint.IToolInstance>(this);
 
         /// <summary>
         /// Backing field for <see cref="Tools"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> backingTools;
+        private Auriga.Core.IContainerList<Auriga.Sirius.Viewpoint.IToolInstance> backingTools;
 
         /// <summary>
         /// Gets or sets the visible.
@@ -76,7 +76,7 @@ namespace Auriga.Sirius.Viewpoint
         /// Gets the elements directly contained by this <c>ToolGroupInstance</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             if (this.Group != null)
             {

@@ -18,7 +18,7 @@ namespace Auriga.Sirius.Table.Description
     /// <summary>
     /// Definition of the <c>BackgroundStyleDescription</c> interface.
     /// </summary>
-    public partial interface IBackgroundStyleDescription : Auriga.IAurigaElement
+    public partial interface IBackgroundStyleDescription : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets or sets the background color.
