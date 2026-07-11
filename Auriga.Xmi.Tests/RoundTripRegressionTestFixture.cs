@@ -205,7 +205,7 @@ namespace Auriga.Xmi.Tests
             {
                 return XmiReaderBuilder.Create().Build().Read(mainPath);
             }
-            catch (InvalidDataException exception) when (exception.Message.Contains("to a known Capella package", StringComparison.Ordinal))
+            catch (InvalidDataException exception) when (exception.Message.Contains("to a known package", StringComparison.Ordinal))
             {
                 Assert.Ignore($"{Path.GetFileName(mainPath)} references a package outside the vendored metamodel (an add-on viewpoint the v1 reader does not support): {exception.Message}");
                 throw; // unreachable — Assert.Ignore throws

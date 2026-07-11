@@ -32,6 +32,18 @@ namespace Auriga.Xmi.Readers
     public sealed class XmiReader : IXmiReader
     {
         /// <summary>
+        /// The namespace URI of the <c>xmi:XMI</c> wrapper element. A document whose root is this element
+        /// (as every Sirius <c>.aird</c> is) carries no type of its own; its typed top-level elements are its
+        /// children, so each is read as a root into the shared graph.
+        /// </summary>
+        private const string XmiWrapperNamespace = "http://www.omg.org/XMI";
+
+        /// <summary>
+        /// The local name of the <c>xmi:XMI</c> wrapper element.
+        /// </summary>
+        private const string XmiWrapperLocalName = "XMI";
+
+        /// <summary>
         /// The cache in which every element read on the first pass is registered by <c>xmi:id</c>.
         /// </summary>
         private readonly IXmiElementCache cache;
@@ -166,12 +178,68 @@ namespace Auriga.Xmi.Readers
 
             this.RegisterDocumentNamespaces(xmlReader);
 
+            // An .aird wraps its typed top-level elements in an xmi:XMI element that has no type of its own;
+            // read each child as a root into the shared graph and return the first as the document root.
+            if (xmlReader.NamespaceURI == XmiWrapperNamespace && xmlReader.LocalName == XmiWrapperLocalName)
+            {
+                return this.ReadXmiWrapper(xmlReader, documentName);
+            }
+
             var namespaceUri = xmlReader.NamespaceURI;
             var rootTypeKey = this.ResolveRootTypeKey(xmlReader, documentName);
 
             // Each generated reader records documentName as the read element's source and caches it under
             // its document-scoped key, so no post-hoc tagging pass is needed.
             return this.facade.QueryElement(xmlReader, documentName, namespaceUri, rootTypeKey);
+        }
+
+        /// <summary>
+        /// Reads a multi-root <c>xmi:XMI</c> document: every top-level child is a typed element (keyed by
+        /// its element name, like a single-root document's root), so each is dispatched to its generated
+        /// reader and registered in the shared cache. The first child is returned as the document root; the
+        /// rest are reachable through the cache and the read result's element index, and cross-references
+        /// between them resolve on the second pass.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on the <c>xmi:XMI</c> wrapper element</param>
+        /// <param name="documentName">the name recorded as the source document of the read elements</param>
+        /// <returns>the first top-level child element</returns>
+        /// <exception cref="InvalidDataException">the wrapper contains no top-level elements</exception>
+        private IAurigaElement ReadXmiWrapper(XmlReader xmlReader, string documentName)
+        {
+            IAurigaElement? firstRoot = null;
+
+            if (!xmlReader.IsEmptyElement)
+            {
+                var wrapperDepth = xmlReader.Depth;
+
+                while (xmlReader.Read())
+                {
+                    if (xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Depth == wrapperDepth)
+                    {
+                        break;
+                    }
+
+                    if (xmlReader.NodeType != XmlNodeType.Element)
+                    {
+                        continue;
+                    }
+
+                    var namespaceUri = xmlReader.NamespaceURI;
+                    var typeKey = this.ResolveRootTypeKey(xmlReader, documentName);
+
+                    // QueryElement reads the child's subtree; the reader is left on the child's end element,
+                    // so the next Read() advances to the following sibling (or the wrapper's end element).
+                    var element = this.facade.QueryElement(xmlReader, documentName, namespaceUri, typeKey);
+                    firstRoot ??= element;
+                }
+            }
+
+            if (firstRoot == null)
+            {
+                throw new InvalidDataException($"The XMI document '{documentName}' contains no top-level elements.");
+            }
+
+            return firstRoot;
         }
 
         /// <summary>
@@ -336,12 +404,12 @@ namespace Auriga.Xmi.Readers
         /// <param name="xmlReader">the reader positioned on the document root</param>
         /// <param name="documentName">the name of the document (used for diagnostics)</param>
         /// <returns>the package-qualified type key for the root element</returns>
-        /// <exception cref="InvalidDataException">the root namespace is not a known Capella package</exception>
+        /// <exception cref="InvalidDataException">the root namespace is not a known package</exception>
         private string ResolveRootTypeKey(XmlReader xmlReader, string documentName)
         {
             if (!this.namespaceResolver.TryResolvePackage(xmlReader.NamespaceURI, out var package) || package == null)
             {
-                throw new InvalidDataException($"The root namespace '{xmlReader.NamespaceURI}' of '{documentName}' is not a known Capella package.");
+                throw new InvalidDataException($"The root namespace '{xmlReader.NamespaceURI}' of '{documentName}' is not a known package.");
             }
 
             return $"{package}:{xmlReader.LocalName}";

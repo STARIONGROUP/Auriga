@@ -35,6 +35,12 @@ namespace Auriga.Xmi.Readers
         protected const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
 
         /// <summary>
+        /// The OMG XMI namespace, in which the <c>xmi:id</c> identifier attribute is declared (as Sirius
+        /// and GMF serialize it, where Capella instead uses a bare <c>id</c>).
+        /// </summary>
+        protected const string XmiNamespace = "http://www.omg.org/XMI";
+
+        /// <summary>
         /// The characters used to split a whitespace-delimited attribute value — a reference list such as
         /// <c>linkEnds</c>, or a multi-valued primitive attribute.
         /// </summary>

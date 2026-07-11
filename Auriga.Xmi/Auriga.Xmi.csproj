@@ -23,6 +23,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga\Auriga.csproj" />
+        <ProjectReference Include="..\Auriga.Xmi.Core\Auriga.Xmi.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
