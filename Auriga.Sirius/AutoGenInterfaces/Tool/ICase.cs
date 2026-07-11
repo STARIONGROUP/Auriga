@@ -1,0 +1,35 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="ICase.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Sirius.Viewpoint.Description.Tool
+{
+    /// <summary>
+    /// If the evaluation of the condition returns true then all operations contains by this case statement
+    /// will be executed, otherwise all operations will be ignored.
+    /// </summary>
+    public partial interface ICase : Auriga.Sirius.Viewpoint.Description.Tool.ISwitchChild
+    {
+        /// <summary>
+        /// Expression representing the condition, if it returns true, every operation contained by this
+        /// statement will be executed.
+        /// </summary>
+        string ConditionExpression { get; set; }
+
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

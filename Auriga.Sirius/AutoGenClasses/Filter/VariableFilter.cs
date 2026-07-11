@@ -1,0 +1,61 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="VariableFilter.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Sirius.Diagram.Description.Filter
+{
+    /// <summary>
+    /// A filter that filters viewpoint elements considering an expression and some variables defined by the
+    /// user.
+    /// </summary>
+    public partial class VariableFilter : Auriga.AurigaElement, Auriga.Sirius.Diagram.Description.Filter.IVariableFilter
+    {
+        /// <summary>
+        /// A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this
+        /// element will be kept.
+        /// </summary>
+        public Auriga.Sirius.Diagram.Description.Filter.FilterKind? FilterKind { get; set; }
+
+        /// <summary>
+        /// Gets the owned variables.
+        /// </summary>
+        public Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> OwnedVariables => this.backingOwnedVariables ??= new Auriga.ContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedVariables"/>.
+        /// </summary>
+        private Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IInteractiveVariableDescription> backingOwnedVariables;
+
+        /// <summary>
+        /// The condition to apply on the semantic element.
+        /// </summary>
+        public string SemanticConditionExpression { get; set; }
+
+        /// <summary>
+        /// Gets the elements directly contained by this <c>VariableFilter</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedVariables)
+            {
+                yield return element;
+            }
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

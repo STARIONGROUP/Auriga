@@ -11,8 +11,10 @@ namespace Auriga.CodeGenerator.Helpers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using ECoreNetto;
+    using ECoreNetto.Extensions;
 
     /// <summary>
     /// C#-specific naming rules for the generated Capella object model: PascalCasing, C# keyword
@@ -38,9 +40,11 @@ namespace Auriga.CodeGenerator.Helpers
         };
 
         /// <summary>
-        /// The root namespace of the generated object model.
+        /// The root namespace of the generated object model. Read from the ambient
+        /// <see cref="NamingContext"/> so the same helpers can generate the Capella model (<c>Auriga</c>)
+        /// and the Sirius model (<c>Auriga.Sirius</c>); defaults to <c>Auriga</c>.
         /// </summary>
-        public const string RootNamespace = "Auriga";
+        public static string RootNamespace => NamingContext.ModelRoot;
 
         /// <summary>
         /// Capitalizes the first letter of the supplied name.
@@ -108,6 +112,63 @@ namespace Auriga.CodeGenerator.Helpers
         public static string EnumType(EEnum eEnum)
         {
             return $"{Namespace(eEnum)}.{Capitalize(eEnum.Name)}";
+        }
+
+        /// <summary>
+        /// Returns the C# member name for a structural feature: the PascalCased, keyword-escaped feature
+        /// name, with a trailing underscore appended when the feature is in the ambient collision set (C#
+        /// forbids a member sharing its enclosing type's name, e.g. the GMF <c>notation::View.diagram</c>
+        /// feature inherited by the <c>notation::Diagram</c> class). The XML name written/read for the
+        /// feature stays the raw Ecore name, so the serialization is unaffected. No Capella feature
+        /// collides, so Capella member names are unchanged.
+        /// </summary>
+        /// <param name="feature">the structural feature</param>
+        /// <returns>the de-collided C# member name</returns>
+        public static string MemberName(EStructuralFeature feature)
+        {
+            var name = Escape(Capitalize(feature.Name));
+
+            if (NamingContext.IsRenamed(feature))
+            {
+                name += "_";
+            }
+
+            return name;
+        }
+
+        /// <summary>
+        /// Detects the structural features whose C# member name would collide with the name of a concrete
+        /// class that declares or inherits them — which C# forbids, since a member cannot share its
+        /// enclosing type's name. Detection is by feature identity over the whole metamodel so a feature
+        /// declared in a base type (e.g. GMF <c>View.diagram</c>) is renamed consistently in its interface
+        /// and in every concrete subclass that flattens it (e.g. <c>Diagram</c>). The result is supplied to
+        /// <see cref="NamingContext.Use"/> so <see cref="MemberName"/> can de-collide those features.
+        /// </summary>
+        /// <param name="allPackages">every package of the loaded metamodel</param>
+        /// <returns>the set of features whose member name must be de-collided</returns>
+        public static ISet<EStructuralFeature> DetectMemberCollisions(IEnumerable<EPackage> allPackages)
+        {
+            var colliding = new HashSet<EStructuralFeature>();
+
+            foreach (var eClass in allPackages.SelectMany(p => p.EClassifiers.OfType<EClass>()))
+            {
+                if (eClass.Abstract || eClass.Interface)
+                {
+                    continue;
+                }
+
+                var className = Capitalize(eClass.Name);
+
+                foreach (var feature in eClass.AllEStructuralFeatures)
+                {
+                    if (feature.EType != null && string.Equals(Capitalize(feature.Name), className, StringComparison.Ordinal))
+                    {
+                        colliding.Add(feature);
+                    }
+                }
+            }
+
+            return colliding;
         }
     }
 }

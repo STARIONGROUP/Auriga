@@ -38,7 +38,24 @@ namespace Auriga.CodeGenerator.Helpers
             ["EDouble"] = "double", ["EDoubleObject"] = "double",
             ["EBigDecimal"] = "decimal", ["EBigInteger"] = "BigInteger",
             ["EDate"] = "DateTime",
-            ["EJavaObject"] = "object", ["EJavaClass"] = "Type"
+            ["EJavaObject"] = "object", ["EJavaClass"] = "Type",
+
+            // Ecore built-in "system" datatypes reached as feature types in the Sirius/GMF metamodels
+            // (e.g. GMF View.diagram's resource plumbing). They are opaque runtime handles carried on
+            // transient/volatile features, so they map to object.
+            ["EResource"] = "object", ["EResourceSet"] = "object", ["EMap"] = "object",
+            ["EFeatureMap"] = "object", ["EFeatureMapEntry"] = "object", ["EDiagnosticChain"] = "object",
+            ["EEList"] = "object", ["EInvocationTargetException"] = "object",
+            ["ETreeIterator"] = "object", ["EEnumerator"] = "object",
+
+            // Sirius + GMF custom EDataTypes (resources/ecore-sirius). Each serializes to a single XMI
+            // lexical token, so the faithful, round-trippable mapping is the raw string; structured
+            // interpretation (colors, bendpoint lists, resource descriptors) is left to later phases.
+            ["FeatureName"] = "string", ["FilterKeyList"] = "string", ["GradientData"] = "string",
+            ["ImagePath"] = "string", ["InterpretedExpression"] = "string",
+            ["RelativeBendpointList"] = "string", ["ResourceDescriptor"] = "string",
+            ["RGBValues"] = "string", ["SortKeyMap"] = "string", ["TranslatableMessage"] = "string",
+            ["TypeName"] = "string", ["URI"] = "string"
         };
 
         /// <summary>
@@ -112,14 +129,35 @@ namespace Auriga.CodeGenerator.Helpers
                 return collection ? $"IEnumerable<{baseType}>" : ScalarType(feature, baseType);
             }
 
+            if (containment)
+            {
+                var elementType = ContainmentElementType(feature);
+                return collection ? $"Auriga.IContainerList<{elementType}>" : elementType;
+            }
+
             if (collection)
             {
-                return containment
-                    ? $"Auriga.IContainerList<{baseType}>"
-                    : $"List<{baseType}>";
+                return $"List<{baseType}>";
             }
 
             return ScalarType(feature, baseType);
+        }
+
+        /// <summary>
+        /// Renders the element type of a containment feature. A containment reference always holds model
+        /// elements, so a containment of <c>ecore::EObject</c> (whose base type is <c>object</c>) is typed
+        /// as <c>Auriga.IAurigaElement</c> — the shared element base — so it satisfies the
+        /// <c>IContainerList&lt;T&gt;</c>/<c>ContainerList&lt;T&gt;</c> element constraint. Every other
+        /// target keeps its generated interface type. (No Capella containment targets <c>EObject</c>, so
+        /// Capella output is unchanged.)
+        /// </summary>
+        /// <param name="feature">the containment structural feature</param>
+        /// <returns>the containment element type</returns>
+        public static string ContainmentElementType(EStructuralFeature feature)
+        {
+            var baseType = BaseType(feature.EType);
+
+            return baseType == "object" ? "Auriga.IAurigaElement" : baseType;
         }
 
         /// <summary>

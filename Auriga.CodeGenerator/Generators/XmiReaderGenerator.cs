@@ -32,6 +32,8 @@ namespace Auriga.CodeGenerator.Generators
     {
         private readonly string ecoreDirectory;
 
+        private readonly string rootNamespace;
+
         private readonly HandlebarsTemplate<object, object> readerTemplate;
 
         private readonly HandlebarsTemplate<object, object> facadeTemplate;
@@ -42,9 +44,14 @@ namespace Auriga.CodeGenerator.Generators
         /// Initializes a new instance of the <see cref="XmiReaderGenerator"/> class.
         /// </summary>
         /// <param name="ecoreDirectory">the directory containing the vendored <c>.ecore</c> files</param>
-        public XmiReaderGenerator(string ecoreDirectory)
+        /// <param name="rootNamespace">
+        /// the root namespace of the object model whose readers are generated (e.g. <c>Auriga</c> or
+        /// <c>Auriga.Sirius</c>); the reader namespaces are derived from it. Defaults to <c>Auriga</c>
+        /// </param>
+        public XmiReaderGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot)
         {
             this.ecoreDirectory = ecoreDirectory;
+            this.rootNamespace = rootNamespace;
 
             var handlebars = Handlebars.Create();
             handlebars.RegisterXmiReaderHelper();
@@ -64,6 +71,8 @@ namespace Auriga.CodeGenerator.Generators
         {
             var rootPackages = MetamodelLoader.Load(this.ecoreDirectory);
             var allPackages = rootPackages.SelectMany(MetamodelLoader.AllPackages).ToList();
+
+            using var _ = NamingContext.Use(this.rootNamespace, CSharpNaming.DetectMemberCollisions(allPackages));
 
             var concreteClasses = allPackages
                 .SelectMany(p => p.EClassifiers.OfType<EClass>())

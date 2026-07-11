@@ -192,7 +192,8 @@ namespace Auriga.CodeGenerator.Helpers
             if (collection && containment)
             {
                 var field = "backing" + name;
-                return $"public {type} {name} => this.{field} ??= new Auriga.ContainerList<{baseType}>(this);\n\n" +
+                var elementType = CSharpType.ContainmentElementType(feature);
+                return $"public {type} {name} => this.{field} ??= new Auriga.ContainerList<{elementType}>(this);\n\n" +
                        $"        /// <summary>\n" +
                        $"        /// Backing field for <see cref=\"{name}\"/>.\n" +
                        $"        /// </summary>\n" +
@@ -289,7 +290,7 @@ namespace Auriga.CodeGenerator.Helpers
 
         private static string MemberName(EStructuralFeature feature)
         {
-            return CSharpNaming.Escape(CSharpNaming.Capitalize(feature.Name));
+            return CSharpNaming.MemberName(feature);
         }
 
         private static bool IsReserved(EStructuralFeature feature)
@@ -312,7 +313,14 @@ namespace Auriga.CodeGenerator.Helpers
 
             try
             {
-                lines = element.QueryDocumentation().Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+                // A single documentation entry can itself span several physical lines (Sirius/GMF docs
+                // embed CR/LF); split them so every physical line is emitted on its own '///' comment line
+                // rather than leaking past the first one into code. Capella docs are single-line, so this
+                // is a no-op for them.
+                lines = element.QueryDocumentation()
+                    .SelectMany(SplitLines)
+                    .Where(l => !string.IsNullOrWhiteSpace(l))
+                    .ToList();
             }
             catch (Exception)
             {
@@ -329,6 +337,11 @@ namespace Auriga.CodeGenerator.Helpers
             result.Add("</summary>");
 
             return result;
+        }
+
+        private static IEnumerable<string> SplitLines(string documentation)
+        {
+            return documentation.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
         }
 
         private static string Humanize(string name)

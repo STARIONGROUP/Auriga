@@ -29,7 +29,7 @@ namespace Auriga.CodeGenerator.Helpers
     {
         private static readonly HashSet<string> ReservedMembers = new(StringComparer.Ordinal) { "Id", "Container" };
 
-        private const string WriterRootNamespace = "Auriga.Xmi.AutoGenXmiWriters";
+        private static string WriterRootNamespace => NamingContext.WriterRoot;
 
         /// <summary>
         /// Registers the <see cref="XmiWriterHelper"/> helpers with the supplied HandleBars context.
@@ -63,6 +63,9 @@ namespace Auriga.CodeGenerator.Helpers
 
             handlebars.RegisterHelper("WriterFacadeEntry", (writer, _, arguments) =>
                 writer.WriteSafeString(WriterFacadeEntry((EClass)arguments[0]!)));
+
+            handlebars.RegisterHelper("WriterFacadeNamespace", (writer, _, _) =>
+                writer.WriteSafeString(WriterRootNamespace));
 
             handlebars.RegisterHelper("WriterAttributeFeatures", (_, arguments) => AttributeFeatures((EClass)arguments[0]!));
 
@@ -184,7 +187,9 @@ namespace Auriga.CodeGenerator.Helpers
             if (feature.EType is EEnum eEnum)
             {
                 var enumType = CSharpNaming.EnumType(eEnum);
-                return $"WriteEnumAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName});";
+                return CSharpType.IsCollection(feature)
+                    ? $"WriteEnumListAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName});"
+                    : $"WriteEnumAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName});";
             }
 
             if (CSharpType.IsCollection(feature))
@@ -241,7 +246,7 @@ namespace Auriga.CodeGenerator.Helpers
 
         private static string MemberName(EStructuralFeature feature)
         {
-            return CSharpNaming.Escape(CSharpNaming.Capitalize(feature.Name));
+            return CSharpNaming.MemberName(feature);
         }
 
         private static bool IsReserved(EStructuralFeature feature)

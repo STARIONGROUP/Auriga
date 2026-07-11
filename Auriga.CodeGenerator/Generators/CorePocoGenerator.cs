@@ -35,6 +35,8 @@ namespace Auriga.CodeGenerator.Generators
     {
         private readonly string ecoreDirectory;
 
+        private readonly string rootNamespace;
+
         private readonly HandlebarsTemplate<object, object> enumTemplate;
 
         private readonly HandlebarsTemplate<object, object> interfaceTemplate;
@@ -45,9 +47,14 @@ namespace Auriga.CodeGenerator.Generators
         /// Initializes a new instance of the <see cref="CorePocoGenerator"/> class.
         /// </summary>
         /// <param name="ecoreDirectory">the directory containing the vendored <c>.ecore</c> files</param>
-        public CorePocoGenerator(string ecoreDirectory)
+        /// <param name="rootNamespace">
+        /// the root namespace of the generated object model (e.g. <c>Auriga</c> for Capella or
+        /// <c>Auriga.Sirius</c> for the Sirius metamodel); defaults to <c>Auriga</c>
+        /// </param>
+        public CorePocoGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot)
         {
             this.ecoreDirectory = ecoreDirectory;
+            this.rootNamespace = rootNamespace;
 
             var handlebars = Handlebars.Create();
             handlebars.RegisterPocoHelper();
@@ -75,6 +82,8 @@ namespace Auriga.CodeGenerator.Generators
             var rootPackages = this.LoadMetamodel();
             var allPackages = rootPackages.SelectMany(AllPackages).ToList();
 
+            using var _ = NamingContext.Use(this.rootNamespace, CSharpNaming.DetectMemberCollisions(allPackages));
+
             var targetPackages = targetPackageNames.Length == 0
                 ? allPackages
                 : allPackages.Where(p => targetPackageNames.Contains(p.Name, StringComparer.Ordinal)).ToList();
@@ -87,6 +96,15 @@ namespace Auriga.CodeGenerator.Generators
 
             var (closureClasses, closureEnums) = ComputeClosure(targetPackages);
             var targetPackageSet = new HashSet<EPackage>(targetPackages);
+
+            // Emit every enum declared in the target packages, not only those reached through a feature or
+            // supertype, so the generated object model is complete (some Sirius enums are declared but never
+            // used as a feature type). Enums referenced from packages outside the target set stay included
+            // via the closure above. Capella's enums are all referenced, so its output is unchanged.
+            foreach (var eEnum in targetPackages.SelectMany(p => p.EClassifiers.OfType<EEnum>()))
+            {
+                closureEnums.Add(eEnum);
+            }
 
             var files = new SortedDictionary<string, string>(StringComparer.Ordinal);
 

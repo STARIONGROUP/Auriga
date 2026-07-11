@@ -1,0 +1,38 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="IRepresentationTemplate.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Sirius.Viewpoint.Description
+{
+    /// <summary>
+    /// Definition of the <c>RepresentationTemplate</c> interface.
+    /// </summary>
+    public partial interface IRepresentationTemplate : Auriga.IAurigaElement
+    {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        string Name { get; set; }
+
+        /// <summary>
+        /// Gets the owned representations.
+        /// </summary>
+        Auriga.IContainerList<Auriga.Sirius.Viewpoint.Description.IRepresentationDescription> OwnedRepresentations { get; }
+
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

@@ -331,6 +331,28 @@ namespace Auriga.Xmi.Writers
         }
 
         /// <summary>
+        /// Writes a multi-valued enumeration attribute as a whitespace-delimited list of literal names when
+        /// non-empty (the inverse of the reader's multi-valued enum parse).
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="name">the XML attribute name</param>
+        /// <param name="values">the enumeration values</param>
+        protected static void WriteEnumListAttribute<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values)
+            where TEnum : struct
+        {
+            if (values == null)
+            {
+                return;
+            }
+
+            var joined = string.Join(" ", values);
+            if (joined.Length > 0)
+            {
+                xmlWriter.WriteAttributeString(name, joined);
+            }
+        }
+
+        /// <summary>
         /// Writes a single-valued non-containment reference as an <c>#id</c> (or cross-document
         /// <c>href</c>) attribute. Prefers the resolved target; falls back to the raw identifier collected
         /// on read for a reference that never resolved.
