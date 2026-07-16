@@ -55,6 +55,14 @@
             <Link>TestData\fragmented-sysmodel\fragments\%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="..\TestData\fragmented-sysmodel\sysmodel.aird">
+            <Link>TestData\fragmented-sysmodel\sysmodel.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\fragmented-sysmodel\fragments\*.airdfragment">
+            <Link>TestData\fragmented-sysmodel\fragments\%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Include="..\TestData\coffee-machine\coffee-machine-demo.aird">
             <Link>TestData\coffee-machine-demo.aird</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

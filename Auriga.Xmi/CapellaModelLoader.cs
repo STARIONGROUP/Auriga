@@ -65,24 +65,6 @@ namespace Auriga.Xmi
         }
 
         /// <summary>
-        /// Creates a loader over a default, fully-wired <see cref="IXmiReader"/> (via
-        /// <see cref="XmiReaderBuilder"/>). This is the one-call convenience entry point:
-        /// <c>CapellaModelLoader.Create().Load(path)</c>.
-        /// </summary>
-        /// <param name="loggerFactory">the logger factory the loader and reader log through, or <c>null</c></param>
-        /// <returns>the loader</returns>
-        public static CapellaModelLoader Create(ILoggerFactory? loggerFactory = null)
-        {
-            var builder = XmiReaderBuilder.Create();
-            if (loggerFactory != null)
-            {
-                builder = builder.WithLogger(loggerFactory);
-            }
-
-            return new CapellaModelLoader(builder.Build(), loggerFactory);
-        }
-
-        /// <summary>
         /// Loads the Capella project identified by <paramref name="path"/> (a semantic model file or the
         /// project directory that contains one) into a fully resolved object graph.
         /// </summary>

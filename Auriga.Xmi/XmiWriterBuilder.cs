@@ -9,69 +9,94 @@
 
 namespace Auriga.Xmi
 {
+    using System;
+
+    using Autofac;
+
     using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
-    using DiagramWriters = Auriga.Xmi.Diagram.AutoGenXmiWriters;
-    using ModelWriters = Auriga.Xmi.Model.AutoGenXmiWriters;
-
     /// <summary>
-    /// Fluent factory that wires together the collaborators of an <see cref="IXmiWriter"/> — the generated
-    /// writer facades of both metamodels (the Capella semantic model and the Sirius/GMF diagram model,
-    /// unioned through a <see cref="CompositeXmiElementWriterFacade"/>) and the formatting settings —
-    /// without requiring a dependency-injection container. The inverse of <see cref="XmiReaderBuilder"/>.
+    /// The fluent entry point that composes an <see cref="IXmiWriter"/> through the Autofac container
+    /// owned by an <see cref="XmiWriterScope"/> — the writer counterpart of
+    /// <see cref="XmiReaderBuilder"/>. <see cref="Create"/> opens the scope, the fluent methods register
+    /// caller-supplied services on it, and <see cref="Build"/> resolves the writer from a fresh child
+    /// lifetime scope. The built writer serializes both the Capella semantic elements and the Sirius
+    /// diagram elements, routing each element to the metamodel facade that owns its runtime type. The
+    /// scope is disposable; disposing it releases every graph built from it.
     /// </summary>
-    public sealed class XmiWriterBuilder
+    public static class XmiWriterBuilder
     {
-        private ILoggerFactory? loggerFactory;
-
-        private IXmiWriterSettings settings = new XmiWriterSettings();
-
         /// <summary>
-        /// Creates a new <see cref="XmiWriterBuilder"/>.
+        /// Creates a new <see cref="XmiWriterScope"/> carrying the default registrations, ready to be
+        /// configured with the fluent methods and consumed by <see cref="Build"/>.
         /// </summary>
-        /// <returns>the builder</returns>
-        public static XmiWriterBuilder Create()
+        /// <returns>the scope</returns>
+        public static XmiWriterScope Create()
         {
-            return new XmiWriterBuilder();
+            return new XmiWriterScope();
         }
 
         /// <summary>
-        /// Configures the writer to log through the supplied <see cref="ILoggerFactory"/>.
+        /// Configures the composed services to log through the supplied <see cref="ILoggerFactory"/>,
+        /// replacing the no-op default.
         /// </summary>
-        /// <param name="factory">the logger factory</param>
-        /// <returns>the builder</returns>
-        public XmiWriterBuilder WithLogger(ILoggerFactory factory)
+        /// <param name="scope">the scope to register the logger factory on</param>
+        /// <param name="loggerFactory">the logger factory</param>
+        /// <returns>the same scope, for chaining</returns>
+        public static XmiWriterScope WithLogger(this XmiWriterScope scope, ILoggerFactory loggerFactory)
         {
-            this.loggerFactory = factory;
-            return this;
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>();
+            return scope;
         }
 
         /// <summary>
-        /// Configures the writer with the supplied formatting settings.
+        /// Configures the writer with the supplied formatting settings, replacing the defaults.
         /// </summary>
+        /// <param name="scope">the scope to register the settings on</param>
         /// <param name="writerSettings">the settings</param>
-        /// <returns>the builder</returns>
-        public XmiWriterBuilder WithSettings(IXmiWriterSettings writerSettings)
+        /// <returns>the same scope, for chaining</returns>
+        public static XmiWriterScope WithSettings(this XmiWriterScope scope, IXmiWriterSettings writerSettings)
         {
-            this.settings = writerSettings;
-            return this;
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (writerSettings == null)
+            {
+                throw new ArgumentNullException(nameof(writerSettings));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(writerSettings).As<IXmiWriterSettings>();
+            return scope;
         }
 
         /// <summary>
-        /// Builds a fully-wired <see cref="IXmiWriter"/> that serializes both the Capella semantic
-        /// elements and the Sirius diagram elements, routing each element to the metamodel facade that
-        /// owns its runtime type.
+        /// Builds a fully-wired <see cref="IXmiWriter"/> from a fresh child lifetime scope of the
+        /// container.
         /// </summary>
+        /// <param name="scope">the configured scope</param>
         /// <returns>the writer</returns>
-        public IXmiWriter Build()
+        public static IXmiWriter Build(this XmiWriterScope scope)
         {
-            var facade = new CompositeXmiElementWriterFacade(
-                new ModelWriters.XmiElementWriterFacade(this.loggerFactory),
-                new DiagramWriters.XmiElementWriterFacade(this.loggerFactory));
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
 
-            return new XmiWriter(facade, this.settings, this.loggerFactory);
+            return scope.BeginScope().Resolve<IXmiWriter>();
         }
     }
 }

@@ -15,10 +15,13 @@
         <PackageReleaseNotes>
             [CHG] merge Auriga.Xmi.Core and Auriga.Sirius.Xmi into the Auriga.Xmi package; the Capella readers/writers move to Auriga.Xmi.Model.* and the Sirius readers/writers ship as Auriga.Xmi.Diagram.*
             [CHG] a single XmiReaderBuilder/XmiWriterBuilder now reads and writes both .capella and .aird documents; SiriusXmiReaderBuilder is removed
+            [CHG] Autofac-based composition (following uml4net): XmiReaderBuilder/XmiWriterBuilder are fluent entry points over disposable XmiReaderScope/XmiWriterScope containers; CapellaModelLoader.Create and AirdModelLoader.Create are replaced by the BuildCapellaModelLoader/BuildAirdModelLoader scope terminals
+            [ADD] AirdModelLoader: load a Sirius .aird (file or project directory) with transitive .airdfragment following
         </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     </ItemGroup>
 
