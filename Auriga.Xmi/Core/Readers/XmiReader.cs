@@ -13,6 +13,7 @@ namespace Auriga.Xmi.Core.Readers
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Xml;
 
     using Auriga.Xmi.Core.Cache;
@@ -159,30 +160,6 @@ namespace Auriga.Xmi.Core.Readers
         }
 
         /// <summary>
-        /// Derives the fragment extensions to follow from the main document's family: a Sirius
-        /// <c>.aird</c> / <c>.airdfragment</c> session follows <c>.airdfragment</c>; every other document
-        /// is a Capella semantic session and follows <c>.capellafragment</c>. Keeping the families apart
-        /// matters because an <c>.aird</c> also hrefs into <c>.capellafragment</c> documents (its semantic
-        /// targets), which must not be co-loaded implicitly.
-        /// </summary>
-        /// <param name="mainPath">the path of the main document</param>
-        /// <returns>the fragment extensions to follow for this session</returns>
-        private static string[] DeriveFragmentExtensions(string mainPath)
-        {
-            var extension = Path.GetExtension(mainPath);
-
-            foreach (var airdExtension in AirdFamilyExtensions)
-            {
-                if (string.Equals(extension, airdExtension, StringComparison.OrdinalIgnoreCase))
-                {
-                    return new[] { ".airdfragment" };
-                }
-            }
-
-            return new[] { ".capellafragment" };
-        }
-
-        /// <summary>
         /// Reads a single XMI document from the supplied stream. A stream has no location, so referenced
         /// fragment documents cannot be discovered; use <see cref="Read(string)"/> to load a model that is
         /// split across fragment files.
@@ -231,8 +208,9 @@ namespace Auriga.Xmi.Core.Readers
 
             this.RegisterDocumentNamespaces(xmlReader);
 
-            // An .aird wraps its typed top-level elements in an xmi:XMI element that has no type of its own;
-            // read each child as a root into the shared graph and return the first as the document root.
+            // An .aird wraps its typed top-level elements in an xmi:XMI element that has no type of its
+            // own, so each child is read as a root into the shared graph and the first one is returned
+            // as the document root.
             if (xmlReader.NamespaceURI == XmiWrapperNamespace && xmlReader.LocalName == XmiWrapperLocalName)
             {
                 return this.ReadXmiWrapper(xmlReader, documentName);
@@ -421,6 +399,24 @@ namespace Auriga.Xmi.Core.Readers
         }
 
         /// <summary>
+        /// Derives the fragment extensions to follow from the main document's family: a Sirius
+        /// <c>.aird</c> / <c>.airdfragment</c> session follows <c>.airdfragment</c>; every other document
+        /// is a Capella semantic session and follows <c>.capellafragment</c>. Keeping the families apart
+        /// matters because an <c>.aird</c> also hrefs into <c>.capellafragment</c> documents (its semantic
+        /// targets), which must not be co-loaded implicitly.
+        /// </summary>
+        /// <param name="mainPath">the path of the main document</param>
+        /// <returns>the fragment extensions to follow for this session</returns>
+        private static string[] DeriveFragmentExtensions(string mainPath)
+        {
+            var extension = Path.GetExtension(mainPath);
+
+            return AirdFamilyExtensions.Any(airdExtension => string.Equals(extension, airdExtension, StringComparison.OrdinalIgnoreCase))
+                ? new[] { ".airdfragment" }
+                : new[] { ".capellafragment" };
+        }
+
+        /// <summary>
         /// Whether the canonical document name ends with one of the supplied extensions, matched
         /// case-insensitively.
         /// </summary>
@@ -429,15 +425,7 @@ namespace Auriga.Xmi.Core.Readers
         /// <returns>true when the document carries one of the extensions</returns>
         private static bool HasAnyExtension(string canonical, IReadOnlyCollection<string> extensions)
         {
-            foreach (var extension in extensions)
-            {
-                if (canonical.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return extensions.Any(extension => canonical.EndsWith(extension, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>

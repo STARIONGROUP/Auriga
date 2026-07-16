@@ -86,7 +86,7 @@ namespace Auriga.Xmi
                 throw new ArgumentException("The path must be provided.", nameof(path));
             }
 
-            var diagramFile = this.ResolveDiagramFile(path);
+            var diagramFile = ResolveDiagramFile(path);
 
             this.logger.LogInformation("Loading Sirius diagram model from {File}", diagramFile);
 
@@ -99,7 +99,7 @@ namespace Auriga.Xmi
         /// </summary>
         /// <param name="path">the <c>.aird</c> file path, or the project directory path</param>
         /// <returns>the absolute path of the diagram file to read</returns>
-        private string ResolveDiagramFile(string path)
+        private static string ResolveDiagramFile(string path)
         {
             if (Directory.Exists(path))
             {
