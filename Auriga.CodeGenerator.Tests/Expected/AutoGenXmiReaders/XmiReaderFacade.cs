@@ -355,6 +355,18 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders
         }
 
         /// <summary>
+        /// Whether a reader is registered for the supplied package-qualified type key
+        /// (<c>package:TypeName</c>) — used by a composite facade to route a type key to the metamodel
+        /// facade that owns it.
+        /// </summary>
+        /// <param name="typeKey">the package-qualified type key (<c>package:TypeName</c>)</param>
+        /// <returns>true when this facade can read the type</returns>
+        public bool CanRead(string typeKey)
+        {
+            return this.readerFactories.ContainsKey(typeKey);
+        }
+
+        /// <summary>
         /// Reads the element at the cursor of <paramref name="xmlReader"/> into a typed
         /// <see cref="IAurigaElement"/>, recursing into contained elements.
         /// </summary>
@@ -392,7 +404,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders
         /// <exception cref="InvalidDataException">
         /// the element carries no type attribute, or its prefix cannot be resolved to a known package
         /// </exception>
-        private string ResolveTypeKey(XmlReader xmlReader)
+        public string ResolveTypeKey(XmlReader xmlReader)
         {
             var xsiType = xmlReader.GetAttribute("type", XsiNamespace) ?? xmlReader.GetAttribute("type", XmiNamespace);
             if (string.IsNullOrEmpty(xsiType))

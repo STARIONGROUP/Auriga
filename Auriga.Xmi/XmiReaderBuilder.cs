@@ -11,7 +11,6 @@ namespace Auriga.Xmi
 {
     using System;
 
-    using Auriga.Xmi.Model.AutoGenXmiReaders;
     using Auriga.Xmi.Core.Cache;
     using Auriga.Xmi.Core.Namespaces;
     using Auriga.Xmi.Core.Readers;
@@ -19,10 +18,18 @@ namespace Auriga.Xmi
 
     using Microsoft.Extensions.Logging;
 
+    using DiagramReaders = Auriga.Xmi.Diagram.AutoGenXmiReaders;
+    using ModelReaders = Auriga.Xmi.Model.AutoGenXmiReaders;
+
     /// <summary>
     /// Fluent factory that wires together the collaborators of an <see cref="IXmiReader"/> — the element
-    /// cache, the generated namespace registry and reader facade, and the reference resolver — without
-    /// requiring a dependency-injection container. The analogue of uml4net's <c>XmiReaderBuilder</c>.
+    /// cache, the namespace registries and reader facades of both generated metamodels (the Capella
+    /// semantic model and the Sirius/GMF diagram model), and the reference resolver — without requiring a
+    /// dependency-injection container. The built reader reads <c>.capella</c> / <c>.melodymodeller</c> /
+    /// <c>.capellafragment</c> semantic documents and <c>.aird</c> / <c>.airdfragment</c> diagram
+    /// documents alike: the two metamodels' dispatch tables are unioned through a
+    /// <see cref="CompositeXmiReaderFacade"/>, which is unambiguous because their package names and
+    /// namespace URIs are disjoint. The analogue of uml4net's <c>XmiReaderBuilder</c>.
     /// </summary>
     public sealed class XmiReaderBuilder
     {
@@ -75,14 +82,26 @@ namespace Auriga.Xmi
         }
 
         /// <summary>
-        /// Builds a fully-wired <see cref="IXmiReader"/>.
+        /// Builds a fully-wired <see cref="IXmiReader"/> that reads both the Capella semantic documents
+        /// and the Sirius diagram documents. The namespace resolver is seeded with the union of the two
+        /// generated namespace registries, and both generated facades share it (and the element cache),
+        /// so either can resolve any document's type keys while the composite routes each key to the
+        /// facade that owns it.
         /// </summary>
         /// <returns>the reader</returns>
         public IXmiReader Build()
         {
             var cache = new XmiElementCache();
-            var namespaceResolver = new NamespaceResolver(AutoGenNamespaceRegistry.NamespaceToPackage);
-            var facade = new XmiReaderFacade(cache, namespaceResolver, this.settings, this.loggerFactory);
+
+            var namespaceResolver = new NamespaceResolver(ModelReaders.AutoGenNamespaceRegistry.NamespaceToPackage);
+            foreach (var pair in DiagramReaders.AutoGenNamespaceRegistry.NamespaceToPackage)
+            {
+                namespaceResolver.RegisterNamespace(pair.Key, pair.Value);
+            }
+
+            var facade = new CompositeXmiReaderFacade(
+                new ModelReaders.XmiReaderFacade(cache, namespaceResolver, this.settings, this.loggerFactory),
+                new DiagramReaders.XmiReaderFacade(cache, namespaceResolver, this.settings, this.loggerFactory));
             var referenceResolver = new ReferenceResolver(this.loggerFactory);
 
             return new XmiReader(cache, facade, namespaceResolver, referenceResolver, this.loggerFactory);

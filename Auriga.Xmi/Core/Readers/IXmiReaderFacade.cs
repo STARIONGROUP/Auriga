@@ -32,6 +32,25 @@ namespace Auriga.Xmi.Core.Readers
         void RegisterNamespace(string prefix, string namespaceUri);
 
         /// <summary>
+        /// Whether a reader is registered for the supplied package-qualified type key
+        /// (<c>package:TypeName</c>) — used by a composite facade to route a type key to the metamodel
+        /// facade that owns it.
+        /// </summary>
+        /// <param name="typeKey">the package-qualified type key (<c>package:TypeName</c>)</param>
+        /// <returns>true when this facade can read the type</returns>
+        bool CanRead(string typeKey);
+
+        /// <summary>
+        /// Resolves the package-qualified type key (<c>package:TypeName</c>) of the element at the cursor
+        /// from its <c>xsi:type</c> / <c>xmi:type</c> attribute, mapping the attribute's prefix to a
+        /// namespace URI (via the registered document namespaces, falling back to
+        /// <see cref="XmlReader.LookupNamespace"/>) and that URI to its Ecore package.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <returns>the package-qualified type key</returns>
+        string ResolveTypeKey(XmlReader xmlReader);
+
+        /// <summary>
         /// Reads the element at the cursor of <paramref name="xmlReader"/> into a typed
         /// <see cref="IAurigaElement"/>, recursing into contained elements.
         /// </summary>

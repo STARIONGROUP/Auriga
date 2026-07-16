@@ -21,7 +21,7 @@ namespace Auriga.Xmi.Tests.Diagram
     using NUnit.Framework;
 
     /// <summary>
-    /// Exercises the Sirius XMI reader against the real <c>.aird</c> diagram files in <c>TestData</c>. These
+    /// Exercises the unified XMI reader against the real <c>.aird</c> diagram files in <c>TestData</c>. These
     /// prove the metamodel-agnostic <see cref="XmiReader"/>, driven by the generated <c>Auriga.Diagram</c>
     /// object model and its readers, parses the multi-root <c>xmi:XMI</c> wrapper of an <c>.aird</c> into a
     /// typed Sirius object graph: a <see cref="IDAnalysis"/> root, its representation descriptors and views,
@@ -42,7 +42,7 @@ namespace Auriga.Xmi.Tests.Diagram
 
             try
             {
-                result = SiriusXmiReaderBuilder.Create().Build().Read(AirdPath(fileName));
+                result = XmiReaderBuilder.Create().Build().Read(AirdPath(fileName));
             }
             catch (System.IO.InvalidDataException exception) when (exception.Message.Contains("EStringToStringMapEntry", System.StringComparison.Ordinal))
             {
@@ -74,7 +74,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_the_coffee_machine_aird_reads_into_a_typed_sirius_graph()
         {
-            var result = SiriusXmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
+            var result = XmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
 
             var elements = result.Elements.Values.ToList();
 
@@ -97,7 +97,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_the_analysis_exposes_its_views_and_representation_descriptors()
         {
-            var result = SiriusXmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
+            var result = XmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
 
             var analysis = (IDAnalysis)result.Root;
 
@@ -114,7 +114,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_intra_aird_references_resolve_against_the_read_graph()
         {
-            var result = SiriusXmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
+            var result = XmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
 
             var (total, resolved) = CountReferences(result);
 

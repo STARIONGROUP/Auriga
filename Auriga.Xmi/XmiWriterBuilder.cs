@@ -9,15 +9,18 @@
 
 namespace Auriga.Xmi
 {
-    using Auriga.Xmi.Model.AutoGenXmiWriters;
     using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 
+    using DiagramWriters = Auriga.Xmi.Diagram.AutoGenXmiWriters;
+    using ModelWriters = Auriga.Xmi.Model.AutoGenXmiWriters;
+
     /// <summary>
     /// Fluent factory that wires together the collaborators of an <see cref="IXmiWriter"/> — the generated
-    /// writer facade and the formatting settings — without requiring a dependency-injection container. The
-    /// inverse of <see cref="XmiReaderBuilder"/>.
+    /// writer facades of both metamodels (the Capella semantic model and the Sirius/GMF diagram model,
+    /// unioned through a <see cref="CompositeXmiElementWriterFacade"/>) and the formatting settings —
+    /// without requiring a dependency-injection container. The inverse of <see cref="XmiReaderBuilder"/>.
     /// </summary>
     public sealed class XmiWriterBuilder
     {
@@ -57,12 +60,16 @@ namespace Auriga.Xmi
         }
 
         /// <summary>
-        /// Builds a fully-wired <see cref="IXmiWriter"/>.
+        /// Builds a fully-wired <see cref="IXmiWriter"/> that serializes both the Capella semantic
+        /// elements and the Sirius diagram elements, routing each element to the metamodel facade that
+        /// owns its runtime type.
         /// </summary>
         /// <returns>the writer</returns>
         public IXmiWriter Build()
         {
-            var facade = new XmiElementWriterFacade(this.loggerFactory);
+            var facade = new CompositeXmiElementWriterFacade(
+                new ModelWriters.XmiElementWriterFacade(this.loggerFactory),
+                new DiagramWriters.XmiElementWriterFacade(this.loggerFactory));
 
             return new XmiWriter(facade, this.settings, this.loggerFactory);
         }

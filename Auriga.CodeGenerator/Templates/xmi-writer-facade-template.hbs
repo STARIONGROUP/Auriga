@@ -45,6 +45,17 @@ namespace {{WriterFacadeNamespace}}
         }
 
         /// <summary>
+        /// Whether a writer is registered for the supplied element's runtime type — used by a composite
+        /// facade to route an element to the metamodel facade that owns its type.
+        /// </summary>
+        /// <param name="element">the element to test</param>
+        /// <returns>true when this facade can write the element</returns>
+        public bool CanWrite(IAurigaElement element)
+        {
+            return this.writers.ContainsKey(element.GetType());
+        }
+
+        /// <summary>
         /// Writes <paramref name="element"/> as a contained child under <paramref name="roleName"/> by
         /// dispatching to the writer registered for its runtime type.
         /// </summary>

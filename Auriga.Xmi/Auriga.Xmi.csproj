@@ -14,6 +14,7 @@
         <PackageTags>Capella Arcadia Sirius GMF Aird Ecore XMI MBSE modeltopia</PackageTags>
         <PackageReleaseNotes>
             [CHG] merge Auriga.Xmi.Core and Auriga.Sirius.Xmi into the Auriga.Xmi package; the Capella readers/writers move to Auriga.Xmi.Model.* and the Sirius readers/writers ship as Auriga.Xmi.Diagram.*
+            [CHG] a single XmiReaderBuilder/XmiWriterBuilder now reads and writes both .capella and .aird documents; SiriusXmiReaderBuilder is removed
         </PackageReleaseNotes>
     </PropertyGroup>
 

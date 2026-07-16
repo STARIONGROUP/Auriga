@@ -19,6 +19,14 @@ namespace Auriga.Xmi.Core.Writers
     public interface IXmiElementWriterFacade
     {
         /// <summary>
+        /// Whether a writer is registered for the supplied element's runtime type — used by a composite
+        /// facade to route an element to the metamodel facade that owns its type.
+        /// </summary>
+        /// <param name="element">the element to test</param>
+        /// <returns>true when this facade can write the element</returns>
+        bool CanWrite(IAurigaElement element);
+
+        /// <summary>
         /// Writes a contained element under <paramref name="roleName"/> by dispatching to the writer of the
         /// element's runtime type.
         /// </summary>

@@ -370,6 +370,11 @@ namespace Auriga.Xmi.Tests
         /// </summary>
         private sealed class FakeFacade : IXmiElementWriterFacade
         {
+            public bool CanWrite(IAurigaElement element)
+            {
+                return true;
+            }
+
             public void WriteElement(XmlWriter xmlWriter, IAurigaElement element, string roleName, IXmiWriteContext context)
             {
                 xmlWriter.WriteStartElement(roleName);
