@@ -31,10 +31,12 @@ namespace Auriga.Xmi.Core.Readers
     /// across a main document and fragment files (<c>.capellafragment</c> for a Capella semantic model,
     /// <c>.airdfragment</c> for a Sirius diagram model), <see cref="Read(string)"/> discovers and loads
     /// the referenced fragments into the same object graph so cross-fragment references resolve. Only the
-    /// main document's own fragment family is followed — an <c>.aird</c> also carries hundreds of
-    /// semantic hrefs into <c>.capella</c>/<c>.capellafragment</c> documents, and following those here
-    /// would co-load half a semantic model as a side effect; deliberate cross-metamodel co-loading is a
-    /// separate concern.
+    /// main document's own fragment family is followed by default — an <c>.aird</c> also carries hundreds
+    /// of semantic hrefs into <c>.capella</c>/<c>.capellafragment</c> documents, and following those
+    /// implicitly would co-load half a semantic model as a side effect. Deliberate cross-metamodel
+    /// co-loading is the <see cref="Read(string, IReadOnlyCollection{string})"/> overload: passing the
+    /// union of both families loads the semantic documents into the same session so the diagram elements'
+    /// <c>target</c> / <c>semanticElements</c> hrefs resolve (this is what <c>AirdModelLoader</c> does).
     /// </summary>
     public sealed class XmiReader : IXmiReader
     {
@@ -117,7 +119,9 @@ namespace Auriga.Xmi.Core.Readers
         /// main document's family (<c>.capellafragment</c> for a Capella semantic model,
         /// <c>.airdfragment</c> for a Sirius <c>.aird</c>) that the model references — transitively,
         /// resolved relative to the referencing document — are loaded into the same object graph so
-        /// cross-fragment references resolve.
+        /// cross-fragment references resolve. To co-load documents of the other metamodel family into
+        /// the same session (e.g. the <c>.capella</c> semantic model an <c>.aird</c> hrefs into), use
+        /// <see cref="Read(string, IReadOnlyCollection{string})"/> with the union of the extensions.
         /// </summary>
         /// <param name="path">the path of the main <c>.melodymodeller</c> / <c>.capella</c> / <c>.aird</c> file</param>
         /// <returns>the read result</returns>
@@ -129,17 +133,49 @@ namespace Auriga.Xmi.Core.Readers
             }
 
             var mainPath = Path.GetFullPath(path);
+
+            return this.Read(mainPath, this.configuredFragmentExtensions ?? DeriveFragmentExtensions(mainPath));
+        }
+
+        /// <summary>
+        /// Reads the model whose main document is at the supplied path, transitively loading every
+        /// referenced document that carries one of the supplied extensions into the same object graph
+        /// before the single reference-resolution pass. Passing the union of both metamodel families
+        /// (e.g. <c>.airdfragment</c> + <c>.capella</c> / <c>.capellafragment</c> for an <c>.aird</c>
+        /// main document) co-loads the semantic model the diagrams point into, so their cross-metamodel
+        /// <c>target</c> / <c>semanticElements</c> hrefs resolve to the co-loaded elements. References
+        /// whose document carries none of the extensions (e.g. <c>platform:/plugin</c> tooling links)
+        /// stay reported as unresolved.
+        /// </summary>
+        /// <param name="path">the path of the main document</param>
+        /// <param name="referencedDocumentExtensions">
+        /// the file extensions of the referenced documents to load transitively into the session
+        /// </param>
+        /// <returns>the read result</returns>
+        public XmiReaderResult Read(string path, IReadOnlyCollection<string> referencedDocumentExtensions)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentException("The path must be provided.", nameof(path));
+            }
+
+            if (referencedDocumentExtensions == null)
+            {
+                throw new ArgumentNullException(nameof(referencedDocumentExtensions));
+            }
+
+            var mainPath = Path.GetFullPath(path);
             var baseDirectory = Path.GetDirectoryName(mainPath) ?? string.Empty;
-            var fragmentExtensions = this.configuredFragmentExtensions ?? DeriveFragmentExtensions(mainPath);
 
             this.cache.Clear();
 
             var loaded = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var root = this.LoadDocument(mainPath, baseDirectory, loaded, isMain: true)!;
 
-            // Transitively load every referenced fragment document into the same cache before resolving,
-            // so an href whose target lives in another fragment resolves against the merged object graph.
-            var pending = new Queue<string>(this.DiscoverReferencedDocuments(baseDirectory, loaded, fragmentExtensions));
+            // Transitively load every referenced document of the requested extensions into the same cache
+            // before resolving, so an href whose target lives in another document resolves against the
+            // merged object graph.
+            var pending = new Queue<string>(this.DiscoverReferencedDocuments(baseDirectory, loaded, referencedDocumentExtensions));
             while (pending.Count > 0)
             {
                 var documentPath = pending.Dequeue();
@@ -150,7 +186,7 @@ namespace Auriga.Xmi.Core.Readers
 
                 this.LoadDocument(documentPath, baseDirectory, loaded, isMain: false);
 
-                foreach (var referenced in this.DiscoverReferencedDocuments(baseDirectory, loaded, fragmentExtensions))
+                foreach (var referenced in this.DiscoverReferencedDocuments(baseDirectory, loaded, referencedDocumentExtensions))
                 {
                     pending.Enqueue(referenced);
                 }

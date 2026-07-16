@@ -67,13 +67,15 @@ elements are cached under a document-scoped key.
   that references another fragment — or references back into the main file — resolves to a single,
   stable key. The public `XmiReaderResult.Elements` index is still built by the bare `id` (Capella
   UUIDs are globally unique), so the public API and `Elements[bareId]` lookups are unchanged.
-- **Discovery by following hrefs, not the `.aird`.** `Read(string path)` takes the main
-  `.capella`/`.melodymodeller` as the entry point and discovers fragments by scanning the collected
-  references for path-qualified `href` tokens (`…​.capellafragment#uuid`), loading each transitively.
-  Because every semantic fragment is reachable through a containment `href`, this finds the whole
-  semantic graph without parsing the `.aird`. The trade-off: fragments that hold *only* diagrams
-  (reachable solely via the `.aird`'s `referencedAnalysis`) are not loaded — out of scope, as Auriga
-  is a semantic-model library.
+- **Discovery by following hrefs, not the `.aird` manifest.** `Read(string path)` takes the main
+  document as the entry point and discovers fragments by scanning the collected references for
+  path-qualified `href` tokens, loading each transitively. The followed extensions are derived from
+  the main document's family — `.capellafragment` for a `.capella`/`.melodymodeller` session,
+  `.airdfragment` for an `.aird` session — and every fragment is reachable through an `href`, so this
+  finds the whole graph without parsing the `.aird`'s `semanticResources` manifest. The
+  `Read(string, IReadOnlyCollection<string>)` overload accepts an explicit extension set: passing the
+  union of both families co-loads the Capella semantic documents an `.aird` hrefs into, which is how
+  `AirdModelLoader` resolves the cross-metamodel `target`/`semanticElements` links (issue #54).
 - **Referring-document-relative href resolution.** A collected token keeps its full `href` verbatim.
   Both discovery and resolution parse it through `HrefReference` (strip the optional `xsi:type`
   prefix, split on `#`) and canonicalize the document part **relative to the referring element's own
@@ -82,8 +84,9 @@ elements are cached under a document-scoped key.
   key: a bare intra-document `#uuid` is qualified with the owner's own document; a cross-file
   `type path#uuid` is qualified with the resolved target document. Resolving against the *referring*
   document (not the main directory) is what makes fragment→fragment and back-to-main links resolve to
-  the same key the target was cached under. Discovery is filtered to `.capellafragment`, so `hlink://`
-  rich-text links, `platform:/resource` library links, and `.aird` diagram references are ignored.
+  the same key the target was cached under. Discovery is filtered to the session's extension set, so
+  `hlink://` rich-text links, `platform:/resource` library links and `platform:/plugin` tooling
+  references are ignored (and reported as unresolved when they are reference tokens).
 - **Known Capella namespaces.** `INamespaceResolver.RegisterNamespace` lets the known Capella
   namespace URIs (the generated `AutoGenNamespaceRegistry`) be seeded up front, mirroring uml4net's
   registration, and each document's root namespace URI is threaded through every `Read` as

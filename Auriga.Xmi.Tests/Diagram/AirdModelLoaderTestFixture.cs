@@ -23,10 +23,11 @@ namespace Auriga.Xmi.Tests.Diagram
     /// Exercises <see cref="AirdModelLoader"/>, the diagram-model entry point: loading a Sirius
     /// <c>.aird</c> end-to-end from its file or its project directory — transitively following the
     /// <c>referencedAnalysis</c> hrefs into <c>.airdfragment</c> siblings (URL-encoded paths and stale,
-    /// renamed-on-disk fragment references included) — and its clear error surface for missing, ambiguous
-    /// or non-diagram paths. The <c>.capellafragment</c> documents the diagrams href into semantically
-    /// must NOT be co-loaded: that is the deliberate cross-metamodel scope of the semantic-link
-    /// resolution issue, not of fragment following.
+    /// renamed-on-disk fragment references included), co-loading the Capella semantic documents the
+    /// diagrams href into so the cross-metamodel <c>target</c> / <c>semanticElements</c> links resolve
+    /// (issue #54) — and its clear error surface for missing, ambiguous or non-diagram paths. The
+    /// diagram-only behavior (no semantic co-load) remains the raw reader's default and is pinned here
+    /// too.
     /// </summary>
     [TestFixture]
     public class AirdModelLoaderTestFixture
@@ -103,12 +104,13 @@ namespace Auriga.Xmi.Tests.Diagram
         }
 
         [Test]
-        public void Verify_that_airdfragments_are_followed_transitively_with_url_encoded_and_stale_hrefs()
+        public void Verify_that_airdfragments_and_semantic_documents_are_co_loaded_transitively()
         {
             // A minimal fragmented diagram project, faithful to the real serialization (xmi:XMI wrapper,
             // viewpoint:DAnalysis roots, referencedAnalysis hrefs): the main .aird references one fragment
-            // through a URL-encoded path and one stale (missing) fragment; the first fragment chains to a
-            // second one; and a .capellafragment that exists on disk is referenced but must not be loaded.
+            // through a URL-encoded path, one stale (missing) fragment, a .capellafragment and a
+            // .capella; the first fragment chains to a second one, and the .capella chains to its own
+            // .capellafragment.
             var project = this.CreateSyntheticFragmentedProject();
 
             var result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(project);
@@ -129,8 +131,33 @@ namespace Auriga.Xmi.Tests.Diagram
                 // The chain fragment is referenced only from the first fragment, relative to fragments/.
                 Assert.That(sourceDocuments, Contains.Item("fragments/chain.airdfragment"));
 
-                // The referenced .capellafragment exists on disk but belongs to the semantic family and
-                // must not be co-loaded by a diagram session.
+                // The semantic family is co-loaded by the loader (issue #54): the referenced
+                // .capellafragment, the referenced .capella, and the .capella's own fragment chain.
+                Assert.That(sourceDocuments, Contains.Item("fragments/sem.capellafragment"));
+                Assert.That(sourceDocuments, Contains.Item("model.capella"));
+                Assert.That(sourceDocuments, Contains.Item("fragments/chaincap.capellafragment"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_raw_reader_stays_diagram_only()
+        {
+            // The semantic co-load is the loader's behavior; the raw reader's default session still
+            // follows only the main document's own fragment family.
+            var project = this.CreateSyntheticFragmentedProject();
+
+            var result = XmiReaderBuilder.Create().Build().Read(project);
+
+            var sourceDocuments = result.Elements.Values
+                .Select(element => element.SourceDocument)
+                .Where(document => document != null)
+                .Distinct()
+                .ToList();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(sourceDocuments, Contains.Item("fragments/frag one.airdfragment"));
+                Assert.That(sourceDocuments, Has.None.Matches<string>(d => d!.EndsWith(".capella", StringComparison.Ordinal)));
                 Assert.That(sourceDocuments, Has.None.Matches<string>(d => d!.EndsWith(".capellafragment", StringComparison.Ordinal)));
             });
         }
@@ -142,27 +169,69 @@ namespace Auriga.Xmi.Tests.Diagram
 
             var analysis = (IDAnalysis)result.Root;
 
-            // Two of the three referencedAnalysis hrefs of the main analysis point at documents that
-            // load (the URL-encoded fragment and the semantic-family one that is skipped); only the
-            // loaded .airdfragment analysis resolves — the stale and the .capellafragment references
-            // stay unresolved rather than aborting the load.
+            // The URL-encoded .airdfragment analysis and the analysis in the co-loaded .capellafragment
+            // both resolve; the stale reference stays unresolved rather than aborting the load, and the
+            // .capella reference loads its document but is skipped at assignment time (a Capella Project
+            // is not an IDAnalysis).
             Assert.Multiple(() =>
             {
-                Assert.That(analysis.ReferencedAnalysis.Count, Is.EqualTo(1));
+                Assert.That(analysis.ReferencedAnalysis.Count, Is.EqualTo(2));
                 Assert.That(((IAurigaElement)analysis.ReferencedAnalysis[0]).Id, Is.EqualTo("_frag1"));
+                Assert.That(((IAurigaElement)analysis.ReferencedAnalysis[1]).Id, Is.EqualTo("_sem"));
                 Assert.That(result.UnresolvedReferences, Is.Not.Empty);
+            });
+        }
+
+        [Test]
+        public void Verify_that_diagram_elements_resolve_to_the_co_loaded_capella_elements()
+        {
+            // The end-to-end acceptance of issue #54, against the real coffee-machine project: the
+            // .aird's target / semanticElements hrefs into coffee-machine-demo.capella resolve to the
+            // co-loaded Capella elements.
+            var result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(TestDataPath("coffee-machine-demo.aird"));
+
+            var capability = result.Elements["a83ba499-29b8-45b7-be8c-39296225365a"];
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(capability, Is.InstanceOf<Auriga.Model.Ctx.ICapability>(), "the co-loaded Capella element is typed");
+
+                // At least one diagram element's target is the very same co-loaded Capella object.
+                Assert.That(
+                    result.Elements.Values.OfType<IDSemanticDecorator>().Any(decorator => ReferenceEquals(decorator.Target, capability)),
+                    Is.True,
+                    "a diagram element targets the co-loaded Capability");
+
+                // The multi-valued semanticElements collections carry the co-loaded Capella objects too.
+                Assert.That(
+                    result.Elements.Values.OfType<IDRepresentationElement>().Any(element => element.SemanticElements.Contains(capability)),
+                    Is.True,
+                    "a representation element lists the co-loaded Capability among its semantic elements");
+
+                // Every semantic href into the .capella resolved; what remains unresolved are the
+                // expected tooling references (platform:/plugin .odesign definitions, environment:/
+                // colors) — reported, not dropped.
+                Assert.That(
+                    result.UnresolvedReferences.Select(reference => reference.TargetIdentifier),
+                    Has.None.Contains(".capella#"),
+                    "no semantic href into the .capella stays unresolved");
+                Assert.That(result.UnresolvedReferences, Is.Not.Empty, "tooling references are still reported");
             });
         }
 
         /// <summary>
         /// Writes the minimal synthetic fragmented diagram project into the fixture's temporary
         /// directory: <c>synthetic.aird</c> referencing <c>fragments/frag one.airdfragment</c> (URL-encoded),
-        /// a missing <c>fragments/missing.airdfragment</c> and an on-disk <c>fragments/sem.capellafragment</c>;
-        /// the first fragment chains to <c>fragments/chain.airdfragment</c>.
+        /// a missing <c>fragments/missing.airdfragment</c>, an on-disk <c>fragments/sem.capellafragment</c>
+        /// and a <c>model.capella</c>; the first diagram fragment chains to
+        /// <c>fragments/chain.airdfragment</c> and the <c>.capella</c> chains to its own
+        /// <c>fragments/chaincap.capellafragment</c>.
         /// </summary>
         /// <returns>the path of the synthetic <c>.aird</c> file</returns>
         private string CreateSyntheticFragmentedProject()
         {
+            const string Modeller = "http://www.polarsys.org/capella/core/modeller/7.0.0";
+
             var fragments = Path.Combine(this.temporaryRoot, "fragments");
             Directory.CreateDirectory(fragments);
 
@@ -172,6 +241,7 @@ namespace Auriga.Xmi.Tests.Diagram
     <referencedAnalysis xmi:type='viewpoint:DAnalysis' href='fragments/frag%20one.airdfragment#_frag1'/>
     <referencedAnalysis xmi:type='viewpoint:DAnalysis' href='fragments/missing.airdfragment#_gone'/>
     <referencedAnalysis xmi:type='viewpoint:DAnalysis' href='fragments/sem.capellafragment#_sem'/>
+    <referencedAnalysis xmi:type='viewpoint:DAnalysis' href='model.capella#proj-1'/>
   </viewpoint:DAnalysis>"));
 
             File.WriteAllText(
@@ -184,11 +254,30 @@ namespace Auriga.Xmi.Tests.Diagram
                 Path.Combine(fragments, "chain.airdfragment"),
                 Wrap("<viewpoint:DAnalysis uid='_frag2'/>"));
 
-            // A semantic-family fragment that is present on disk: if the diagram session wrongly followed
-            // its href, this document would load and contribute elements.
+            // A semantic-family fragment on disk: the co-loading loader follows it; the raw reader's
+            // diagram-only session must not.
             File.WriteAllText(
                 Path.Combine(fragments, "sem.capellafragment"),
                 Wrap("<viewpoint:DAnalysis uid='_sem'/>"));
+
+            // A minimal Capella semantic model that chains to its own fragment, proving the semantic
+            // side's fragment discovery also runs inside a co-loading diagram session.
+            File.WriteAllText(
+                Path.Combine(this.temporaryRoot, "model.capella"),
+                "<?xml version='1.0' encoding='UTF-8'?>" +
+                "<org.polarsys.capella.core.data.capellamodeller:Project xmi:version='2.0' " +
+                "xmlns:xmi='http://www.omg.org/XMI' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " +
+                "xmlns:org.polarsys.capella.core.data.capellamodeller='" + Modeller + "' id='proj-1' name='Synthetic'>" +
+                "<ownedModelRoots xsi:type='org.polarsys.capella.core.data.capellamodeller:SystemEngineering' " +
+                "href='fragments/chaincap.capellafragment#se-1'/>" +
+                "</org.polarsys.capella.core.data.capellamodeller:Project>");
+
+            File.WriteAllText(
+                Path.Combine(fragments, "chaincap.capellafragment"),
+                "<?xml version='1.0' encoding='UTF-8'?>" +
+                "<org.polarsys.capella.core.data.capellamodeller:SystemEngineering xmi:version='2.0' " +
+                "xmlns:xmi='http://www.omg.org/XMI' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " +
+                "xmlns:org.polarsys.capella.core.data.capellamodeller='" + Modeller + "' id='se-1' name='SE'/>");
 
             return Path.Combine(this.temporaryRoot, "synthetic.aird");
         }

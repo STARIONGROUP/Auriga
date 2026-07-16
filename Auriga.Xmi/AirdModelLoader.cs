@@ -20,8 +20,9 @@ namespace Auriga.Xmi
 
     /// <summary>
     /// The default <see cref="IAirdModelLoader"/>. It resolves the supplied path to the project's Sirius
-    /// diagram file — the file itself, or the single <c>.aird</c> in a project directory — and reads it
-    /// (and its referenced <c>.airdfragment</c>s) through an <see cref="IXmiReader"/>. Unlike calling
+    /// diagram file — the file itself, or the single <c>.aird</c> in a project directory — and reads it,
+    /// its referenced <c>.airdfragment</c>s <b>and the Capella semantic documents the diagrams point
+    /// into</b> through an <see cref="IXmiReader"/>, in one session. Unlike calling
     /// <see cref="IXmiReader.Read(string)"/> directly, it fails fast with a clear exception when the path
     /// does not exist, names a non-diagram file, or names a directory that holds no — or more than one —
     /// <c>.aird</c> file. The diagram counterpart of <see cref="CapellaModelLoader"/>.
@@ -30,8 +31,12 @@ namespace Auriga.Xmi
     /// The <c>.aird</c> root is a multi-root <c>xmi:XMI</c> wrapper whose first typed element is the
     /// <c>viewpoint:DAnalysis</c>; the reader returns that analysis as the graph root. Referenced
     /// sub-analyses (<c>referencedAnalysis</c> hrefs into <c>.airdfragment</c> siblings) are loaded
-    /// transitively into the same graph. The semantic <c>.capella</c> documents the diagrams point into
-    /// are not co-loaded here — those hrefs stay reported-unresolved in a diagram-only load.
+    /// transitively into the same graph, and so are the <c>.capella</c> / <c>.melodymodeller</c> /
+    /// <c>.capellafragment</c> documents the diagram elements href into — the cross-metamodel
+    /// <c>target</c> / <c>semanticElements</c> links then resolve to the co-loaded Capella elements.
+    /// Tooling references (<c>platform:/plugin</c> <c>.odesign</c> definitions, <c>environment:/</c>
+    /// colors) are reported as unresolved. For a diagram-only read without the semantic co-load, use the
+    /// raw reader: <c>XmiReaderBuilder.Create().Build().Read(path)</c>.
     /// </remarks>
     public sealed class AirdModelLoader : IAirdModelLoader
     {
@@ -41,6 +46,16 @@ namespace Auriga.Xmi
         /// transitively, never a project's entry point.
         /// </summary>
         private const string DiagramModelExtension = ".aird";
+
+        /// <summary>
+        /// The extensions of the referenced documents a co-loading <see cref="Load"/> follows
+        /// transitively: the diagram fragments plus the whole Capella semantic family the diagram
+        /// elements href into.
+        /// </summary>
+        private static readonly string[] SemanticCoLoadExtensions =
+        {
+            ".airdfragment", ".capella", ".melodymodeller", ".capellafragment",
+        };
 
         /// <summary>
         /// The reader that reads the resolved diagram file into the object graph.
@@ -66,10 +81,15 @@ namespace Auriga.Xmi
 
         /// <summary>
         /// Loads the Sirius diagram model identified by <paramref name="path"/> (an <c>.aird</c> file or
-        /// the project directory that contains one) into a fully resolved object graph.
+        /// the project directory that contains one) into a fully resolved object graph, co-loading the
+        /// Capella semantic documents the diagrams reference so the cross-metamodel <c>target</c> /
+        /// <c>semanticElements</c> links resolve.
         /// </summary>
         /// <param name="path">the <c>.aird</c> file path, or the project directory path</param>
-        /// <returns>the fully resolved object graph, including any referenced <c>.airdfragment</c>s</returns>
+        /// <returns>
+        /// the fully resolved object graph, including any referenced <c>.airdfragment</c>s and the
+        /// co-loaded Capella semantic documents
+        /// </returns>
         /// <exception cref="ArgumentException">thrown when <paramref name="path"/> is null or blank</exception>
         /// <exception cref="FileNotFoundException">
         /// thrown when the path exists as neither a file nor a directory, or a directory holds no
@@ -88,9 +108,9 @@ namespace Auriga.Xmi
 
             var diagramFile = ResolveDiagramFile(path);
 
-            this.logger.LogInformation("Loading Sirius diagram model from {File}", diagramFile);
+            this.logger.LogInformation("Loading Sirius diagram model (and its referenced semantic documents) from {File}", diagramFile);
 
-            return this.reader.Read(diagramFile);
+            return this.reader.Read(diagramFile, SemanticCoLoadExtensions);
         }
 
         /// <summary>
