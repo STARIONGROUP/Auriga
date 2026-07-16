@@ -76,7 +76,7 @@ foreach (var component in project.SystemAnalysis!.QueryAllComponents())
 }
 
 // trace a functional exchange back to the functions it connects
-foreach (var exchange in project.Project!.QueryAllContainedElements().OfType<Auriga.Fa.IFunctionalExchange>())
+foreach (var exchange in project.Project!.QueryAllContainedElements().OfType<Auriga.Model.Fa.IFunctionalExchange>())
 {
     var from = exchange.QuerySourceFunction();
     var to = exchange.QueryTargetFunction();

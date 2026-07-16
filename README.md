@@ -6,11 +6,11 @@ Auriga builds on [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) for re
 
 ## Auriga
 
-The core library that contains the Capella object model: the C# implementation of the Capella metamodel (the Arcadia layers — Operational Analysis, System Analysis, Logical Architecture, Physical Architecture, EPBS — and the common packages), generated from the Capella Ecore metamodel. Together with **Auriga.Xmi** it provides the capability to read and write Capella models and make them available as an in-memory object graph.
+The core library that contains the shared base types (the `Auriga.Core` namespace) and two generated object models: the Capella semantic metamodel (the Arcadia layers — Operational Analysis, System Analysis, Logical Architecture, Physical Architecture, EPBS — and the common packages) under the `Auriga.Model.*` namespaces, and the Sirius/GMF diagramming metamodel (the `.aird` representation model) under the `Auriga.Diagram.*` namespaces. Together with **Auriga.Xmi** it provides the capability to read and write Capella models and make them available as an in-memory object graph.
 
 ## Auriga.Xmi
 
-The **Auriga.Xmi** library provides an XMI reader implementation to read Capella semantic model files (`.capella` / `.melodymodeller`) and an XMI writer implementation to write them back. It resolves intra-file (`xmi:id`) and cross-file (`href`) references, including references that cross `.capellafragment` boundaries, into a fully resolved object graph. The writer serializes the graph back to Capella-faithful XMI, preserving the fragment layout — see [XMI Writer](docs/xmi-writer.md).
+The **Auriga.Xmi** library provides XMI reader implementations to read Capella semantic model files (`.capella` / `.melodymodeller`, the `Auriga.Xmi.Model.*` namespaces) and Sirius diagram files (`.aird`, the `Auriga.Xmi.Diagram.*` namespaces), and an XMI writer implementation to write them back, all built on a metamodel-agnostic XMI runtime (the `Auriga.Xmi.Core.*` namespaces). It resolves intra-file (`xmi:id`) and cross-file (`href`) references, including references that cross `.capellafragment` boundaries, into a fully resolved object graph. The writer serializes the graph back to Capella-faithful XMI, preserving the fragment layout — see [XMI Writer](docs/xmi-writer.md).
 
 ## Auriga.Extensions
 
@@ -56,7 +56,7 @@ foreach (var component in logical!.QueryAllComponents())
 // Any element can walk its own subtree; combine with LINQ for ad-hoc queries.
 var exchanges = project.Project!
     .QueryAllContainedElements()
-    .OfType<Auriga.Fa.IFunctionalExchange>();
+    .OfType<Auriga.Model.Fa.IFunctionalExchange>();
 
 // 4) Write the (possibly modified) model back to disk — the fragment layout is preserved.
 var writer = XmiWriterBuilder.Create().Build();
@@ -83,8 +83,8 @@ and [XMI Writer](docs/xmi-writer.md) for the containment, query and write-back A
 
 Auriga is in early development and has not yet had its first release. Once published, the packages will be available on NuGet:
 
-  - `Auriga` — the Capella object model
-  - `Auriga.Xmi` — the `.capella` / `.melodymodeller` reader and writer
+  - `Auriga` — the Capella object model (`Auriga.Model.*`) and the Sirius/GMF diagram object model (`Auriga.Diagram.*`)
+  - `Auriga.Xmi` — the `.capella` / `.melodymodeller` / `.aird` readers and writers
   - `Auriga.Extensions` — query extension methods
 
 # Build Status

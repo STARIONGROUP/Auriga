@@ -100,6 +100,8 @@ needed (no fixture contains one).
 
 - The files are vendored into `resources/ecore-sirius/` and validated (issue #51,
   [`docs/sirius-ecorenetto-validation.md`](sirius-ecorenetto-validation.md)).
-- Generate the object model + XMI readers/writers from these files into a separate `Auriga.Sirius`
-  assembly (issue [#52](https://github.com/STARIONGROUP/Auriga/issues/52)) — a separate assembly
-  avoids type collisions with the Capella object model (e.g. `Folder`, `DModelElement`).
+- Generate the object model + XMI readers/writers from these files into the `Auriga.Diagram.*` /
+  `Auriga.Xmi.Diagram.*` namespaces of the shared `Auriga` / `Auriga.Xmi` libraries (issue
+  [#52](https://github.com/STARIONGROUP/Auriga/issues/52)) — the per-metamodel namespace root avoids
+  type collisions with the Capella object model (e.g. `Folder`, `DModelElement`), which lives under
+  `Auriga.Model.*`.
