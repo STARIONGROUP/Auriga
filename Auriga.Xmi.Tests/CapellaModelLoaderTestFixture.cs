@@ -46,7 +46,7 @@ namespace Auriga.Xmi.Tests
         [TestCase("in-flight-entertainment-system.capella")]
         public void Verify_that_a_capella_file_loads_into_a_resolved_graph(string fileName)
         {
-            var result = CapellaModelLoader.Create().Load(ModelFile(fileName));
+            var result = XmiReaderBuilder.Create().BuildCapellaModelLoader().Load(ModelFile(fileName));
 
             Assert.Multiple(() =>
             {
@@ -59,7 +59,7 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_a_melodymodeller_file_loads()
         {
-            var result = CapellaModelLoader.Create().Load(MinimalFile());
+            var result = XmiReaderBuilder.Create().BuildCapellaModelLoader().Load(MinimalFile());
 
             Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
         }
@@ -70,7 +70,7 @@ namespace Auriga.Xmi.Tests
             // A real project directory carries the semantic .capella alongside its .aird / .afm siblings;
             // the loader must find the one semantic file and ignore the rest, yielding the same graph as
             // loading that file directly.
-            var expected = CapellaModelLoader.Create().Load(CoffeeMachineFile());
+            var expected = XmiReaderBuilder.Create().BuildCapellaModelLoader().Load(CoffeeMachineFile());
 
             var projectDirectory = Path.Combine(this.temporaryRoot, "coffee-machine");
             Directory.CreateDirectory(projectDirectory);
@@ -78,7 +78,7 @@ namespace Auriga.Xmi.Tests
             File.WriteAllText(Path.Combine(projectDirectory, "coffee-machine-demo.aird"), "diagram data, ignored");
             File.WriteAllText(Path.Combine(projectDirectory, "coffee-machine-demo.afm"), "metadata, ignored");
 
-            var result = CapellaModelLoader.Create().Load(projectDirectory);
+            var result = XmiReaderBuilder.Create().BuildCapellaModelLoader().Load(projectDirectory);
 
             Assert.Multiple(() =>
             {
@@ -92,7 +92,7 @@ namespace Auriga.Xmi.Tests
         {
             // Pointing the loader at the fragmented project's directory must resolve the main .capella and
             // transitively load its fragments — the whole model in one documented call.
-            var result = CapellaModelLoader.Create().Load(FragmentedProjectDirectory());
+            var result = XmiReaderBuilder.Create().BuildCapellaModelLoader().Load(FragmentedProjectDirectory());
 
             Assert.Multiple(() =>
             {
@@ -109,7 +109,7 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_a_null_or_blank_path_is_rejected()
         {
-            var loader = CapellaModelLoader.Create();
+            var loader = XmiReaderBuilder.Create().BuildCapellaModelLoader();
 
             Assert.Multiple(() =>
             {
@@ -121,7 +121,7 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_a_missing_path_is_reported_clearly()
         {
-            var loader = CapellaModelLoader.Create();
+            var loader = XmiReaderBuilder.Create().BuildCapellaModelLoader();
             var missing = Path.Combine(this.temporaryRoot, "does-not-exist.capella");
 
             Assert.That(() => loader.Load(missing), Throws.InstanceOf<FileNotFoundException>());
@@ -130,7 +130,7 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_a_directory_without_a_semantic_model_is_reported_clearly()
         {
-            var loader = CapellaModelLoader.Create();
+            var loader = XmiReaderBuilder.Create().BuildCapellaModelLoader();
 
             Assert.That(() => loader.Load(this.temporaryRoot), Throws.InstanceOf<FileNotFoundException>());
         }
@@ -141,7 +141,7 @@ namespace Auriga.Xmi.Tests
             File.WriteAllText(Path.Combine(this.temporaryRoot, "one.capella"), "<root/>");
             File.WriteAllText(Path.Combine(this.temporaryRoot, "two.capella"), "<root/>");
 
-            Assert.That(() => CapellaModelLoader.Create().Load(this.temporaryRoot), Throws.InstanceOf<InvalidDataException>());
+            Assert.That(() => XmiReaderBuilder.Create().BuildCapellaModelLoader().Load(this.temporaryRoot), Throws.InstanceOf<InvalidDataException>());
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace Auriga.Xmi.Tests
             var notAModel = Path.Combine(this.temporaryRoot, "notes.txt");
             File.WriteAllText(notAModel, "not a model");
 
-            Assert.That(() => CapellaModelLoader.Create().Load(notAModel), Throws.InstanceOf<InvalidDataException>());
+            Assert.That(() => XmiReaderBuilder.Create().BuildCapellaModelLoader().Load(notAModel), Throws.InstanceOf<InvalidDataException>());
         }
 
         private static string ModelFile(string fileName)

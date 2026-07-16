@@ -52,7 +52,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_an_aird_file_loads_into_a_typed_analysis()
         {
-            var result = AirdModelLoader.Create().Load(TestDataPath("coffee-machine-demo.aird"));
+            var result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(TestDataPath("coffee-machine-demo.aird"));
 
             Assert.Multiple(() =>
             {
@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Tests.Diagram
 
             try
             {
-                result = AirdModelLoader.Create().Load(FragmentedProjectDirectory());
+                result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(FragmentedProjectDirectory());
             }
             catch (InvalidDataException exception) when (exception.Message.Contains("EStringToStringMapEntry", StringComparison.Ordinal))
             {
@@ -111,7 +111,7 @@ namespace Auriga.Xmi.Tests.Diagram
             // second one; and a .capellafragment that exists on disk is referenced but must not be loaded.
             var project = this.CreateSyntheticFragmentedProject();
 
-            var result = AirdModelLoader.Create().Load(project);
+            var result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(project);
 
             var sourceDocuments = result.Elements.Values
                 .Select(element => element.SourceDocument)
@@ -138,7 +138,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_referenced_analyses_resolve_across_fragments()
         {
-            var result = AirdModelLoader.Create().Load(this.CreateSyntheticFragmentedProject());
+            var result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(this.CreateSyntheticFragmentedProject());
 
             var analysis = (IDAnalysis)result.Root;
 
@@ -210,7 +210,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_a_null_or_blank_path_is_rejected()
         {
-            var loader = AirdModelLoader.Create();
+            var loader = XmiReaderBuilder.Create().BuildAirdModelLoader();
 
             Assert.Multiple(() =>
             {
@@ -224,13 +224,13 @@ namespace Auriga.Xmi.Tests.Diagram
         {
             var missing = Path.Combine(this.temporaryRoot, "does-not-exist.aird");
 
-            Assert.That(() => AirdModelLoader.Create().Load(missing), Throws.InstanceOf<FileNotFoundException>());
+            Assert.That(() => XmiReaderBuilder.Create().BuildAirdModelLoader().Load(missing), Throws.InstanceOf<FileNotFoundException>());
         }
 
         [Test]
         public void Verify_that_a_directory_without_a_diagram_file_is_reported_clearly()
         {
-            Assert.That(() => AirdModelLoader.Create().Load(this.temporaryRoot), Throws.InstanceOf<FileNotFoundException>());
+            Assert.That(() => XmiReaderBuilder.Create().BuildAirdModelLoader().Load(this.temporaryRoot), Throws.InstanceOf<FileNotFoundException>());
         }
 
         [Test]
@@ -239,7 +239,7 @@ namespace Auriga.Xmi.Tests.Diagram
             File.WriteAllText(Path.Combine(this.temporaryRoot, "one.aird"), "<root/>");
             File.WriteAllText(Path.Combine(this.temporaryRoot, "two.aird"), "<root/>");
 
-            Assert.That(() => AirdModelLoader.Create().Load(this.temporaryRoot), Throws.InstanceOf<InvalidDataException>());
+            Assert.That(() => XmiReaderBuilder.Create().BuildAirdModelLoader().Load(this.temporaryRoot), Throws.InstanceOf<InvalidDataException>());
         }
 
         [Test]
@@ -250,9 +250,9 @@ namespace Auriga.Xmi.Tests.Diagram
 
             Assert.Multiple(() =>
             {
-                Assert.That(() => AirdModelLoader.Create().Load(notADiagram), Throws.InstanceOf<InvalidDataException>());
+                Assert.That(() => XmiReaderBuilder.Create().BuildAirdModelLoader().Load(notADiagram), Throws.InstanceOf<InvalidDataException>());
                 Assert.That(
-                    () => AirdModelLoader.Create().Load(TestDataPath("coffee-machine-demo.capella")),
+                    () => XmiReaderBuilder.Create().BuildAirdModelLoader().Load(TestDataPath("coffee-machine-demo.capella")),
                     Throws.InstanceOf<InvalidDataException>());
             });
         }

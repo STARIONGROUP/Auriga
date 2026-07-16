@@ -114,7 +114,13 @@ namespace Auriga.Xmi
         /// <returns>the wrapped, fully resolved project</returns>
         public static CapellaProject Load(string path, ILoggerFactory? loggerFactory = null)
         {
-            return new CapellaProject(CapellaModelLoader.Create(loggerFactory).Load(path));
+            using var scope = XmiReaderBuilder.Create();
+            if (loggerFactory != null)
+            {
+                scope.WithLogger(loggerFactory);
+            }
+
+            return new CapellaProject(scope.BuildCapellaModelLoader().Load(path));
         }
 
         /// <summary>

@@ -11,100 +11,133 @@ namespace Auriga.Xmi
 {
     using System;
 
-    using Auriga.Xmi.Core.Cache;
-    using Auriga.Xmi.Core.Namespaces;
+    using Autofac;
+
     using Auriga.Xmi.Core.Readers;
-    using Auriga.Xmi.Core.ReferenceResolver;
 
     using Microsoft.Extensions.Logging;
 
-    using DiagramReaders = Auriga.Xmi.Diagram.AutoGenXmiReaders;
-    using ModelReaders = Auriga.Xmi.Model.AutoGenXmiReaders;
-
     /// <summary>
-    /// Fluent factory that wires together the collaborators of an <see cref="IXmiReader"/> — the element
-    /// cache, the namespace registries and reader facades of both generated metamodels (the Capella
-    /// semantic model and the Sirius/GMF diagram model), and the reference resolver — without requiring a
-    /// dependency-injection container. The built reader reads <c>.capella</c> / <c>.melodymodeller</c> /
-    /// <c>.capellafragment</c> semantic documents and <c>.aird</c> / <c>.airdfragment</c> diagram
-    /// documents alike: the two metamodels' dispatch tables are unioned through a
-    /// <see cref="CompositeXmiReaderFacade"/>, which is unambiguous because their package names and
-    /// namespace URIs are disjoint. The analogue of uml4net's <c>XmiReaderBuilder</c>.
+    /// The fluent entry point that composes an <see cref="IXmiReader"/> — and the model loaders built on
+    /// it — through the Autofac container owned by an <see cref="XmiReaderScope"/>, following uml4net's
+    /// <c>XmiReaderBuilder</c>. <see cref="Create"/> opens the scope, the fluent methods register
+    /// caller-supplied services on it, and a terminal method (<see cref="Build"/>,
+    /// <see cref="BuildCapellaModelLoader"/>, <see cref="BuildAirdModelLoader"/>) resolves the requested
+    /// service from a fresh child lifetime scope, so every built reader owns an independent stateful
+    /// graph. The built reader reads <c>.capella</c> / <c>.melodymodeller</c> / <c>.capellafragment</c>
+    /// semantic documents and <c>.aird</c> / <c>.airdfragment</c> diagram documents alike: the two
+    /// metamodels' dispatch tables are unioned through a <see cref="CompositeXmiReaderFacade"/>. The
+    /// scope is disposable; disposing it releases every graph built from it.
     /// </summary>
-    public sealed class XmiReaderBuilder
+    public static class XmiReaderBuilder
     {
         /// <summary>
-        /// The logger factory the built reader and its collaborators log through, or <c>null</c> to
-        /// disable logging.
+        /// Creates a new <see cref="XmiReaderScope"/> carrying the default registrations, ready to be
+        /// configured with the fluent methods and consumed by a terminal <c>Build*</c> method.
         /// </summary>
-        private ILoggerFactory? loggerFactory;
-
-        /// <summary>
-        /// The settings that tune how the built reader behaves, configured through
-        /// <see cref="UsingSettings"/>.
-        /// </summary>
-        private readonly XmiReaderSettings settings = new XmiReaderSettings();
-
-        /// <summary>
-        /// Creates a new <see cref="XmiReaderBuilder"/>.
-        /// </summary>
-        /// <returns>the builder</returns>
-        public static XmiReaderBuilder Create()
+        /// <returns>the scope</returns>
+        public static XmiReaderScope Create()
         {
-            return new XmiReaderBuilder();
+            return new XmiReaderScope();
         }
 
         /// <summary>
-        /// Configures the reader's settings (e.g. <see cref="IXmiReaderSettings.UseStrictReading"/>).
+        /// Configures the reader's settings (e.g. <see cref="IXmiReaderSettings.UseStrictReading"/>):
+        /// the configured instance is registered on the scope, replacing the default settings.
         /// </summary>
+        /// <param name="scope">the scope to register the settings on</param>
         /// <param name="configure">an action that mutates the settings</param>
-        /// <returns>the builder</returns>
-        public XmiReaderBuilder UsingSettings(Action<XmiReaderSettings> configure)
+        /// <returns>the same scope, for chaining</returns>
+        public static XmiReaderScope UsingSettings(this XmiReaderScope scope, Action<XmiReaderSettings> configure)
         {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
             if (configure == null)
             {
                 throw new ArgumentNullException(nameof(configure));
             }
 
-            configure(this.settings);
-            return this;
+            var settings = new XmiReaderSettings();
+            configure(settings);
+
+            scope.ContainerBuilder.RegisterInstance(settings).As<IXmiReaderSettings>();
+            return scope;
         }
 
         /// <summary>
-        /// Configures the reader to log through the supplied <see cref="ILoggerFactory"/>.
+        /// Configures the composed services to log through the supplied <see cref="ILoggerFactory"/>,
+        /// replacing the no-op default.
         /// </summary>
-        /// <param name="factory">the logger factory</param>
-        /// <returns>the builder</returns>
-        public XmiReaderBuilder WithLogger(ILoggerFactory factory)
+        /// <param name="scope">the scope to register the logger factory on</param>
+        /// <param name="loggerFactory">the logger factory</param>
+        /// <returns>the same scope, for chaining</returns>
+        public static XmiReaderScope WithLogger(this XmiReaderScope scope, ILoggerFactory loggerFactory)
         {
-            this.loggerFactory = factory;
-            return this;
-        }
-
-        /// <summary>
-        /// Builds a fully-wired <see cref="IXmiReader"/> that reads both the Capella semantic documents
-        /// and the Sirius diagram documents. The namespace resolver is seeded with the union of the two
-        /// generated namespace registries, and both generated facades share it (and the element cache),
-        /// so either can resolve any document's type keys while the composite routes each key to the
-        /// facade that owns it.
-        /// </summary>
-        /// <returns>the reader</returns>
-        public IXmiReader Build()
-        {
-            var cache = new XmiElementCache();
-
-            var namespaceResolver = new NamespaceResolver(ModelReaders.AutoGenNamespaceRegistry.NamespaceToPackage);
-            foreach (var pair in DiagramReaders.AutoGenNamespaceRegistry.NamespaceToPackage)
+            if (scope == null)
             {
-                namespaceResolver.RegisterNamespace(pair.Key, pair.Value);
+                throw new ArgumentNullException(nameof(scope));
             }
 
-            var facade = new CompositeXmiReaderFacade(
-                new ModelReaders.XmiReaderFacade(cache, namespaceResolver, this.settings, this.loggerFactory),
-                new DiagramReaders.XmiReaderFacade(cache, namespaceResolver, this.settings, this.loggerFactory));
-            var referenceResolver = new ReferenceResolver(this.loggerFactory);
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
 
-            return new XmiReader(cache, facade, namespaceResolver, referenceResolver, this.loggerFactory);
+            scope.ContainerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>();
+            return scope;
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="IXmiReader"/> from a fresh child lifetime scope of the
+        /// container.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the reader</returns>
+        public static IXmiReader Build(this XmiReaderScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.BeginScope().Resolve<IXmiReader>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="ICapellaModelLoader"/> — the project-level entry point for
+        /// <c>.capella</c> / <c>.melodymodeller</c> files and project directories — from a fresh child
+        /// lifetime scope of the container.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the loader</returns>
+        public static ICapellaModelLoader BuildCapellaModelLoader(this XmiReaderScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.BeginScope().Resolve<ICapellaModelLoader>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="IAirdModelLoader"/> — the project-level entry point for
+        /// Sirius <c>.aird</c> files and project directories — from a fresh child lifetime scope of the
+        /// container.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the loader</returns>
+        public static IAirdModelLoader BuildAirdModelLoader(this XmiReaderScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.BeginScope().Resolve<IAirdModelLoader>();
         }
     }
 }

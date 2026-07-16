@@ -65,24 +65,6 @@ namespace Auriga.Xmi
         }
 
         /// <summary>
-        /// Creates a loader over a default, fully-wired <see cref="IXmiReader"/> (via
-        /// <see cref="XmiReaderBuilder"/>). This is the one-call convenience entry point:
-        /// <c>AirdModelLoader.Create().Load(path)</c>.
-        /// </summary>
-        /// <param name="loggerFactory">the logger factory the loader and reader log through, or <c>null</c></param>
-        /// <returns>the loader</returns>
-        public static AirdModelLoader Create(ILoggerFactory? loggerFactory = null)
-        {
-            var builder = XmiReaderBuilder.Create();
-            if (loggerFactory != null)
-            {
-                builder = builder.WithLogger(loggerFactory);
-            }
-
-            return new AirdModelLoader(builder.Build(), loggerFactory);
-        }
-
-        /// <summary>
         /// Loads the Sirius diagram model identified by <paramref name="path"/> (an <c>.aird</c> file or
         /// the project directory that contains one) into a fully resolved object graph.
         /// </summary>
