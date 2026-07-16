@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Auriga.Core\Auriga.Core.csproj" />
+        <ProjectReference Include="..\Auriga\Auriga.csproj" />
     </ItemGroup>
 
     <ItemGroup>

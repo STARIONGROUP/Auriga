@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Sirius.Tests", "Auri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Sirius.Xmi.Tests", "Auriga.Sirius.Xmi.Tests\Auriga.Sirius.Xmi.Tests.csproj", "{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Core", "Auriga.Core\Auriga.Core.csproj", "{4E072A0F-42C8-461D-84D7-5ACFBE11A707}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Xmi.Core", "Auriga.Xmi.Core\Auriga.Xmi.Core.csproj", "{340F4AF1-FCD6-4154-97D3-52DB62FF5F2C}"
 EndProject
 Global
@@ -213,18 +211,6 @@ Global
 		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|x64.Build.0 = Release|Any CPU
 		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|x86.ActiveCfg = Release|Any CPU
 		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|x86.Build.0 = Release|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Debug|x64.Build.0 = Debug|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Debug|x86.Build.0 = Debug|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Release|x64.ActiveCfg = Release|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Release|x64.Build.0 = Release|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Release|x86.ActiveCfg = Release|Any CPU
-		{4E072A0F-42C8-461D-84D7-5ACFBE11A707}.Release|x86.Build.0 = Release|Any CPU
 		{340F4AF1-FCD6-4154-97D3-52DB62FF5F2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{340F4AF1-FCD6-4154-97D3-52DB62FF5F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340F4AF1-FCD6-4154-97D3-52DB62FF5F2C}.Debug|x64.ActiveCfg = Debug|Any CPU

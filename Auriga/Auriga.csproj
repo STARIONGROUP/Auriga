@@ -22,10 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Auriga.Core\Auriga.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <InternalsVisibleTo Include="$(MSBuildProjectName).Tests" />
     </ItemGroup>
 
