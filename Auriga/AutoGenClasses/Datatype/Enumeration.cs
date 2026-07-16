@@ -21,7 +21,7 @@ namespace Auriga.Information.Datatype
     /// <summary>
     /// Definition of the <c>Enumeration</c> class.
     /// </summary>
-    public partial class Enumeration : Auriga.AurigaElement, Auriga.Information.Datatype.IEnumeration
+    public partial class Enumeration : Auriga.Core.AurigaElement, Auriga.Information.Datatype.IEnumeration
     {
         /// <summary>
         /// Gets or sets the abstract.
@@ -106,12 +106,12 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the naming rules.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.ContainerList<Auriga.Capellacore.INamingRule>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.INamingRule> NamingRules => this.backingNamingRules ??= new Auriga.Core.ContainerList<Auriga.Capellacore.INamingRule>(this);
 
         /// <summary>
         /// Backing field for <see cref="NamingRules"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.INamingRule> backingNamingRules;
 
         /// <summary>
         /// Gets the null value.
@@ -126,22 +126,22 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the owned constraints.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedConstraints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
         /// <summary>
         /// Gets the owned data values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues => this.backingOwnedDataValues ??= new Auriga.ContainerList<Auriga.Information.Datavalue.IDataValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues => this.backingOwnedDataValues ??= new Auriga.Core.ContainerList<Auriga.Information.Datavalue.IDataValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedDataValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> backingOwnedDataValues;
+        private Auriga.Core.IContainerList<Auriga.Information.Datavalue.IDataValue> backingOwnedDataValues;
 
         /// <summary>
         /// Gets or sets the owned default value.
@@ -168,52 +168,52 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the owned enumeration property types.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedEnumerationPropertyTypes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned generalizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations => this.backingOwnedGeneralizations ??= new Auriga.ContainerList<Auriga.Capellacore.IGeneralization>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IGeneralization> OwnedGeneralizations => this.backingOwnedGeneralizations ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IGeneralization>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedGeneralizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IGeneralization> backingOwnedGeneralizations;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IGeneralization> backingOwnedGeneralizations;
 
         /// <summary>
         /// Gets the owned information realizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations => this.backingOwnedInformationRealizations ??= new Auriga.ContainerList<Auriga.Information.IInformationRealization>(this);
+        public Auriga.Core.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations => this.backingOwnedInformationRealizations ??= new Auriga.Core.ContainerList<Auriga.Information.IInformationRealization>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedInformationRealizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Information.IInformationRealization> backingOwnedInformationRealizations;
+        private Auriga.Core.IContainerList<Auriga.Information.IInformationRealization> backingOwnedInformationRealizations;
 
         /// <summary>
         /// Gets the owned literals.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Information.Datavalue.IEnumerationLiteral> OwnedLiterals => this.backingOwnedLiterals ??= new Auriga.ContainerList<Auriga.Information.Datavalue.IEnumerationLiteral>(this);
+        public Auriga.Core.IContainerList<Auriga.Information.Datavalue.IEnumerationLiteral> OwnedLiterals => this.backingOwnedLiterals ??= new Auriga.Core.ContainerList<Auriga.Information.Datavalue.IEnumerationLiteral>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedLiterals"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Information.Datavalue.IEnumerationLiteral> backingOwnedLiterals;
+        private Auriga.Core.IContainerList<Auriga.Information.Datavalue.IEnumerationLiteral> backingOwnedLiterals;
 
         /// <summary>
         /// Gets or sets the owned max value.
@@ -240,12 +240,12 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the owned migrated elements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedMigratedElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
         /// <summary>
         /// Gets or sets the owned min value.
@@ -294,42 +294,42 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the owned property value groups.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValueGroups"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
         /// <summary>
         /// Gets the owned property value pkgs.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs => this.backingOwnedPropertyValuePkgs ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValuePkg>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValuePkg> OwnedPropertyValuePkgs => this.backingOwnedPropertyValuePkgs ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IPropertyValuePkg>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValuePkgs"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValuePkg> backingOwnedPropertyValuePkgs;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValuePkg> backingOwnedPropertyValuePkgs;
 
         /// <summary>
         /// Gets the owned property values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
         /// <summary>
         /// Gets the owned traces.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.ContainerList<Auriga.Capellacore.ITrace>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.ITrace> OwnedTraces => this.backingOwnedTraces ??= new Auriga.Core.ContainerList<Auriga.Capellacore.ITrace>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedTraces"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.ITrace> backingOwnedTraces;
 
         /// <summary>
         /// Gets or sets the pattern.
@@ -410,7 +410,7 @@ namespace Auriga.Information.Datatype
         /// Gets the elements directly contained by this <c>Enumeration</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.NamingRules)
             {

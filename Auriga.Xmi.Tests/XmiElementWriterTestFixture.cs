@@ -9,6 +9,7 @@
 
 namespace Auriga.Xmi.Tests
 {
+    using Auriga.Core;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Auriga.Xmi.Tests
     using System.Text;
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using NUnit.Framework;
 

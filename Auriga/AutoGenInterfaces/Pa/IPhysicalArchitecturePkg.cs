@@ -23,12 +23,12 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets the owned physical architecture pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.IPhysicalArchitecturePkg> OwnedPhysicalArchitecturePkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.IPhysicalArchitecturePkg> OwnedPhysicalArchitecturePkgs { get; }
 
         /// <summary>
         /// Gets the owned physical architectures.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.IPhysicalArchitecture> OwnedPhysicalArchitectures { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.IPhysicalArchitecture> OwnedPhysicalArchitectures { get; }
 
     }
 }

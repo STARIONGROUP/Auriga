@@ -23,7 +23,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned exchange items.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IExchangeItem> OwnedExchangeItems { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IExchangeItem> OwnedExchangeItems { get; }
 
     }
 }

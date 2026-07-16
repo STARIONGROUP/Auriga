@@ -23,7 +23,7 @@ namespace Auriga.Information.Datavalue
         /// <summary>
         /// Gets the owned data values.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedDataValues { get; }
 
     }
 }

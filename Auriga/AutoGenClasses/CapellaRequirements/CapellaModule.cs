@@ -18,7 +18,7 @@ namespace Auriga.CapellaRequirements
     /// <summary>
     /// Definition of the <c>CapellaModule</c> class.
     /// </summary>
-    public partial class CapellaModule : Auriga.AurigaElement, Auriga.CapellaRequirements.ICapellaModule
+    public partial class CapellaModule : Auriga.Core.AurigaElement, Auriga.CapellaRequirements.ICapellaModule
     {
         /// <summary>
         /// Gets or sets the module type.
@@ -28,32 +28,32 @@ namespace Auriga.CapellaRequirements
         /// <summary>
         /// Gets the owned attributes.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Requirements.IAttribute> OwnedAttributes => this.backingOwnedAttributes ??= new Auriga.ContainerList<Auriga.Requirements.IAttribute>(this);
+        public Auriga.Core.IContainerList<Auriga.Requirements.IAttribute> OwnedAttributes => this.backingOwnedAttributes ??= new Auriga.Core.ContainerList<Auriga.Requirements.IAttribute>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAttributes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Requirements.IAttribute> backingOwnedAttributes;
+        private Auriga.Core.IContainerList<Auriga.Requirements.IAttribute> backingOwnedAttributes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned requirements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Requirements.IRequirement> OwnedRequirements => this.backingOwnedRequirements ??= new Auriga.ContainerList<Auriga.Requirements.IRequirement>(this);
+        public Auriga.Core.IContainerList<Auriga.Requirements.IRequirement> OwnedRequirements => this.backingOwnedRequirements ??= new Auriga.Core.ContainerList<Auriga.Requirements.IRequirement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRequirements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Requirements.IRequirement> backingOwnedRequirements;
+        private Auriga.Core.IContainerList<Auriga.Requirements.IRequirement> backingOwnedRequirements;
 
         /// <summary>
         /// Gets or sets the req i f description.
@@ -84,7 +84,7 @@ namespace Auriga.CapellaRequirements
         /// Gets the elements directly contained by this <c>CapellaModule</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedAttributes)
             {

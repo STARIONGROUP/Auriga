@@ -66,17 +66,17 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned component exchange ends.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentExchangeEnd> OwnedComponentExchangeEnds { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeEnd> OwnedComponentExchangeEnds { get; }
 
         /// <summary>
         /// Gets the owned component exchange functional exchange allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeFunctionalExchangeAllocation> OwnedComponentExchangeFunctionalExchangeAllocations { get; }
 
         /// <summary>
         /// Gets the owned component exchange realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IComponentExchangeRealization> OwnedComponentExchangeRealizations { get; }
 
         /// <summary>
         /// Gets the realized component exchanges.

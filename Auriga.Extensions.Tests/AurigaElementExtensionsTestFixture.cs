@@ -9,6 +9,7 @@
 
 namespace Auriga.Extensions.Tests
 {
+    using Auriga.Core;
     using System.Linq;
 
     using Auriga.Extensions;

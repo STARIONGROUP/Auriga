@@ -21,7 +21,7 @@ namespace Auriga.Information.Communication
     /// <summary>
     /// Definition of the <c>CommunicationLinkExchanger</c> interface.
     /// </summary>
-    public partial interface ICommunicationLinkExchanger : Auriga.IAurigaElement
+    public partial interface ICommunicationLinkExchanger : Auriga.Core.IAurigaElement
     {
         /// <summary>
         /// Gets the access.
@@ -51,7 +51,7 @@ namespace Auriga.Information.Communication
         /// <summary>
         /// Gets the owned communication links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Communication.ICommunicationLink> OwnedCommunicationLinks { get; }
 
         /// <summary>
         /// Gets the produce.

@@ -18,8 +18,8 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Information.Communication
     using System;
     using System.Xml;
 
-    using Auriga.Xmi.Cache;
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 
@@ -87,7 +87,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders.Information.Communication
                 poco.XsiType = xmlReader.GetAttribute("type", XsiNamespace);
                 poco.XmiNamespaceUri = namespaceUri;
 
-                poco.Id = xmlReader.GetAttribute("id");
+                // The element identity is a bare id (as Capella serializes it), an xmi:id (as GMF notation
+                // does) or a uid (as the Sirius representation model does); take the first present so every
+                // element is cached and its cross-references resolve regardless of the serialization.
+                poco.Id = xmlReader.GetAttribute("id") ?? xmlReader.GetAttribute("id", XmiNamespace) ?? xmlReader.GetAttribute("uid");
                 poco.SourceDocument = documentName;
                 {
                     var raw = xmlReader.GetAttribute("abstract");

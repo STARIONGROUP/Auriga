@@ -36,17 +36,17 @@ namespace Auriga.Information
         /// <summary>
         /// Gets the owned elements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IExchangeItemElement> OwnedElements { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IExchangeItemElement> OwnedElements { get; }
 
         /// <summary>
         /// Gets the owned exchange item instances.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IExchangeItemInstance> OwnedExchangeItemInstances { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IExchangeItemInstance> OwnedExchangeItemInstances { get; }
 
         /// <summary>
         /// Gets the owned information realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IInformationRealization> OwnedInformationRealizations { get; }
 
         /// <summary>
         /// Gets the realized exchange items.

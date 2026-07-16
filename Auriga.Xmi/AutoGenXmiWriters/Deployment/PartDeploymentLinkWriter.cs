@@ -15,7 +15,7 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Pa.Deployment
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 

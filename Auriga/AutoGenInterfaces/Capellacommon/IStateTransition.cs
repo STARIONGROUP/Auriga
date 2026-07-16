@@ -41,7 +41,7 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets the owned state transition realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IStateTransitionRealization> OwnedStateTransitionRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IStateTransitionRealization> OwnedStateTransitionRealizations { get; }
 
         /// <summary>
         /// Gets the realized state transitions.

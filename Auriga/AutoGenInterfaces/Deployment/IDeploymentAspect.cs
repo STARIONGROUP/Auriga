@@ -23,12 +23,12 @@ namespace Auriga.Pa.Deployment
         /// <summary>
         /// Gets the owned configurations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.Deployment.IDeploymentConfiguration> OwnedConfigurations { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.Deployment.IDeploymentConfiguration> OwnedConfigurations { get; }
 
         /// <summary>
         /// Gets the owned deployment aspects.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.Deployment.IDeploymentAspect> OwnedDeploymentAspects { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.Deployment.IDeploymentAspect> OwnedDeploymentAspects { get; }
 
     }
 }

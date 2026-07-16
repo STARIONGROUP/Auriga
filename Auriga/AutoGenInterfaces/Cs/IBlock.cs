@@ -38,7 +38,7 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned state machines.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedStateMachines { get; }
 
     }
 }

@@ -25,7 +25,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned reuse links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IReuseLink> OwnedReuseLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IReuseLink> OwnedReuseLinks { get; }
 
         /// <summary>
         /// Gets the reuse links.

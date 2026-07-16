@@ -23,7 +23,7 @@ namespace Auriga.Information.Communication
         /// <summary>
         /// Gets the signal instances.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Communication.ISignalInstance> SignalInstances { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Communication.ISignalInstance> SignalInstances { get; }
 
     }
 }

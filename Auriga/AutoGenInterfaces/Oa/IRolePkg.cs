@@ -23,12 +23,12 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned role pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IRolePkg> OwnedRolePkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IRolePkg> OwnedRolePkgs { get; }
 
         /// <summary>
         /// Gets the owned roles.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IRole> OwnedRoles { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IRole> OwnedRoles { get; }
 
     }
 }

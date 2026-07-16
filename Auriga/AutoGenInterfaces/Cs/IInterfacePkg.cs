@@ -23,12 +23,12 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned interface pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IInterfacePkg> OwnedInterfacePkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IInterfacePkg> OwnedInterfacePkgs { get; }
 
         /// <summary>
         /// Gets the owned interfaces.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IInterface> OwnedInterfaces { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IInterface> OwnedInterfaces { get; }
 
     }
 }

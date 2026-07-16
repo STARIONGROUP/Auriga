@@ -41,7 +41,7 @@ namespace Auriga.Fa
         /// <summary>
         /// Gets the owned exchange containments.
         /// </summary>
-        Auriga.IContainerList<Auriga.Fa.IExchangeContainment> OwnedExchangeContainments { get; }
+        Auriga.Core.IContainerList<Auriga.Fa.IExchangeContainment> OwnedExchangeContainments { get; }
 
         /// <summary>
         /// Gets the sources.

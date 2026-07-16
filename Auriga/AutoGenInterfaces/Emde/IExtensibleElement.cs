@@ -23,7 +23,7 @@ namespace Auriga.Emde
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions { get; }
+        Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions { get; }
 
     }
 }

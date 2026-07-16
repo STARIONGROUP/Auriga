@@ -61,7 +61,7 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned exchange item allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IExchangeItemAllocation> OwnedExchangeItemAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IExchangeItemAllocation> OwnedExchangeItemAllocations { get; }
 
         /// <summary>
         /// Gets the providing component ports.

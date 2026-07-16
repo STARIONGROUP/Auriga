@@ -12,7 +12,7 @@ namespace Auriga.Xmi.Tests
     using System.IO;
     using System.Xml;
 
-    using Auriga.Xmi.Readers;
+    using Auriga.Xmi.Core.Readers;
 
     using NUnit.Framework;
 
@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Tests
 
             var exception = Assert.Throws<InvalidDataException>(() => XmiReaderBuilder.Create().Build().Read(path));
 
-            Assert.That(exception!.Message, Does.Contain("known Capella package"), "the error must explain that the package is not part of the vendored metamodel");
+            Assert.That(exception!.Message, Does.Contain("known package"), "the error must explain that the package is not part of the vendored metamodel");
         }
 
         private static string ModelPath(string fileName)

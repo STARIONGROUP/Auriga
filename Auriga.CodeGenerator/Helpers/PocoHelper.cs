@@ -28,7 +28,7 @@ namespace Auriga.CodeGenerator.Helpers
     public static class PocoHelper
     {
         /// <summary>
-        /// Member names supplied by <c>Auriga.IAurigaElement</c>; a same-named Capella feature is mapped
+        /// Member names supplied by <c>Auriga.Core.IAurigaElement</c>; a same-named Capella feature is mapped
         /// onto the inherited member rather than re-declared (which would hide the base).
         /// </summary>
         private static readonly HashSet<string> ReservedMembers = new(StringComparer.Ordinal) { "Id", "Container" };
@@ -61,7 +61,7 @@ namespace Auriga.CodeGenerator.Helpers
                 writer.WriteSafeString(Extends((EClass)arguments[0]!)));
 
             handlebars.RegisterHelper("Bases", (writer, _, arguments) =>
-                writer.WriteSafeString($" : Auriga.AurigaElement, {CSharpNaming.InterfaceType((EClass)arguments[0]!)}"));
+                writer.WriteSafeString($" : Auriga.Core.AurigaElement, {CSharpNaming.InterfaceType((EClass)arguments[0]!)}"));
 
             handlebars.RegisterHelper("InterfaceDeclaration", (writer, _, arguments) =>
                 writer.WriteSafeString(Declaration((EStructuralFeature)arguments[0]!, forInterface: true)));
@@ -164,7 +164,7 @@ namespace Auriga.CodeGenerator.Helpers
 
             return supertypes.Count > 0
                 ? " : " + string.Join(", ", supertypes.Select(CSharpNaming.InterfaceType))
-                : " : Auriga.IAurigaElement";
+                : " : Auriga.Core.IAurigaElement";
         }
 
         private static string Declaration(EStructuralFeature feature, bool forInterface)
@@ -192,7 +192,8 @@ namespace Auriga.CodeGenerator.Helpers
             if (collection && containment)
             {
                 var field = "backing" + name;
-                return $"public {type} {name} => this.{field} ??= new Auriga.ContainerList<{baseType}>(this);\n\n" +
+                var elementType = CSharpType.ContainmentElementType(feature);
+                return $"public {type} {name} => this.{field} ??= new Auriga.Core.ContainerList<{elementType}>(this);\n\n" +
                        $"        /// <summary>\n" +
                        $"        /// Backing field for <see cref=\"{name}\"/>.\n" +
                        $"        /// </summary>\n" +
@@ -255,7 +256,7 @@ namespace Auriga.CodeGenerator.Helpers
             builder.Append($"        /// Gets the elements directly contained by this <c>{CSharpNaming.Capitalize(eClass.Name)}</c>.\n");
             builder.Append("        /// </summary>\n");
             builder.Append("        /// <returns>the directly contained elements</returns>\n");
-            builder.Append("        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()\n");
+            builder.Append("        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()\n");
             builder.Append("        {\n");
 
             for (var i = 0; i < containments.Count; i++)
@@ -289,7 +290,7 @@ namespace Auriga.CodeGenerator.Helpers
 
         private static string MemberName(EStructuralFeature feature)
         {
-            return CSharpNaming.Escape(CSharpNaming.Capitalize(feature.Name));
+            return CSharpNaming.MemberName(feature);
         }
 
         private static bool IsReserved(EStructuralFeature feature)
@@ -312,7 +313,21 @@ namespace Auriga.CodeGenerator.Helpers
 
             try
             {
-                lines = element.QueryDocumentation().Where(l => !string.IsNullOrWhiteSpace(l)).ToList();
+                // Read the raw GenModel documentation annotation rather than ECoreNetto's
+                // QueryDocumentation(): the latter word-wraps long documentation, and that wrapping is
+                // platform-dependent (it breaks at different positions on Windows and Linux, and can even
+                // insert a space that is not in the source, e.g. "edge.All" -> "edge. All"), which makes
+                // generation non-deterministic. The raw annotation value is the verbatim ecore text, so it
+                // is identical on every platform. Its only line breaks are the source's own (deterministic).
+                // Capella's short single-line documentation is unchanged by this.
+                var documentation = RawDocumentation(element);
+
+                lines = documentation == null
+                    ? new List<string>()
+                    : documentation.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n')
+                        .Select(l => l.Trim())
+                        .Where(l => l.Length > 0)
+                        .ToList();
             }
             catch (Exception)
             {
@@ -329,6 +344,17 @@ namespace Auriga.CodeGenerator.Helpers
             result.Add("</summary>");
 
             return result;
+        }
+
+        private const string GenModelAnnotationSource = "http://www.eclipse.org/emf/2002/GenModel";
+
+        private static string? RawDocumentation(EModelElement element)
+        {
+            var annotation = element.EAnnotations?.FirstOrDefault(a => a.Source == GenModelAnnotationSource);
+
+            return annotation != null && annotation.Details.TryGetValue("documentation", out var documentation)
+                ? documentation
+                : null;
         }
 
         private static string Humanize(string name)

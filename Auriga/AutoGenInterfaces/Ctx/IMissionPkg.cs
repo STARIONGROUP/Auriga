@@ -23,12 +23,12 @@ namespace Auriga.Ctx
         /// <summary>
         /// Gets the owned mission pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.IMissionPkg> OwnedMissionPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.IMissionPkg> OwnedMissionPkgs { get; }
 
         /// <summary>
         /// Gets the owned missions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Ctx.IMission> OwnedMissions { get; }
+        Auriga.Core.IContainerList<Auriga.Ctx.IMission> OwnedMissions { get; }
 
     }
 }

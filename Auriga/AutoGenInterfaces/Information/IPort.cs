@@ -46,17 +46,17 @@ namespace Auriga.Information
         /// <summary>
         /// Gets the owned port allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IPortAllocation> OwnedPortAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IPortAllocation> OwnedPortAllocations { get; }
 
         /// <summary>
         /// Gets the owned port realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IPortRealization> OwnedPortRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IPortRealization> OwnedPortRealizations { get; }
 
         /// <summary>
         /// Gets the owned protocols.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedProtocols { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IStateMachine> OwnedProtocols { get; }
 
         /// <summary>
         /// Gets the provided interfaces.

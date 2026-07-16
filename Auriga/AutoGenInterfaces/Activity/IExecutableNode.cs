@@ -23,7 +23,7 @@ namespace Auriga.Activity
         /// <summary>
         /// Gets the owned handlers.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IExceptionHandler> OwnedHandlers { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IExceptionHandler> OwnedHandlers { get; }
 
     }
 }

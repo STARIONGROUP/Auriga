@@ -29,7 +29,7 @@ namespace Auriga.CodeGenerator.Helpers
     {
         private static readonly HashSet<string> ReservedMembers = new(StringComparer.Ordinal) { "Id", "Container" };
 
-        private const string ReaderRootNamespace = "Auriga.Xmi.AutoGenXmiReaders";
+        private static string ReaderRootNamespace => NamingContext.ReaderRoot;
 
         private const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
 
@@ -68,6 +68,9 @@ namespace Auriga.CodeGenerator.Helpers
 
             handlebars.RegisterHelper("XsiNamespaceUri", (writer, _, _) =>
                 writer.WriteSafeString(XsiNamespace));
+
+            handlebars.RegisterHelper("ReaderFacadeNamespace", (writer, _, _) =>
+                writer.WriteSafeString(ReaderRootNamespace));
 
             handlebars.RegisterHelper("ReaderAttributeFeatures", (_, arguments) => AttributeFeatures((EClass)arguments[0]!));
 
@@ -193,6 +196,21 @@ namespace Auriga.CodeGenerator.Helpers
             if (feature.EType is EEnum)
             {
                 var enumType = CSharpNaming.EnumType((EEnum)feature.EType);
+
+                if (CSharpType.IsCollection(feature))
+                {
+                    // A multi-valued enum attribute is a whitespace-delimited list of literals.
+                    return Block(
+                        AttributeIndent,
+                        $"foreach (var token in (xmlReader.GetAttribute(\"{xmlName}\") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))",
+                        "{",
+                        $"    if (TryParseEnum<{enumType}>(token, out var parsed))",
+                        "    {",
+                        $"        poco.{propertyName}.Add(parsed);",
+                        "    }",
+                        "}");
+                }
+
                 return Block(
                     AttributeIndent,
                     "{",
@@ -283,9 +301,9 @@ namespace Auriga.CodeGenerator.Helpers
         {
             var propertyName = MemberName(feature);
             var xmlName = feature.Name;
-            var elementType = CSharpType.BaseType(feature.EType);
             var collection = CSharpType.IsCollection(feature);
             var containment = feature is EReference { IsContainment: true };
+            var elementType = containment ? CSharpType.ContainmentElementType(feature) : CSharpType.BaseType(feature.EType);
 
             // A child element carrying an href is a cross-document proxy (e.g. into a .capellafragment):
             // it is collected as an unresolved reference rather than instantiated as an empty object.
@@ -358,7 +376,7 @@ namespace Auriga.CodeGenerator.Helpers
 
         private static string MemberName(EStructuralFeature feature)
         {
-            return CSharpNaming.Escape(CSharpNaming.Capitalize(feature.Name));
+            return CSharpNaming.MemberName(feature);
         }
 
         private static bool IsReserved(EStructuralFeature feature)

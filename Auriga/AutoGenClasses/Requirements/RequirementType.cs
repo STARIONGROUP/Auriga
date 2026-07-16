@@ -18,27 +18,27 @@ namespace Auriga.Requirements
     /// <summary>
     /// Definition of the <c>RequirementType</c> class.
     /// </summary>
-    public partial class RequirementType : Auriga.AurigaElement, Auriga.Requirements.IRequirementType
+    public partial class RequirementType : Auriga.Core.AurigaElement, Auriga.Requirements.IRequirementType
     {
         /// <summary>
         /// Gets the owned attributes.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Requirements.IAttributeDefinition> OwnedAttributes => this.backingOwnedAttributes ??= new Auriga.ContainerList<Auriga.Requirements.IAttributeDefinition>(this);
+        public Auriga.Core.IContainerList<Auriga.Requirements.IAttributeDefinition> OwnedAttributes => this.backingOwnedAttributes ??= new Auriga.Core.ContainerList<Auriga.Requirements.IAttributeDefinition>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAttributes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Requirements.IAttributeDefinition> backingOwnedAttributes;
+        private Auriga.Core.IContainerList<Auriga.Requirements.IAttributeDefinition> backingOwnedAttributes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets or sets the req i f description.
@@ -59,7 +59,7 @@ namespace Auriga.Requirements
         /// Gets the elements directly contained by this <c>RequirementType</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedAttributes)
             {

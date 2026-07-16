@@ -18,7 +18,7 @@ namespace Auriga.Emde
     /// <summary>
     /// Definition of the <c>Element</c> interface.
     /// </summary>
-    public partial interface IElement : Auriga.IAurigaElement
+    public partial interface IElement : Auriga.Core.IAurigaElement
     {
     }
 }

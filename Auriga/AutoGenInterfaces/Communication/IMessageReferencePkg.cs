@@ -23,7 +23,7 @@ namespace Auriga.Information.Communication
         /// <summary>
         /// Gets the owned message references.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Communication.IMessageReference> OwnedMessageReferences { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Communication.IMessageReference> OwnedMessageReferences { get; }
 
     }
 }

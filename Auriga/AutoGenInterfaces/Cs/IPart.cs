@@ -41,7 +41,7 @@ namespace Auriga.Cs
         /// <summary>
         /// Gets the owned deployment links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
 
         /// <summary>
         /// Gets the provided interfaces.

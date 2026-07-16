@@ -170,7 +170,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
 
             Assert.Multiple(() =>
             {
-                Assert.That(content, Does.Contain("public partial class PhysicalComponent : Auriga.AurigaElement, Auriga.Pa.IPhysicalComponent"));
+                Assert.That(content, Does.Contain("public partial class PhysicalComponent : Auriga.Core.AurigaElement, Auriga.Pa.IPhysicalComponent"));
                 Assert.That(content, Does.Contain("#nullable disable"));
             });
         }
@@ -180,7 +180,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
         {
             var anyContainerList = this.files
                 .Where(f => f.Key.StartsWith("AutoGenClasses/"))
-                .Any(f => f.Value.Contains("Auriga.IContainerList<"));
+                .Any(f => f.Value.Contains("Auriga.Core.IContainerList<"));
 
             Assert.That(anyContainerList, Is.True);
         }

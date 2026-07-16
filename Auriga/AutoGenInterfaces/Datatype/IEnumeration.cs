@@ -33,7 +33,7 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the owned literals.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Datavalue.IEnumerationLiteral> OwnedLiterals { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Datavalue.IEnumerationLiteral> OwnedLiterals { get; }
 
         /// <summary>
         /// Gets or sets the owned max value.

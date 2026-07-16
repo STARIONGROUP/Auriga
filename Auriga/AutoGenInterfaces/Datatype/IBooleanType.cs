@@ -28,7 +28,7 @@ namespace Auriga.Information.Datatype
         /// <summary>
         /// Gets the owned literals.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Datavalue.ILiteralBooleanValue> OwnedLiterals { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Datavalue.ILiteralBooleanValue> OwnedLiterals { get; }
 
     }
 }

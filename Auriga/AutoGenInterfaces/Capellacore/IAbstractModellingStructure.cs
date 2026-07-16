@@ -23,12 +23,12 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned architecture pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IModellingArchitecturePkg> OwnedArchitecturePkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IModellingArchitecturePkg> OwnedArchitecturePkgs { get; }
 
         /// <summary>
         /// Gets the owned architectures.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IModellingArchitecture> OwnedArchitectures { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IModellingArchitecture> OwnedArchitectures { get; }
 
     }
 }

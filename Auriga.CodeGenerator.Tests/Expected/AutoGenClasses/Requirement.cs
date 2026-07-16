@@ -20,37 +20,37 @@ namespace Auriga.Requirements
     /// <summary>
     /// Definition of the <c>Requirement</c> class.
     /// </summary>
-    public partial class Requirement : Auriga.AurigaElement, Auriga.Requirements.IRequirement
+    public partial class Requirement : Auriga.Core.AurigaElement, Auriga.Requirements.IRequirement
     {
         /// <summary>
         /// Gets the owned attributes.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Requirements.IAttribute> OwnedAttributes => this.backingOwnedAttributes ??= new Auriga.ContainerList<Auriga.Requirements.IAttribute>(this);
+        public Auriga.Core.IContainerList<Auriga.Requirements.IAttribute> OwnedAttributes => this.backingOwnedAttributes ??= new Auriga.Core.ContainerList<Auriga.Requirements.IAttribute>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAttributes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Requirements.IAttribute> backingOwnedAttributes;
+        private Auriga.Core.IContainerList<Auriga.Requirements.IAttribute> backingOwnedAttributes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned relations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Requirements.IAbstractRelation> OwnedRelations => this.backingOwnedRelations ??= new Auriga.ContainerList<Auriga.Requirements.IAbstractRelation>(this);
+        public Auriga.Core.IContainerList<Auriga.Requirements.IAbstractRelation> OwnedRelations => this.backingOwnedRelations ??= new Auriga.Core.ContainerList<Auriga.Requirements.IAbstractRelation>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRelations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Requirements.IAbstractRelation> backingOwnedRelations;
+        private Auriga.Core.IContainerList<Auriga.Requirements.IAbstractRelation> backingOwnedRelations;
 
         /// <summary>
         /// Gets or sets the req i f chapter name.
@@ -106,7 +106,7 @@ namespace Auriga.Requirements
         /// Gets the elements directly contained by this <c>Requirement</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedAttributes)
             {

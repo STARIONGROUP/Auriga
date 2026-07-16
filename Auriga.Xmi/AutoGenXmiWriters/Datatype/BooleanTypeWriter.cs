@@ -15,7 +15,7 @@ namespace Auriga.Xmi.AutoGenXmiWriters.Information.Datatype
 {
     using System.Xml;
 
-    using Auriga.Xmi.Writers;
+    using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;
 

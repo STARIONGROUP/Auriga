@@ -46,7 +46,7 @@ namespace Auriga.Epbs
         /// <summary>
         /// Gets the owned physical architecture realizations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Epbs.IPhysicalArchitectureRealization> OwnedPhysicalArchitectureRealizations { get; }
+        Auriga.Core.IContainerList<Auriga.Epbs.IPhysicalArchitectureRealization> OwnedPhysicalArchitectureRealizations { get; }
 
     }
 }

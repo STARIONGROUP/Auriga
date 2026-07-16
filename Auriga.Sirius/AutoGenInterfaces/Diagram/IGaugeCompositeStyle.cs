@@ -1,0 +1,38 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="IGaugeCompositeStyle.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Sirius.Diagram
+{
+    /// <summary>
+    /// This style groups many GaugeSection.
+    /// </summary>
+    public partial interface IGaugeCompositeStyle : Auriga.Sirius.Diagram.INodeStyle
+    {
+        /// <summary>
+        /// The alignment of the gauges
+        /// </summary>
+        Auriga.Sirius.Diagram.AlignmentKind? Alignment { get; set; }
+
+        /// <summary>
+        /// The sections.
+        /// </summary>
+        Auriga.Core.IContainerList<Auriga.Sirius.Diagram.IGaugeSection> Sections { get; }
+
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

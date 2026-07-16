@@ -23,7 +23,7 @@ namespace Auriga.Re
         /// <summary>
         /// Gets the owned definitions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Re.ICompliancyDefinition> OwnedDefinitions { get; }
+        Auriga.Core.IContainerList<Auriga.Re.ICompliancyDefinition> OwnedDefinitions { get; }
 
     }
 }

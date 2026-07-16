@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>10.0</LangVersion>
+        <Title>Auriga.Xmi.Core</Title>
+        <Version>1.0.0</Version>
+        <Description>Auriga.Xmi.Core is the metamodel-agnostic XMI runtime shared by every Auriga XMI reader/writer (Capella in Auriga.Xmi, Sirius/GMF in Auriga.Sirius.Xmi): the two-pass XmiReader, the element cache, namespace resolver, reference resolver, href parsing, and the XmiElementReader/XmiElementWriter base classes the generated per-type readers and writers derive from. It carries no metamodel-specific types.</Description>
+        <PackageId>Auriga.Xmi.Core</PackageId>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <AssemblyTitle>Auriga.Xmi.Core</AssemblyTitle>
+        <PackageTags>Capella Sirius Ecore XMI MBSE modeltopia</PackageTags>
+        <PackageReleaseNotes>
+            [Add] extract the metamodel-agnostic XMI runtime into Auriga.Xmi.Core
+        </PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Auriga.Core\Auriga.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Auriga.Xmi.Tests" />
+    </ItemGroup>
+
+</Project>

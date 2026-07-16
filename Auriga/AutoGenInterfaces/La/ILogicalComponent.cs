@@ -31,17 +31,17 @@ namespace Auriga.La
         /// <summary>
         /// Gets the owned logical architectures.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ILogicalArchitecture> OwnedLogicalArchitectures { get; }
+        Auriga.Core.IContainerList<Auriga.La.ILogicalArchitecture> OwnedLogicalArchitectures { get; }
 
         /// <summary>
         /// Gets the owned logical component pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ILogicalComponentPkg> OwnedLogicalComponentPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.La.ILogicalComponentPkg> OwnedLogicalComponentPkgs { get; }
 
         /// <summary>
         /// Gets the owned logical components.
         /// </summary>
-        Auriga.IContainerList<Auriga.La.ILogicalComponent> OwnedLogicalComponents { get; }
+        Auriga.Core.IContainerList<Auriga.La.ILogicalComponent> OwnedLogicalComponents { get; }
 
         /// <summary>
         /// Gets the realized system components.

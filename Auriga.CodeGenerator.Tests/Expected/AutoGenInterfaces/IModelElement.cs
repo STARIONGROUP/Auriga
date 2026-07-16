@@ -31,12 +31,12 @@ namespace Auriga.Modellingcore
         /// <summary>
         /// Gets the owned constraints.
         /// </summary>
-        Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints { get; }
+        Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints { get; }
 
         /// <summary>
         /// Gets the owned migrated elements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements { get; }
+        Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements { get; }
 
         /// <summary>
         /// Gets or sets the sid.

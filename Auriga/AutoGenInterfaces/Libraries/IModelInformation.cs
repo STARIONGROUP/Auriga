@@ -23,7 +23,7 @@ namespace Auriga.Libraries
         /// <summary>
         /// Gets the owned references.
         /// </summary>
-        Auriga.IContainerList<Auriga.Libraries.ILibraryReference> OwnedReferences { get; }
+        Auriga.Core.IContainerList<Auriga.Libraries.ILibraryReference> OwnedReferences { get; }
 
         /// <summary>
         /// Gets or sets the version.

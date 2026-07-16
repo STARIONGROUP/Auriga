@@ -18,7 +18,7 @@ namespace Auriga.Libraries
     /// <summary>
     /// Definition of the <c>LibraryReference</c> class.
     /// </summary>
-    public partial class LibraryReference : Auriga.AurigaElement, Auriga.Libraries.ILibraryReference
+    public partial class LibraryReference : Auriga.Core.AurigaElement, Auriga.Libraries.ILibraryReference
     {
         /// <summary>
         /// Gets or sets the access policy.
@@ -33,12 +33,12 @@ namespace Auriga.Libraries
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets or sets the version.
@@ -49,7 +49,7 @@ namespace Auriga.Libraries
         /// Gets the elements directly contained by this <c>LibraryReference</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedExtensions)
             {

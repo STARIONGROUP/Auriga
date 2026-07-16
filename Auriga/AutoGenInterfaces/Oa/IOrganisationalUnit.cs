@@ -30,7 +30,7 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the organisational unit compositions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IOrganisationalUnitComposition> OrganisationalUnitCompositions { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IOrganisationalUnitComposition> OrganisationalUnitCompositions { get; }
 
     }
 }

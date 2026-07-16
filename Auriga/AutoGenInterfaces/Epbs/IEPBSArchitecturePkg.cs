@@ -23,7 +23,7 @@ namespace Auriga.Epbs
         /// <summary>
         /// Gets the owned e p b s architectures.
         /// </summary>
-        Auriga.IContainerList<Auriga.Epbs.IEPBSArchitecture> OwnedEPBSArchitectures { get; }
+        Auriga.Core.IContainerList<Auriga.Epbs.IEPBSArchitecture> OwnedEPBSArchitectures { get; }
 
     }
 }

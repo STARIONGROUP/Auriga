@@ -23,22 +23,22 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets the owned deployments.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeployments { get; }
 
         /// <summary>
         /// Gets the owned key parts.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IKeyPart> OwnedKeyParts { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IKeyPart> OwnedKeyParts { get; }
 
         /// <summary>
         /// Gets the owned physical component pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
 
         /// <summary>
         /// Gets the owned physical components.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
 
     }
 }

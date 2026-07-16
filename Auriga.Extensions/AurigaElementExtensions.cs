@@ -9,6 +9,7 @@
 
 namespace Auriga.Extensions
 {
+    using Auriga.Core;
     using System;
     using System.Collections.Generic;
     using System.Linq;

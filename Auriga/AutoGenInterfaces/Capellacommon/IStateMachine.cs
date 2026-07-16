@@ -23,12 +23,12 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets the owned connection points.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints { get; }
 
         /// <summary>
         /// Gets the owned regions.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions { get; }
 
     }
 }

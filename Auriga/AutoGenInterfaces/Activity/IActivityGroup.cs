@@ -23,17 +23,17 @@ namespace Auriga.Activity
         /// <summary>
         /// Gets the owned edges.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IActivityEdge> OwnedEdges { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IActivityEdge> OwnedEdges { get; }
 
         /// <summary>
         /// Gets the owned nodes.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IActivityNode> OwnedNodes { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IActivityNode> OwnedNodes { get; }
 
         /// <summary>
         /// Gets the sub groups.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IActivityGroup> SubGroups { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IActivityGroup> SubGroups { get; }
 
         /// <summary>
         /// Gets or sets the super group.

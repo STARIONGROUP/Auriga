@@ -20,9 +20,10 @@ namespace Auriga.Xmi.AutoGenXmiReaders
     using System.IO;
     using System.Xml;
 
-    using Auriga.Xmi.Cache;
-    using Auriga.Xmi.Namespaces;
-    using Auriga.Xmi.Readers;
+    using Auriga.Core;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Namespaces;
+    using Auriga.Xmi.Core.Readers;
 
     using Microsoft.Extensions.Logging;
 
@@ -33,6 +34,8 @@ namespace Auriga.Xmi.AutoGenXmiReaders
     public sealed class XmiReaderFacade : IXmiReaderFacade
     {
         private const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
+
+        private const string XmiNamespace = "http://www.omg.org/XMI";
 
         private readonly IXmiElementCache cache;
 
@@ -379,21 +382,22 @@ namespace Auriga.Xmi.AutoGenXmiReaders
 
         /// <summary>
         /// Resolves the package-qualified type key (<c>package:TypeName</c>) of the element at the cursor
-        /// from its <c>xsi:type</c> attribute: the prefix is mapped to a namespace URI (via the registered
-        /// document namespaces, falling back to <see cref="XmlReader.LookupNamespace"/>) and that URI to
-        /// its Ecore package.
+        /// from its type attribute: the prefix is mapped to a namespace URI (via the registered document
+        /// namespaces, falling back to <see cref="XmlReader.LookupNamespace"/>) and that URI to its Ecore
+        /// package. The type is read from <c>xsi:type</c> (as Capella serializes it) or, failing that,
+        /// <c>xmi:type</c> (as Sirius serializes it) — EMF treats the two as interchangeable.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
         /// <returns>the package-qualified type key</returns>
         /// <exception cref="InvalidDataException">
-        /// the element carries no <c>xsi:type</c>, or its prefix cannot be resolved to a known Capella package
+        /// the element carries no type attribute, or its prefix cannot be resolved to a known package
         /// </exception>
         private string ResolveTypeKey(XmlReader xmlReader)
         {
-            var xsiType = xmlReader.GetAttribute("type", XsiNamespace);
+            var xsiType = xmlReader.GetAttribute("type", XsiNamespace) ?? xmlReader.GetAttribute("type", XmiNamespace);
             if (string.IsNullOrEmpty(xsiType))
             {
-                throw new InvalidDataException("A contained element does not carry an xsi:type attribute.");
+                throw new InvalidDataException("A contained element does not carry an xsi:type or xmi:type attribute.");
             }
 
             var separator = xsiType.IndexOf(':');
@@ -407,7 +411,7 @@ namespace Auriga.Xmi.AutoGenXmiReaders
 
             if (namespaceUri == null || !this.namespaceResolver.TryResolvePackage(namespaceUri, out var package))
             {
-                throw new InvalidDataException($"Cannot resolve the xsi:type '{xsiType}' to a known Capella package.");
+                throw new InvalidDataException($"Cannot resolve the type '{xsiType}' to a known package.");
             }
 
             return $"{package}:{typeName}";

@@ -28,7 +28,7 @@ namespace Auriga.Activity
         /// <summary>
         /// Gets the inputs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IInputPin> Inputs { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IInputPin> Inputs { get; }
 
         /// <summary>
         /// Gets or sets the local postcondition.
@@ -43,7 +43,7 @@ namespace Auriga.Activity
         /// <summary>
         /// Gets the outputs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Activity.IOutputPin> Outputs { get; }
+        Auriga.Core.IContainerList<Auriga.Activity.IOutputPin> Outputs { get; }
 
     }
 }

@@ -21,7 +21,7 @@ namespace Auriga.Capellacommon
     /// <summary>
     /// Definition of the <c>FinalState</c> class.
     /// </summary>
-    public partial class FinalState : Auriga.AurigaElement, Auriga.Capellacommon.IFinalState
+    public partial class FinalState : Auriga.Core.AurigaElement, Auriga.Capellacommon.IFinalState
     {
         /// <summary>
         /// Gets the applied property value groups.
@@ -116,92 +116,92 @@ namespace Auriga.Capellacommon
         /// <summary>
         /// Gets the owned abstract state realizations.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacommon.IAbstractStateRealization> OwnedAbstractStateRealizations => this.backingOwnedAbstractStateRealizations ??= new Auriga.ContainerList<Auriga.Capellacommon.IAbstractStateRealization>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacommon.IAbstractStateRealization> OwnedAbstractStateRealizations => this.backingOwnedAbstractStateRealizations ??= new Auriga.Core.ContainerList<Auriga.Capellacommon.IAbstractStateRealization>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedAbstractStateRealizations"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacommon.IAbstractStateRealization> backingOwnedAbstractStateRealizations;
+        private Auriga.Core.IContainerList<Auriga.Capellacommon.IAbstractStateRealization> backingOwnedAbstractStateRealizations;
 
         /// <summary>
         /// Gets the owned connection points.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints => this.backingOwnedConnectionPoints ??= new Auriga.ContainerList<Auriga.Capellacommon.IPseudostate>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacommon.IPseudostate> OwnedConnectionPoints => this.backingOwnedConnectionPoints ??= new Auriga.Core.ContainerList<Auriga.Capellacommon.IPseudostate>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedConnectionPoints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacommon.IPseudostate> backingOwnedConnectionPoints;
+        private Auriga.Core.IContainerList<Auriga.Capellacommon.IPseudostate> backingOwnedConnectionPoints;
 
         /// <summary>
         /// Gets the owned constraints.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> OwnedConstraints => this.backingOwnedConstraints ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IAbstractConstraint>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedConstraints"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IAbstractConstraint> backingOwnedConstraints;
 
         /// <summary>
         /// Gets the owned enumeration property types.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> OwnedEnumerationPropertyTypes => this.backingOwnedEnumerationPropertyTypes ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IEnumerationPropertyType>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedEnumerationPropertyTypes"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IEnumerationPropertyType> backingOwnedEnumerationPropertyTypes;
 
         /// <summary>
         /// Gets the owned extensions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.ContainerList<Auriga.Emde.IElementExtension>(this);
+        public Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Emde.IElementExtension>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedExtensions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
+        private Auriga.Core.IContainerList<Auriga.Emde.IElementExtension> backingOwnedExtensions;
 
         /// <summary>
         /// Gets the owned migrated elements.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.ContainerList<Auriga.Modellingcore.IModelElement>(this);
+        public Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> OwnedMigratedElements => this.backingOwnedMigratedElements ??= new Auriga.Core.ContainerList<Auriga.Modellingcore.IModelElement>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedMigratedElements"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
+        private Auriga.Core.IContainerList<Auriga.Modellingcore.IModelElement> backingOwnedMigratedElements;
 
         /// <summary>
         /// Gets the owned property value groups.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> OwnedPropertyValueGroups => this.backingOwnedPropertyValueGroups ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IPropertyValueGroup>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValueGroups"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IPropertyValueGroup> backingOwnedPropertyValueGroups;
 
         /// <summary>
         /// Gets the owned property values.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> OwnedPropertyValues => this.backingOwnedPropertyValues ??= new Auriga.Core.ContainerList<Auriga.Capellacore.IAbstractPropertyValue>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedPropertyValues"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
+        private Auriga.Core.IContainerList<Auriga.Capellacore.IAbstractPropertyValue> backingOwnedPropertyValues;
 
         /// <summary>
         /// Gets the owned regions.
         /// </summary>
-        public Auriga.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions => this.backingOwnedRegions ??= new Auriga.ContainerList<Auriga.Capellacommon.IRegion>(this);
+        public Auriga.Core.IContainerList<Auriga.Capellacommon.IRegion> OwnedRegions => this.backingOwnedRegions ??= new Auriga.Core.ContainerList<Auriga.Capellacommon.IRegion>(this);
 
         /// <summary>
         /// Backing field for <see cref="OwnedRegions"/>.
         /// </summary>
-        private Auriga.IContainerList<Auriga.Capellacommon.IRegion> backingOwnedRegions;
+        private Auriga.Core.IContainerList<Auriga.Capellacommon.IRegion> backingOwnedRegions;
 
         /// <summary>
         /// Gets the realized abstract states.
@@ -274,7 +274,7 @@ namespace Auriga.Capellacommon
         /// Gets the elements directly contained by this <c>FinalState</c>.
         /// </summary>
         /// <returns>the directly contained elements</returns>
-        public override System.Collections.Generic.IEnumerable<Auriga.IAurigaElement> QueryContainedElements()
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
         {
             foreach (var element in this.OwnedAbstractStateRealizations)
             {

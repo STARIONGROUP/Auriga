@@ -51,17 +51,17 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned communication means.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.ICommunicationMean> OwnedCommunicationMeans { get; }
 
         /// <summary>
         /// Gets the owned entities.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IEntity> OwnedEntities { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IEntity> OwnedEntities { get; }
 
         /// <summary>
         /// Gets the owned role allocations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IRoleAllocation> OwnedRoleAllocations { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IRoleAllocation> OwnedRoleAllocations { get; }
 
         /// <summary>
         /// Gets the realizing system components.

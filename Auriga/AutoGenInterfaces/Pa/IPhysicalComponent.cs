@@ -56,17 +56,17 @@ namespace Auriga.Pa
         /// <summary>
         /// Gets the owned deployment links.
         /// </summary>
-        Auriga.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
+        Auriga.Core.IContainerList<Auriga.Cs.IAbstractDeploymentLink> OwnedDeploymentLinks { get; }
 
         /// <summary>
         /// Gets the owned physical component pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.IPhysicalComponentPkg> OwnedPhysicalComponentPkgs { get; }
 
         /// <summary>
         /// Gets the owned physical components.
         /// </summary>
-        Auriga.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
+        Auriga.Core.IContainerList<Auriga.Pa.IPhysicalComponent> OwnedPhysicalComponents { get; }
 
         /// <summary>
         /// Gets the realized logical components.

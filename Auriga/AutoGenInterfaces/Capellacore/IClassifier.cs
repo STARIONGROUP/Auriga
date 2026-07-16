@@ -31,7 +31,7 @@ namespace Auriga.Capellacore
         /// <summary>
         /// Gets the owned features.
         /// </summary>
-        Auriga.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures { get; }
+        Auriga.Core.IContainerList<Auriga.Capellacore.IFeature> OwnedFeatures { get; }
 
     }
 }

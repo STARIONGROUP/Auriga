@@ -23,22 +23,22 @@ namespace Auriga.Oa
         /// <summary>
         /// Gets the owned capability configurations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.ICapabilityConfiguration> OwnedCapabilityConfigurations { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.ICapabilityConfiguration> OwnedCapabilityConfigurations { get; }
 
         /// <summary>
         /// Gets the owned concept compliances.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IConceptCompliance> OwnedConceptCompliances { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IConceptCompliance> OwnedConceptCompliances { get; }
 
         /// <summary>
         /// Gets the owned operational capabilities.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IOperationalCapability> OwnedOperationalCapabilities { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IOperationalCapability> OwnedOperationalCapabilities { get; }
 
         /// <summary>
         /// Gets the owned operational capability pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Oa.IOperationalCapabilityPkg> OwnedOperationalCapabilityPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Oa.IOperationalCapabilityPkg> OwnedOperationalCapabilityPkgs { get; }
 
     }
 }

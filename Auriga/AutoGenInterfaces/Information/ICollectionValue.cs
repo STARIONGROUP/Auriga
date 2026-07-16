@@ -28,7 +28,7 @@ namespace Auriga.Information
         /// <summary>
         /// Gets the owned elements.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedElements { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Datavalue.IDataValue> OwnedElements { get; }
 
     }
 }

@@ -23,7 +23,7 @@ namespace Auriga.Information.Datavalue
         /// <summary>
         /// Gets the owned parts.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.Datavalue.IValuePart> OwnedParts { get; }
+        Auriga.Core.IContainerList<Auriga.Information.Datavalue.IValuePart> OwnedParts { get; }
 
     }
 }

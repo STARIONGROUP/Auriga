@@ -23,7 +23,7 @@ namespace Auriga.Information
         /// <summary>
         /// Gets the owned associations.
         /// </summary>
-        Auriga.IContainerList<Auriga.Information.IAssociation> OwnedAssociations { get; }
+        Auriga.Core.IContainerList<Auriga.Information.IAssociation> OwnedAssociations { get; }
 
         /// <summary>
         /// Gets or sets the visibility.

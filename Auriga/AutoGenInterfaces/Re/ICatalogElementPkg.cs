@@ -23,7 +23,7 @@ namespace Auriga.Re
         /// <summary>
         /// Gets the owned element pkgs.
         /// </summary>
-        Auriga.IContainerList<Auriga.Re.ICatalogElementPkg> OwnedElementPkgs { get; }
+        Auriga.Core.IContainerList<Auriga.Re.ICatalogElementPkg> OwnedElementPkgs { get; }
 
     }
 }
