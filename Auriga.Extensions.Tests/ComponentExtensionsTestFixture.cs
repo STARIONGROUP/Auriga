@@ -28,7 +28,7 @@ namespace Auriga.Extensions.Tests
                 .FirstOrDefault(candidate => candidate.QueryComponentPorts().Any());
 
             Assert.That(component, Is.Not.Null, "expected a component that owns ports");
-            Assert.That(component!.QueryComponentPorts(), Has.All.InstanceOf<Auriga.Fa.IComponentPort>());
+            Assert.That(component!.QueryComponentPorts(), Has.All.InstanceOf<Auriga.Model.Fa.IComponentPort>());
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Auriga.Extensions.Tests
         [Test]
         public void Verify_that_the_extensions_guard_against_a_null_receiver()
         {
-            Auriga.Cs.IComponent component = null!;
+            Auriga.Model.Cs.IComponent component = null!;
 
             Assert.Multiple(() =>
             {

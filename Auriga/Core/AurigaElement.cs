@@ -13,7 +13,7 @@ namespace Auriga.Core
 
     /// <summary>
     /// The hand-written base class of every generated concrete element, in any Auriga object model
-    /// (Capella in <c>Auriga</c>, Sirius/GMF in <c>Auriga.Sirius</c>). It provides the identity and
+    /// (Capella in <c>Auriga.Model</c>, Sirius/GMF in <c>Auriga.Diagram</c>). It provides the identity and
     /// container plumbing the generated object graph rests on (the analogue of EMF's <c>EObjectImpl</c>
     /// and uml4net's <c>XmiElement</c>). Generated classes are emitted as
     /// <c>partial class Foo : AurigaElement, IFoo</c>.

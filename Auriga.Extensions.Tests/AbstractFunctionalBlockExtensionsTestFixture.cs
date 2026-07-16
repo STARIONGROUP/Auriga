@@ -33,13 +33,13 @@ namespace Auriga.Extensions.Tests
 
             Assert.That(
                 block.QueryAllocatedFunctions(),
-                Is.Not.Empty.And.All.InstanceOf<Auriga.Fa.IAbstractFunction>());
+                Is.Not.Empty.And.All.InstanceOf<Auriga.Model.Fa.IAbstractFunction>());
         }
 
         [Test]
         public void Verify_that_the_extension_guards_against_a_null_receiver()
         {
-            Auriga.Fa.IAbstractFunctionalBlock block = null!;
+            Auriga.Model.Fa.IAbstractFunctionalBlock block = null!;
 
             Assert.That(() => block.QueryAllocatedFunctions(), Throws.ArgumentNullException);
         }

@@ -30,13 +30,13 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(project.Project, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(project.Project, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(project.SystemEngineering, Is.Not.Null);
-                Assert.That(project.OperationalAnalysis, Is.InstanceOf<Auriga.Oa.IOperationalAnalysis>());
-                Assert.That(project.SystemAnalysis, Is.InstanceOf<Auriga.Ctx.ISystemAnalysis>());
-                Assert.That(project.LogicalArchitecture, Is.InstanceOf<Auriga.La.ILogicalArchitecture>());
-                Assert.That(project.PhysicalArchitecture, Is.InstanceOf<Auriga.Pa.IPhysicalArchitecture>());
-                Assert.That(project.Epbs, Is.InstanceOf<Auriga.Epbs.IEPBSArchitecture>());
+                Assert.That(project.OperationalAnalysis, Is.InstanceOf<Auriga.Model.Oa.IOperationalAnalysis>());
+                Assert.That(project.SystemAnalysis, Is.InstanceOf<Auriga.Model.Ctx.ISystemAnalysis>());
+                Assert.That(project.LogicalArchitecture, Is.InstanceOf<Auriga.Model.La.ILogicalArchitecture>());
+                Assert.That(project.PhysicalArchitecture, Is.InstanceOf<Auriga.Model.Pa.IPhysicalArchitecture>());
+                Assert.That(project.Epbs, Is.InstanceOf<Auriga.Model.Epbs.IEPBSArchitecture>());
             });
         }
 

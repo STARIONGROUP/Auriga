@@ -7,13 +7,13 @@
         <LangVersion>10.0</LangVersion>
         <Title>Auriga.Xmi</Title>
         <Version>1.0.0</Version>
-        <Description>XMI reader and writer for Eclipse Capella semantic models: .capella / .melodymodeller files and .capellafragment fragments, deserialized into and serialized from the Auriga object model.</Description>
+        <Description>XMI readers and writers for Eclipse Capella models: .capella / .melodymodeller / .capellafragment semantic documents (Auriga.Xmi.Model.*) and Sirius .aird / .airdfragment diagram documents (Auriga.Xmi.Diagram.*), built on the metamodel-agnostic XMI runtime (Auriga.Xmi.Core.*).</Description>
         <PackageId>Auriga.Xmi</PackageId>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
         <AssemblyTitle>Auriga.Xmi</AssemblyTitle>
-        <PackageTags>Capella Arcadia Ecore XMI MBSE modeltopia</PackageTags>
+        <PackageTags>Capella Arcadia Sirius GMF Aird Ecore XMI MBSE modeltopia</PackageTags>
         <PackageReleaseNotes>
-            [Add] solution scaffold; fixes #5
+            [CHG] merge Auriga.Xmi.Core and Auriga.Sirius.Xmi into the Auriga.Xmi package; the Capella readers/writers move to Auriga.Xmi.Model.* and the Sirius readers/writers ship as Auriga.Xmi.Diagram.*
         </PackageReleaseNotes>
     </PropertyGroup>
 

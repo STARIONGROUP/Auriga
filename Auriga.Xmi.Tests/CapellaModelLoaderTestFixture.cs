@@ -50,7 +50,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements, Is.Not.Empty);
                 Assert.That(result.UnresolvedReferences, Is.Empty);
             });
@@ -61,7 +61,7 @@ namespace Auriga.Xmi.Tests
         {
             var result = CapellaModelLoader.Create().Load(MinimalFile());
 
-            Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+            Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements, Has.Count.EqualTo(expected.Elements.Count));
             });
         }
@@ -96,7 +96,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements, Is.Not.Empty);
 
                 // Elements sourced from a fragment prove the fragments were loaded, not just the main file.

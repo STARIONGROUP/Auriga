@@ -13,13 +13,13 @@ namespace Auriga.Tests.Diagram
     using Auriga.Core;
     using System.Linq;
 
-    using Auriga.Sirius.Diagram;
-    using Auriga.Sirius.Viewpoint;
+    using Auriga.Diagram.Diagram;
+    using Auriga.Diagram.Viewpoint;
 
     using NUnit.Framework;
 
     /// <summary>
-    /// Exercises the generated <c>Auriga.Sirius</c> object model: that its containment features are wired
+    /// Exercises the generated <c>Auriga.Diagram</c> object model: that its containment features are wired
     /// through the shared <see cref="Auriga.Core.ContainerList{T}"/> (setting the child's
     /// <see cref="Auriga.Core.IAurigaElement.Container"/> and surfacing it from
     /// <see cref="Auriga.Core.IAurigaElement.QueryContainedElements"/>) exactly as the Capella object model is,

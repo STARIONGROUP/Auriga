@@ -1,0 +1,33 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="IConditionalNodeStyleDescription.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Diagram.Diagram.Description
+{
+    /// <summary>
+    /// Definition of the <c>ConditionalNodeStyleDescription</c> interface.
+    /// </summary>
+    public partial interface IConditionalNodeStyleDescription : Auriga.Diagram.Viewpoint.Description.IConditionalStyleDescription
+    {
+        /// <summary>
+        /// Gets or sets the style.
+        /// </summary>
+        Auriga.Diagram.Diagram.Description.Style.INodeStyleDescription Style { get; set; }
+
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

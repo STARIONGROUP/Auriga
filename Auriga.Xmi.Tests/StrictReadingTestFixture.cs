@@ -74,7 +74,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements, Has.Count.EqualTo(1), "the unrecognized element is skipped, not instantiated");
                 Assert.That(loggerFactory.LoggedLevels, Has.Some.EqualTo(LogLevel.Warning), "the skipped element is reported as a warning");
             });

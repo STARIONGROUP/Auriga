@@ -14,7 +14,7 @@ namespace Auriga.Extensions
     using System.Linq;
 
     /// <summary>
-    /// Query extensions for <see cref="Auriga.Fa.IAbstractFunction"/> — the base of the Arcadia
+    /// Query extensions for <see cref="Auriga.Model.Fa.IAbstractFunction"/> — the base of the Arcadia
     /// functions (operational activity, system / logical / physical function) — covering their ports,
     /// component allocation, and cross-layer realization.
     /// </summary>
@@ -27,7 +27,7 @@ namespace Auriga.Extensions
         /// <param name="function">the function whose ports are queried</param>
         /// <returns>the function's input and output ports</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="function"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Fa.IFunctionPort> QueryFunctionPorts(this Auriga.Fa.IAbstractFunction function)
+        public static IEnumerable<Auriga.Model.Fa.IFunctionPort> QueryFunctionPorts(this Auriga.Model.Fa.IAbstractFunction function)
         {
             if (function is null)
             {
@@ -36,10 +36,10 @@ namespace Auriga.Extensions
 
             // Every function is an activity action (IAbstractFunction inherits Activity.IAbstractAction),
             // so its ports are its input and output pins.
-            var action = (Auriga.Activity.IAbstractAction)function;
+            var action = (Auriga.Model.Activity.IAbstractAction)function;
 
-            return action.Inputs.OfType<Auriga.Fa.IFunctionPort>()
-                .Concat(action.Outputs.OfType<Auriga.Fa.IFunctionPort>());
+            return action.Inputs.OfType<Auriga.Model.Fa.IFunctionPort>()
+                .Concat(action.Outputs.OfType<Auriga.Model.Fa.IFunctionPort>());
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Auriga.Extensions
         /// <param name="function">the allocated function</param>
         /// <returns>the distinct blocks the function is allocated to</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="function"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Fa.IAbstractFunctionalBlock> QueryAllocatingBlocks(this Auriga.Fa.IAbstractFunction function)
+        public static IEnumerable<Auriga.Model.Fa.IAbstractFunctionalBlock> QueryAllocatingBlocks(this Auriga.Model.Fa.IAbstractFunction function)
         {
             if (function is null)
             {
@@ -57,9 +57,9 @@ namespace Auriga.Extensions
             }
 
             return function.QueryRoot().QueryAllContainedElements()
-                .OfType<Auriga.Fa.IComponentFunctionalAllocation>()
+                .OfType<Auriga.Model.Fa.IComponentFunctionalAllocation>()
                 .Where(allocation => allocation.QueryEndpoints().Contains(function))
-                .SelectMany(allocation => allocation.QueryEndpoints().OfType<Auriga.Fa.IAbstractFunctionalBlock>())
+                .SelectMany(allocation => allocation.QueryEndpoints().OfType<Auriga.Model.Fa.IAbstractFunctionalBlock>())
                 .Distinct();
         }
 
@@ -71,7 +71,7 @@ namespace Auriga.Extensions
         /// <param name="block">the candidate allocating block</param>
         /// <returns><c>true</c> when the function is among <paramref name="block"/>'s allocated functions</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="function"/> or <paramref name="block"/> is <c>null</c></exception>
-        public static bool IsAllocatedTo(this Auriga.Fa.IAbstractFunction function, Auriga.Fa.IAbstractFunctionalBlock block)
+        public static bool IsAllocatedTo(this Auriga.Model.Fa.IAbstractFunction function, Auriga.Model.Fa.IAbstractFunctionalBlock block)
         {
             if (function is null)
             {
@@ -94,7 +94,7 @@ namespace Auriga.Extensions
         /// <param name="function">the realizing function</param>
         /// <returns>the distinct functions realized by this function</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="function"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Fa.IAbstractFunction> QueryRealizedFunctions(this Auriga.Fa.IAbstractFunction function)
+        public static IEnumerable<Auriga.Model.Fa.IAbstractFunction> QueryRealizedFunctions(this Auriga.Model.Fa.IAbstractFunction function)
         {
             if (function is null)
             {
@@ -103,7 +103,7 @@ namespace Auriga.Extensions
 
             return function.OwnedFunctionRealizations
                 .SelectMany(realization => realization.QueryEndpoints())
-                .OfType<Auriga.Fa.IAbstractFunction>()
+                .OfType<Auriga.Model.Fa.IAbstractFunction>()
                 .Where(other => !ReferenceEquals(other, function))
                 .Distinct();
         }
@@ -115,7 +115,7 @@ namespace Auriga.Extensions
         /// <param name="function">the realized function</param>
         /// <returns>the distinct functions that realize this function</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="function"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Fa.IAbstractFunction> QueryRealizingFunctions(this Auriga.Fa.IAbstractFunction function)
+        public static IEnumerable<Auriga.Model.Fa.IAbstractFunction> QueryRealizingFunctions(this Auriga.Model.Fa.IAbstractFunction function)
         {
             if (function is null)
             {
@@ -123,7 +123,7 @@ namespace Auriga.Extensions
             }
 
             return function.QueryRoot().QueryAllContainedElements()
-                .OfType<Auriga.Fa.IAbstractFunction>()
+                .OfType<Auriga.Model.Fa.IAbstractFunction>()
                 .Where(candidate => candidate.QueryRealizedFunctions().Contains(function));
         }
     }

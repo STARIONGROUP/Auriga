@@ -11,7 +11,7 @@ namespace Auriga.Xmi
 {
     using System;
 
-    using Auriga.Xmi.AutoGenXmiReaders;
+    using Auriga.Xmi.Model.AutoGenXmiReaders;
     using Auriga.Xmi.Core.Cache;
     using Auriga.Xmi.Core.Namespaces;
     using Auriga.Xmi.Core.Readers;

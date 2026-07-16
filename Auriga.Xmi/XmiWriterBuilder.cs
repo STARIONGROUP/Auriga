@@ -9,7 +9,7 @@
 
 namespace Auriga.Xmi
 {
-    using Auriga.Xmi.AutoGenXmiWriters;
+    using Auriga.Xmi.Model.AutoGenXmiWriters;
     using Auriga.Xmi.Core.Writers;
 
     using Microsoft.Extensions.Logging;

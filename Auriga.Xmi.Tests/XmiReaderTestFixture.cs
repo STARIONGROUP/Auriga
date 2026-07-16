@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(this.result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
-                Assert.That(((Auriga.Capellamodeller.IProject)this.result.Root).Name, Is.EqualTo("Minimal"));
+                Assert.That(this.result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
+                Assert.That(((Auriga.Model.Capellamodeller.IProject)this.result.Root).Name, Is.EqualTo("Minimal"));
                 Assert.That(this.result.Root.Id, Is.EqualTo(Project));
             });
         }
@@ -74,16 +74,16 @@ namespace Auriga.Xmi.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(this.result.Elements[SystemEngineering], Is.InstanceOf<Auriga.Capellamodeller.ISystemEngineering>());
-                Assert.That(this.result.Elements[PhysicalArchitecture], Is.InstanceOf<Auriga.Pa.IPhysicalArchitecture>());
-                Assert.That(this.result.Elements[RootPhysicalFunction], Is.InstanceOf<Auriga.Pa.IPhysicalFunction>());
-                Assert.That(this.result.Elements[PhysicalSystem], Is.InstanceOf<Auriga.Pa.IPhysicalComponent>());
-                Assert.That(this.result.Elements[PartPhysicalSystem], Is.InstanceOf<Auriga.Cs.IPart>());
-                Assert.That(this.result.Elements[FunctionalExchange], Is.InstanceOf<Auriga.Fa.IFunctionalExchange>());
-                Assert.That(this.result.Elements[Fop1], Is.InstanceOf<Auriga.Fa.IFunctionOutputPort>());
-                Assert.That(this.result.Elements[Fip1], Is.InstanceOf<Auriga.Fa.IFunctionInputPort>());
-                Assert.That(this.result.Elements[PhysicalLink], Is.InstanceOf<Auriga.Cs.IPhysicalLink>());
-                Assert.That(this.result.Elements[Pp1], Is.InstanceOf<Auriga.Cs.IPhysicalPort>());
+                Assert.That(this.result.Elements[SystemEngineering], Is.InstanceOf<Auriga.Model.Capellamodeller.ISystemEngineering>());
+                Assert.That(this.result.Elements[PhysicalArchitecture], Is.InstanceOf<Auriga.Model.Pa.IPhysicalArchitecture>());
+                Assert.That(this.result.Elements[RootPhysicalFunction], Is.InstanceOf<Auriga.Model.Pa.IPhysicalFunction>());
+                Assert.That(this.result.Elements[PhysicalSystem], Is.InstanceOf<Auriga.Model.Pa.IPhysicalComponent>());
+                Assert.That(this.result.Elements[PartPhysicalSystem], Is.InstanceOf<Auriga.Model.Cs.IPart>());
+                Assert.That(this.result.Elements[FunctionalExchange], Is.InstanceOf<Auriga.Model.Fa.IFunctionalExchange>());
+                Assert.That(this.result.Elements[Fop1], Is.InstanceOf<Auriga.Model.Fa.IFunctionOutputPort>());
+                Assert.That(this.result.Elements[Fip1], Is.InstanceOf<Auriga.Model.Fa.IFunctionInputPort>());
+                Assert.That(this.result.Elements[PhysicalLink], Is.InstanceOf<Auriga.Model.Cs.IPhysicalLink>());
+                Assert.That(this.result.Elements[Pp1], Is.InstanceOf<Auriga.Model.Cs.IPhysicalPort>());
             });
         }
 
@@ -94,18 +94,18 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(elements.OfType<Auriga.Pa.IPhysicalComponent>().Count(), Is.EqualTo(4));
-                Assert.That(elements.OfType<Auriga.Pa.IPhysicalFunction>().Count(), Is.EqualTo(3));
-                Assert.That(elements.OfType<Auriga.Cs.IPart>().Count(), Is.EqualTo(4));
-                Assert.That(elements.OfType<Auriga.Cs.IPhysicalPort>().Count(), Is.EqualTo(2));
-                Assert.That(elements.OfType<Auriga.Fa.IFunctionalExchange>().Count(), Is.EqualTo(1));
+                Assert.That(elements.OfType<Auriga.Model.Pa.IPhysicalComponent>().Count(), Is.EqualTo(4));
+                Assert.That(elements.OfType<Auriga.Model.Pa.IPhysicalFunction>().Count(), Is.EqualTo(3));
+                Assert.That(elements.OfType<Auriga.Model.Cs.IPart>().Count(), Is.EqualTo(4));
+                Assert.That(elements.OfType<Auriga.Model.Cs.IPhysicalPort>().Count(), Is.EqualTo(2));
+                Assert.That(elements.OfType<Auriga.Model.Fa.IFunctionalExchange>().Count(), Is.EqualTo(1));
             });
         }
 
         [Test]
         public void Verify_that_string_attributes_are_populated()
         {
-            var acquire = (Auriga.Pa.IPhysicalFunction)this.result.Elements[AcquireSensorData];
+            var acquire = (Auriga.Model.Pa.IPhysicalFunction)this.result.Elements[AcquireSensorData];
 
             Assert.That(acquire.Name, Is.EqualTo("Acquire Sensor Data"));
         }
@@ -115,16 +115,16 @@ namespace Auriga.Xmi.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(((Auriga.Pa.IPhysicalComponent)this.result.Elements[ControllerNode]).Nature, Is.EqualTo(Auriga.Pa.PhysicalComponentNature.NODE));
-                Assert.That(((Auriga.Pa.IPhysicalComponent)this.result.Elements[ControlSoftware]).Nature, Is.EqualTo(Auriga.Pa.PhysicalComponentNature.BEHAVIOR));
-                Assert.That(((Auriga.Pa.IPhysicalComponent)this.result.Elements[SensorNode]).Nature, Is.EqualTo(Auriga.Pa.PhysicalComponentNature.NODE));
+                Assert.That(((Auriga.Model.Pa.IPhysicalComponent)this.result.Elements[ControllerNode]).Nature, Is.EqualTo(Auriga.Model.Pa.PhysicalComponentNature.NODE));
+                Assert.That(((Auriga.Model.Pa.IPhysicalComponent)this.result.Elements[ControlSoftware]).Nature, Is.EqualTo(Auriga.Model.Pa.PhysicalComponentNature.BEHAVIOR));
+                Assert.That(((Auriga.Model.Pa.IPhysicalComponent)this.result.Elements[SensorNode]).Nature, Is.EqualTo(Auriga.Model.Pa.PhysicalComponentNature.NODE));
             });
         }
 
         [Test]
         public void Verify_that_single_valued_references_are_resolved()
         {
-            var exchange = (Auriga.Fa.IFunctionalExchange)this.result.Elements[FunctionalExchange];
+            var exchange = (Auriga.Model.Fa.IFunctionalExchange)this.result.Elements[FunctionalExchange];
 
             Assert.Multiple(() =>
             {
@@ -136,7 +136,7 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_a_part_abstract_type_reference_is_resolved()
         {
-            var part = (Auriga.Cs.IPart)this.result.Elements[PartPhysicalSystem];
+            var part = (Auriga.Model.Cs.IPart)this.result.Elements[PartPhysicalSystem];
 
             Assert.That(part.AbstractType, Is.SameAs(this.result.Elements[PhysicalSystem]));
         }
@@ -144,7 +144,7 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_functional_allocation_references_are_resolved()
         {
-            var allocation = (Auriga.Fa.IComponentFunctionalAllocation)this.result.Elements[FunctionalAllocation];
+            var allocation = (Auriga.Model.Fa.IComponentFunctionalAllocation)this.result.Elements[FunctionalAllocation];
 
             Assert.Multiple(() =>
             {
@@ -156,7 +156,7 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_multi_valued_references_are_resolved()
         {
-            var link = (Auriga.Cs.IPhysicalLink)this.result.Elements[PhysicalLink];
+            var link = (Auriga.Model.Cs.IPhysicalLink)this.result.Elements[PhysicalLink];
 
             Assert.That(link.LinkEnds, Has.Some.SameAs(this.result.Elements[Pp1]).Or.Some.SameAs(this.result.Elements[Pp2]));
         }
@@ -181,7 +181,7 @@ namespace Auriga.Xmi.Tests
             using var stream = new MemoryStream(Encoding.UTF8.GetBytes(Xml));
             var readerResult = XmiReaderBuilder.Create().Build().Read(stream, "fragment-proxy");
 
-            var project = (Auriga.Capellamodeller.IProject)readerResult.Root;
+            var project = (Auriga.Model.Capellamodeller.IProject)readerResult.Root;
 
             Assert.Multiple(() =>
             {

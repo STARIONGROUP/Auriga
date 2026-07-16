@@ -1,0 +1,84 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="CapellaIncomingRelation.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Model.CapellaRequirements
+{
+    /// <summary>
+    /// Definition of the <c>CapellaIncomingRelation</c> class.
+    /// </summary>
+    public partial class CapellaIncomingRelation : Auriga.Core.AurigaElement, Auriga.Model.CapellaRequirements.ICapellaIncomingRelation
+    {
+        /// <summary>
+        /// Gets the owned extensions.
+        /// </summary>
+        public Auriga.Core.IContainerList<Auriga.Model.Emde.IElementExtension> OwnedExtensions => this.backingOwnedExtensions ??= new Auriga.Core.ContainerList<Auriga.Model.Emde.IElementExtension>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedExtensions"/>.
+        /// </summary>
+        private Auriga.Core.IContainerList<Auriga.Model.Emde.IElementExtension> backingOwnedExtensions;
+
+        /// <summary>
+        /// Gets or sets the relation type.
+        /// </summary>
+        public Auriga.Model.Requirements.IRelationType RelationType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the relation type proxy.
+        /// </summary>
+        public string RelationTypeProxy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the req i f description.
+        /// </summary>
+        public string ReqIFDescription { get; set; }
+
+        /// <summary>
+        /// Gets or sets the req i f identifier.
+        /// </summary>
+        public string ReqIFIdentifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the req i f long name.
+        /// </summary>
+        public string ReqIFLongName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
+        public Auriga.Model.Requirements.IRequirement Source { get; set; }
+
+        /// <summary>
+        /// Gets or sets the target.
+        /// </summary>
+        public Auriga.Model.Capellacore.ICapellaElement Target { get; set; }
+
+        /// <summary>
+        /// Gets the elements directly contained by this <c>CapellaIncomingRelation</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.OwnedExtensions)
+            {
+                yield return element;
+            }
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

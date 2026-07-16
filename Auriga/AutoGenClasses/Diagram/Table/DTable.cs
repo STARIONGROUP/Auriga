@@ -1,0 +1,147 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="DTable.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Diagram.Table
+{
+    using System.Collections.Generic;
+    using System.Linq;
+
+    /// <summary>
+    /// Definition of the <c>DTable</c> class.
+    /// </summary>
+    public partial class DTable : Auriga.Core.AurigaElement, Auriga.Diagram.Table.IDTable
+    {
+        /// <summary>
+        /// Gets the columns.
+        /// </summary>
+        public Auriga.Core.IContainerList<Auriga.Diagram.Table.IDColumn> Columns => this.backingColumns ??= new Auriga.Core.ContainerList<Auriga.Diagram.Table.IDColumn>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="Columns"/>.
+        /// </summary>
+        private Auriga.Core.IContainerList<Auriga.Diagram.Table.IDColumn> backingColumns;
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        public Auriga.Diagram.Table.Description.ITableDescription Description { get; set; }
+
+        /// <summary>
+        /// Gets the documentation.
+        /// </summary>
+        public string Documentation => default;
+
+        /// <summary>
+        /// Gets the e annotations.
+        /// </summary>
+        public Auriga.Core.IContainerList<Auriga.Diagram.Viewpoint.Description.IDAnnotation> EAnnotations => this.backingEAnnotations ??= new Auriga.Core.ContainerList<Auriga.Diagram.Viewpoint.Description.IDAnnotation>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="EAnnotations"/>.
+        /// </summary>
+        private Auriga.Core.IContainerList<Auriga.Diagram.Viewpoint.Description.IDAnnotation> backingEAnnotations;
+
+        /// <summary>
+        /// Gets or sets the header column width.
+        /// </summary>
+        public int? HeaderColumnWidth { get; set; }
+
+        /// <summary>
+        /// Gets the lines.
+        /// </summary>
+        public Auriga.Core.IContainerList<Auriga.Diagram.Table.IDLine> Lines => this.backingLines ??= new Auriga.Core.ContainerList<Auriga.Diagram.Table.IDLine>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="Lines"/>.
+        /// </summary>
+        private Auriga.Core.IContainerList<Auriga.Diagram.Table.IDLine> backingLines;
+
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        public string Name => default;
+
+        /// <summary>
+        /// Gets the owned annotation entries.
+        /// </summary>
+        public Auriga.Core.IContainerList<Auriga.Diagram.Viewpoint.Description.IAnnotationEntry> OwnedAnnotationEntries => this.backingOwnedAnnotationEntries ??= new Auriga.Core.ContainerList<Auriga.Diagram.Viewpoint.Description.IAnnotationEntry>(this);
+
+        /// <summary>
+        /// Backing field for <see cref="OwnedAnnotationEntries"/>.
+        /// </summary>
+        private Auriga.Core.IContainerList<Auriga.Diagram.Viewpoint.Description.IAnnotationEntry> backingOwnedAnnotationEntries;
+
+        /// <summary>
+        /// The directly contained representation elements
+        /// </summary>
+        public IEnumerable<Auriga.Diagram.Viewpoint.IDRepresentationElement> OwnedRepresentationElements => Enumerable.Empty<Auriga.Diagram.Viewpoint.IDRepresentationElement>();
+
+        /// <summary>
+        /// The directly and indirectly contained representation elements
+        /// </summary>
+        public IEnumerable<Auriga.Diagram.Viewpoint.IDRepresentationElement> RepresentationElements => Enumerable.Empty<Auriga.Diagram.Viewpoint.IDRepresentationElement>();
+
+        /// <summary>
+        /// The referenced EObject.
+        /// </summary>
+        public object Target { get; set; }
+
+        /// <summary>
+        /// Gets the ui state.
+        /// </summary>
+        public Auriga.Diagram.Viewpoint.IUIState UiState => default;
+
+        /// <summary>
+        /// Gets or sets the uid.
+        /// </summary>
+        public string Uid { get; set; }
+
+        /// <summary>
+        /// Gets the elements directly contained by this <c>DTable</c>.
+        /// </summary>
+        /// <returns>the directly contained elements</returns>
+        public override System.Collections.Generic.IEnumerable<Auriga.Core.IAurigaElement> QueryContainedElements()
+        {
+            foreach (var element in this.Columns)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.EAnnotations)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.Lines)
+            {
+                yield return element;
+            }
+
+            foreach (var element in this.OwnedAnnotationEntries)
+            {
+                yield return element;
+            }
+
+            if (this.UiState != null)
+            {
+                yield return this.UiState;
+            }
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

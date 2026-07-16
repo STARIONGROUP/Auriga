@@ -96,8 +96,8 @@ namespace Auriga.Xmi.Tests
         [Test]
         public void Verify_that_a_fragment_referencing_another_fragment_resolves()
         {
-            var project = (Auriga.Capellamodeller.IProject)this.result.Root;
-            var systemEngineering = project.OwnedModelRoots.OfType<Auriga.Capellamodeller.ISystemEngineering>().Single();
+            var project = (Auriga.Model.Capellamodeller.IProject)this.result.Root;
+            var systemEngineering = project.OwnedModelRoots.OfType<Auriga.Model.Capellamodeller.ISystemEngineering>().Single();
 
             Assert.Multiple(() =>
             {
@@ -152,7 +152,7 @@ namespace Auriga.Xmi.Tests
 
                 // the LINQ-over-the-whole-model pattern the issue calls for
                 Assert.That(
-                    this.result.Root.QueryAllContainedElements().OfType<Auriga.Capellamodeller.ISystemEngineering>().Single().Id,
+                    this.result.Root.QueryAllContainedElements().OfType<Auriga.Model.Capellamodeller.ISystemEngineering>().Single().Id,
                     Is.EqualTo("se-1"));
             });
         }

@@ -46,7 +46,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements, Is.Not.Empty);
                 Assert.That(result.UnresolvedReferences, Is.Empty, "a structurally-compatible model of another version resolves fully");
             });

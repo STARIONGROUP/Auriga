@@ -40,7 +40,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements, Has.Count.EqualTo(expectedIdentifiers.Count));
                 Assert.That(result.Elements.Values, Has.All.Matches<IAurigaElement>(e => !string.IsNullOrEmpty(e.Id)));
                 Assert.That(result.Elements.Keys, Is.EquivalentTo(expectedIdentifiers));
@@ -80,7 +80,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Root, Is.InstanceOf<Auriga.Capellamodeller.IProject>());
+                Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements.Keys, Is.EquivalentTo(expectedIdentifiers));
                 Assert.That(crossFragmentToLoaded, Is.GreaterThan(50), "the fixture exercises cross-fragment references");
 

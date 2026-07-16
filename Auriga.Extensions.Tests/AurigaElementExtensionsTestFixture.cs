@@ -36,8 +36,8 @@ namespace Auriga.Extensions.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(functions, Is.Not.Empty);
-                Assert.That(functions, Has.All.InstanceOf<Auriga.Fa.IAbstractFunction>());
-                Assert.That(functions, Has.Some.InstanceOf<Auriga.Ctx.ISystemFunction>());
+                Assert.That(functions, Has.All.InstanceOf<Auriga.Model.Fa.IAbstractFunction>());
+                Assert.That(functions, Has.Some.InstanceOf<Auriga.Model.Ctx.ISystemFunction>());
             });
         }
 
@@ -49,7 +49,7 @@ namespace Auriga.Extensions.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(components, Is.Not.Empty);
-                Assert.That(components, Has.All.InstanceOf<Auriga.Cs.IComponent>());
+                Assert.That(components, Has.All.InstanceOf<Auriga.Model.Cs.IComponent>());
             });
         }
 

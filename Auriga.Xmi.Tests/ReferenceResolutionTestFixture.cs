@@ -44,7 +44,7 @@ namespace Auriga.Xmi.Tests
         {
             // The FunctionalExchange is serialized before its source (FOP1) and target (FIP1) ports, which
             // appear later in the document. The two-pass resolver must still resolve both to the ports.
-            var exchange = (Auriga.Fa.IFunctionalExchange)this.result.Elements[FunctionalExchange];
+            var exchange = (Auriga.Model.Fa.IFunctionalExchange)this.result.Elements[FunctionalExchange];
 
             Assert.Multiple(() =>
             {

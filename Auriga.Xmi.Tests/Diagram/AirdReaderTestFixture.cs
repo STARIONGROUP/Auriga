@@ -14,16 +14,15 @@ namespace Auriga.Xmi.Tests.Diagram
     using System.IO;
     using System.Linq;
 
-    using Auriga.Sirius.Diagram;
-    using Auriga.Sirius.Viewpoint;
-    using Auriga.Sirius.Xmi;
+    using Auriga.Diagram.Diagram;
+    using Auriga.Diagram.Viewpoint;
     using Auriga.Xmi.Core.Readers;
 
     using NUnit.Framework;
 
     /// <summary>
     /// Exercises the Sirius XMI reader against the real <c>.aird</c> diagram files in <c>TestData</c>. These
-    /// prove the metamodel-agnostic <see cref="XmiReader"/>, driven by the generated <c>Auriga.Sirius</c>
+    /// prove the metamodel-agnostic <see cref="XmiReader"/>, driven by the generated <c>Auriga.Diagram</c>
     /// object model and its readers, parses the multi-root <c>xmi:XMI</c> wrapper of an <c>.aird</c> into a
     /// typed Sirius object graph: a <see cref="IDAnalysis"/> root, its representation descriptors and views,
     /// and the diagram-representation trees (<see cref="IDDiagram"/>, <see cref="IDNode"/>,

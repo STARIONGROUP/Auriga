@@ -45,9 +45,9 @@ namespace Auriga.Xmi
         public CapellaProject(XmiReaderResult result)
         {
             this.result = result ?? throw new ArgumentNullException(nameof(result));
-            this.Project = result.Root as Auriga.Capellamodeller.IProject;
+            this.Project = result.Root as Auriga.Model.Capellamodeller.IProject;
             this.SystemEngineering = this.Project?.OwnedModelRoots
-                .OfType<Auriga.Capellamodeller.ISystemEngineering>()
+                .OfType<Auriga.Model.Capellamodeller.ISystemEngineering>()
                 .FirstOrDefault();
         }
 
@@ -55,43 +55,43 @@ namespace Auriga.Xmi
         /// Gets the typed project root, or <c>null</c> when the loaded model's root is not a
         /// <c>capellamodeller::Project</c>.
         /// </summary>
-        public Auriga.Capellamodeller.IProject? Project { get; }
+        public Auriga.Model.Capellamodeller.IProject? Project { get; }
 
         /// <summary>
         /// Gets the project's <c>SystemEngineering</c> — the container of the architecture layers — or
         /// <c>null</c> when the model has none.
         /// </summary>
-        public Auriga.Capellamodeller.ISystemEngineering? SystemEngineering { get; }
+        public Auriga.Model.Capellamodeller.ISystemEngineering? SystemEngineering { get; }
 
         /// <summary>
         /// Gets the operational analysis layer (the Arcadia OA), or <c>null</c> when the model has no
         /// operational analysis.
         /// </summary>
-        public Auriga.Oa.IOperationalAnalysis? OperationalAnalysis => this.Layer<Auriga.Oa.IOperationalAnalysis>();
+        public Auriga.Model.Oa.IOperationalAnalysis? OperationalAnalysis => this.Layer<Auriga.Model.Oa.IOperationalAnalysis>();
 
         /// <summary>
         /// Gets the system analysis layer (the Arcadia SA), or <c>null</c> when the model has no system
         /// analysis.
         /// </summary>
-        public Auriga.Ctx.ISystemAnalysis? SystemAnalysis => this.Layer<Auriga.Ctx.ISystemAnalysis>();
+        public Auriga.Model.Ctx.ISystemAnalysis? SystemAnalysis => this.Layer<Auriga.Model.Ctx.ISystemAnalysis>();
 
         /// <summary>
         /// Gets the logical architecture layer (the Arcadia LA), or <c>null</c> when the model has no
         /// logical architecture.
         /// </summary>
-        public Auriga.La.ILogicalArchitecture? LogicalArchitecture => this.Layer<Auriga.La.ILogicalArchitecture>();
+        public Auriga.Model.La.ILogicalArchitecture? LogicalArchitecture => this.Layer<Auriga.Model.La.ILogicalArchitecture>();
 
         /// <summary>
         /// Gets the physical architecture layer (the Arcadia PA), or <c>null</c> when the model has no
         /// physical architecture.
         /// </summary>
-        public Auriga.Pa.IPhysicalArchitecture? PhysicalArchitecture => this.Layer<Auriga.Pa.IPhysicalArchitecture>();
+        public Auriga.Model.Pa.IPhysicalArchitecture? PhysicalArchitecture => this.Layer<Auriga.Model.Pa.IPhysicalArchitecture>();
 
         /// <summary>
         /// Gets the end-product breakdown structure layer (the Arcadia EPBS), or <c>null</c> when the model
         /// has no EPBS.
         /// </summary>
-        public Auriga.Epbs.IEPBSArchitecture? Epbs => this.Layer<Auriga.Epbs.IEPBSArchitecture>();
+        public Auriga.Model.Epbs.IEPBSArchitecture? Epbs => this.Layer<Auriga.Model.Epbs.IEPBSArchitecture>();
 
         /// <summary>
         /// Gets every element read from the model, keyed by its <c>xmi:id</c>.

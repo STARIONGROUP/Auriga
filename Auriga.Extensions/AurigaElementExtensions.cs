@@ -96,37 +96,37 @@ namespace Auriga.Extensions
 
         /// <summary>
         /// Queries every function in this element's containment subtree, across all layers — the
-        /// <see cref="Auriga.Fa.IAbstractFunction"/> descendants. Applied to an architecture layer it yields
+        /// <see cref="Auriga.Model.Fa.IAbstractFunction"/> descendants. Applied to an architecture layer it yields
         /// that layer's functions; applied to the project root it yields the whole model's functions.
         /// </summary>
         /// <param name="element">the element whose subtree is searched</param>
         /// <returns>the contained functions</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="element"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Fa.IAbstractFunction> QueryAllFunctions(this IAurigaElement element)
+        public static IEnumerable<Auriga.Model.Fa.IAbstractFunction> QueryAllFunctions(this IAurigaElement element)
         {
             if (element is null)
             {
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return element.QueryAllContainedElements().OfType<Auriga.Fa.IAbstractFunction>();
+            return element.QueryAllContainedElements().OfType<Auriga.Model.Fa.IAbstractFunction>();
         }
 
         /// <summary>
         /// Queries every component in this element's containment subtree, across all layers — the
-        /// <see cref="Auriga.Cs.IComponent"/> descendants.
+        /// <see cref="Auriga.Model.Cs.IComponent"/> descendants.
         /// </summary>
         /// <param name="element">the element whose subtree is searched</param>
         /// <returns>the contained components</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="element"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Cs.IComponent> QueryAllComponents(this IAurigaElement element)
+        public static IEnumerable<Auriga.Model.Cs.IComponent> QueryAllComponents(this IAurigaElement element)
         {
             if (element is null)
             {
                 throw new ArgumentNullException(nameof(element));
             }
 
-            return element.QueryAllContainedElements().OfType<Auriga.Cs.IComponent>();
+            return element.QueryAllContainedElements().OfType<Auriga.Model.Cs.IComponent>();
         }
     }
 }

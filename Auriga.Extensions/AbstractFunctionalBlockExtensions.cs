@@ -14,7 +14,7 @@ namespace Auriga.Extensions
     using System.Linq;
 
     /// <summary>
-    /// Query extensions for <see cref="Auriga.Fa.IAbstractFunctionalBlock"/> — the base of the Arcadia
+    /// Query extensions for <see cref="Auriga.Model.Fa.IAbstractFunctionalBlock"/> — the base of the Arcadia
     /// components — covering the functions allocated to a block.
     /// </summary>
     public static class AbstractFunctionalBlockExtensions
@@ -26,7 +26,7 @@ namespace Auriga.Extensions
         /// <param name="block">the functional block (typically a component)</param>
         /// <returns>the distinct functions allocated to the block</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="block"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Fa.IAbstractFunction> QueryAllocatedFunctions(this Auriga.Fa.IAbstractFunctionalBlock block)
+        public static IEnumerable<Auriga.Model.Fa.IAbstractFunction> QueryAllocatedFunctions(this Auriga.Model.Fa.IAbstractFunctionalBlock block)
         {
             if (block is null)
             {
@@ -35,7 +35,7 @@ namespace Auriga.Extensions
 
             return block.OwnedFunctionalAllocation
                 .SelectMany(allocation => allocation.QueryEndpoints())
-                .OfType<Auriga.Fa.IAbstractFunction>()
+                .OfType<Auriga.Model.Fa.IAbstractFunction>()
                 .Distinct();
         }
     }

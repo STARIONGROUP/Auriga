@@ -13,15 +13,15 @@ namespace Auriga.Extensions
     using System.Collections.Generic;
 
     /// <summary>
-    /// Internal helpers over <see cref="Auriga.Modellingcore.IAbstractTrace"/>, the base of the
+    /// Internal helpers over <see cref="Auriga.Model.Modellingcore.IAbstractTrace"/>, the base of the
     /// allocation and realization links, used to read their resolved endpoints uniformly.
     /// </summary>
     /// <remarks>
     /// The generated model exposes typed convenience accessors on the concrete allocation and
     /// realization types (for example <c>ComponentFunctionalAllocation.Function</c>), but those are
     /// derived features the code generator stubs out to <c>null</c>. The reader only ever populates
-    /// the stored <see cref="Auriga.Modellingcore.IAbstractTrace.SourceElement"/> and
-    /// <see cref="Auriga.Modellingcore.IAbstractTrace.TargetElement"/> references, so every allocation
+    /// the stored <see cref="Auriga.Model.Modellingcore.IAbstractTrace.SourceElement"/> and
+    /// <see cref="Auriga.Model.Modellingcore.IAbstractTrace.TargetElement"/> references, so every allocation
     /// and realization query reads those two endpoints and selects the end of the type it wants.
     /// </remarks>
     internal static class TraceExtensions
@@ -32,7 +32,7 @@ namespace Auriga.Extensions
         /// </summary>
         /// <param name="trace">the allocation or realization link</param>
         /// <returns>the resolved endpoints, source first then target</returns>
-        internal static IEnumerable<IAurigaElement> QueryEndpoints(this Auriga.Modellingcore.IAbstractTrace trace)
+        internal static IEnumerable<IAurigaElement> QueryEndpoints(this Auriga.Model.Modellingcore.IAbstractTrace trace)
         {
             if (trace.SourceElement is IAurigaElement source)
             {

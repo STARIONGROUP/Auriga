@@ -41,8 +41,8 @@ namespace Auriga.CodeGenerator.Helpers
 
         /// <summary>
         /// The root namespace of the generated object model. Read from the ambient
-        /// <see cref="NamingContext"/> so the same helpers can generate the Capella model (<c>Auriga</c>)
-        /// and the Sirius model (<c>Auriga.Sirius</c>); defaults to <c>Auriga</c>.
+        /// <see cref="NamingContext"/> so the same helpers can generate the Capella model (<c>Auriga.Model</c>)
+        /// and the Sirius model (<c>Auriga.Diagram</c>); defaults to <c>Auriga.Model</c>.
         /// </summary>
         public static string RootNamespace => NamingContext.ModelRoot;
 

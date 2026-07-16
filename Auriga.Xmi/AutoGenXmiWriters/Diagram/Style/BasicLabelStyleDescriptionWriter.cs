@@ -1,0 +1,78 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="BasicLabelStyleDescriptionWriter.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Style
+{
+    using System.Xml;
+
+    using Auriga.Xmi.Core.Writers;
+
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The generated XMI writer that serializes an <c>BasicLabelStyleDescription</c> back to its XMI
+    /// representation. Contained elements are written recursively through the facade; cross-references are
+    /// written as <c>#id</c> (or cross-document <c>href</c>) attributes.
+    /// </summary>
+    public class BasicLabelStyleDescriptionWriter : XmiElementWriter<Auriga.Diagram.Viewpoint.Description.Style.IBasicLabelStyleDescription>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BasicLabelStyleDescriptionWriter"/> class.
+        /// </summary>
+        /// <param name="facade">the writer facade used to write contained elements</param>
+        /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
+        public BasicLabelStyleDescriptionWriter(IXmiElementWriterFacade facade, ILoggerFactory? loggerFactory)
+            : base(facade, loggerFactory)
+        {
+        }
+
+        /// <summary>
+        /// Gets the Capella <c>xmlns</c> prefix (<c>style</c>) of the package that
+        /// declares <c>BasicLabelStyleDescription</c>.
+        /// </summary>
+        public override string NamespacePrefix => "style";
+
+        /// <summary>
+        /// Gets the unqualified XMI type name (<c>BasicLabelStyleDescription</c>) written in the element's
+        /// <c>xsi:type</c>.
+        /// </summary>
+        public override string TypeName => "BasicLabelStyleDescription";
+
+        /// <summary>
+        /// Gets the namespace URI (<c>http://www.eclipse.org/sirius/description/style/1.1.0</c>) of the package that declares
+        /// <c>BasicLabelStyleDescription</c>.
+        /// </summary>
+        public override string NamespaceUri => "http://www.eclipse.org/sirius/description/style/1.1.0";
+
+        /// <summary>
+        /// Writes the <c>id</c>, attributes and contained children of an <c>BasicLabelStyleDescription</c>.
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="poco">the element whose body to write</param>
+        /// <param name="context">the write context</param>
+        protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.Style.IBasicLabelStyleDescription poco, IXmiWriteContext context)
+        {
+            WriteId(xmlWriter, poco);
+            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath);
+            this.WriteReferenceAttribute(xmlWriter, "labelColor", poco.LabelColor, poco, "LabelColor", context);
+            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression);
+            WriteEnumListAttribute<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
+            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize);
+            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon);
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

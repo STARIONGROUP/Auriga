@@ -24,7 +24,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga\Auriga.csproj" />
-        <ProjectReference Include="..\Auriga.Sirius\Auriga.Sirius.csproj" />
     </ItemGroup>
 
 </Project>

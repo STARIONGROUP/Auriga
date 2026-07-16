@@ -29,7 +29,7 @@ namespace Auriga.Extensions.Tests
                 .FirstOrDefault(candidate => candidate.QueryFunctionPorts().Any());
 
             Assert.That(function, Is.Not.Null, "expected a function that owns ports");
-            Assert.That(function!.QueryFunctionPorts(), Has.All.InstanceOf<Auriga.Fa.IFunctionPort>());
+            Assert.That(function!.QueryFunctionPorts(), Has.All.InstanceOf<Auriga.Model.Fa.IFunctionPort>());
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace Auriga.Extensions.Tests
         [Test]
         public void Verify_that_the_extensions_guard_against_a_null_receiver()
         {
-            Auriga.Fa.IAbstractFunction function = null!;
+            Auriga.Model.Fa.IAbstractFunction function = null!;
             var block = this.project.SystemAnalysis!.QueryAllComponents().First();
 
             Assert.Multiple(() =>

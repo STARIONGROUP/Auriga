@@ -61,15 +61,15 @@ namespace Auriga.CodeGenerator.Tests.Generators
         {
             Assert.Multiple(() =>
             {
-                Assert.That(this.files.Keys, Contains.Item("AutoGenXmiReaders/XmiReaderFacade.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenXmiReaders/AutoGenNamespaceRegistry.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenXmiReaders/Model/XmiReaderFacade.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenXmiReaders/Model/AutoGenNamespaceRegistry.cs"));
             });
         }
 
         [Test]
         public void Verify_that_the_namespace_registry_maps_the_physical_architecture_namespace()
         {
-            var registry = this.files["AutoGenXmiReaders/AutoGenNamespaceRegistry.cs"];
+            var registry = this.files["AutoGenXmiReaders/Model/AutoGenNamespaceRegistry.cs"];
 
             Assert.That(registry, Does.Contain("[\"http://www.polarsys.org/capella/core/pa/7.0.0\"] = \"pa\","));
         }

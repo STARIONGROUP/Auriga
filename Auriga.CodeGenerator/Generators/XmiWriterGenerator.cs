@@ -33,6 +33,10 @@ namespace Auriga.CodeGenerator.Generators
 
         private readonly string rootNamespace;
 
+        private readonly string xmiRootNamespace;
+
+        private readonly string outputSubfolder;
+
         private readonly HandlebarsTemplate<object, object> writerTemplate;
 
         private readonly HandlebarsTemplate<object, object> facadeTemplate;
@@ -42,13 +46,24 @@ namespace Auriga.CodeGenerator.Generators
         /// </summary>
         /// <param name="ecoreDirectory">the directory containing the vendored <c>.ecore</c> files</param>
         /// <param name="rootNamespace">
-        /// the root namespace of the object model whose writers are generated (e.g. <c>Auriga</c> or
-        /// <c>Auriga.Sirius</c>); the writer namespaces are derived from it. Defaults to <c>Auriga</c>
+        /// the root namespace of the object model whose writers are generated (e.g. <c>Auriga.Model</c> or
+        /// <c>Auriga.Diagram</c>); defaults to <c>Auriga.Model</c>
         /// </param>
-        public XmiWriterGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot)
+        /// <param name="xmiRootNamespace">
+        /// the root namespace of the generated writers (e.g. <c>Auriga.Xmi.Model</c> or
+        /// <c>Auriga.Xmi.Diagram</c>); defaults to <c>Auriga.Xmi.Model</c>
+        /// </param>
+        /// <param name="outputSubfolder">
+        /// the sub-folder of the <c>AutoGenXmiWriters</c> tree the writers are written into (<c>Model</c>
+        /// for Capella or <c>Diagram</c> for Sirius), so both metamodels can live in the same project
+        /// without one regeneration clearing the other's files; defaults to <c>Model</c>
+        /// </param>
+        public XmiWriterGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot, string xmiRootNamespace = NamingContext.DefaultXmiRoot, string outputSubfolder = "Model")
         {
             this.ecoreDirectory = ecoreDirectory;
             this.rootNamespace = rootNamespace;
+            this.xmiRootNamespace = xmiRootNamespace;
+            this.outputSubfolder = outputSubfolder;
 
             var handlebars = Handlebars.Create();
             handlebars.RegisterXmiWriterHelper();
@@ -58,7 +73,7 @@ namespace Auriga.CodeGenerator.Generators
 
         /// <summary>
         /// Generates the XMI-writer files and returns them keyed by repository-relative path
-        /// (e.g. <c>AutoGenXmiWriters/Pa/PhysicalFunctionWriter.cs</c>). A writer is emitted for every
+        /// (e.g. <c>AutoGenXmiWriters/Model/Pa/PhysicalFunctionWriter.cs</c>). A writer is emitted for every
         /// concrete class, plus the single facade. Pure function of the input, so calling it twice yields
         /// identical content.
         /// </summary>
@@ -68,7 +83,7 @@ namespace Auriga.CodeGenerator.Generators
             var rootPackages = MetamodelLoader.Load(this.ecoreDirectory);
             var allPackages = rootPackages.SelectMany(MetamodelLoader.AllPackages).ToList();
 
-            using var _ = NamingContext.Use(this.rootNamespace, CSharpNaming.DetectMemberCollisions(allPackages));
+            using var _ = NamingContext.Use(this.rootNamespace, this.xmiRootNamespace, CSharpNaming.DetectMemberCollisions(allPackages));
 
             var concreteClasses = allPackages
                 .SelectMany(p => p.EClassifiers.OfType<EClass>())
@@ -81,24 +96,26 @@ namespace Auriga.CodeGenerator.Generators
             foreach (var eClass in concreteClasses)
             {
                 var name = CSharpNaming.Capitalize(eClass.Name);
-                files[$"AutoGenXmiWriters/{XmiWriterHelper.WriterFolder(eClass)}/{name}Writer.cs"] = Normalize(this.writerTemplate(eClass));
+                files[$"AutoGenXmiWriters/{this.outputSubfolder}/{XmiWriterHelper.WriterFolder(eClass)}/{name}Writer.cs"] = Normalize(this.writerTemplate(eClass));
             }
 
-            files["AutoGenXmiWriters/XmiElementWriterFacade.cs"] = Normalize(this.facadeTemplate(concreteClasses));
+            files[$"AutoGenXmiWriters/{this.outputSubfolder}/XmiElementWriterFacade.cs"] = Normalize(this.facadeTemplate(concreteClasses));
 
             return files;
         }
 
         /// <summary>
         /// Generates the writers and writes them into the supplied <c>Auriga.Xmi</c> project directory,
-        /// clearing the <c>AutoGenXmiWriters</c> folder first so removed writers do not linger.
+        /// clearing this generator's sub-folder of <c>AutoGenXmiWriters</c> first so removed writers do
+        /// not linger. Only the configured sub-folder (e.g. <c>AutoGenXmiWriters/Model</c>) is cleared,
+        /// never the whole tree, so the other metamodel's generated writers survive a regeneration.
         /// </summary>
         /// <param name="xmiProjectDirectory">the path of the <c>Auriga.Xmi</c> project</param>
         public void Write(string xmiProjectDirectory)
         {
             var files = this.Generate();
 
-            var autoGen = Path.Combine(xmiProjectDirectory, "AutoGenXmiWriters");
+            var autoGen = Path.Combine(xmiProjectDirectory, "AutoGenXmiWriters", this.outputSubfolder);
             if (Directory.Exists(autoGen))
             {
                 Directory.Delete(autoGen, recursive: true);

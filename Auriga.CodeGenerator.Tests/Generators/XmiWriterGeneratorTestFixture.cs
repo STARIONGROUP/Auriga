@@ -59,13 +59,13 @@ namespace Auriga.CodeGenerator.Tests.Generators
         [Test]
         public void Verify_that_the_facade_is_generated()
         {
-            Assert.That(this.files.Keys, Contains.Item("AutoGenXmiWriters/XmiElementWriterFacade.cs"));
+            Assert.That(this.files.Keys, Contains.Item("AutoGenXmiWriters/Model/XmiElementWriterFacade.cs"));
         }
 
         [Test]
         public void Verify_that_the_physical_function_writer_declares_its_namespace()
         {
-            var writer = this.files["AutoGenXmiWriters/Pa/PhysicalFunctionWriter.cs"];
+            var writer = this.files["AutoGenXmiWriters/Model/Pa/PhysicalFunctionWriter.cs"];
 
             Assert.Multiple(() =>
             {

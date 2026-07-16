@@ -37,6 +37,8 @@ namespace Auriga.CodeGenerator.Generators
 
         private readonly string rootNamespace;
 
+        private readonly string outputSubfolder;
+
         private readonly HandlebarsTemplate<object, object> enumTemplate;
 
         private readonly HandlebarsTemplate<object, object> interfaceTemplate;
@@ -48,13 +50,19 @@ namespace Auriga.CodeGenerator.Generators
         /// </summary>
         /// <param name="ecoreDirectory">the directory containing the vendored <c>.ecore</c> files</param>
         /// <param name="rootNamespace">
-        /// the root namespace of the generated object model (e.g. <c>Auriga</c> for Capella or
-        /// <c>Auriga.Sirius</c> for the Sirius metamodel); defaults to <c>Auriga</c>
+        /// the root namespace of the generated object model (e.g. <c>Auriga.Model</c> for Capella or
+        /// <c>Auriga.Diagram</c> for the Sirius metamodel); defaults to <c>Auriga.Model</c>
         /// </param>
-        public CorePocoGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot)
+        /// <param name="outputSubfolder">
+        /// the sub-folder of the <c>AutoGen*</c> output trees the model is written into (<c>Model</c> for
+        /// Capella or <c>Diagram</c> for Sirius), so both metamodels can live in the same project without
+        /// one regeneration clearing the other's files; defaults to <c>Model</c>
+        /// </param>
+        public CorePocoGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot, string outputSubfolder = "Model")
         {
             this.ecoreDirectory = ecoreDirectory;
             this.rootNamespace = rootNamespace;
+            this.outputSubfolder = outputSubfolder;
 
             var handlebars = Handlebars.Create();
             handlebars.RegisterPocoHelper();
@@ -65,7 +73,7 @@ namespace Auriga.CodeGenerator.Generators
 
         /// <summary>
         /// Generates the object model and returns the files as a dictionary keyed by repository-relative
-        /// path (e.g. <c>AutoGenInterfaces/Pa/IPhysicalFunction.cs</c>). When no target package names are
+        /// path (e.g. <c>AutoGenInterfaces/Model/Pa/IPhysicalFunction.cs</c>). When no target package names are
         /// supplied the whole metamodel is generated (the confirmed v1 scope, issue #1); otherwise only
         /// the named packages get implementation classes, and the interfaces and enums those classes
         /// transitively reference are emitted so the output still compiles. Each classifier is written to
@@ -82,7 +90,7 @@ namespace Auriga.CodeGenerator.Generators
             var rootPackages = this.LoadMetamodel();
             var allPackages = rootPackages.SelectMany(AllPackages).ToList();
 
-            using var _ = NamingContext.Use(this.rootNamespace, CSharpNaming.DetectMemberCollisions(allPackages));
+            using var _ = NamingContext.Use(this.rootNamespace, null, CSharpNaming.DetectMemberCollisions(allPackages));
 
             var targetPackages = targetPackageNames.Length == 0
                 ? allPackages
@@ -111,17 +119,17 @@ namespace Auriga.CodeGenerator.Generators
             foreach (var eEnum in closureEnums.OrderBy(CSharpNaming.EnumType, StringComparer.Ordinal))
             {
                 var name = CSharpNaming.Capitalize(eEnum.Name);
-                files[$"AutoGenEnumeration/{PackageFolder(eEnum)}/{name}.cs"] = Normalize(this.enumTemplate(eEnum));
+                files[$"AutoGenEnumeration/{this.outputSubfolder}/{PackageFolder(eEnum)}/{name}.cs"] = Normalize(this.enumTemplate(eEnum));
             }
 
             foreach (var eClass in closureClasses.OrderBy(CSharpNaming.InterfaceType, StringComparer.Ordinal))
             {
                 var name = CSharpNaming.Capitalize(eClass.Name);
-                files[$"AutoGenInterfaces/{PackageFolder(eClass)}/I{name}.cs"] = Normalize(this.interfaceTemplate(eClass));
+                files[$"AutoGenInterfaces/{this.outputSubfolder}/{PackageFolder(eClass)}/I{name}.cs"] = Normalize(this.interfaceTemplate(eClass));
 
                 if (targetPackageSet.Contains(eClass.EPackage) && !eClass.Abstract && !eClass.Interface)
                 {
-                    files[$"AutoGenClasses/{PackageFolder(eClass)}/{name}.cs"] = Normalize(this.classTemplate(eClass));
+                    files[$"AutoGenClasses/{this.outputSubfolder}/{PackageFolder(eClass)}/{name}.cs"] = Normalize(this.classTemplate(eClass));
                 }
             }
 
@@ -150,7 +158,9 @@ namespace Auriga.CodeGenerator.Generators
 
         /// <summary>
         /// Generates the object model and writes it into the supplied <c>Auriga</c> project directory,
-        /// clearing the <c>AutoGen*</c> folders first so removed types do not linger.
+        /// clearing this generator's sub-folder of the <c>AutoGen*</c> folders first so removed types do
+        /// not linger. Only the configured sub-folder (e.g. <c>AutoGenClasses/Model</c>) is cleared, never
+        /// the whole tree, so the other metamodel's generated code survives a regeneration.
         /// </summary>
         /// <param name="aurigaProjectDirectory">the path of the <c>Auriga</c> project</param>
         /// <param name="targetPackageNames">
@@ -162,7 +172,7 @@ namespace Auriga.CodeGenerator.Generators
 
             foreach (var folder in new[] { "AutoGenEnumeration", "AutoGenInterfaces", "AutoGenClasses" })
             {
-                var path = Path.Combine(aurigaProjectDirectory, folder);
+                var path = Path.Combine(aurigaProjectDirectory, folder, this.outputSubfolder);
                 if (Directory.Exists(path))
                 {
                     Directory.Delete(path, recursive: true);

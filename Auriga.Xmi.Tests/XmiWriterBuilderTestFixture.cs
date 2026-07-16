@@ -74,7 +74,7 @@ namespace Auriga.Xmi.Tests
         private static string Write(IXmiWriter writer)
         {
             using var stream = new MemoryStream();
-            writer.WriteDocument(new Auriga.Capellamodeller.Project { Id = "p1" }, stream, "model.capella");
+            writer.WriteDocument(new Auriga.Model.Capellamodeller.Project { Id = "p1" }, stream, "model.capella");
             return Encoding.UTF8.GetString(stream.ToArray());
         }
     }

@@ -1,0 +1,111 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="ITableDescription.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------
+
+#nullable disable
+
+namespace Auriga.Diagram.Table.Description
+{
+    using System.Collections.Generic;
+    using System.Linq;
+
+    /// <summary>
+    /// Definition of the <c>TableDescription</c> interface.
+    /// </summary>
+    public partial interface ITableDescription : Auriga.Diagram.Viewpoint.Description.IRepresentationDescription, Auriga.Diagram.Viewpoint.Description.IDocumentedElement, Auriga.Diagram.Viewpoint.Description.IEndUserDocumentedElement
+    {
+        /// <summary>
+        /// Gets the all create line.
+        /// </summary>
+        IEnumerable<Auriga.Diagram.Table.Description.ICreateLineTool> AllCreateLine { get; }
+
+        /// <summary>
+        /// Gets the all line mappings.
+        /// </summary>
+        IEnumerable<Auriga.Diagram.Table.Description.ILineMapping> AllLineMappings { get; }
+
+        /// <summary>
+        /// All tools of the section.
+        /// </summary>
+        IEnumerable<Auriga.Diagram.Viewpoint.Description.Tool.IRepresentationCreationDescription> AllRepresentationCreationDescriptions { get; }
+
+        /// <summary>
+        /// All navigation tools.
+        /// </summary>
+        IEnumerable<Auriga.Diagram.Viewpoint.Description.Tool.IRepresentationNavigationDescription> AllRepresentationNavigationDescriptions { get; }
+
+        /// <summary>
+        /// Gets or sets the domain class.
+        /// </summary>
+        string DomainClass { get; set; }
+
+        /// <summary>
+        /// Gets the imported elements.
+        /// </summary>
+        Auriga.Core.IContainerList<Auriga.Core.IAurigaElement> ImportedElements { get; }
+
+        /// <summary>
+        /// The initial width of the column header (calculated if not available).
+        /// </summary>
+        int? InitialHeaderColumnWidth { get; set; }
+
+        /// <summary>
+        /// Gets the owned create line.
+        /// </summary>
+        Auriga.Core.IContainerList<Auriga.Diagram.Table.Description.ICreateLineTool> OwnedCreateLine { get; }
+
+        /// <summary>
+        /// Gets the owned line mappings.
+        /// </summary>
+        Auriga.Core.IContainerList<Auriga.Diagram.Table.Description.ILineMapping> OwnedLineMappings { get; }
+
+        /// <summary>
+        /// All tools of the section.
+        /// </summary>
+        Auriga.Core.IContainerList<Auriga.Diagram.Viewpoint.Description.Tool.IRepresentationCreationDescription> OwnedRepresentationCreationDescriptions { get; }
+
+        /// <summary>
+        /// All navigation tools.
+        /// </summary>
+        Auriga.Core.IContainerList<Auriga.Diagram.Viewpoint.Description.Tool.IRepresentationNavigationDescription> OwnedRepresentationNavigationDescriptions { get; }
+
+        /// <summary>
+        /// The precondition (Acceleo Expression).
+        /// </summary>
+        string PreconditionExpression { get; set; }
+
+        /// <summary>
+        /// Gets the reused create line.
+        /// </summary>
+        List<Auriga.Diagram.Table.Description.ICreateLineTool> ReusedCreateLine { get; }
+
+        /// <summary>
+        /// Gets the reused line mappings.
+        /// </summary>
+        List<Auriga.Diagram.Table.Description.ILineMapping> ReusedLineMappings { get; }
+
+        /// <summary>
+        /// All tools of the section.
+        /// </summary>
+        List<Auriga.Diagram.Viewpoint.Description.Tool.IRepresentationCreationDescription> ReusedRepresentationCreationDescriptions { get; }
+
+        /// <summary>
+        /// All navigation tools.
+        /// </summary>
+        List<Auriga.Diagram.Viewpoint.Description.Tool.IRepresentationNavigationDescription> ReusedRepresentationNavigationDescriptions { get; }
+
+    }
+}
+
+// ------------------------------------------------------------------------------------------------
+// --------THIS IS AN AUTOMATICALLY GENERATED FILE. ANY MANUAL CHANGES WILL BE OVERWRITTEN!--------
+// ------------------------------------------------------------------------------------------------

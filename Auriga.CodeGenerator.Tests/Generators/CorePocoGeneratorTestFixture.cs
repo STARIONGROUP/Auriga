@@ -60,9 +60,9 @@ namespace Auriga.CodeGenerator.Tests.Generators
         {
             Assert.Multiple(() =>
             {
-                Assert.That(Count("AutoGenInterfaces/"), Is.EqualTo(ExpectedInterfaceCount), "interfaces");
-                Assert.That(Count("AutoGenClasses/"), Is.EqualTo(ExpectedClassCount), "classes");
-                Assert.That(Count("AutoGenEnumeration/"), Is.EqualTo(ExpectedEnumCount), "enums");
+                Assert.That(Count("AutoGenInterfaces/Model/"), Is.EqualTo(ExpectedInterfaceCount), "interfaces");
+                Assert.That(Count("AutoGenClasses/Model/"), Is.EqualTo(ExpectedClassCount), "classes");
+                Assert.That(Count("AutoGenEnumeration/Model/"), Is.EqualTo(ExpectedEnumCount), "enums");
             });
         }
 
@@ -70,12 +70,12 @@ namespace Auriga.CodeGenerator.Tests.Generators
         public void Verify_that_every_class_has_an_interface()
         {
             var interfaces = this.files.Keys
-                .Where(k => k.StartsWith("AutoGenInterfaces/"))
+                .Where(k => k.StartsWith("AutoGenInterfaces/Model/"))
                 .Select(k => Path.GetFileName(k)[1..]) // strip the leading 'I'
                 .ToHashSet(StringComparer.Ordinal);
 
             var classesWithoutInterface = this.files.Keys
-                .Where(k => k.StartsWith("AutoGenClasses/"))
+                .Where(k => k.StartsWith("AutoGenClasses/Model/"))
                 .Select(Path.GetFileName)
                 .Where(name => !interfaces.Contains(name!))
                 .ToList();
@@ -99,7 +99,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
                 .ToHashSet(StringComparer.Ordinal);
 
             var generatedInterfaces = this.files.Keys
-                .Where(k => k.StartsWith("AutoGenInterfaces/", StringComparison.Ordinal))
+                .Where(k => k.StartsWith("AutoGenInterfaces/Model/", StringComparison.Ordinal))
                 .Select(k => Path.GetFileNameWithoutExtension(k)[1..]) // strip the leading 'I'
                 .ToHashSet(StringComparer.Ordinal);
 
@@ -114,13 +114,13 @@ namespace Auriga.CodeGenerator.Tests.Generators
         {
             Assert.Multiple(() =>
             {
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Oa/OperationalAnalysis.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Ctx/SystemAnalysis.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/La/LogicalArchitecture.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Pa/PhysicalComponent.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Epbs/ConfigurationItem.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Deployment/PartDeploymentLink.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Requirements/Requirement.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Oa/OperationalAnalysis.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Ctx/SystemAnalysis.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/La/LogicalArchitecture.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Pa/PhysicalComponent.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Epbs/ConfigurationItem.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Deployment/PartDeploymentLink.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Requirements/Requirement.cs"));
             });
         }
 
@@ -131,10 +131,10 @@ namespace Auriga.CodeGenerator.Tests.Generators
             // modellingcore and Requirements. Per-package folders keep them apart.
             Assert.Multiple(() =>
             {
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Capellamodeller/Folder.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Requirements/Folder.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Modellingcore/IAbstractType.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Requirements/IAbstractType.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Capellamodeller/Folder.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenClasses/Model/Requirements/Folder.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Model/Modellingcore/IAbstractType.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Model/Requirements/IAbstractType.cs"));
             });
         }
 
@@ -144,17 +144,17 @@ namespace Auriga.CodeGenerator.Tests.Generators
             Assert.Multiple(() =>
             {
                 // modellingcore::ModelElement and cs::Component are abstract
-                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Modellingcore/IModelElement.cs"));
-                Assert.That(this.files.Keys, Does.Not.Contain("AutoGenClasses/Modellingcore/ModelElement.cs"));
-                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Cs/IComponent.cs"));
-                Assert.That(this.files.Keys, Does.Not.Contain("AutoGenClasses/Cs/Component.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Model/Modellingcore/IModelElement.cs"));
+                Assert.That(this.files.Keys, Does.Not.Contain("AutoGenClasses/Model/Modellingcore/ModelElement.cs"));
+                Assert.That(this.files.Keys, Contains.Item("AutoGenInterfaces/Model/Cs/IComponent.cs"));
+                Assert.That(this.files.Keys, Does.Not.Contain("AutoGenClasses/Model/Cs/Component.cs"));
             });
         }
 
         [Test]
         public void Verify_that_the_enumerations_are_generated()
         {
-            var content = this.files["AutoGenEnumeration/Pa/PhysicalComponentNature.cs"];
+            var content = this.files["AutoGenEnumeration/Model/Pa/PhysicalComponentNature.cs"];
 
             Assert.Multiple(() =>
             {
@@ -166,11 +166,11 @@ namespace Auriga.CodeGenerator.Tests.Generators
         [Test]
         public void Verify_that_a_concrete_class_flattens_inheritance_and_implements_its_interface()
         {
-            var content = this.files["AutoGenClasses/Pa/PhysicalComponent.cs"];
+            var content = this.files["AutoGenClasses/Model/Pa/PhysicalComponent.cs"];
 
             Assert.Multiple(() =>
             {
-                Assert.That(content, Does.Contain("public partial class PhysicalComponent : Auriga.Core.AurigaElement, Auriga.Pa.IPhysicalComponent"));
+                Assert.That(content, Does.Contain("public partial class PhysicalComponent : Auriga.Core.AurigaElement, Auriga.Model.Pa.IPhysicalComponent"));
                 Assert.That(content, Does.Contain("#nullable disable"));
             });
         }
@@ -179,7 +179,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
         public void Verify_that_containment_collections_use_the_container_list()
         {
             var anyContainerList = this.files
-                .Where(f => f.Key.StartsWith("AutoGenClasses/"))
+                .Where(f => f.Key.StartsWith("AutoGenClasses/Model/"))
                 .Any(f => f.Value.Contains("Auriga.Core.IContainerList<"));
 
             Assert.That(anyContainerList, Is.True);
@@ -189,7 +189,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
         public void Verify_that_cross_reference_collections_use_a_plain_list()
         {
             var anyList = this.files
-                .Where(f => f.Key.StartsWith("AutoGenClasses/"))
+                .Where(f => f.Key.StartsWith("AutoGenClasses/Model/"))
                 .Any(f => f.Value.Contains("new List<"));
 
             Assert.That(anyList, Is.True);
@@ -198,7 +198,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
         [Test]
         public void Verify_that_generated_files_import_only_bcl_namespaces_and_use_no_global_alias()
         {
-            var content = this.files["AutoGenClasses/Pa/PhysicalComponent.cs"];
+            var content = this.files["AutoGenClasses/Model/Pa/PhysicalComponent.cs"];
 
             Assert.Multiple(() =>
             {
@@ -212,7 +212,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
         [Test]
         public void Verify_that_types_and_members_are_documented_even_without_model_documentation()
         {
-            var content = this.files["AutoGenClasses/Pa/PhysicalComponent.cs"];
+            var content = this.files["AutoGenClasses/Model/Pa/PhysicalComponent.cs"];
 
             Assert.Multiple(() =>
             {
@@ -225,7 +225,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
         [Test]
         public void Verify_that_enum_literals_are_documented()
         {
-            var content = this.files["AutoGenEnumeration/Pa/PhysicalComponentNature.cs"];
+            var content = this.files["AutoGenEnumeration/Model/Pa/PhysicalComponentNature.cs"];
 
             Assert.That(content, Does.Contain("/// The <c>UNSET</c> literal."));
         }
@@ -233,7 +233,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
         [Test]
         public void Verify_that_members_are_sorted_alphabetically()
         {
-            var content = this.files["AutoGenInterfaces/Pa/IPhysicalComponent.cs"];
+            var content = this.files["AutoGenInterfaces/Model/Pa/IPhysicalComponent.cs"];
 
             var names = MemberDeclarationRegex()
                 .Matches(content)

@@ -26,7 +26,7 @@ namespace Auriga.Extensions.Tests
         public void Verify_that_a_functional_exchange_links_its_source_and_target_functions()
         {
             var exchanges = this.project.Project!.QueryAllContainedElements()
-                .OfType<Auriga.Fa.IFunctionalExchange>()
+                .OfType<Auriga.Model.Fa.IFunctionalExchange>()
                 .ToList();
 
             Assert.That(exchanges, Is.Not.Empty);
@@ -35,8 +35,8 @@ namespace Auriga.Extensions.Tests
             {
                 foreach (var exchange in exchanges)
                 {
-                    Assert.That(exchange.QuerySourceFunction(), Is.InstanceOf<Auriga.Fa.IAbstractFunction>());
-                    Assert.That(exchange.QueryTargetFunction(), Is.InstanceOf<Auriga.Fa.IAbstractFunction>());
+                    Assert.That(exchange.QuerySourceFunction(), Is.InstanceOf<Auriga.Model.Fa.IAbstractFunction>());
+                    Assert.That(exchange.QueryTargetFunction(), Is.InstanceOf<Auriga.Model.Fa.IAbstractFunction>());
                 }
             });
         }
@@ -44,7 +44,7 @@ namespace Auriga.Extensions.Tests
         [Test]
         public void Verify_that_the_extensions_guard_against_a_null_receiver()
         {
-            Auriga.Fa.IFunctionalExchange exchange = null!;
+            Auriga.Model.Fa.IFunctionalExchange exchange = null!;
 
             Assert.Multiple(() =>
             {

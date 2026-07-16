@@ -7,13 +7,13 @@
         <LangVersion>10.0</LangVersion>
         <Title>Auriga</Title>
         <Version>1.0.0</Version>
-        <Description>Auriga is a dotnet library for reading, manipulating and writing Eclipse Capella models. This library contains the Capella object model: the C# implementation of the Capella metamodel (Arcadia architecture layers and common packages), generated from the Capella Ecore metamodel.</Description>
+        <Description>Auriga is a dotnet library for reading, manipulating and writing Eclipse Capella models. This library contains the shared base types (Auriga.Core), the Capella object model (Auriga.Model.*, generated from the Capella Ecore metamodel) and the Sirius/GMF diagram object model (Auriga.Diagram.*, generated from the Sirius Ecore metamodels).</Description>
         <PackageId>Auriga</PackageId>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
         <AssemblyTitle>Auriga</AssemblyTitle>
-        <PackageTags>Capella Arcadia Ecore MBSE modeltopia</PackageTags>
+        <PackageTags>Capella Arcadia Sirius GMF Aird Ecore MBSE modeltopia</PackageTags>
         <PackageReleaseNotes>
-            [Add] solution scaffold; fixes #5
+            [CHG] merge Auriga.Core and Auriga.Sirius into the Auriga package; the Capella model moves to the Auriga.Model.* namespaces and the Sirius/GMF diagram model ships as Auriga.Diagram.*
         </PackageReleaseNotes>
     </PropertyGroup>
 

@@ -34,6 +34,10 @@ namespace Auriga.CodeGenerator.Generators
 
         private readonly string rootNamespace;
 
+        private readonly string xmiRootNamespace;
+
+        private readonly string outputSubfolder;
+
         private readonly HandlebarsTemplate<object, object> readerTemplate;
 
         private readonly HandlebarsTemplate<object, object> facadeTemplate;
@@ -45,13 +49,24 @@ namespace Auriga.CodeGenerator.Generators
         /// </summary>
         /// <param name="ecoreDirectory">the directory containing the vendored <c>.ecore</c> files</param>
         /// <param name="rootNamespace">
-        /// the root namespace of the object model whose readers are generated (e.g. <c>Auriga</c> or
-        /// <c>Auriga.Sirius</c>); the reader namespaces are derived from it. Defaults to <c>Auriga</c>
+        /// the root namespace of the object model whose readers are generated (e.g. <c>Auriga.Model</c> or
+        /// <c>Auriga.Diagram</c>); defaults to <c>Auriga.Model</c>
         /// </param>
-        public XmiReaderGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot)
+        /// <param name="xmiRootNamespace">
+        /// the root namespace of the generated readers (e.g. <c>Auriga.Xmi.Model</c> or
+        /// <c>Auriga.Xmi.Diagram</c>); defaults to <c>Auriga.Xmi.Model</c>
+        /// </param>
+        /// <param name="outputSubfolder">
+        /// the sub-folder of the <c>AutoGenXmiReaders</c> tree the readers are written into (<c>Model</c>
+        /// for Capella or <c>Diagram</c> for Sirius), so both metamodels can live in the same project
+        /// without one regeneration clearing the other's files; defaults to <c>Model</c>
+        /// </param>
+        public XmiReaderGenerator(string ecoreDirectory, string rootNamespace = NamingContext.DefaultModelRoot, string xmiRootNamespace = NamingContext.DefaultXmiRoot, string outputSubfolder = "Model")
         {
             this.ecoreDirectory = ecoreDirectory;
             this.rootNamespace = rootNamespace;
+            this.xmiRootNamespace = xmiRootNamespace;
+            this.outputSubfolder = outputSubfolder;
 
             var handlebars = Handlebars.Create();
             handlebars.RegisterXmiReaderHelper();
@@ -62,7 +77,7 @@ namespace Auriga.CodeGenerator.Generators
 
         /// <summary>
         /// Generates the XMI-reader files and returns them keyed by repository-relative path
-        /// (e.g. <c>AutoGenXmiReaders/Pa/PhysicalFunctionReader.cs</c>). A reader is emitted for every
+        /// (e.g. <c>AutoGenXmiReaders/Model/Pa/PhysicalFunctionReader.cs</c>). A reader is emitted for every
         /// concrete class, plus the single facade and namespace-registry files. Pure function of the
         /// input, so calling it twice yields identical content.
         /// </summary>
@@ -72,7 +87,7 @@ namespace Auriga.CodeGenerator.Generators
             var rootPackages = MetamodelLoader.Load(this.ecoreDirectory);
             var allPackages = rootPackages.SelectMany(MetamodelLoader.AllPackages).ToList();
 
-            using var _ = NamingContext.Use(this.rootNamespace, CSharpNaming.DetectMemberCollisions(allPackages));
+            using var _ = NamingContext.Use(this.rootNamespace, this.xmiRootNamespace, CSharpNaming.DetectMemberCollisions(allPackages));
 
             var concreteClasses = allPackages
                 .SelectMany(p => p.EClassifiers.OfType<EClass>())
@@ -85,31 +100,33 @@ namespace Auriga.CodeGenerator.Generators
             foreach (var eClass in concreteClasses)
             {
                 var name = CSharpNaming.Capitalize(eClass.Name);
-                files[$"AutoGenXmiReaders/{XmiReaderHelper.ReaderFolder(eClass)}/{name}Reader.cs"] = Normalize(this.readerTemplate(eClass));
+                files[$"AutoGenXmiReaders/{this.outputSubfolder}/{XmiReaderHelper.ReaderFolder(eClass)}/{name}Reader.cs"] = Normalize(this.readerTemplate(eClass));
             }
 
-            files["AutoGenXmiReaders/XmiReaderFacade.cs"] = Normalize(this.facadeTemplate(concreteClasses));
+            files[$"AutoGenXmiReaders/{this.outputSubfolder}/XmiReaderFacade.cs"] = Normalize(this.facadeTemplate(concreteClasses));
 
             var packagesWithNamespace = allPackages
                 .Where(p => !string.IsNullOrEmpty(p.NsUri))
                 .OrderBy(p => p.NsUri, StringComparer.Ordinal)
                 .ToList();
 
-            files["AutoGenXmiReaders/AutoGenNamespaceRegistry.cs"] = Normalize(this.registryTemplate(packagesWithNamespace));
+            files[$"AutoGenXmiReaders/{this.outputSubfolder}/AutoGenNamespaceRegistry.cs"] = Normalize(this.registryTemplate(packagesWithNamespace));
 
             return files;
         }
 
         /// <summary>
         /// Generates the readers and writes them into the supplied <c>Auriga.Xmi</c> project directory,
-        /// clearing the <c>AutoGenXmiReaders</c> folder first so removed readers do not linger.
+        /// clearing this generator's sub-folder of <c>AutoGenXmiReaders</c> first so removed readers do
+        /// not linger. Only the configured sub-folder (e.g. <c>AutoGenXmiReaders/Model</c>) is cleared,
+        /// never the whole tree, so the other metamodel's generated readers survive a regeneration.
         /// </summary>
         /// <param name="xmiProjectDirectory">the path of the <c>Auriga.Xmi</c> project</param>
         public void Write(string xmiProjectDirectory)
         {
             var files = this.Generate();
 
-            var autoGen = Path.Combine(xmiProjectDirectory, "AutoGenXmiReaders");
+            var autoGen = Path.Combine(xmiProjectDirectory, "AutoGenXmiReaders", this.outputSubfolder);
             if (Directory.Exists(autoGen))
             {
                 Directory.Delete(autoGen, recursive: true);

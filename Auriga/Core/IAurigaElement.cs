@@ -13,7 +13,7 @@ namespace Auriga.Core
 
     /// <summary>
     /// The minimal contract implemented by every element in any Auriga object model (Capella in
-    /// <c>Auriga</c>, Sirius/GMF in <c>Auriga.Sirius</c>). The generated root interface of each metamodel
+    /// <c>Auriga.Model</c>, Sirius/GMF in <c>Auriga.Diagram</c>). The generated root interface of each metamodel
     /// extends this, so every model element carries an identity and a container back-pointer independently
     /// of the generated code.
     /// </summary>

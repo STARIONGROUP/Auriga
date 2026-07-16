@@ -24,7 +24,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
-        <ProjectReference Include="..\Auriga.Sirius.Xmi\Auriga.Sirius.Xmi.csproj" />
     </ItemGroup>
 
     <ItemGroup>

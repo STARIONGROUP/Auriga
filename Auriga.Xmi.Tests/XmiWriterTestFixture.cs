@@ -90,10 +90,10 @@ namespace Auriga.Xmi.Tests
             // A container that was read from a fragment file, and a brand-new element (no SourceDocument of
             // its own) added to it. The policy is that an untracked new element belongs to its container's
             // document, so it must be written into the fragment — not the main file.
-            var container = (Auriga.Modellingcore.IModelElement)original.Elements.Values
+            var container = (Auriga.Model.Modellingcore.IModelElement)original.Elements.Values
                 .First(e => e.SourceDocument is string document && document.EndsWith(".capellafragment", System.StringComparison.Ordinal));
 
-            var newElement = new Auriga.Capellacore.Constraint { Id = "aabbccdd-0000-4000-8000-000000000f18" };
+            var newElement = new Auriga.Model.Capellacore.Constraint { Id = "aabbccdd-0000-4000-8000-000000000f18" };
             container.OwnedConstraints.Add(newElement);
 
             Assert.That(newElement.SourceDocument, Is.Null, "the new element has no source document of its own");
@@ -129,10 +129,10 @@ namespace Auriga.Xmi.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(() => writer.Write(null!, "x.capella"), Throws.ArgumentNullException);
-                Assert.That(() => writer.Write(new Auriga.Capellamodeller.Project(), string.Empty), Throws.ArgumentException);
+                Assert.That(() => writer.Write(new Auriga.Model.Capellamodeller.Project(), string.Empty), Throws.ArgumentException);
                 Assert.That(() => writer.WriteDocument(null!, stream, "x"), Throws.ArgumentNullException);
-                Assert.That(() => writer.WriteDocument(new Auriga.Capellamodeller.Project(), null!, "x"), Throws.ArgumentNullException);
-                Assert.That(() => writer.WriteDocument(new Auriga.Capellamodeller.Project(), stream, string.Empty), Throws.ArgumentException);
+                Assert.That(() => writer.WriteDocument(new Auriga.Model.Capellamodeller.Project(), null!, "x"), Throws.ArgumentNullException);
+                Assert.That(() => writer.WriteDocument(new Auriga.Model.Capellamodeller.Project(), stream, string.Empty), Throws.ArgumentException);
             });
         }
 

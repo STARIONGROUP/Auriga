@@ -14,11 +14,11 @@ namespace Auriga.Extensions
     using System.Linq;
 
     /// <summary>
-    /// Query extensions for <see cref="Auriga.Cs.IComponent"/> — the Arcadia components (system,
+    /// Query extensions for <see cref="Auriga.Model.Cs.IComponent"/> — the Arcadia components (system,
     /// logical, physical) — covering their ports and cross-layer realization. The functions a component
     /// is responsible for are queried with
     /// <see cref="AbstractFunctionalBlockExtensions.QueryAllocatedFunctions"/>, since a component is an
-    /// <see cref="Auriga.Fa.IAbstractFunctionalBlock"/>.
+    /// <see cref="Auriga.Model.Fa.IAbstractFunctionalBlock"/>.
     /// </summary>
     public static class ComponentExtensions
     {
@@ -28,14 +28,14 @@ namespace Auriga.Extensions
         /// <param name="component">the component whose ports are queried</param>
         /// <returns>the component's ports</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="component"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Fa.IComponentPort> QueryComponentPorts(this Auriga.Cs.IComponent component)
+        public static IEnumerable<Auriga.Model.Fa.IComponentPort> QueryComponentPorts(this Auriga.Model.Cs.IComponent component)
         {
             if (component is null)
             {
                 throw new ArgumentNullException(nameof(component));
             }
 
-            return component.QueryContainedElements().OfType<Auriga.Fa.IComponentPort>();
+            return component.QueryContainedElements().OfType<Auriga.Model.Fa.IComponentPort>();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Auriga.Extensions
         /// <param name="component">the realizing component</param>
         /// <returns>the distinct components realized by this component</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="component"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Cs.IComponent> QueryRealizedComponents(this Auriga.Cs.IComponent component)
+        public static IEnumerable<Auriga.Model.Cs.IComponent> QueryRealizedComponents(this Auriga.Model.Cs.IComponent component)
         {
             if (component is null)
             {
@@ -55,7 +55,7 @@ namespace Auriga.Extensions
 
             return component.OwnedComponentRealizations
                 .SelectMany(realization => realization.QueryEndpoints())
-                .OfType<Auriga.Cs.IComponent>()
+                .OfType<Auriga.Model.Cs.IComponent>()
                 .Where(other => !ReferenceEquals(other, component))
                 .Distinct();
         }
@@ -67,7 +67,7 @@ namespace Auriga.Extensions
         /// <param name="component">the realized component</param>
         /// <returns>the distinct components that realize this component</returns>
         /// <exception cref="ArgumentNullException">thrown when <paramref name="component"/> is <c>null</c></exception>
-        public static IEnumerable<Auriga.Cs.IComponent> QueryRealizingComponents(this Auriga.Cs.IComponent component)
+        public static IEnumerable<Auriga.Model.Cs.IComponent> QueryRealizingComponents(this Auriga.Model.Cs.IComponent component)
         {
             if (component is null)
             {
@@ -75,7 +75,7 @@ namespace Auriga.Extensions
             }
 
             return component.QueryRoot().QueryAllContainedElements()
-                .OfType<Auriga.Cs.IComponent>()
+                .OfType<Auriga.Model.Cs.IComponent>()
                 .Where(candidate => candidate.QueryRealizedComponents().Contains(component));
         }
     }
