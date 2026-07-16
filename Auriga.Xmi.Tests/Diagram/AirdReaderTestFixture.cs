@@ -8,7 +8,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Sirius.Xmi.Tests
+namespace Auriga.Xmi.Tests.Diagram
 {
     using System.Collections.Generic;
     using System.IO;
@@ -16,6 +16,7 @@ namespace Auriga.Sirius.Xmi.Tests
 
     using Auriga.Sirius.Diagram;
     using Auriga.Sirius.Viewpoint;
+    using Auriga.Sirius.Xmi;
     using Auriga.Xmi.Core.Readers;
 
     using NUnit.Framework;

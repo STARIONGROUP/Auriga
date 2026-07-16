@@ -24,6 +24,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
+        <ProjectReference Include="..\Auriga.Sirius.Xmi\Auriga.Sirius.Xmi.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -53,6 +54,22 @@
         </None>
         <None Include="..\TestData\fragmented-sysmodel\fragments\*.capellafragment">
             <Link>TestData\fragmented-sysmodel\fragments\%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\coffee-machine\coffee-machine-demo.aird">
+            <Link>TestData\coffee-machine-demo.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\Crowd_Surveillance_System_in_DARC\Crowd_Surveillance_System_in_DARC.aird">
+            <Link>TestData\Crowd_Surveillance_System_in_DARC.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\in-flight-entertainment-system\In-Flight Entertainment System.aird">
+            <Link>TestData\In-Flight Entertainment System.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\Level Crossing Traffic Control\Level Crossing Traffic Control.aird">
+            <Link>TestData\Level Crossing Traffic Control.aird</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

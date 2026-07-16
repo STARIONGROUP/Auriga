@@ -8,7 +8,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Sirius.Tests
+namespace Auriga.Tests.Diagram
 {
     using Auriga.Core;
     using System.Linq;

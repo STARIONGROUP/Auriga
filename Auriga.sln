@@ -27,10 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Sirius", "Auriga.Sir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Sirius.Xmi", "Auriga.Sirius.Xmi\Auriga.Sirius.Xmi.csproj", "{070381AA-A63C-4C23-90DD-8B395D43E9FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Sirius.Tests", "Auriga.Sirius.Tests\Auriga.Sirius.Tests.csproj", "{ACB4254A-4953-4219-86CD-260B500800E3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Sirius.Xmi.Tests", "Auriga.Sirius.Xmi.Tests\Auriga.Sirius.Xmi.Tests.csproj", "{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,30 +181,6 @@ Global
 		{070381AA-A63C-4C23-90DD-8B395D43E9FA}.Release|x64.Build.0 = Release|Any CPU
 		{070381AA-A63C-4C23-90DD-8B395D43E9FA}.Release|x86.ActiveCfg = Release|Any CPU
 		{070381AA-A63C-4C23-90DD-8B395D43E9FA}.Release|x86.Build.0 = Release|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Debug|x64.Build.0 = Debug|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Debug|x86.Build.0 = Debug|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Release|x64.ActiveCfg = Release|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Release|x64.Build.0 = Release|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Release|x86.ActiveCfg = Release|Any CPU
-		{ACB4254A-4953-4219-86CD-260B500800E3}.Release|x86.Build.0 = Release|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Debug|x64.Build.0 = Debug|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Debug|x86.Build.0 = Debug|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|x64.ActiveCfg = Release|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|x64.Build.0 = Release|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|x86.ActiveCfg = Release|Any CPU
-		{14FDC9E3-2D3A-4A7C-9C26-5CC903904C3E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
