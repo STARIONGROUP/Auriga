@@ -18,6 +18,7 @@
             [CHG] Autofac-based composition (following uml4net): XmiReaderBuilder/XmiWriterBuilder are fluent entry points over disposable XmiReaderScope/XmiWriterScope containers; CapellaModelLoader.Create and AirdModelLoader.Create are replaced by the BuildCapellaModelLoader/BuildAirdModelLoader scope terminals
             [ADD] AirdModelLoader: load a Sirius .aird (file or project directory) with transitive .airdfragment following
             [ADD] AirdModelLoader co-loads the Capella semantic documents the diagrams reference; the cross-metamodel target/semanticElements links resolve into the Capella graph (IXmiReader gains a Read overload taking the referenced-document extensions)
+            [ADD] read inline ecore:EStringToStringMapEntry map entries into key/value pairs on the owning EMap-typed feature; the .aird documents that carry them (DAnnotation details, GMF style property maps) now read
         </PackageReleaseNotes>
     </PropertyGroup>
 

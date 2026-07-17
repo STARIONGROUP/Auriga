@@ -14,6 +14,7 @@
         <PackageTags>Capella Arcadia Sirius GMF Aird Ecore MBSE modeltopia</PackageTags>
         <PackageReleaseNotes>
             [CHG] merge Auriga.Core and Auriga.Sirius into the Auriga package; the Capella model moves to the Auriga.Model.* namespaces and the Sirius/GMF diagram model ships as Auriga.Diagram.*
+            [ADD] Auriga.Core.IEStringToStringMapEntry / EStringToStringMapEntry: the key/value pair an EMap&lt;String, String&gt;-typed feature holds (EMF's inline ecore:EStringToStringMapEntry serialization, e.g. a Sirius DAnnotation's details)
         </PackageReleaseNotes>
     </PropertyGroup>
 

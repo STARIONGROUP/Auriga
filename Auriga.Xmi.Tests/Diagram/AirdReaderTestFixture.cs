@@ -44,16 +44,6 @@ namespace Auriga.Xmi.Tests.Diagram
             {
                 result = XmiReaderBuilder.Create().Build().Read(AirdPath(fileName));
             }
-            catch (System.IO.InvalidDataException exception) when (exception.Message.Contains("EStringToStringMapEntry", System.StringComparison.Ordinal))
-            {
-                // EMF serializes an EMap<String, String> (e.g. GMF style property maps) inline as
-                // ecore:EStringToStringMapEntry children. That built-in Ecore map-entry type is not part of
-                // the vendored Sirius/GMF metamodels, so it has no generated reader yet. The coffee-machine
-                // fixture does not use it; two of the samples do. Reading them is follow-up work
-                // (an inline map-entry reader), tracked separately from the multi-root .aird reader proven here.
-                Assert.Ignore($"{fileName} uses inline ecore:EStringToStringMapEntry map entries, not yet supported: {exception.Message}");
-                return;
-            }
             catch (System.Xml.XmlException exception)
             {
                 // The Level Crossing sample contains a raw U+001A control character mid-attribute, which is
