@@ -100,9 +100,8 @@ namespace Auriga.Rendering
             var (width, height) = Size(node.LayoutConstraint);
 
             var siriusElement = node.Element as SiriusDiagramModel.IDDiagramElement;
-            var isAuxiliary = siriusElement == null || ReferenceEquals(siriusElement, parentSiriusElement);
 
-            if (isAuxiliary)
+            if (siriusElement == null || ReferenceEquals(siriusElement, parentSiriusElement))
             {
                 if (parentBox != null)
                 {
@@ -126,18 +125,18 @@ namespace Auriga.Rendering
                 return;
             }
 
-            var box = new Box(siriusElement!.Id ?? node.Id ?? string.Empty, position, node, BuildStyle(siriusElement, node.Styles))
+            var box = new Box(siriusElement.Id ?? node.Id ?? string.Empty, position, node, BuildStyle(siriusElement, node.Styles))
             {
                 Width = width,
                 Height = height,
                 SiriusElement = siriusElement,
-                SemanticElement = (siriusElement as SiriusViewpoint.IDSemanticDecorator)?.Target,
+                SemanticElement = siriusElement.Target,
             };
 
-            var elementName = (siriusElement as SiriusViewpoint.IDRepresentationElement)?.Name;
+            var elementName = siriusElement.Name;
             if (!string.IsNullOrEmpty(elementName))
             {
-                box.Label = new Label(elementName!);
+                box.Label = new Label(elementName);
             }
 
             if (parentBox != null)
@@ -182,10 +181,10 @@ namespace Auriga.Rendering
                 Source = source,
                 Target = target,
                 SiriusElement = siriusEdge,
-                SemanticElement = (siriusEdge as SiriusViewpoint.IDSemanticDecorator)?.Target,
+                SemanticElement = siriusEdge?.Target,
             };
 
-            var edgeName = (siriusEdge as SiriusViewpoint.IDRepresentationElement)?.Name;
+            var edgeName = siriusEdge?.Name;
             if (!string.IsNullOrEmpty(edgeName))
             {
                 edge.Label = new Label(edgeName!);
