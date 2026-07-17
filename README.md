@@ -16,6 +16,10 @@ The **Auriga.Xmi** library provides XMI reader implementations to read Capella s
 
 The **Auriga.Extensions** library provides LINQ-style query extension methods over the Auriga object graph, following the `uml4net.Extensions` pattern: containment navigation (`QueryAncestors`, `QueryRoot`, `QueryAllFunctions`, `QueryAllComponents`), component-functional allocation (`QueryAllocatedFunctions`, `IsAllocatedTo`, `QueryAllocatingBlocks`), function/component ports and functional exchanges, and cross-layer realization (`QueryRealizedFunctions`/`QueryRealizingFunctions` and the component equivalents). See [Query Extension Methods](docs/query-extensions.md).
 
+## Auriga.Rendering
+
+The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `DiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. It is the foundation the SVG rendering builds on.
+
 ## Auriga.Reporting
 
 The **Auriga.Reporting** tool renders a browsable HTML report of the Capella metamodel from the vendored `.ecore` files, using the [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
@@ -86,6 +90,7 @@ Auriga is in early development and has not yet had its first release. Once publi
   - `Auriga` — the Capella object model (`Auriga.Model.*`) and the Sirius/GMF diagram object model (`Auriga.Diagram.*`)
   - `Auriga.Xmi` — the `.capella` / `.melodymodeller` / `.aird` readers and writers
   - `Auriga.Extensions` — query extension methods
+  - `Auriga.Rendering` — the intermediate diagram model built from the persisted `.aird` layout
 
 # Build Status
 
