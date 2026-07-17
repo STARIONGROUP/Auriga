@@ -21,12 +21,12 @@ namespace Auriga.CodeGenerator.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests <see cref="XmlNames"/> against the vendored GMF <c>notation.ecore</c>: a feature carrying
-    /// an <c>ExtendedMetaData</c> <c>name</c> detail serializes under that XML name
-    /// (<c>persistedChildren</c> → <c>children</c>, <c>persistedEdges</c> → <c>edges</c> — the renames
-    /// GMF hard-codes in its generated package initialization), every other feature keeps its Ecore
+    /// Tests <see cref="XmlNames"/>: the built-in override table serializes GMF's
+    /// <c>View.persistedChildren</c> as <c>children</c> and <c>Diagram.persistedEdges</c> as
+    /// <c>edges</c> (the renames GMF hard-codes in its generated package initialization — the
+    /// vendored <c>notation.ecore</c> is kept pristine), an <c>ExtendedMetaData</c> <c>name</c>
+    /// detail is honored when a metamodel does carry one, every other feature keeps its Ecore
     /// feature name, and annotations of any other source (e.g. GenModel documentation) are ignored.
-    /// This also pins the vendored annotations themselves: losing them on a re-vendor fails here first.
     /// </summary>
     [TestFixture]
     public class XmlNamesTestFixture
@@ -46,13 +46,17 @@ namespace Auriga.CodeGenerator.Tests
         }
 
         [Test]
-        public void Verify_that_an_extended_meta_data_name_overrides_the_feature_name()
+        public void Verify_that_the_gmf_notation_renames_come_from_the_override_table()
         {
             var view = (EClass)this.notation.EClassifiers.Single(c => c.Name == "View");
             var diagram = (EClass)this.notation.EClassifiers.Single(c => c.Name == "Diagram");
 
             Assert.Multiple(() =>
             {
+                // The vendored notation.ecore is pristine (no ExtendedMetaData upstream to preserve);
+                // the renames GMF hard-codes in its generated package initialization come from the
+                // helper's built-in override table instead.
+                Assert.That(Feature(view, "persistedChildren").EAnnotations, Is.Empty, "the vendored ecore carries no annotation");
                 Assert.That(XmlNames.XmlName(Feature(view, "persistedChildren")), Is.EqualTo("children"));
                 Assert.That(XmlNames.XmlName(Feature(diagram, "persistedEdges")), Is.EqualTo("edges"));
             });
@@ -73,11 +77,12 @@ namespace Auriga.CodeGenerator.Tests
         }
 
         [Test]
-        public void Verify_that_an_annotation_without_a_usable_name_detail_is_ignored()
+        public void Verify_that_an_extended_meta_data_name_detail_is_honored_and_unusable_ones_fall_back()
         {
-            // An ExtendedMetaData annotation that carries no name detail (e.g. only kind), or an empty
-            // name value, must fall back to the Ecore feature name. No vendored metamodel has these
-            // shapes, so a synthetic package pins them.
+            // A metamodel that does carry ExtendedMetaData renames in its .ecore is honored without any
+            // override-table entry; an annotation with no name detail (e.g. only kind) or an empty name
+            // value falls back to the Ecore feature name. No vendored metamodel has these shapes, so a
+            // synthetic package pins them.
             var directory = Path.Combine(Path.GetTempPath(), "auriga-xmlnames-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
 
@@ -104,6 +109,12 @@ namespace Auriga.CodeGenerator.Tests
                     "<details key=\"name\" value=\"\"/>" +
                     "</eAnnotations>" +
                     "</eStructuralFeatures>" +
+                    "<eStructuralFeatures xsi:type=\"ecore:EAttribute\" name=\"annotated\" " +
+                    "eType=\"ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString\">" +
+                    "<eAnnotations source=\"http:///org/eclipse/emf/ecore/util/ExtendedMetaData\">" +
+                    "<details key=\"name\" value=\"renamed\"/>" +
+                    "</eAnnotations>" +
+                    "</eStructuralFeatures>" +
                     "</eClassifiers>" +
                     "</ecore:EPackage>");
 
@@ -112,6 +123,7 @@ namespace Auriga.CodeGenerator.Tests
 
                 Assert.Multiple(() =>
                 {
+                    Assert.That(XmlNames.XmlName(Feature(holder, "annotated")), Is.EqualTo("renamed"));
                     Assert.That(XmlNames.XmlName(Feature(holder, "kindOnly")), Is.EqualTo("kindOnly"));
                     Assert.That(XmlNames.XmlName(Feature(holder, "emptyName")), Is.EqualTo("emptyName"));
                 });

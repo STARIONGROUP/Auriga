@@ -81,12 +81,12 @@ two trees are linked only at the `.aird` instance level (via `element` uids), no
 level. All five files must be loaded into one `ResourceSet` for the cross-file references to
 resolve; there is no per-file generation order.
 
-One serialization quirk is recorded in the metamodel rather than left to the runtime: GMF writes
-`View.persistedChildren` as `<children>` and `Diagram.persistedEdges` as `<edges>` (upstream this
-rename is hard-coded in the generated package initialization, not in the `.ecore`). The vendored
-`notation.ecore` carries the equivalent `ExtendedMetaData` `name` annotations on those two
-features, which the code generator honors when emitting reader/writer XML names — see the
-provenance README's Modifications section and issue #65.
+One serialization quirk lives outside the metamodel: GMF writes `View.persistedChildren` as
+`<children>` and `Diagram.persistedEdges` as `<edges>`, hard-coding the rename in its generated
+package initialization rather than in the `.ecore`. The vendored `notation.ecore` is kept
+pristine; `Auriga.CodeGenerator` applies the same two renames from its `XmlNames` override table
+(and honors standard `ExtendedMetaData` `name` annotations for any metamodel that does carry
+them) when emitting reader/writer XML names — see the provenance README and issue #65.
 
 ## 4. Relationship to the Capella semantic metamodel
 
