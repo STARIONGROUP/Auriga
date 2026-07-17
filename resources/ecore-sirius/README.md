@@ -47,6 +47,15 @@ Two classes of change relative to the sources; no classes, features, or enumerat
    supertype and enumeration untouched. The referenced `Tags` annotation itself is retained in
    `viewpoint.ecore`.
 
+Note on GMF serialization renames (issue #65): GMF writes `View.persistedChildren` as
+`<children>` and `Diagram.persistedEdges` as `<edges>`, but expresses the rename by hard-coding
+the runtime feature names in its generated package initialization
+([`PackageClass.javajet`](https://github.com/eclipse-gmf-runtime/gmf-notation/blob/master/org.eclipse.gmf.runtime.notation/templates/model/PackageClass.javajet),
+`View_PersistedChildren` → `"children"`, `Diagram_PersistedEdges` → `"edges"`) rather than in the
+`.ecore` file. `notation.ecore` is therefore vendored **pristine**; the same two renames live in
+`Auriga.CodeGenerator`'s `XmlNames` override table (mirroring where GMF keeps its own), so a
+re-vendor of this directory cannot silently lose them. `XmlNamesTestFixture` pins the mapping.
+
 ## Licensing
 
 Unlike the rest of this repository (Apache-2.0), the `.ecore` files in this directory are

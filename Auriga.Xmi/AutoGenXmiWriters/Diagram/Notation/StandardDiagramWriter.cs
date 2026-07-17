@@ -74,8 +74,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteStringAttribute(xmlWriter, "type", poco.Type);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
             this.WriteContainedElements(xmlWriter, "horizontalGuides", poco.HorizontalGuides, poco, "HorizontalGuides", context);
-            this.WriteContainedElements(xmlWriter, "persistedChildren", poco.PersistedChildren, poco, "PersistedChildren", context);
-            this.WriteContainedElements(xmlWriter, "persistedEdges", poco.PersistedEdges, poco, "PersistedEdges", context);
+            this.WriteContainedElements(xmlWriter, "children", poco.PersistedChildren, poco, "PersistedChildren", context);
+            this.WriteContainedElements(xmlWriter, "edges", poco.PersistedEdges, poco, "PersistedEdges", context);
             this.WriteContainedElements(xmlWriter, "styles", poco.Styles, poco, "Styles", context);
             this.WriteContainedElements(xmlWriter, "verticalGuides", poco.VerticalGuides, poco, "VerticalGuides", context);
         }

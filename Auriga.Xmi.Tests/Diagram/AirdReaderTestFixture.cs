@@ -119,6 +119,47 @@ namespace Auriga.Xmi.Tests.Diagram
             });
         }
 
+        [Test]
+        public void Verify_that_the_gmf_notation_geometry_reads()
+        {
+            var result = XmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
+            var elements = result.Elements.Values.ToList();
+
+            var nodes = elements.OfType<Auriga.Diagram.Notation.INode>().ToList();
+            var bounds = elements.OfType<Auriga.Diagram.Notation.IBounds>().ToList();
+
+            Assert.Multiple(() =>
+            {
+                // The persisted GMF layout: one notation:Diagram per Sirius representation, whose
+                // <children> / <edges> containments (the ExtendedMetaData names of persistedChildren /
+                // persistedEdges) were previously skipped entirely — issue #65.
+                Assert.That(elements.OfType<Auriga.Diagram.Notation.IDiagram>().Count(), Is.EqualTo(6), "notation diagrams");
+                Assert.That(nodes, Has.Count.GreaterThan(500), "notation nodes");
+                Assert.That(elements.OfType<Auriga.Diagram.Notation.IEdge>().Count(), Is.GreaterThan(50), "notation edges");
+
+                // The geometry itself: Bounds (x/y/w/h) and Location layout constraints, edge bendpoints.
+                Assert.That(bounds, Has.Count.GreaterThan(300), "bounds layout constraints");
+                Assert.That(bounds.Count(b => b.X.HasValue || b.Y.HasValue), Is.GreaterThan(250), "bounds carrying a position");
+                Assert.That(elements.OfType<Auriga.Diagram.Notation.ILocation>().Count(), Is.GreaterThan(400), "location layout constraints");
+                Assert.That(elements.OfType<Auriga.Diagram.Notation.IRelativeBendpoints>().Count(), Is.GreaterThan(50), "edge bendpoint lists");
+
+                // The geometry is navigable from the notation node, not just present in the index.
+                Assert.That(nodes.Select(n => n.LayoutConstraint).OfType<Auriga.Diagram.Notation.IBounds>().Count(), Is.GreaterThan(300), "nodes expose their bounds");
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_notation_diagram_attaches_to_its_sirius_representation()
+        {
+            var result = XmiReaderBuilder.Create().Build().Read(AirdPath("coffee-machine-demo.aird"));
+
+            var diagrams = result.Elements.Values.OfType<Auriga.Diagram.Notation.IDiagram>().ToList();
+
+            // Every notation:Diagram's element reference resolves to the Sirius representation it lays
+            // out, so a renderer can navigate from the semantic diagram tree into its geometry.
+            Assert.That(diagrams, Has.Some.Matches<Auriga.Diagram.Notation.IDiagram>(d => d.Element is IDSemanticDiagram));
+        }
+
         private static (int Total, int Resolved) CountReferences(XmiReaderResult result)
         {
             var total = 0;

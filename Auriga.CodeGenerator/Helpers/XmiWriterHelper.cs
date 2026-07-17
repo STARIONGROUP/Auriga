@@ -169,7 +169,7 @@ namespace Auriga.CodeGenerator.Helpers
         private static string AttributeWrite(EStructuralFeature feature)
         {
             var propertyName = MemberName(feature);
-            var xmlName = feature.Name;
+            var xmlName = XmlNames.XmlName(feature);
 
             if (feature is EReference reference && !reference.IsContainment)
             {
@@ -237,7 +237,7 @@ namespace Auriga.CodeGenerator.Helpers
         private static string ElementWrite(EStructuralFeature feature)
         {
             var propertyName = MemberName(feature);
-            var xmlName = feature.Name;
+            var xmlName = XmlNames.XmlName(feature);
 
             return CSharpType.IsCollection(feature)
                 ? $"this.WriteContainedElements(xmlWriter, \"{xmlName}\", poco.{propertyName}, poco, \"{propertyName}\", context);"
