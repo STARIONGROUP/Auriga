@@ -37,6 +37,10 @@ namespace {{ReaderFacadeNamespace}}
 
         private const string XmiNamespace = "http://www.omg.org/XMI";
 
+        private const string EcoreNamespaceUri = "http://www.eclipse.org/emf/2002/Ecore";
+
+        private const string EcoreMapEntryTypeKey = "ecore:EStringToStringMapEntry";
+
         private readonly IXmiElementCache cache;
 
         private readonly INamespaceResolver namespaceResolver;
@@ -68,6 +72,13 @@ namespace {{ReaderFacadeNamespace}}
                 {{FacadeEntry this}}
                 {{/each}}
             };
+
+            // EMF serializes an EMap<String, String>-typed feature inline as ecore:EStringToStringMapEntry
+            // child elements carrying key / value attributes (e.g. a Sirius DAnnotation's details). The
+            // built-in Ecore map-entry type belongs to no vendored metamodel package, so its type key is
+            // routed to the shared runtime reader and its namespace registered here rather than generated.
+            this.readerFactories[EcoreMapEntryTypeKey] = (xmlReader, documentName, namespaceUri) => new EStringToStringMapEntryReader(this.cache, this, this.settings, this.loggerFactory).Read(xmlReader, documentName, namespaceUri);
+            this.namespaceResolver.RegisterNamespace(EcoreNamespaceUri, "ecore");
         }
 
         /// <summary>

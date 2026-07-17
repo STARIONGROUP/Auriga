@@ -65,20 +65,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_the_real_fragmented_aird_loads_its_airdfragments()
         {
-            XmiReaderResult result;
-
-            try
-            {
-                result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(FragmentedProjectDirectory());
-            }
-            catch (InvalidDataException exception) when (exception.Message.Contains("EStringToStringMapEntry", StringComparison.Ordinal))
-            {
-                // sysmodel.aird uses inline ecore:EStringToStringMapEntry map entries, which have no
-                // reader yet (issue #66) — the same known gap that guards three of the four fixtures in
-                // AirdReaderTestFixture. Once #66 lands this test runs for real.
-                Assert.Ignore($"sysmodel.aird uses inline map entries, not yet supported: {exception.Message}");
-                return;
-            }
+            var result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(FragmentedProjectDirectory());
 
             var sourceDocuments = result.Elements.Values
                 .Select(element => element.SourceDocument)
@@ -97,9 +84,10 @@ namespace Auriga.Xmi.Tests.Diagram
                 // which was renamed on disk without the href being updated.
                 Assert.That(sourceDocuments, Contains.Item("fragments/LA-Logical Functions-RLF-OA2-SysOA2_1.airdfragment"));
 
-                // The .aird also carries hundreds of semantic hrefs into .capellafragment documents;
-                // a diagram session must not co-load the other metamodel family.
-                Assert.That(sourceDocuments, Has.None.Matches<string>(d => d!.EndsWith(".capellafragment", StringComparison.Ordinal)));
+                // The loader co-loads the Capella semantic documents the diagrams reference (issue #54),
+                // so the semantic model and its fragments join the session alongside the aird fragments.
+                Assert.That(sourceDocuments, Contains.Item("sysmodel.capella"));
+                Assert.That(sourceDocuments, Has.Some.Matches<string>(d => d!.EndsWith(".capellafragment", StringComparison.Ordinal)));
             });
         }
 
