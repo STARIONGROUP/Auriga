@@ -181,7 +181,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
 
                                 break;
                             }
-                            case "persistedChildren":
+                            case "children":
                             {
                                 var href = xmlReader.GetAttribute("href");
                                 if (!string.IsNullOrEmpty(href))
@@ -196,7 +196,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
 
                                 break;
                             }
-                            case "persistedEdges":
+                            case "edges":
                             {
                                 var href = xmlReader.GetAttribute("href");
                                 if (!string.IsNullOrEmpty(href))

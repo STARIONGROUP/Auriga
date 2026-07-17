@@ -184,7 +184,7 @@ namespace Auriga.CodeGenerator.Helpers
         private static string AttributeRead(EStructuralFeature feature)
         {
             var propertyName = MemberName(feature);
-            var xmlName = feature.Name;
+            var xmlName = XmlNames.XmlName(feature);
 
             if (feature is EReference reference && !reference.IsContainment)
             {
@@ -300,7 +300,7 @@ namespace Auriga.CodeGenerator.Helpers
         private static string ElementCase(EStructuralFeature feature)
         {
             var propertyName = MemberName(feature);
-            var xmlName = feature.Name;
+            var xmlName = XmlNames.XmlName(feature);
             var collection = CSharpType.IsCollection(feature);
             var containment = feature is EReference { IsContainment: true };
             var elementType = containment ? CSharpType.ContainmentElementType(feature) : CSharpType.BaseType(feature.EType);

@@ -173,7 +173,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetEdges" upperBound="-1"
         eType="#//Edge" transient="true" resolveProxies="false" eOpposite="#//Edge/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="persistedChildren" upperBound="-1"
-        eType="#//Node" containment="true"/>
+        eType="#//Node" containment="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="children"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="styles" upperBound="-1"
         eType="#//Style" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
@@ -195,7 +199,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="measurementUnit" eType="#//MeasurementUnit"
         defaultValueLiteral="Himetric" unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="persistedEdges" upperBound="-1"
-        eType="#//Edge" containment="true"/>
+        eType="#//Edge" containment="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="edges"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="TransientEdges" upperBound="-1"
         eType="#//Edge" transient="true" containment="true"/>
   </eClassifiers>

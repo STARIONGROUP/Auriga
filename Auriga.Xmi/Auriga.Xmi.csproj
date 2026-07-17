@@ -19,6 +19,7 @@
             [ADD] AirdModelLoader: load a Sirius .aird (file or project directory) with transitive .airdfragment following
             [ADD] AirdModelLoader co-loads the Capella semantic documents the diagrams reference; the cross-metamodel target/semanticElements links resolve into the Capella graph (IXmiReader gains a Read overload taking the referenced-document extensions)
             [ADD] read inline ecore:EStringToStringMapEntry map entries into key/value pairs on the owning EMap-typed feature; the .aird documents that carry them (DAnnotation details, GMF style property maps) now read
+            [ADD] the GMF notation geometry tree reads: the generators honor ExtendedMetaData XML names, so the notation:Diagram children/edges containments (persistedChildren/persistedEdges) load with their Bounds, Location and bendpoint layout data
         </PackageReleaseNotes>
     </PropertyGroup>
 

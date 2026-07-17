@@ -28,7 +28,7 @@ fixtures under `TestData/`. Each file contains its root `EPackage` plus its subp
 
 ## Modifications
 
-Two classes of change relative to the sources; no classes, features, or enumerations were altered:
+Three classes of change relative to the sources; no classes, features, or enumerations were altered:
 
 1. **Reference paths rewritten to a self-contained form.** Cross-file references
    (`../../org.eclipse.sirius.model/model/viewpoint.ecore#...` and the equivalent for
@@ -46,6 +46,17 @@ Two classes of change relative to the sources; no classes, features, or enumerat
    annotations are pure documentation metadata — removing them leaves every `EClass`, feature,
    supertype and enumeration untouched. The referenced `Tags` annotation itself is retained in
    `viewpoint.ecore`.
+
+3. **Added 2 `ExtendedMetaData` annotations in `notation.ecore`** (issue #65):
+   `View.persistedChildren` carries `name=children` and `Diagram.persistedEdges` carries
+   `name=edges`. GMF serializes these two features under those XML names, but expresses the rename
+   by hard-coding the runtime feature names in its generated package initialization
+   ([`PackageClass.javajet`](https://github.com/eclipse-gmf-runtime/gmf-notation/blob/master/org.eclipse.gmf.runtime.notation/templates/model/PackageClass.javajet),
+   `View_PersistedChildren` → `"children"`, `Diagram_PersistedEdges` → `"edges"`) rather than in the
+   `.ecore` file — so the upstream `.ecore` carries no annotation to preserve. The standard EMF
+   `ExtendedMetaData` `name` detail records the same mapping declaratively; `Auriga.CodeGenerator`
+   honors it when emitting reader/writer XML names, and `XmlNamesTestFixture` pins the annotations
+   against a re-vendor losing them.
 
 ## Licensing
 
