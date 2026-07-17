@@ -12,11 +12,16 @@ namespace Auriga.Xmi.Tests
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Xml;
 
     using Auriga.Core;
+    using Auriga.Xmi.Core.Cache;
+    using Auriga.Xmi.Core.Namespaces;
     using Auriga.Xmi.Core.Readers;
 
     using NUnit.Framework;
+
+    using ModelReaders = Auriga.Xmi.Model.AutoGenXmiReaders;
 
     /// <summary>
     /// Tests that inline <c>ecore:EStringToStringMapEntry</c> elements — EMF's serialization of an
@@ -78,6 +83,97 @@ namespace Auriga.Xmi.Tests
                 Assert.That(entry.SourceDocument, Is.EqualTo("map-entries"));
                 Assert.That(annotation.QueryContainedElements(), Contains.Item(entry), "the entry is a contained element of its annotation");
             });
+        }
+
+        [Test]
+        public void Verify_that_read_guards_its_arguments()
+        {
+            var reader = CreateReader();
+            using var xmlReader = XmlReader.Create(new StringReader("<details key=\"k\" value=\"v\"/>"));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(() => reader.Read(null!, "document", "http://example.org/ns"), Throws.ArgumentNullException);
+                Assert.That(() => reader.Read(xmlReader, string.Empty, "http://example.org/ns"), Throws.ArgumentException);
+                Assert.That(() => reader.Read(xmlReader, "document", string.Empty), Throws.ArgumentException);
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_namespaced_entry_records_its_own_namespace()
+        {
+            using var xmlReader = XmlReader.Create(new StringReader(
+                "<details xmlns=\"http://example.org/entry-ns\" key=\"k\" value=\"v\"/>"));
+
+            var entry = CreateReader().Read(xmlReader, "document", "http://example.org/document-ns");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(entry.XmiNamespaceUri, Is.EqualTo("http://example.org/entry-ns"), "the element's own namespace narrows the in-scope namespace");
+                Assert.That(entry.Key, Is.EqualTo("k"));
+                Assert.That(entry.Value, Is.EqualTo("v"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_an_unexpected_child_is_skipped_under_lenient_reading()
+        {
+            using var xmlReader = XmlReader.Create(new StringReader(
+                "<details key=\"k\" value=\"v\"> stray text <unexpected><nested/></unexpected></details>"));
+
+            var entry = CreateReader().Read(xmlReader, "document", "http://example.org/ns");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(entry.Key, Is.EqualTo("k"), "the entry is still populated when unknown content is skipped");
+                Assert.That(entry.Value, Is.EqualTo("v"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_an_unexpected_child_is_rejected_under_strict_reading()
+        {
+            var settings = new XmiReaderSettings { UseStrictReading = true };
+            using var xmlReader = XmlReader.Create(new StringReader(
+                "<details key=\"k\" value=\"v\"><unexpected/></details>"));
+
+            Assert.That(
+                () => CreateReader(settings).Read(xmlReader, "document", "http://example.org/ns"),
+                Throws.InstanceOf<System.NotSupportedException>().With.Message.Contains("unexpected"));
+        }
+
+        [Test]
+        public void Verify_that_a_cursor_not_on_an_element_yields_an_empty_entry()
+        {
+            // A fragment holding no element at all: MoveToContent runs to the end without finding one,
+            // which the reader reports as a warning and answers with an unpopulated entry.
+            using var xmlReader = XmlReader.Create(
+                new StringReader("<!-- no element here -->"),
+                new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Fragment });
+
+            var entry = CreateReader().Read(xmlReader, "document", "http://example.org/ns");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(entry.Key, Is.Null);
+                Assert.That(entry.Value, Is.Null);
+                Assert.That(entry.Id, Is.Null);
+            });
+        }
+
+        /// <summary>
+        /// Creates an <see cref="EStringToStringMapEntryReader"/> wired to a fresh cache and facade, so
+        /// the reader can be exercised directly against hand-rolled XML fragments.
+        /// </summary>
+        /// <param name="settings">the reader settings, or <c>null</c> for the lenient defaults</param>
+        /// <returns>the reader</returns>
+        private static EStringToStringMapEntryReader CreateReader(IXmiReaderSettings? settings = null)
+        {
+            var cache = new XmiElementCache();
+            var namespaceResolver = new NamespaceResolver(ModelReaders.AutoGenNamespaceRegistry.NamespaceToPackage);
+            var facade = new ModelReaders.XmiReaderFacade(cache, namespaceResolver, settings);
+
+            return new EStringToStringMapEntryReader(cache, facade, settings);
         }
     }
 }
