@@ -45,5 +45,12 @@ namespace Auriga.Rendering
         /// Gets or sets the persisted height of the label, or <c>null</c> when unset.
         /// </summary>
         public double? Height { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the label renders inside a title tab — the
+        /// pentagon Capella draws around a combined fragment's operator (<c>PAR</c>, <c>ALT</c>,
+        /// <c>LOOP</c>) in the frame's top-left corner.
+        /// </summary>
+        public bool Framed { get; set; }
     }
 }

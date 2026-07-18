@@ -72,6 +72,11 @@ namespace Auriga.Rendering
                 .Select(notationEdge => BuildEdge(notationEdge, viewToBox))
                 .ToList();
 
+            if (siriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram)
+            {
+                ApplySequenceLifelines(rootBoxes, edges);
+            }
+
             return new Diagram(siriusDiagram.Id ?? string.Empty, rootBoxes, edges, siriusDiagram, notationDiagram)
             {
                 Name = name,
@@ -129,6 +134,302 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// The stroke color of a lifeline's dashed centerline (Capella's lifeline gray).
+        /// </summary>
+        private static readonly Color LifelineGray = new(128, 128, 128);
+
+        /// <summary>
+        /// The distance a lifeline extends below the diagram's lowest content.
+        /// </summary>
+        private const double LifelineTail = 20;
+
+        /// <summary>
+        /// The minimum clearance between a message end and the box it attaches to, so a message
+        /// starting from or arriving at a bare lifeline (a 1-pixel-wide box) does not touch the
+        /// dashed centerline — executions provide more clearance through their own half-width.
+        /// </summary>
+        private const double MessageClearance = 3;
+
+        /// <summary>
+        /// Applies the sequence-diagram layout rules the generic pass cannot know. A lifeline (the
+        /// unnamed child sharing its instance role's semantic target) becomes the dashed gray
+        /// centerline under its header, running down to the diagram's lowest content. A message
+        /// between two boxes is flattened to the horizontal line sequence semantics demand, at the
+        /// anchor height of an end whose box has persisted absolute bounds (an execution) — the
+        /// anchor fractions persisted on the lifelines themselves are stale render artifacts, so an
+        /// execution end is always the better vertical truth.
+        /// </summary>
+        /// <param name="rootBoxes">the top-level boxes: instance-role headers and combined fragments</param>
+        /// <param name="edges">the message edges, to which the operand separator rules are added</param>
+        private static void ApplySequenceLifelines(List<Box> rootBoxes, List<Edge> edges)
+        {
+            var lifelines = rootBoxes
+                .SelectMany(header => header.Children
+                    .Where(child => child.Label == null && child.SemanticElement != null && ReferenceEquals(child.SemanticElement, header.SemanticElement))
+                    .Select(lifeline => (Header: header, Lifeline: lifeline)))
+                .ToList();
+
+            // A combined fragment / interaction use is a background frame: it paints first (largest
+            // area first, so nested frames stay visible), the lifeline content on top — and its
+            // label sits in the frame's top-left corner, not centered, as do its operands' guard
+            // labels.
+            var headers = new HashSet<Box>(lifelines.Select(pair => pair.Header));
+            var ordered = rootBoxes
+                .OrderBy(box => headers.Contains(box) ? 1 : 0)
+                .ThenByDescending(box => (box.Width ?? 0) * (box.Height ?? 0))
+                .ToList();
+            rootBoxes.Clear();
+            rootBoxes.AddRange(ordered);
+
+            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box) && box.SiriusElement != null))
+            {
+                PinLabelTopLeft(fragment);
+
+                if (fragment.Label is { } operatorLabel)
+                {
+                    operatorLabel.Framed = true;
+                }
+
+                // Operands are transparent regions: no fill or outline of their own — Capella
+                // separates consecutive operands with a dashed rule across the frame instead.
+                var operands = fragment.Children.OrderBy(operand => operand.Position.Y).ToList();
+                for (var i = 0; i < operands.Count; i++)
+                {
+                    PinLabelTopLeft(operands[i]);
+                    operands[i].Style.Resolved.FillColor = null;
+                    operands[i].Style.Resolved.GradientColor = null;
+                    operands[i].Style.Resolved.StrokeWidth = 0;
+
+                    if (i > 0)
+                    {
+                        edges.Add(OperandSeparator(fragment, operands[i], i));
+                    }
+                }
+            }
+
+            // Center each lifeline under its header first, so a message attached to the lifeline
+            // itself (an instance role without executions) starts from the centerline. The header's
+            // label centers in its box (Capella renders instance-role names centered), and the
+            // lifeline renders as a pure line rather than a capped rectangle.
+            foreach (var (header, lifeline) in lifelines)
+            {
+                var centerX = header.Position.X + ((header.Width ?? 0) / 2);
+                lifeline.Position = new Point(centerX - 0.5, header.Position.Y + (header.Height ?? 0));
+                lifeline.Width = 1;
+                lifeline.Style.Resolved.Shape = ShapeKind.Line;
+
+                if (header.Label is { } headerLabel)
+                {
+                    headerLabel.Position = null;
+                    headerLabel.Width = null;
+                    headerLabel.Height = null;
+                }
+            }
+
+            RouteMessagesHorizontally(edges);
+
+            var bottom = ContentBottom(rootBoxes, lifelines.Select(pair => pair.Lifeline), edges);
+
+            foreach (var (_, lifeline) in lifelines)
+            {
+                lifeline.Height = Math.Max(0, bottom - lifeline.Position.Y);
+
+                lifeline.Style.Resolved.FillColor = null;
+                lifeline.Style.Resolved.GradientColor = null;
+                lifeline.Style.Resolved.StrokeColor = LifelineGray;
+                lifeline.Style.Resolved.StrokeWidth = 1;
+                lifeline.Style.Resolved.Pattern = LinePattern.LongDash;
+
+                // The end-of-life mark — the unnamed, unfiltered child sharing the lifeline's own
+                // instance role — persists as a small square at a stale relative position; Capella
+                // draws it as a short horizontal tick terminating the lifeline.
+                var lifelineCenter = lifeline.Position.X + 0.5;
+                foreach (var mark in lifeline.Children.Where(child =>
+                    child.Label == null && !child.HasAbsoluteBounds && ReferenceEquals(child.SemanticElement, lifeline.SemanticElement)))
+                {
+                    var tickWidth = Math.Max(mark.Width ?? 10, 10);
+                    mark.Position = new Point(lifelineCenter - (tickWidth / 2), bottom);
+                    mark.Width = tickWidth;
+                    mark.Height = 0;
+                    mark.Style.Resolved.Shape = ShapeKind.Line;
+                    mark.Style.Resolved.FillColor = null;
+                    mark.Style.Resolved.StrokeColor = LifelineGray;
+                    mark.Style.Resolved.StrokeWidth = 1;
+                    mark.Style.Resolved.Pattern = LinePattern.Solid;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Builds the dashed rule separating an operand from its predecessor, spanning the
+        /// fragment's width at the operand's top edge.
+        /// </summary>
+        /// <param name="fragment">the combined fragment</param>
+        /// <param name="operand">the operand whose top edge the rule runs along</param>
+        /// <param name="index">the operand's index, making the rule's identifier unique</param>
+        /// <returns>the separator edge</returns>
+        private static Edge OperandSeparator(Box fragment, Box operand, int index)
+        {
+            var route = new List<Point>
+            {
+                new(fragment.Position.X, operand.Position.Y),
+                new(fragment.Position.X + (fragment.Width ?? 0), operand.Position.Y),
+            };
+
+            var separator = new Edge($"{fragment.Identifier}-separator-{index}", route, new NotationModel.Edge(), new Style(null, new List<NotationModel.IStyle>()));
+            separator.Style.Resolved.StrokeColor = new Color(0, 0, 0);
+            separator.Style.Resolved.StrokeWidth = 1;
+            separator.Style.Resolved.Pattern = LinePattern.Dash;
+
+            return separator;
+        }
+
+        /// <summary>
+        /// Pins a box's label to the box's top-left corner (the placement of a combined fragment's
+        /// operator and an operand's guard), when the box carries a label.
+        /// </summary>
+        /// <param name="box">the fragment or operand box</param>
+        private static void PinLabelTopLeft(Box box)
+        {
+            if (box.Label is { } label)
+            {
+                label.Position = new Point(box.Position.X + 4, box.Position.Y + 2);
+                label.Width = null;
+                label.Height = null;
+            }
+        }
+
+        /// <summary>
+        /// Flattens every message between two mapped boxes to a horizontal line from the facing edge
+        /// of its source box to the facing edge of its target box, at the anchor height of an end
+        /// with persisted absolute bounds (target preferred). A message without such an end — or a
+        /// self-message — keeps its generic route.
+        /// </summary>
+        /// <param name="edges">the message edges</param>
+        private static void RouteMessagesHorizontally(IReadOnlyList<Edge> edges)
+        {
+            foreach (var edge in edges)
+            {
+                if (edge.Source == null || edge.Target == null || ReferenceEquals(edge.Source, edge.Target))
+                {
+                    continue;
+                }
+
+                var y = DetermineMessageHeight(edge);
+                if (y == null)
+                {
+                    continue;
+                }
+
+                var sourceCenter = edge.Source.Position.X + ((edge.Source.Width ?? 0) / 2);
+                var targetCenter = edge.Target.Position.X + ((edge.Target.Width ?? 0) / 2);
+
+                if (Math.Abs(targetCenter - sourceCenter) < 1)
+                {
+                    RouteSelfMessage(edge, targetCenter);
+                    continue;
+                }
+
+                var direction = targetCenter >= sourceCenter ? 1 : -1;
+
+                var start = sourceCenter + (direction * Math.Max((edge.Source.Width ?? 0) / 2, MessageClearance));
+                var end = targetCenter - (direction * Math.Max((edge.Target.Width ?? 0) / 2, MessageClearance));
+
+                edge.Route = new List<Point> { new(start, y.Value), new(end, y.Value) };
+            }
+        }
+
+        /// <summary>
+        /// The vertical position of a message: the target execution's top edge when the target has
+        /// absolute bounds — the receiving end triggers the execution, and persisted anchor
+        /// fractions on receiving ends are stale render artifacts Capella recomputes from the event
+        /// order — else the source's anchor height, or <c>null</c> when neither end has absolute
+        /// bounds (the message keeps its generic route).
+        /// </summary>
+        /// <param name="edge">the message edge, with both ends mapped</param>
+        /// <returns>the message's y coordinate, or <c>null</c></returns>
+        private static double? DetermineMessageHeight(Edge edge)
+        {
+            if (edge.Target!.HasAbsoluteBounds)
+            {
+                return edge.Target.Position.Y;
+            }
+
+            if (edge.Source!.HasAbsoluteBounds)
+            {
+                return SequenceAnchorPoint(edge.Source, edge.NotationView.SourceAnchor).Y;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Routes a message between two occurrences on the same lifeline — Capella's rectangular
+        /// self-message hook, which the persisted bendpoints describe exactly — resolving them
+        /// against the (corrected) source anchor instead of flattening. The persisted return offset
+        /// routinely overshoots past the target execution, so the arrow ends at the execution's
+        /// facing edge on the hook's side.
+        /// </summary>
+        /// <param name="edge">the self-message edge, with both ends mapped</param>
+        /// <param name="targetCenter">the target box's horizontal center</param>
+        private static void RouteSelfMessage(Edge edge, double targetCenter)
+        {
+            var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
+            if (hook.Count == 0)
+            {
+                return;
+            }
+
+            var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
+            var route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
+
+            var side = route.Max(point => point.X) > targetCenter ? 1 : -1;
+            var approach = targetCenter + (side * Math.Max((edge.Target!.Width ?? 0) / 2, MessageClearance));
+            route[route.Count - 1] = new Point(approach, route[route.Count - 1].Y);
+
+            edge.Route = route;
+        }
+
+        /// <summary>
+        /// The lowest y coordinate of the diagram's content — every box except the lifelines
+        /// themselves, and every route point — plus the lifeline tail margin.
+        /// </summary>
+        /// <param name="rootBoxes">the top-level boxes</param>
+        /// <param name="lifelines">the lifeline boxes to exclude</param>
+        /// <param name="edges">the message edges</param>
+        /// <returns>the y coordinate lifelines run down to</returns>
+        private static double ContentBottom(IReadOnlyList<Box> rootBoxes, IEnumerable<Box> lifelines, IReadOnlyList<Edge> edges)
+        {
+            var excluded = new HashSet<Box>(lifelines);
+            var bottom = 0d;
+
+            void Visit(Box box)
+            {
+                if (!excluded.Contains(box))
+                {
+                    bottom = Math.Max(bottom, box.Position.Y + (box.Height ?? 0));
+                }
+
+                foreach (var child in box.Children)
+                {
+                    Visit(child);
+                }
+            }
+
+            foreach (var box in rootBoxes)
+            {
+                Visit(box);
+            }
+
+            foreach (var point in edges.SelectMany(edge => edge.Route))
+            {
+                bottom = Math.Max(bottom, point.Y);
+            }
+
+            return bottom + LifelineTail;
+        }
+
+        /// <summary>
         /// Finds the GMF notation diagram persisted in the representation's <c>GMF_DIAGRAMS</c>
         /// annotation entry.
         /// </summary>
@@ -160,28 +461,19 @@ namespace Auriga.Rendering
             var (width, height) = Size(node.LayoutConstraint);
 
             var siriusElement = node.Element as SiriusDiagramModel.IDDiagramElement;
+            var absoluteBounds = ApplyAbsoluteBounds(siriusElement, ref position, ref width, ref height);
+
+            // A GMF note is a pure notation element with no Sirius counterpart: a sticky box whose
+            // text lives in the shape's own description and whose colors are the shape's own styles.
+            if (siriusElement == null && node is NotationModel.IShape noteShape && !string.IsNullOrEmpty(noteShape.Description))
+            {
+                Attach(BuildNote(node, noteShape, position, width, height), node, parentBox, siblings, viewToBox);
+                return;
+            }
 
             if (siriusElement == null || ReferenceEquals(siriusElement, parentSiriusElement))
             {
-                if (parentBox != null)
-                {
-                    // A childless auxiliary node holding a location is the persisted label geometry.
-                    if (node.PersistedChildren.Count == 0 && node.LayoutConstraint is NotationModel.ILocation && parentBox.Label is { Position: null } label)
-                    {
-                        label.Position = position;
-                        label.Width = width;
-                        label.Height = height;
-                    }
-
-                    // Edges may attach to the auxiliary view; route them to the enclosing box.
-                    viewToBox[node] = parentBox;
-                }
-
-                foreach (var child in node.PersistedChildren)
-                {
-                    BuildNode(child, position, parentBox, parentSiriusElement, siblings, viewToBox);
-                }
-
+                FoldAuxiliaryNode(node, position, width, height, parentBox, parentSiriusElement, siblings, viewToBox);
                 return;
             }
 
@@ -189,6 +481,7 @@ namespace Auriga.Rendering
             {
                 Width = width,
                 Height = height,
+                HasAbsoluteBounds = absoluteBounds,
                 SiriusElement = siriusElement,
                 SemanticElement = siriusElement.Target,
             };
@@ -201,6 +494,122 @@ namespace Auriga.Rendering
 
             box.Style.Resolved = StyleResolver.Resolve(box);
 
+            Attach(box, node, parentBox, siblings, viewToBox);
+
+            foreach (var child in node.PersistedChildren)
+            {
+                BuildNode(child, position, box, siriusElement, siblings, viewToBox);
+            }
+
+            // A label whose persisted geometry lies inside a leaf box is Capella's inside label,
+            // rendered centered in the shape — the persisted text bounds are a render artifact, so
+            // they are dropped in favor of centering. An outside label (an icon caption, a border
+            // label) and a container title keep their persisted geometry.
+            if (box.Children.Count == 0 && box.Label is { Position: { } labelPosition } insideLabel && Contains(box, labelPosition))
+            {
+                insideLabel.Position = null;
+                insideLabel.Width = null;
+                insideLabel.Height = null;
+            }
+        }
+
+        /// <summary>
+        /// Applies a Sirius <c>AbsoluteBoundsFilter</c> when the element carries one: Sirius
+        /// persists the layout of sequence-diagram elements (instance roles, executions, states,
+        /// fragments) in the filter, in absolute coordinates — the GMF child coordinates are only
+        /// render-time artifacts there, so the filter is the layout truth.
+        /// </summary>
+        /// <param name="siriusElement">the Sirius element the view displays, or <c>null</c></param>
+        /// <param name="position">the accumulated relative position, replaced by the filter's</param>
+        /// <param name="width">the persisted width, replaced by the filter's</param>
+        /// <param name="height">the persisted height, replaced by the filter's</param>
+        /// <returns>true when a filter applied</returns>
+        private static bool ApplyAbsoluteBounds(SiriusDiagramModel.IDDiagramElement? siriusElement, ref Point position, ref double? width, ref double? height)
+        {
+            var absoluteBounds = siriusElement?.GraphicalFilters.OfType<SiriusDiagramModel.IAbsoluteBoundsFilter>().FirstOrDefault();
+            if (absoluteBounds == null)
+            {
+                return false;
+            }
+
+            position = new Point(absoluteBounds.X ?? position.X, absoluteBounds.Y ?? position.Y);
+            width = Dimension(absoluteBounds.Width) ?? width;
+            height = Dimension(absoluteBounds.Height) ?? height;
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the box of a GMF note: its own shape styles supply the fill and font, and its
+        /// description text becomes a left-aligned label wrapped to the note's width.
+        /// </summary>
+        /// <param name="node">the notation node</param>
+        /// <param name="noteShape">the same node, as the shape carrying the note's description and styles</param>
+        /// <param name="position">the absolute position</param>
+        /// <param name="width">the persisted width</param>
+        /// <param name="height">the persisted height</param>
+        /// <returns>the note box, style resolved</returns>
+        private static Box BuildNote(NotationModel.INode node, NotationModel.IShape noteShape, Point position, double? width, double? height)
+        {
+            var note = new Box(node.Id ?? string.Empty, position, node, BuildStyle(null, node.Styles.Concat(new NotationModel.IStyle[] { noteShape })))
+            {
+                Width = width,
+                Height = height,
+                Label = new Label(noteShape.Description!)
+                {
+                    Position = position + new Point(4, 2),
+                    Width = Math.Max(1, (width ?? 100) - 8),
+                },
+            };
+
+            note.Style.Resolved = StyleResolver.Resolve(note);
+            return note;
+        }
+
+        /// <summary>
+        /// Folds an auxiliary node — a label or compartment, recognizable by carrying no Sirius
+        /// element of its own — into the enclosing box: a childless label node contributes its
+        /// geometry to the box's label, a compartment's children keep nesting into the box, and
+        /// edges attaching to the auxiliary view route to the enclosing box.
+        /// </summary>
+        /// <param name="node">the auxiliary notation node</param>
+        /// <param name="position">the node's absolute position</param>
+        /// <param name="width">the node's persisted width</param>
+        /// <param name="height">the node's persisted height</param>
+        /// <param name="parentBox">the enclosing box, or <c>null</c> at the diagram level</param>
+        /// <param name="parentSiriusElement">the Sirius element the parent view displays</param>
+        /// <param name="siblings">the list a nested real box is added to when there is no enclosing box</param>
+        /// <param name="viewToBox">the notation-view-to-box map</param>
+        private static void FoldAuxiliaryNode(NotationModel.INode node, Point position, double? width, double? height, Box? parentBox, object? parentSiriusElement, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
+        {
+            if (parentBox != null)
+            {
+                if (node.PersistedChildren.Count == 0 && node.LayoutConstraint is NotationModel.ILocation && parentBox.Label is { Position: null } label)
+                {
+                    label.Position = position;
+                    label.Width = width;
+                    label.Height = height;
+                }
+
+                viewToBox[node] = parentBox;
+            }
+
+            foreach (var child in node.PersistedChildren)
+            {
+                BuildNode(child, position, parentBox, parentSiriusElement, siblings, viewToBox);
+            }
+        }
+
+        /// <summary>
+        /// Attaches a built box to its enclosing box (or the top level) and registers its notation
+        /// view for edge-end resolution.
+        /// </summary>
+        /// <param name="box">the built box</param>
+        /// <param name="node">the notation node the box was built from</param>
+        /// <param name="parentBox">the enclosing box, or <c>null</c> at the diagram level</param>
+        /// <param name="siblings">the top-level list used when there is no enclosing box</param>
+        /// <param name="viewToBox">the notation-view-to-box map</param>
+        private static void Attach(Box box, NotationModel.INode node, Box? parentBox, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
+        {
             if (parentBox != null)
             {
                 parentBox.Add(box);
@@ -211,11 +620,20 @@ namespace Auriga.Rendering
             }
 
             viewToBox[node] = box;
+        }
 
-            foreach (var child in node.PersistedChildren)
-            {
-                BuildNode(child, position, box, siriusElement, siblings, viewToBox);
-            }
+        /// <summary>
+        /// Whether a point lies within the box's bounds.
+        /// </summary>
+        /// <param name="box">the box</param>
+        /// <param name="point">the point to test</param>
+        /// <returns>true when the point is inside the box</returns>
+        private static bool Contains(Box box, Point point)
+        {
+            return point.X >= box.Position.X
+                && point.Y >= box.Position.Y
+                && point.X <= box.Position.X + (box.Width ?? 0)
+                && point.Y <= box.Position.Y + (box.Height ?? 0);
         }
 
         /// <summary>
@@ -339,22 +757,47 @@ namespace Auriga.Rendering
         /// <returns>the absolute anchor point</returns>
         private static Point AnchorPoint(Box box, NotationModel.IAnchor? anchor)
         {
-            var fraction = ParseAnchorFraction((anchor as NotationModel.IIdentityAnchor)?.Id);
+            return FractionPoint(box, ParseAnchorFraction(anchor) ?? CenterAnchor);
+        }
 
+        /// <summary>
+        /// The absolute anchor point of a sequence-message end: a persisted anchor fraction applies
+        /// verbatim, but a missing anchor means the message connects at the triggering event — the
+        /// top of the execution, not the GMF center default.
+        /// </summary>
+        /// <param name="box">the box the message end attaches to</param>
+        /// <param name="anchor">the persisted anchor, or <c>null</c></param>
+        /// <returns>the absolute anchor point</returns>
+        private static Point SequenceAnchorPoint(Box box, NotationModel.IAnchor? anchor)
+        {
+            return FractionPoint(box, ParseAnchorFraction(anchor) ?? new Point(0.5, 0));
+        }
+
+        /// <summary>
+        /// The absolute point at a fraction of the box's persisted size; an unpersisted dimension
+        /// contributes no offset.
+        /// </summary>
+        /// <param name="box">the box</param>
+        /// <param name="fraction">the fraction of the box's size</param>
+        /// <returns>the absolute point</returns>
+        private static Point FractionPoint(Box box, Point fraction)
+        {
             return box.Position + new Point(fraction.X * (box.Width ?? 0), fraction.Y * (box.Height ?? 0));
         }
 
         /// <summary>
         /// Parses a GMF <c>IdentityAnchor</c> id of the form <c>(0.25,0.5)</c> into its fraction,
-        /// falling back to the center for a missing or malformed value.
+        /// or <c>null</c> when no identity anchor is persisted or the value is malformed.
         /// </summary>
-        /// <param name="anchorId">the raw anchor id</param>
-        /// <returns>the anchor fraction of the view's size</returns>
-        private static Point ParseAnchorFraction(string? anchorId)
+        /// <param name="anchor">the persisted anchor, or <c>null</c></param>
+        /// <returns>the anchor fraction of the view's size, or <c>null</c></returns>
+        private static Point? ParseAnchorFraction(NotationModel.IAnchor? anchor)
         {
+            var anchorId = (anchor as NotationModel.IIdentityAnchor)?.Id;
+
             if (string.IsNullOrEmpty(anchorId))
             {
-                return CenterAnchor;
+                return null;
             }
 
             var parts = anchorId!.Trim('(', ')').Split(',');
@@ -365,7 +808,7 @@ namespace Auriga.Rendering
                 return new Point(x, y);
             }
 
-            return CenterAnchor;
+            return null;
         }
 
         /// <summary>

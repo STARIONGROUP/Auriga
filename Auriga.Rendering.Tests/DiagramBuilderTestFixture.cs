@@ -79,6 +79,47 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_an_absolute_bounds_filter_overrides_the_relative_geometry()
+        {
+            var sirius = new SiriusDiagram.DNode { Id = "d-abs", Name = "filtered" };
+            sirius.GraphicalFilters.Add(new SiriusDiagram.AbsoluteBoundsFilter { X = 300, Y = 400, Width = 20, Height = 60 });
+
+            var node = new Notation.Node { Id = "n-abs", Element = sirius };
+            node.LayoutConstraint = new Notation.Bounds { X = 5, Y = 6, Width = 1, Height = 1 };
+
+            var diagram = DiagramBuilder.Build(Representation(node));
+            var box = diagram.Boxes.Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(box.Position, Is.EqualTo(new Point(300, 400)), "the filter's absolute position replaces the accumulated offset");
+                Assert.That(box.Width, Is.EqualTo(20));
+                Assert.That(box.Height, Is.EqualTo(60));
+                Assert.That(box.HasAbsoluteBounds, Is.True);
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_gmf_note_builds_from_the_notation_alone()
+        {
+            var note = new Notation.Shape { Id = "note-1", Description = "A note\r\n\r\nwith paragraphs", FillColor = (0xCC << 16) | (0xFF << 8) | 0xFF };
+            note.LayoutConstraint = new Notation.Bounds { X = 700, Y = 20, Width = 300, Height = 120 };
+
+            var diagram = DiagramBuilder.Build(Representation(note));
+            var box = diagram.Boxes.Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(box.SiriusElement, Is.Null, "a note has no Sirius counterpart");
+                Assert.That(box.Position, Is.EqualTo(new Point(700, 20)));
+                Assert.That(box.Label!.Text, Is.EqualTo("A note\r\n\r\nwith paragraphs"));
+                Assert.That(box.Label.Position, Is.EqualTo(new Point(704, 22)), "the text starts at the note's top-left");
+                Assert.That(box.Label.Width, Is.EqualTo(292), "wrapped to the note's width");
+                Assert.That(box.Style.Resolved.FillColor, Is.EqualTo(new Color(255, 255, 204)), "the note's own fill applies");
+            });
+        }
+
+        [Test]
         public void Verify_that_a_label_node_contributes_the_label_geometry()
         {
             var sirius = new SiriusDiagram.DNode { Id = "d-1", Name = "labelled" };
@@ -269,7 +310,7 @@ namespace Auriga.Rendering.Tests
         /// <param name="nodes">the top-level notation nodes</param>
         /// <param name="edges">the notation edges</param>
         /// <returns>the Sirius representation</returns>
-        private static SiriusDiagram.DSemanticDiagram Representation(Notation.Node[] nodes, Notation.Edge[]? edges = null)
+        private static SiriusDiagram.DSemanticDiagram Representation(Notation.INode[] nodes, Notation.Edge[]? edges = null)
         {
             var notationDiagram = new Notation.Diagram { Id = "notation-1" };
 
@@ -298,7 +339,7 @@ namespace Auriga.Rendering.Tests
         /// </summary>
         /// <param name="node">the top-level notation node</param>
         /// <returns>the Sirius representation</returns>
-        private static SiriusDiagram.DSemanticDiagram Representation(Notation.Node node)
+        private static SiriusDiagram.DSemanticDiagram Representation(Notation.INode node)
         {
             return Representation(new[] { node });
         }

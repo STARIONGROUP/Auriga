@@ -130,6 +130,31 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_centered_label_wraps_inside_its_box()
+        {
+            var box = MakeBox("wrapped", 0, 0, 100, 50);
+            box.Label = new Label("Seat TV Airline-Specific Interactions Manager");
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var text = document.Descendants(Svg + "text").Single();
+            var tspans = text.Elements(Svg + "tspan").ToList();
+
+            Assert.Multiple(() =>
+            {
+                // 96px of room at 8pt wraps the name into three centered lines, as Capella keeps a
+                // node label inside its shape.
+                Assert.That(tspans, Has.Count.EqualTo(3));
+                Assert.That((string?)text.Attribute("text-anchor"), Is.EqualTo("middle"));
+                Assert.That(tspans.Select(t => (string?)t.Attribute("x")), Has.All.EqualTo("50"), "every line re-anchors at the box center");
+
+                // The three-line block centers vertically: first baseline at 25 + 4 - 9.6 = 19.4.
+                Assert.That((string?)text.Attribute("y"), Is.EqualTo("19.4"));
+                Assert.That(tspans[0].Value, Is.EqualTo("Seat TV"));
+                Assert.That(tspans[2].Value, Is.EqualTo("Interactions Manager"));
+            });
+        }
+
+        [Test]
         public void Verify_that_an_edge_renders_as_a_marked_path_with_its_label()
         {
             var edge = MakeEdge("flow", new[] { new Point(0, 20), new Point(50, 20), new Point(50, 80) });
@@ -155,6 +180,62 @@ namespace Auriga.Rendering.Tests
                 var label = document.Descendants(Svg + "text").Single();
                 Assert.That(label.Value, Is.EqualTo("flow label"));
                 Assert.That((string?)label.Attribute("text-anchor"), Is.EqualTo("middle"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_line_shape_renders_as_a_capless_line()
+        {
+            var lifeline = MakeBox("lifeline", 99.5, 100, 1, 830);
+            lifeline.Style.Resolved.Shape = ShapeKind.Line;
+            lifeline.Style.Resolved.Pattern = LinePattern.LongDash;
+            lifeline.Style.Resolved.StrokeColor = new Color(128, 128, 128);
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { lifeline }, new List<Edge>())));
+            var line = document.Descendants(Svg + "line").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)line.Attribute("x1"), Is.EqualTo("100"));
+                Assert.That((string?)line.Attribute("x2"), Is.EqualTo("100"));
+                Assert.That((string?)line.Attribute("y1"), Is.EqualTo("100"));
+                Assert.That((string?)line.Attribute("y2"), Is.EqualTo("930"));
+                Assert.That((string?)line.Attribute("stroke-dasharray"), Is.EqualTo("10 5"));
+                Assert.That(document.Descendants(Svg + "rect"), Is.Empty, "a line replaces the capped rectangle");
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_framed_label_renders_in_a_title_tab()
+        {
+            var frame = MakeBox("frame", 320, 402, 985, 931);
+            frame.Style.Resolved.FillColor = null;
+            frame.Label = new Label("PAR") { Position = new Point(324, 404), Framed = true };
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { frame }, new List<Edge>())));
+            var tab = document.Descendants(Svg + "path").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)tab.Attribute("d"), Does.StartWith("M 320 402 L "), "anchored at the frame's corner");
+                Assert.That((string?)tab.Attribute("d"), Does.EndWith("Z"), "a closed pentagon");
+                Assert.That((string?)tab.Attribute("fill"), Is.EqualTo("#FFFFFF"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_two_point_edge_labels_above_its_center()
+        {
+            var edge = MakeEdge("straight", new[] { new Point(0, 20), new Point(100, 20) });
+            edge.Label = new Label("centered");
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var label = document.Descendants(Svg + "text").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)label.Attribute("x"), Is.EqualTo("50"), "above the segment's center, not its target end");
+                Assert.That((string?)label.Attribute("y"), Is.EqualTo("18"));
             });
         }
 

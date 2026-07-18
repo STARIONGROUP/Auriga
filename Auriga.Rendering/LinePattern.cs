@@ -34,5 +34,11 @@ namespace Auriga.Rendering
         /// An alternating dash-dot line.
         /// </summary>
         DashDot,
+
+        /// <summary>
+        /// A long-dash line — the stroke Capella draws sequence-diagram lifelines with, calmer than
+        /// the ordinary dash used for borders and separator rules.
+        /// </summary>
+        LongDash,
     }
 }

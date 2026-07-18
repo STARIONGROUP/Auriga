@@ -33,6 +33,11 @@ namespace Auriga.Rendering
         private static readonly XNamespace Svg = "http://www.w3.org/2000/svg";
 
         /// <summary>
+        /// The SVG <c>stroke</c> attribute name.
+        /// </summary>
+        private const string StrokeAttribute = "stroke";
+
+        /// <summary>
         /// The padding around the diagram's bounding box, in pixels.
         /// </summary>
         private const double Padding = 20;
@@ -210,7 +215,31 @@ namespace Auriga.Rendering
                     new XAttribute("cx", N(box.Position.X + (width / 2))),
                     new XAttribute("cy", N(box.Position.Y + (height / 2))),
                     new XAttribute("rx", N(width / 2)),
-                    new XAttribute("ry", N(height / 2)));
+                    new XAttribute("ry", N(height / 2)),
+                    new XAttribute("fill", Fill(style, defs)));
+            }
+            else if (style.Shape == ShapeKind.Line)
+            {
+                if (height >= width)
+                {
+                    var centerX = box.Position.X + (width / 2);
+                    outline = new XElement(
+                        Svg + "line",
+                        new XAttribute("x1", N(centerX)),
+                        new XAttribute("y1", N(box.Position.Y)),
+                        new XAttribute("x2", N(centerX)),
+                        new XAttribute("y2", N(box.Position.Y + height)));
+                }
+                else
+                {
+                    var centerY = box.Position.Y + (height / 2);
+                    outline = new XElement(
+                        Svg + "line",
+                        new XAttribute("x1", N(box.Position.X)),
+                        new XAttribute("y1", N(centerY)),
+                        new XAttribute("x2", N(box.Position.X + width)),
+                        new XAttribute("y2", N(centerY)));
+                }
             }
             else
             {
@@ -219,12 +248,12 @@ namespace Auriga.Rendering
                     new XAttribute("x", N(box.Position.X)),
                     new XAttribute("y", N(box.Position.Y)),
                     new XAttribute("width", N(width)),
-                    new XAttribute("height", N(height)));
+                    new XAttribute("height", N(height)),
+                    new XAttribute("fill", Fill(style, defs)));
             }
 
             outline.Add(
-                new XAttribute("fill", Fill(style, defs)),
-                new XAttribute("stroke", style.StrokeColor.ToHex()),
+                new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
                 new XAttribute("stroke-width", N(style.StrokeWidth)));
 
             AddDashArray(outline, style.Pattern);
@@ -233,6 +262,11 @@ namespace Auriga.Rendering
 
             if (box.Label != null)
             {
+                if (box.Label.Framed)
+                {
+                    group.Add(BuildLabelTab(box, style));
+                }
+
                 group.Add(BuildBoxLabel(box, style));
             }
 
@@ -245,9 +279,33 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// Builds the pentagon title tab a framed label sits in — the corner tab Capella draws
+        /// around a combined fragment's operator — anchored at the box's top-left corner and sized
+        /// to the label text.
+        /// </summary>
+        /// <param name="box">the box whose label is framed</param>
+        /// <param name="style">the box's resolved style, supplying the tab's stroke and font size</param>
+        /// <returns>the tab path element</returns>
+        private static XElement BuildLabelTab(Box box, ResolvedStyle style)
+        {
+            var width = (box.Label!.Text.Trim().Length * style.FontSize * 0.6) + 12;
+            var height = style.FontSize + 6;
+            var x = box.Position.X;
+            var y = box.Position.Y;
+
+            return new XElement(
+                Svg + "path",
+                new XAttribute("d", $"M {N(x)} {N(y)} L {N(x + width)} {N(y)} L {N(x + width)} {N(y + height - 5)} L {N(x + width - 5)} {N(y + height)} L {N(x)} {N(y + height)} Z"),
+                new XAttribute("fill", "#FFFFFF"),
+                new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
+                new XAttribute("stroke-width", "1"));
+        }
+
+        /// <summary>
         /// Builds the label text of a box: at the persisted label geometry when one was folded in
-        /// (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), centered in the box
-        /// otherwise.
+        /// (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), or centered in the box —
+        /// wrapped to the box's width and vertically centered as a block, the way Capella keeps a
+        /// node label inside its shape.
         /// </summary>
         /// <param name="box">the labelled box</param>
         /// <param name="style">the box's resolved style</param>
@@ -256,24 +314,30 @@ namespace Auriga.Rendering
         {
             var label = box.Label!;
 
-            XElement text;
             if (label.Position is { } position)
             {
-                text = BuildText(label.Text, position.X, position.Y + style.FontSize, "start", style);
+                var text = BuildText(label.Text, position.X, position.Y + style.FontSize, "start", style);
 
                 if (label.Width is { } labelWidth)
                 {
-                    Wrap(text, label.Text, position.X, labelWidth, style);
+                    AddWrappedLines(text, WrapLines(label.Text, labelWidth, style), position.X);
                 }
-            }
-            else
-            {
-                var centerX = box.Position.X + ((box.Width ?? DefaultBoxSize) / 2);
-                var centerY = box.Position.Y + ((box.Height ?? DefaultBoxSize) / 2) + (style.FontSize / 2);
-                text = BuildText(label.Text, centerX, centerY, "middle", style);
+
+                return text;
             }
 
-            return text;
+            var width = box.Width ?? DefaultBoxSize;
+            var centerX = box.Position.X + (width / 2);
+            var centerY = box.Position.Y + ((box.Height ?? DefaultBoxSize) / 2);
+
+            var lines = WrapLines(label.Text, Math.Max(1, width - 4), style);
+            var lineHeight = style.FontSize * 1.2;
+            var firstBaseline = centerY + (style.FontSize / 2) - ((lines.Count - 1) * lineHeight / 2);
+
+            var centered = BuildText(label.Text, centerX, firstBaseline, "middle", style);
+            AddWrappedLines(centered, lines, centerX);
+
+            return centered;
         }
 
         /// <summary>
@@ -294,7 +358,7 @@ namespace Auriga.Rendering
                     Svg + "path",
                     new XAttribute("d", PathData(edge.Route)),
                     new XAttribute("fill", "none"),
-                    new XAttribute("stroke", style.StrokeColor.ToHex()),
+                    new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
                     new XAttribute("stroke-width", N(style.StrokeWidth)));
 
                 AddDashArray(path, style.Pattern);
@@ -306,11 +370,37 @@ namespace Auriga.Rendering
 
             if (edge.Label != null && edge.Route.Count >= 2)
             {
-                var midpoint = edge.Route[edge.Route.Count / 2];
-                group.Add(BuildText(edge.Label.Text, midpoint.X, midpoint.Y - 2, "middle", style));
+                var (midpoint, vertical) = Midpoint(edge.Route);
+
+                // A label on a horizontal segment sits centered above it; a label on a vertical
+                // segment (a self-message hook) sits beside it, to the right.
+                group.Add(vertical
+                    ? BuildText(edge.Label.Text, midpoint.X + 4, midpoint.Y + (style.FontSize / 2), "start", style)
+                    : BuildText(edge.Label.Text, midpoint.X, midpoint.Y - 2, "middle", style));
             }
 
             return group;
+        }
+
+        /// <summary>
+        /// The geometric midpoint of a route — the middle point when the count is odd, the center
+        /// of the middle segment when it is even (so a two-point message labels above its center,
+        /// not above its target end) — and whether that middle segment runs vertically.
+        /// </summary>
+        /// <param name="route">the route points</param>
+        /// <returns>the midpoint and the middle segment's orientation</returns>
+        private static (Point Point, bool Vertical) Midpoint(IReadOnlyList<Point> route)
+        {
+            if (route.Count % 2 == 1)
+            {
+                return (route[route.Count / 2], false);
+            }
+
+            var before = route[(route.Count / 2) - 1];
+            var after = route[route.Count / 2];
+
+            var midpoint = new Point((before.X + after.X) / 2, (before.Y + after.Y) / 2);
+            return (midpoint, Math.Abs(before.X - after.X) < 0.001 && Math.Abs(before.Y - after.Y) > 0.001);
         }
 
         /// <summary>
@@ -364,43 +454,67 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Wraps the label text into <c>&lt;tspan&gt;</c> lines that fit the persisted label width,
-        /// estimating glyph width from the font size. A single-line label is left as plain content.
+        /// Splits the label text into the lines that fit the available width, estimating glyph
+        /// width from the font size. Explicit line breaks (a note's paragraphs) are honored, a
+        /// blank line is preserved as a spacer, and a single word longer than the width is kept
+        /// whole.
         /// </summary>
-        /// <param name="text">the text element to fill</param>
         /// <param name="content">the label text</param>
-        /// <param name="x">the x coordinate every line starts at</param>
-        /// <param name="width">the persisted label width</param>
+        /// <param name="width">the available width</param>
         /// <param name="style">the resolved style supplying the font size</param>
-        private static void Wrap(XElement text, string content, double x, double width, ResolvedStyle style)
+        /// <returns>the wrapped lines, in order</returns>
+        private static List<string> WrapLines(string content, double width, ResolvedStyle style)
         {
             var glyphWidth = style.FontSize * 0.6;
             var charactersPerLine = Math.Max(1, (int)(width / glyphWidth));
 
-            if (content.Length <= charactersPerLine)
-            {
-                return;
-            }
-
             var lines = new List<string>();
-            var line = string.Empty;
 
-            foreach (var word in content.Split(' '))
+            foreach (var paragraph in content.Replace("\r", string.Empty).Split('\n'))
             {
-                var candidate = line.Length == 0 ? word : line + " " + word;
-                if (candidate.Length > charactersPerLine && line.Length > 0)
+                if (paragraph.Length == 0)
                 {
-                    lines.Add(line);
-                    line = word;
+                    lines.Add(" ");
+                    continue;
                 }
-                else
+
+                if (paragraph.Length <= charactersPerLine)
                 {
-                    line = candidate;
+                    lines.Add(paragraph);
+                    continue;
                 }
+
+                var line = string.Empty;
+                foreach (var word in paragraph.Split(' '))
+                {
+                    var candidate = line.Length == 0 ? word : line + " " + word;
+                    if (candidate.Length > charactersPerLine && line.Length > 0)
+                    {
+                        lines.Add(line);
+                        line = word;
+                    }
+                    else
+                    {
+                        line = candidate;
+                    }
+                }
+
+                lines.Add(line);
             }
 
-            lines.Add(line);
+            return lines;
+        }
 
+        /// <summary>
+        /// Replaces a text element's plain content with one <c>&lt;tspan&gt;</c> per wrapped line,
+        /// each starting at the same x (so the element's <c>text-anchor</c> keeps applying per
+        /// line) and advancing one line height. A single line is left as plain content.
+        /// </summary>
+        /// <param name="text">the text element to fill</param>
+        /// <param name="lines">the wrapped lines</param>
+        /// <param name="x">the x coordinate every line anchors at</param>
+        private static void AddWrappedLines(XElement text, List<string> lines, double x)
+        {
             if (lines.Count < 2)
             {
                 return;
@@ -482,6 +596,7 @@ namespace Auriga.Rendering
                 LinePattern.Dash => "5 3",
                 LinePattern.Dot => "1 3",
                 LinePattern.DashDot => "5 3 1 3",
+                LinePattern.LongDash => "10 5",
                 _ => null,
             };
 
@@ -527,7 +642,7 @@ namespace Auriga.Rendering
                         Svg + "path",
                         new XAttribute("d", data),
                         new XAttribute("fill", filled ? color.ToHex() : "#FFFFFF"),
-                        new XAttribute("stroke", color.ToHex()))));
+                        new XAttribute(StrokeAttribute, color.ToHex()))));
             }
 
             path.Add(new XAttribute(attribute, $"url(#{id})"));

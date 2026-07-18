@@ -42,9 +42,10 @@ namespace Auriga.Rendering
 
         /// <summary>
         /// Gets the absolute route polyline from source to target: the source anchor point, the
-        /// persisted bendpoints resolved to absolute coordinates, and the target anchor point.
+        /// persisted bendpoints resolved to absolute coordinates, and the target anchor point (a
+        /// sequence diagram's messages are re-routed horizontally by the builder's sequence pass).
         /// </summary>
-        public IReadOnlyList<Point> Route { get; }
+        public IReadOnlyList<Point> Route { get; internal set; }
 
         /// <summary>
         /// Gets or sets the box the edge starts at, or <c>null</c> when the source view did not map
