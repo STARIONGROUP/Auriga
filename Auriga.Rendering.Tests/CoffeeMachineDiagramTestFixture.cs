@@ -42,10 +42,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagrams = result.Elements.Values
-                .OfType<Auriga.Diagram.Diagram.IDDiagram>()
-                .Select(representation => DiagramBuilder.Build(representation))
-                .ToList();
+            this.diagrams = DiagramBuilder.BuildAll(result.Elements.Values).ToList();
         }
 
         [Test]
@@ -153,9 +150,6 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_every_diagram_exports_to_well_formed_svg()
         {
-            var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports");
-            Directory.CreateDirectory(outputDirectory);
-
             Assert.Multiple(() =>
             {
                 foreach (var diagram in this.diagrams)
@@ -164,15 +158,13 @@ namespace Auriga.Rendering.Tests
                     var document = System.Xml.Linq.XDocument.Parse(text);
                     var ns = document.Root!.Name.Namespace;
 
+                    Assert.That(diagram.Name, Is.Not.Null.And.Not.Empty, $"the descriptor names representation {diagram.Identifier}");
                     Assert.That(document.Root.Name.LocalName, Is.EqualTo("svg"), diagram.Identifier);
                     Assert.That(document.Root.Attribute("viewBox"), Is.Not.Null, diagram.Identifier);
                     Assert.That(
                         document.Descendants(ns + "rect").Count() + document.Descendants(ns + "path").Count(),
                         Is.GreaterThan(0),
                         $"{diagram.Identifier} renders visible content");
-
-                    // Written for manual browser inspection — the acceptance criterion of #57.
-                    SvgExporter.ExportToFile(diagram, Path.Combine(outputDirectory, diagram.Identifier.TrimStart('_') + ".svg"));
                 }
 
                 // Across the whole project the exports mirror the model: one rect per box, one
