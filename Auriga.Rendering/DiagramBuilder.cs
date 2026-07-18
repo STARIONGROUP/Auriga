@@ -139,6 +139,8 @@ namespace Auriga.Rendering
                 box.Label = new Label(elementName);
             }
 
+            box.Style.Resolved = StyleResolver.Resolve(box);
+
             if (parentBox != null)
             {
                 parentBox.Add(box);
@@ -189,6 +191,8 @@ namespace Auriga.Rendering
             {
                 edge.Label = new Label(edgeName!);
             }
+
+            edge.Style.Resolved = StyleResolver.Resolve(edge);
 
             return edge;
         }

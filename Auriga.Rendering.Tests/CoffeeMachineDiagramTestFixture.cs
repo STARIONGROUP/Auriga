@@ -124,6 +124,32 @@ namespace Auriga.Rendering.Tests
             });
         }
 
+        [Test]
+        public void Verify_that_styles_resolve_from_the_persisted_diagram()
+        {
+            var box = this.FindBox(MakeCoffeeNodeUid);
+            var allEdges = this.diagrams.SelectMany(diagram => diagram.Edges).ToList();
+
+            Assert.Multiple(() =>
+            {
+                // The node's notation ShapeStyle persists fontName="Ubuntu" fontHeight="8".
+                Assert.That(box.Style.Resolved.FontName, Is.EqualTo("Ubuntu"));
+                Assert.That(box.Style.Resolved.FontSize, Is.EqualTo(8));
+
+                // One DEdge persists an EdgeStyle with strokeColor="114,73,110" lineStyle="dash".
+                Assert.That(
+                    allEdges,
+                    Has.Some.Matches<Edge>(edge => edge.Style.Resolved.StrokeColor == new Color(114, 73, 110) && edge.Style.Resolved.Pattern == LinePattern.Dash),
+                    "the purple dashed edge resolves its persisted style");
+
+                // The Capella actor/capability icons are WorkspaceImage styles carrying their path.
+                Assert.That(
+                    this.diagrams.SelectMany(diagram => diagram.QueryAllBoxes()),
+                    Has.Some.Matches<Box>(candidate => candidate.Style.Resolved.ImagePath != null),
+                    "workspace-image styles carry their path");
+            });
+        }
+
         /// <summary>
         /// Finds the single box built for the Sirius element with the supplied uid, across all
         /// diagrams of the project.

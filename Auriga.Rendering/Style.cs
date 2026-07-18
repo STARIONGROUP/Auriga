@@ -42,5 +42,11 @@ namespace Auriga.Rendering
         /// <c>RoutingStyle</c>); empty when none are persisted.
         /// </summary>
         public IReadOnlyList<Auriga.Diagram.Notation.IStyle> NotationStyles { get; }
+
+        /// <summary>
+        /// Gets or sets the concrete visual properties the <see cref="StyleResolver"/> resolved
+        /// from these sources; set by the <see cref="DiagramBuilder"/> for every built item.
+        /// </summary>
+        public ResolvedStyle Resolved { get; set; } = new ResolvedStyle();
     }
 }
