@@ -769,9 +769,10 @@ namespace Auriga.Rendering
 
         /// <summary>
         /// Builds the absolute route polyline. GMF persists each bendpoint as offsets from both end
-        /// anchors; the source-relative offsets are resolved when the source end is known, else the
-        /// target-relative ones. Without bendpoints the route is the straight anchor-to-anchor line;
-        /// without any resolvable end the route is empty.
+        /// anchors precisely so the ends stay glued to their boxes: the route resolves the leading
+        /// points against the source anchor and the final point against the target anchor (each
+        /// falling back to the other end when only one box is known). Without bendpoints the route
+        /// is the straight anchor-to-anchor line; without any resolvable end it is empty.
         /// </summary>
         /// <param name="bendpoints">the notation edge's persisted bendpoints</param>
         /// <param name="sourceAnchor">the absolute source anchor point, when the source box is known</param>
@@ -781,17 +782,20 @@ namespace Auriga.Rendering
         {
             var relativeBendpoints = ParseBendpoints((bendpoints as NotationModel.IRelativeBendpoints)?.Points);
 
-            if (relativeBendpoints.Count > 0)
+            if (relativeBendpoints.Count > 0 && (sourceAnchor != null || targetAnchor != null))
             {
-                if (sourceAnchor is { } fromSource)
+                var route = new List<Point>();
+                for (var i = 0; i < relativeBendpoints.Count; i++)
                 {
-                    return relativeBendpoints.Select(bendpoint => fromSource + bendpoint.SourceRelative).ToList();
+                    var isLast = i == relativeBendpoints.Count - 1;
+                    route.Add(isLast && targetAnchor is { } toTarget
+                        ? toTarget + relativeBendpoints[i].TargetRelative
+                        : sourceAnchor is { } fromSource
+                            ? fromSource + relativeBendpoints[i].SourceRelative
+                            : targetAnchor!.Value + relativeBendpoints[i].TargetRelative);
                 }
 
-                if (targetAnchor is { } fromTarget)
-                {
-                    return relativeBendpoints.Select(bendpoint => fromTarget + bendpoint.TargetRelative).ToList();
-                }
+                return route;
             }
 
             if (sourceAnchor is { } start && targetAnchor is { } end)
