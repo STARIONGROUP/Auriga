@@ -324,7 +324,9 @@ namespace Auriga.Rendering
                 var sourceCenter = edge.Source.Position.X + ((edge.Source.Width ?? 0) / 2);
                 var targetCenter = edge.Target.Position.X + ((edge.Target.Width ?? 0) / 2);
 
-                if (Math.Abs(targetCenter - sourceCenter) < 1)
+                // Ends on the same lifeline are recognized structurally — nested executions sit a
+                // few pixels off their parent's center, so comparing centers would miss them.
+                if (ReferenceEquals(Root(edge.Source), Root(edge.Target)))
                 {
                     RouteSelfMessage(edge, targetCenter);
                     continue;
@@ -364,30 +366,64 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Routes a message between two occurrences on the same lifeline — Capella's rectangular
-        /// self-message hook, which the persisted bendpoints describe exactly — resolving them
-        /// against the (corrected) source anchor instead of flattening. The persisted return offset
-        /// routinely overshoots past the target execution, so the arrow ends at the execution's
-        /// facing edge on the hook's side.
+        /// The top-level ancestor of a box (a sequence diagram's instance-role header, for any
+        /// occurrence nested on its lifeline).
+        /// </summary>
+        /// <param name="box">the box whose root is sought</param>
+        /// <returns>the top-level ancestor, or the box itself when it is top-level</returns>
+        private static Box Root(Box box)
+        {
+            var current = box;
+            while (current.Parent != null)
+            {
+                current = current.Parent;
+            }
+
+            return current;
+        }
+
+        /// <summary>
+        /// The horizontal reach of a synthesized self-message hook beyond the source's edge, when
+        /// the persisted bendpoints carry no horizontal extent of their own (Capella synthesizes
+        /// the hook shape at render time).
+        /// </summary>
+        private const double SelfMessageExtent = 25;
+
+        /// <summary>
+        /// Routes a message between two occurrences on the same lifeline as Capella's rectangular
+        /// self-message hook: out from the source's right edge, down, and back into the target's
+        /// facing edge. The departure height comes from the persisted bendpoints (resolved against
+        /// the corrected source anchor), the arrival height from the target execution's top, and
+        /// the sideways reach from the persisted extent — synthesized when the bendpoints carry
+        /// none, and never ending short of or beyond the target's edge.
         /// </summary>
         /// <param name="edge">the self-message edge, with both ends mapped</param>
         /// <param name="targetCenter">the target box's horizontal center</param>
         private static void RouteSelfMessage(Edge edge, double targetCenter)
         {
+            var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
             var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
-            if (hook.Count == 0)
+
+            var yStart = hook.Count > 0 ? origin.Y + hook[0].SourceRelative.Y : origin.Y;
+            var yEnd = edge.Target!.HasAbsoluteBounds ? edge.Target.Position.Y : yStart + 10;
+            if (Math.Abs(yEnd - yStart) < 1)
             {
-                return;
+                yEnd = yStart + 10;
             }
 
-            var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
-            var route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
+            var sourceCenter = edge.Source!.Position.X + ((edge.Source.Width ?? 0) / 2);
+            var startX = sourceCenter + Math.Max((edge.Source.Width ?? 0) / 2, MessageClearance);
+            var persistedExtent = hook.Count > 0 ? origin.X + hook.Max(bendpoint => bendpoint.SourceRelative.X) : startX;
+            var hookX = Math.Max(persistedExtent, startX + SelfMessageExtent);
+            var endX = targetCenter + Math.Max((edge.Target.Width ?? 0) / 2, MessageClearance);
 
-            var side = route.Max(point => point.X) > targetCenter ? 1 : -1;
-            var approach = targetCenter + (side * Math.Max((edge.Target!.Width ?? 0) / 2, MessageClearance));
-            route[route.Count - 1] = new Point(approach, route[route.Count - 1].Y);
-
-            edge.Route = route;
+            edge.Route = new List<Point>
+            {
+                new(startX, yStart),
+                new(hookX, yStart),
+                new(hookX, yEnd),
+                new(endX, yEnd),
+            };
         }
 
         /// <summary>
