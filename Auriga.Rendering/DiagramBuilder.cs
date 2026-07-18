@@ -231,7 +231,7 @@ namespace Auriga.Rendering
                 lifeline.Style.Resolved.GradientColor = null;
                 lifeline.Style.Resolved.StrokeColor = LifelineGray;
                 lifeline.Style.Resolved.StrokeWidth = 1;
-                lifeline.Style.Resolved.Pattern = LinePattern.Dash;
+                lifeline.Style.Resolved.Pattern = LinePattern.LongDash;
 
                 // The end-of-life mark persists at a stale relative position; Capella draws it as a
                 // small horizontal tick terminating the lifeline.

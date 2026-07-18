@@ -188,7 +188,7 @@ namespace Auriga.Rendering.Tests
         {
             var lifeline = MakeBox("lifeline", 99.5, 100, 1, 830);
             lifeline.Style.Resolved.Shape = ShapeKind.Line;
-            lifeline.Style.Resolved.Pattern = LinePattern.Dash;
+            lifeline.Style.Resolved.Pattern = LinePattern.LongDash;
             lifeline.Style.Resolved.StrokeColor = new Color(128, 128, 128);
 
             var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { lifeline }, new List<Edge>())));
@@ -200,7 +200,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That((string?)line.Attribute("x2"), Is.EqualTo("100"));
                 Assert.That((string?)line.Attribute("y1"), Is.EqualTo("100"));
                 Assert.That((string?)line.Attribute("y2"), Is.EqualTo("930"));
-                Assert.That((string?)line.Attribute("stroke-dasharray"), Is.EqualTo("5 3"));
+                Assert.That((string?)line.Attribute("stroke-dasharray"), Is.EqualTo("10 5"));
                 Assert.That(document.Descendants(Svg + "rect"), Is.Empty, "a line replaces the capped rectangle");
             });
         }

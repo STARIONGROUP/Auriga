@@ -93,7 +93,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(lifeline.Position.Y, Is.EqualTo(100), "starting at the header's bottom edge");
                 Assert.That(lifeline.Width, Is.EqualTo(1));
                 Assert.That(lifeline.Height, Is.GreaterThan(700), "running down to the diagram's lowest content");
-                Assert.That(lifeline.Style.Resolved.Pattern, Is.EqualTo(LinePattern.Dash));
+                Assert.That(lifeline.Style.Resolved.Pattern, Is.EqualTo(LinePattern.LongDash), "the calmer long-dash stroke Capella uses");
                 Assert.That(lifeline.Style.Resolved.StrokeColor, Is.EqualTo(new Color(128, 128, 128)));
                 Assert.That(lifeline.Style.Resolved.FillColor, Is.Null);
             });

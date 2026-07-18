@@ -561,6 +561,7 @@ namespace Auriga.Rendering
                 LinePattern.Dash => "5 3",
                 LinePattern.Dot => "1 3",
                 LinePattern.DashDot => "5 3 1 3",
+                LinePattern.LongDash => "10 5",
                 _ => null,
             };
 
