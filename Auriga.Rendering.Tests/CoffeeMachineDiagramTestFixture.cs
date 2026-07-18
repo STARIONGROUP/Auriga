@@ -38,6 +38,11 @@ namespace Auriga.Rendering.Tests
         /// </summary>
         private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
 
+        /// <summary>
+        /// The exporter the export round-trip tests drive.
+        /// </summary>
+        private readonly ISvgExporter svgExporter = new SvgExporter();
+
         private List<Diagram> diagrams = null!;
 
         [OneTimeSetUp]
@@ -159,7 +164,7 @@ namespace Auriga.Rendering.Tests
             {
                 foreach (var diagram in this.diagrams)
                 {
-                    var text = SvgExporter.Export(diagram);
+                    var text = this.svgExporter.Export(diagram);
                     var document = System.Xml.Linq.XDocument.Parse(text);
                     var ns = document.Root!.Name.Namespace;
 
@@ -175,7 +180,7 @@ namespace Auriga.Rendering.Tests
                 // Across the whole project the exports mirror the model: one rect per box, one
                 // non-marker path per routed edge, and the labels.
                 var documents = this.diagrams
-                    .Select(diagram => System.Xml.Linq.XDocument.Parse(SvgExporter.Export(diagram)))
+                    .Select(diagram => System.Xml.Linq.XDocument.Parse(this.svgExporter.Export(diagram)))
                     .ToList();
                 var svgNs = (System.Xml.Linq.XNamespace)"http://www.w3.org/2000/svg";
                 Assert.That(documents.Sum(d => d.Descendants(svgNs + "rect").Count()), Is.GreaterThan(100), "the project's boxes");

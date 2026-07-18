@@ -54,9 +54,11 @@ namespace Auriga.Rendering.Tests
             containerBuilder.RegisterType<NodeDiagramBuilder>().AsSelf();
             containerBuilder.RegisterType<SequenceDiagramBuilder>().AsSelf();
             containerBuilder.RegisterType<DiagramBuilder>().As<IDiagramBuilder>();
+            containerBuilder.RegisterType<SvgExporter>().As<ISvgExporter>();
 
             using var container = containerBuilder.Build();
             var resolved = container.Resolve<IDiagramBuilder>();
+            var exporter = container.Resolve<ISvgExporter>();
 
             var node = new Notation.Node
             {
@@ -72,6 +74,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(diagram.Name, Is.EqualTo("composed"));
                 Assert.That(diagram.Boxes, Has.Count.EqualTo(1));
                 Assert.That(diagram.Boxes[0].Position, Is.EqualTo(new Point(10, 20)));
+                Assert.That(exporter.Export(diagram), Does.Contain("<svg"));
             });
         }
 

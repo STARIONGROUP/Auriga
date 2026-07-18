@@ -34,6 +34,11 @@ namespace Auriga.Rendering.Tests
         /// </summary>
         private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
 
+        /// <summary>
+        /// The exporter the export smoke test drives.
+        /// </summary>
+        private readonly ISvgExporter svgExporter = new SvgExporter();
+
         private Diagram diagram = null!;
 
         [OneTimeSetUp]
@@ -281,7 +286,7 @@ namespace Auriga.Rendering.Tests
 
                 foreach (var scenario in scenarios)
                 {
-                    Assert.That(() => SvgExporter.Export(scenario), Throws.Nothing, scenario.Name);
+                    Assert.That(() => this.svgExporter.Export(scenario), Throws.Nothing, scenario.Name);
                 }
             });
         }
