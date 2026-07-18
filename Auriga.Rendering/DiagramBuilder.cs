@@ -390,12 +390,19 @@ namespace Auriga.Rendering
         private const double SelfMessageExtent = 25;
 
         /// <summary>
+        /// The height of a self-message hook: Capella draws every self-message as a compact staple
+        /// departing one hop above its arrival, regardless of the (stale) persisted departure.
+        /// </summary>
+        private const double SelfMessageHop = 10;
+
+        /// <summary>
         /// Routes a message between two occurrences on the same lifeline as Capella's rectangular
-        /// self-message hook: out from the source's right edge, down, and back into the target's
-        /// facing edge. The departure height comes from the persisted bendpoints (resolved against
-        /// the corrected source anchor), the arrival height from the target execution's top, and
-        /// the sideways reach from the persisted extent — synthesized when the bendpoints carry
-        /// none, and never ending short of or beyond the target's edge.
+        /// self-message hook: out from the source's right edge one hop above the arrival, sideways,
+        /// down, and back into the target's facing edge. The arrival height is the target
+        /// execution's top; the departure is always the compact hop above it — the persisted
+        /// departure bendpoints are stale render artifacts, exactly like receiving-end anchors.
+        /// The sideways reach honors the persisted extent when one exists and is synthesized
+        /// otherwise.
         /// </summary>
         /// <param name="edge">the self-message edge, with both ends mapped</param>
         /// <param name="targetCenter">the target box's horizontal center</param>
@@ -404,12 +411,10 @@ namespace Auriga.Rendering
             var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
             var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
 
-            var yStart = hook.Count > 0 ? origin.Y + hook[0].SourceRelative.Y : origin.Y;
-            var yEnd = edge.Target!.HasAbsoluteBounds ? edge.Target.Position.Y : yStart + 10;
-            if (Math.Abs(yEnd - yStart) < 1)
-            {
-                yEnd = yStart + 10;
-            }
+            var yEnd = edge.Target!.HasAbsoluteBounds
+                ? edge.Target.Position.Y
+                : (hook.Count > 0 ? origin.Y + hook[hook.Count - 1].SourceRelative.Y : origin.Y + SelfMessageHop);
+            var yStart = yEnd - SelfMessageHop;
 
             var sourceCenter = edge.Source!.Position.X + ((edge.Source.Width ?? 0) / 2);
             var startX = sourceCenter + Math.Max((edge.Source.Width ?? 0) / 2, MessageClearance);
