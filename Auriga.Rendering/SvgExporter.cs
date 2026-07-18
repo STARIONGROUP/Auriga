@@ -365,31 +365,37 @@ namespace Auriga.Rendering
 
             if (edge.Label != null && edge.Route.Count >= 2)
             {
-                var midpoint = Midpoint(edge.Route);
-                group.Add(BuildText(edge.Label.Text, midpoint.X, midpoint.Y - 2, "middle", style));
+                var (midpoint, vertical) = Midpoint(edge.Route);
+
+                // A label on a horizontal segment sits centered above it; a label on a vertical
+                // segment (a self-message hook) sits beside it, to the right.
+                group.Add(vertical
+                    ? BuildText(edge.Label.Text, midpoint.X + 4, midpoint.Y + (style.FontSize / 2), "start", style)
+                    : BuildText(edge.Label.Text, midpoint.X, midpoint.Y - 2, "middle", style));
             }
 
             return group;
         }
 
         /// <summary>
-        /// The geometric midpoint of a route: the middle point when the count is odd, the center of
-        /// the middle segment when it is even — so a two-point message labels above its center, not
-        /// above its target end.
+        /// The geometric midpoint of a route — the middle point when the count is odd, the center
+        /// of the middle segment when it is even (so a two-point message labels above its center,
+        /// not above its target end) — and whether that middle segment runs vertically.
         /// </summary>
         /// <param name="route">the route points</param>
-        /// <returns>the midpoint</returns>
-        private static Point Midpoint(IReadOnlyList<Point> route)
+        /// <returns>the midpoint and the middle segment's orientation</returns>
+        private static (Point Point, bool Vertical) Midpoint(IReadOnlyList<Point> route)
         {
             if (route.Count % 2 == 1)
             {
-                return route[route.Count / 2];
+                return (route[route.Count / 2], false);
             }
 
             var before = route[(route.Count / 2) - 1];
             var after = route[route.Count / 2];
 
-            return new Point((before.X + after.X) / 2, (before.Y + after.Y) / 2);
+            var midpoint = new Point((before.X + after.X) / 2, (before.Y + after.Y) / 2);
+            return (midpoint, Math.Abs(before.X - after.X) < 0.001 && Math.Abs(before.Y - after.Y) > 0.001);
         }
 
         /// <summary>

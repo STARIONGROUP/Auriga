@@ -198,6 +198,10 @@ namespace Auriga.Rendering.Tests
                 Assert.That(vodMovie.Route, Has.Count.EqualTo(4));
                 Assert.That(vodMovie.Route.Select(point => point.Y).Distinct().Count(), Is.EqualTo(2), "out, down, and back");
                 Assert.That(vodMovie.Route.Max(point => point.X), Is.GreaterThan(vodMovie.Route[0].X), "the hook extends sideways");
+                Assert.That(
+                    vodMovie.Route[3].X,
+                    Is.EqualTo(vodMovie.Target!.Position.X + vodMovie.Target.Width).Within(0.0001),
+                    "the arrow ends at the execution's facing edge instead of overshooting");
             });
         }
 

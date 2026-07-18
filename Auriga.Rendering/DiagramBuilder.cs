@@ -344,7 +344,16 @@ namespace Auriga.Rendering
                     if (hook.Count > 0)
                     {
                         var origin = SequenceAnchorPoint(edge.Source, edge.NotationView.SourceAnchor);
-                        edge.Route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
+                        var route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
+
+                        // The persisted return offset routinely overshoots past the target
+                        // execution; the arrow ends at the execution's facing edge on the hook's
+                        // side instead.
+                        var side = route.Max(point => point.X) > targetCenter ? 1 : -1;
+                        var approach = targetCenter + (side * Math.Max((edge.Target.Width ?? 0) / 2, MessageClearance));
+                        route[route.Count - 1] = new Point(approach, route[route.Count - 1].Y);
+
+                        edge.Route = route;
                     }
 
                     continue;
