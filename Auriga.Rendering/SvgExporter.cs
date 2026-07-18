@@ -190,7 +190,8 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Builds the group of a box: its rectangle, its label and, nested, its child boxes.
+        /// Builds the group of a box: its outline (a rectangle, or an ellipse when the resolved
+        /// style says so), its label and, nested, its child boxes.
         /// </summary>
         /// <param name="box">the box to render</param>
         /// <param name="defs">the document's <c>&lt;defs&gt;</c>, receiving gradients on demand</param>
@@ -201,19 +202,34 @@ namespace Auriga.Rendering
             var width = box.Width ?? DefaultBoxSize;
             var height = box.Height ?? DefaultBoxSize;
 
-            var rect = new XElement(
-                Svg + "rect",
-                new XAttribute("x", N(box.Position.X)),
-                new XAttribute("y", N(box.Position.Y)),
-                new XAttribute("width", N(width)),
-                new XAttribute("height", N(height)),
+            XElement outline;
+            if (style.Shape == ShapeKind.Ellipse)
+            {
+                outline = new XElement(
+                    Svg + "ellipse",
+                    new XAttribute("cx", N(box.Position.X + (width / 2))),
+                    new XAttribute("cy", N(box.Position.Y + (height / 2))),
+                    new XAttribute("rx", N(width / 2)),
+                    new XAttribute("ry", N(height / 2)));
+            }
+            else
+            {
+                outline = new XElement(
+                    Svg + "rect",
+                    new XAttribute("x", N(box.Position.X)),
+                    new XAttribute("y", N(box.Position.Y)),
+                    new XAttribute("width", N(width)),
+                    new XAttribute("height", N(height)));
+            }
+
+            outline.Add(
                 new XAttribute("fill", Fill(style, defs)),
                 new XAttribute("stroke", style.StrokeColor.ToHex()),
                 new XAttribute("stroke-width", N(style.StrokeWidth)));
 
-            AddDashArray(rect, style.Pattern);
+            AddDashArray(outline, style.Pattern);
 
-            var group = new XElement(Svg + "g", new XAttribute("id", box.Identifier), rect);
+            var group = new XElement(Svg + "g", new XAttribute("id", box.Identifier), outline);
 
             if (box.Label != null)
             {

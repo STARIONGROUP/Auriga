@@ -80,6 +80,27 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_an_elliptic_style_renders_as_an_ellipse()
+        {
+            var state = MakeBox("state", 232, 102, 126, 37);
+            state.Style.Resolved.Shape = ShapeKind.Ellipse;
+            state.Style.Resolved.FillColor = new Color(228, 228, 228);
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { state }, new List<Edge>())));
+            var ellipse = document.Descendants(Svg + "ellipse").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)ellipse.Attribute("cx"), Is.EqualTo("295"));
+                Assert.That((string?)ellipse.Attribute("cy"), Is.EqualTo("120.5"));
+                Assert.That((string?)ellipse.Attribute("rx"), Is.EqualTo("63"));
+                Assert.That((string?)ellipse.Attribute("ry"), Is.EqualTo("18.5"));
+                Assert.That((string?)ellipse.Attribute("fill"), Is.EqualTo("#E4E4E4"));
+                Assert.That(document.Descendants(Svg + "rect"), Is.Empty, "the ellipse replaces the rect");
+            });
+        }
+
+        [Test]
         public void Verify_that_labels_render_centered_or_at_their_persisted_geometry()
         {
             var centered = MakeBox("centered", 0, 0, 100, 40);

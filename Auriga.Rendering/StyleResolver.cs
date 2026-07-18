@@ -149,6 +149,7 @@ namespace Auriga.Rendering
                     break;
                 case SiriusDiagramModel.IEllipse ellipse:
                     ApplyFill(ellipse.Color, resolved);
+                    resolved.Shape = ShapeKind.Ellipse;
                     break;
                 case SiriusDiagramModel.ILozenge lozenge:
                     ApplyFill(lozenge.Color, resolved);
@@ -161,6 +162,7 @@ namespace Auriga.Rendering
                     break;
                 case SiriusDiagramModel.IDot dot:
                     ApplyFill(dot.BackgroundColor, resolved);
+                    resolved.Shape = ShapeKind.Ellipse;
                     break;
                 case SiriusDiagramModel.IShapeContainerStyle shapeContainer:
                     ApplyFill(shapeContainer.BackgroundColor, resolved);
