@@ -244,6 +244,11 @@ namespace Auriga.Rendering
 
             if (box.Label != null)
             {
+                if (box.Label.Framed)
+                {
+                    group.Add(BuildLabelTab(box, style));
+                }
+
                 group.Add(BuildBoxLabel(box, style));
             }
 
@@ -253,6 +258,29 @@ namespace Auriga.Rendering
             }
 
             return group;
+        }
+
+        /// <summary>
+        /// Builds the pentagon title tab a framed label sits in — the corner tab Capella draws
+        /// around a combined fragment's operator — anchored at the box's top-left corner and sized
+        /// to the label text.
+        /// </summary>
+        /// <param name="box">the box whose label is framed</param>
+        /// <param name="style">the box's resolved style, supplying the tab's stroke and font size</param>
+        /// <returns>the tab path element</returns>
+        private static XElement BuildLabelTab(Box box, ResolvedStyle style)
+        {
+            var width = (box.Label!.Text.Trim().Length * style.FontSize * 0.6) + 12;
+            var height = style.FontSize + 6;
+            var x = box.Position.X;
+            var y = box.Position.Y;
+
+            return new XElement(
+                Svg + "path",
+                new XAttribute("d", $"M {N(x)} {N(y)} L {N(x + width)} {N(y)} L {N(x + width)} {N(y + height - 5)} L {N(x + width - 5)} {N(y + height)} L {N(x)} {N(y + height)} Z"),
+                new XAttribute("fill", "#FFFFFF"),
+                new XAttribute("stroke", style.StrokeColor.ToHex()),
+                new XAttribute("stroke-width", "1"));
         }
 
         /// <summary>

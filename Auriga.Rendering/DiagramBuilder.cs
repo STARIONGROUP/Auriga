@@ -153,8 +153,8 @@ namespace Auriga.Rendering
         /// execution end is always the better vertical truth.
         /// </summary>
         /// <param name="rootBoxes">the top-level boxes: instance-role headers and combined fragments</param>
-        /// <param name="edges">the message edges</param>
-        private static void ApplySequenceLifelines(List<Box> rootBoxes, IReadOnlyList<Edge> edges)
+        /// <param name="edges">the message edges, to which the operand separator rules are added</param>
+        private static void ApplySequenceLifelines(List<Box> rootBoxes, List<Edge> edges)
         {
             var lifelines = rootBoxes
                 .SelectMany(header => header.Children
@@ -178,9 +178,25 @@ namespace Auriga.Rendering
             {
                 PinLabelTopLeft(fragment);
 
-                foreach (var operand in fragment.Children)
+                if (fragment.Label is { } operatorLabel)
                 {
-                    PinLabelTopLeft(operand);
+                    operatorLabel.Framed = true;
+                }
+
+                // Operands are transparent regions: no fill or outline of their own — Capella
+                // separates consecutive operands with a dashed rule across the frame instead.
+                var operands = fragment.Children.OrderBy(operand => operand.Position.Y).ToList();
+                for (var i = 0; i < operands.Count; i++)
+                {
+                    PinLabelTopLeft(operands[i]);
+                    operands[i].Style.Resolved.FillColor = null;
+                    operands[i].Style.Resolved.GradientColor = null;
+                    operands[i].Style.Resolved.StrokeWidth = 0;
+
+                    if (i > 0)
+                    {
+                        edges.Add(OperandSeparator(fragment, operands[i], i));
+                    }
                 }
             }
 
@@ -230,6 +246,30 @@ namespace Auriga.Rendering
                     mark.Style.Resolved.Pattern = LinePattern.Solid;
                 }
             }
+        }
+
+        /// <summary>
+        /// Builds the dashed rule separating an operand from its predecessor, spanning the
+        /// fragment's width at the operand's top edge.
+        /// </summary>
+        /// <param name="fragment">the combined fragment</param>
+        /// <param name="operand">the operand whose top edge the rule runs along</param>
+        /// <param name="index">the operand's index, making the rule's identifier unique</param>
+        /// <returns>the separator edge</returns>
+        private static Edge OperandSeparator(Box fragment, Box operand, int index)
+        {
+            var route = new List<Point>
+            {
+                new(fragment.Position.X, operand.Position.Y),
+                new(fragment.Position.X + (fragment.Width ?? 0), operand.Position.Y),
+            };
+
+            var separator = new Edge($"{fragment.Identifier}-separator-{index}", route, new NotationModel.Edge(), new Style(null, new List<NotationModel.IStyle>()));
+            separator.Style.Resolved.StrokeColor = new Color(0, 0, 0);
+            separator.Style.Resolved.StrokeWidth = 1;
+            separator.Style.Resolved.Pattern = LinePattern.Dash;
+
+            return separator;
         }
 
         /// <summary>

@@ -206,6 +206,24 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_framed_label_renders_in_a_title_tab()
+        {
+            var frame = MakeBox("frame", 320, 402, 985, 931);
+            frame.Style.Resolved.FillColor = null;
+            frame.Label = new Label("PAR") { Position = new Point(324, 404), Framed = true };
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { frame }, new List<Edge>())));
+            var tab = document.Descendants(Svg + "path").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)tab.Attribute("d"), Does.StartWith("M 320 402 L "), "anchored at the frame's corner");
+                Assert.That((string?)tab.Attribute("d"), Does.EndWith("Z"), "a closed pentagon");
+                Assert.That((string?)tab.Attribute("fill"), Is.EqualTo("#FFFFFF"));
+            });
+        }
+
+        [Test]
         public void Verify_that_a_two_point_edge_labels_above_its_center()
         {
             var edge = MakeEdge("straight", new[] { new Point(0, 20), new Point(100, 20) });

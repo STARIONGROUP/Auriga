@@ -143,6 +143,14 @@ namespace Auriga.Rendering.Tests
                 Assert.That(fragment.Width * fragment.Height, Is.EqualTo(performAudio.Boxes.Max(box => box.Width * box.Height)));
                 Assert.That(fragment.Label, Is.Not.Null, "the fragment carries its operator label");
                 Assert.That(fragment.Label!.Position, Is.EqualTo(new Point(fragment.Position.X + 4, fragment.Position.Y + 2)), "pinned to the frame's top-left corner");
+                Assert.That(fragment.Label.Framed, Is.True, "the operator renders in a title tab");
+
+                // Operands are transparent regions separated by a dashed rule across the frame.
+                Assert.That(fragment.Children, Has.All.Matches<Box>(operand => operand.Style.Resolved.StrokeWidth == 0 && operand.Style.Resolved.FillColor == null));
+                var separator = performAudio.Edges.Single(edge => edge.Identifier == fragment.Identifier + "-separator-1");
+                Assert.That(separator.Style.Resolved.Pattern, Is.EqualTo(LinePattern.Dash));
+                Assert.That(separator.Route[0].Y, Is.EqualTo(separator.Route[1].Y), "the rule runs horizontally");
+                Assert.That(separator.Route[1].X - separator.Route[0].X, Is.EqualTo(fragment.Width), "spanning the frame");
 
                 // A state fragment's label geometry lies inside its box, so it renders centered.
                 Assert.That(state.Label!.Position, Is.Null, "an inside label centers instead of keeping its persisted text bounds");
