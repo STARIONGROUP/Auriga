@@ -18,7 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Auriga\Auriga.csproj" />
+        <ProjectReference Include="..\Auriga.Extensions\Auriga.Extensions.csproj" />
     </ItemGroup>
 
     <ItemGroup>
