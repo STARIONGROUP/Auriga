@@ -184,6 +184,22 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_two_point_edge_labels_above_its_center()
+        {
+            var edge = MakeEdge("straight", new[] { new Point(0, 20), new Point(100, 20) });
+            edge.Label = new Label("centered");
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var label = document.Descendants(Svg + "text").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)label.Attribute("x"), Is.EqualTo("50"), "above the segment's center, not its target end");
+                Assert.That((string?)label.Attribute("y"), Is.EqualTo("18"));
+            });
+        }
+
+        [Test]
         public void Verify_that_gradients_and_markers_are_defined_once()
         {
             var first = MakeBox("first", 0, 0, 10, 10);

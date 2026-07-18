@@ -152,15 +152,37 @@ namespace Auriga.Rendering
         /// anchor fractions persisted on the lifelines themselves are stale render artifacts, so an
         /// execution end is always the better vertical truth.
         /// </summary>
-        /// <param name="rootBoxes">the instance-role header boxes</param>
+        /// <param name="rootBoxes">the top-level boxes: instance-role headers and combined fragments</param>
         /// <param name="edges">the message edges</param>
-        private static void ApplySequenceLifelines(IReadOnlyList<Box> rootBoxes, IReadOnlyList<Edge> edges)
+        private static void ApplySequenceLifelines(List<Box> rootBoxes, IReadOnlyList<Edge> edges)
         {
             var lifelines = rootBoxes
                 .SelectMany(header => header.Children
                     .Where(child => child.Label == null && child.SemanticElement != null && ReferenceEquals(child.SemanticElement, header.SemanticElement))
                     .Select(lifeline => (Header: header, Lifeline: lifeline)))
                 .ToList();
+
+            // A combined fragment / interaction use is a background frame: it paints first (largest
+            // area first, so nested frames stay visible), the lifeline content on top — and its
+            // label sits in the frame's top-left corner, not centered, as do its operands' guard
+            // labels.
+            var headers = new HashSet<Box>(lifelines.Select(pair => pair.Header));
+            var ordered = rootBoxes
+                .OrderBy(box => headers.Contains(box) ? 1 : 0)
+                .ThenByDescending(box => (box.Width ?? 0) * (box.Height ?? 0))
+                .ToList();
+            rootBoxes.Clear();
+            rootBoxes.AddRange(ordered);
+
+            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box)))
+            {
+                PinLabelTopLeft(fragment);
+
+                foreach (var operand in fragment.Children)
+                {
+                    PinLabelTopLeft(operand);
+                }
+            }
 
             // Center each lifeline under its header first, so a message attached to the lifeline
             // itself (an instance role without executions) starts from the centerline.
@@ -184,6 +206,21 @@ namespace Auriga.Rendering
                 lifeline.Style.Resolved.StrokeColor = LifelineGray;
                 lifeline.Style.Resolved.StrokeWidth = 1;
                 lifeline.Style.Resolved.Pattern = LinePattern.Dash;
+            }
+        }
+
+        /// <summary>
+        /// Pins a box's label to the box's top-left corner (the placement of a combined fragment's
+        /// operator and an operand's guard), when the box carries a label.
+        /// </summary>
+        /// <param name="box">the fragment or operand box</param>
+        private static void PinLabelTopLeft(Box box)
+        {
+            if (box.Label is { } label)
+            {
+                label.Position = new Point(box.Position.X + 4, box.Position.Y + 2);
+                label.Width = null;
+                label.Height = null;
             }
         }
 
@@ -368,6 +405,31 @@ namespace Auriga.Rendering
             {
                 BuildNode(child, position, box, siriusElement, siblings, viewToBox);
             }
+
+            // A label whose persisted geometry lies inside a leaf box is Capella's inside label,
+            // rendered centered in the shape — the persisted text bounds are a render artifact, so
+            // they are dropped in favor of centering. An outside label (an icon caption, a border
+            // label) and a container title keep their persisted geometry.
+            if (box.Children.Count == 0 && box.Label is { Position: { } labelPosition } insideLabel && Contains(box, labelPosition))
+            {
+                insideLabel.Position = null;
+                insideLabel.Width = null;
+                insideLabel.Height = null;
+            }
+        }
+
+        /// <summary>
+        /// Whether a point lies within the box's bounds.
+        /// </summary>
+        /// <param name="box">the box</param>
+        /// <param name="point">the point to test</param>
+        /// <returns>true when the point is inside the box</returns>
+        private static bool Contains(Box box, Point point)
+        {
+            return point.X >= box.Position.X
+                && point.Y >= box.Position.Y
+                && point.X <= box.Position.X + (box.Width ?? 0)
+                && point.Y <= box.Position.Y + (box.Height ?? 0);
         }
 
         /// <summary>

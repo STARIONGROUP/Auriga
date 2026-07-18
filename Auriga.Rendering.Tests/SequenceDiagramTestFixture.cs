@@ -124,6 +124,31 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_fragments_paint_behind_and_inside_labels_center()
+        {
+            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");
+            using var scope = XmiReaderBuilder.Create();
+            var result = scope.BuildAirdModelLoader().Load(path);
+
+            var performAudio = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_FremALbzEeSpk5KlhVegeg");
+
+            var fragment = performAudio.Boxes[0];
+            var state = performAudio.QueryAllBoxes().First(box => box.Label?.Text == "Play Audio-Video Stream on Seat TV");
+
+            Assert.Multiple(() =>
+            {
+                // The PAR combined fragment is the diagram's largest box and paints first, so the
+                // lifeline content it spans stays visible on top of its frame.
+                Assert.That(fragment.Width * fragment.Height, Is.EqualTo(performAudio.Boxes.Max(box => box.Width * box.Height)));
+                Assert.That(fragment.Label, Is.Not.Null, "the fragment carries its operator label");
+                Assert.That(fragment.Label!.Position, Is.EqualTo(new Point(fragment.Position.X + 4, fragment.Position.Y + 2)), "pinned to the frame's top-left corner");
+
+                // A state fragment's label geometry lies inside its box, so it renders centered.
+                Assert.That(state.Label!.Position, Is.Null, "an inside label centers instead of keeping its persisted text bounds");
+            });
+        }
+
+        [Test]
         public void Verify_that_every_scenario_of_the_model_builds_and_exports()
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");

@@ -313,11 +313,31 @@ namespace Auriga.Rendering
 
             if (edge.Label != null && edge.Route.Count >= 2)
             {
-                var midpoint = edge.Route[edge.Route.Count / 2];
+                var midpoint = Midpoint(edge.Route);
                 group.Add(BuildText(edge.Label.Text, midpoint.X, midpoint.Y - 2, "middle", style));
             }
 
             return group;
+        }
+
+        /// <summary>
+        /// The geometric midpoint of a route: the middle point when the count is odd, the center of
+        /// the middle segment when it is even — so a two-point message labels above its center, not
+        /// above its target end.
+        /// </summary>
+        /// <param name="route">the route points</param>
+        /// <returns>the midpoint</returns>
+        private static Point Midpoint(IReadOnlyList<Point> route)
+        {
+            if (route.Count % 2 == 1)
+            {
+                return route[route.Count / 2];
+            }
+
+            var before = route[(route.Count / 2) - 1];
+            var after = route[route.Count / 2];
+
+            return new Point((before.X + after.X) / 2, (before.Y + after.Y) / 2);
         }
 
         /// <summary>
