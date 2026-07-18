@@ -18,6 +18,7 @@ namespace Auriga.Rendering.Tests
     using Notation = Auriga.Diagram.Notation;
     using SiriusDiagram = Auriga.Diagram.Diagram;
     using SiriusDescription = Auriga.Diagram.Viewpoint.Description;
+    using SiriusViewpoint = Auriga.Diagram.Viewpoint;
 
     /// <summary>
     /// Tests the <see cref="DiagramBuilder"/> against hand-built object graphs: absolute position
@@ -46,6 +47,48 @@ namespace Auriga.Rendering.Tests
                 Assert.That(() => new DiagramBuilder(new NodeDiagramBuilder(), null!), Throws.ArgumentNullException);
                 Assert.That(() => new NodeDiagramBuilder(null!), Throws.ArgumentNullException);
                 Assert.That(() => new SequenceDiagramBuilder(null!), Throws.ArgumentNullException);
+                Assert.That(() => this.diagramBuilder.BuildAll(null!), Throws.ArgumentNullException);
+            });
+        }
+
+        [Test]
+        public void Verify_that_build_all_resolves_names_and_skips_what_it_cannot_build()
+        {
+            var named = Representation(new Notation.Node { Id = "node-named", Element = new SiriusDiagram.DNode { Id = "sirius-a", Name = "a" } });
+            var unmatched = Representation(new Notation.Node { Id = "node-unmatched", Element = new SiriusDiagram.DNode { Id = "sirius-b", Name = "b" } });
+            unmatched.Id = "rep-2";
+            var anonymous = Representation(new Notation.Node { Id = "node-anonymous", Element = new SiriusDiagram.DNode { Id = "sirius-c", Name = "c" } });
+            anonymous.Id = null;
+            var withoutNotation = new SiriusDiagram.DSemanticDiagram { Id = "rep-3" };
+
+            var descriptor = new SiriusViewpoint.DRepresentationDescriptor { RepPath = "#rep-1", Name = "named" };
+            var nameless = new SiriusViewpoint.DRepresentationDescriptor { RepPath = "#rep-2" };
+            var pathless = new SiriusViewpoint.DRepresentationDescriptor { Name = "orphan" };
+
+            var diagrams = this.diagramBuilder.BuildAll(new Auriga.Core.IAurigaElement[] { named, unmatched, anonymous, withoutNotation, descriptor, nameless, pathless });
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(diagrams, Has.Count.EqualTo(3), "the representation without a notation diagram is skipped");
+                Assert.That(diagrams[0].Name, Is.EqualTo("named"), "named through its descriptor");
+                Assert.That(diagrams[0].NotationDiagram, Is.Not.Null);
+                Assert.That(diagrams[1].Name, Is.Null, "its descriptor carries no name");
+                Assert.That(diagrams[2].Name, Is.Null, "no identifier to match a descriptor on");
+            });
+        }
+
+        [Test]
+        public void Verify_the_point_value_semantics()
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(new Point(1, 2) + new Point(3, 4), Is.EqualTo(new Point(4, 6)));
+                Assert.That(new Point(1, 2) == new Point(1, 2), Is.True);
+                Assert.That(new Point(1, 2) != new Point(1, 3), Is.True);
+                Assert.That(new Point(1, 2) != new Point(2, 2), Is.True);
+                Assert.That(new Point(1, 2).Equals((object)new Point(1, 2)), Is.True);
+                Assert.That(new Point(1, 2).Equals("not a point"), Is.False);
+                Assert.That(new Point(1, 2).GetHashCode(), Is.EqualTo(new Point(1, 2).GetHashCode()));
             });
         }
 

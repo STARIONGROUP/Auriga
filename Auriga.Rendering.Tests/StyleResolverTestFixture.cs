@@ -48,6 +48,11 @@ namespace Auriga.Rendering.Tests
                 Assert.That(new Color(150, 177, 218).ToHex(), Is.EqualTo("#96B1DA"));
                 Assert.That(new Color(9, 92, 46).ToString(), Is.EqualTo("#095C2E"));
                 Assert.That(new Color(1, 2, 3), Is.Not.EqualTo(new Color(1, 2, 4)));
+                Assert.That(new Color(1, 2, 3) == new Color(1, 2, 3), Is.True);
+                Assert.That(new Color(1, 2, 3) != new Color(3, 2, 1), Is.True);
+                Assert.That(new Color(1, 2, 3).Equals((object)new Color(1, 2, 3)), Is.True);
+                Assert.That(new Color(1, 2, 3).Equals("not a color"), Is.False);
+                Assert.That(new Color(1, 2, 3).GetHashCode(), Is.EqualTo(new Color(1, 2, 3).GetHashCode()));
             });
         }
 
@@ -266,6 +271,42 @@ namespace Auriga.Rendering.Tests
                 var plainEdge = this.styleResolver.Resolve(EdgeFor(null));
                 Assert.That(plainEdge.StrokeColor, Is.EqualTo(new Color(0, 0, 0)));
                 Assert.That(plainEdge.StrokeWidth, Is.EqualTo(1));
+            });
+        }
+
+        [Test]
+        public void Verify_that_font_flags_label_formats_and_solid_lines_resolve()
+        {
+            var shapeStyle = new Notation.ShapeStyle { Italic = true, Underline = true, StrikeThrough = true };
+            var box = this.styleResolver.Resolve(BoxWith(null, shapeStyle));
+
+            var centerLabel = new SiriusDiagram.CenterLabelStyle { LabelSize = 0 };
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Bold);
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Italic);
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Underline);
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Strike_through);
+
+            var edgeStyle = new SiriusDiagram.EdgeStyle
+            {
+                Size = 0,
+                LineStyle = SiriusDiagram.LineStyle.Solid,
+                CenterLabelStyle = centerLabel,
+            };
+
+            var edge = this.styleResolver.Resolve(EdgeWith(edgeStyle));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(box.Italic, Is.True);
+                Assert.That(box.Underline, Is.True);
+                Assert.That(box.StrikeThrough, Is.True);
+
+                Assert.That(edge.Pattern, Is.EqualTo(LinePattern.Solid));
+                Assert.That(edge.StrokeWidth, Is.EqualTo(1), "a zero size does not override the hairline default");
+                Assert.That(edge.Bold, Is.True);
+                Assert.That(edge.Italic, Is.True);
+                Assert.That(edge.Underline, Is.True);
+                Assert.That(edge.StrikeThrough, Is.True);
             });
         }
 

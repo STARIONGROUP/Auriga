@@ -85,6 +85,32 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_font_decorations_and_dot_markers_render()
+        {
+            var box = MakeBox("decorated", 0, 0, 100, 40);
+            box.Label = new Label("decorated");
+            box.Style.Resolved.Italic = true;
+            box.Style.Resolved.Underline = true;
+            box.Style.Resolved.StrikeThrough = true;
+
+            var edge = MakeEdge("dotted", new List<Point> { new(0, 100), new(100, 100) });
+            edge.Style.Resolved.TargetArrow = SiriusDiagram.EdgeArrows.Dot;
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge> { edge })));
+            var text = document.Descendants(Svg + "text").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)text.Attribute("font-style"), Is.EqualTo("italic"));
+                Assert.That((string?)text.Attribute("text-decoration"), Is.EqualTo("underline line-through"));
+                Assert.That(
+                    document.Descendants(Svg + "marker").Select(marker => (string?)marker.Attribute("id")).Single(),
+                    Does.StartWith("marker-dot"),
+                    "the dot arrow renders as a circle marker");
+            });
+        }
+
+        [Test]
         public void Verify_that_an_elliptic_style_renders_as_an_ellipse()
         {
             var state = MakeBox("state", 232, 102, 126, 37);
