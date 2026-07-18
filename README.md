@@ -18,7 +18,7 @@ The **Auriga.Extensions** library provides LINQ-style query extension methods ov
 
 ## Auriga.Rendering
 
-The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `DiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. It is the foundation the SVG rendering builds on.
+The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `DiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `SvgExporter` serializes a diagram to plain SVG (string, stream or file) with no external dependency.
 
 ## Auriga.Reporting
 

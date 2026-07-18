@@ -150,6 +150,43 @@ namespace Auriga.Rendering.Tests
             });
         }
 
+        [Test]
+        public void Verify_that_every_diagram_exports_to_well_formed_svg()
+        {
+            var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports");
+            Directory.CreateDirectory(outputDirectory);
+
+            Assert.Multiple(() =>
+            {
+                foreach (var diagram in this.diagrams)
+                {
+                    var text = SvgExporter.Export(diagram);
+                    var document = System.Xml.Linq.XDocument.Parse(text);
+                    var ns = document.Root!.Name.Namespace;
+
+                    Assert.That(document.Root.Name.LocalName, Is.EqualTo("svg"), diagram.Identifier);
+                    Assert.That(document.Root.Attribute("viewBox"), Is.Not.Null, diagram.Identifier);
+                    Assert.That(
+                        document.Descendants(ns + "rect").Count() + document.Descendants(ns + "path").Count(),
+                        Is.GreaterThan(0),
+                        $"{diagram.Identifier} renders visible content");
+
+                    // Written for manual browser inspection — the acceptance criterion of #57.
+                    SvgExporter.ExportToFile(diagram, Path.Combine(outputDirectory, diagram.Identifier.TrimStart('_') + ".svg"));
+                }
+
+                // Across the whole project the exports mirror the model: one rect per box, one
+                // non-marker path per routed edge, and the labels.
+                var documents = this.diagrams
+                    .Select(diagram => System.Xml.Linq.XDocument.Parse(SvgExporter.Export(diagram)))
+                    .ToList();
+                var svgNs = (System.Xml.Linq.XNamespace)"http://www.w3.org/2000/svg";
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "rect").Count()), Is.GreaterThan(100), "the project's boxes");
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "path").Count(p => p.Parent!.Name.LocalName != "marker")), Is.GreaterThan(40), "the project's edges");
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "text").Count()), Is.GreaterThan(100), "the project's labels");
+            });
+        }
+
         /// <summary>
         /// Finds the single box built for the Sirius element with the supplied uid, across all
         /// diagrams of the project.
