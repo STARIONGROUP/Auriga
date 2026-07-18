@@ -144,6 +144,13 @@ namespace Auriga.Rendering
         private const double LifelineTail = 20;
 
         /// <summary>
+        /// The minimum clearance between a message end and the box it attaches to, so a message
+        /// starting from or arriving at a bare lifeline (a 1-pixel-wide box) does not touch the
+        /// dashed centerline — executions provide more clearance through their own half-width.
+        /// </summary>
+        private const double MessageClearance = 3;
+
+        /// <summary>
         /// Applies the sequence-diagram layout rules the generic pass cannot know. A lifeline (the
         /// unnamed child sharing its instance role's semantic target) becomes the dashed gray
         /// centerline under its header, running down to the diagram's lowest content. A message
@@ -329,8 +336,8 @@ namespace Auriga.Rendering
                 var targetCenter = edge.Target.Position.X + ((edge.Target.Width ?? 0) / 2);
                 var direction = targetCenter >= sourceCenter ? 1 : -1;
 
-                var start = sourceCenter + (direction * ((edge.Source.Width ?? 0) / 2));
-                var end = targetCenter - (direction * ((edge.Target.Width ?? 0) / 2));
+                var start = sourceCenter + (direction * Math.Max((edge.Source.Width ?? 0) / 2, MessageClearance));
+                var end = targetCenter - (direction * Math.Max((edge.Target.Width ?? 0) / 2, MessageClearance));
 
                 edge.Route = new List<Point> { new(start, y), new(end, y) };
             }
