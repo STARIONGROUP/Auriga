@@ -315,6 +315,13 @@ namespace Auriga.Rendering
                     continue;
                 }
 
+                // An edge touching a note (a box without a Sirius element) is a note attachment,
+                // not a message — its generic anchor-resolved route stands.
+                if (edge.Source.SiriusElement == null || edge.Target.SiriusElement == null)
+                {
+                    continue;
+                }
+
                 var y = DetermineMessageHeight(edge);
                 if (y == null)
                 {
@@ -712,6 +719,13 @@ namespace Auriga.Rendering
             }
 
             edge.Style.Resolved = StyleResolver.Resolve(edge);
+
+            // A note attachment is not a model relationship: Capella draws it as a thin dotted
+            // line between the note and the element it annotates.
+            if (string.Equals(notationEdge.Type, "NoteAttachment", StringComparison.Ordinal))
+            {
+                edge.Style.Resolved.Pattern = LinePattern.Dot;
+            }
 
             return edge;
         }
