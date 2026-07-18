@@ -47,9 +47,17 @@ namespace Auriga.Rendering
 
         /// <summary>
         /// Gets the absolute position of the box's top-left corner. Persisted coordinates are
-        /// relative to the parent view; the builder accumulates them so every box is absolute.
+        /// relative to the parent view; the builder accumulates them so every box is absolute (a
+        /// sequence diagram's lifelines are the one case the builder repositions after the fact).
         /// </summary>
-        public Point Position { get; }
+        public Point Position { get; internal set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the box's geometry came from a Sirius
+        /// <c>AbsoluteBoundsFilter</c> — the persisted absolute layout of sequence-diagram elements,
+        /// which the sequence route pass treats as the vertical truth.
+        /// </summary>
+        public bool HasAbsoluteBounds { get; internal set; }
 
         /// <summary>
         /// Gets or sets the persisted width, or <c>null</c> when the diagram stores no width (the

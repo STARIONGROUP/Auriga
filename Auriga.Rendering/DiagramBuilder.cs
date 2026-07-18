@@ -72,6 +72,11 @@ namespace Auriga.Rendering
                 .Select(notationEdge => BuildEdge(notationEdge, viewToBox))
                 .ToList();
 
+            if (siriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram)
+            {
+                ApplySequenceLifelines(rootBoxes, edges);
+            }
+
             return new Diagram(siriusDiagram.Id ?? string.Empty, rootBoxes, edges, siriusDiagram, notationDiagram)
             {
                 Name = name,
@@ -129,6 +134,140 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// The stroke color of a lifeline's dashed centerline (Capella's lifeline gray).
+        /// </summary>
+        private static readonly Color LifelineGray = new(128, 128, 128);
+
+        /// <summary>
+        /// The distance a lifeline extends below the diagram's lowest content.
+        /// </summary>
+        private const double LifelineTail = 20;
+
+        /// <summary>
+        /// Applies the sequence-diagram layout rules the generic pass cannot know. A lifeline (the
+        /// unnamed child sharing its instance role's semantic target) becomes the dashed gray
+        /// centerline under its header, running down to the diagram's lowest content. A message
+        /// between two boxes is flattened to the horizontal line sequence semantics demand, at the
+        /// anchor height of an end whose box has persisted absolute bounds (an execution) — the
+        /// anchor fractions persisted on the lifelines themselves are stale render artifacts, so an
+        /// execution end is always the better vertical truth.
+        /// </summary>
+        /// <param name="rootBoxes">the instance-role header boxes</param>
+        /// <param name="edges">the message edges</param>
+        private static void ApplySequenceLifelines(IReadOnlyList<Box> rootBoxes, IReadOnlyList<Edge> edges)
+        {
+            var lifelines = rootBoxes
+                .SelectMany(header => header.Children
+                    .Where(child => child.Label == null && child.SemanticElement != null && ReferenceEquals(child.SemanticElement, header.SemanticElement))
+                    .Select(lifeline => (Header: header, Lifeline: lifeline)))
+                .ToList();
+
+            // Center each lifeline under its header first, so a message attached to the lifeline
+            // itself (an instance role without executions) starts from the centerline.
+            foreach (var (header, lifeline) in lifelines)
+            {
+                var centerX = header.Position.X + ((header.Width ?? 0) / 2);
+                lifeline.Position = new Point(centerX - 0.5, header.Position.Y + (header.Height ?? 0));
+                lifeline.Width = 1;
+            }
+
+            RouteMessagesHorizontally(edges);
+
+            var bottom = ContentBottom(rootBoxes, lifelines.Select(pair => pair.Lifeline), edges);
+
+            foreach (var (_, lifeline) in lifelines)
+            {
+                lifeline.Height = Math.Max(0, bottom - lifeline.Position.Y);
+
+                lifeline.Style.Resolved.FillColor = null;
+                lifeline.Style.Resolved.GradientColor = null;
+                lifeline.Style.Resolved.StrokeColor = LifelineGray;
+                lifeline.Style.Resolved.StrokeWidth = 1;
+                lifeline.Style.Resolved.Pattern = LinePattern.Dash;
+            }
+        }
+
+        /// <summary>
+        /// Flattens every message between two mapped boxes to a horizontal line from the facing edge
+        /// of its source box to the facing edge of its target box, at the anchor height of an end
+        /// with persisted absolute bounds (target preferred). A message without such an end — or a
+        /// self-message — keeps its generic route.
+        /// </summary>
+        /// <param name="edges">the message edges</param>
+        private static void RouteMessagesHorizontally(IReadOnlyList<Edge> edges)
+        {
+            foreach (var edge in edges)
+            {
+                if (edge.Source == null || edge.Target == null || ReferenceEquals(edge.Source, edge.Target))
+                {
+                    continue;
+                }
+
+                double y;
+                if (edge.Target.HasAbsoluteBounds)
+                {
+                    y = AnchorPoint(edge.Target, edge.NotationView.TargetAnchor).Y;
+                }
+                else if (edge.Source.HasAbsoluteBounds)
+                {
+                    y = AnchorPoint(edge.Source, edge.NotationView.SourceAnchor).Y;
+                }
+                else
+                {
+                    continue;
+                }
+
+                var sourceCenter = edge.Source.Position.X + ((edge.Source.Width ?? 0) / 2);
+                var targetCenter = edge.Target.Position.X + ((edge.Target.Width ?? 0) / 2);
+                var direction = targetCenter >= sourceCenter ? 1 : -1;
+
+                var start = sourceCenter + (direction * ((edge.Source.Width ?? 0) / 2));
+                var end = targetCenter - (direction * ((edge.Target.Width ?? 0) / 2));
+
+                edge.Route = new List<Point> { new(start, y), new(end, y) };
+            }
+        }
+
+        /// <summary>
+        /// The lowest y coordinate of the diagram's content — every box except the lifelines
+        /// themselves, and every route point — plus the lifeline tail margin.
+        /// </summary>
+        /// <param name="rootBoxes">the top-level boxes</param>
+        /// <param name="lifelines">the lifeline boxes to exclude</param>
+        /// <param name="edges">the message edges</param>
+        /// <returns>the y coordinate lifelines run down to</returns>
+        private static double ContentBottom(IReadOnlyList<Box> rootBoxes, IEnumerable<Box> lifelines, IReadOnlyList<Edge> edges)
+        {
+            var excluded = new HashSet<Box>(lifelines);
+            var bottom = 0d;
+
+            void Visit(Box box)
+            {
+                if (!excluded.Contains(box))
+                {
+                    bottom = Math.Max(bottom, box.Position.Y + (box.Height ?? 0));
+                }
+
+                foreach (var child in box.Children)
+                {
+                    Visit(child);
+                }
+            }
+
+            foreach (var box in rootBoxes)
+            {
+                Visit(box);
+            }
+
+            foreach (var point in edges.SelectMany(edge => edge.Route))
+            {
+                bottom = Math.Max(bottom, point.Y);
+            }
+
+            return bottom + LifelineTail;
+        }
+
+        /// <summary>
         /// Finds the GMF notation diagram persisted in the representation's <c>GMF_DIAGRAMS</c>
         /// annotation entry.
         /// </summary>
@@ -161,6 +300,18 @@ namespace Auriga.Rendering
 
             var siriusElement = node.Element as SiriusDiagramModel.IDDiagramElement;
 
+            // Sirius persists the layout of sequence-diagram elements (instance roles, executions,
+            // states, fragments) in an AbsoluteBoundsFilter, in absolute coordinates — the GMF child
+            // coordinates are only render-time artifacts there. When the filter is present it is the
+            // layout truth and replaces the accumulated relative geometry.
+            var absoluteBounds = siriusElement?.GraphicalFilters.OfType<SiriusDiagramModel.IAbsoluteBoundsFilter>().FirstOrDefault();
+            if (absoluteBounds != null)
+            {
+                position = new Point(absoluteBounds.X ?? position.X, absoluteBounds.Y ?? position.Y);
+                width = Dimension(absoluteBounds.Width) ?? width;
+                height = Dimension(absoluteBounds.Height) ?? height;
+            }
+
             if (siriusElement == null || ReferenceEquals(siriusElement, parentSiriusElement))
             {
                 if (parentBox != null)
@@ -189,6 +340,7 @@ namespace Auriga.Rendering
             {
                 Width = width,
                 Height = height,
+                HasAbsoluteBounds = absoluteBounds != null,
                 SiriusElement = siriusElement,
                 SemanticElement = siriusElement.Target,
             };

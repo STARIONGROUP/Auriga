@@ -79,6 +79,27 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_an_absolute_bounds_filter_overrides_the_relative_geometry()
+        {
+            var sirius = new SiriusDiagram.DNode { Id = "d-abs", Name = "filtered" };
+            sirius.GraphicalFilters.Add(new SiriusDiagram.AbsoluteBoundsFilter { X = 300, Y = 400, Width = 20, Height = 60 });
+
+            var node = new Notation.Node { Id = "n-abs", Element = sirius };
+            node.LayoutConstraint = new Notation.Bounds { X = 5, Y = 6, Width = 1, Height = 1 };
+
+            var diagram = DiagramBuilder.Build(Representation(node));
+            var box = diagram.Boxes.Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(box.Position, Is.EqualTo(new Point(300, 400)), "the filter's absolute position replaces the accumulated offset");
+                Assert.That(box.Width, Is.EqualTo(20));
+                Assert.That(box.Height, Is.EqualTo(60));
+                Assert.That(box.HasAbsoluteBounds, Is.True);
+            });
+        }
+
+        [Test]
         public void Verify_that_a_label_node_contributes_the_label_geometry()
         {
             var sirius = new SiriusDiagram.DNode { Id = "d-1", Name = "labelled" };
