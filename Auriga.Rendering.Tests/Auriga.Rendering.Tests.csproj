@@ -35,6 +35,38 @@
             <Link>TestData\coffee-machine-demo.capella</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="..\TestData\Crowd_Surveillance_System_in_DARC\Crowd_Surveillance_System_in_DARC.aird">
+            <Link>TestData\Crowd_Surveillance_System_in_DARC.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\Crowd_Surveillance_System_in_DARC\Crowd_Surveillance_System_in_DARC.capella">
+            <Link>TestData\Crowd_Surveillance_System_in_DARC.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\in-flight-entertainment-system\In-Flight Entertainment System.aird">
+            <Link>TestData\In-Flight Entertainment System.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\in-flight-entertainment-system\In-Flight Entertainment System.capella">
+            <Link>TestData\In-Flight Entertainment System.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\fragmented-sysmodel\sysmodel.aird">
+            <Link>TestData\fragmented-sysmodel\sysmodel.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\fragmented-sysmodel\sysmodel.capella">
+            <Link>TestData\fragmented-sysmodel\sysmodel.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\fragmented-sysmodel\fragments\*.airdfragment">
+            <Link>TestData\fragmented-sysmodel\fragments\%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\fragmented-sysmodel\fragments\*.capellafragment">
+            <Link>TestData\fragmented-sysmodel\fragments\%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

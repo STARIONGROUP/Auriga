@@ -130,6 +130,11 @@ namespace Auriga.Rendering.Tests
                 {
                     Assert.That(StyleResolver.Resolve(BoxWith(shape)).FillColor, Is.EqualTo(fill), shape.GetType().Name);
                 }
+
+                // The elliptic styles resolve their outline shape; everything else stays rectangular.
+                Assert.That(StyleResolver.Resolve(BoxWith(new SiriusDiagram.Ellipse())).Shape, Is.EqualTo(ShapeKind.Ellipse));
+                Assert.That(StyleResolver.Resolve(BoxWith(new SiriusDiagram.Dot())).Shape, Is.EqualTo(ShapeKind.Ellipse));
+                Assert.That(StyleResolver.Resolve(BoxWith(new SiriusDiagram.Square())).Shape, Is.EqualTo(ShapeKind.Rectangle));
             });
         }
 

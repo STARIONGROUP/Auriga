@@ -42,10 +42,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagrams = result.Elements.Values
-                .OfType<Auriga.Diagram.Diagram.IDDiagram>()
-                .Select(representation => DiagramBuilder.Build(representation))
-                .ToList();
+            this.diagrams = DiagramBuilder.BuildAll(result.Elements.Values).ToList();
         }
 
         [Test]
@@ -147,6 +144,38 @@ namespace Auriga.Rendering.Tests
                     this.diagrams.SelectMany(diagram => diagram.QueryAllBoxes()),
                     Has.Some.Matches<Box>(candidate => candidate.Style.Resolved.ImagePath != null),
                     "workspace-image styles carry their path");
+            });
+        }
+
+        [Test]
+        public void Verify_that_every_diagram_exports_to_well_formed_svg()
+        {
+            Assert.Multiple(() =>
+            {
+                foreach (var diagram in this.diagrams)
+                {
+                    var text = SvgExporter.Export(diagram);
+                    var document = System.Xml.Linq.XDocument.Parse(text);
+                    var ns = document.Root!.Name.Namespace;
+
+                    Assert.That(diagram.Name, Is.Not.Null.And.Not.Empty, $"the descriptor names representation {diagram.Identifier}");
+                    Assert.That(document.Root.Name.LocalName, Is.EqualTo("svg"), diagram.Identifier);
+                    Assert.That(document.Root.Attribute("viewBox"), Is.Not.Null, diagram.Identifier);
+                    Assert.That(
+                        document.Descendants(ns + "rect").Count() + document.Descendants(ns + "path").Count(),
+                        Is.GreaterThan(0),
+                        $"{diagram.Identifier} renders visible content");
+                }
+
+                // Across the whole project the exports mirror the model: one rect per box, one
+                // non-marker path per routed edge, and the labels.
+                var documents = this.diagrams
+                    .Select(diagram => System.Xml.Linq.XDocument.Parse(SvgExporter.Export(diagram)))
+                    .ToList();
+                var svgNs = (System.Xml.Linq.XNamespace)"http://www.w3.org/2000/svg";
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "rect").Count()), Is.GreaterThan(100), "the project's boxes");
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "path").Count(p => p.Parent!.Name.LocalName != "marker")), Is.GreaterThan(40), "the project's edges");
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "text").Count()), Is.GreaterThan(100), "the project's labels");
             });
         }
 

@@ -17,6 +17,11 @@ namespace Auriga.Rendering
     public sealed class ResolvedStyle
     {
         /// <summary>
+        /// Gets or sets the outline shape of a box (meaningless for an edge).
+        /// </summary>
+        public ShapeKind Shape { get; set; }
+
+        /// <summary>
         /// Gets or sets the fill color, or <c>null</c> for an unfilled item (an edge, or a box the
         /// diagram renders without a fill).
         /// </summary>

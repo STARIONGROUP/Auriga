@@ -52,10 +52,7 @@ namespace Auriga.Rendering
                 throw new ArgumentNullException(nameof(siriusDiagram));
             }
 
-            var notationDiagram = ((SiriusViewpoint.IDRepresentation)siriusDiagram).OwnedAnnotationEntries
-                .Select(entry => entry.Data)
-                .OfType<NotationModel.IDiagram>()
-                .FirstOrDefault();
+            var notationDiagram = FindNotationDiagram(siriusDiagram);
 
             if (notationDiagram == null)
             {
@@ -80,6 +77,69 @@ namespace Auriga.Rendering
                 Name = name,
                 SemanticElement = (siriusDiagram as SiriusViewpoint.IDSemanticDecorator)?.Target,
             };
+        }
+
+        /// <summary>
+        /// Builds the intermediate model of every representation in a parsed <c>.aird</c> session
+        /// that carries a persisted GMF layout, naming each diagram from its
+        /// <c>DRepresentationDescriptor</c> — the descriptor in the <c>DAnalysis</c> owns the
+        /// human-readable name (<c>DRepresentation</c> itself does not serialize one) and points at
+        /// its representation via <c>repPath</c>. A representation without a notation diagram or a
+        /// descriptor without a resolvable representation is skipped, not an error.
+        /// </summary>
+        /// <param name="elements">
+        /// the elements of the parsed session (e.g. the loader result's element index values),
+        /// providing both the representations and their descriptors
+        /// </param>
+        /// <returns>the intermediate models, in element order</returns>
+        /// <exception cref="ArgumentNullException">the element collection is null</exception>
+        public static IReadOnlyList<Diagram> BuildAll(IEnumerable<Auriga.Core.IAurigaElement> elements)
+        {
+            if (elements == null)
+            {
+                throw new ArgumentNullException(nameof(elements));
+            }
+
+            var snapshot = elements.ToList();
+
+            var names = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var descriptor in snapshot
+                .OfType<SiriusViewpoint.IDRepresentationDescriptor>()
+                .Where(descriptor => !string.IsNullOrEmpty(descriptor.RepPath) && !string.IsNullOrEmpty(descriptor.Name)))
+            {
+                names[descriptor.RepPath!.TrimStart('#')] = descriptor.Name!;
+            }
+
+            var diagrams = new List<Diagram>();
+            foreach (var representation in snapshot.OfType<SiriusDiagramModel.IDDiagram>())
+            {
+                if (FindNotationDiagram(representation) == null)
+                {
+                    continue;
+                }
+
+                var name = representation.Id != null && names.TryGetValue(representation.Id, out var descriptorName)
+                    ? descriptorName
+                    : null;
+
+                diagrams.Add(Build(representation, name));
+            }
+
+            return diagrams;
+        }
+
+        /// <summary>
+        /// Finds the GMF notation diagram persisted in the representation's <c>GMF_DIAGRAMS</c>
+        /// annotation entry.
+        /// </summary>
+        /// <param name="siriusDiagram">the Sirius representation</param>
+        /// <returns>the notation diagram, or <c>null</c> when the representation carries none</returns>
+        private static NotationModel.IDiagram? FindNotationDiagram(SiriusDiagramModel.IDDiagram siriusDiagram)
+        {
+            return ((SiriusViewpoint.IDRepresentation)siriusDiagram).OwnedAnnotationEntries
+                .Select(entry => entry.Data)
+                .OfType<NotationModel.IDiagram>()
+                .FirstOrDefault();
         }
 
         /// <summary>
