@@ -14,6 +14,7 @@
         <PackageTags>Capella Arcadia Sirius GMF Aird Diagram Rendering MBSE modeltopia</PackageTags>
         <PackageReleaseNotes>
             [ADD] the intermediate diagram model (Diagram, Box, Edge, Label, Point, Style) and the DiagramBuilder that builds it from a parsed .aird session: persisted GMF geometry paired with the Sirius representation elements and their resolved Capella semantic targets
+            [ADD] style resolution: every built item carries a ResolvedStyle (fill/gradient, stroke color-width-pattern, font, arrows, workspace-image path) resolved from the Sirius owned style, the GMF notation styles and the Capella default palette, with sane fallbacks for unknown or malformed styles
         </PackageReleaseNotes>
     </PropertyGroup>
 
