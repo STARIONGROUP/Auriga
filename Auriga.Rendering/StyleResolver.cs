@@ -16,29 +16,54 @@ namespace Auriga.Rendering
     using SiriusViewpoint = Auriga.Diagram.Viewpoint;
 
     /// <summary>
-    /// Resolves an item's styling sources into the concrete <see cref="ResolvedStyle"/>. Values
-    /// layer in fixed precedence: the Capella default palette (by the semantic element's type)
-    /// seeds every property, the GMF notation styles (fonts, packed-integer colors, line widths)
-    /// override the seeds, and the Sirius owned style — the style Capella actually persists per
-    /// element — wins over both. A missing, partial or unknown style therefore degrades to sane
-    /// defaults instead of throwing.
+    /// The default <see cref="IStyleResolver"/>: resolves an item's styling sources into the
+    /// concrete <see cref="ResolvedStyle"/>. Values layer in fixed precedence: the injected
+    /// default palette (by the semantic element's type) seeds every property, the GMF notation
+    /// styles (fonts, packed-integer colors, line widths) override the seeds, and the Sirius owned
+    /// style — the style Capella actually persists per element — wins over both. A missing,
+    /// partial or unknown style therefore degrades to sane defaults instead of throwing.
     /// </summary>
-    public static class StyleResolver
+    public sealed class StyleResolver : IStyleResolver
     {
+        /// <summary>
+        /// The palette seeding the defaults of every resolved property.
+        /// </summary>
+        private readonly ICapellaDefaultPalette palette;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StyleResolver"/> class with the default
+        /// Capella palette, for direct use without a container.
+        /// </summary>
+        public StyleResolver()
+            : this(new CapellaDefaultPalette())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StyleResolver"/> class with the supplied
+        /// palette — the constructor a container injects through.
+        /// </summary>
+        /// <param name="palette">the palette seeding the defaults of every resolved property</param>
+        /// <exception cref="ArgumentNullException">the palette is null</exception>
+        public StyleResolver(ICapellaDefaultPalette palette)
+        {
+            this.palette = palette ?? throw new ArgumentNullException(nameof(palette));
+        }
+
         /// <summary>
         /// Resolves the visual properties of a box.
         /// </summary>
         /// <param name="box">the box to resolve</param>
         /// <returns>the resolved style</returns>
         /// <exception cref="ArgumentNullException">the box is null</exception>
-        public static ResolvedStyle Resolve(Box box)
+        public ResolvedStyle Resolve(Box box)
         {
             if (box == null)
             {
                 throw new ArgumentNullException(nameof(box));
             }
 
-            var (fill, stroke) = CapellaDefaultPalette.ForBox(box.SemanticElement?.GetType().Name);
+            var (fill, stroke) = this.palette.ForBox(box.SemanticElement?.GetType().Name);
 
             var resolved = new ResolvedStyle
             {
@@ -58,14 +83,14 @@ namespace Auriga.Rendering
         /// <param name="edge">the edge to resolve</param>
         /// <returns>the resolved style</returns>
         /// <exception cref="ArgumentNullException">the edge is null</exception>
-        public static ResolvedStyle Resolve(Edge edge)
+        public ResolvedStyle Resolve(Edge edge)
         {
             if (edge == null)
             {
                 throw new ArgumentNullException(nameof(edge));
             }
 
-            var (stroke, width) = CapellaDefaultPalette.ForEdge(edge.SemanticElement?.GetType().Name);
+            var (stroke, width) = this.palette.ForEdge(edge.SemanticElement?.GetType().Name);
 
             var resolved = new ResolvedStyle
             {

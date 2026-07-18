@@ -11,11 +11,14 @@ namespace Auriga.Rendering.Tests
 {
     using System.Linq;
 
+    using Autofac;
+
     using NUnit.Framework;
 
     using Notation = Auriga.Diagram.Notation;
     using SiriusDiagram = Auriga.Diagram.Diagram;
     using SiriusDescription = Auriga.Diagram.Viewpoint.Description;
+    using SiriusViewpoint = Auriga.Diagram.Viewpoint;
 
     /// <summary>
     /// Tests the <see cref="DiagramBuilder"/> against hand-built object graphs: absolute position
@@ -26,15 +29,99 @@ namespace Auriga.Rendering.Tests
     [TestFixture]
     public class DiagramBuilderTestFixture
     {
+        /// <summary>
+        /// The builder under test, composed with the default per-kind builders.
+        /// </summary>
+        private readonly DiagramBuilder diagramBuilder = new();
+
         [Test]
         public void Verify_that_the_builder_guards_its_arguments()
         {
             Assert.Multiple(() =>
             {
-                Assert.That(() => DiagramBuilder.Build(null!), Throws.ArgumentNullException);
+                Assert.That(() => this.diagramBuilder.Build(null!), Throws.ArgumentNullException);
                 Assert.That(
-                    () => DiagramBuilder.Build(new SiriusDiagram.DSemanticDiagram()),
+                    () => this.diagramBuilder.Build(new SiriusDiagram.DSemanticDiagram()),
                     Throws.InvalidOperationException.With.Message.Contains("no GMF notation diagram"));
+                Assert.That(() => new DiagramBuilder(null!, new SequenceDiagramBuilder()), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(new NodeDiagramBuilder(), null!), Throws.ArgumentNullException);
+                Assert.That(() => new NodeDiagramBuilder(null!), Throws.ArgumentNullException);
+                Assert.That(() => new SequenceDiagramBuilder(null!), Throws.ArgumentNullException);
+                Assert.That(() => this.diagramBuilder.BuildAll(null!), Throws.ArgumentNullException);
+            });
+        }
+
+        [Test]
+        public void Verify_that_build_all_resolves_names_and_skips_what_it_cannot_build()
+        {
+            var named = Representation(new Notation.Node { Id = "node-named", Element = new SiriusDiagram.DNode { Id = "sirius-a", Name = "a" } });
+            var unmatched = Representation(new Notation.Node { Id = "node-unmatched", Element = new SiriusDiagram.DNode { Id = "sirius-b", Name = "b" } });
+            unmatched.Id = "rep-2";
+            var anonymous = Representation(new Notation.Node { Id = "node-anonymous", Element = new SiriusDiagram.DNode { Id = "sirius-c", Name = "c" } });
+            anonymous.Id = null;
+            var withoutNotation = new SiriusDiagram.DSemanticDiagram { Id = "rep-3" };
+
+            var descriptor = new SiriusViewpoint.DRepresentationDescriptor { RepPath = "#rep-1", Name = "named" };
+            var nameless = new SiriusViewpoint.DRepresentationDescriptor { RepPath = "#rep-2" };
+            var pathless = new SiriusViewpoint.DRepresentationDescriptor { Name = "orphan" };
+
+            var diagrams = this.diagramBuilder.BuildAll(new Auriga.Core.IAurigaElement[] { named, unmatched, anonymous, withoutNotation, descriptor, nameless, pathless });
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(diagrams, Has.Count.EqualTo(3), "the representation without a notation diagram is skipped");
+                Assert.That(diagrams[0].Name, Is.EqualTo("named"), "named through its descriptor");
+                Assert.That(diagrams[0].NotationDiagram, Is.Not.Null);
+                Assert.That(diagrams[1].Name, Is.Null, "its descriptor carries no name");
+                Assert.That(diagrams[2].Name, Is.Null, "no identifier to match a descriptor on");
+            });
+        }
+
+        [Test]
+        public void Verify_the_point_value_semantics()
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(new Point(1, 2) + new Point(3, 4), Is.EqualTo(new Point(4, 6)));
+                Assert.That(new Point(1, 2) == new Point(1, 2), Is.True);
+                Assert.That(new Point(1, 2) != new Point(1, 3), Is.True);
+                Assert.That(new Point(1, 2) != new Point(2, 2), Is.True);
+                Assert.That(new Point(1, 2).Equals((object)new Point(1, 2)), Is.True);
+                Assert.That(new Point(1, 2).Equals("not a point"), Is.False);
+                Assert.That(new Point(1, 2).GetHashCode(), Is.EqualTo(new Point(1, 2).GetHashCode()));
+            });
+        }
+
+        [Test]
+        public void Verify_that_the_builder_composes_through_an_autofac_container()
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterType<CapellaDefaultPalette>().As<ICapellaDefaultPalette>();
+            containerBuilder.RegisterType<StyleResolver>().As<IStyleResolver>();
+            containerBuilder.RegisterType<NodeDiagramBuilder>().AsSelf();
+            containerBuilder.RegisterType<SequenceDiagramBuilder>().AsSelf();
+            containerBuilder.RegisterType<DiagramBuilder>().As<IDiagramBuilder>();
+            containerBuilder.RegisterType<SvgExporter>().As<ISvgExporter>();
+
+            using var container = containerBuilder.Build();
+            var resolved = container.Resolve<IDiagramBuilder>();
+            var exporter = container.Resolve<ISvgExporter>();
+
+            var node = new Notation.Node
+            {
+                Id = "node-1",
+                Element = new SiriusDiagram.DNode { Id = "sirius-1", Name = "injected" },
+                LayoutConstraint = new Notation.Bounds { X = 10, Y = 20 },
+            };
+
+            var diagram = resolved.Build(Representation(node), "composed");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(diagram.Name, Is.EqualTo("composed"));
+                Assert.That(diagram.Boxes, Has.Count.EqualTo(1));
+                Assert.That(diagram.Boxes[0].Position, Is.EqualTo(new Point(10, 20)));
+                Assert.That(exporter.Export(diagram), Does.Contain("<svg"));
             });
         }
 
@@ -52,7 +139,7 @@ namespace Auriga.Rendering.Tests
             parentNode.LayoutConstraint = new Notation.Bounds { X = 100, Y = 50, Width = 200, Height = 120 };
             parentNode.PersistedChildren.Add(childNode);
 
-            var diagram = DiagramBuilder.Build(Representation(parentNode), "synthetic");
+            var diagram = this.diagramBuilder.Build(Representation(parentNode), "synthetic");
 
             var parent = diagram.Boxes.Single();
             var child = parent.Children.Single();
@@ -87,7 +174,7 @@ namespace Auriga.Rendering.Tests
             var node = new Notation.Node { Id = "n-abs", Element = sirius };
             node.LayoutConstraint = new Notation.Bounds { X = 5, Y = 6, Width = 1, Height = 1 };
 
-            var diagram = DiagramBuilder.Build(Representation(node));
+            var diagram = this.diagramBuilder.Build(Representation(node));
             var box = diagram.Boxes.Single();
 
             Assert.Multiple(() =>
@@ -105,7 +192,7 @@ namespace Auriga.Rendering.Tests
             var note = new Notation.Shape { Id = "note-1", Description = "A note\r\n\r\nwith paragraphs", FillColor = (0xCC << 16) | (0xFF << 8) | 0xFF };
             note.LayoutConstraint = new Notation.Bounds { X = 700, Y = 20, Width = 300, Height = 120 };
 
-            var diagram = DiagramBuilder.Build(Representation(note));
+            var diagram = this.diagramBuilder.Build(Representation(note));
             var box = diagram.Boxes.Single();
 
             Assert.Multiple(() =>
@@ -131,7 +218,7 @@ namespace Auriga.Rendering.Tests
             node.LayoutConstraint = new Notation.Bounds { X = 380, Y = 237, Width = 41, Height = 31 };
             node.PersistedChildren.Add(labelNode);
 
-            var diagram = DiagramBuilder.Build(Representation(node));
+            var diagram = this.diagramBuilder.Build(Representation(node));
 
             var box = diagram.Boxes.Single();
 
@@ -162,7 +249,7 @@ namespace Auriga.Rendering.Tests
             containerNode.LayoutConstraint = new Notation.Bounds { X = 100, Y = 100 };
             containerNode.PersistedChildren.Add(compartment);
 
-            var diagram = DiagramBuilder.Build(Representation(containerNode));
+            var diagram = this.diagramBuilder.Build(Representation(containerNode));
 
             var container = diagram.Boxes.Single();
             var nested = container.Children.Single();
@@ -199,7 +286,7 @@ namespace Auriga.Rendering.Tests
                 Bendpoints = new Notation.RelativeBendpoints { Points = "[2, 5, 51, 5]$[-49, 5, 0, 5]" },
             };
 
-            var diagram = DiagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { notationEdge }));
+            var diagram = this.diagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { notationEdge }));
 
             var edge = diagram.Edges.Single();
 
@@ -234,7 +321,7 @@ namespace Auriga.Rendering.Tests
             // No anchors and no bendpoints persisted: both ends default to the view centers.
             var notationEdge = new Notation.Edge { Id = "n-edge2", Source = sourceNode, Target = targetNode };
 
-            var diagram = DiagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { notationEdge }));
+            var diagram = this.diagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { notationEdge }));
 
             var edge = diagram.Edges.Single();
 
@@ -272,7 +359,7 @@ namespace Auriga.Rendering.Tests
             // Neither end maps to a box and no bendpoints parse: the route is empty.
             var unroutable = new Notation.Edge { Id = "n-edge4", Source = auxiliarySource, Bendpoints = new Notation.RelativeBendpoints() };
 
-            var diagram = DiagramBuilder.Build(Representation(new[] { auxiliarySource, targetNode }, new[] { withBendpoints, unroutable }));
+            var diagram = this.diagramBuilder.Build(Representation(new[] { auxiliarySource, targetNode }, new[] { withBendpoints, unroutable }));
 
             Assert.Multiple(() =>
             {
@@ -294,7 +381,7 @@ namespace Auriga.Rendering.Tests
             var node = new Notation.Node { Id = "n-styled", Element = containerSirius };
             node.Styles.Add(fontStyle);
 
-            var diagram = DiagramBuilder.Build(Representation(node));
+            var diagram = this.diagramBuilder.Build(Representation(node));
 
             var box = diagram.Boxes.Single();
 

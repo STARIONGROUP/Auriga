@@ -14,9 +14,10 @@
         <PackageTags>Capella Arcadia Sirius GMF Aird Diagram Rendering MBSE modeltopia</PackageTags>
         <PackageReleaseNotes>
             [ADD] the intermediate diagram model (Diagram, Box, Edge, Label, Point, Style) and the DiagramBuilder that builds it from a parsed .aird session: persisted GMF geometry paired with the Sirius representation elements and their resolved Capella semantic targets
-            [ADD] style resolution: every built item carries a ResolvedStyle (fill/gradient, stroke color-width-pattern, font, arrows, workspace-image path) resolved from the Sirius owned style, the GMF notation styles and the Capella default palette, with sane fallbacks for unknown or malformed styles
-            [ADD] SvgExporter: serialize a Diagram to plain SVG (string, stream or file) with no external dependency — nested box groups, routed edge paths, wrapped labels, gradients and arrow markers in defs, and a padded viewBox from the persisted geometry
+            [ADD] style resolution (behind the injectable IStyleResolver / ICapellaDefaultPalette): every built item carries a ResolvedStyle (fill/gradient, stroke color-width-pattern, font, arrows, workspace-image path) resolved from the Sirius owned style, the GMF notation styles and the Capella default palette, with sane fallbacks for unknown or malformed styles
+            [ADD] SvgExporter (behind the injectable ISvgExporter): serialize a Diagram to plain SVG (string, stream or file) with no external dependency — nested box groups, routed edge paths, wrapped labels, gradients and arrow markers in defs, and a padded viewBox from the persisted geometry
             [ADD] sequence-diagram rendering: the builder honors the persisted AbsoluteBoundsFilter layout (instance roles, executions, states, fragments), turns lifelines into dashed centerlines under their headers, and routes messages horizontally at their execution-anchor heights
+            [ADD] per-representation-kind builders (NodeDiagramBuilder, SequenceDiagramBuilder) over a shared DiagramBuilderBase core, dispatched by the constructor-injectable IDiagramBuilder / DiagramBuilder facade
         </PackageReleaseNotes>
     </PropertyGroup>
 

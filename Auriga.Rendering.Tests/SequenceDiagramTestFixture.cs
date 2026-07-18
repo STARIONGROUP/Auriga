@@ -17,6 +17,10 @@ namespace Auriga.Rendering.Tests
 
     using NUnit.Framework;
 
+    using Notation = Auriga.Diagram.Notation;
+    using SiriusDescription = Auriga.Diagram.Viewpoint.Description;
+    using SiriusDiagram = Auriga.Diagram.Diagram;
+
     /// <summary>
     /// The end-to-end acceptance tests for sequence-diagram rendering (issue #62), against the real
     /// <c>[ES] Select VOD Movie</c> exchange scenario of the In-Flight Entertainment System: the
@@ -29,6 +33,16 @@ namespace Auriga.Rendering.Tests
     {
         private const string SelectVodMovieUid = "_QD67YMAFEeS91_vDABbjUA";
 
+        /// <summary>
+        /// The builder under test, composed with the default per-kind builders.
+        /// </summary>
+        private readonly DiagramBuilder diagramBuilder = new();
+
+        /// <summary>
+        /// The exporter the export smoke test drives.
+        /// </summary>
+        private readonly SvgExporter svgExporter = new();
+
         private Diagram diagram = null!;
 
         [OneTimeSetUp]
@@ -38,7 +52,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SelectVodMovieUid);
+            this.diagram = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SelectVodMovieUid);
         }
 
         [Test]
@@ -139,7 +153,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var performAudio = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_FremALbzEeSpk5KlhVegeg");
+            var performAudio = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_FremALbzEeSpk5KlhVegeg");
 
             var fragment = performAudio.Boxes[0];
             var state = performAudio.QueryAllBoxes().First(box => box.Label?.Text == "Play Audio-Video Stream on Seat TV");
@@ -178,7 +192,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var performAudio = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_5o4FkLD5EeSk6sURco8jXw");
+            var performAudio = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_5o4FkLD5EeSk6sURco8jXw");
 
             var notes = performAudio.QueryAllBoxes()
                 .Where(box => box.SiriusElement == null && box.NotationView is Auriga.Diagram.Notation.IShape)
@@ -212,7 +226,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenario = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_duRY4JiwEeSFKIU85IonOQ");
+            var scenario = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_duRY4JiwEeSFKIU85IonOQ");
 
             var attachment = scenario.Edges.Single(edge => edge.Identifier == "_25tm0KfIEeSfJNzMtsfIDg");
             var note = scenario.QueryAllBoxes().Single(box => box.Identifier == "_xPpnAKfIEeSfJNzMtsfIDg");
@@ -232,13 +246,104 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_self_messages_without_absolute_target_bounds_fall_back_to_the_persisted_hook()
+        {
+            var semanticA = new object();
+            var semanticB = new object();
+
+            var headerA = new Notation.Node
+            {
+                Id = "header-a",
+                Element = new SiriusDiagram.DNode { Id = "role-a", Name = "A", Target = semanticA },
+                LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 100, Height = 40 },
+            };
+            var lifelineA = new Notation.Node
+            {
+                Id = "lifeline-a",
+                Element = new SiriusDiagram.DNode { Id = "line-a", Target = semanticA },
+                LayoutConstraint = new Notation.Bounds { X = 40, Y = 40 },
+            };
+            headerA.PersistedChildren.Add(lifelineA);
+
+            var bareExecution = new SiriusDiagram.DNode { Id = "exec-1" };
+            bareExecution.GraphicalFilters.Add(new SiriusDiagram.AbsoluteBoundsFilter { X = 45, Y = 100, Width = 10, Height = 60 });
+            var bareExecutionNode = new Notation.Node { Id = "exec-bare", Element = bareExecution };
+
+            var hookedExecution = new SiriusDiagram.DNode { Id = "exec-2" };
+            hookedExecution.GraphicalFilters.Add(new SiriusDiagram.AbsoluteBoundsFilter { X = 45, Y = 200, Width = 10, Height = 40 });
+            var hookedExecutionNode = new Notation.Node { Id = "exec-hooked", Element = hookedExecution };
+
+            lifelineA.PersistedChildren.Add(bareExecutionNode);
+            lifelineA.PersistedChildren.Add(hookedExecutionNode);
+
+            var headerB = new Notation.Node
+            {
+                Id = "header-b",
+                Element = new SiriusDiagram.DNode { Id = "role-b", Name = "B", Target = semanticB },
+                LayoutConstraint = new Notation.Bounds { X = 200, Y = 0, Width = 100, Height = 40 },
+            };
+            var lifelineB = new Notation.Node
+            {
+                Id = "lifeline-b",
+                Element = new SiriusDiagram.DNode { Id = "line-b", Target = semanticB },
+                LayoutConstraint = new Notation.Bounds { X = 40, Y = 40 },
+            };
+            headerB.PersistedChildren.Add(lifelineB);
+
+            // A self-message arriving on the bare lifeline: no absolute target bounds, no
+            // persisted bendpoints — the hook is fully synthesized one hop below the departure.
+            var bare = new Notation.Edge { Id = "self-bare", Source = bareExecutionNode, Target = lifelineA };
+
+            // The same, but with persisted bendpoints: the arrival height and sideways reach come
+            // from the persisted hook.
+            var hooked = new Notation.Edge
+            {
+                Id = "self-hooked",
+                Source = hookedExecutionNode,
+                Target = lifelineA,
+                Bendpoints = new Notation.RelativeBendpoints { Points = "[0, 0, 0, 0]$[30, 15, 30, 15]" },
+            };
+
+            // A message between two bare lifelines: neither end carries absolute bounds, so there
+            // is no vertical truth to flatten to — the generic route stands.
+            var unplaced = new Notation.Edge { Id = "unplaced", Source = lifelineA, Target = lifelineB };
+
+            var notationDiagram = new Notation.Diagram { Id = "seq-notation" };
+            notationDiagram.PersistedChildren.Add(headerA);
+            notationDiagram.PersistedChildren.Add(headerB);
+            notationDiagram.PersistedEdges.Add(bare);
+            notationDiagram.PersistedEdges.Add(hooked);
+            notationDiagram.PersistedEdges.Add(unplaced);
+
+            var representation = new Auriga.Diagram.Sequence.SequenceDDiagram { Id = "seq-1" };
+            representation.OwnedAnnotationEntries.Add(new SiriusDescription.AnnotationEntry
+            {
+                Source = "GMF_DIAGRAMS",
+                Data = notationDiagram,
+            });
+
+            var scenario = this.diagramBuilder.Build(representation, "synthetic scenario");
+
+            var bareRoute = scenario.Edges.Single(edge => edge.Identifier == "self-bare").Route;
+            var hookedRoute = scenario.Edges.Single(edge => edge.Identifier == "self-hooked").Route;
+            var unplacedRoute = scenario.Edges.Single(edge => edge.Identifier == "unplaced").Route;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(bareRoute, Is.EqualTo(new List<Point> { new(55, 100), new(80, 100), new(80, 110), new(53, 110) }));
+                Assert.That(hookedRoute, Is.EqualTo(new List<Point> { new(55, 205), new(80, 205), new(80, 215), new(53, 215) }));
+                Assert.That(unplacedRoute, Is.EqualTo(new List<Point> { new(40, 40), new(240, 40) }));
+            });
+        }
+
+        [Test]
         public void Verify_that_a_constraint_centers_its_text_and_keeps_its_dotted_link()
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenario = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_pHpF4LEPEeSk6sURco8jXw");
+            var scenario = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_pHpF4LEPEeSk6sURco8jXw");
 
             var constraint = scenario.QueryAllBoxes().Single(box => box.Label?.Text == "Profile = CORE SERVICES ONLY");
             var link = scenario.Edges.Single(edge => edge.SiriusElement?.Id == "_khfXMIoOEeaQmcRqIfTB6w");
@@ -266,7 +371,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenarios = DiagramBuilder.BuildAll(result.Elements.Values)
+            var scenarios = this.diagramBuilder.BuildAll(result.Elements.Values)
                 .Where(candidate => candidate.SiriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram)
                 .ToList();
 
@@ -276,7 +381,7 @@ namespace Auriga.Rendering.Tests
 
                 foreach (var scenario in scenarios)
                 {
-                    Assert.That(() => SvgExporter.Export(scenario), Throws.Nothing, scenario.Name);
+                    Assert.That(() => this.svgExporter.Export(scenario), Throws.Nothing, scenario.Name);
                 }
             });
         }

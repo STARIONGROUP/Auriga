@@ -17,15 +17,16 @@ namespace Auriga.Rendering
     using System.Xml.Linq;
 
     /// <summary>
-    /// Serializes the intermediate <see cref="Diagram"/> model to plain SVG using
-    /// <see cref="XDocument"/> — no external dependency. Boxes render as nested
-    /// <c>&lt;g&gt;</c>/<c>&lt;rect&gt;</c> groups with their labels as <c>&lt;text&gt;</c>
+    /// The default <see cref="ISvgExporter"/>: serializes the intermediate <see cref="Diagram"/>
+    /// model to plain SVG using <see cref="XDocument"/> — no external dependency. Boxes render as
+    /// nested <c>&lt;g&gt;</c>/<c>&lt;rect&gt;</c> groups with their labels as <c>&lt;text&gt;</c>
     /// (wrapped into <c>&lt;tspan&gt;</c> lines when the label has a persisted width), edges as
     /// <c>&lt;path&gt;</c> polylines drawn over the boxes, with gradients and arrow markers
     /// collected in <c>&lt;defs&gt;</c>. The <c>viewBox</c> is the padded bounding box of the
-    /// diagram's persisted geometry.
+    /// diagram's persisted geometry. Stateless: register it in the application's container, or
+    /// construct it directly.
     /// </summary>
-    public static class SvgExporter
+    public sealed class SvgExporter : ISvgExporter
     {
         /// <summary>
         /// The SVG XML namespace.
@@ -54,7 +55,7 @@ namespace Auriga.Rendering
         /// <param name="diagram">the diagram to export</param>
         /// <returns>the SVG document text</returns>
         /// <exception cref="ArgumentNullException">the diagram is null</exception>
-        public static string Export(Diagram diagram)
+        public string Export(Diagram diagram)
         {
             return BuildDocument(diagram).ToString();
         }
@@ -65,7 +66,7 @@ namespace Auriga.Rendering
         /// <param name="diagram">the diagram to export</param>
         /// <param name="stream">the stream the SVG document is written to</param>
         /// <exception cref="ArgumentNullException">the diagram or the stream is null</exception>
-        public static void Export(Diagram diagram, Stream stream)
+        public void Export(Diagram diagram, Stream stream)
         {
             if (stream == null)
             {
@@ -82,7 +83,7 @@ namespace Auriga.Rendering
         /// <param name="path">the file path the SVG document is written to</param>
         /// <exception cref="ArgumentNullException">the diagram is null</exception>
         /// <exception cref="ArgumentException">the path is null or empty</exception>
-        public static void ExportToFile(Diagram diagram, string path)
+        public void ExportToFile(Diagram diagram, string path)
         {
             if (string.IsNullOrEmpty(path))
             {

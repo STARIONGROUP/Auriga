@@ -29,6 +29,16 @@ namespace Auriga.Rendering.Tests
     [TestFixture]
     public class SvgProjectExportTestFixture
     {
+        /// <summary>
+        /// The builder under test, composed with the default per-kind builders.
+        /// </summary>
+        private readonly DiagramBuilder diagramBuilder = new();
+
+        /// <summary>
+        /// The exporter writing the SVG files.
+        /// </summary>
+        private readonly SvgExporter svgExporter = new();
+
         [Test]
         [TestCase("coffee-machine-demo.aird", "coffee-machine")]
         [TestCase("Crowd_Surveillance_System_in_DARC.aird", "crowd-surveillance-system-in-darc")]
@@ -40,7 +50,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var diagrams = DiagramBuilder.BuildAll(result.Elements.Values);
+            var diagrams = this.diagramBuilder.BuildAll(result.Elements.Values);
 
             var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports", modelFolder);
             Directory.CreateDirectory(outputDirectory);
@@ -55,7 +65,7 @@ namespace Auriga.Rendering.Tests
                     Assert.That(diagram.Name, Is.Not.Null.And.Not.Empty, $"representation {diagram.Identifier} has a descriptor name");
 
                     var file = Path.Combine(outputDirectory, FileName(diagram));
-                    SvgExporter.ExportToFile(diagram, file);
+                    this.svgExporter.ExportToFile(diagram, file);
 
                     Assert.That(File.Exists(file), Is.True, file);
                     Assert.That(XDocument.Load(file).Root!.Name.LocalName, Is.EqualTo("svg"), file);

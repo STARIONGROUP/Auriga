@@ -25,6 +25,11 @@ namespace Auriga.Rendering.Tests
     [TestFixture]
     public class StyleResolverTestFixture
     {
+        /// <summary>
+        /// The resolver under test, composed with the default Capella palette.
+        /// </summary>
+        private readonly StyleResolver styleResolver = new();
+
         [Test]
         public void Verify_the_color_encodings()
         {
@@ -43,6 +48,11 @@ namespace Auriga.Rendering.Tests
                 Assert.That(new Color(150, 177, 218).ToHex(), Is.EqualTo("#96B1DA"));
                 Assert.That(new Color(9, 92, 46).ToString(), Is.EqualTo("#095C2E"));
                 Assert.That(new Color(1, 2, 3), Is.Not.EqualTo(new Color(1, 2, 4)));
+                Assert.That(new Color(1, 2, 3) == new Color(1, 2, 3), Is.True);
+                Assert.That(new Color(1, 2, 3) != new Color(3, 2, 1), Is.True);
+                Assert.That(new Color(1, 2, 3).Equals((object)new Color(1, 2, 3)), Is.True);
+                Assert.That(new Color(1, 2, 3).Equals("not a color"), Is.False);
+                Assert.That(new Color(1, 2, 3).GetHashCode(), Is.EqualTo(new Color(1, 2, 3).GetHashCode()));
             });
         }
 
@@ -51,8 +61,9 @@ namespace Auriga.Rendering.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(() => StyleResolver.Resolve((Box)null!), Throws.ArgumentNullException);
-                Assert.That(() => StyleResolver.Resolve((Edge)null!), Throws.ArgumentNullException);
+                Assert.That(() => this.styleResolver.Resolve((Box)null!), Throws.ArgumentNullException);
+                Assert.That(() => this.styleResolver.Resolve((Edge)null!), Throws.ArgumentNullException);
+                Assert.That(() => new StyleResolver(null!), Throws.ArgumentNullException);
             });
         }
 
@@ -71,7 +82,7 @@ namespace Auriga.Rendering.Tests
             square.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Bold);
             square.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Underline);
 
-            var resolved = StyleResolver.Resolve(BoxWith(square));
+            var resolved = this.styleResolver.Resolve(BoxWith(square));
 
             Assert.Multiple(() =>
             {
@@ -98,7 +109,7 @@ namespace Auriga.Rendering.Tests
                 BorderSize = 1,
             };
 
-            var resolved = StyleResolver.Resolve(BoxWith(flat));
+            var resolved = this.styleResolver.Resolve(BoxWith(flat));
 
             Assert.Multiple(() =>
             {
@@ -128,13 +139,13 @@ namespace Auriga.Rendering.Tests
             {
                 foreach (var shape in shapes)
                 {
-                    Assert.That(StyleResolver.Resolve(BoxWith(shape)).FillColor, Is.EqualTo(fill), shape.GetType().Name);
+                    Assert.That(this.styleResolver.Resolve(BoxWith(shape)).FillColor, Is.EqualTo(fill), shape.GetType().Name);
                 }
 
                 // The elliptic styles resolve their outline shape; everything else stays rectangular.
-                Assert.That(StyleResolver.Resolve(BoxWith(new SiriusDiagram.Ellipse())).Shape, Is.EqualTo(ShapeKind.Ellipse));
-                Assert.That(StyleResolver.Resolve(BoxWith(new SiriusDiagram.Dot())).Shape, Is.EqualTo(ShapeKind.Ellipse));
-                Assert.That(StyleResolver.Resolve(BoxWith(new SiriusDiagram.Square())).Shape, Is.EqualTo(ShapeKind.Rectangle));
+                Assert.That(this.styleResolver.Resolve(BoxWith(new SiriusDiagram.Ellipse())).Shape, Is.EqualTo(ShapeKind.Ellipse));
+                Assert.That(this.styleResolver.Resolve(BoxWith(new SiriusDiagram.Dot())).Shape, Is.EqualTo(ShapeKind.Ellipse));
+                Assert.That(this.styleResolver.Resolve(BoxWith(new SiriusDiagram.Square())).Shape, Is.EqualTo(ShapeKind.Rectangle));
             });
         }
 
@@ -143,7 +154,7 @@ namespace Auriga.Rendering.Tests
         {
             var image = new SiriusDiagram.WorkspaceImage { WorkspacePath = "/plugin/images/Actor.svg" };
 
-            var resolved = StyleResolver.Resolve(BoxWith(image));
+            var resolved = this.styleResolver.Resolve(BoxWith(image));
 
             Assert.That(resolved.ImagePath, Is.EqualTo("/plugin/images/Actor.svg"));
         }
@@ -161,7 +172,7 @@ namespace Auriga.Rendering.Tests
                 CenterLabelStyle = new SiriusDiagram.CenterLabelStyle { LabelColor = "5,6,7" },
             };
 
-            var resolved = StyleResolver.Resolve(EdgeWith(edgeStyle));
+            var resolved = this.styleResolver.Resolve(EdgeWith(edgeStyle));
 
             Assert.Multiple(() =>
             {
@@ -190,7 +201,7 @@ namespace Auriga.Rendering.Tests
                 LineWidth = 4,
             };
 
-            var resolved = StyleResolver.Resolve(BoxWith(null, shapeStyle));
+            var resolved = this.styleResolver.Resolve(BoxWith(null, shapeStyle));
 
             Assert.Multiple(() =>
             {
@@ -222,7 +233,7 @@ namespace Auriga.Rendering.Tests
             // notation values.
             var square = new SiriusDiagram.Square { Color = "1,1,1" };
 
-            var resolved = StyleResolver.Resolve(BoxWith(square, shapeStyle));
+            var resolved = this.styleResolver.Resolve(BoxWith(square, shapeStyle));
 
             Assert.Multiple(() =>
             {
@@ -239,27 +250,63 @@ namespace Auriga.Rendering.Tests
         {
             Assert.Multiple(() =>
             {
-                var function = StyleResolver.Resolve(BoxFor(new Auriga.Model.Ctx.SystemFunction()));
+                var function = this.styleResolver.Resolve(BoxFor(new Auriga.Model.Ctx.SystemFunction()));
                 Assert.That(function.FillColor, Is.EqualTo(new Color(197, 255, 166)), "function green");
                 Assert.That(function.StrokeColor, Is.EqualTo(new Color(77, 137, 20)));
 
-                var component = StyleResolver.Resolve(BoxFor(new Auriga.Model.La.LogicalComponent()));
+                var component = this.styleResolver.Resolve(BoxFor(new Auriga.Model.La.LogicalComponent()));
                 Assert.That(component.FillColor, Is.EqualTo(new Color(150, 177, 218)), "component blue");
 
-                var activity = StyleResolver.Resolve(BoxFor(new Auriga.Model.Oa.OperationalActivity()));
+                var activity = this.styleResolver.Resolve(BoxFor(new Auriga.Model.Oa.OperationalActivity()));
                 Assert.That(activity.FillColor, Is.EqualTo(new Color(247, 218, 116)), "activity orange");
 
-                var unknown = StyleResolver.Resolve(BoxFor(new object()));
+                var unknown = this.styleResolver.Resolve(BoxFor(new object()));
                 Assert.That(unknown.FillColor, Is.Null, "an unknown type stays unfilled");
                 Assert.That(unknown.StrokeColor, Is.EqualTo(new Color(0, 0, 0)));
 
-                var physicalLink = StyleResolver.Resolve(EdgeFor(new Auriga.Model.Cs.PhysicalLink()));
+                var physicalLink = this.styleResolver.Resolve(EdgeFor(new Auriga.Model.Cs.PhysicalLink()));
                 Assert.That(physicalLink.StrokeColor, Is.EqualTo(new Color(239, 41, 41)), "physical link red");
                 Assert.That(physicalLink.StrokeWidth, Is.EqualTo(2));
 
-                var plainEdge = StyleResolver.Resolve(EdgeFor(null));
+                var plainEdge = this.styleResolver.Resolve(EdgeFor(null));
                 Assert.That(plainEdge.StrokeColor, Is.EqualTo(new Color(0, 0, 0)));
                 Assert.That(plainEdge.StrokeWidth, Is.EqualTo(1));
+            });
+        }
+
+        [Test]
+        public void Verify_that_font_flags_label_formats_and_solid_lines_resolve()
+        {
+            var shapeStyle = new Notation.ShapeStyle { Italic = true, Underline = true, StrikeThrough = true };
+            var box = this.styleResolver.Resolve(BoxWith(null, shapeStyle));
+
+            var centerLabel = new SiriusDiagram.CenterLabelStyle { LabelSize = 0 };
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Bold);
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Italic);
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Underline);
+            centerLabel.LabelFormat.Add(Auriga.Diagram.Viewpoint.FontFormat.Strike_through);
+
+            var edgeStyle = new SiriusDiagram.EdgeStyle
+            {
+                Size = 0,
+                LineStyle = SiriusDiagram.LineStyle.Solid,
+                CenterLabelStyle = centerLabel,
+            };
+
+            var edge = this.styleResolver.Resolve(EdgeWith(edgeStyle));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(box.Italic, Is.True);
+                Assert.That(box.Underline, Is.True);
+                Assert.That(box.StrikeThrough, Is.True);
+
+                Assert.That(edge.Pattern, Is.EqualTo(LinePattern.Solid));
+                Assert.That(edge.StrokeWidth, Is.EqualTo(1), "a zero size does not override the hairline default");
+                Assert.That(edge.Bold, Is.True);
+                Assert.That(edge.Italic, Is.True);
+                Assert.That(edge.Underline, Is.True);
+                Assert.That(edge.StrikeThrough, Is.True);
             });
         }
 
@@ -273,8 +320,8 @@ namespace Auriga.Rendering.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(() => StyleResolver.Resolve(BoxWith(exotic)), Throws.Nothing);
-                var resolved = StyleResolver.Resolve(BoxWith(malformed));
+                Assert.That(() => this.styleResolver.Resolve(BoxWith(exotic)), Throws.Nothing);
+                var resolved = this.styleResolver.Resolve(BoxWith(malformed));
                 Assert.That(resolved.FillColor, Is.Null);
                 Assert.That(resolved.StrokeColor, Is.EqualTo(new Color(0, 0, 0)));
                 Assert.That(resolved.Pattern, Is.EqualTo(LinePattern.Solid));
