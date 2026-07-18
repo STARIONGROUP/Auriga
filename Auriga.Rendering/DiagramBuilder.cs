@@ -315,19 +315,8 @@ namespace Auriga.Rendering
                     continue;
                 }
 
-                double y;
-                if (edge.Target.HasAbsoluteBounds)
-                {
-                    // The receiving end triggers the target execution, so the message arrives at the
-                    // execution's top edge — persisted anchor fractions on receiving ends are stale
-                    // render artifacts (Capella recomputes them from the event order).
-                    y = edge.Target.Position.Y;
-                }
-                else if (edge.Source.HasAbsoluteBounds)
-                {
-                    y = SequenceAnchorPoint(edge.Source, edge.NotationView.SourceAnchor).Y;
-                }
-                else
+                var y = DetermineMessageHeight(edge);
+                if (y == null)
                 {
                     continue;
                 }
@@ -335,27 +324,9 @@ namespace Auriga.Rendering
                 var sourceCenter = edge.Source.Position.X + ((edge.Source.Width ?? 0) / 2);
                 var targetCenter = edge.Target.Position.X + ((edge.Target.Width ?? 0) / 2);
 
-                // A message between two occurrences on the same lifeline is Capella's rectangular
-                // self-message hook, and the persisted bendpoints describe exactly that hook —
-                // resolve them against the (corrected) source anchor instead of flattening.
                 if (Math.Abs(targetCenter - sourceCenter) < 1)
                 {
-                    var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
-                    if (hook.Count > 0)
-                    {
-                        var origin = SequenceAnchorPoint(edge.Source, edge.NotationView.SourceAnchor);
-                        var route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
-
-                        // The persisted return offset routinely overshoots past the target
-                        // execution; the arrow ends at the execution's facing edge on the hook's
-                        // side instead.
-                        var side = route.Max(point => point.X) > targetCenter ? 1 : -1;
-                        var approach = targetCenter + (side * Math.Max((edge.Target.Width ?? 0) / 2, MessageClearance));
-                        route[route.Count - 1] = new Point(approach, route[route.Count - 1].Y);
-
-                        edge.Route = route;
-                    }
-
+                    RouteSelfMessage(edge, targetCenter);
                     continue;
                 }
 
@@ -364,8 +335,59 @@ namespace Auriga.Rendering
                 var start = sourceCenter + (direction * Math.Max((edge.Source.Width ?? 0) / 2, MessageClearance));
                 var end = targetCenter - (direction * Math.Max((edge.Target.Width ?? 0) / 2, MessageClearance));
 
-                edge.Route = new List<Point> { new(start, y), new(end, y) };
+                edge.Route = new List<Point> { new(start, y.Value), new(end, y.Value) };
             }
+        }
+
+        /// <summary>
+        /// The vertical position of a message: the target execution's top edge when the target has
+        /// absolute bounds — the receiving end triggers the execution, and persisted anchor
+        /// fractions on receiving ends are stale render artifacts Capella recomputes from the event
+        /// order — else the source's anchor height, or <c>null</c> when neither end has absolute
+        /// bounds (the message keeps its generic route).
+        /// </summary>
+        /// <param name="edge">the message edge, with both ends mapped</param>
+        /// <returns>the message's y coordinate, or <c>null</c></returns>
+        private static double? DetermineMessageHeight(Edge edge)
+        {
+            if (edge.Target!.HasAbsoluteBounds)
+            {
+                return edge.Target.Position.Y;
+            }
+
+            if (edge.Source!.HasAbsoluteBounds)
+            {
+                return SequenceAnchorPoint(edge.Source, edge.NotationView.SourceAnchor).Y;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Routes a message between two occurrences on the same lifeline — Capella's rectangular
+        /// self-message hook, which the persisted bendpoints describe exactly — resolving them
+        /// against the (corrected) source anchor instead of flattening. The persisted return offset
+        /// routinely overshoots past the target execution, so the arrow ends at the execution's
+        /// facing edge on the hook's side.
+        /// </summary>
+        /// <param name="edge">the self-message edge, with both ends mapped</param>
+        /// <param name="targetCenter">the target box's horizontal center</param>
+        private static void RouteSelfMessage(Edge edge, double targetCenter)
+        {
+            var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
+            if (hook.Count == 0)
+            {
+                return;
+            }
+
+            var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
+            var route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
+
+            var side = route.Max(point => point.X) > targetCenter ? 1 : -1;
+            var approach = targetCenter + (side * Math.Max((edge.Target!.Width ?? 0) / 2, MessageClearance));
+            route[route.Count - 1] = new Point(approach, route[route.Count - 1].Y);
+
+            edge.Route = route;
         }
 
         /// <summary>
@@ -439,70 +461,19 @@ namespace Auriga.Rendering
             var (width, height) = Size(node.LayoutConstraint);
 
             var siriusElement = node.Element as SiriusDiagramModel.IDDiagramElement;
-
-            // Sirius persists the layout of sequence-diagram elements (instance roles, executions,
-            // states, fragments) in an AbsoluteBoundsFilter, in absolute coordinates — the GMF child
-            // coordinates are only render-time artifacts there. When the filter is present it is the
-            // layout truth and replaces the accumulated relative geometry.
-            var absoluteBounds = siriusElement?.GraphicalFilters.OfType<SiriusDiagramModel.IAbsoluteBoundsFilter>().FirstOrDefault();
-            if (absoluteBounds != null)
-            {
-                position = new Point(absoluteBounds.X ?? position.X, absoluteBounds.Y ?? position.Y);
-                width = Dimension(absoluteBounds.Width) ?? width;
-                height = Dimension(absoluteBounds.Height) ?? height;
-            }
+            var absoluteBounds = ApplyAbsoluteBounds(siriusElement, ref position, ref width, ref height);
 
             // A GMF note is a pure notation element with no Sirius counterpart: a sticky box whose
             // text lives in the shape's own description and whose colors are the shape's own styles.
             if (siriusElement == null && node is NotationModel.IShape noteShape && !string.IsNullOrEmpty(noteShape.Description))
             {
-                var note = new Box(node.Id ?? string.Empty, position, node, BuildStyle(null, node.Styles.Concat(new NotationModel.IStyle[] { noteShape })))
-                {
-                    Width = width,
-                    Height = height,
-                    Label = new Label(noteShape.Description!)
-                    {
-                        Position = position + new Point(4, 2),
-                        Width = Math.Max(1, (width ?? 100) - 8),
-                    },
-                };
-
-                note.Style.Resolved = StyleResolver.Resolve(note);
-
-                if (parentBox != null)
-                {
-                    parentBox.Add(note);
-                }
-                else
-                {
-                    siblings.Add(note);
-                }
-
-                viewToBox[node] = note;
+                Attach(BuildNote(node, noteShape, position, width, height), node, parentBox, siblings, viewToBox);
                 return;
             }
 
             if (siriusElement == null || ReferenceEquals(siriusElement, parentSiriusElement))
             {
-                if (parentBox != null)
-                {
-                    // A childless auxiliary node holding a location is the persisted label geometry.
-                    if (node.PersistedChildren.Count == 0 && node.LayoutConstraint is NotationModel.ILocation && parentBox.Label is { Position: null } label)
-                    {
-                        label.Position = position;
-                        label.Width = width;
-                        label.Height = height;
-                    }
-
-                    // Edges may attach to the auxiliary view; route them to the enclosing box.
-                    viewToBox[node] = parentBox;
-                }
-
-                foreach (var child in node.PersistedChildren)
-                {
-                    BuildNode(child, position, parentBox, parentSiriusElement, siblings, viewToBox);
-                }
-
+                FoldAuxiliaryNode(node, position, width, height, parentBox, parentSiriusElement, siblings, viewToBox);
                 return;
             }
 
@@ -510,7 +481,7 @@ namespace Auriga.Rendering
             {
                 Width = width,
                 Height = height,
-                HasAbsoluteBounds = absoluteBounds != null,
+                HasAbsoluteBounds = absoluteBounds,
                 SiriusElement = siriusElement,
                 SemanticElement = siriusElement.Target,
             };
@@ -523,16 +494,7 @@ namespace Auriga.Rendering
 
             box.Style.Resolved = StyleResolver.Resolve(box);
 
-            if (parentBox != null)
-            {
-                parentBox.Add(box);
-            }
-            else
-            {
-                siblings.Add(box);
-            }
-
-            viewToBox[node] = box;
+            Attach(box, node, parentBox, siblings, viewToBox);
 
             foreach (var child in node.PersistedChildren)
             {
@@ -549,6 +511,115 @@ namespace Auriga.Rendering
                 insideLabel.Width = null;
                 insideLabel.Height = null;
             }
+        }
+
+        /// <summary>
+        /// Applies a Sirius <c>AbsoluteBoundsFilter</c> when the element carries one: Sirius
+        /// persists the layout of sequence-diagram elements (instance roles, executions, states,
+        /// fragments) in the filter, in absolute coordinates — the GMF child coordinates are only
+        /// render-time artifacts there, so the filter is the layout truth.
+        /// </summary>
+        /// <param name="siriusElement">the Sirius element the view displays, or <c>null</c></param>
+        /// <param name="position">the accumulated relative position, replaced by the filter's</param>
+        /// <param name="width">the persisted width, replaced by the filter's</param>
+        /// <param name="height">the persisted height, replaced by the filter's</param>
+        /// <returns>true when a filter applied</returns>
+        private static bool ApplyAbsoluteBounds(SiriusDiagramModel.IDDiagramElement? siriusElement, ref Point position, ref double? width, ref double? height)
+        {
+            var absoluteBounds = siriusElement?.GraphicalFilters.OfType<SiriusDiagramModel.IAbsoluteBoundsFilter>().FirstOrDefault();
+            if (absoluteBounds == null)
+            {
+                return false;
+            }
+
+            position = new Point(absoluteBounds.X ?? position.X, absoluteBounds.Y ?? position.Y);
+            width = Dimension(absoluteBounds.Width) ?? width;
+            height = Dimension(absoluteBounds.Height) ?? height;
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the box of a GMF note: its own shape styles supply the fill and font, and its
+        /// description text becomes a left-aligned label wrapped to the note's width.
+        /// </summary>
+        /// <param name="node">the notation node</param>
+        /// <param name="noteShape">the same node, as the shape carrying the note's description and styles</param>
+        /// <param name="position">the absolute position</param>
+        /// <param name="width">the persisted width</param>
+        /// <param name="height">the persisted height</param>
+        /// <returns>the note box, style resolved</returns>
+        private static Box BuildNote(NotationModel.INode node, NotationModel.IShape noteShape, Point position, double? width, double? height)
+        {
+            var note = new Box(node.Id ?? string.Empty, position, node, BuildStyle(null, node.Styles.Concat(new NotationModel.IStyle[] { noteShape })))
+            {
+                Width = width,
+                Height = height,
+                Label = new Label(noteShape.Description!)
+                {
+                    Position = position + new Point(4, 2),
+                    Width = Math.Max(1, (width ?? 100) - 8),
+                },
+            };
+
+            note.Style.Resolved = StyleResolver.Resolve(note);
+            return note;
+        }
+
+        /// <summary>
+        /// Folds an auxiliary node — a label or compartment, recognizable by carrying no Sirius
+        /// element of its own — into the enclosing box: a childless label node contributes its
+        /// geometry to the box's label, a compartment's children keep nesting into the box, and
+        /// edges attaching to the auxiliary view route to the enclosing box.
+        /// </summary>
+        /// <param name="node">the auxiliary notation node</param>
+        /// <param name="position">the node's absolute position</param>
+        /// <param name="width">the node's persisted width</param>
+        /// <param name="height">the node's persisted height</param>
+        /// <param name="parentBox">the enclosing box, or <c>null</c> at the diagram level</param>
+        /// <param name="parentSiriusElement">the Sirius element the parent view displays</param>
+        /// <param name="siblings">the list a nested real box is added to when there is no enclosing box</param>
+        /// <param name="viewToBox">the notation-view-to-box map</param>
+        private static void FoldAuxiliaryNode(NotationModel.INode node, Point position, double? width, double? height, Box? parentBox, object? parentSiriusElement, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
+        {
+            if (parentBox != null)
+            {
+                if (node.PersistedChildren.Count == 0 && node.LayoutConstraint is NotationModel.ILocation && parentBox.Label is { Position: null } label)
+                {
+                    label.Position = position;
+                    label.Width = width;
+                    label.Height = height;
+                }
+
+                viewToBox[node] = parentBox;
+            }
+
+            foreach (var child in node.PersistedChildren)
+            {
+                BuildNode(child, position, parentBox, parentSiriusElement, siblings, viewToBox);
+            }
+        }
+
+        /// <summary>
+        /// Attaches a built box to its enclosing box (or the top level) and registers its notation
+        /// view for edge-end resolution.
+        /// </summary>
+        /// <param name="box">the built box</param>
+        /// <param name="node">the notation node the box was built from</param>
+        /// <param name="parentBox">the enclosing box, or <c>null</c> at the diagram level</param>
+        /// <param name="siblings">the top-level list used when there is no enclosing box</param>
+        /// <param name="viewToBox">the notation-view-to-box map</param>
+        private static void Attach(Box box, NotationModel.INode node, Box? parentBox, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
+        {
+            if (parentBox != null)
+            {
+                parentBox.Add(box);
+            }
+            else
+            {
+                siblings.Add(box);
+            }
+
+            viewToBox[node] = box;
         }
 
         /// <summary>

@@ -33,6 +33,11 @@ namespace Auriga.Rendering
         private static readonly XNamespace Svg = "http://www.w3.org/2000/svg";
 
         /// <summary>
+        /// The SVG <c>stroke</c> attribute name.
+        /// </summary>
+        private const string StrokeAttribute = "stroke";
+
+        /// <summary>
         /// The padding around the diagram's bounding box, in pixels.
         /// </summary>
         private const double Padding = 20;
@@ -248,7 +253,7 @@ namespace Auriga.Rendering
             }
 
             outline.Add(
-                new XAttribute("stroke", style.StrokeColor.ToHex()),
+                new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
                 new XAttribute("stroke-width", N(style.StrokeWidth)));
 
             AddDashArray(outline, style.Pattern);
@@ -292,7 +297,7 @@ namespace Auriga.Rendering
                 Svg + "path",
                 new XAttribute("d", $"M {N(x)} {N(y)} L {N(x + width)} {N(y)} L {N(x + width)} {N(y + height - 5)} L {N(x + width - 5)} {N(y + height)} L {N(x)} {N(y + height)} Z"),
                 new XAttribute("fill", "#FFFFFF"),
-                new XAttribute("stroke", style.StrokeColor.ToHex()),
+                new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
                 new XAttribute("stroke-width", "1"));
         }
 
@@ -353,7 +358,7 @@ namespace Auriga.Rendering
                     Svg + "path",
                     new XAttribute("d", PathData(edge.Route)),
                     new XAttribute("fill", "none"),
-                    new XAttribute("stroke", style.StrokeColor.ToHex()),
+                    new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
                     new XAttribute("stroke-width", N(style.StrokeWidth)));
 
                 AddDashArray(path, style.Pattern);
@@ -637,7 +642,7 @@ namespace Auriga.Rendering
                         Svg + "path",
                         new XAttribute("d", data),
                         new XAttribute("fill", filled ? color.ToHex() : "#FFFFFF"),
-                        new XAttribute("stroke", color.ToHex()))));
+                        new XAttribute(StrokeAttribute, color.ToHex()))));
             }
 
             path.Add(new XAttribute(attribute, $"url(#{id})"));
