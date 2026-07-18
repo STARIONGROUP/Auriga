@@ -20,6 +20,26 @@ namespace Auriga.Rendering
     public sealed class NodeDiagramBuilder : DiagramBuilderBase
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="NodeDiagramBuilder"/> class with the
+        /// default style resolver, for direct use without a container.
+        /// </summary>
+        public NodeDiagramBuilder()
+            : base(new StyleResolver())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NodeDiagramBuilder"/> class with the
+        /// supplied style resolver — the constructor a container injects through.
+        /// </summary>
+        /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
+        /// <exception cref="System.ArgumentNullException">the resolver is null</exception>
+        public NodeDiagramBuilder(IStyleResolver styleResolver)
+            : base(styleResolver)
+        {
+        }
+
+        /// <summary>
         /// Applies the layout rules of the node-diagram kind — none: the persisted GMF geometry
         /// consumed by the generic walk is the complete layout of a node-and-edge representation.
         /// </summary>

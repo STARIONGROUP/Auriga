@@ -26,6 +26,26 @@ namespace Auriga.Rendering
     public sealed class SequenceDiagramBuilder : DiagramBuilderBase
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="SequenceDiagramBuilder"/> class with the
+        /// default style resolver, for direct use without a container.
+        /// </summary>
+        public SequenceDiagramBuilder()
+            : base(new StyleResolver())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SequenceDiagramBuilder"/> class with the
+        /// supplied style resolver — the constructor a container injects through.
+        /// </summary>
+        /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
+        /// <exception cref="System.ArgumentNullException">the resolver is null</exception>
+        public SequenceDiagramBuilder(IStyleResolver styleResolver)
+            : base(styleResolver)
+        {
+        }
+
+        /// <summary>
         /// The stroke color of a lifeline's dashed centerline (Capella's lifeline gray).
         /// </summary>
         private static readonly Color LifelineGray = new(128, 128, 128);

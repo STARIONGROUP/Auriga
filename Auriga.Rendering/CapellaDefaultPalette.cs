@@ -19,9 +19,11 @@ namespace Auriga.Rendering
     /// Capella itself applies to a freshly created element. Lookup is by the Capella semantic
     /// element's type name (e.g. <c>LogicalComponent</c>, <c>SystemFunction</c>), with suffix
     /// matching so every Arcadia layer's variant of a concept shares its family color, and a
-    /// plain black-on-unfilled default for anything unknown.
+    /// plain black-on-unfilled default for anything unknown. Stateless: register it in the
+    /// application's container as the <see cref="ICapellaDefaultPalette"/>, or construct it
+    /// directly.
     /// </summary>
-    public static class CapellaDefaultPalette
+    public sealed class CapellaDefaultPalette : ICapellaDefaultPalette
     {
         /// <summary>
         /// The global default stroke and font color (<c>black</c>).
@@ -114,7 +116,7 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="semanticTypeName">the Capella semantic element's type name, or <c>null</c></param>
         /// <returns>the default fill (or <c>null</c> for none) and stroke</returns>
-        public static (Color? Fill, Color Stroke) ForBox(string? semanticTypeName)
+        public (Color? Fill, Color Stroke) ForBox(string? semanticTypeName)
         {
             if (!string.IsNullOrEmpty(semanticTypeName))
             {
@@ -137,7 +139,7 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="semanticTypeName">the Capella semantic element's type name, or <c>null</c></param>
         /// <returns>the default stroke and stroke width</returns>
-        public static (Color Stroke, double Width) ForEdge(string? semanticTypeName)
+        public (Color Stroke, double Width) ForEdge(string? semanticTypeName)
         {
             if (semanticTypeName != null && semanticTypeName.EndsWith("PhysicalLink", StringComparison.Ordinal))
             {

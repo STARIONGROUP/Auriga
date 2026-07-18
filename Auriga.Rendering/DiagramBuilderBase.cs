@@ -39,6 +39,21 @@ namespace Auriga.Rendering
         private static readonly Point CenterAnchor = new(0.5, 0.5);
 
         /// <summary>
+        /// The resolver producing each built item's <see cref="ResolvedStyle"/>.
+        /// </summary>
+        private readonly IStyleResolver styleResolver;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagramBuilderBase"/> class.
+        /// </summary>
+        /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
+        /// <exception cref="ArgumentNullException">the resolver is null</exception>
+        protected DiagramBuilderBase(IStyleResolver styleResolver)
+        {
+            this.styleResolver = styleResolver ?? throw new ArgumentNullException(nameof(styleResolver));
+        }
+
+        /// <summary>
         /// Builds the intermediate model of the supplied Sirius representation: the generic
         /// notation walk followed by the builder's representation-kind rules.
         /// </summary>
@@ -70,11 +85,11 @@ namespace Auriga.Rendering
 
             foreach (var child in notationDiagram.PersistedChildren)
             {
-                BuildNode(child, new Point(0, 0), null, siriusDiagram, rootBoxes, viewToBox);
+                this.BuildNode(child, new Point(0, 0), null, siriusDiagram, rootBoxes, viewToBox);
             }
 
             var edges = notationDiagram.PersistedEdges
-                .Select(notationEdge => BuildEdge(notationEdge, viewToBox))
+                .Select(notationEdge => this.BuildEdge(notationEdge, viewToBox))
                 .ToList();
 
             this.ApplyRepresentationRules(rootBoxes, edges);
@@ -122,7 +137,7 @@ namespace Auriga.Rendering
         /// <param name="parentSiriusElement">the Sirius element the parent view displays</param>
         /// <param name="siblings">the list a new box is added to when there is no enclosing box</param>
         /// <param name="viewToBox">the notation-view-to-box map the edges resolve their ends against</param>
-        private static void BuildNode(NotationModel.INode node, Point origin, Box? parentBox, object? parentSiriusElement, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
+        private void BuildNode(NotationModel.INode node, Point origin, Box? parentBox, object? parentSiriusElement, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
         {
             var position = origin + Offset(node.LayoutConstraint);
             var (width, height) = Size(node.LayoutConstraint);
@@ -134,13 +149,13 @@ namespace Auriga.Rendering
             // text lives in the shape's own description and whose colors are the shape's own styles.
             if (siriusElement == null && node is NotationModel.IShape noteShape && !string.IsNullOrEmpty(noteShape.Description))
             {
-                Attach(BuildNote(node, noteShape, position, width, height), node, parentBox, siblings, viewToBox);
+                Attach(this.BuildNote(node, noteShape, position, width, height), node, parentBox, siblings, viewToBox);
                 return;
             }
 
             if (siriusElement == null || ReferenceEquals(siriusElement, parentSiriusElement))
             {
-                FoldAuxiliaryNode(node, position, width, height, parentBox, parentSiriusElement, siblings, viewToBox);
+                this.FoldAuxiliaryNode(node, position, width, height, parentBox, parentSiriusElement, siblings, viewToBox);
                 return;
             }
 
@@ -159,13 +174,13 @@ namespace Auriga.Rendering
                 box.Label = new Label(elementName);
             }
 
-            box.Style.Resolved = StyleResolver.Resolve(box);
+            box.Style.Resolved = this.styleResolver.Resolve(box);
 
             Attach(box, node, parentBox, siblings, viewToBox);
 
             foreach (var child in node.PersistedChildren)
             {
-                BuildNode(child, position, box, siriusElement, siblings, viewToBox);
+                this.BuildNode(child, position, box, siriusElement, siblings, viewToBox);
             }
 
             // A label whose persisted geometry lies inside a leaf box is Capella's inside label,
@@ -215,7 +230,7 @@ namespace Auriga.Rendering
         /// <param name="width">the persisted width</param>
         /// <param name="height">the persisted height</param>
         /// <returns>the note box, style resolved</returns>
-        private static Box BuildNote(NotationModel.INode node, NotationModel.IShape noteShape, Point position, double? width, double? height)
+        private Box BuildNote(NotationModel.INode node, NotationModel.IShape noteShape, Point position, double? width, double? height)
         {
             var note = new Box(node.Id ?? string.Empty, position, node, BuildStyle(null, node.Styles.Concat(new NotationModel.IStyle[] { noteShape })))
             {
@@ -228,7 +243,7 @@ namespace Auriga.Rendering
                 },
             };
 
-            note.Style.Resolved = StyleResolver.Resolve(note);
+            note.Style.Resolved = this.styleResolver.Resolve(note);
             return note;
         }
 
@@ -246,7 +261,7 @@ namespace Auriga.Rendering
         /// <param name="parentSiriusElement">the Sirius element the parent view displays</param>
         /// <param name="siblings">the list a nested real box is added to when there is no enclosing box</param>
         /// <param name="viewToBox">the notation-view-to-box map</param>
-        private static void FoldAuxiliaryNode(NotationModel.INode node, Point position, double? width, double? height, Box? parentBox, object? parentSiriusElement, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
+        private void FoldAuxiliaryNode(NotationModel.INode node, Point position, double? width, double? height, Box? parentBox, object? parentSiriusElement, List<Box> siblings, Dictionary<NotationModel.IView, Box> viewToBox)
         {
             if (parentBox != null)
             {
@@ -262,7 +277,7 @@ namespace Auriga.Rendering
 
             foreach (var child in node.PersistedChildren)
             {
-                BuildNode(child, position, parentBox, parentSiriusElement, siblings, viewToBox);
+                this.BuildNode(child, position, parentBox, parentSiriusElement, siblings, viewToBox);
             }
         }
 
@@ -311,7 +326,7 @@ namespace Auriga.Rendering
         /// <param name="notationEdge">the notation edge</param>
         /// <param name="viewToBox">the notation-view-to-box map</param>
         /// <returns>the edge</returns>
-        private static Edge BuildEdge(NotationModel.IEdge notationEdge, Dictionary<NotationModel.IView, Box> viewToBox)
+        private Edge BuildEdge(NotationModel.IEdge notationEdge, Dictionary<NotationModel.IView, Box> viewToBox)
         {
             var siriusEdge = notationEdge.Element as SiriusDiagramModel.IDEdge;
 
@@ -337,7 +352,7 @@ namespace Auriga.Rendering
                 edge.Label = new Label(edgeName!);
             }
 
-            edge.Style.Resolved = StyleResolver.Resolve(edge);
+            edge.Style.Resolved = this.styleResolver.Resolve(edge);
 
             // A note attachment is not a model relationship: Capella draws it as a thin dotted
             // line between the note and the element it annotates.

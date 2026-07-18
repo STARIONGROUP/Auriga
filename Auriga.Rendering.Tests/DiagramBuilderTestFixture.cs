@@ -44,6 +44,8 @@ namespace Auriga.Rendering.Tests
                     Throws.InvalidOperationException.With.Message.Contains("no GMF notation diagram"));
                 Assert.That(() => new DiagramBuilder(null!, new SequenceDiagramBuilder()), Throws.ArgumentNullException);
                 Assert.That(() => new DiagramBuilder(new NodeDiagramBuilder(), null!), Throws.ArgumentNullException);
+                Assert.That(() => new NodeDiagramBuilder(null!), Throws.ArgumentNullException);
+                Assert.That(() => new SequenceDiagramBuilder(null!), Throws.ArgumentNullException);
             });
         }
 
@@ -51,6 +53,8 @@ namespace Auriga.Rendering.Tests
         public void Verify_that_the_builder_composes_through_an_autofac_container()
         {
             var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterType<CapellaDefaultPalette>().As<ICapellaDefaultPalette>();
+            containerBuilder.RegisterType<StyleResolver>().As<IStyleResolver>();
             containerBuilder.RegisterType<NodeDiagramBuilder>().AsSelf();
             containerBuilder.RegisterType<SequenceDiagramBuilder>().AsSelf();
             containerBuilder.RegisterType<DiagramBuilder>().As<IDiagramBuilder>();
