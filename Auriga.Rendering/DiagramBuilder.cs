@@ -181,7 +181,7 @@ namespace Auriga.Rendering
             rootBoxes.Clear();
             rootBoxes.AddRange(ordered);
 
-            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box)))
+            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box) && box.SiriusElement != null))
             {
                 PinLabelTopLeft(fragment);
 
@@ -334,6 +334,22 @@ namespace Auriga.Rendering
 
                 var sourceCenter = edge.Source.Position.X + ((edge.Source.Width ?? 0) / 2);
                 var targetCenter = edge.Target.Position.X + ((edge.Target.Width ?? 0) / 2);
+
+                // A message between two occurrences on the same lifeline is Capella's rectangular
+                // self-message hook, and the persisted bendpoints describe exactly that hook —
+                // resolve them against the (corrected) source anchor instead of flattening.
+                if (Math.Abs(targetCenter - sourceCenter) < 1)
+                {
+                    var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
+                    if (hook.Count > 0)
+                    {
+                        var origin = SequenceAnchorPoint(edge.Source, edge.NotationView.SourceAnchor);
+                        edge.Route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
+                    }
+
+                    continue;
+                }
+
                 var direction = targetCenter >= sourceCenter ? 1 : -1;
 
                 var start = sourceCenter + (direction * Math.Max((edge.Source.Width ?? 0) / 2, MessageClearance));
@@ -425,6 +441,36 @@ namespace Auriga.Rendering
                 position = new Point(absoluteBounds.X ?? position.X, absoluteBounds.Y ?? position.Y);
                 width = Dimension(absoluteBounds.Width) ?? width;
                 height = Dimension(absoluteBounds.Height) ?? height;
+            }
+
+            // A GMF note is a pure notation element with no Sirius counterpart: a sticky box whose
+            // text lives in the shape's own description and whose colors are the shape's own styles.
+            if (siriusElement == null && node is NotationModel.IShape noteShape && !string.IsNullOrEmpty(noteShape.Description))
+            {
+                var note = new Box(node.Id ?? string.Empty, position, node, BuildStyle(null, node.Styles.Concat(new NotationModel.IStyle[] { noteShape })))
+                {
+                    Width = width,
+                    Height = height,
+                    Label = new Label(noteShape.Description!)
+                    {
+                        Position = position + new Point(4, 2),
+                        Width = Math.Max(1, (width ?? 100) - 8),
+                    },
+                };
+
+                note.Style.Resolved = StyleResolver.Resolve(note);
+
+                if (parentBox != null)
+                {
+                    parentBox.Add(note);
+                }
+                else
+                {
+                    siblings.Add(note);
+                }
+
+                viewToBox[node] = note;
+                return;
             }
 
             if (siriusElement == null || ReferenceEquals(siriusElement, parentSiriusElement))

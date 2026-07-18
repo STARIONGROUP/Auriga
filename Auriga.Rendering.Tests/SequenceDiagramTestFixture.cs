@@ -172,6 +172,36 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_notes_render_and_self_messages_keep_their_hook()
+        {
+            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");
+            using var scope = XmiReaderBuilder.Create();
+            var result = scope.BuildAirdModelLoader().Load(path);
+
+            var performAudio = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_5o4FkLD5EeSk6sURco8jXw");
+
+            var notes = performAudio.QueryAllBoxes()
+                .Where(box => box.SiriusElement == null && box.NotationView is Auriga.Diagram.Notation.IShape)
+                .ToList();
+
+            var vodMovie = performAudio.Edges.Single(edge => edge.Label?.Text == "VOD Movie");
+
+            Assert.Multiple(() =>
+            {
+                // The two yellow GMF notes carry their text as wrapped, positioned labels.
+                Assert.That(notes, Has.Count.EqualTo(2));
+                Assert.That(notes, Has.Some.Matches<Box>(note => note.Label!.Text.StartsWith("Tips and tricks")));
+                Assert.That(notes, Has.All.Matches<Box>(note => note.Label!.Position != null && note.Label.Width != null));
+
+                // The self-message between two occurrences on the same lifeline keeps its persisted
+                // rectangular hook instead of collapsing to a degenerate horizontal line.
+                Assert.That(vodMovie.Route, Has.Count.EqualTo(4));
+                Assert.That(vodMovie.Route.Select(point => point.Y).Distinct().Count(), Is.EqualTo(2), "out, down, and back");
+                Assert.That(vodMovie.Route.Max(point => point.X), Is.GreaterThan(vodMovie.Route[0].X), "the hook extends sideways");
+            });
+        }
+
+        [Test]
         public void Verify_that_every_scenario_of_the_model_builds_and_exports()
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");

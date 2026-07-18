@@ -444,8 +444,9 @@ namespace Auriga.Rendering
 
         /// <summary>
         /// Splits the label text into the lines that fit the available width, estimating glyph
-        /// width from the font size. A label that fits stays a single line; a single word longer
-        /// than the width is kept whole.
+        /// width from the font size. Explicit line breaks (a note's paragraphs) are honored, a
+        /// blank line is preserved as a spacer, and a single word longer than the width is kept
+        /// whole.
         /// </summary>
         /// <param name="content">the label text</param>
         /// <param name="width">the available width</param>
@@ -456,29 +457,39 @@ namespace Auriga.Rendering
             var glyphWidth = style.FontSize * 0.6;
             var charactersPerLine = Math.Max(1, (int)(width / glyphWidth));
 
-            if (content.Length <= charactersPerLine)
-            {
-                return new List<string> { content };
-            }
-
             var lines = new List<string>();
-            var line = string.Empty;
 
-            foreach (var word in content.Split(' '))
+            foreach (var paragraph in content.Replace("\r", string.Empty).Split('\n'))
             {
-                var candidate = line.Length == 0 ? word : line + " " + word;
-                if (candidate.Length > charactersPerLine && line.Length > 0)
+                if (paragraph.Length == 0)
                 {
-                    lines.Add(line);
-                    line = word;
+                    lines.Add(" ");
+                    continue;
                 }
-                else
-                {
-                    line = candidate;
-                }
-            }
 
-            lines.Add(line);
+                if (paragraph.Length <= charactersPerLine)
+                {
+                    lines.Add(paragraph);
+                    continue;
+                }
+
+                var line = string.Empty;
+                foreach (var word in paragraph.Split(' '))
+                {
+                    var candidate = line.Length == 0 ? word : line + " " + word;
+                    if (candidate.Length > charactersPerLine && line.Length > 0)
+                    {
+                        lines.Add(line);
+                        line = word;
+                    }
+                    else
+                    {
+                        line = candidate;
+                    }
+                }
+
+                lines.Add(line);
+            }
 
             return lines;
         }
