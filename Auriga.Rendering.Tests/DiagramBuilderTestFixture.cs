@@ -32,7 +32,7 @@ namespace Auriga.Rendering.Tests
         /// <summary>
         /// The builder under test, composed with the default per-kind builders.
         /// </summary>
-        private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
+        private readonly DiagramBuilder diagramBuilder = new();
 
         [Test]
         public void Verify_that_the_builder_guards_its_arguments()

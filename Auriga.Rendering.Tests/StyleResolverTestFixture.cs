@@ -28,7 +28,7 @@ namespace Auriga.Rendering.Tests
         /// <summary>
         /// The resolver under test, composed with the default Capella palette.
         /// </summary>
-        private readonly IStyleResolver styleResolver = new StyleResolver();
+        private readonly StyleResolver styleResolver = new();
 
         [Test]
         public void Verify_the_color_encodings()

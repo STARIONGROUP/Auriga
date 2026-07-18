@@ -36,12 +36,12 @@ namespace Auriga.Rendering.Tests
         /// <summary>
         /// The builder under test, composed with the default per-kind builders.
         /// </summary>
-        private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
+        private readonly DiagramBuilder diagramBuilder = new();
 
         /// <summary>
         /// The exporter the export round-trip tests drive.
         /// </summary>
-        private readonly ISvgExporter svgExporter = new SvgExporter();
+        private readonly SvgExporter svgExporter = new();
 
         private List<Diagram> diagrams = null!;
 

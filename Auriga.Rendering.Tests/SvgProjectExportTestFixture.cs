@@ -32,12 +32,12 @@ namespace Auriga.Rendering.Tests
         /// <summary>
         /// The builder under test, composed with the default per-kind builders.
         /// </summary>
-        private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
+        private readonly DiagramBuilder diagramBuilder = new();
 
         /// <summary>
         /// The exporter writing the SVG files.
         /// </summary>
-        private readonly ISvgExporter svgExporter = new SvgExporter();
+        private readonly SvgExporter svgExporter = new();
 
         [Test]
         [TestCase("coffee-machine-demo.aird", "coffee-machine")]

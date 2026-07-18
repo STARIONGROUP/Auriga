@@ -33,7 +33,7 @@ namespace Auriga.Rendering.Tests
         /// <summary>
         /// The exporter under test.
         /// </summary>
-        private readonly ISvgExporter svgExporter = new SvgExporter();
+        private readonly SvgExporter svgExporter = new();
 
         [Test]
         public void Verify_that_the_exporter_guards_its_arguments()
