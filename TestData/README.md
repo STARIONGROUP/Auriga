@@ -10,8 +10,8 @@ Each obtained fixture is committed as the **complete Capella project set**: sema
 | --- | --- | --- | --- |
 | [`minimal/`](minimal) | 7.0.0 nsURIs | Apache-2.0 (this repo) | First reader target: smallest well-formed model |
 | [`coffee-machine/`](coffee-machine) | **6.0.0** | Apache-2.0 | py-capellambse demo model; the different-version fixture — reads via version-tolerant resolution, read-only in v1 (out of round-trip scope) |
-| [`in-flight-entertainment-system/`](in-flight-entertainment-system) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Official Capella sample; large realistic model, all five Arcadia layers |
-| [`fragmented-sysmodel/`](fragmented-sysmodel) | 7.0.0 nsURIs (saved by 7.1.0) | EPL-2.0 | Model split across four `.capellafragment` files; exercises cross-fragment `href` resolution |
+| [`in-flight-entertainment-system/`](in-flight-entertainment-system) | 7.0.0 nsURIs (saved by 7.0.1) | EPL-2.0 | Official Capella sample; large realistic model, all five Arcadia layers |
+| [`fragmented-sysmodel/`](fragmented-sysmodel) | 7.0.0 nsURIs (saved by 7.0.1) | EPL-2.0 | Model split across four `.capellafragment` files; exercises cross-fragment `href` resolution |
 | [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; uses the **Cybersecurity** add-on viewpoint (out of v1 metamodel scope — the round-trip suite skips it) |
 | [`Level Crossing Traffic Control/`](Level%20Crossing%20Traffic%20Control) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; large model (~1.5 MB semantic, ~37 MB `.aird`) |
 
@@ -31,11 +31,11 @@ From [DSD-DBS/coffee-machine](https://github.com/DSD-DBS/coffee-machine) (commit
 
 ## in-flight-entertainment-system/
 
-The official Capella sample project, from [eclipse-capella/capella](https://github.com/eclipse-capella/capella) `samples/In-Flight Entertainment System` (commit `3153b93`). EPL-2.0 ([LICENSE-EPL-2.0.md](in-flight-entertainment-system/LICENSE-EPL-2.0.md)). ~1.5 MB semantic model covering all five Arcadia layers, REC/RPL catalogs, state machines, functional chains, and rich HTML descriptions — the main realistic-scale reader/round-trip fixture. Includes the ~20 MB `.aird` and the `images/` folder referenced from element descriptions. The other official sample mentioned in the issue (System of Systems) is not in the capella git repository (it ships with product downloads); it can be added later if needed.
+The official Capella sample project, from [eclipse-capella/capella](https://github.com/eclipse-capella/capella) `samples/In-Flight Entertainment System` (tag `v7.0.1` — originally vendored from master commit `3153b93`, re-vendored from the release tag so the project opens in a released Capella 7.0.x without version-stamp complaints). EPL-2.0 ([LICENSE-EPL-2.0.md](in-flight-entertainment-system/LICENSE-EPL-2.0.md)). ~1.5 MB semantic model covering all five Arcadia layers, REC/RPL catalogs, state machines, functional chains, and rich HTML descriptions — the main realistic-scale reader/round-trip fixture. Includes the ~20 MB `.aird` and the `images/` folder referenced from element descriptions. The other official sample mentioned in the issue (System of Systems) is not in the capella git repository (it ships with product downloads); it can be added later if needed.
 
 ## fragmented-sysmodel/
 
-`FragmentTestModel` from the Capella test suite, [eclipse-capella/capella](https://github.com/eclipse-capella/capella) `tests/plugins/org.polarsys.capella.test.fragmentation/model/FragmentTestModel` (commit `3153b93`). EPL-2.0 ([LICENSE-EPL-2.0.md](fragmented-sysmodel/LICENSE-EPL-2.0.md)). A `sysmodel.capella` root plus four semantic fragments under `fragments/`, referenced via relative hrefs such as:
+`FragmentTestModel` from the Capella test suite, [eclipse-capella/capella](https://github.com/eclipse-capella/capella) `tests/plugins/org.polarsys.capella.test.fragmentation/model/FragmentTestModel` (tag `v7.0.1` — originally vendored from master commit `3153b93`, re-vendored from the release tag so the project opens in a released Capella 7.0.x). EPL-2.0 ([LICENSE-EPL-2.0.md](fragmented-sysmodel/LICENSE-EPL-2.0.md)). A `sysmodel.capella` root plus four semantic fragments under `fragments/`, referenced via relative hrefs such as:
 
 ```
 href="fragments/SA-Data.capellafragment#fb7840a4-2ac6-46f2-9547-a3368dd320a0"
