@@ -103,12 +103,11 @@ namespace Auriga.Rendering
             var snapshot = elements.ToList();
 
             var names = new Dictionary<string, string>(StringComparer.Ordinal);
-            foreach (var descriptor in snapshot.OfType<SiriusViewpoint.IDRepresentationDescriptor>())
+            foreach (var descriptor in snapshot
+                .OfType<SiriusViewpoint.IDRepresentationDescriptor>()
+                .Where(descriptor => !string.IsNullOrEmpty(descriptor.RepPath) && !string.IsNullOrEmpty(descriptor.Name)))
             {
-                if (!string.IsNullOrEmpty(descriptor.RepPath) && !string.IsNullOrEmpty(descriptor.Name))
-                {
-                    names[descriptor.RepPath!.TrimStart('#')] = descriptor.Name!;
-                }
+                names[descriptor.RepPath!.TrimStart('#')] = descriptor.Name!;
             }
 
             var diagrams = new List<Diagram>();
