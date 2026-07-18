@@ -440,9 +440,20 @@ namespace Auriga.Rendering
             var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
             var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
 
-            var yEnd = edge.Target!.HasAbsoluteBounds
-                ? edge.Target.Position.Y
-                : (hook.Count > 0 ? origin.Y + hook[hook.Count - 1].SourceRelative.Y : origin.Y + SelfMessageHop);
+            double yEnd;
+            if (edge.Target!.HasAbsoluteBounds)
+            {
+                yEnd = edge.Target.Position.Y;
+            }
+            else if (hook.Count > 0)
+            {
+                yEnd = origin.Y + hook[hook.Count - 1].SourceRelative.Y;
+            }
+            else
+            {
+                yEnd = origin.Y + SelfMessageHop;
+            }
+
             var yStart = yEnd - SelfMessageHop;
 
             var sourceCenter = edge.Source!.Position.X + ((edge.Source.Width ?? 0) / 2);
@@ -810,11 +821,18 @@ namespace Auriga.Rendering
                 for (var i = 0; i < relativeBendpoints.Count; i++)
                 {
                     var isLast = i == relativeBendpoints.Count - 1;
-                    route.Add(isLast && targetAnchor is { } toTarget
-                        ? toTarget + relativeBendpoints[i].TargetRelative
-                        : sourceAnchor is { } fromSource
-                            ? fromSource + relativeBendpoints[i].SourceRelative
-                            : targetAnchor!.Value + relativeBendpoints[i].TargetRelative);
+                    if (isLast && targetAnchor is { } toTarget)
+                    {
+                        route.Add(toTarget + relativeBendpoints[i].TargetRelative);
+                    }
+                    else if (sourceAnchor is { } fromSource)
+                    {
+                        route.Add(fromSource + relativeBendpoints[i].SourceRelative);
+                    }
+                    else
+                    {
+                        route.Add(targetAnchor!.Value + relativeBendpoints[i].TargetRelative);
+                    }
                 }
 
                 return route;
