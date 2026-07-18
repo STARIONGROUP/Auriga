@@ -29,6 +29,11 @@ namespace Auriga.Rendering.Tests
     [TestFixture]
     public class SvgProjectExportTestFixture
     {
+        /// <summary>
+        /// The builder under test, composed with the default per-kind builders.
+        /// </summary>
+        private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
+
         [Test]
         [TestCase("coffee-machine-demo.aird", "coffee-machine")]
         [TestCase("Crowd_Surveillance_System_in_DARC.aird", "crowd-surveillance-system-in-darc")]
@@ -40,7 +45,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var diagrams = DiagramBuilder.BuildAll(result.Elements.Values);
+            var diagrams = this.diagramBuilder.BuildAll(result.Elements.Values);
 
             var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports", modelFolder);
             Directory.CreateDirectory(outputDirectory);

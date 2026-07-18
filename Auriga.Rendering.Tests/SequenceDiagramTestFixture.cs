@@ -29,6 +29,11 @@ namespace Auriga.Rendering.Tests
     {
         private const string SelectVodMovieUid = "_QD67YMAFEeS91_vDABbjUA";
 
+        /// <summary>
+        /// The builder under test, composed with the default per-kind builders.
+        /// </summary>
+        private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
+
         private Diagram diagram = null!;
 
         [OneTimeSetUp]
@@ -38,7 +43,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SelectVodMovieUid);
+            this.diagram = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SelectVodMovieUid);
         }
 
         [Test]
@@ -139,7 +144,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var performAudio = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_FremALbzEeSpk5KlhVegeg");
+            var performAudio = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_FremALbzEeSpk5KlhVegeg");
 
             var fragment = performAudio.Boxes[0];
             var state = performAudio.QueryAllBoxes().First(box => box.Label?.Text == "Play Audio-Video Stream on Seat TV");
@@ -178,7 +183,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var performAudio = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_5o4FkLD5EeSk6sURco8jXw");
+            var performAudio = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_5o4FkLD5EeSk6sURco8jXw");
 
             var notes = performAudio.QueryAllBoxes()
                 .Where(box => box.SiriusElement == null && box.NotationView is Auriga.Diagram.Notation.IShape)
@@ -212,7 +217,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenario = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_duRY4JiwEeSFKIU85IonOQ");
+            var scenario = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_duRY4JiwEeSFKIU85IonOQ");
 
             var attachment = scenario.Edges.Single(edge => edge.Identifier == "_25tm0KfIEeSfJNzMtsfIDg");
             var note = scenario.QueryAllBoxes().Single(box => box.Identifier == "_xPpnAKfIEeSfJNzMtsfIDg");
@@ -238,7 +243,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenario = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_pHpF4LEPEeSk6sURco8jXw");
+            var scenario = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_pHpF4LEPEeSk6sURco8jXw");
 
             var constraint = scenario.QueryAllBoxes().Single(box => box.Label?.Text == "Profile = CORE SERVICES ONLY");
             var link = scenario.Edges.Single(edge => edge.SiriusElement?.Id == "_khfXMIoOEeaQmcRqIfTB6w");
@@ -266,7 +271,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenarios = DiagramBuilder.BuildAll(result.Elements.Values)
+            var scenarios = this.diagramBuilder.BuildAll(result.Elements.Values)
                 .Where(candidate => candidate.SiriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram)
                 .ToList();
 

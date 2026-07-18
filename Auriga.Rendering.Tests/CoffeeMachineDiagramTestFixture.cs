@@ -33,6 +33,11 @@ namespace Auriga.Rendering.Tests
 
         private const string FunctionalExchangeEdgeUid = "_XKSYcFucEe2iJbuWznnyfw";
 
+        /// <summary>
+        /// The builder under test, composed with the default per-kind builders.
+        /// </summary>
+        private readonly IDiagramBuilder diagramBuilder = new DiagramBuilder();
+
         private List<Diagram> diagrams = null!;
 
         [OneTimeSetUp]
@@ -42,7 +47,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagrams = DiagramBuilder.BuildAll(result.Elements.Values).ToList();
+            this.diagrams = this.diagramBuilder.BuildAll(result.Elements.Values).ToList();
         }
 
         [Test]
