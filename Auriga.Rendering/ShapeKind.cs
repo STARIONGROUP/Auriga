@@ -27,8 +27,9 @@ namespace Auriga.Rendering
         Ellipse,
 
         /// <summary>
-        /// A vertical line through the box's horizontal center, spanning its height — the shape of
-        /// a sequence diagram's lifeline, which renders without the rectangle's end caps.
+        /// A line through the box's center along its longer axis, without the rectangle's end
+        /// caps — vertical for a sequence diagram's lifeline, horizontal for its end-of-lifeline
+        /// tick.
         /// </summary>
         Line,
     }

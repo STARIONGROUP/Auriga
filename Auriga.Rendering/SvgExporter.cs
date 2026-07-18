@@ -215,13 +215,26 @@ namespace Auriga.Rendering
             }
             else if (style.Shape == ShapeKind.Line)
             {
-                var centerX = box.Position.X + (width / 2);
-                outline = new XElement(
-                    Svg + "line",
-                    new XAttribute("x1", N(centerX)),
-                    new XAttribute("y1", N(box.Position.Y)),
-                    new XAttribute("x2", N(centerX)),
-                    new XAttribute("y2", N(box.Position.Y + height)));
+                if (height >= width)
+                {
+                    var centerX = box.Position.X + (width / 2);
+                    outline = new XElement(
+                        Svg + "line",
+                        new XAttribute("x1", N(centerX)),
+                        new XAttribute("y1", N(box.Position.Y)),
+                        new XAttribute("x2", N(centerX)),
+                        new XAttribute("y2", N(box.Position.Y + height)));
+                }
+                else
+                {
+                    var centerY = box.Position.Y + (height / 2);
+                    outline = new XElement(
+                        Svg + "line",
+                        new XAttribute("x1", N(box.Position.X)),
+                        new XAttribute("y1", N(centerY)),
+                        new XAttribute("x2", N(box.Position.X + width)),
+                        new XAttribute("y2", N(centerY)));
+                }
             }
             else
             {

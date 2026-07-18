@@ -233,16 +233,21 @@ namespace Auriga.Rendering
                 lifeline.Style.Resolved.StrokeWidth = 1;
                 lifeline.Style.Resolved.Pattern = LinePattern.LongDash;
 
-                // The end-of-life mark persists at a stale relative position; Capella draws it as a
-                // small horizontal tick terminating the lifeline.
+                // The end-of-life mark — the unnamed, unfiltered child sharing the lifeline's own
+                // instance role — persists as a small square at a stale relative position; Capella
+                // draws it as a short horizontal tick terminating the lifeline.
                 var lifelineCenter = lifeline.Position.X + 0.5;
-                foreach (var mark in lifeline.Children.Where(child => child.SemanticElement?.GetType().Name == "EndOfLife"))
+                foreach (var mark in lifeline.Children.Where(child =>
+                    child.Label == null && !child.HasAbsoluteBounds && ReferenceEquals(child.SemanticElement, lifeline.SemanticElement)))
                 {
-                    var tickWidth = mark.Width ?? 10;
+                    var tickWidth = Math.Max(mark.Width ?? 10, 10);
                     mark.Position = new Point(lifelineCenter - (tickWidth / 2), bottom);
-                    mark.Height = 1;
+                    mark.Width = tickWidth;
+                    mark.Height = 0;
+                    mark.Style.Resolved.Shape = ShapeKind.Line;
                     mark.Style.Resolved.FillColor = null;
                     mark.Style.Resolved.StrokeColor = LifelineGray;
+                    mark.Style.Resolved.StrokeWidth = 1;
                     mark.Style.Resolved.Pattern = LinePattern.Solid;
                 }
             }

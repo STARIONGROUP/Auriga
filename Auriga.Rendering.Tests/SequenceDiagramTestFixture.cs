@@ -96,6 +96,14 @@ namespace Auriga.Rendering.Tests
                 Assert.That(lifeline.Style.Resolved.Pattern, Is.EqualTo(LinePattern.LongDash), "the calmer long-dash stroke Capella uses");
                 Assert.That(lifeline.Style.Resolved.StrokeColor, Is.EqualTo(new Color(128, 128, 128)));
                 Assert.That(lifeline.Style.Resolved.FillColor, Is.Null);
+
+                // The end-of-life mark renders as a short horizontal tick centered at the
+                // lifeline's bottom end, not as the persisted small square.
+                var tick = lifeline.Children.Single(child => child.Label == null && !child.HasAbsoluteBounds && ReferenceEquals(child.SemanticElement, lifeline.SemanticElement));
+                Assert.That(tick.Style.Resolved.Shape, Is.EqualTo(ShapeKind.Line));
+                Assert.That(tick.Height, Is.EqualTo(0), "a horizontal line, not a box");
+                Assert.That(tick.Position.X + ((tick.Width ?? 0) / 2), Is.EqualTo(100).Within(0.0001), "centered on the lifeline");
+                Assert.That(tick.Position.Y, Is.EqualTo(lifeline.Position.Y + lifeline.Height), "at the lifeline's end");
             });
         }
 
