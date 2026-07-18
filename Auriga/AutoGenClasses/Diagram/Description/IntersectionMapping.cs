@@ -200,7 +200,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// All details that can be created from this node.
@@ -225,7 +225,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// Gets or sets the use domain class.
         /// </summary>
-        public bool UseDomainClass { get; set; }
+        public bool UseDomainClass { get; set; } = false;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>IntersectionMapping</c>.

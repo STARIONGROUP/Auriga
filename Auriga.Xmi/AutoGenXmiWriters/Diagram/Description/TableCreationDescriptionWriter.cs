@@ -64,15 +64,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "browseExpression", poco.BrowseExpression);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect);
-            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh);
-            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
+            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
+            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
             this.WriteReferenceAttribute(xmlWriter, "tableDescription", poco.TableDescription, poco, "TableDescription", context);
-            WriteStringAttribute(xmlWriter, "titleExpression", poco.TitleExpression);
+            WriteStringAttribute(xmlWriter, "titleExpression", poco.TitleExpression, "");
             this.WriteContainedElement(xmlWriter, "containerViewVariable", poco.ContainerViewVariable, poco, "ContainerViewVariable", context);
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             this.WriteContainedElement(xmlWriter, "initialOperation", poco.InitialOperation, poco, "InitialOperation", context);

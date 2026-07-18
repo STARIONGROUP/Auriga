@@ -63,12 +63,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.IDTableElementStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor);
-            WriteBooleanAttribute(xmlWriter, "defaultBackgroundStyle", poco.DefaultBackgroundStyle);
-            WriteBooleanAttribute(xmlWriter, "defaultForegroundStyle", poco.DefaultForegroundStyle);
-            WriteStringAttribute(xmlWriter, "foregroundColor", poco.ForegroundColor);
+            WriteStringAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor, "255,255,255");
+            WriteBooleanAttribute(xmlWriter, "defaultBackgroundStyle", poco.DefaultBackgroundStyle, false);
+            WriteBooleanAttribute(xmlWriter, "defaultForegroundStyle", poco.DefaultForegroundStyle, false);
+            WriteStringAttribute(xmlWriter, "foregroundColor", poco.ForegroundColor, "0,0,0");
             WriteEnumListAttribute<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
-            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize);
+            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
         }
     }

@@ -25,12 +25,12 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The background color.
         /// </summary>
-        public string BackgroundColor { get; set; }
+        public string BackgroundColor { get; set; } = "136,136,136";
 
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        public string BorderColor { get; set; }
+        public string BorderColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// The style of the border line.
@@ -40,12 +40,12 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the border size.
         /// </summary>
-        public int BorderSize { get; set; }
+        public int BorderSize { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the border size computation expression.
         /// </summary>
-        public string BorderSizeComputationExpression { get; set; }
+        public string BorderSizeComputationExpression { get; set; } = "0";
 
         /// <summary>
         /// Gets the custom features.
@@ -61,12 +61,12 @@ namespace Auriga.Diagram.Diagram
         /// The default visibility of the label (available only if labelPosition equals BORDER).
         /// A change of this option does not affect already existing elements.
         /// </summary>
-        public bool? HideLabelByDefault { get; set; }
+        public bool? HideLabelByDefault { get; set; } = false;
 
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
-        public string IconPath { get; set; }
+        public string IconPath { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the label alignment.
@@ -76,7 +76,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the label color.
         /// </summary>
-        public string LabelColor { get; set; }
+        public string LabelColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// The font format.
@@ -93,17 +93,17 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The font size.
         /// </summary>
-        public int? LabelSize { get; set; }
+        public int? LabelSize { get; set; } = 8;
 
         /// <summary>
         /// True, if the icon shoud be dispayed on the element.
         /// </summary>
-        public bool? ShowIcon { get; set; }
+        public bool? ShowIcon { get; set; } = true;
 
         /// <summary>
         /// An expression computing the size of a stroke.
         /// </summary>
-        public string StrokeSizeComputationExpression { get; set; }
+        public string StrokeSizeComputationExpression { get; set; } = "2";
 
         /// <summary>
         /// Gets or sets the uid.

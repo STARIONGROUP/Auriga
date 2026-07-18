@@ -76,7 +76,7 @@ namespace Auriga.Model.Interaction
         /// <summary>
         /// Gets or sets the kind.
         /// </summary>
-        public Auriga.Model.Interaction.ScenarioKind? Kind { get; set; }
+        public Auriga.Model.Interaction.ScenarioKind? Kind { get; set; } = Auriga.Model.Interaction.ScenarioKind.UNSET;
 
         /// <summary>
         /// Gets or sets the merged.
@@ -311,12 +311,12 @@ namespace Auriga.Model.Interaction
         /// <summary>
         /// Gets or sets the visible in doc.
         /// </summary>
-        public bool? VisibleInDoc { get; set; }
+        public bool? VisibleInDoc { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the visible in l m.
         /// </summary>
-        public bool? VisibleInLM { get; set; }
+        public bool? VisibleInLM { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Scenario</c>.

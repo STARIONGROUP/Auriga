@@ -30,12 +30,12 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
-        public string IconPath { get; set; }
+        public string IconPath { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the label color.
         /// </summary>
-        public string LabelColor { get; set; }
+        public string LabelColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// The font format.
@@ -45,12 +45,12 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The font size.
         /// </summary>
-        public int? LabelSize { get; set; }
+        public int? LabelSize { get; set; } = 8;
 
         /// <summary>
         /// True, if the icon shoud be dispayed on the element.
         /// </summary>
-        public bool? ShowIcon { get; set; }
+        public bool? ShowIcon { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the uid.

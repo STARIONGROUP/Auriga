@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Template
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "lifelineColor", poco.LifelineColor, poco, "LifelineColor", context);
-            WriteStringAttribute(xmlWriter, "lifelineWidthComputationExpression", poco.LifelineWidthComputationExpression);
+            WriteStringAttribute(xmlWriter, "lifelineWidthComputationExpression", poco.LifelineWidthComputationExpression, "0");
             this.WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
         }
     }

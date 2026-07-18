@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Viewpoint
         /// <summary>
         /// Gets or sets the enabled.
         /// </summary>
-        public bool? Enabled { get; set; }
+        public bool? Enabled { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the filtered.

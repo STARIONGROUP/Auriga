@@ -63,17 +63,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IListCompartment poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed);
+            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed, false);
             this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             this.WriteReferenceListAttribute(xmlWriter, "filteredObjects", poco.FilteredObjects, poco, "FilteredObjects", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Filtering>(xmlWriter, "filtering", poco.Filtering);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Filtering>(xmlWriter, "filtering", poco.Filtering, Auriga.Diagram.Notation.Filtering.None);
             WriteStringAttribute(xmlWriter, "filteringKeys", poco.FilteringKeys);
-            WriteBooleanAttribute(xmlWriter, "showTitle", poco.ShowTitle);
+            WriteBooleanAttribute(xmlWriter, "showTitle", poco.ShowTitle, false);
             this.WriteReferenceListAttribute(xmlWriter, "sortedObjects", poco.SortedObjects, poco, "SortedObjects", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Sorting>(xmlWriter, "sorting", poco.Sorting);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Sorting>(xmlWriter, "sorting", poco.Sorting, Auriga.Diagram.Notation.Sorting.None);
             WriteStringAttribute(xmlWriter, "sortingKeys", poco.SortingKeys);
-            WriteStringAttribute(xmlWriter, "type", poco.Type);
-            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
+            WriteStringAttribute(xmlWriter, "type", poco.Type, "");
+            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             this.WriteContainedElement(xmlWriter, "layoutConstraint", poco.LayoutConstraint, poco, "LayoutConstraint", context);
             this.WriteContainedElements(xmlWriter, "children", poco.PersistedChildren, poco, "PersistedChildren", context);
             this.WriteContainedElements(xmlWriter, "styles", poco.Styles, poco, "Styles", context);

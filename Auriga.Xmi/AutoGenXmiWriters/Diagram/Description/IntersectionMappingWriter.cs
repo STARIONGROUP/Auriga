@@ -72,12 +72,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
             WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression);
             WriteStringAttribute(xmlWriter, "lineFinderExpression", poco.LineFinderExpression);
             this.WriteReferenceListAttribute(xmlWriter, "lineMapping", poco.LineMapping, poco, "LineMapping", context);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "navigationDescriptions", poco.NavigationDescriptions, poco, "NavigationDescriptions", context);
             WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression);
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "semanticElements", poco.SemanticElements);
-            WriteBooleanAttribute(xmlWriter, "useDomainClass", poco.UseDomainClass);
+            WriteBooleanAttribute(xmlWriter, "useDomainClass", poco.UseDomainClass, false);
             this.WriteContainedElements(xmlWriter, "backgroundConditionalStyle", poco.BackgroundConditionalStyle, poco, "BackgroundConditionalStyle", context);
             this.WriteContainedElement(xmlWriter, "cellEditor", poco.CellEditor, poco, "CellEditor", context);
             this.WriteContainedElement(xmlWriter, "create", poco.Create, poco, "Create", context);

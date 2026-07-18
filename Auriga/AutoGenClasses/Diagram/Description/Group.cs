@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Gets the e annotations.
@@ -48,7 +48,7 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets the owned viewpoints.

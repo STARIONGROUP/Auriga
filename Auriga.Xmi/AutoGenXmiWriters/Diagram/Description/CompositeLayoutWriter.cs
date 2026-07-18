@@ -63,9 +63,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.ICompositeLayout poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.LayoutDirection>(xmlWriter, "direction", poco.Direction);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteIntegerAttribute(xmlWriter, "padding", poco.Padding);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.LayoutDirection>(xmlWriter, "direction", poco.Direction, Auriga.Diagram.Diagram.Description.LayoutDirection.TopToBottom);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteIntegerAttribute(xmlWriter, "padding", poco.Padding, 30);
         }
     }
 }

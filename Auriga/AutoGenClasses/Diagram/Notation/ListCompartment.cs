@@ -26,7 +26,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the collapsed.
         /// </summary>
-        public bool? Collapsed { get; set; }
+        public bool? Collapsed { get; set; } = false;
 
         /// <summary>
         /// Gets the diagram.
@@ -46,7 +46,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the filtering.
         /// </summary>
-        public Auriga.Diagram.Notation.Filtering? Filtering { get; set; }
+        public Auriga.Diagram.Notation.Filtering? Filtering { get; set; } = Auriga.Diagram.Notation.Filtering.None;
 
         /// <summary>
         /// Gets or sets the filtering keys.
@@ -93,7 +93,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the show title.
         /// </summary>
-        public bool? ShowTitle { get; set; }
+        public bool? ShowTitle { get; set; } = false;
 
         /// <summary>
         /// Gets the sorted objects.
@@ -103,7 +103,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the sorting.
         /// </summary>
-        public Auriga.Diagram.Notation.Sorting? Sorting { get; set; }
+        public Auriga.Diagram.Notation.Sorting? Sorting { get; set; } = Auriga.Diagram.Notation.Sorting.None;
 
         /// <summary>
         /// Gets or sets the sorting keys.
@@ -138,12 +138,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the visible.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ListCompartment</c>.

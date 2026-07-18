@@ -23,17 +23,17 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// The blue value of the RGB color.
         /// </summary>
-        public int Blue { get; set; }
+        public int Blue { get; set; } = 125;
 
         /// <summary>
         /// The green value of the RGB color.
         /// </summary>
-        public int Green { get; set; }
+        public int Green { get; set; } = 125;
 
         /// <summary>
         /// The red value of the RGB color.
         /// </summary>
-        public int Red { get; set; }
+        public int Red { get; set; } = 125;
 
     }
 }

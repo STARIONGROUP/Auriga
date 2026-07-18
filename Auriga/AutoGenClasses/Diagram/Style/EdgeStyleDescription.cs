@@ -101,7 +101,7 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// Use this feature to generalize the ends centering behavior to all source mappings, all target mappings or both. If "None", you have to select the source and target mappings manually.
         /// </summary>
-        public Auriga.Diagram.Diagram.Description.CenteringStyle? EndsCentering { get; set; }
+        public Auriga.Diagram.Diagram.Description.CenteringStyle? EndsCentering { get; set; } = Auriga.Diagram.Diagram.Description.CenteringStyle.None;
 
         /// <summary>
         /// A folding style allow to collapse the elements targeted by the edge.
@@ -116,17 +116,17 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The routing style for your edge.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeRouting RoutingStyle { get; set; }
+        public Auriga.Diagram.Diagram.EdgeRouting RoutingStyle { get; set; } = Auriga.Diagram.Diagram.EdgeRouting.Straight;
 
         /// <summary>
         /// An expression to compute the thickness of the link.
         /// </summary>
-        public string SizeComputationExpression { get; set; }
+        public string SizeComputationExpression { get; set; } = "1";
 
         /// <summary>
         /// The source decoration.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeArrows SourceArrow { get; set; }
+        public Auriga.Diagram.Diagram.EdgeArrows SourceArrow { get; set; } = Auriga.Diagram.Diagram.EdgeArrows.NoDecoration;
 
         /// <summary>
         /// The color of the edge.
@@ -136,7 +136,7 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The target decoration.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeArrows TargetArrow { get; set; }
+        public Auriga.Diagram.Diagram.EdgeArrows TargetArrow { get; set; } = Auriga.Diagram.Diagram.EdgeArrows.InputArrow;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>EdgeStyleDescription</c>.

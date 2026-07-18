@@ -35,17 +35,17 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// An expression computing the value of the color. The value of the color must be include in the scale bounds
         /// </summary>
-        public string ColorValueComputationExpression { get; set; }
+        public string ColorValueComputationExpression { get; set; } = "1";
 
         /// <summary>
         /// Gets or sets the max value computation expression.
         /// </summary>
-        public string MaxValueComputationExpression { get; set; }
+        public string MaxValueComputationExpression { get; set; } = "10";
 
         /// <summary>
         /// Gets or sets the min value computation expression.
         /// </summary>
-        public string MinValueComputationExpression { get; set; }
+        public string MinValueComputationExpression { get; set; } = "0";
 
         /// <summary>
         /// The name of the color description, as shown to the user in color palettes.

@@ -23,12 +23,12 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// Gets or sets the blue.
         /// </summary>
-        public string Blue { get; set; }
+        public string Blue { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the green.
         /// </summary>
-        public string Green { get; set; }
+        public string Green { get; set; } = "";
 
         /// <summary>
         /// The name of the color description, as shown to the user in color palettes.
@@ -38,7 +38,7 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// An expression computing the value of the color.
         /// </summary>
-        public string Red { get; set; }
+        public string Red { get; set; } = "";
 
     }
 }

@@ -25,7 +25,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The background color.
         /// </summary>
-        public string BackgroundColor { get; set; }
+        public string BackgroundColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// Gets the custom features.
@@ -35,7 +35,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The foreground color.
         /// </summary>
-        public string ForegroundColor { get; set; }
+        public string ForegroundColor { get; set; } = "138,226,52";
 
         /// <summary>
         /// The label of the gauge.

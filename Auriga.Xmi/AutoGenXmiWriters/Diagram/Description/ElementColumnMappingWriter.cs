@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
             WriteStringAttribute(xmlWriter, "headerLabelExpression", poco.HeaderLabelExpression);
             WriteIntegerAttribute(xmlWriter, "initialWidth", poco.InitialWidth);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "navigationDescriptions", poco.NavigationDescriptions, poco, "NavigationDescriptions", context);
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "semanticElements", poco.SemanticElements);

@@ -41,7 +41,7 @@ namespace Auriga.Model.Oa
         /// <summary>
         /// Gets or sets the aggregation kind.
         /// </summary>
-        public Auriga.Model.Information.AggregationKind? AggregationKind { get; set; }
+        public Auriga.Model.Information.AggregationKind? AggregationKind { get; set; } = Auriga.Model.Information.AggregationKind.UNSET;
 
         /// <summary>
         /// Gets the allocating roles.
@@ -721,12 +721,12 @@ namespace Auriga.Model.Oa
         /// <summary>
         /// Gets or sets the visible in doc.
         /// </summary>
-        public bool? VisibleInDoc { get; set; }
+        public bool? VisibleInDoc { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the visible in l m.
         /// </summary>
-        public bool? VisibleInLM { get; set; }
+        public bool? VisibleInLM { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>OperationalActivity</c>.

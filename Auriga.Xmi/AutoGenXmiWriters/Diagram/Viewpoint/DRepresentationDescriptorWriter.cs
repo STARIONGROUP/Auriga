@@ -65,8 +65,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "changeId", poco.ChangeId);
             this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             WriteStringAttribute(xmlWriter, "repPath", poco.RepPath);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);

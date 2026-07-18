@@ -26,7 +26,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the avoid obstructions.
         /// </summary>
-        public bool? AvoidObstructions { get; set; }
+        public bool? AvoidObstructions { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the bendpoints.
@@ -53,7 +53,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the closest distance.
         /// </summary>
-        public bool? ClosestDistance { get; set; }
+        public bool? ClosestDistance { get; set; } = false;
 
         /// <summary>
         /// Gets the diagram.
@@ -68,27 +68,27 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the jump link status.
         /// </summary>
-        public Auriga.Diagram.Notation.JumpLinkStatus? JumpLinkStatus { get; set; }
+        public Auriga.Diagram.Notation.JumpLinkStatus? JumpLinkStatus { get; set; } = Auriga.Diagram.Notation.JumpLinkStatus.None;
 
         /// <summary>
         /// Gets or sets the jump link type.
         /// </summary>
-        public Auriga.Diagram.Notation.JumpLinkType? JumpLinkType { get; set; }
+        public Auriga.Diagram.Notation.JumpLinkType? JumpLinkType { get; set; } = Auriga.Diagram.Notation.JumpLinkType.Semicircle;
 
         /// <summary>
         /// Gets or sets the jump links reverse.
         /// </summary>
-        public bool? JumpLinksReverse { get; set; }
+        public bool? JumpLinksReverse { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the line color.
         /// </summary>
-        public int? LineColor { get; set; }
+        public int? LineColor { get; set; } = 11579568;
 
         /// <summary>
         /// Gets or sets the line width.
         /// </summary>
-        public int? LineWidth { get; set; }
+        public int? LineWidth { get; set; } = -1;
 
         /// <summary>
         /// Gets the mutable.
@@ -108,17 +108,17 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the rounded bendpoints radius.
         /// </summary>
-        public int? RoundedBendpointsRadius { get; set; }
+        public int? RoundedBendpointsRadius { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the routing.
         /// </summary>
-        public Auriga.Diagram.Notation.Routing? Routing { get; set; }
+        public Auriga.Diagram.Notation.Routing? Routing { get; set; } = Auriga.Diagram.Notation.Routing.Manual;
 
         /// <summary>
         /// Gets or sets the smoothness.
         /// </summary>
-        public Auriga.Diagram.Notation.Smoothness? Smoothness { get; set; }
+        public Auriga.Diagram.Notation.Smoothness? Smoothness { get; set; } = Auriga.Diagram.Notation.Smoothness.None;
 
         /// <summary>
         /// Gets or sets the source.
@@ -202,12 +202,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the visible.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Connector</c>.

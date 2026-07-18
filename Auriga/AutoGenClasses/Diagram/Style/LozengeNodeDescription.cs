@@ -30,12 +30,12 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The style of the border line.
         /// </summary>
-        public Auriga.Diagram.Diagram.LineStyle? BorderLineStyle { get; set; }
+        public Auriga.Diagram.Diagram.LineStyle? BorderLineStyle { get; set; } = Auriga.Diagram.Diagram.LineStyle.Solid;
 
         /// <summary>
         /// An expression computing the size of the border.
         /// </summary>
-        public string BorderSizeComputationExpression { get; set; }
+        public string BorderSizeComputationExpression { get; set; } = "0";
 
         /// <summary>
         /// The color of the lozenge.
@@ -56,12 +56,12 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// The default visibility of the label (available only if labelPosition equals BORDER).
         /// A change of this option does not affect already existing elements.
         /// </summary>
-        public bool? HideLabelByDefault { get; set; }
+        public bool? HideLabelByDefault { get; set; } = false;
 
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
-        public string IconPath { get; set; }
+        public string IconPath { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the label alignment.
@@ -76,7 +76,7 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// Expression that computes the name of a node.
         /// </summary>
-        public string LabelExpression { get; set; }
+        public string LabelExpression { get; set; } = "feature:name";
 
         /// <summary>
         /// The font format.
@@ -86,32 +86,32 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The relative position of the label to the node.
         /// </summary>
-        public Auriga.Diagram.Diagram.LabelPosition? LabelPosition { get; set; }
+        public Auriga.Diagram.Diagram.LabelPosition? LabelPosition { get; set; } = Auriga.Diagram.Diagram.LabelPosition.Border;
 
         /// <summary>
         /// The font size.
         /// </summary>
-        public int? LabelSize { get; set; }
+        public int? LabelSize { get; set; } = 8;
 
         /// <summary>
         /// Define the directions the user is able to resize.
         /// </summary>
-        public Auriga.Diagram.Diagram.ResizeKind ResizeKind { get; set; }
+        public Auriga.Diagram.Diagram.ResizeKind ResizeKind { get; set; } = Auriga.Diagram.Diagram.ResizeKind.NONE;
 
         /// <summary>
         /// True, if the icon shoud be dispayed on the element.
         /// </summary>
-        public bool? ShowIcon { get; set; }
+        public bool? ShowIcon { get; set; } = true;
 
         /// <summary>
         /// Expression that computes the size of the node.
         /// </summary>
-        public string SizeComputationExpression { get; set; }
+        public string SizeComputationExpression { get; set; } = "3";
 
         /// <summary>
         /// This expression is used to compute the text of the optional tooltip shown when the user leaves the mouse on an element.
         /// </summary>
-        public string TooltipExpression { get; set; }
+        public string TooltipExpression { get; set; } = "";
 
         /// <summary>
         /// An expression to compute the width of the lozenge.

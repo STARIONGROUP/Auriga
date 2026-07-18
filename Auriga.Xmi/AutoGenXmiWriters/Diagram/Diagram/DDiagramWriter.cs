@@ -69,8 +69,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             this.WriteReferenceListAttribute(xmlWriter, "activatedRules", poco.ActivatedRules, poco, "ActivatedRules", context);
             this.WriteReferenceAttribute(xmlWriter, "currentConcern", poco.CurrentConcern, poco, "CurrentConcern", context);
             this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
-            WriteIntegerAttribute(xmlWriter, "headerHeight", poco.HeaderHeight);
-            WriteBooleanAttribute(xmlWriter, "synchronized", poco.Synchronized);
+            WriteIntegerAttribute(xmlWriter, "headerHeight", poco.HeaderHeight, 1);
+            WriteBooleanAttribute(xmlWriter, "synchronized", poco.Synchronized, true);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             this.WriteContainedElements(xmlWriter, "eAnnotations", poco.EAnnotations, poco, "EAnnotations", context);
             this.WriteContainedElement(xmlWriter, "filterVariableHistory", poco.FilterVariableHistory, poco, "FilterVariableHistory", context);

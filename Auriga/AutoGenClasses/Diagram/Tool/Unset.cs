@@ -28,7 +28,7 @@ namespace Auriga.Diagram.Viewpoint.Description.Tool
         /// <summary>
         /// Name of the feature to unset.
         /// </summary>
-        public string FeatureName { get; set; }
+        public string FeatureName { get; set; } = "";
 
         /// <summary>
         /// Gets the sub model operations.

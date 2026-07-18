@@ -66,7 +66,7 @@ namespace Auriga.Model.Information.Datatype
         /// <summary>
         /// Gets or sets the discrete.
         /// </summary>
-        public bool? Discrete { get; set; }
+        public bool? Discrete { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the domain type.
@@ -91,12 +91,12 @@ namespace Auriga.Model.Information.Datatype
         /// <summary>
         /// Gets or sets the max inclusive.
         /// </summary>
-        public bool? MaxInclusive { get; set; }
+        public bool? MaxInclusive { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the min inclusive.
         /// </summary>
-        public bool? MinInclusive { get; set; }
+        public bool? MinInclusive { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the name.
@@ -399,12 +399,12 @@ namespace Auriga.Model.Information.Datatype
         /// <summary>
         /// Gets or sets the visible in doc.
         /// </summary>
-        public bool? VisibleInDoc { get; set; }
+        public bool? VisibleInDoc { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the visible in l m.
         /// </summary>
-        public bool? VisibleInLM { get; set; }
+        public bool? VisibleInLM { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Enumeration</c>.

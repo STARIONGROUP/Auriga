@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Viewpoint.Description.Style
         /// <summary>
         /// This expression is used to compute the text of the optional tooltip shown when the user leaves the mouse on an element.
         /// </summary>
-        public string TooltipExpression { get; set; }
+        public string TooltipExpression { get; set; } = "";
 
     }
 }

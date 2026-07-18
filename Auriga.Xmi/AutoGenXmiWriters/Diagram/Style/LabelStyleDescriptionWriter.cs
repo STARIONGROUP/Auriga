@@ -63,13 +63,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Style
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.Style.ILabelStyleDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath);
+            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlWriter, "labelAlignment", poco.LabelAlignment);
             this.WriteReferenceAttribute(xmlWriter, "labelColor", poco.LabelColor, poco, "LabelColor", context);
-            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression);
+            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression, "feature:name");
             WriteEnumListAttribute<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
-            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize);
-            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon);
+            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
+            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);
         }
     }
 }

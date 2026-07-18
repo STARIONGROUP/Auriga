@@ -51,7 +51,7 @@ namespace Auriga.Diagram.Viewpoint
         /// <summary>
         /// Gets or sets the synchronization status.
         /// </summary>
-        public Auriga.Diagram.Viewpoint.SyncStatus SynchronizationStatus { get; set; }
+        public Auriga.Diagram.Viewpoint.SyncStatus SynchronizationStatus { get; set; } = Auriga.Diagram.Viewpoint.SyncStatus.Dirty;
 
     }
 }

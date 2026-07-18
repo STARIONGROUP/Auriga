@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// Gets or sets the container view expression.
         /// </summary>
-        public string ContainerViewExpression { get; set; }
+        public string ContainerViewExpression { get; set; } = "";
 
         /// <summary>
         /// Mapping to create a view from.
@@ -53,7 +53,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// Once the view is created, a new variable will be bound with the name given here and will be available to any contained operation.
         /// </summary>
-        public string VariableName { get; set; }
+        public string VariableName { get; set; } = "createdView";
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CreateEdgeView</c>.

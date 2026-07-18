@@ -35,7 +35,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Set to List if you want a container acting like a list.
         /// </summary>
-        public Auriga.Diagram.Diagram.ContainerLayout ChildrenPresentation { get; set; }
+        public Auriga.Diagram.Diagram.ContainerLayout ChildrenPresentation { get; set; } = Auriga.Diagram.Diagram.ContainerLayout.FreeForm;
 
         /// <summary>
         /// Gets the conditionnal styles.
@@ -50,7 +50,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// true if the init/refresh operations should create elements for this mapping.
         /// </summary>
-        public bool CreateElements { get; set; }
+        public bool CreateElements { get; set; } = true;
 
         /// <summary>
         /// The tool that describes how to delete this element.
@@ -65,7 +65,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// The domain class of the mapping.
@@ -85,7 +85,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Set to true if you don't want to inherit the sub mappings of the imported mapping.
         /// </summary>
-        public bool? HideSubMappings { get; set; }
+        public bool? HideSubMappings { get; set; } = false;
 
         /// <summary>
         /// The imported mapping used to define default values for the current mapping.
@@ -95,7 +95,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Set to true if you want the filters applying on the imported mappings apply on this one.
         /// </summary>
-        public bool? InheritsAncestorFilters { get; set; }
+        public bool? InheritsAncestorFilters { get; set; } = true;
 
         /// <summary>
         /// The label used to display this viewpoint to the end-user.
@@ -110,7 +110,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// All details that can be created from this node.
@@ -125,7 +125,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// An expression guarding the effect if evaluated to false.
         /// </summary>
-        public string PreconditionExpression { get; set; }
+        public string PreconditionExpression { get; set; } = "";
 
         /// <summary>
         /// Gets the reused bordered node mappings.
@@ -198,7 +198,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// Set to true to force the synchronization of the elements of this mapping when the current diagram is in an unsynchronized mode.
         /// This option is used only if createElements is true and the diagram which contain the elements of this mapping is unsynchronized.
         /// </summary>
-        public bool? SynchronizationLock { get; set; }
+        public bool? SynchronizationLock { get; set; } = false;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ContainerMappingImport</c>.

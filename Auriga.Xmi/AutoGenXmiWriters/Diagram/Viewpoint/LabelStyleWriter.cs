@@ -64,12 +64,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
         {
             WriteId(xmlWriter, poco);
             WriteStringListAttribute(xmlWriter, "customFeatures", poco.CustomFeatures);
-            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath);
+            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlWriter, "labelAlignment", poco.LabelAlignment);
-            WriteStringAttribute(xmlWriter, "labelColor", poco.LabelColor);
+            WriteStringAttribute(xmlWriter, "labelColor", poco.LabelColor, "0,0,0");
             WriteEnumListAttribute<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
-            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize);
-            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon);
+            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
+            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
         }
     }

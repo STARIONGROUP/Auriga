@@ -67,7 +67,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
             WriteStringAttribute(xmlWriter, "imageExpression", poco.ImageExpression);
             this.WriteReferenceListAttribute(xmlWriter, "mappings", poco.Mappings, poco, "Mappings", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Position>(xmlWriter, "position", poco.Position);
+            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Position>(xmlWriter, "position", poco.Position, Auriga.Diagram.Viewpoint.Description.Position.SOUTH_WEST);
             WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression);
             WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression);
         }

@@ -36,7 +36,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// Gets or sets the collapsed.
         /// </summary>
-        public bool Collapsed { get; set; }
+        public bool Collapsed { get; set; } = false;
 
         /// <summary>
         /// Stores the best style of the LineMapping style updater :
@@ -80,7 +80,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// The name of the element. It is the name that is displayed on the diagram.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Same list as "cells" but sorted according to the order of columns.
@@ -115,7 +115,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// Gets or sets the visible.
         /// </summary>
-        public bool Visible { get; set; }
+        public bool Visible { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>DLine</c>.

@@ -66,7 +66,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
             this.WriteReferenceListAttribute(xmlWriter, "activatedViewpoints", poco.ActivatedViewpoints, poco, "ActivatedViewpoints", context);
             this.WriteReferenceListAttribute(xmlWriter, "analyses", poco.Analyses, poco, "Analyses", context);
             WriteBooleanAttribute(xmlWriter, "open", poco.Open);
-            WriteEnumAttribute<Auriga.Diagram.Viewpoint.SyncStatus>(xmlWriter, "synchronizationStatus", poco.SynchronizationStatus);
+            WriteEnumAttribute<Auriga.Diagram.Viewpoint.SyncStatus>(xmlWriter, "synchronizationStatus", poco.SynchronizationStatus, Auriga.Diagram.Viewpoint.SyncStatus.Dirty);
         }
     }
 }

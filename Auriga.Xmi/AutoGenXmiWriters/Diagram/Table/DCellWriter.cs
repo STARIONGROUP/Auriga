@@ -67,7 +67,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
             this.WriteReferenceAttribute(xmlWriter, "intersectionMapping", poco.IntersectionMapping, poco, "IntersectionMapping", context);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             this.WriteReferenceAttribute(xmlWriter, "line", poco.Line, poco, "Line", context);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);

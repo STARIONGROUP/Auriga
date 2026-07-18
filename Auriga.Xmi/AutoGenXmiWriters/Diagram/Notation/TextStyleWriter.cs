@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.ITextStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Notation.TextAlignment>(xmlWriter, "textAlignment", poco.TextAlignment);
+            WriteEnumAttribute<Auriga.Diagram.Notation.TextAlignment>(xmlWriter, "textAlignment", poco.TextAlignment, Auriga.Diagram.Notation.TextAlignment.Left);
         }
     }
 }

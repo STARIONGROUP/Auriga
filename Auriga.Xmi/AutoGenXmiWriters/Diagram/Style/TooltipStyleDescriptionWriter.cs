@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Style
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.Style.ITooltipStyleDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression);
+            WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression, "");
         }
     }
 }

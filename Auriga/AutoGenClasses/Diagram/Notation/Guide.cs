@@ -33,7 +33,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the position.
         /// </summary>
-        public int? Position { get; set; }
+        public int? Position { get; set; } = 0;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Guide</c>.

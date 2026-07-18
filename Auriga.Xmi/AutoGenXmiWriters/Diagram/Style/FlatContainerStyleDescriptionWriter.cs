@@ -63,27 +63,27 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Style
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Style.IFlatContainerStyleDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteIntegerAttribute(xmlWriter, "arcHeight", poco.ArcHeight);
-            WriteIntegerAttribute(xmlWriter, "arcWidth", poco.ArcWidth);
+            WriteIntegerAttribute(xmlWriter, "arcHeight", poco.ArcHeight, 10);
+            WriteIntegerAttribute(xmlWriter, "arcWidth", poco.ArcWidth, 10);
             this.WriteReferenceAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor, poco, "BackgroundColor", context);
             WriteEnumAttribute<Auriga.Diagram.Diagram.BackgroundStyle>(xmlWriter, "backgroundStyle", poco.BackgroundStyle);
             this.WriteReferenceAttribute(xmlWriter, "borderColor", poco.BorderColor, poco, "BorderColor", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "borderLineStyle", poco.BorderLineStyle);
-            WriteStringAttribute(xmlWriter, "borderSizeComputationExpression", poco.BorderSizeComputationExpression);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "borderLineStyle", poco.BorderLineStyle, Auriga.Diagram.Diagram.LineStyle.Solid);
+            WriteStringAttribute(xmlWriter, "borderSizeComputationExpression", poco.BorderSizeComputationExpression, "0");
             this.WriteReferenceAttribute(xmlWriter, "foregroundColor", poco.ForegroundColor, poco, "ForegroundColor", context);
-            WriteStringAttribute(xmlWriter, "heightComputationExpression", poco.HeightComputationExpression);
-            WriteBooleanAttribute(xmlWriter, "hideLabelByDefault", poco.HideLabelByDefault);
-            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath);
+            WriteStringAttribute(xmlWriter, "heightComputationExpression", poco.HeightComputationExpression, "-1");
+            WriteBooleanAttribute(xmlWriter, "hideLabelByDefault", poco.HideLabelByDefault, false);
+            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlWriter, "labelAlignment", poco.LabelAlignment);
             this.WriteReferenceAttribute(xmlWriter, "labelBorderStyle", poco.LabelBorderStyle, poco, "LabelBorderStyle", context);
             this.WriteReferenceAttribute(xmlWriter, "labelColor", poco.LabelColor, poco, "LabelColor", context);
-            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression);
+            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression, "feature:name");
             WriteEnumListAttribute<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
-            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize);
+            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
             WriteBooleanAttribute(xmlWriter, "roundedCorner", poco.RoundedCorner);
-            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon);
-            WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression);
-            WriteStringAttribute(xmlWriter, "widthComputationExpression", poco.WidthComputationExpression);
+            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);
+            WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression, "");
+            WriteStringAttribute(xmlWriter, "widthComputationExpression", poco.WidthComputationExpression, "-1");
         }
     }
 }

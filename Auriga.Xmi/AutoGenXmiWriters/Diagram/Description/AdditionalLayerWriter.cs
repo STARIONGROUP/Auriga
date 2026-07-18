@@ -64,12 +64,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "activeByDefault", poco.ActiveByDefault);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation, "");
             WriteStringAttribute(xmlWriter, "icon", poco.Icon);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteBooleanAttribute(xmlWriter, "optional", poco.Optional);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteBooleanAttribute(xmlWriter, "optional", poco.Optional, true);
             this.WriteReferenceListAttribute(xmlWriter, "reusedMappings", poco.ReusedMappings, poco, "ReusedMappings", context);
             this.WriteReferenceListAttribute(xmlWriter, "reusedTools", poco.ReusedTools, poco, "ReusedTools", context);
             this.WriteContainedElements(xmlWriter, "containerMappings", poco.ContainerMappings, poco, "ContainerMappings", context);

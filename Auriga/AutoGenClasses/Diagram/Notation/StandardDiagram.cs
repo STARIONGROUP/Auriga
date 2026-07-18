@@ -26,7 +26,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
 
         /// <summary>
         /// Gets the diagram.
@@ -51,7 +51,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the measurement unit.
         /// </summary>
-        public Auriga.Diagram.Notation.MeasurementUnit? MeasurementUnit { get; set; }
+        public Auriga.Diagram.Notation.MeasurementUnit? MeasurementUnit { get; set; } = Auriga.Diagram.Notation.MeasurementUnit.Himetric;
 
         /// <summary>
         /// Gets the mutable.
@@ -61,27 +61,27 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the page height.
         /// </summary>
-        public int? PageHeight { get; set; }
+        public int? PageHeight { get; set; } = 100;
 
         /// <summary>
         /// Gets or sets the page width.
         /// </summary>
-        public int? PageWidth { get; set; }
+        public int? PageWidth { get; set; } = 100;
 
         /// <summary>
         /// Gets or sets the page x.
         /// </summary>
-        public int? PageX { get; set; }
+        public int? PageX { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the page y.
         /// </summary>
-        public int? PageY { get; set; }
+        public int? PageY { get; set; } = 0;
 
         /// <summary>
         /// Gets the persisted children.
@@ -136,7 +136,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
 
         /// <summary>
         /// Gets the vertical guides.
@@ -151,7 +151,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the visible.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>StandardDiagram</c>.

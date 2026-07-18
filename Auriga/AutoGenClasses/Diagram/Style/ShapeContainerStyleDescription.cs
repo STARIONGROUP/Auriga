@@ -25,12 +25,12 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The height of the ellipse used to draw the corners.
         /// </summary>
-        public int? ArcHeight { get; set; }
+        public int? ArcHeight { get; set; } = 10;
 
         /// <summary>
         /// The width of the ellipse used to draw the corners.
         /// </summary>
-        public int? ArcWidth { get; set; }
+        public int? ArcWidth { get; set; } = 10;
 
         /// <summary>
         /// The color to use.
@@ -45,28 +45,28 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The style of the border line.
         /// </summary>
-        public Auriga.Diagram.Diagram.LineStyle? BorderLineStyle { get; set; }
+        public Auriga.Diagram.Diagram.LineStyle? BorderLineStyle { get; set; } = Auriga.Diagram.Diagram.LineStyle.Solid;
 
         /// <summary>
         /// An expression computing the size of the border.
         /// </summary>
-        public string BorderSizeComputationExpression { get; set; }
+        public string BorderSizeComputationExpression { get; set; } = "0";
 
         /// <summary>
         /// Expression that computes the size of the node.
         /// </summary>
-        public string HeightComputationExpression { get; set; }
+        public string HeightComputationExpression { get; set; } = "-1";
 
         /// <summary>
         /// The default visibility of the label (available only if labelPosition equals BORDER).
         /// A change of this option does not affect already existing elements.
         /// </summary>
-        public bool? HideLabelByDefault { get; set; }
+        public bool? HideLabelByDefault { get; set; } = false;
 
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
-        public string IconPath { get; set; }
+        public string IconPath { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the label alignment.
@@ -81,7 +81,7 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// Expression that computes the name of a node.
         /// </summary>
-        public string LabelExpression { get; set; }
+        public string LabelExpression { get; set; } = "feature:name";
 
         /// <summary>
         /// The font format.
@@ -91,7 +91,7 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The font size.
         /// </summary>
-        public int? LabelSize { get; set; }
+        public int? LabelSize { get; set; } = 8;
 
         /// <summary>
         /// Gets or sets the rounded corner.
@@ -106,17 +106,17 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// True, if the icon shoud be dispayed on the element.
         /// </summary>
-        public bool? ShowIcon { get; set; }
+        public bool? ShowIcon { get; set; } = true;
 
         /// <summary>
         /// This expression is used to compute the text of the optional tooltip shown when the user leaves the mouse on an element.
         /// </summary>
-        public string TooltipExpression { get; set; }
+        public string TooltipExpression { get; set; } = "";
 
         /// <summary>
         /// Expression that computes the size of the node.
         /// </summary>
-        public string WidthComputationExpression { get; set; }
+        public string WidthComputationExpression { get; set; } = "-1";
 
     }
 }

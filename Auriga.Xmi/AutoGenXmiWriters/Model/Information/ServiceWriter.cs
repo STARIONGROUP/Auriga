@@ -78,8 +78,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information
             WriteEnumAttribute<Auriga.Model.Information.SynchronismKind>(xmlWriter, "synchronismKind", poco.SynchronismKind);
             this.WriteReferenceListAttribute(xmlWriter, "thrownExceptions", poco.ThrownExceptions, poco, "ThrownExceptions", context);
             WriteEnumAttribute<Auriga.Model.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility);
-            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
-            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
+            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
+            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
             this.WriteContainedElements(xmlWriter, "ownedExchangeItemRealizations", poco.OwnedExchangeItemRealizations, poco, "OwnedExchangeItemRealizations", context);

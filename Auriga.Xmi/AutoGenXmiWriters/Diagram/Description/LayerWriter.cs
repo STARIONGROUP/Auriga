@@ -63,11 +63,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.ILayer poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation, "");
             WriteStringAttribute(xmlWriter, "icon", poco.Icon);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "reusedMappings", poco.ReusedMappings, poco, "ReusedMappings", context);
             this.WriteReferenceListAttribute(xmlWriter, "reusedTools", poco.ReusedTools, poco, "ReusedTools", context);
             this.WriteContainedElements(xmlWriter, "containerMappings", poco.ContainerMappings, poco, "ContainerMappings", context);

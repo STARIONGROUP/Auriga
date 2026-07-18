@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the rounded bendpoints radius.
         /// </summary>
-        public int? RoundedBendpointsRadius { get; set; }
+        public int? RoundedBendpointsRadius { get; set; } = 0;
 
     }
 }

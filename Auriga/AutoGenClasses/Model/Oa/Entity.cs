@@ -46,7 +46,7 @@ namespace Auriga.Model.Oa
         /// <summary>
         /// Gets or sets the actor.
         /// </summary>
-        public bool Actor { get; set; }
+        public bool Actor { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the actual location.
@@ -151,7 +151,7 @@ namespace Auriga.Model.Oa
         /// <summary>
         /// Gets or sets the human.
         /// </summary>
-        public bool Human { get; set; }
+        public bool Human { get; set; } = false;
 
         /// <summary>
         /// Gets the implemented interface links.
@@ -657,12 +657,12 @@ namespace Auriga.Model.Oa
         /// <summary>
         /// Gets or sets the visible in doc.
         /// </summary>
-        public bool? VisibleInDoc { get; set; }
+        public bool? VisibleInDoc { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the visible in l m.
         /// </summary>
-        public bool? VisibleInLM { get; set; }
+        public bool? VisibleInLM { get; set; } = true;
 
         /// <summary>
         /// Gets the write.

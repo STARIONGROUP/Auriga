@@ -30,7 +30,7 @@ namespace Auriga.Diagram.Sequence.Template
         /// <summary>
         /// An expression computing the size of the border.
         /// </summary>
-        public string LifelineWidthComputationExpression { get; set; }
+        public string LifelineWidthComputationExpression { get; set; } = "0";
 
         /// <summary>
         /// Gets the outputs.

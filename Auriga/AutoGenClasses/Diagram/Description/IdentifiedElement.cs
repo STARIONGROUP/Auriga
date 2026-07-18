@@ -28,7 +28,7 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
     }
 }

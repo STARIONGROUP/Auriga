@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the line type.
         /// </summary>
-        public Auriga.Diagram.Notation.LineType? LineType { get; set; }
+        public Auriga.Diagram.Notation.LineType? LineType { get; set; } = Auriga.Diagram.Notation.LineType.Solid;
 
     }
 }

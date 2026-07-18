@@ -25,7 +25,7 @@ namespace Auriga.Diagram.Diagram.Description.Filter
         /// <summary>
         /// A filter might hide elements or just shrink them. In the case of the shrink, the edges going to this element will be kept.
         /// </summary>
-        public Auriga.Diagram.Diagram.Description.Filter.FilterKind? FilterKind { get; set; }
+        public Auriga.Diagram.Diagram.Description.Filter.FilterKind? FilterKind { get; set; } = Auriga.Diagram.Diagram.Description.Filter.FilterKind.HIDE;
 
         /// <summary>
         /// All mappings to filter.

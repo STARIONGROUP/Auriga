@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "childrenExpression", poco.ChildrenExpression);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             this.WriteReferenceListAttribute(xmlWriter, "nodeMapping", poco.NodeMapping, poco, "NodeMapping", context);
         }
     }

@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "associatedColor", poco.AssociatedColor, poco, "AssociatedColor", context);
-            WriteStringAttribute(xmlWriter, "associatedValue", poco.AssociatedValue);
+            WriteStringAttribute(xmlWriter, "associatedValue", poco.AssociatedValue, "");
         }
     }
 }

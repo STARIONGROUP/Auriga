@@ -45,7 +45,7 @@ namespace Auriga.Diagram.Sequence.Description
         /// <summary>
         /// true if the init/refresh operations should create elements for this mapping.
         /// </summary>
-        public bool CreateElements { get; set; }
+        public bool CreateElements { get; set; } = true;
 
         /// <summary>
         /// The tool that describes how to delete this element.
@@ -60,7 +60,7 @@ namespace Auriga.Diagram.Sequence.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// The domain class of the mapping.
@@ -90,7 +90,7 @@ namespace Auriga.Diagram.Sequence.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// All details that can be created from this node.
@@ -105,7 +105,7 @@ namespace Auriga.Diagram.Sequence.Description
         /// <summary>
         /// An expression guarding the effect if evaluated to false.
         /// </summary>
-        public string PreconditionExpression { get; set; }
+        public string PreconditionExpression { get; set; } = "";
 
         /// <summary>
         /// Gets the reused bordered node mappings.
@@ -148,7 +148,7 @@ namespace Auriga.Diagram.Sequence.Description
         /// Set to true to force the synchronization of the elements of this mapping when the current diagram is in an unsynchronized mode.
         /// This option is used only if createElements is true and the diagram which contain the elements of this mapping is unsynchronized.
         /// </summary>
-        public bool? SynchronizationLock { get; set; }
+        public bool? SynchronizationLock { get; set; } = false;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ObservationPointMapping</c>.

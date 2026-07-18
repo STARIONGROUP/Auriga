@@ -63,9 +63,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.IInterpolatedColor poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "colorValueComputationExpression", poco.ColorValueComputationExpression);
-            WriteStringAttribute(xmlWriter, "maxValueComputationExpression", poco.MaxValueComputationExpression);
-            WriteStringAttribute(xmlWriter, "minValueComputationExpression", poco.MinValueComputationExpression);
+            WriteStringAttribute(xmlWriter, "colorValueComputationExpression", poco.ColorValueComputationExpression, "1");
+            WriteStringAttribute(xmlWriter, "maxValueComputationExpression", poco.MaxValueComputationExpression, "10");
+            WriteStringAttribute(xmlWriter, "minValueComputationExpression", poco.MinValueComputationExpression, "0");
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteContainedElements(xmlWriter, "colorSteps", poco.ColorSteps, poco, "ColorSteps", context);
         }

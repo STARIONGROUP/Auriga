@@ -63,30 +63,30 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.IEdgeMapping poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "createElements", poco.CreateElements);
+            WriteBooleanAttribute(xmlWriter, "createElements", poco.CreateElements, true);
             this.WriteReferenceAttribute(xmlWriter, "deletionDescription", poco.DeletionDescription, poco, "DeletionDescription", context);
             this.WriteReferenceListAttribute(xmlWriter, "detailDescriptions", poco.DetailDescriptions, poco, "DetailDescriptions", context);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "domainClass", poco.DomainClass);
             this.WriteReferenceAttribute(xmlWriter, "doubleClickDescription", poco.DoubleClickDescription, poco, "DoubleClickDescription", context);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             this.WriteReferenceAttribute(xmlWriter, "labelDirectEdit", poco.LabelDirectEdit, poco, "LabelDirectEdit", context);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "navigationDescriptions", poco.NavigationDescriptions, poco, "NavigationDescriptions", context);
             this.WriteReferenceListAttribute(xmlWriter, "pasteDescriptions", poco.PasteDescriptions, poco, "PasteDescriptions", context);
             WriteStringAttribute(xmlWriter, "pathExpression", poco.PathExpression);
             this.WriteReferenceListAttribute(xmlWriter, "pathNodeMapping", poco.PathNodeMapping, poco, "PathNodeMapping", context);
-            WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression);
+            WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression, "");
             this.WriteReferenceListAttribute(xmlWriter, "reconnections", poco.Reconnections, poco, "Reconnections", context);
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "semanticElements", poco.SemanticElements);
             WriteStringAttribute(xmlWriter, "sourceFinderExpression", poco.SourceFinderExpression);
             this.WriteReferenceListAttribute(xmlWriter, "sourceMapping", poco.SourceMapping, poco, "SourceMapping", context);
-            WriteBooleanAttribute(xmlWriter, "synchronizationLock", poco.SynchronizationLock);
+            WriteBooleanAttribute(xmlWriter, "synchronizationLock", poco.SynchronizationLock, false);
             WriteStringAttribute(xmlWriter, "targetExpression", poco.TargetExpression);
-            WriteStringAttribute(xmlWriter, "targetFinderExpression", poco.TargetFinderExpression);
+            WriteStringAttribute(xmlWriter, "targetFinderExpression", poco.TargetFinderExpression, "");
             this.WriteReferenceListAttribute(xmlWriter, "targetMapping", poco.TargetMapping, poco, "TargetMapping", context);
-            WriteBooleanAttribute(xmlWriter, "useDomainElement", poco.UseDomainElement);
+            WriteBooleanAttribute(xmlWriter, "useDomainElement", poco.UseDomainElement, false);
             this.WriteContainedElements(xmlWriter, "conditionnalStyles", poco.ConditionnalStyles, poco, "ConditionnalStyles", context);
             this.WriteContainedElement(xmlWriter, "style", poco.Style, poco, "Style", context);
         }

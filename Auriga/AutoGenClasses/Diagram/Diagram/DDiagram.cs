@@ -119,7 +119,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The number of lines to display the header labels (1 by default). This field is used only if the IDiagramDescriptionProvider.supportHeader() return true for this DDiagram.
         /// </summary>
-        public int? HeaderHeight { get; set; }
+        public int? HeaderHeight { get; set; } = 1;
 
         /// <summary>
         /// List of DDiagramElement : Either the DDiagramElement is hidden or its label is hidden.
@@ -184,7 +184,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the synchronized.
         /// </summary>
-        public bool? Synchronized { get; set; }
+        public bool? Synchronized { get; set; } = true;
 
         /// <summary>
         /// Gets the ui state.

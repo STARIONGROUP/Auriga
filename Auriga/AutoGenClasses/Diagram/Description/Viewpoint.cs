@@ -35,12 +35,12 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the end user documentation.
         /// </summary>
-        public string EndUserDocumentation { get; set; }
+        public string EndUserDocumentation { get; set; } = "";
 
         /// <summary>
         /// image path to use as an icon for the viewpoint
@@ -55,12 +55,12 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// Might be used to restrict your viewpoint to a set of file extensions, for instance "ecore"
         /// </summary>
-        public string ModelFileExtension { get; set; }
+        public string ModelFileExtension { get; set; } = "*";
 
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets the owned feature extensions.

@@ -35,7 +35,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// The font size.
         /// </summary>
-        public int? LabelSize { get; set; }
+        public int? LabelSize { get; set; } = 12;
 
     }
 }

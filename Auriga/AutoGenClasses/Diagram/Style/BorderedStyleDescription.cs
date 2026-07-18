@@ -28,12 +28,12 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// The style of the border line.
         /// </summary>
-        public Auriga.Diagram.Diagram.LineStyle? BorderLineStyle { get; set; }
+        public Auriga.Diagram.Diagram.LineStyle? BorderLineStyle { get; set; } = Auriga.Diagram.Diagram.LineStyle.Solid;
 
         /// <summary>
         /// An expression computing the size of the border.
         /// </summary>
-        public string BorderSizeComputationExpression { get; set; }
+        public string BorderSizeComputationExpression { get; set; } = "0";
 
     }
 }

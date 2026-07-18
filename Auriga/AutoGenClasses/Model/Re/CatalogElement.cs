@@ -51,7 +51,7 @@ namespace Auriga.Model.Re
         /// <summary>
         /// Gets or sets the kind.
         /// </summary>
-        public Auriga.Model.Re.CatalogElementKind? Kind { get; set; }
+        public Auriga.Model.Re.CatalogElementKind? Kind { get; set; } = Auriga.Model.Re.CatalogElementKind.REC;
 
         /// <summary>
         /// Gets or sets the name.
@@ -101,7 +101,7 @@ namespace Auriga.Model.Re
         /// <summary>
         /// Gets or sets the read only.
         /// </summary>
-        public bool? ReadOnly { get; set; }
+        public bool? ReadOnly { get; set; } = false;
 
         /// <summary>
         /// Gets the referenced elements.

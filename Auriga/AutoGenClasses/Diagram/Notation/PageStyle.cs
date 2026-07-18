@@ -23,22 +23,22 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the page height.
         /// </summary>
-        public int? PageHeight { get; set; }
+        public int? PageHeight { get; set; } = 100;
 
         /// <summary>
         /// Gets or sets the page width.
         /// </summary>
-        public int? PageWidth { get; set; }
+        public int? PageWidth { get; set; } = 100;
 
         /// <summary>
         /// Gets or sets the page x.
         /// </summary>
-        public int? PageX { get; set; }
+        public int? PageX { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the page y.
         /// </summary>
-        public int? PageY { get; set; }
+        public int? PageY { get; set; } = 0;
 
     }
 }

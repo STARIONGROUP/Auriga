@@ -64,10 +64,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.MeasurementUnit>(xmlWriter, "measurementUnit", poco.MeasurementUnit);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringAttribute(xmlWriter, "type", poco.Type);
-            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
+            WriteEnumAttribute<Auriga.Diagram.Notation.MeasurementUnit>(xmlWriter, "measurementUnit", poco.MeasurementUnit, Auriga.Diagram.Notation.MeasurementUnit.Himetric);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteStringAttribute(xmlWriter, "type", poco.Type, "");
+            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             this.WriteContainedElements(xmlWriter, "children", poco.PersistedChildren, poco, "PersistedChildren", context);
             this.WriteContainedElements(xmlWriter, "edges", poco.PersistedEdges, poco, "PersistedEdges", context);
             this.WriteContainedElements(xmlWriter, "styles", poco.Styles, poco, "Styles", context);

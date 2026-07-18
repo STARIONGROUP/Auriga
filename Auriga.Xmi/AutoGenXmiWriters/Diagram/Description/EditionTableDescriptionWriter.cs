@@ -63,22 +63,22 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.Description.IEditionTableDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "domainClass", poco.DomainClass);
-            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation);
+            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation, "");
             WriteIntegerAttribute(xmlWriter, "initialHeaderColumnWidth", poco.InitialHeaderColumnWidth);
             WriteBooleanAttribute(xmlWriter, "initialisation", poco.Initialisation);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             this.WriteReferenceListAttribute(xmlWriter, "metamodel", poco.Metamodel, poco, "Metamodel", context);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression, "");
             this.WriteReferenceListAttribute(xmlWriter, "reusedColumnMappings", poco.ReusedColumnMappings, poco, "ReusedColumnMappings", context);
             this.WriteReferenceListAttribute(xmlWriter, "reusedCreateLine", poco.ReusedCreateLine, poco, "ReusedCreateLine", context);
             this.WriteReferenceListAttribute(xmlWriter, "reusedLineMappings", poco.ReusedLineMappings, poco, "ReusedLineMappings", context);
             this.WriteReferenceListAttribute(xmlWriter, "reusedRepresentationCreationDescriptions", poco.ReusedRepresentationCreationDescriptions, poco, "ReusedRepresentationCreationDescriptions", context);
             this.WriteReferenceListAttribute(xmlWriter, "reusedRepresentationNavigationDescriptions", poco.ReusedRepresentationNavigationDescriptions, poco, "ReusedRepresentationNavigationDescriptions", context);
             WriteBooleanAttribute(xmlWriter, "showOnStartup", poco.ShowOnStartup);
-            WriteStringAttribute(xmlWriter, "titleExpression", poco.TitleExpression);
+            WriteStringAttribute(xmlWriter, "titleExpression", poco.TitleExpression, "");
             this.WriteContainedElements(xmlWriter, "importedElements", poco.ImportedElements, poco, "ImportedElements", context);
             this.WriteContainedElements(xmlWriter, "ownedColumnMappings", poco.OwnedColumnMappings, poco, "OwnedColumnMappings", context);
             this.WriteContainedElements(xmlWriter, "ownedCreateLine", poco.OwnedCreateLine, poco, "OwnedCreateLine", context);

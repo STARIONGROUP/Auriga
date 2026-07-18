@@ -26,7 +26,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Gets the group extensions.
@@ -56,7 +56,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// All tools of the section.

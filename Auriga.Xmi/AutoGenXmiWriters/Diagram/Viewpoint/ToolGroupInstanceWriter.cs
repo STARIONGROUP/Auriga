@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.IToolGroupInstance poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "enabled", poco.Enabled);
+            WriteBooleanAttribute(xmlWriter, "enabled", poco.Enabled, true);
             WriteBooleanAttribute(xmlWriter, "filtered", poco.Filtered);
             this.WriteReferenceAttribute(xmlWriter, "toolEntry", poco.ToolEntry, poco, "ToolEntry", context);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);

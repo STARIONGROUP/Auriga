@@ -50,17 +50,17 @@ namespace Auriga.Diagram.Viewpoint.Description.Validation
         /// <summary>
         /// Gets or sets the level.
         /// </summary>
-        public Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL Level { get; set; }
+        public Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL Level { get; set; } = Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL.INFO;
 
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
-        public string Message { get; set; }
+        public string Message { get; set; } = "The element has...";
 
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// The mapping to validate.

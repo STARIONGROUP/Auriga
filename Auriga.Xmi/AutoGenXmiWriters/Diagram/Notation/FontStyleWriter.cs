@@ -63,13 +63,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IFontStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "bold", poco.Bold);
-            WriteIntegerAttribute(xmlWriter, "fontColor", poco.FontColor);
-            WriteIntegerAttribute(xmlWriter, "fontHeight", poco.FontHeight);
-            WriteStringAttribute(xmlWriter, "fontName", poco.FontName);
-            WriteBooleanAttribute(xmlWriter, "italic", poco.Italic);
-            WriteBooleanAttribute(xmlWriter, "strikeThrough", poco.StrikeThrough);
-            WriteBooleanAttribute(xmlWriter, "underline", poco.Underline);
+            WriteBooleanAttribute(xmlWriter, "bold", poco.Bold, false);
+            WriteIntegerAttribute(xmlWriter, "fontColor", poco.FontColor, 0);
+            WriteIntegerAttribute(xmlWriter, "fontHeight", poco.FontHeight, 9);
+            WriteStringAttribute(xmlWriter, "fontName", poco.FontName, "Tahoma");
+            WriteBooleanAttribute(xmlWriter, "italic", poco.Italic, false);
+            WriteBooleanAttribute(xmlWriter, "strikeThrough", poco.StrikeThrough, false);
+            WriteBooleanAttribute(xmlWriter, "underline", poco.Underline, false);
         }
     }
 }
