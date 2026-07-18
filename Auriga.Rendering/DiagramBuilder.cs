@@ -185,12 +185,22 @@ namespace Auriga.Rendering
             }
 
             // Center each lifeline under its header first, so a message attached to the lifeline
-            // itself (an instance role without executions) starts from the centerline.
+            // itself (an instance role without executions) starts from the centerline. The header's
+            // label centers in its box (Capella renders instance-role names centered), and the
+            // lifeline renders as a pure line rather than a capped rectangle.
             foreach (var (header, lifeline) in lifelines)
             {
                 var centerX = header.Position.X + ((header.Width ?? 0) / 2);
                 lifeline.Position = new Point(centerX - 0.5, header.Position.Y + (header.Height ?? 0));
                 lifeline.Width = 1;
+                lifeline.Style.Resolved.Shape = ShapeKind.Line;
+
+                if (header.Label is { } headerLabel)
+                {
+                    headerLabel.Position = null;
+                    headerLabel.Width = null;
+                    headerLabel.Height = null;
+                }
             }
 
             RouteMessagesHorizontally(edges);
@@ -206,6 +216,19 @@ namespace Auriga.Rendering
                 lifeline.Style.Resolved.StrokeColor = LifelineGray;
                 lifeline.Style.Resolved.StrokeWidth = 1;
                 lifeline.Style.Resolved.Pattern = LinePattern.Dash;
+
+                // The end-of-life mark persists at a stale relative position; Capella draws it as a
+                // small horizontal tick terminating the lifeline.
+                var lifelineCenter = lifeline.Position.X + 0.5;
+                foreach (var mark in lifeline.Children.Where(child => child.SemanticElement?.GetType().Name == "EndOfLife"))
+                {
+                    var tickWidth = mark.Width ?? 10;
+                    mark.Position = new Point(lifelineCenter - (tickWidth / 2), bottom);
+                    mark.Height = 1;
+                    mark.Style.Resolved.FillColor = null;
+                    mark.Style.Resolved.StrokeColor = LifelineGray;
+                    mark.Style.Resolved.Pattern = LinePattern.Solid;
+                }
             }
         }
 
@@ -243,11 +266,14 @@ namespace Auriga.Rendering
                 double y;
                 if (edge.Target.HasAbsoluteBounds)
                 {
-                    y = AnchorPoint(edge.Target, edge.NotationView.TargetAnchor).Y;
+                    // The receiving end triggers the target execution, so the message arrives at the
+                    // execution's top edge — persisted anchor fractions on receiving ends are stale
+                    // render artifacts (Capella recomputes them from the event order).
+                    y = edge.Target.Position.Y;
                 }
                 else if (edge.Source.HasAbsoluteBounds)
                 {
-                    y = AnchorPoint(edge.Source, edge.NotationView.SourceAnchor).Y;
+                    y = SequenceAnchorPoint(edge.Source, edge.NotationView.SourceAnchor).Y;
                 }
                 else
                 {
@@ -553,22 +579,47 @@ namespace Auriga.Rendering
         /// <returns>the absolute anchor point</returns>
         private static Point AnchorPoint(Box box, NotationModel.IAnchor? anchor)
         {
-            var fraction = ParseAnchorFraction((anchor as NotationModel.IIdentityAnchor)?.Id);
+            return FractionPoint(box, ParseAnchorFraction(anchor) ?? CenterAnchor);
+        }
 
+        /// <summary>
+        /// The absolute anchor point of a sequence-message end: a persisted anchor fraction applies
+        /// verbatim, but a missing anchor means the message connects at the triggering event — the
+        /// top of the execution, not the GMF center default.
+        /// </summary>
+        /// <param name="box">the box the message end attaches to</param>
+        /// <param name="anchor">the persisted anchor, or <c>null</c></param>
+        /// <returns>the absolute anchor point</returns>
+        private static Point SequenceAnchorPoint(Box box, NotationModel.IAnchor? anchor)
+        {
+            return FractionPoint(box, ParseAnchorFraction(anchor) ?? new Point(0.5, 0));
+        }
+
+        /// <summary>
+        /// The absolute point at a fraction of the box's persisted size; an unpersisted dimension
+        /// contributes no offset.
+        /// </summary>
+        /// <param name="box">the box</param>
+        /// <param name="fraction">the fraction of the box's size</param>
+        /// <returns>the absolute point</returns>
+        private static Point FractionPoint(Box box, Point fraction)
+        {
             return box.Position + new Point(fraction.X * (box.Width ?? 0), fraction.Y * (box.Height ?? 0));
         }
 
         /// <summary>
         /// Parses a GMF <c>IdentityAnchor</c> id of the form <c>(0.25,0.5)</c> into its fraction,
-        /// falling back to the center for a missing or malformed value.
+        /// or <c>null</c> when no identity anchor is persisted or the value is malformed.
         /// </summary>
-        /// <param name="anchorId">the raw anchor id</param>
-        /// <returns>the anchor fraction of the view's size</returns>
-        private static Point ParseAnchorFraction(string? anchorId)
+        /// <param name="anchor">the persisted anchor, or <c>null</c></param>
+        /// <returns>the anchor fraction of the view's size, or <c>null</c></returns>
+        private static Point? ParseAnchorFraction(NotationModel.IAnchor? anchor)
         {
+            var anchorId = (anchor as NotationModel.IIdentityAnchor)?.Id;
+
             if (string.IsNullOrEmpty(anchorId))
             {
-                return CenterAnchor;
+                return null;
             }
 
             var parts = anchorId!.Trim('(', ')').Split(',');
@@ -579,7 +630,7 @@ namespace Auriga.Rendering
                 return new Point(x, y);
             }
 
-            return CenterAnchor;
+            return null;
         }
 
         /// <summary>

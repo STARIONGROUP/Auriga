@@ -184,6 +184,28 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_line_shape_renders_as_a_capless_line()
+        {
+            var lifeline = MakeBox("lifeline", 99.5, 100, 1, 830);
+            lifeline.Style.Resolved.Shape = ShapeKind.Line;
+            lifeline.Style.Resolved.Pattern = LinePattern.Dash;
+            lifeline.Style.Resolved.StrokeColor = new Color(128, 128, 128);
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { lifeline }, new List<Edge>())));
+            var line = document.Descendants(Svg + "line").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)line.Attribute("x1"), Is.EqualTo("100"));
+                Assert.That((string?)line.Attribute("x2"), Is.EqualTo("100"));
+                Assert.That((string?)line.Attribute("y1"), Is.EqualTo("100"));
+                Assert.That((string?)line.Attribute("y2"), Is.EqualTo("930"));
+                Assert.That((string?)line.Attribute("stroke-dasharray"), Is.EqualTo("5 3"));
+                Assert.That(document.Descendants(Svg + "rect"), Is.Empty, "a line replaces the capped rectangle");
+            });
+        }
+
+        [Test]
         public void Verify_that_a_two_point_edge_labels_above_its_center()
         {
             var edge = MakeEdge("straight", new[] { new Point(0, 20), new Point(100, 20) });

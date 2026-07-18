@@ -210,7 +210,18 @@ namespace Auriga.Rendering
                     new XAttribute("cx", N(box.Position.X + (width / 2))),
                     new XAttribute("cy", N(box.Position.Y + (height / 2))),
                     new XAttribute("rx", N(width / 2)),
-                    new XAttribute("ry", N(height / 2)));
+                    new XAttribute("ry", N(height / 2)),
+                    new XAttribute("fill", Fill(style, defs)));
+            }
+            else if (style.Shape == ShapeKind.Line)
+            {
+                var centerX = box.Position.X + (width / 2);
+                outline = new XElement(
+                    Svg + "line",
+                    new XAttribute("x1", N(centerX)),
+                    new XAttribute("y1", N(box.Position.Y)),
+                    new XAttribute("x2", N(centerX)),
+                    new XAttribute("y2", N(box.Position.Y + height)));
             }
             else
             {
@@ -219,11 +230,11 @@ namespace Auriga.Rendering
                     new XAttribute("x", N(box.Position.X)),
                     new XAttribute("y", N(box.Position.Y)),
                     new XAttribute("width", N(width)),
-                    new XAttribute("height", N(height)));
+                    new XAttribute("height", N(height)),
+                    new XAttribute("fill", Fill(style, defs)));
             }
 
             outline.Add(
-                new XAttribute("fill", Fill(style, defs)),
                 new XAttribute("stroke", style.StrokeColor.ToHex()),
                 new XAttribute("stroke-width", N(style.StrokeWidth)));
 

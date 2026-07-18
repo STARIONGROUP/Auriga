@@ -25,5 +25,11 @@ namespace Auriga.Rendering
         /// An elliptic outline filling the box's bounds.
         /// </summary>
         Ellipse,
+
+        /// <summary>
+        /// A vertical line through the box's horizontal center, spanning its height — the shape of
+        /// a sequence diagram's lifeline, which renders without the rectangle's end caps.
+        /// </summary>
+        Line,
     }
 }

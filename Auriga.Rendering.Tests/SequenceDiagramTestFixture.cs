@@ -54,6 +54,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(passenger.Position, Is.EqualTo(new Point(50, 50)), "the AbsoluteBoundsFilter position, not the notation offset");
                 Assert.That(passenger.Width, Is.EqualTo(100));
                 Assert.That(passenger.Height, Is.EqualTo(50));
+                Assert.That(passenger.Label!.Position, Is.Null, "instance-role names render centered in their header");
             });
         }
 
@@ -145,6 +146,12 @@ namespace Auriga.Rendering.Tests
 
                 // A state fragment's label geometry lies inside its box, so it renders centered.
                 Assert.That(state.Label!.Position, Is.Null, "an inside label centers instead of keeping its persisted text bounds");
+
+                // A message end without a persisted anchor connects at the triggering event — the
+                // execution's top — not the GMF center default.
+                var audioSignal = performAudio.Edges.First(edge => edge.Label?.Text == "Audio Signal");
+                Assert.That(audioSignal.Target!.HasAbsoluteBounds, Is.True);
+                Assert.That(audioSignal.Route[0].Y, Is.EqualTo(audioSignal.Target.Position.Y).Within(0.0001), "arriving at the execution's top edge");
             });
         }
 
