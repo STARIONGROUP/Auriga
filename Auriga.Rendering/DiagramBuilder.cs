@@ -181,7 +181,7 @@ namespace Auriga.Rendering
             rootBoxes.Clear();
             rootBoxes.AddRange(ordered);
 
-            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box) && box.SiriusElement != null))
+            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box) && IsCombinedFragment(box)))
             {
                 PinLabelTopLeft(fragment);
 
@@ -226,7 +226,7 @@ namespace Auriga.Rendering
                 }
             }
 
-            RouteMessagesHorizontally(edges);
+            RouteMessagesHorizontally(edges, headers);
 
             var bottom = ContentBottom(rootBoxes, lifelines.Select(pair => pair.Lifeline), edges);
 
@@ -306,7 +306,8 @@ namespace Auriga.Rendering
         /// self-message — keeps its generic route.
         /// </summary>
         /// <param name="edges">the message edges</param>
-        private static void RouteMessagesHorizontally(IReadOnlyList<Edge> edges)
+        /// <param name="headers">the instance-role header boxes lifeline content roots in</param>
+        private static void RouteMessagesHorizontally(IReadOnlyList<Edge> edges, HashSet<Box> headers)
         {
             foreach (var edge in edges)
             {
@@ -315,9 +316,10 @@ namespace Auriga.Rendering
                     continue;
                 }
 
-                // An edge touching a note (a box without a Sirius element) is a note attachment,
-                // not a message — its generic anchor-resolved route stands.
-                if (edge.Source.SiriusElement == null || edge.Target.SiriusElement == null)
+                // Only a message between occurrences on lifelines routes horizontally. An edge with
+                // an end outside the lifelines — a note attachment, a constraint link — keeps its
+                // generic anchor-resolved route.
+                if (!headers.Contains(Root(edge.Source)) || !headers.Contains(Root(edge.Target)))
                 {
                     continue;
                 }
@@ -370,6 +372,26 @@ namespace Auriga.Rendering
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Whether a top-level box is a combined fragment or interaction use — the frames that
+        /// paint behind the lifeline content with an operator tab and operand rules. Decided by the
+        /// semantic element's type when the session co-loaded it; a diagram-only session falls back
+        /// to the structural shape (a Sirius-backed box with operand children). A constraint or
+        /// note is neither.
+        /// </summary>
+        /// <param name="box">the top-level box</param>
+        /// <returns>true when the box is a fragment frame</returns>
+        private static bool IsCombinedFragment(Box box)
+        {
+            if (box.SemanticElement != null)
+            {
+                var semanticType = box.SemanticElement.GetType().Name;
+                return semanticType is "CombinedFragment" or "InteractionUse";
+            }
+
+            return box.SiriusElement != null && box.Children.Count > 0;
         }
 
         /// <summary>
