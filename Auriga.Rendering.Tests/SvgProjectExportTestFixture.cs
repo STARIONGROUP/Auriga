@@ -33,7 +33,7 @@ namespace Auriga.Rendering.Tests
         [TestCase("coffee-machine-demo.aird", "coffee-machine")]
         [TestCase("Crowd_Surveillance_System_in_DARC.aird", "crowd-surveillance-system-in-darc")]
         [TestCase("In-Flight Entertainment System.aird", "in-flight-entertainment-system")]
-        [TestCase("fragmented-sysmodel\\sysmodel.aird", "fragmented-sysmodel")]
+        [TestCase("fragmented-sysmodel/sysmodel.aird", "fragmented-sysmodel")]
         public void Verify_that_every_diagram_of_the_model_exports_to_svg(string airdFile, string modelFolder)
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", airdFile);
