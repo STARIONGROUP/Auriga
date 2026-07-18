@@ -246,8 +246,9 @@ namespace Auriga.Rendering
 
         /// <summary>
         /// Builds the label text of a box: at the persisted label geometry when one was folded in
-        /// (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), centered in the box
-        /// otherwise.
+        /// (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), or centered in the box —
+        /// wrapped to the box's width and vertically centered as a block, the way Capella keeps a
+        /// node label inside its shape.
         /// </summary>
         /// <param name="box">the labelled box</param>
         /// <param name="style">the box's resolved style</param>
@@ -256,24 +257,30 @@ namespace Auriga.Rendering
         {
             var label = box.Label!;
 
-            XElement text;
             if (label.Position is { } position)
             {
-                text = BuildText(label.Text, position.X, position.Y + style.FontSize, "start", style);
+                var text = BuildText(label.Text, position.X, position.Y + style.FontSize, "start", style);
 
                 if (label.Width is { } labelWidth)
                 {
-                    Wrap(text, label.Text, position.X, labelWidth, style);
+                    AddWrappedLines(text, WrapLines(label.Text, labelWidth, style), position.X);
                 }
-            }
-            else
-            {
-                var centerX = box.Position.X + ((box.Width ?? DefaultBoxSize) / 2);
-                var centerY = box.Position.Y + ((box.Height ?? DefaultBoxSize) / 2) + (style.FontSize / 2);
-                text = BuildText(label.Text, centerX, centerY, "middle", style);
+
+                return text;
             }
 
-            return text;
+            var width = box.Width ?? DefaultBoxSize;
+            var centerX = box.Position.X + (width / 2);
+            var centerY = box.Position.Y + ((box.Height ?? DefaultBoxSize) / 2);
+
+            var lines = WrapLines(label.Text, Math.Max(1, width - 4), style);
+            var lineHeight = style.FontSize * 1.2;
+            var firstBaseline = centerY + (style.FontSize / 2) - ((lines.Count - 1) * lineHeight / 2);
+
+            var centered = BuildText(label.Text, centerX, firstBaseline, "middle", style);
+            AddWrappedLines(centered, lines, centerX);
+
+            return centered;
         }
 
         /// <summary>
@@ -364,22 +371,22 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Wraps the label text into <c>&lt;tspan&gt;</c> lines that fit the persisted label width,
-        /// estimating glyph width from the font size. A single-line label is left as plain content.
+        /// Splits the label text into the lines that fit the available width, estimating glyph
+        /// width from the font size. A label that fits stays a single line; a single word longer
+        /// than the width is kept whole.
         /// </summary>
-        /// <param name="text">the text element to fill</param>
         /// <param name="content">the label text</param>
-        /// <param name="x">the x coordinate every line starts at</param>
-        /// <param name="width">the persisted label width</param>
+        /// <param name="width">the available width</param>
         /// <param name="style">the resolved style supplying the font size</param>
-        private static void Wrap(XElement text, string content, double x, double width, ResolvedStyle style)
+        /// <returns>the wrapped lines, in order</returns>
+        private static List<string> WrapLines(string content, double width, ResolvedStyle style)
         {
             var glyphWidth = style.FontSize * 0.6;
             var charactersPerLine = Math.Max(1, (int)(width / glyphWidth));
 
             if (content.Length <= charactersPerLine)
             {
-                return;
+                return new List<string> { content };
             }
 
             var lines = new List<string>();
@@ -401,6 +408,19 @@ namespace Auriga.Rendering
 
             lines.Add(line);
 
+            return lines;
+        }
+
+        /// <summary>
+        /// Replaces a text element's plain content with one <c>&lt;tspan&gt;</c> per wrapped line,
+        /// each starting at the same x (so the element's <c>text-anchor</c> keeps applying per
+        /// line) and advancing one line height. A single line is left as plain content.
+        /// </summary>
+        /// <param name="text">the text element to fill</param>
+        /// <param name="lines">the wrapped lines</param>
+        /// <param name="x">the x coordinate every line anchors at</param>
+        private static void AddWrappedLines(XElement text, List<string> lines, double x)
+        {
             if (lines.Count < 2)
             {
                 return;

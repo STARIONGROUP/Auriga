@@ -130,6 +130,31 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_centered_label_wraps_inside_its_box()
+        {
+            var box = MakeBox("wrapped", 0, 0, 100, 50);
+            box.Label = new Label("Seat TV Airline-Specific Interactions Manager");
+
+            var document = XDocument.Parse(SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var text = document.Descendants(Svg + "text").Single();
+            var tspans = text.Elements(Svg + "tspan").ToList();
+
+            Assert.Multiple(() =>
+            {
+                // 96px of room at 8pt wraps the name into three centered lines, as Capella keeps a
+                // node label inside its shape.
+                Assert.That(tspans, Has.Count.EqualTo(3));
+                Assert.That((string?)text.Attribute("text-anchor"), Is.EqualTo("middle"));
+                Assert.That(tspans.Select(t => (string?)t.Attribute("x")), Has.All.EqualTo("50"), "every line re-anchors at the box center");
+
+                // The three-line block centers vertically: first baseline at 25 + 4 - 9.6 = 19.4.
+                Assert.That((string?)text.Attribute("y"), Is.EqualTo("19.4"));
+                Assert.That(tspans[0].Value, Is.EqualTo("Seat TV"));
+                Assert.That(tspans[2].Value, Is.EqualTo("Interactions Manager"));
+            });
+        }
+
+        [Test]
         public void Verify_that_an_edge_renders_as_a_marked_path_with_its_label()
         {
             var edge = MakeEdge("flow", new[] { new Point(0, 20), new Point(50, 20), new Point(50, 80) });
