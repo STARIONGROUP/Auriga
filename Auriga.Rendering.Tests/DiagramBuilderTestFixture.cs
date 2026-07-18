@@ -211,9 +211,11 @@ namespace Auriga.Rendering.Tests
                 Assert.That(edge.SemanticElement, Is.SameAs(edgeSirius.Target));
                 Assert.That(edge.Label!.Text, Is.EqualTo("flow"));
 
-                // Source anchor (0.0, 0.5) of a 100x40 box at (0, 0) is (0, 20); each bendpoint is
-                // its source-relative offset from there.
-                Assert.That(edge.Route, Is.EqualTo(new[] { new Point(2, 25), new Point(-49, 25) }));
+                // Source anchor (0.0, 0.5) of a 100x40 box at (0, 0) is (0, 20); leading bendpoints
+                // resolve source-relative, and the final point glues to the target anchor —
+                // (1.0, 0.5) of the 60x20 box at (300, 200) is (360, 210), plus the persisted
+                // target-relative (0, 5).
+                Assert.That(edge.Route, Is.EqualTo(new[] { new Point(2, 25), new Point(360, 215) }));
             });
         }
 

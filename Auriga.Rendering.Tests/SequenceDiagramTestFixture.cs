@@ -206,6 +206,60 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_note_attachments_stay_dotted_point_to_point_lines()
+        {
+            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");
+            using var scope = XmiReaderBuilder.Create();
+            var result = scope.BuildAirdModelLoader().Load(path);
+
+            var scenario = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_duRY4JiwEeSFKIU85IonOQ");
+
+            var attachment = scenario.Edges.Single(edge => edge.Identifier == "_25tm0KfIEeSfJNzMtsfIDg");
+            var note = scenario.QueryAllBoxes().Single(box => box.Identifier == "_xPpnAKfIEeSfJNzMtsfIDg");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(attachment.Style.Resolved.Pattern, Is.EqualTo(LinePattern.Dot), "a note attachment renders dotted");
+                Assert.That(attachment.Style.Resolved.TargetArrow, Is.Null, "and carries no arrowhead");
+
+                // The message router must leave it alone: its persisted anchors and bendpoints
+                // resolve against the note's own geometry — the first route point is the persisted
+                // (-25, -5) offset from the anchor on the note's left edge.
+                Assert.That(attachment.Source, Is.SameAs(note));
+                Assert.That(attachment.Route[0].X, Is.EqualTo(note.Position.X + (0.06965174129353234 * note.Width!.Value) - 25).Within(0.001));
+                Assert.That(attachment.Route[0].Y, Is.Not.EqualTo(attachment.Route[attachment.Route.Count - 1].Y), "not flattened to a horizontal message");
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_constraint_centers_its_text_and_keeps_its_dotted_link()
+        {
+            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");
+            using var scope = XmiReaderBuilder.Create();
+            var result = scope.BuildAirdModelLoader().Load(path);
+
+            var scenario = DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_pHpF4LEPEeSk6sURco8jXw");
+
+            var constraint = scenario.QueryAllBoxes().Single(box => box.Label?.Text == "Profile = CORE SERVICES ONLY");
+            var link = scenario.Edges.Single(edge => edge.SiriusElement?.Id == "_khfXMIoOEeaQmcRqIfTB6w");
+
+            Assert.Multiple(() =>
+            {
+                // A constraint is not a combined fragment: its label centers in the box instead of
+                // being pinned into an operator tab.
+                Assert.That(constraint.Label!.Position, Is.Null, "centered, not pinned top-left");
+                Assert.That(constraint.Label.Framed, Is.False);
+
+                // Its link keeps the persisted dotted amber style and the generic point-to-point
+                // route — the message router must not flatten it.
+                Assert.That(link.Style.Resolved.Pattern, Is.EqualTo(LinePattern.Dot));
+                Assert.That(link.Style.Resolved.StrokeColor, Is.EqualTo(new Color(253, 206, 137)));
+                Assert.That(link.Target, Is.SameAs(constraint));
+                Assert.That(link.Route[link.Route.Count - 1].Y, Is.Not.EqualTo(link.Route[0].Y).Within(0.0001), "not flattened to a horizontal message");
+            });
+        }
+
+        [Test]
         public void Verify_that_every_scenario_of_the_model_builds_and_exports()
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");

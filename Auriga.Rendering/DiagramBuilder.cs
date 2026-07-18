@@ -181,7 +181,7 @@ namespace Auriga.Rendering
             rootBoxes.Clear();
             rootBoxes.AddRange(ordered);
 
-            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box) && box.SiriusElement != null))
+            foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box) && IsCombinedFragment(box)))
             {
                 PinLabelTopLeft(fragment);
 
@@ -226,7 +226,7 @@ namespace Auriga.Rendering
                 }
             }
 
-            RouteMessagesHorizontally(edges);
+            RouteMessagesHorizontally(edges, headers);
 
             var bottom = ContentBottom(rootBoxes, lifelines.Select(pair => pair.Lifeline), edges);
 
@@ -306,11 +306,20 @@ namespace Auriga.Rendering
         /// self-message — keeps its generic route.
         /// </summary>
         /// <param name="edges">the message edges</param>
-        private static void RouteMessagesHorizontally(IReadOnlyList<Edge> edges)
+        /// <param name="headers">the instance-role header boxes lifeline content roots in</param>
+        private static void RouteMessagesHorizontally(IReadOnlyList<Edge> edges, HashSet<Box> headers)
         {
             foreach (var edge in edges)
             {
                 if (edge.Source == null || edge.Target == null || ReferenceEquals(edge.Source, edge.Target))
+                {
+                    continue;
+                }
+
+                // Only a message between occurrences on lifelines routes horizontally. An edge with
+                // an end outside the lifelines — a note attachment, a constraint link — keeps its
+                // generic anchor-resolved route.
+                if (!headers.Contains(Root(edge.Source)) || !headers.Contains(Root(edge.Target)))
                 {
                     continue;
                 }
@@ -324,7 +333,9 @@ namespace Auriga.Rendering
                 var sourceCenter = edge.Source.Position.X + ((edge.Source.Width ?? 0) / 2);
                 var targetCenter = edge.Target.Position.X + ((edge.Target.Width ?? 0) / 2);
 
-                if (Math.Abs(targetCenter - sourceCenter) < 1)
+                // Ends on the same lifeline are recognized structurally — nested executions sit a
+                // few pixels off their parent's center, so comparing centers would miss them.
+                if (ReferenceEquals(Root(edge.Source), Root(edge.Target)))
                 {
                     RouteSelfMessage(edge, targetCenter);
                     continue;
@@ -364,30 +375,100 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Routes a message between two occurrences on the same lifeline — Capella's rectangular
-        /// self-message hook, which the persisted bendpoints describe exactly — resolving them
-        /// against the (corrected) source anchor instead of flattening. The persisted return offset
-        /// routinely overshoots past the target execution, so the arrow ends at the execution's
-        /// facing edge on the hook's side.
+        /// Whether a top-level box is a combined fragment or interaction use — the frames that
+        /// paint behind the lifeline content with an operator tab and operand rules. Decided by the
+        /// semantic element's type when the session co-loaded it; a diagram-only session falls back
+        /// to the structural shape (a Sirius-backed box with operand children). A constraint or
+        /// note is neither.
+        /// </summary>
+        /// <param name="box">the top-level box</param>
+        /// <returns>true when the box is a fragment frame</returns>
+        private static bool IsCombinedFragment(Box box)
+        {
+            if (box.SemanticElement != null)
+            {
+                var semanticType = box.SemanticElement.GetType().Name;
+                return semanticType is "CombinedFragment" or "InteractionUse";
+            }
+
+            return box.SiriusElement != null && box.Children.Count > 0;
+        }
+
+        /// <summary>
+        /// The top-level ancestor of a box (a sequence diagram's instance-role header, for any
+        /// occurrence nested on its lifeline).
+        /// </summary>
+        /// <param name="box">the box whose root is sought</param>
+        /// <returns>the top-level ancestor, or the box itself when it is top-level</returns>
+        private static Box Root(Box box)
+        {
+            var current = box;
+            while (current.Parent != null)
+            {
+                current = current.Parent;
+            }
+
+            return current;
+        }
+
+        /// <summary>
+        /// The horizontal reach of a synthesized self-message hook beyond the source's edge, when
+        /// the persisted bendpoints carry no horizontal extent of their own (Capella synthesizes
+        /// the hook shape at render time).
+        /// </summary>
+        private const double SelfMessageExtent = 25;
+
+        /// <summary>
+        /// The height of a self-message hook: Capella draws every self-message as a compact staple
+        /// departing one hop above its arrival, regardless of the (stale) persisted departure.
+        /// </summary>
+        private const double SelfMessageHop = 10;
+
+        /// <summary>
+        /// Routes a message between two occurrences on the same lifeline as Capella's rectangular
+        /// self-message hook: out from the source's right edge one hop above the arrival, sideways,
+        /// down, and back into the target's facing edge. The arrival height is the target
+        /// execution's top; the departure is always the compact hop above it — the persisted
+        /// departure bendpoints are stale render artifacts, exactly like receiving-end anchors.
+        /// The sideways reach honors the persisted extent when one exists and is synthesized
+        /// otherwise.
         /// </summary>
         /// <param name="edge">the self-message edge, with both ends mapped</param>
         /// <param name="targetCenter">the target box's horizontal center</param>
         private static void RouteSelfMessage(Edge edge, double targetCenter)
         {
+            var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
             var hook = ParseBendpoints((edge.NotationView.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
-            if (hook.Count == 0)
+
+            double yEnd;
+            if (edge.Target!.HasAbsoluteBounds)
             {
-                return;
+                yEnd = edge.Target.Position.Y;
+            }
+            else if (hook.Count > 0)
+            {
+                yEnd = origin.Y + hook[hook.Count - 1].SourceRelative.Y;
+            }
+            else
+            {
+                yEnd = origin.Y + SelfMessageHop;
             }
 
-            var origin = SequenceAnchorPoint(edge.Source!, edge.NotationView.SourceAnchor);
-            var route = hook.Select(bendpoint => origin + bendpoint.SourceRelative).ToList();
+            var yStart = yEnd - SelfMessageHop;
 
-            var side = route.Max(point => point.X) > targetCenter ? 1 : -1;
-            var approach = targetCenter + (side * Math.Max((edge.Target!.Width ?? 0) / 2, MessageClearance));
-            route[route.Count - 1] = new Point(approach, route[route.Count - 1].Y);
+            var sourceCenter = edge.Source!.Position.X + ((edge.Source.Width ?? 0) / 2);
+            var startX = sourceCenter + Math.Max((edge.Source.Width ?? 0) / 2, MessageClearance);
+            var persistedExtent = hook.Count > 0 ? origin.X + hook.Max(bendpoint => bendpoint.SourceRelative.X) : startX;
+            var hookX = Math.Max(persistedExtent, startX + SelfMessageExtent);
+            var endX = targetCenter + Math.Max((edge.Target.Width ?? 0) / 2, MessageClearance);
 
-            edge.Route = route;
+            edge.Route = new List<Point>
+            {
+                new(startX, yStart),
+                new(hookX, yStart),
+                new(hookX, yEnd),
+                new(endX, yEnd),
+            };
         }
 
         /// <summary>
@@ -672,6 +753,13 @@ namespace Auriga.Rendering
 
             edge.Style.Resolved = StyleResolver.Resolve(edge);
 
+            // A note attachment is not a model relationship: Capella draws it as a thin dotted
+            // line between the note and the element it annotates.
+            if (string.Equals(notationEdge.Type, "NoteAttachment", StringComparison.Ordinal))
+            {
+                edge.Style.Resolved.Pattern = LinePattern.Dot;
+            }
+
             return edge;
         }
 
@@ -714,9 +802,10 @@ namespace Auriga.Rendering
 
         /// <summary>
         /// Builds the absolute route polyline. GMF persists each bendpoint as offsets from both end
-        /// anchors; the source-relative offsets are resolved when the source end is known, else the
-        /// target-relative ones. Without bendpoints the route is the straight anchor-to-anchor line;
-        /// without any resolvable end the route is empty.
+        /// anchors precisely so the ends stay glued to their boxes: the route resolves the leading
+        /// points against the source anchor and the final point against the target anchor (each
+        /// falling back to the other end when only one box is known). Without bendpoints the route
+        /// is the straight anchor-to-anchor line; without any resolvable end it is empty.
         /// </summary>
         /// <param name="bendpoints">the notation edge's persisted bendpoints</param>
         /// <param name="sourceAnchor">the absolute source anchor point, when the source box is known</param>
@@ -726,17 +815,27 @@ namespace Auriga.Rendering
         {
             var relativeBendpoints = ParseBendpoints((bendpoints as NotationModel.IRelativeBendpoints)?.Points);
 
-            if (relativeBendpoints.Count > 0)
+            if (relativeBendpoints.Count > 0 && (sourceAnchor != null || targetAnchor != null))
             {
-                if (sourceAnchor is { } fromSource)
+                var route = new List<Point>();
+                for (var i = 0; i < relativeBendpoints.Count; i++)
                 {
-                    return relativeBendpoints.Select(bendpoint => fromSource + bendpoint.SourceRelative).ToList();
+                    var isLast = i == relativeBendpoints.Count - 1;
+                    if (isLast && targetAnchor is { } toTarget)
+                    {
+                        route.Add(toTarget + relativeBendpoints[i].TargetRelative);
+                    }
+                    else if (sourceAnchor is { } fromSource)
+                    {
+                        route.Add(fromSource + relativeBendpoints[i].SourceRelative);
+                    }
+                    else
+                    {
+                        route.Add(targetAnchor!.Value + relativeBendpoints[i].TargetRelative);
+                    }
                 }
 
-                if (targetAnchor is { } fromTarget)
-                {
-                    return relativeBendpoints.Select(bendpoint => fromTarget + bendpoint.TargetRelative).ToList();
-                }
+                return route;
             }
 
             if (sourceAnchor is { } start && targetAnchor is { } end)
