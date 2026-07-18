@@ -126,7 +126,7 @@ namespace Auriga.Model.Oa
         /// <summary>
         /// Gets or sets the oriented.
         /// </summary>
-        public bool? Oriented { get; set; }
+        public bool? Oriented { get; set; } = false;
 
         /// <summary>
         /// Gets the outgoing component exchange functional exchange allocations.
@@ -326,12 +326,12 @@ namespace Auriga.Model.Oa
         /// <summary>
         /// Gets or sets the visible in doc.
         /// </summary>
-        public bool? VisibleInDoc { get; set; }
+        public bool? VisibleInDoc { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the visible in l m.
         /// </summary>
-        public bool? VisibleInLM { get; set; }
+        public bool? VisibleInLM { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CommunicationMean</c>.

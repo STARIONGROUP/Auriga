@@ -28,7 +28,7 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// Gets or sets the associated value.
         /// </summary>
-        public string AssociatedValue { get; set; }
+        public string AssociatedValue { get; set; } = "";
 
     }
 }

@@ -30,7 +30,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the filtering.
         /// </summary>
-        public Auriga.Diagram.Notation.Filtering? Filtering { get; set; }
+        public Auriga.Diagram.Notation.Filtering? Filtering { get; set; } = Auriga.Diagram.Notation.Filtering.None;
 
         /// <summary>
         /// Gets or sets the filtering keys.

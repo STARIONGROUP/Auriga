@@ -38,17 +38,17 @@ namespace Auriga.Diagram.Diagram.Description.Style
         /// <summary>
         /// Gets or sets the max value expression.
         /// </summary>
-        public string MaxValueExpression { get; set; }
+        public string MaxValueExpression { get; set; } = "0";
 
         /// <summary>
         /// Gets or sets the min value expression.
         /// </summary>
-        public string MinValueExpression { get; set; }
+        public string MinValueExpression { get; set; } = "0";
 
         /// <summary>
         /// Gets or sets the value expression.
         /// </summary>
-        public string ValueExpression { get; set; }
+        public string ValueExpression { get; set; } = "0";
 
     }
 }

@@ -72,8 +72,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Ctx
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
-            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
+            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
+            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "ends", poco.Ends, poco, "Ends", context);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);

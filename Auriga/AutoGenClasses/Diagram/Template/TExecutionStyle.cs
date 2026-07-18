@@ -35,7 +35,7 @@ namespace Auriga.Diagram.Sequence.Template
         /// <summary>
         /// An expression computing the size of the border.
         /// </summary>
-        public string BorderSizeComputationExpression { get; set; }
+        public string BorderSizeComputationExpression { get; set; } = "1";
 
         /// <summary>
         /// Gets the outputs.

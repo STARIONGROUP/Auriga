@@ -63,16 +63,16 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Description.Tool
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Sequence.Description.Tool.IInstanceRoleCreationTool poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
             this.WriteReferenceListAttribute(xmlWriter, "extraMappings", poco.ExtraMappings, poco, "ExtraMappings", context);
-            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh);
-            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath);
-            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder);
+            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
+            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
+            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "nodeMappings", poco.NodeMappings, poco, "NodeMappings", context);
-            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition);
+            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             this.WriteContainedElement(xmlWriter, "initialOperation", poco.InitialOperation, poco, "InitialOperation", context);
             this.WriteContainedElement(xmlWriter, "predecessor", poco.Predecessor, poco, "Predecessor", context);

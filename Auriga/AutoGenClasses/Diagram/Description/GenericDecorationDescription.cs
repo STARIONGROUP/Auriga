@@ -42,7 +42,7 @@ namespace Auriga.Diagram.Viewpoint.Description
         /// <summary>
         /// Gets or sets the position.
         /// </summary>
-        public Auriga.Diagram.Viewpoint.Description.Position Position { get; set; }
+        public Auriga.Diagram.Viewpoint.Description.Position Position { get; set; } = Auriga.Diagram.Viewpoint.Description.Position.SOUTH_WEST;
 
         /// <summary>
         /// Expression that filters the elements on which we want to display the decoration.

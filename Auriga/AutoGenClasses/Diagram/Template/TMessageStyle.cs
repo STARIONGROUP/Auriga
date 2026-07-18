@@ -25,7 +25,7 @@ namespace Auriga.Diagram.Sequence.Template
         /// <summary>
         /// Expression that computes the name of a node.
         /// </summary>
-        public string LabelExpression { get; set; }
+        public string LabelExpression { get; set; } = "feature:name";
 
         /// <summary>
         /// The style of the line.
@@ -40,7 +40,7 @@ namespace Auriga.Diagram.Sequence.Template
         /// <summary>
         /// The source decoration.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeArrows SourceArrow { get; set; }
+        public Auriga.Diagram.Diagram.EdgeArrows SourceArrow { get; set; } = Auriga.Diagram.Diagram.EdgeArrows.NoDecoration;
 
         /// <summary>
         /// The color of the edge.
@@ -50,7 +50,7 @@ namespace Auriga.Diagram.Sequence.Template
         /// <summary>
         /// The target decoration.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeArrows TargetArrow { get; set; }
+        public Auriga.Diagram.Diagram.EdgeArrows TargetArrow { get; set; } = Auriga.Diagram.Diagram.EdgeArrows.InputArrow;
 
     }
 }

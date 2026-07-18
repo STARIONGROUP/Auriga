@@ -64,9 +64,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Validation
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL>(xmlWriter, "level", poco.Level);
-            WriteStringAttribute(xmlWriter, "message", poco.Message);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL>(xmlWriter, "level", poco.Level, Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL.INFO);
+            WriteStringAttribute(xmlWriter, "message", poco.Message, "The element has...");
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "targets", poco.Targets, poco, "Targets", context);
             this.WriteContainedElements(xmlWriter, "audits", poco.Audits, poco, "Audits", context);
             this.WriteContainedElements(xmlWriter, "fixes", poco.Fixes, poco, "Fixes", context);

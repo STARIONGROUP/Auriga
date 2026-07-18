@@ -77,7 +77,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// The name of the element. It is the name that is displayed on the diagram.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// The semantic elements to show that represents this view point element.

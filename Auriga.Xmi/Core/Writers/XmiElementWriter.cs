@@ -127,45 +127,51 @@ namespace Auriga.Xmi.Core.Writers
         }
 
         /// <summary>
-        /// Writes a string attribute when the value is not <c>null</c>.
+        /// Writes a string attribute when the value is not <c>null</c> and differs from the feature's
+        /// declared default (EMF omits attributes equal to the metamodel's <c>defaultValueLiteral</c>).
         /// </summary>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteStringAttribute(XmlWriter xmlWriter, string name, string? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteStringAttribute(XmlWriter xmlWriter, string name, string? value, string? defaultValue = null)
         {
-            if (value != null)
+            if (value != null && !string.Equals(value, defaultValue, StringComparison.Ordinal))
             {
                 xmlWriter.WriteAttributeString(name, value);
             }
         }
 
         /// <summary>
-        /// Writes a boolean attribute when the value is present, as <c>true</c>/<c>false</c>.
+        /// Writes a boolean attribute, as <c>true</c>/<c>false</c>, when the value is present and
+        /// differs from the feature's declared default.
         /// </summary>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteBooleanAttribute(XmlWriter xmlWriter, string name, bool? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteBooleanAttribute(XmlWriter xmlWriter, string name, bool? value, bool? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && value != defaultValue)
             {
                 xmlWriter.WriteAttributeString(name, XmlConvert.ToString(value.Value));
             }
         }
 
         /// <summary>
-        /// Writes an enumeration attribute, by its literal name, when the value is present. Capella's
-        /// enumeration literals are upper-case, so the C# member name round-trips verbatim.
+        /// Writes an enumeration attribute, by its literal name, when the value is present and differs
+        /// from the feature's declared default. Capella's enumeration literals are upper-case, so the
+        /// C# member name round-trips verbatim.
         /// </summary>
         /// <typeparam name="TEnum">the enumeration type</typeparam>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value, TEnum? defaultValue = null)
             where TEnum : struct
         {
-            if (value.HasValue)
+            if (value.HasValue && !value.Equals(defaultValue))
             {
                 xmlWriter.WriteAttributeString(name, value.Value.ToString());
             }
@@ -177,9 +183,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteByteAttribute(XmlWriter xmlWriter, string name, sbyte? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteByteAttribute(XmlWriter xmlWriter, string name, sbyte? value, sbyte? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && value != defaultValue)
             {
                 xmlWriter.WriteAttributeString(name, value.Value.ToString(CultureInfo.InvariantCulture));
             }
@@ -191,9 +198,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteShortAttribute(XmlWriter xmlWriter, string name, short? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteShortAttribute(XmlWriter xmlWriter, string name, short? value, short? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && value != defaultValue)
             {
                 xmlWriter.WriteAttributeString(name, value.Value.ToString(CultureInfo.InvariantCulture));
             }
@@ -205,9 +213,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteIntegerAttribute(XmlWriter xmlWriter, string name, int? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteIntegerAttribute(XmlWriter xmlWriter, string name, int? value, int? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && value != defaultValue)
             {
                 xmlWriter.WriteAttributeString(name, value.Value.ToString(CultureInfo.InvariantCulture));
             }
@@ -219,9 +228,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteLongAttribute(XmlWriter xmlWriter, string name, long? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteLongAttribute(XmlWriter xmlWriter, string name, long? value, long? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && value != defaultValue)
             {
                 xmlWriter.WriteAttributeString(name, value.Value.ToString(CultureInfo.InvariantCulture));
             }
@@ -233,9 +243,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteFloatAttribute(XmlWriter xmlWriter, string name, float? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteFloatAttribute(XmlWriter xmlWriter, string name, float? value, float? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && !value.Equals(defaultValue))
             {
                 xmlWriter.WriteAttributeString(name, XmlConvert.ToString(value.Value));
             }
@@ -247,9 +258,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteDoubleAttribute(XmlWriter xmlWriter, string name, double? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteDoubleAttribute(XmlWriter xmlWriter, string name, double? value, double? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && !value.Equals(defaultValue))
             {
                 xmlWriter.WriteAttributeString(name, XmlConvert.ToString(value.Value));
             }
@@ -261,9 +273,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteDecimalAttribute(XmlWriter xmlWriter, string name, decimal? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteDecimalAttribute(XmlWriter xmlWriter, string name, decimal? value, decimal? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && value != defaultValue)
             {
                 xmlWriter.WriteAttributeString(name, XmlConvert.ToString(value.Value));
             }
@@ -303,9 +316,10 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
-        protected static void WriteCharAttribute(XmlWriter xmlWriter, string name, char? value)
+        /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
+        protected static void WriteCharAttribute(XmlWriter xmlWriter, string name, char? value, char? defaultValue = null)
         {
-            if (value.HasValue)
+            if (value.HasValue && value != defaultValue)
             {
                 xmlWriter.WriteAttributeString(name, value.Value.ToString());
             }

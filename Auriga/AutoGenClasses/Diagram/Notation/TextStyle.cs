@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the text alignment.
         /// </summary>
-        public Auriga.Diagram.Notation.TextAlignment? TextAlignment { get; set; }
+        public Auriga.Diagram.Notation.TextAlignment? TextAlignment { get; set; } = Auriga.Diagram.Notation.TextAlignment.Left;
 
     }
 }

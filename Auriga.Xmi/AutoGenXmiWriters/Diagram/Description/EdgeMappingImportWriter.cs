@@ -63,11 +63,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.IEdgeMappingImport poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             this.WriteReferenceAttribute(xmlWriter, "importedMapping", poco.ImportedMapping, poco, "ImportedMapping", context);
-            WriteBooleanAttribute(xmlWriter, "inheritsAncestorFilters", poco.InheritsAncestorFilters);
+            WriteBooleanAttribute(xmlWriter, "inheritsAncestorFilters", poco.InheritsAncestorFilters, true);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteContainedElements(xmlWriter, "conditionnalStyles", poco.ConditionnalStyles, poco, "ConditionnalStyles", context);
         }
     }

@@ -63,23 +63,23 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Style
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Style.IGaugeCompositeStyleDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.AlignmentKind>(xmlWriter, "alignment", poco.Alignment);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.AlignmentKind>(xmlWriter, "alignment", poco.Alignment, Auriga.Diagram.Diagram.AlignmentKind.SQUARE);
             this.WriteReferenceAttribute(xmlWriter, "borderColor", poco.BorderColor, poco, "BorderColor", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "borderLineStyle", poco.BorderLineStyle);
-            WriteStringAttribute(xmlWriter, "borderSizeComputationExpression", poco.BorderSizeComputationExpression);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "borderLineStyle", poco.BorderLineStyle, Auriga.Diagram.Diagram.LineStyle.Solid);
+            WriteStringAttribute(xmlWriter, "borderSizeComputationExpression", poco.BorderSizeComputationExpression, "0");
             WriteEnumListAttribute<Auriga.Diagram.Diagram.Description.Style.Side>(xmlWriter, "forbiddenSides", poco.ForbiddenSides);
-            WriteBooleanAttribute(xmlWriter, "hideLabelByDefault", poco.HideLabelByDefault);
-            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath);
+            WriteBooleanAttribute(xmlWriter, "hideLabelByDefault", poco.HideLabelByDefault, false);
+            WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlWriter, "labelAlignment", poco.LabelAlignment);
             this.WriteReferenceAttribute(xmlWriter, "labelColor", poco.LabelColor, poco, "LabelColor", context);
-            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression);
+            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression, "feature:name");
             WriteEnumListAttribute<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.LabelPosition>(xmlWriter, "labelPosition", poco.LabelPosition);
-            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.ResizeKind>(xmlWriter, "resizeKind", poco.ResizeKind);
-            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon);
-            WriteStringAttribute(xmlWriter, "sizeComputationExpression", poco.SizeComputationExpression);
-            WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.LabelPosition>(xmlWriter, "labelPosition", poco.LabelPosition, Auriga.Diagram.Diagram.LabelPosition.Border);
+            WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.ResizeKind>(xmlWriter, "resizeKind", poco.ResizeKind, Auriga.Diagram.Diagram.ResizeKind.NONE);
+            WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);
+            WriteStringAttribute(xmlWriter, "sizeComputationExpression", poco.SizeComputationExpression, "3");
+            WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression, "");
             this.WriteContainedElements(xmlWriter, "sections", poco.Sections, poco, "Sections", context);
         }
     }

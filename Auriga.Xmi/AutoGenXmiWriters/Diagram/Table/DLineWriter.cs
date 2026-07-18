@@ -63,14 +63,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.IDLine poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed);
+            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceAttribute(xmlWriter, "originMapping", poco.OriginMapping, poco, "OriginMapping", context);
             this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
-            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
+            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             this.WriteContainedElements(xmlWriter, "cells", poco.Cells, poco, "Cells", context);
             this.WriteContainedElement(xmlWriter, "currentStyle", poco.CurrentStyle, poco, "CurrentStyle", context);
             this.WriteContainedElements(xmlWriter, "lines", poco.Lines, poco, "Lines", context);

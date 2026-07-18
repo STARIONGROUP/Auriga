@@ -64,12 +64,12 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.La
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "abstract", poco.Abstract);
-            WriteBooleanAttribute(xmlWriter, "actor", poco.Actor);
+            WriteBooleanAttribute(xmlWriter, "actor", poco.Actor, false);
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
-            WriteBooleanAttribute(xmlWriter, "human", poco.Human);
+            WriteBooleanAttribute(xmlWriter, "human", poco.Human, false);
             this.WriteReferenceListAttribute(xmlWriter, "inExchangeLinks", poco.InExchangeLinks, poco, "InExchangeLinks", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceListAttribute(xmlWriter, "outExchangeLinks", poco.OutExchangeLinks, poco, "OutExchangeLinks", context);
@@ -77,8 +77,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.La
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
-            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
+            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
+            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "namingRules", poco.NamingRules, poco, "NamingRules", context);
             this.WriteContainedElement(xmlWriter, "ownedAbstractCapabilityPkg", poco.OwnedAbstractCapabilityPkg, poco, "OwnedAbstractCapabilityPkg", context);
             this.WriteContainedElements(xmlWriter, "ownedCommunicationLinks", poco.OwnedCommunicationLinks, poco, "OwnedCommunicationLinks", context);

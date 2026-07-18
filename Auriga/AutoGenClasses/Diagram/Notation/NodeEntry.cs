@@ -28,7 +28,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        public Auriga.Diagram.Notation.Alignment? Value { get; set; }
+        public Auriga.Diagram.Notation.Alignment? Value { get; set; } = Auriga.Diagram.Notation.Alignment.Center;
 
     }
 }

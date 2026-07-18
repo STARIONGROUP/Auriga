@@ -26,7 +26,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the collapsed.
         /// </summary>
-        public bool? Collapsed { get; set; }
+        public bool? Collapsed { get; set; } = false;
 
         /// <summary>
         /// Gets the diagram.
@@ -103,12 +103,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the visible.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>BasicSemanticCompartment</c>.

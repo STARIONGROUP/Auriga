@@ -107,7 +107,7 @@ namespace Auriga.Diagram.Sequence.Template
         /// <summary>
         /// Gets or sets the use domain element.
         /// </summary>
-        public bool? UseDomainElement { get; set; }
+        public bool? UseDomainElement { get; set; } = false;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>TDestructionMessageMapping</c>.

@@ -63,14 +63,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IRoutingStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "avoidObstructions", poco.AvoidObstructions);
-            WriteBooleanAttribute(xmlWriter, "closestDistance", poco.ClosestDistance);
-            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkStatus>(xmlWriter, "jumpLinkStatus", poco.JumpLinkStatus);
-            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkType>(xmlWriter, "jumpLinkType", poco.JumpLinkType);
-            WriteBooleanAttribute(xmlWriter, "jumpLinksReverse", poco.JumpLinksReverse);
-            WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Routing>(xmlWriter, "routing", poco.Routing);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Smoothness>(xmlWriter, "smoothness", poco.Smoothness);
+            WriteBooleanAttribute(xmlWriter, "avoidObstructions", poco.AvoidObstructions, false);
+            WriteBooleanAttribute(xmlWriter, "closestDistance", poco.ClosestDistance, false);
+            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkStatus>(xmlWriter, "jumpLinkStatus", poco.JumpLinkStatus, Auriga.Diagram.Notation.JumpLinkStatus.None);
+            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkType>(xmlWriter, "jumpLinkType", poco.JumpLinkType, Auriga.Diagram.Notation.JumpLinkType.Semicircle);
+            WriteBooleanAttribute(xmlWriter, "jumpLinksReverse", poco.JumpLinksReverse, false);
+            WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius, 0);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Routing>(xmlWriter, "routing", poco.Routing, Auriga.Diagram.Notation.Routing.Manual);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Smoothness>(xmlWriter, "smoothness", poco.Smoothness, Auriga.Diagram.Notation.Smoothness.None);
         }
     }
 }

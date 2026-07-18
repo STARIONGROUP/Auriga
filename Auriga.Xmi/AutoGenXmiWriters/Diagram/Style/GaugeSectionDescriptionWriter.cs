@@ -66,9 +66,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Style
             this.WriteReferenceAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor, poco, "BackgroundColor", context);
             this.WriteReferenceAttribute(xmlWriter, "foregroundColor", poco.ForegroundColor, poco, "ForegroundColor", context);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "maxValueExpression", poco.MaxValueExpression);
-            WriteStringAttribute(xmlWriter, "minValueExpression", poco.MinValueExpression);
-            WriteStringAttribute(xmlWriter, "valueExpression", poco.ValueExpression);
+            WriteStringAttribute(xmlWriter, "maxValueExpression", poco.MaxValueExpression, "0");
+            WriteStringAttribute(xmlWriter, "minValueExpression", poco.MinValueExpression, "0");
+            WriteStringAttribute(xmlWriter, "valueExpression", poco.ValueExpression, "0");
         }
     }
 }

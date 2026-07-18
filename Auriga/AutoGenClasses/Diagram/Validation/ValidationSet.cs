@@ -31,12 +31,12 @@ namespace Auriga.Diagram.Viewpoint.Description.Validation
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// The name of the set.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// The validation rules owned by this set.

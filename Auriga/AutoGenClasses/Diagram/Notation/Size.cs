@@ -23,12 +23,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the height.
         /// </summary>
-        public int? Height { get; set; }
+        public int? Height { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the width.
         /// </summary>
-        public int? Width { get; set; }
+        public int? Width { get; set; } = -1;
 
     }
 }

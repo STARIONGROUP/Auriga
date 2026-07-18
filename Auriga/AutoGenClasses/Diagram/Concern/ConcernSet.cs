@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Diagram.Description.Concern
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// All concerns

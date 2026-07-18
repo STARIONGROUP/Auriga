@@ -83,7 +83,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The name of the element. It is the name that is displayed on the diagram.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// The instance of style that is contained by the mapping. The ownedStyle reference should be a copy of this style.
@@ -135,7 +135,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// <code>true</code> if the node is resizable.
         /// </summary>
-        public Auriga.Diagram.Diagram.ResizeKind? ResizeKind { get; set; }
+        public Auriga.Diagram.Diagram.ResizeKind? ResizeKind { get; set; } = Auriga.Diagram.Diagram.ResizeKind.NONE;
 
         /// <summary>
         /// The semantic elements to show that represents this view point element.
@@ -165,7 +165,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// True if the element is visible, false otherwise.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the width.

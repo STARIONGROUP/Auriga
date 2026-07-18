@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the collapsed.
         /// </summary>
-        public bool? Collapsed { get; set; }
+        public bool? Collapsed { get; set; } = false;
 
     }
 }

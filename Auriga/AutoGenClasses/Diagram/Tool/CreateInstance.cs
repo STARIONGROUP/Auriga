@@ -43,7 +43,7 @@ namespace Auriga.Diagram.Viewpoint.Description.Tool
         /// <summary>
         /// Once the instance is created, a new variable will be bound with the name given here and will be available to any contained operation.
         /// </summary>
-        public string VariableName { get; set; }
+        public string VariableName { get; set; } = "instance";
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CreateInstance</c>.

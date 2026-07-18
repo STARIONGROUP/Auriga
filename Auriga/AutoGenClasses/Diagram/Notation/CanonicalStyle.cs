@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the canonical.
         /// </summary>
-        public bool? Canonical { get; set; }
+        public bool? Canonical { get; set; } = true;
 
     }
 }

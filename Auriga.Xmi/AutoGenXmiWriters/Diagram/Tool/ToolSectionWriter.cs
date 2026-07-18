@@ -63,10 +63,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Tool.IToolSection poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "icon", poco.Icon);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "reusedTools", poco.ReusedTools, poco, "ReusedTools", context);
             this.WriteContainedElements(xmlWriter, "groupExtensions", poco.GroupExtensions, poco, "GroupExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedTools", poco.OwnedTools, poco, "OwnedTools", context);

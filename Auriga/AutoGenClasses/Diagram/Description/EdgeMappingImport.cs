@@ -33,7 +33,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// The imported mapping used to define default values for the current mapping.
@@ -43,7 +43,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Set to true if you want the filters applying on the imported mappings apply on this one.
         /// </summary>
-        public bool? InheritsAncestorFilters { get; set; }
+        public bool? InheritsAncestorFilters { get; set; } = true;
 
         /// <summary>
         /// The label used to display this viewpoint to the end-user.
@@ -53,7 +53,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets the elements directly contained by this <c>EdgeMappingImport</c>.

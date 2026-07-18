@@ -63,9 +63,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IFillStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteIntegerAttribute(xmlWriter, "fillColor", poco.FillColor);
+            WriteIntegerAttribute(xmlWriter, "fillColor", poco.FillColor, 16777215);
             WriteStringAttribute(xmlWriter, "gradient", poco.Gradient);
-            WriteIntegerAttribute(xmlWriter, "transparency", poco.Transparency);
+            WriteIntegerAttribute(xmlWriter, "transparency", poco.Transparency, -1);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the anti alias.
         /// </summary>
-        public bool? AntiAlias { get; set; }
+        public bool? AntiAlias { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the crop bound.
@@ -50,7 +50,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the maintain aspect ratio.
         /// </summary>
-        public bool? MaintainAspectRatio { get; set; }
+        public bool? MaintainAspectRatio { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ImageStyle</c>.

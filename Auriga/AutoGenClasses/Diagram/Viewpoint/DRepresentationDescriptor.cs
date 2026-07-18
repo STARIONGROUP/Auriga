@@ -33,7 +33,7 @@ namespace Auriga.Diagram.Viewpoint
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Gets the e annotations.
@@ -48,7 +48,7 @@ namespace Auriga.Diagram.Viewpoint
         /// <summary>
         /// The name of the representation.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the rep path.

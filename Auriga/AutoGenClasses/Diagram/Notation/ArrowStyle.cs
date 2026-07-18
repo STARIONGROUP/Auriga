@@ -23,12 +23,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the arrow source.
         /// </summary>
-        public Auriga.Diagram.Notation.ArrowType? ArrowSource { get; set; }
+        public Auriga.Diagram.Notation.ArrowType? ArrowSource { get; set; } = Auriga.Diagram.Notation.ArrowType.None;
 
         /// <summary>
         /// Gets or sets the arrow target.
         /// </summary>
-        public Auriga.Diagram.Notation.ArrowType? ArrowTarget { get; set; }
+        public Auriga.Diagram.Notation.ArrowType? ArrowTarget { get; set; } = Auriga.Diagram.Notation.ArrowType.None;
 
     }
 }

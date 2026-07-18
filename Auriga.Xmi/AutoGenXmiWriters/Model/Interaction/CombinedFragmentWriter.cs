@@ -69,15 +69,15 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Interaction
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             this.WriteReferenceAttribute(xmlWriter, "finish", poco.Finish, poco, "Finish", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteEnumAttribute<Auriga.Model.Interaction.InteractionOperatorKind>(xmlWriter, "operator", poco.Operator);
+            WriteEnumAttribute<Auriga.Model.Interaction.InteractionOperatorKind>(xmlWriter, "operator", poco.Operator, Auriga.Model.Interaction.InteractionOperatorKind.UNSET);
             this.WriteReferenceListAttribute(xmlWriter, "referencedOperands", poco.ReferencedOperands, poco, "ReferencedOperands", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
             this.WriteReferenceAttribute(xmlWriter, "start", poco.Start, poco, "Start", context);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
-            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
+            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
+            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);

@@ -23,17 +23,17 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the direction.
         /// </summary>
-        public Auriga.Diagram.Diagram.Description.LayoutDirection Direction { get; set; }
+        public Auriga.Diagram.Diagram.Description.LayoutDirection Direction { get; set; } = Auriga.Diagram.Diagram.Description.LayoutDirection.TopToBottom;
 
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the padding.
         /// </summary>
-        public int Padding { get; set; }
+        public int Padding { get; set; } = 30;
 
     }
 }

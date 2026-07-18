@@ -30,7 +30,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the sorting.
         /// </summary>
-        public Auriga.Diagram.Notation.Sorting? Sorting { get; set; }
+        public Auriga.Diagram.Notation.Sorting? Sorting { get; set; } = Auriga.Diagram.Notation.Sorting.None;
 
         /// <summary>
         /// Gets or sets the sorting keys.

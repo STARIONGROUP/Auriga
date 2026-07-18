@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Diagram.Description.Filter
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// All filters.
@@ -43,7 +43,7 @@ namespace Auriga.Diagram.Diagram.Description.Filter
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CompositeFilterDescription</c>.

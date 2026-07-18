@@ -25,7 +25,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        public string BackgroundColor { get; set; }
+        public string BackgroundColor { get; set; } = "255,255,255";
 
         /// <summary>
         /// Needed to know the origin of the background part of this DCellStyle to respect the style priority rules between Cell, Line and Column.
@@ -36,17 +36,17 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// Determine if the background part of the style is computed from a conditional style or not (default style).
         /// </summary>
-        public bool? DefaultBackgroundStyle { get; set; }
+        public bool? DefaultBackgroundStyle { get; set; } = false;
 
         /// <summary>
         /// Determine if the foreground part of the style is computed from a conditional style or not (default style).
         /// </summary>
-        public bool? DefaultForegroundStyle { get; set; }
+        public bool? DefaultForegroundStyle { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the foreground color.
         /// </summary>
-        public string ForegroundColor { get; set; }
+        public string ForegroundColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// Needed to know the origin of the foreground part of this DCellStyle to respect the style priority rules between Cell, Line and Column.
@@ -62,7 +62,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// The font size.
         /// </summary>
-        public int? LabelSize { get; set; }
+        public int? LabelSize { get; set; } = 8;
 
         /// <summary>
         /// Gets or sets the uid.

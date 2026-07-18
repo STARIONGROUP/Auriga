@@ -63,16 +63,16 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IStandardDiagram poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "description", poco.Description);
+            WriteStringAttribute(xmlWriter, "description", poco.Description, "");
             this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.MeasurementUnit>(xmlWriter, "measurementUnit", poco.MeasurementUnit);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteIntegerAttribute(xmlWriter, "pageHeight", poco.PageHeight);
-            WriteIntegerAttribute(xmlWriter, "pageWidth", poco.PageWidth);
-            WriteIntegerAttribute(xmlWriter, "pageX", poco.PageX);
-            WriteIntegerAttribute(xmlWriter, "pageY", poco.PageY);
-            WriteStringAttribute(xmlWriter, "type", poco.Type);
-            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
+            WriteEnumAttribute<Auriga.Diagram.Notation.MeasurementUnit>(xmlWriter, "measurementUnit", poco.MeasurementUnit, Auriga.Diagram.Notation.MeasurementUnit.Himetric);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteIntegerAttribute(xmlWriter, "pageHeight", poco.PageHeight, 100);
+            WriteIntegerAttribute(xmlWriter, "pageWidth", poco.PageWidth, 100);
+            WriteIntegerAttribute(xmlWriter, "pageX", poco.PageX, 0);
+            WriteIntegerAttribute(xmlWriter, "pageY", poco.PageY, 0);
+            WriteStringAttribute(xmlWriter, "type", poco.Type, "");
+            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             this.WriteContainedElements(xmlWriter, "horizontalGuides", poco.HorizontalGuides, poco, "HorizontalGuides", context);
             this.WriteContainedElements(xmlWriter, "children", poco.PersistedChildren, poco, "PersistedChildren", context);
             this.WriteContainedElements(xmlWriter, "edges", poco.PersistedEdges, poco, "PersistedEdges", context);

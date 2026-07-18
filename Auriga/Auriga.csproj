@@ -15,6 +15,7 @@
         <PackageReleaseNotes>
             [CHG] merge Auriga.Core and Auriga.Sirius into the Auriga package; the Capella model moves to the Auriga.Model.* namespaces and the Sirius/GMF diagram model ships as Auriga.Diagram.*
             [ADD] Auriga.Core.IEStringToStringMapEntry / EStringToStringMapEntry: the key/value pair an EMap&lt;String, String&gt;-typed feature holds (EMF's inline ecore:EStringToStringMapEntry serialization, e.g. a Sirius DAnnotation's details)
+            [FIX] generated properties initialize from the metamodel's defaultValueLiteral, so an attribute EMF omitted (value equal to the declared default) reads as the declared default instead of the CLR default — e.g. an EdgeStyle without targetArrow is an InputArrow, not NoDecoration
         </PackageReleaseNotes>
     </PropertyGroup>
 

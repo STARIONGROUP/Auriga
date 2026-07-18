@@ -69,7 +69,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the centered.
         /// </summary>
-        public Auriga.Diagram.Diagram.Description.CenteringStyle Centered { get; set; }
+        public Auriga.Diagram.Diagram.Description.CenteringStyle Centered { get; set; } = Auriga.Diagram.Diagram.Description.CenteringStyle.None;
 
         /// <summary>
         /// Gets the custom features.
@@ -106,7 +106,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the folding style.
         /// </summary>
-        public Auriga.Diagram.Diagram.Description.FoldingStyle FoldingStyle { get; set; }
+        public Auriga.Diagram.Diagram.Description.FoldingStyle FoldingStyle { get; set; } = Auriga.Diagram.Diagram.Description.FoldingStyle.NONE;
 
         /// <summary>
         /// The style of the line.
@@ -116,27 +116,27 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The routing style of the edge.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeRouting RoutingStyle { get; set; }
+        public Auriga.Diagram.Diagram.EdgeRouting RoutingStyle { get; set; } = Auriga.Diagram.Diagram.EdgeRouting.Straight;
 
         /// <summary>
         /// The line width.
         /// </summary>
-        public int? Size { get; set; }
+        public int? Size { get; set; } = 1;
 
         /// <summary>
         /// The source decoration.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeArrows SourceArrow { get; set; }
+        public Auriga.Diagram.Diagram.EdgeArrows SourceArrow { get; set; } = Auriga.Diagram.Diagram.EdgeArrows.NoDecoration;
 
         /// <summary>
         /// The color of the edge.
         /// </summary>
-        public string StrokeColor { get; set; }
+        public string StrokeColor { get; set; } = "136,136,136";
 
         /// <summary>
         /// The target decoration.
         /// </summary>
-        public Auriga.Diagram.Diagram.EdgeArrows TargetArrow { get; set; }
+        public Auriga.Diagram.Diagram.EdgeArrows TargetArrow { get; set; } = Auriga.Diagram.Diagram.EdgeArrows.InputArrow;
 
         /// <summary>
         /// Gets or sets the uid.

@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             this.WriteReferenceListAttribute(xmlWriter, "candidatesMapping", poco.CandidatesMapping, poco, "CandidatesMapping", context);
             WriteIntegerAttribute(xmlWriter, "height", poco.Height);
             this.WriteReferenceListAttribute(xmlWriter, "incomingEdges", poco.IncomingEdges, poco, "IncomingEdges", context);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceAttribute(xmlWriter, "originalStyle", poco.OriginalStyle, poco, "OriginalStyle", context);
             this.WriteReferenceListAttribute(xmlWriter, "outgoingEdges", poco.OutgoingEdges, poco, "OutgoingEdges", context);
             this.WriteReferenceListAttribute(xmlWriter, "parentLayers", poco.ParentLayers, poco, "ParentLayers", context);
@@ -76,7 +76,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "tooltipText", poco.TooltipText);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
-            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
+            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             WriteIntegerAttribute(xmlWriter, "width", poco.Width);
             this.WriteContainedElements(xmlWriter, "decorations", poco.Decorations, poco, "Decorations", context);
             this.WriteContainedElements(xmlWriter, "graphicalFilters", poco.GraphicalFilters, poco, "GraphicalFilters", context);

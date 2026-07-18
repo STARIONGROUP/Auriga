@@ -41,7 +41,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the children presentation.
         /// </summary>
-        public Auriga.Diagram.Diagram.ContainerLayout ChildrenPresentation { get; set; }
+        public Auriga.Diagram.Diagram.ContainerLayout ChildrenPresentation { get; set; } = Auriga.Diagram.Diagram.ContainerLayout.FreeForm;
 
         /// <summary>
         /// Containers owned by this container.
@@ -91,7 +91,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The name of the element. It is the name that is displayed on the diagram.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Nodes owned by this container.
@@ -183,7 +183,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// True if the element is visible, false otherwise.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the width.

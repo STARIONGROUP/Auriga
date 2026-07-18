@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the show title.
         /// </summary>
-        public bool? ShowTitle { get; set; }
+        public bool? ShowTitle { get; set; } = false;
 
     }
 }

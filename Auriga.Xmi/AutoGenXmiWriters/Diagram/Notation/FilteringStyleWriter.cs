@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceListAttribute(xmlWriter, "filteredObjects", poco.FilteredObjects, poco, "FilteredObjects", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Filtering>(xmlWriter, "filtering", poco.Filtering);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Filtering>(xmlWriter, "filtering", poco.Filtering, Auriga.Diagram.Notation.Filtering.None);
             WriteStringAttribute(xmlWriter, "filteringKeys", poco.FilteringKeys);
         }
     }

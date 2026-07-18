@@ -176,12 +176,12 @@ namespace Auriga.Model.Information.Datavalue
         /// <summary>
         /// Gets or sets the visible in doc.
         /// </summary>
-        public bool? VisibleInDoc { get; set; }
+        public bool? VisibleInDoc { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the visible in l m.
         /// </summary>
-        public bool? VisibleInLM { get; set; }
+        public bool? VisibleInLM { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>ComplexValue</c>.

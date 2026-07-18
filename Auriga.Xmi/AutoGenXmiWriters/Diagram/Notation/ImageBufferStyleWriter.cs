@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IImageBufferStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "antiAlias", poco.AntiAlias);
-            WriteBooleanAttribute(xmlWriter, "maintainAspectRatio", poco.MaintainAspectRatio);
+            WriteBooleanAttribute(xmlWriter, "antiAlias", poco.AntiAlias, true);
+            WriteBooleanAttribute(xmlWriter, "maintainAspectRatio", poco.MaintainAspectRatio, true);
             this.WriteContainedElement(xmlWriter, "cropBound", poco.CropBound, poco, "CropBound", context);
             this.WriteContainedElement(xmlWriter, "imageBuffer", poco.ImageBuffer, poco, "ImageBuffer", context);
         }

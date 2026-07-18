@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IRoundedCornersStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius);
+            WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius, 0);
         }
     }
 }

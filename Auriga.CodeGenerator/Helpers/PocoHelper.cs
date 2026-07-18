@@ -230,7 +230,11 @@ namespace Auriga.CodeGenerator.Helpers
                        $"        private {type} {field};";
             }
 
-            return $"public {type} {name} {{ get; set; }}";
+            var initializer = DefaultValues.Expression(feature);
+
+            return initializer == null
+                ? $"public {type} {name} {{ get; set; }}"
+                : $"public {type} {name} {{ get; set; }} = {initializer};";
         }
 
         /// <summary>

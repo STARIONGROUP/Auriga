@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "key", poco.Key, poco, "Key", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Alignment>(xmlWriter, "value", poco.Value);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Alignment>(xmlWriter, "value", poco.Value, Auriga.Diagram.Notation.Alignment.Center);
         }
     }
 }

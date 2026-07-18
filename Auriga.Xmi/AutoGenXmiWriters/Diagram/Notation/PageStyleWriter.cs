@@ -63,10 +63,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IPageStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteIntegerAttribute(xmlWriter, "pageHeight", poco.PageHeight);
-            WriteIntegerAttribute(xmlWriter, "pageWidth", poco.PageWidth);
-            WriteIntegerAttribute(xmlWriter, "pageX", poco.PageX);
-            WriteIntegerAttribute(xmlWriter, "pageY", poco.PageY);
+            WriteIntegerAttribute(xmlWriter, "pageHeight", poco.PageHeight, 100);
+            WriteIntegerAttribute(xmlWriter, "pageWidth", poco.PageWidth, 100);
+            WriteIntegerAttribute(xmlWriter, "pageX", poco.PageX, 0);
+            WriteIntegerAttribute(xmlWriter, "pageY", poco.PageY, 0);
         }
     }
 }

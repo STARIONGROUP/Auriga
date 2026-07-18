@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Tool
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "elementExpression", poco.ElementExpression);
-            WriteStringAttribute(xmlWriter, "featureName", poco.FeatureName);
+            WriteStringAttribute(xmlWriter, "featureName", poco.FeatureName, "");
             this.WriteContainedElements(xmlWriter, "subModelOperations", poco.SubModelOperations, poco, "SubModelOperations", context);
         }
     }

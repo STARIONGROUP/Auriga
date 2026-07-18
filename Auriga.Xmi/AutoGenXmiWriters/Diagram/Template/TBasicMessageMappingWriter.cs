@@ -74,7 +74,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Template
             WriteStringAttribute(xmlWriter, "sourceFinderExpression", poco.SourceFinderExpression);
             this.WriteReferenceListAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "targetFinderExpression", poco.TargetFinderExpression);
-            WriteBooleanAttribute(xmlWriter, "useDomainElement", poco.UseDomainElement);
+            WriteBooleanAttribute(xmlWriter, "useDomainElement", poco.UseDomainElement, false);
             this.WriteContainedElements(xmlWriter, "conditionalStyle", poco.ConditionalStyle, poco, "ConditionalStyle", context);
             this.WriteContainedElement(xmlWriter, "style", poco.Style, poco, "Style", context);
         }

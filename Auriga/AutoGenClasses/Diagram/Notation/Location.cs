@@ -23,12 +23,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
-        public int? X { get; set; }
+        public int? X { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the y.
         /// </summary>
-        public int? Y { get; set; }
+        public int? Y { get; set; } = 0;
 
     }
 }

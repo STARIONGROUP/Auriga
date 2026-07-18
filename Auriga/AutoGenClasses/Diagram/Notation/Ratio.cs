@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        public double? Value { get; set; }
+        public double? Value { get; set; } = -1d;
 
     }
 }

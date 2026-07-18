@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Concern
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Concern.IConcernSet poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             this.WriteContainedElements(xmlWriter, "ownedConcernDescriptions", poco.OwnedConcernDescriptions, poco, "OwnedConcernDescriptions", context);
         }
     }

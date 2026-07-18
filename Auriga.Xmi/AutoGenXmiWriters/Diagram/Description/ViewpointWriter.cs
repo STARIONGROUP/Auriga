@@ -65,12 +65,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
             WriteId(xmlWriter, poco);
             WriteStringListAttribute(xmlWriter, "conflicts", poco.Conflicts);
             WriteStringListAttribute(xmlWriter, "customizes", poco.Customizes);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation, "");
             WriteStringAttribute(xmlWriter, "icon", poco.Icon);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "modelFileExtension", poco.ModelFileExtension);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "modelFileExtension", poco.ModelFileExtension, "*");
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             WriteStringListAttribute(xmlWriter, "reuses", poco.Reuses);
             this.WriteContainedElements(xmlWriter, "ownedFeatureExtensions", poco.OwnedFeatureExtensions, poco, "OwnedFeatureExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedJavaExtensions", poco.OwnedJavaExtensions, poco, "OwnedJavaExtensions", context);

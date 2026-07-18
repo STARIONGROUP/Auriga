@@ -55,12 +55,12 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// An expression used to define the selected elements after the tool execution.
         /// </summary>
-        public string ElementsToSelect { get; set; }
+        public string ElementsToSelect { get; set; } = "";
 
         /// <summary>
         /// Gets the filters.
@@ -75,7 +75,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// If true then a refresh for the whole representation is executed after every execution of the tool.
         /// </summary>
-        public bool? ForceRefresh { get; set; }
+        public bool? ForceRefresh { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the initial operation.
@@ -102,7 +102,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// By default the elements to select are listed in the creation order. If true, the order is inverted.
         /// </summary>
-        public bool? InverseSelectionOrder { get; set; }
+        public bool? InverseSelectionOrder { get; set; } = false;
 
         /// <summary>
         /// The label used to display this viewpoint to the end-user.
@@ -112,12 +112,12 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// The precondition of the tool.
         /// </summary>
-        public string Precondition { get; set; }
+        public string Precondition { get; set; } = "";
 
         /// <summary>
         /// Gets the representation description.
@@ -149,7 +149,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
         /// <summary>
         /// The default title of the representation to create. (new + name if empty)
         /// </summary>
-        public string TitleExpression { get; set; }
+        public string TitleExpression { get; set; } = "";
 
         /// <summary>
         /// Gets the elements directly contained by this <c>DiagramCreationDescription</c>.

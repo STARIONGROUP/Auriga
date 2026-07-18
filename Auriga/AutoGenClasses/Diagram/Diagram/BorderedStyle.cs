@@ -25,7 +25,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        public string BorderColor { get; set; }
+        public string BorderColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// The style of the border line.
@@ -35,12 +35,12 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the border size.
         /// </summary>
-        public int BorderSize { get; set; }
+        public int BorderSize { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the border size computation expression.
         /// </summary>
-        public string BorderSizeComputationExpression { get; set; }
+        public string BorderSizeComputationExpression { get; set; } = "0";
 
         /// <summary>
         /// Gets the custom features.

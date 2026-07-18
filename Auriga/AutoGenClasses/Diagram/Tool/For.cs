@@ -28,7 +28,7 @@ namespace Auriga.Diagram.Viewpoint.Description.Tool
         /// <summary>
         /// On every iteration, the current element will be binded with the given name.
         /// </summary>
-        public string IteratorName { get; set; }
+        public string IteratorName { get; set; } = "i";
 
         /// <summary>
         /// Gets the sub model operations.

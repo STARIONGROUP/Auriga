@@ -68,11 +68,11 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Re
             this.WriteReferenceAttribute(xmlWriter, "defaultReplicaCompliancy", poco.DefaultReplicaCompliancy, poco, "DefaultReplicaCompliancy", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             WriteStringAttribute(xmlWriter, "environment", poco.Environment);
-            WriteEnumAttribute<Auriga.Model.Re.CatalogElementKind>(xmlWriter, "kind", poco.Kind);
+            WriteEnumAttribute<Auriga.Model.Re.CatalogElementKind>(xmlWriter, "kind", poco.Kind, Auriga.Model.Re.CatalogElementKind.REC);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceAttribute(xmlWriter, "origin", poco.Origin, poco, "Origin", context);
             WriteStringAttribute(xmlWriter, "purpose", poco.Purpose);
-            WriteBooleanAttribute(xmlWriter, "readOnly", poco.ReadOnly);
+            WriteBooleanAttribute(xmlWriter, "readOnly", poco.ReadOnly, false);
             WriteStringAttribute(xmlWriter, "suffix", poco.Suffix);
             WriteStringListAttribute(xmlWriter, "tags", poco.Tags);
             WriteStringAttribute(xmlWriter, "version", poco.Version);

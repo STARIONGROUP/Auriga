@@ -63,11 +63,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Tool.ICreateEdgeView poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "containerViewExpression", poco.ContainerViewExpression);
+            WriteStringAttribute(xmlWriter, "containerViewExpression", poco.ContainerViewExpression, "");
             this.WriteReferenceAttribute(xmlWriter, "mapping", poco.Mapping, poco, "Mapping", context);
             WriteStringAttribute(xmlWriter, "sourceExpression", poco.SourceExpression);
             WriteStringAttribute(xmlWriter, "targetExpression", poco.TargetExpression);
-            WriteStringAttribute(xmlWriter, "variableName", poco.VariableName);
+            WriteStringAttribute(xmlWriter, "variableName", poco.VariableName, "createdView");
             this.WriteContainedElements(xmlWriter, "subModelOperations", poco.SubModelOperations, poco, "SubModelOperations", context);
         }
     }

@@ -63,20 +63,20 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IShapeStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "bold", poco.Bold);
-            WriteStringAttribute(xmlWriter, "description", poco.Description);
-            WriteIntegerAttribute(xmlWriter, "fillColor", poco.FillColor);
-            WriteIntegerAttribute(xmlWriter, "fontColor", poco.FontColor);
-            WriteIntegerAttribute(xmlWriter, "fontHeight", poco.FontHeight);
-            WriteStringAttribute(xmlWriter, "fontName", poco.FontName);
+            WriteBooleanAttribute(xmlWriter, "bold", poco.Bold, false);
+            WriteStringAttribute(xmlWriter, "description", poco.Description, "");
+            WriteIntegerAttribute(xmlWriter, "fillColor", poco.FillColor, 16777215);
+            WriteIntegerAttribute(xmlWriter, "fontColor", poco.FontColor, 0);
+            WriteIntegerAttribute(xmlWriter, "fontHeight", poco.FontHeight, 9);
+            WriteStringAttribute(xmlWriter, "fontName", poco.FontName, "Tahoma");
             WriteStringAttribute(xmlWriter, "gradient", poco.Gradient);
-            WriteBooleanAttribute(xmlWriter, "italic", poco.Italic);
-            WriteIntegerAttribute(xmlWriter, "lineColor", poco.LineColor);
-            WriteIntegerAttribute(xmlWriter, "lineWidth", poco.LineWidth);
-            WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius);
-            WriteBooleanAttribute(xmlWriter, "strikeThrough", poco.StrikeThrough);
-            WriteIntegerAttribute(xmlWriter, "transparency", poco.Transparency);
-            WriteBooleanAttribute(xmlWriter, "underline", poco.Underline);
+            WriteBooleanAttribute(xmlWriter, "italic", poco.Italic, false);
+            WriteIntegerAttribute(xmlWriter, "lineColor", poco.LineColor, 11579568);
+            WriteIntegerAttribute(xmlWriter, "lineWidth", poco.LineWidth, -1);
+            WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius, 0);
+            WriteBooleanAttribute(xmlWriter, "strikeThrough", poco.StrikeThrough, false);
+            WriteIntegerAttribute(xmlWriter, "transparency", poco.Transparency, -1);
+            WriteBooleanAttribute(xmlWriter, "underline", poco.Underline, false);
         }
     }
 }

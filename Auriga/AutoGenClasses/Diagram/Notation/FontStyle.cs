@@ -23,37 +23,37 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the bold.
         /// </summary>
-        public bool? Bold { get; set; }
+        public bool? Bold { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the font color.
         /// </summary>
-        public int? FontColor { get; set; }
+        public int? FontColor { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the font height.
         /// </summary>
-        public int? FontHeight { get; set; }
+        public int? FontHeight { get; set; } = 9;
 
         /// <summary>
         /// Gets or sets the font name.
         /// </summary>
-        public string FontName { get; set; }
+        public string FontName { get; set; } = "Tahoma";
 
         /// <summary>
         /// Gets or sets the italic.
         /// </summary>
-        public bool? Italic { get; set; }
+        public bool? Italic { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the strike through.
         /// </summary>
-        public bool? StrikeThrough { get; set; }
+        public bool? StrikeThrough { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the underline.
         /// </summary>
-        public bool? Underline { get; set; }
+        public bool? Underline { get; set; } = false;
 
     }
 }

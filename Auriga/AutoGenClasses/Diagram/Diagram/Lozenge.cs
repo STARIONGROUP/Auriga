@@ -25,7 +25,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the border color.
         /// </summary>
-        public string BorderColor { get; set; }
+        public string BorderColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// The style of the border line.
@@ -35,17 +35,17 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the border size.
         /// </summary>
-        public int BorderSize { get; set; }
+        public int BorderSize { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the border size computation expression.
         /// </summary>
-        public string BorderSizeComputationExpression { get; set; }
+        public string BorderSizeComputationExpression { get; set; } = "0";
 
         /// <summary>
         /// Gets or sets the color.
         /// </summary>
-        public string Color { get; set; }
+        public string Color { get; set; } = "136,136,136";
 
         /// <summary>
         /// Gets the custom features.
@@ -60,18 +60,18 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The height of the lozenge.
         /// </summary>
-        public int? Height { get; set; }
+        public int? Height { get; set; } = 0;
 
         /// <summary>
         /// The default visibility of the label (available only if labelPosition equals BORDER).
         /// A change of this option does not affect already existing elements.
         /// </summary>
-        public bool? HideLabelByDefault { get; set; }
+        public bool? HideLabelByDefault { get; set; } = false;
 
         /// <summary>
         /// The path of the icon to display on the element. If unset, the icon corresponding to the semantic element will be displayed.
         /// </summary>
-        public string IconPath { get; set; }
+        public string IconPath { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the label alignment.
@@ -81,7 +81,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// Gets or sets the label color.
         /// </summary>
-        public string LabelColor { get; set; }
+        public string LabelColor { get; set; } = "0,0,0";
 
         /// <summary>
         /// The font format.
@@ -98,12 +98,12 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The font size.
         /// </summary>
-        public int? LabelSize { get; set; }
+        public int? LabelSize { get; set; } = 8;
 
         /// <summary>
         /// True, if the icon shoud be dispayed on the element.
         /// </summary>
-        public bool? ShowIcon { get; set; }
+        public bool? ShowIcon { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the uid.
@@ -113,7 +113,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The width of the lozenge.
         /// </summary>
-        public int? Width { get; set; }
+        public int? Width { get; set; } = 0;
 
     }
 }

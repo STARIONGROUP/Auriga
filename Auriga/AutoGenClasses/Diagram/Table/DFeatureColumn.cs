@@ -65,7 +65,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// The name of the element. It is the name that is displayed on the diagram.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Same list as a"cells" but sorted according to the order of lines.
@@ -105,7 +105,7 @@ namespace Auriga.Diagram.Table
         /// <summary>
         /// Gets or sets the visible.
         /// </summary>
-        public bool Visible { get; set; }
+        public bool Visible { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the width.

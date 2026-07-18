@@ -38,7 +38,7 @@ namespace Auriga.Diagram.Viewpoint.Description.Tool
         /// <summary>
         /// Once the variable is created, it will be bound with the name given here and will be available to any contained operation.
         /// </summary>
-        public string VariableName { get; set; }
+        public string VariableName { get; set; } = "instance";
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Let</c>.

@@ -80,8 +80,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Capellacommon
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "triggerDescription", poco.TriggerDescription);
             this.WriteReferenceListAttribute(xmlWriter, "triggers", poco.Triggers, poco, "Triggers", context);
-            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
-            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
+            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
+            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);

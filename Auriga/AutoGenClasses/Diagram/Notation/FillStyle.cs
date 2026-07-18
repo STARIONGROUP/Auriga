@@ -23,7 +23,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the fill color.
         /// </summary>
-        public int? FillColor { get; set; }
+        public int? FillColor { get; set; } = 16777215;
 
         /// <summary>
         /// Gets or sets the gradient.
@@ -33,7 +33,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the transparency.
         /// </summary>
-        public int? Transparency { get; set; }
+        public int? Transparency { get; set; } = -1;
 
     }
 }

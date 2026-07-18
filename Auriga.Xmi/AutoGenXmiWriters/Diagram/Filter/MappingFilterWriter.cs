@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Filter
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Filter.IMappingFilter poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Filter.FilterKind>(xmlWriter, "filterKind", poco.FilterKind);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Filter.FilterKind>(xmlWriter, "filterKind", poco.FilterKind, Auriga.Diagram.Diagram.Description.Filter.FilterKind.HIDE);
             this.WriteReferenceListAttribute(xmlWriter, "mappings", poco.Mappings, poco, "Mappings", context);
             WriteStringAttribute(xmlWriter, "semanticConditionExpression", poco.SemanticConditionExpression);
             WriteStringAttribute(xmlWriter, "viewConditionExpression", poco.ViewConditionExpression);

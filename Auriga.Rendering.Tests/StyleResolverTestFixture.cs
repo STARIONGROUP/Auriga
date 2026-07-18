@@ -175,7 +175,7 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
-        public void Verify_that_notation_styles_apply_and_the_sirius_style_wins()
+        public void Verify_that_notation_styles_apply_without_a_sirius_style()
         {
             var shapeStyle = new Notation.ShapeStyle
             {
@@ -190,11 +190,7 @@ namespace Auriga.Rendering.Tests
                 LineWidth = 4,
             };
 
-            // The Sirius owned style overrides the notation fill; the font properties without a
-            // Sirius counterpart keep the notation values.
-            var square = new SiriusDiagram.Square { Color = "1,1,1" };
-
-            var resolved = StyleResolver.Resolve(BoxWith(square, shapeStyle));
+            var resolved = StyleResolver.Resolve(BoxWith(null, shapeStyle));
 
             Assert.Multiple(() =>
             {
@@ -202,9 +198,39 @@ namespace Auriga.Rendering.Tests
                 Assert.That(resolved.FontSize, Is.EqualTo(12));
                 Assert.That(resolved.Bold, Is.True);
                 Assert.That(resolved.FontColor, Is.EqualTo(new Color(10, 20, 30)));
-                Assert.That(resolved.FillColor, Is.EqualTo(new Color(1, 1, 1)), "the Sirius owned style wins over the notation fill");
-                Assert.That(resolved.StrokeColor, Is.EqualTo(new Color(90, 80, 70)), "the notation line color applies when the Sirius style has no border");
+                Assert.That(resolved.FillColor, Is.EqualTo(new Color(40, 30, 20)));
+                Assert.That(resolved.StrokeColor, Is.EqualTo(new Color(90, 80, 70)));
                 Assert.That(resolved.StrokeWidth, Is.EqualTo(4));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_present_sirius_style_wins_with_its_metamodel_defaults()
+        {
+            var shapeStyle = new Notation.ShapeStyle
+            {
+                FontName = "Ubuntu",
+                FontHeight = 12,
+                FontColor = 1971210,
+                LineColor = (70 << 16) | (80 << 8) | 90,
+            };
+
+            // A Sirius owned style carries its metamodel defaults even for attributes the file does
+            // not serialize (EMF default semantics, #76): labelSize 8, labelColor and borderColor
+            // black. When the style is present those defaulted values win over the notation
+            // fallbacks; only properties without a Sirius counterpart (the font family) keep the
+            // notation values.
+            var square = new SiriusDiagram.Square { Color = "1,1,1" };
+
+            var resolved = StyleResolver.Resolve(BoxWith(square, shapeStyle));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(resolved.FillColor, Is.EqualTo(new Color(1, 1, 1)), "the Sirius fill wins over the notation fill");
+                Assert.That(resolved.FontName, Is.EqualTo("Ubuntu"), "no Sirius counterpart: the notation font family survives");
+                Assert.That(resolved.FontSize, Is.EqualTo(8), "the Sirius default label size");
+                Assert.That(resolved.FontColor, Is.EqualTo(new Color(0, 0, 0)), "the Sirius default label color");
+                Assert.That(resolved.StrokeColor, Is.EqualTo(new Color(0, 0, 0)), "the Sirius default border color");
             });
         }
 

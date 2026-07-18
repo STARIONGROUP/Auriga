@@ -36,7 +36,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the measurement unit.
         /// </summary>
-        public Auriga.Diagram.Notation.MeasurementUnit? MeasurementUnit { get; set; }
+        public Auriga.Diagram.Notation.MeasurementUnit? MeasurementUnit { get; set; } = Auriga.Diagram.Notation.MeasurementUnit.Himetric;
 
         /// <summary>
         /// Gets the mutable.
@@ -46,7 +46,7 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets the persisted children.
@@ -101,12 +101,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the visible.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets the elements directly contained by this <c>Diagram</c>.

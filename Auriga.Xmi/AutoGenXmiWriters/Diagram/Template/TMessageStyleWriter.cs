@@ -63,12 +63,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Template
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Sequence.Template.ITMessageStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression);
+            WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression, "feature:name");
             WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "lineStyle", poco.LineStyle);
             this.WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "sourceArrow", poco.SourceArrow);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "sourceArrow", poco.SourceArrow, Auriga.Diagram.Diagram.EdgeArrows.NoDecoration);
             this.WriteReferenceAttribute(xmlWriter, "strokeColor", poco.StrokeColor, poco, "StrokeColor", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow, Auriga.Diagram.Diagram.EdgeArrows.InputArrow);
         }
     }
 }

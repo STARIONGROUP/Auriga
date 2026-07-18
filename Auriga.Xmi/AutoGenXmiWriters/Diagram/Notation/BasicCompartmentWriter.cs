@@ -63,10 +63,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IBasicCompartment poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed);
+            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed, false);
             this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
-            WriteStringAttribute(xmlWriter, "type", poco.Type);
-            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
+            WriteStringAttribute(xmlWriter, "type", poco.Type, "");
+            WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             this.WriteContainedElement(xmlWriter, "layoutConstraint", poco.LayoutConstraint, poco, "LayoutConstraint", context);
             this.WriteContainedElements(xmlWriter, "children", poco.PersistedChildren, poco, "PersistedChildren", context);
             this.WriteContainedElements(xmlWriter, "styles", poco.Styles, poco, "Styles", context);

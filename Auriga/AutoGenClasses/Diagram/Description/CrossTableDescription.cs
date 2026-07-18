@@ -56,7 +56,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the domain class.
@@ -66,7 +66,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// Gets or sets the end user documentation.
         /// </summary>
-        public string EndUserDocumentation { get; set; }
+        public string EndUserDocumentation { get; set; } = "";
 
         /// <summary>
         /// Gets the imported elements.
@@ -111,7 +111,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Gets the owned column mappings.
@@ -166,7 +166,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// The precondition (Acceleo Expression).
         /// </summary>
-        public string PreconditionExpression { get; set; }
+        public string PreconditionExpression { get; set; } = "";
 
         /// <summary>
         /// Gets the reused create line.
@@ -196,7 +196,7 @@ namespace Auriga.Diagram.Table.Description
         /// <summary>
         /// The default title of the representation. (new + name if empty)
         /// </summary>
-        public string TitleExpression { get; set; }
+        public string TitleExpression { get; set; } = "";
 
         /// <summary>
         /// Gets the elements directly contained by this <c>CrossTableDescription</c>.

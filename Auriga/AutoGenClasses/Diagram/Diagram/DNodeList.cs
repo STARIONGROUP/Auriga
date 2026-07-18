@@ -86,7 +86,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The name of the element. It is the name that is displayed on the diagram.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Nodes owned by this container.
@@ -178,7 +178,7 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// True if the element is visible, false otherwise.
         /// </summary>
-        public bool? Visible { get; set; }
+        public bool? Visible { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the width.

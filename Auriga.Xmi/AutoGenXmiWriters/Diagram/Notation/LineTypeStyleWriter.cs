@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.ILineTypeStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Notation.LineType>(xmlWriter, "lineType", poco.LineType);
+            WriteEnumAttribute<Auriga.Diagram.Notation.LineType>(xmlWriter, "lineType", poco.LineType, Auriga.Diagram.Notation.LineType.Solid);
         }
     }
 }

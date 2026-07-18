@@ -63,10 +63,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.ISystemColor poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteIntegerAttribute(xmlWriter, "blue", poco.Blue);
-            WriteIntegerAttribute(xmlWriter, "green", poco.Green);
+            WriteIntegerAttribute(xmlWriter, "blue", poco.Blue, 125);
+            WriteIntegerAttribute(xmlWriter, "green", poco.Green, 125);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteIntegerAttribute(xmlWriter, "red", poco.Red);
+            WriteIntegerAttribute(xmlWriter, "red", poco.Red, 125);
         }
     }
 }

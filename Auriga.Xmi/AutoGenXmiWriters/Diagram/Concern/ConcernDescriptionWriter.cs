@@ -64,10 +64,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Concern
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceListAttribute(xmlWriter, "behaviors", poco.Behaviors, poco, "Behaviors", context);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             this.WriteReferenceListAttribute(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             this.WriteReferenceListAttribute(xmlWriter, "rules", poco.Rules, poco, "Rules", context);
         }
     }

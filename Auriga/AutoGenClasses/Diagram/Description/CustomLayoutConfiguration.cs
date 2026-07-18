@@ -28,7 +28,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Gets or sets the label.

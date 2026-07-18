@@ -85,7 +85,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// Edge mapping imports that are owned by this simple mapping.
@@ -110,7 +110,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the end user documentation.
         /// </summary>
-        public string EndUserDocumentation { get; set; }
+        public string EndUserDocumentation { get; set; } = "";
 
         /// <summary>
         /// image path to use as an icon for the layer
@@ -125,7 +125,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Node mappings that are owned by this simple mapping.

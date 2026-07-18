@@ -189,7 +189,7 @@ namespace Auriga.CodeGenerator.Helpers
                 var enumType = CSharpNaming.EnumType(eEnum);
                 return CSharpType.IsCollection(feature)
                     ? $"WriteEnumListAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName});"
-                    : $"WriteEnumAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName});";
+                    : $"WriteEnumAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName}{DefaultArgument(feature)});";
             }
 
             if (CSharpType.IsCollection(feature))
@@ -231,7 +231,22 @@ namespace Auriga.CodeGenerator.Helpers
                 return $"// '{xmlName}' has unsupported primitive type '{baseType}' and is not written";
             }
 
-            return $"{helper}(xmlWriter, \"{xmlName}\", poco.{propertyName});";
+            return $"{helper}(xmlWriter, \"{xmlName}\", poco.{propertyName}{DefaultArgument(feature)});";
+        }
+
+        /// <summary>
+        /// The trailing suppression-default argument of an attribute-write call: the feature's
+        /// <c>defaultValueLiteral</c> as a C# expression, so a value equal to the declared default
+        /// is omitted on write exactly as EMF serializes it; empty when the feature declares no
+        /// (expressible) default.
+        /// </summary>
+        /// <param name="feature">the structural feature</param>
+        /// <returns>the argument text including its leading comma, or an empty string</returns>
+        private static string DefaultArgument(EStructuralFeature feature)
+        {
+            var expression = DefaultValues.Expression(feature);
+
+            return expression == null ? string.Empty : $", {expression}";
         }
 
         private static string ElementWrite(EStructuralFeature feature)

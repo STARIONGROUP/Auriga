@@ -63,9 +63,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IGaugeSection poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor);
+            WriteStringAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor, "0,0,0");
             WriteStringListAttribute(xmlWriter, "customFeatures", poco.CustomFeatures);
-            WriteStringAttribute(xmlWriter, "foregroundColor", poco.ForegroundColor);
+            WriteStringAttribute(xmlWriter, "foregroundColor", poco.ForegroundColor, "138,226,52");
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteIntegerAttribute(xmlWriter, "max", poco.Max);
             WriteIntegerAttribute(xmlWriter, "min", poco.Min);

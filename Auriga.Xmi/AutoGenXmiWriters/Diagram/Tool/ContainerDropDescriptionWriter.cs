@@ -63,16 +63,16 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Tool.IContainerDropDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Tool.DragSource>(xmlWriter, "dragSource", poco.DragSource);
-            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect);
-            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh);
-            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder);
+            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
+            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
+            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             this.WriteReferenceListAttribute(xmlWriter, "mappings", poco.Mappings, poco, "Mappings", context);
             WriteBooleanAttribute(xmlWriter, "moveEdges", poco.MoveEdges);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
             this.WriteContainedElement(xmlWriter, "element", poco.Element, poco, "Element", context);
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             this.WriteContainedElement(xmlWriter, "initialOperation", poco.InitialOperation, poco, "InitialOperation", context);

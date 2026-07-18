@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IDrawerStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed);
+            WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed, false);
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Oa
             WriteEnumAttribute<Auriga.Model.Fa.ComponentExchangeKind>(xmlWriter, "kind", poco.Kind);
             this.WriteReferenceAttribute(xmlWriter, "link", poco.Link, poco, "Link", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteBooleanAttribute(xmlWriter, "oriented", poco.Oriented);
+            WriteBooleanAttribute(xmlWriter, "oriented", poco.Oriented, false);
             this.WriteReferenceListAttribute(xmlWriter, "realizations", poco.Realizations, poco, "Realizations", context);
             this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
@@ -80,8 +80,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Oa
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
-            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc);
-            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM);
+            WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
+            WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "namingRules", poco.NamingRules, poco, "NamingRules", context);
             this.WriteContainedElements(xmlWriter, "ownedComponentExchangeEnds", poco.OwnedComponentExchangeEnds, poco, "OwnedComponentExchangeEnds", context);
             this.WriteContainedElements(xmlWriter, "ownedComponentExchangeFunctionalExchangeAllocations", poco.OwnedComponentExchangeFunctionalExchangeAllocations, poco, "OwnedComponentExchangeFunctionalExchangeAllocations", context);

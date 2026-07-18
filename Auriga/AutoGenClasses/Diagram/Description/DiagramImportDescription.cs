@@ -121,7 +121,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the documentation.
         /// </summary>
-        public string Documentation { get; set; }
+        public string Documentation { get; set; } = "";
 
         /// <summary>
         /// The domain class of the viewpoint.
@@ -161,7 +161,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// Gets or sets the end user documentation.
         /// </summary>
-        public string EndUserDocumentation { get; set; }
+        public string EndUserDocumentation { get; set; } = "";
 
         /// <summary>
         /// Filters that are owned by this simple mapping.
@@ -223,7 +223,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// The identifier of this element. Must be unique. Changing this identifier will break existing user models which reference the old identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         /// <summary>
         /// Node mappings that are owned by this simple mapping.
@@ -268,7 +268,7 @@ namespace Auriga.Diagram.Diagram.Description
         /// <summary>
         /// The default title of the representation. (new + name if empty)
         /// </summary>
-        public string TitleExpression { get; set; }
+        public string TitleExpression { get; set; } = "";
 
         /// <summary>
         /// A tool section encloses many tools

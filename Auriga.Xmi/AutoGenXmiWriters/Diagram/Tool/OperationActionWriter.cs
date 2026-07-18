@@ -63,14 +63,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Tool
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.Tool.IOperationAction poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect);
-            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
+            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
             WriteStringAttribute(xmlWriter, "icon", poco.Icon);
-            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder);
+            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             this.WriteContainedElement(xmlWriter, "initialOperation", poco.InitialOperation, poco, "InitialOperation", context);
             this.WriteContainedElement(xmlWriter, "view", poco.View, poco, "View", context);

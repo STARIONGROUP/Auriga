@@ -23,12 +23,12 @@ namespace Auriga.Diagram.Notation
         /// <summary>
         /// Gets or sets the line color.
         /// </summary>
-        public int? LineColor { get; set; }
+        public int? LineColor { get; set; } = 11579568;
 
         /// <summary>
         /// Gets or sets the line width.
         /// </summary>
-        public int? LineWidth { get; set; }
+        public int? LineWidth { get; set; } = -1;
 
     }
 }

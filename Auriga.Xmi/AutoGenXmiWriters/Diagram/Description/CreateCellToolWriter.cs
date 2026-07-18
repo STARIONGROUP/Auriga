@@ -63,14 +63,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.Description.ICreateCellTool poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation);
-            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect);
-            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh);
-            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder);
+            WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
+            WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
+            WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
+            WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             this.WriteReferenceAttribute(xmlWriter, "mapping", poco.Mapping, poco, "Mapping", context);
-            WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition);
+            WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+            WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             this.WriteContainedElement(xmlWriter, "firstModelOperation", poco.FirstModelOperation, poco, "FirstModelOperation", context);
             this.WriteContainedElement(xmlWriter, "mask", poco.Mask, poco, "Mask", context);
