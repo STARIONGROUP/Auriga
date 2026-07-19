@@ -171,7 +171,10 @@ namespace Auriga.Rendering
             var elementName = siriusElement.Name;
             if (!string.IsNullOrEmpty(elementName))
             {
-                box.Label = new Label(elementName);
+                box.Label = new Label(elementName)
+                {
+                    IconPath = TypeIconPath(box.SemanticElement, box.Style.SiriusStyle as SiriusViewpoint.IBasicLabelStyle),
+                };
             }
 
             box.Style.Resolved = this.styleResolver.Resolve(box);
@@ -199,6 +202,31 @@ namespace Auriga.Rendering
                 ApplyListContainerLayout(box);
             }
         }
+
+        /// <summary>
+        /// The metaclass-icon path of a label — Capella prefixes labels with the small icon of
+        /// the semantic element's type — or <c>null</c> when there is no semantic element or the
+        /// Sirius label style suppresses the icon (<c>showIcon="false"</c>, as workspace-image
+        /// styles persist).
+        /// </summary>
+        /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
+        /// <param name="labelStyle">the Sirius label style governing the label, or <c>null</c></param>
+        /// <returns>the icon path (e.g. <c>Class.png</c>), or <c>null</c></returns>
+        private static string? TypeIconPath(object? semanticElement, SiriusViewpoint.IBasicLabelStyle? labelStyle)
+        {
+            if (semanticElement == null || labelStyle?.ShowIcon == false)
+            {
+                return null;
+            }
+
+            return $"{semanticElement.GetType().Name}.png";
+        }
+
+        /// <summary>
+        /// The horizontal space a label's metaclass icon occupies before the text (the icon plus
+        /// its gap), mirrored by the exporter.
+        /// </summary>
+        internal const double LabelIconSpace = 14;
 
         /// <summary>
         /// The height of a list container's title compartment above the title font size.
@@ -233,10 +261,10 @@ namespace Auriga.Rendering
 
             if (box.Width == null)
             {
-                var width = ((box.Label?.Text.Length ?? 0) * titleFontSize * GlyphWidthRatio) + (4 * ListItemIndent);
+                var width = ((box.Label?.Text.Length ?? 0) * titleFontSize * GlyphWidthRatio) + (4 * ListItemIndent) + IconSpace(box.Label);
                 foreach (var item in items)
                 {
-                    width = Math.Max(width, ((item.Label?.Text.Length ?? 0) * item.Style.Resolved.FontSize * GlyphWidthRatio) + (2 * ListItemIndent));
+                    width = Math.Max(width, ((item.Label?.Text.Length ?? 0) * item.Style.Resolved.FontSize * GlyphWidthRatio) + (2 * ListItemIndent) + IconSpace(item.Label));
                 }
 
                 box.Width = Math.Max(50, width);
@@ -266,10 +294,10 @@ namespace Auriga.Rendering
             box.Height ??= (rowTop - box.Position.Y) + (items.Count == 0 ? ListTitlePadding : 4);
 
             // The title centers in its own compartment (not the whole box); without a measured
-            // text width the centering is estimated from the glyph ratio.
+            // text width the centering is estimated from the glyph ratio, the icon included.
             if (box.Label is { } title)
             {
-                var estimatedWidth = title.Text.Length * titleFontSize * GlyphWidthRatio;
+                var estimatedWidth = (title.Text.Length * titleFontSize * GlyphWidthRatio) + IconSpace(title);
                 title.Position = new Point(box.Position.X + ((box.Width.Value - estimatedWidth) / 2), box.Position.Y + ((titleHeight - titleFontSize) / 2));
                 title.Width = null;
                 title.Height = null;
@@ -287,6 +315,17 @@ namespace Auriga.Rendering
             separator.Style.Resolved.StrokeColor = box.Style.Resolved.StrokeColor;
             separator.Style.Resolved.StrokeWidth = 1;
             box.Add(separator);
+        }
+
+        /// <summary>
+        /// The horizontal space a label's icon will occupy in the exporter: the icon slot when the
+        /// label carries one, nothing otherwise.
+        /// </summary>
+        /// <param name="label">the label, or <c>null</c></param>
+        /// <returns>the icon space</returns>
+        private static double IconSpace(Label? label)
+        {
+            return label?.IconPath == null ? 0 : LabelIconSpace;
         }
 
         /// <summary>
@@ -440,7 +479,10 @@ namespace Auriga.Rendering
             var edgeName = siriusEdge?.Name;
             if (!string.IsNullOrEmpty(edgeName))
             {
-                edge.Label = new Label(edgeName!);
+                edge.Label = new Label(edgeName!)
+                {
+                    IconPath = TypeIconPath(edge.SemanticElement, (siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.CenterLabelStyle),
+                };
             }
 
             // Association multiplicities and similar end texts persist as the DEdge's begin/end

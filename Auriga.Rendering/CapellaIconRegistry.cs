@@ -83,15 +83,22 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// The MIME type of a vendored image file. The vendored set contains only SVG and GIF
-        /// artwork, so the decision is binary; extend it alongside the set if other formats are
+        /// The MIME type of a vendored image file. The vendored set contains SVG artwork, GIF
+        /// artwork and the PNG metaclass icons; extend it alongside the set if other formats are
         /// ever vendored.
         /// </summary>
         /// <param name="fileName">the image file name</param>
         /// <returns>the MIME type</returns>
         private static string MimeType(string fileName)
         {
-            return Path.GetExtension(fileName).Equals(".gif", StringComparison.OrdinalIgnoreCase)
+            var extension = Path.GetExtension(fileName);
+
+            if (extension.Equals(".png", StringComparison.OrdinalIgnoreCase))
+            {
+                return "image/png";
+            }
+
+            return extension.Equals(".gif", StringComparison.OrdinalIgnoreCase)
                 ? "image/gif"
                 : "image/svg+xml";
         }

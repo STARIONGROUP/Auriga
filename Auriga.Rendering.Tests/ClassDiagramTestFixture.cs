@@ -71,6 +71,8 @@ namespace Auriga.Rendering.Tests
                 Assert.That(separator.Height, Is.Zero);
 
                 Assert.That(passenger.Label!.Position, Is.Not.Null, "the title centers in its own compartment, not the whole box");
+                Assert.That(passenger.Label!.IconPath, Is.EqualTo("Class.png"), "the class's metaclass icon");
+                Assert.That(items[0].Label!.IconPath, Is.EqualTo("Property.png"), "the property's metaclass icon");
             });
         }
 
@@ -89,6 +91,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(transports.Label!.Text, Is.EqualTo("transports"));
                 Assert.That(transports.EndLabel!.Text, Is.EqualTo("[1..*]"), "the association multiplicity, trimmed");
                 Assert.That(transports.BeginLabel, Is.Null, "no begin label persisted");
+                Assert.That(transports.Label!.IconPath, Is.EqualTo("Association.png"), "the association's metaclass icon");
             });
         }
     }

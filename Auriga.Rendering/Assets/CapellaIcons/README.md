@@ -14,6 +14,7 @@ embedded copy so exported SVGs can show the same glyphs, self-contained.
 | `*.svg` (except `SystemActor.svg`, `LogicalComponent.svg`) | [eclipse-capella/capella](https://github.com/eclipse-capella/capella) tag `v7.0.0`, `core/plugins/org.polarsys.capella.core.sirius.analysis/description/images/` | EPL-2.0 |
 | `SystemActor.svg`, `LogicalComponent.svg` | [eclipse-capella/capella](https://github.com/eclipse-capella/capella) tag `v7.0.0`, `core/plugins/org.polarsys.capella.core.ui.resources/icons/full/svg/` | EPL-2.0 |
 | `Blank.gif` | [eclipse-capella/capella](https://github.com/eclipse-capella/capella) tag `v7.0.0`, `core/plugins/org.polarsys.capella.core.sirius.analysis/icons/full/obj16/` | EPL-2.0 |
+| `*.png` (the metaclass icon set, named per metaclass, plus its `license.txt`) | [eclipse-capella/capella](https://github.com/eclipse-capella/capella) tag `v7.0.0`, `core/plugins/org.polarsys.capella.core.ui.resources/icons/full/png/` | EPL-2.0 |
 
 The set is the collection of images the repository's fixture models actually reference; it is not
 the complete Capella artwork catalogue.

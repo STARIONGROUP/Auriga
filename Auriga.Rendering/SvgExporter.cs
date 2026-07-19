@@ -146,7 +146,7 @@ namespace Auriga.Rendering
             var edgeLayer = new XElement(Svg + "g", new XAttribute("class", "edges"));
             foreach (var edge in diagram.Edges)
             {
-                edgeLayer.Add(BuildEdge(edge, defs));
+                edgeLayer.Add(this.BuildEdge(edge, defs));
             }
 
             root.Add(boxLayer, edgeLayer);
@@ -242,7 +242,7 @@ namespace Auriga.Rendering
                     group.Add(BuildLabelTab(box, style));
                 }
 
-                group.Add(BuildBoxLabel(box, style));
+                this.AddBoxLabel(group, box, style);
             }
 
             foreach (var child in box.Children)
@@ -359,28 +359,38 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Builds the label text of a box: at the persisted label geometry when one was folded in
-        /// (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), or centered in the box —
-        /// wrapped to the box's width and vertically centered as a block, the way Capella keeps a
-        /// node label inside its shape.
+        /// Adds the label of a box to its group: at the persisted label geometry when one was
+        /// folded in (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), or centered in
+        /// the box — wrapped to the box's width and vertically centered as a block, the way
+        /// Capella keeps a node label inside its shape. A label carrying a resolvable metaclass
+        /// icon is prefixed with it, the text shifted to make room.
         /// </summary>
+        /// <param name="group">the box group the label is added to</param>
         /// <param name="box">the labelled box</param>
         /// <param name="style">the box's resolved style</param>
-        /// <returns>the label text element</returns>
-        private static XElement BuildBoxLabel(Box box, ResolvedStyle style)
+        private void AddBoxLabel(XElement group, Box box, ResolvedStyle style)
         {
             var label = box.Label!;
+            var icon = label.IconPath == null ? null : this.iconRegistry.Resolve(label.IconPath);
+            var iconSpace = icon == null ? 0 : DiagramBuilderBase.LabelIconSpace;
 
             if (label.Position is { } position)
             {
-                var text = BuildText(label.Text, position.X, position.Y + style.FontSize, "start", style);
+                var baseline = position.Y + style.FontSize;
+                if (icon != null)
+                {
+                    group.Add(BuildLabelIcon(icon, position.X, baseline));
+                }
+
+                var text = BuildText(label.Text, position.X + iconSpace, baseline, "start", style);
 
                 if (label.Width is { } labelWidth)
                 {
-                    AddWrappedLines(text, WrapLines(label.Text, labelWidth, style), position.X);
+                    AddWrappedLines(text, WrapLines(label.Text, labelWidth, style), position.X + iconSpace);
                 }
 
-                return text;
+                group.Add(text);
+                return;
             }
 
             var width = box.Width ?? DefaultBoxSize;
@@ -391,20 +401,52 @@ namespace Auriga.Rendering
             var lineHeight = style.FontSize * 1.2;
             var firstBaseline = centerY + (style.FontSize / 2) - ((lines.Count - 1) * lineHeight / 2);
 
-            var centered = BuildText(label.Text, centerX, firstBaseline, "middle", style);
-            AddWrappedLines(centered, lines, centerX);
+            var textCenter = centerX + (iconSpace / 2);
+            if (icon != null)
+            {
+                var longest = lines.Max(line => line.Length) * style.FontSize * 0.6;
+                group.Add(BuildLabelIcon(icon, textCenter - (longest / 2) - iconSpace, firstBaseline));
+            }
 
-            return centered;
+            var centered = BuildText(label.Text, textCenter, firstBaseline, "middle", style);
+            AddWrappedLines(centered, lines, textCenter);
+
+            group.Add(centered);
+        }
+
+        /// <summary>
+        /// The rendered size of a label's metaclass icon, scaled to sit beside the diagram fonts.
+        /// </summary>
+        private const double LabelIconSize = 12;
+
+        /// <summary>
+        /// Builds the small metaclass icon image preceding a label's text, vertically centered on
+        /// the text line.
+        /// </summary>
+        /// <param name="icon">the resolved icon content, as a <c>data:</c> URI</param>
+        /// <param name="x">the icon's left coordinate</param>
+        /// <param name="baseline">the text baseline the icon centers against</param>
+        /// <returns>the icon image element</returns>
+        private static XElement BuildLabelIcon(string icon, double x, double baseline)
+        {
+            return new XElement(
+                Svg + "image",
+                new XAttribute("x", N(x)),
+                new XAttribute("y", N(baseline - 10)),
+                new XAttribute("width", N(LabelIconSize)),
+                new XAttribute("height", N(LabelIconSize)),
+                new XAttribute("href", icon));
         }
 
         /// <summary>
         /// Builds the path of an edge over its absolute route, with its stroke, pattern, arrow
-        /// markers and midpoint label.
+        /// markers, midpoint label (icon-prefixed when the label carries a resolvable metaclass
+        /// icon) and begin/end labels.
         /// </summary>
         /// <param name="edge">the edge to render</param>
         /// <param name="defs">the document's <c>&lt;defs&gt;</c>, receiving markers on demand</param>
         /// <returns>the edge group</returns>
-        private static XElement BuildEdge(Edge edge, XElement defs)
+        private XElement BuildEdge(Edge edge, XElement defs)
         {
             var style = edge.Style.Resolved;
             var group = new XElement(Svg + "g", new XAttribute("id", edge.Identifier));
@@ -428,12 +470,32 @@ namespace Auriga.Rendering
             if (edge.Label != null && edge.Route.Count >= 2)
             {
                 var (midpoint, vertical) = Midpoint(edge.Route);
+                var icon = edge.Label.IconPath == null ? null : this.iconRegistry.Resolve(edge.Label.IconPath);
+                var iconSpace = icon == null ? 0 : DiagramBuilderBase.LabelIconSpace;
 
                 // A label on a horizontal segment sits centered above it; a label on a vertical
                 // segment (a self-message hook) sits beside it, to the right.
-                group.Add(vertical
-                    ? BuildText(edge.Label.Text, midpoint.X + 4, midpoint.Y + (style.FontSize / 2), "start", style)
-                    : BuildText(edge.Label.Text, midpoint.X, midpoint.Y - 2, "middle", style));
+                if (vertical)
+                {
+                    var baseline = midpoint.Y + (style.FontSize / 2);
+                    if (icon != null)
+                    {
+                        group.Add(BuildLabelIcon(icon, midpoint.X + 4, baseline));
+                    }
+
+                    group.Add(BuildText(edge.Label.Text, midpoint.X + 4 + iconSpace, baseline, "start", style));
+                }
+                else
+                {
+                    var textCenter = midpoint.X + (iconSpace / 2);
+                    if (icon != null)
+                    {
+                        var estimated = edge.Label.Text.Length * style.FontSize * 0.6;
+                        group.Add(BuildLabelIcon(icon, textCenter - (estimated / 2) - iconSpace, midpoint.Y - 2));
+                    }
+
+                    group.Add(BuildText(edge.Label.Text, textCenter, midpoint.Y - 2, "middle", style));
+                }
             }
 
             if (edge.Route.Count >= 2)

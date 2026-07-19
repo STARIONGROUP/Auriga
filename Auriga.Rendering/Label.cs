@@ -52,5 +52,13 @@ namespace Auriga.Rendering
         /// <c>LOOP</c>) in the frame's top-left corner.
         /// </summary>
         public bool Framed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image the label is prefixed with — Capella's small metaclass icon,
+        /// derived from the semantic element's type — as a path the icon registry resolves (e.g.
+        /// <c>Class.png</c>), or <c>null</c> when the label shows no icon (suppressed by the
+        /// style's <c>showIcon</c>, no semantic element, or a diagram kind that draws none).
+        /// </summary>
+        public string? IconPath { get; set; }
     }
 }
