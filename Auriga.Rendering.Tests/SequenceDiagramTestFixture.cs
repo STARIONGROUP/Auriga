@@ -237,10 +237,10 @@ namespace Auriga.Rendering.Tests
                 Assert.That(attachment.Style.Resolved.TargetArrow, Is.Null, "and carries no arrowhead");
 
                 // The message router must leave it alone: its persisted anchors and bendpoints
-                // resolve against the note's own geometry — the first route point is the persisted
-                // (-25, -5) offset from the anchor on the note's left edge.
+                // resolve against the note's own geometry — the departure is the slidable-anchor
+                // crossing of the note's boundary, not a flattened message height.
                 Assert.That(attachment.Source, Is.SameAs(note));
-                Assert.That(attachment.Route[0].X, Is.EqualTo(note.Position.X + (0.06965174129353234 * note.Width!.Value) - 25).Within(0.001));
+                Assert.That(attachment.Route[0].X, Is.EqualTo(note.Position.X).Within(0.001), "the departure clips to the note's left edge");
                 Assert.That(attachment.Route[0].Y, Is.Not.EqualTo(attachment.Route[attachment.Route.Count - 1].Y), "not flattened to a horizontal message");
             });
         }
