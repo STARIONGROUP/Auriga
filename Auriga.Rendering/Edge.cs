@@ -65,6 +65,19 @@ namespace Auriga.Rendering
         public Label? Label { get; set; }
 
         /// <summary>
+        /// Gets or sets the label shown near the edge's source end (e.g. an association's source
+        /// multiplicity), or <c>null</c> when the Sirius edge carries no begin label.
+        /// </summary>
+        public Label? BeginLabel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the label shown near the edge's target end (e.g. an association's target
+        /// multiplicity such as <c>[1..*]</c>), or <c>null</c> when the Sirius edge carries no end
+        /// label.
+        /// </summary>
+        public Label? EndLabel { get; set; }
+
+        /// <summary>
         /// Gets the styling sources of the edge.
         /// </summary>
         public Style Style { get; }

@@ -143,6 +143,28 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_edge_end_labels_render_backed_off_from_the_route_ends()
+        {
+            var edge = MakeEdge("association", new List<Point> { new(0, 100), new(100, 100) });
+            edge.BeginLabel = new Label("0..1");
+            edge.EndLabel = new Label("[1..*]");
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var texts = document.Descendants(Svg + "text").ToList();
+
+            var begin = texts.Single(text => text.Value == "0..1");
+            var end = texts.Single(text => text.Value == "[1..*]");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)begin.Attribute("x"), Is.EqualTo("15"), "backed off 15 units from the start");
+                Assert.That((string?)begin.Attribute("y"), Is.EqualTo("98"));
+                Assert.That((string?)end.Attribute("x"), Is.EqualTo("85"), "backed off 15 units from the end");
+                Assert.That((string?)end.Attribute("y"), Is.EqualTo("98"));
+            });
+        }
+
+        [Test]
         public void Verify_that_font_decorations_and_dot_markers_render()
         {
             var box = MakeBox("decorated", 0, 0, 100, 40);

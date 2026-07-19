@@ -436,7 +436,49 @@ namespace Auriga.Rendering
                     : BuildText(edge.Label.Text, midpoint.X, midpoint.Y - 2, "middle", style));
             }
 
+            if (edge.Route.Count >= 2)
+            {
+                if (edge.BeginLabel is { } beginLabel)
+                {
+                    var at = BackOff(edge.Route[0], edge.Route[1]);
+                    group.Add(BuildText(beginLabel.Text, at.X, at.Y - 2, "middle", style));
+                }
+
+                if (edge.EndLabel is { } endLabel)
+                {
+                    var at = BackOff(edge.Route[^1], edge.Route[^2]);
+                    group.Add(BuildText(endLabel.Text, at.X, at.Y - 2, "middle", style));
+                }
+            }
+
             return group;
+        }
+
+        /// <summary>
+        /// The distance an edge's begin/end label backs off from the route end toward the route's
+        /// interior, so a multiplicity sits beside the arrow rather than on the node boundary.
+        /// </summary>
+        private const double EndLabelInset = 15;
+
+        /// <summary>
+        /// A point backed off from a route end along its adjacent segment — the anchor of a
+        /// begin/end label. A segment shorter than the inset yields its other point.
+        /// </summary>
+        /// <param name="end">the route's end point</param>
+        /// <param name="toward">the adjacent route point</param>
+        /// <returns>the label anchor point</returns>
+        private static Point BackOff(Point end, Point toward)
+        {
+            var deltaX = toward.X - end.X;
+            var deltaY = toward.Y - end.Y;
+            var length = Math.Sqrt((deltaX * deltaX) + (deltaY * deltaY));
+
+            if (length <= EndLabelInset)
+            {
+                return toward;
+            }
+
+            return end + new Point(deltaX / length * EndLabelInset, deltaY / length * EndLabelInset);
         }
 
         /// <summary>
