@@ -204,6 +204,19 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// The trimmed text of an edge's begin/end label when it carries a real value, or
+        /// <c>null</c> when it is absent or Capella's <c>"."</c> placeholder (persisted for an
+        /// end label a mapping declares but the element leaves empty — it must not render).
+        /// </summary>
+        /// <param name="label">the raw persisted begin/end label, or <c>null</c></param>
+        /// <returns>the meaningful label text, or <c>null</c></returns>
+        private static string? MeaningfulLabel(string? label)
+        {
+            var trimmed = label?.Trim();
+            return string.IsNullOrEmpty(trimmed) || trimmed == "." ? null : trimmed;
+        }
+
+        /// <summary>
         /// The metaclass-icon path of a label — Capella prefixes labels with the small icon of
         /// the semantic element's type — or <c>null</c> when there is no semantic element or the
         /// Sirius label style suppresses the icon (<c>showIcon="false"</c>, as workspace-image
@@ -487,16 +500,14 @@ namespace Auriga.Rendering
 
             // Association multiplicities and similar end texts persist as the DEdge's begin/end
             // labels, rendered near the respective route ends.
-            var beginLabel = siriusEdge?.BeginLabel?.Trim();
-            if (!string.IsNullOrEmpty(beginLabel))
+            if (MeaningfulLabel(siriusEdge?.BeginLabel) is { } beginLabel)
             {
-                edge.BeginLabel = new Label(beginLabel!);
+                edge.BeginLabel = new Label(beginLabel);
             }
 
-            var endLabel = siriusEdge?.EndLabel?.Trim();
-            if (!string.IsNullOrEmpty(endLabel))
+            if (MeaningfulLabel(siriusEdge?.EndLabel) is { } endLabel)
             {
-                edge.EndLabel = new Label(endLabel!);
+                edge.EndLabel = new Label(endLabel);
             }
 
             edge.Style.Resolved = this.styleResolver.Resolve(edge);

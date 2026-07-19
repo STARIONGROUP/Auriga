@@ -332,6 +332,44 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_dot_placeholder_end_label_does_not_render()
+        {
+            var sourceNode = new Notation.Node { Id = "n-src-lbl", Element = new SiriusDiagram.DNode { Id = "src-lbl", Name = "source" } };
+            sourceNode.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 20, Height = 20 };
+            var targetNode = new Notation.Node { Id = "n-tgt-lbl", Element = new SiriusDiagram.DNode { Id = "tgt-lbl", Name = "target" } };
+            targetNode.LayoutConstraint = new Notation.Bounds { X = 100, Y = 0, Width = 20, Height = 20 };
+
+            // Capella persists "." as the placeholder for an end label a mapping declares but the
+            // element leaves empty; a real multiplicity like "[1..*]" must still render.
+            var placeholderEdge = new Notation.Edge
+            {
+                Id = "n-placeholder",
+                Element = new SiriusDiagram.DEdge { Id = "e-placeholder", BeginLabel = " . ", EndLabel = "." },
+                Source = sourceNode,
+                Target = targetNode,
+            };
+            var multiplicityEdge = new Notation.Edge
+            {
+                Id = "n-multiplicity",
+                Element = new SiriusDiagram.DEdge { Id = "e-multiplicity", EndLabel = "[1..*] " },
+                Source = sourceNode,
+                Target = targetNode,
+            };
+
+            var diagram = this.diagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { placeholderEdge, multiplicityEdge }));
+
+            var placeholder = diagram.Edges.Single(edge => edge.Identifier == "e-placeholder");
+            var multiplicity = diagram.Edges.Single(edge => edge.Identifier == "e-multiplicity");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(placeholder.BeginLabel, Is.Null, "a '.' begin label is Capella's empty placeholder");
+                Assert.That(placeholder.EndLabel, Is.Null, "a '.' end label is Capella's empty placeholder");
+                Assert.That(multiplicity.EndLabel!.Text, Is.EqualTo("[1..*]"), "a real multiplicity still renders, trimmed");
+            });
+        }
+
+        [Test]
         public void Verify_that_an_edge_without_bendpoints_routes_anchor_to_anchor()
         {
             var sourceSirius = new SiriusDiagram.DNode { Id = "src-2", Name = "source" };
