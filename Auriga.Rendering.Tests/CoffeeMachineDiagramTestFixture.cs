@@ -123,11 +123,12 @@ namespace Auriga.Rendering.Tests
                 Assert.That(edge.Target, Is.Not.Null);
                 Assert.That(edge.SemanticElement, Is.InstanceOf<Auriga.Core.IAurigaElement>(), "the DEdge's target resolved into the co-loaded Capella model");
 
-                // sourceAnchor (0.0, 0.3225806451612903) of the 41x31 box at (380, 237) is (380, 247);
-                // the first persisted bendpoint [2, 5, …] is source-relative.
+                // sourceAnchor (0.0, 0.3225806451612903) of the 41x31 box at (380, 237) is
+                // (380, 247) on the box's left edge; the edge heads away from the box, so the
+                // slidable-anchor endpoint is the reference point itself.
                 Assert.That(edge.Route, Is.Not.Empty);
-                Assert.That(edge.Route[0].X, Is.EqualTo(382).Within(0.0001));
-                Assert.That(edge.Route[0].Y, Is.EqualTo(252).Within(0.0001));
+                Assert.That(edge.Route[0].X, Is.EqualTo(380).Within(0.0001));
+                Assert.That(edge.Route[0].Y, Is.EqualTo(247).Within(0.0001));
             });
         }
 

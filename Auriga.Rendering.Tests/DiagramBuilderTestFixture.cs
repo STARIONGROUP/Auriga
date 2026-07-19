@@ -271,10 +271,10 @@ namespace Auriga.Rendering.Tests
             var edgeSirius = new SiriusDiagram.DEdge { Id = "e-1", Name = "flow", Target = new object() };
 
             var sourceNode = new Notation.Node { Id = "n-src", Element = sourceSirius };
-            sourceNode.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 100, Height = 40 };
+            sourceNode.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 100, Height = 100 };
 
             var targetNode = new Notation.Node { Id = "n-tgt", Element = targetSirius };
-            targetNode.LayoutConstraint = new Notation.Bounds { X = 300, Y = 200, Width = 60, Height = 20 };
+            targetNode.LayoutConstraint = new Notation.Bounds { X = 200, Y = 0, Width = 100, Height = 100 };
 
             var notationEdge = new Notation.Edge
             {
@@ -282,9 +282,7 @@ namespace Auriga.Rendering.Tests
                 Element = edgeSirius,
                 Source = sourceNode,
                 Target = targetNode,
-                SourceAnchor = new Notation.IdentityAnchor { Id = "(0.0,0.5)" },
-                TargetAnchor = new Notation.IdentityAnchor { Id = "(1.0,0.5)" },
-                Bendpoints = new Notation.RelativeBendpoints { Points = "[2, 5, 51, 5]$[-49, 5, 0, 5]" },
+                Bendpoints = new Notation.RelativeBendpoints { Points = "[0, 0, -100, 0]$[100, 70, -50, 70]$[0, 0, 0, 0]" },
             };
 
             var diagram = this.diagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { notationEdge }));
@@ -299,12 +297,38 @@ namespace Auriga.Rendering.Tests
                 Assert.That(edge.SemanticElement, Is.SameAs(edgeSirius.Target));
                 Assert.That(edge.Label!.Text, Is.EqualTo("flow"));
 
-                // Source anchor (0.0, 0.5) of a 100x40 box at (0, 0) is (0, 20); leading bendpoints
-                // resolve source-relative, and the final point glues to the target anchor —
-                // (1.0, 0.5) of the 60x20 box at (300, 200) is (360, 210), plus the persisted
-                // target-relative (0, 5).
-                Assert.That(edge.Route, Is.EqualTo(new[] { new Point(2, 25), new Point(360, 215) }));
+                // The first and last bendpoint entries are stale endpoint artifacts; only the
+                // middle entry is a real bend, resolved source-relative: (50, 50) + (100, 70) =
+                // (150, 120). Each endpoint is the crossing of the anchor-reference line (box
+                // centers here) toward the bend with the box's bounds: out of the 100x100 source
+                // at (100, 85), into the 100x100 target at (200, 85).
+                Assert.That(edge.Route, Is.EqualTo(new[] { new Point(100, 85), new Point(150, 120), new Point(200, 85) }));
             });
+        }
+
+        [Test]
+        public void Verify_that_stale_two_entry_bendpoints_yield_the_clipped_straight_line()
+        {
+            var sourceNode = new Notation.Node { Id = "n-src-stale", Element = new SiriusDiagram.DNode { Id = "src-stale", Name = "source" } };
+            sourceNode.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 100, Height = 100 };
+
+            var targetNode = new Notation.Node { Id = "n-tgt-stale", Element = new SiriusDiagram.DNode { Id = "tgt-stale", Name = "target" } };
+            targetNode.LayoutConstraint = new Notation.Bounds { X = 200, Y = 0, Width = 100, Height = 100 };
+
+            // GMF always persists the connection's two endpoints as the first and last bendpoint
+            // entries; with no entries between them there is no real bend, and the stale offsets
+            // must not bend the route — the line runs straight between the boundary crossings.
+            var notationEdge = new Notation.Edge
+            {
+                Id = "n-edge-stale",
+                Source = sourceNode,
+                Target = targetNode,
+                Bendpoints = new Notation.RelativeBendpoints { Points = "[9, 46, 15, -120]$[29, 146, 35, -20]" },
+            };
+
+            var diagram = this.diagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { notationEdge }));
+
+            Assert.That(diagram.Edges.Single().Route, Is.EqualTo(new[] { new Point(100, 50), new Point(200, 50) }));
         }
 
         [Test]
@@ -319,7 +343,8 @@ namespace Auriga.Rendering.Tests
             var targetNode = new Notation.Node { Id = "n-tgt2", Element = targetSirius };
             targetNode.LayoutConstraint = new Notation.Bounds { X = 110, Y = 10, Width = 20, Height = 20 };
 
-            // No anchors and no bendpoints persisted: both ends default to the view centers.
+            // No anchors and no bendpoints persisted: both references default to the view centers,
+            // and the endpoints clip to the facing box edges.
             var notationEdge = new Notation.Edge { Id = "n-edge2", Source = sourceNode, Target = targetNode };
 
             var diagram = this.diagramBuilder.Build(Representation(new[] { sourceNode, targetNode }, new[] { notationEdge }));
@@ -328,7 +353,7 @@ namespace Auriga.Rendering.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(edge.Route, Is.EqualTo(new[] { new Point(20, 20), new Point(120, 20) }));
+                Assert.That(edge.Route, Is.EqualTo(new[] { new Point(30, 20), new Point(110, 20) }));
                 Assert.That(edge.SiriusElement, Is.Null, "a notation edge without a Sirius element still routes");
                 Assert.That(edge.Identifier, Is.EqualTo("n-edge2"), "the identifier falls back to the notation id");
                 Assert.That(edge.Label, Is.Null);

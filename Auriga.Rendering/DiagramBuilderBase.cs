@@ -333,10 +333,7 @@ namespace Auriga.Rendering
             var source = FindBox(notationEdge.Source, viewToBox);
             var target = FindBox(notationEdge.Target, viewToBox);
 
-            var sourceAnchor = source == null ? (Point?)null : AnchorPoint(source, notationEdge.SourceAnchor);
-            var targetAnchor = target == null ? (Point?)null : AnchorPoint(target, notationEdge.TargetAnchor);
-
-            var route = BuildRoute(notationEdge.Bendpoints, sourceAnchor, targetAnchor);
+            var route = BuildRoute(notationEdge, source, target);
 
             var edge = new Edge(siriusEdge?.Id ?? notationEdge.Id ?? string.Empty, route, notationEdge, BuildStyle(siriusEdge, notationEdge.Styles))
             {
@@ -402,49 +399,113 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Builds the absolute route polyline. GMF persists each bendpoint as offsets from both end
-        /// anchors precisely so the ends stay glued to their boxes: the route resolves the leading
-        /// points against the source anchor and the final point against the target anchor (each
-        /// falling back to the other end when only one box is known). Without bendpoints the route
-        /// is the straight anchor-to-anchor line; without any resolvable end it is empty.
+        /// Builds the absolute route polyline. GMF persists the connection's two endpoints as the
+        /// first and last entries of the bendpoint list but recomputes them at render time — an
+        /// endpoint is the intersection of the line from the anchor's reference point (the
+        /// persisted anchor ratio, center by default) toward the adjacent route point with the
+        /// node's bounds (GMF's slidable-anchor rule), so the persisted first and last entries are
+        /// stale artifacts. Only the entries between them are real bends, resolved against the
+        /// source reference. When only one end resolves to a box, the artifact offsets are kept
+        /// for the unknown end and the known end is clipped to its box; without any resolvable
+        /// end the route is empty.
         /// </summary>
-        /// <param name="bendpoints">the notation edge's persisted bendpoints</param>
-        /// <param name="sourceAnchor">the absolute source anchor point, when the source box is known</param>
-        /// <param name="targetAnchor">the absolute target anchor point, when the target box is known</param>
+        /// <param name="notationEdge">the notation edge carrying the anchors and bendpoints</param>
+        /// <param name="source">the source box, or <c>null</c> when the end does not resolve to one</param>
+        /// <param name="target">the target box, or <c>null</c> when the end does not resolve to one</param>
         /// <returns>the absolute route polyline</returns>
-        private static IReadOnlyList<Point> BuildRoute(NotationModel.IBendpoints? bendpoints, Point? sourceAnchor, Point? targetAnchor)
+        private static IReadOnlyList<Point> BuildRoute(NotationModel.IEdge notationEdge, Box? source, Box? target)
         {
-            var relativeBendpoints = ParseBendpoints((bendpoints as NotationModel.IRelativeBendpoints)?.Points);
+            var bendpoints = ParseBendpoints((notationEdge.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
+            var sourceReference = source == null ? (Point?)null : AnchorPoint(source, notationEdge.SourceAnchor);
+            var targetReference = target == null ? (Point?)null : AnchorPoint(target, notationEdge.TargetAnchor);
 
-            if (relativeBendpoints.Count > 0 && (sourceAnchor != null || targetAnchor != null))
+            if (sourceReference is { } refSource && targetReference is { } refTarget)
             {
-                var route = new List<Point>();
-                for (var i = 0; i < relativeBendpoints.Count; i++)
+                var intermediates = new List<Point>();
+                for (var i = 1; i < bendpoints.Count - 1; i++)
                 {
-                    var isLast = i == relativeBendpoints.Count - 1;
-                    if (isLast && targetAnchor is { } toTarget)
-                    {
-                        route.Add(toTarget + relativeBendpoints[i].TargetRelative);
-                    }
-                    else if (sourceAnchor is { } fromSource)
-                    {
-                        route.Add(fromSource + relativeBendpoints[i].SourceRelative);
-                    }
-                    else
-                    {
-                        route.Add(targetAnchor!.Value + relativeBendpoints[i].TargetRelative);
-                    }
+                    intermediates.Add(refSource + bendpoints[i].SourceRelative);
                 }
+
+                var route = new List<Point>
+                {
+                    ClipToBoundary(source!, refSource, intermediates.Count > 0 ? intermediates[0] : refTarget),
+                };
+                route.AddRange(intermediates);
+                route.Add(ClipToBoundary(target!, refTarget, intermediates.Count > 0 ? intermediates[^1] : refSource));
 
                 return route;
             }
 
-            if (sourceAnchor is { } start && targetAnchor is { } end)
+            if (bendpoints.Count > 0 && sourceReference is { } soleSource)
             {
-                return new List<Point> { start, end };
+                var route = bendpoints.Select(bendpoint => soleSource + bendpoint.SourceRelative).ToList();
+                route[0] = route.Count > 1 ? ClipToBoundary(source!, soleSource, route[1]) : route[0];
+                return route;
+            }
+
+            if (bendpoints.Count > 0 && targetReference is { } soleTarget)
+            {
+                var route = bendpoints.Select(bendpoint => soleTarget + bendpoint.TargetRelative).ToList();
+                route[^1] = route.Count > 1 ? ClipToBoundary(target!, soleTarget, route[^2]) : route[^1];
+                return route;
             }
 
             return Array.Empty<Point>();
+        }
+
+        /// <summary>
+        /// The point where the segment from an anchor reference point toward the adjacent route
+        /// point crosses the box's boundary — the endpoint GMF's slidable anchor computes at
+        /// render time. When the segment never crosses the boundary (the reference sits on the
+        /// boundary already facing outward, the adjacent point lies inside the box, or the
+        /// geometry is degenerate) the reference point itself stands.
+        /// </summary>
+        /// <param name="box">the box the edge end attaches to</param>
+        /// <param name="reference">the anchor reference point, on or in the box</param>
+        /// <param name="toward">the adjacent route point the edge heads to</param>
+        /// <returns>the boundary crossing, or the reference point</returns>
+        private static Point ClipToBoundary(Box box, Point reference, Point toward)
+        {
+            var deltaX = toward.X - reference.X;
+            var deltaY = toward.Y - reference.Y;
+
+            double exitX;
+            if (deltaX > 0)
+            {
+                exitX = (box.Position.X + (box.Width ?? 0) - reference.X) / deltaX;
+            }
+            else if (deltaX < 0)
+            {
+                exitX = (box.Position.X - reference.X) / deltaX;
+            }
+            else
+            {
+                exitX = double.PositiveInfinity;
+            }
+
+            double exitY;
+            if (deltaY > 0)
+            {
+                exitY = (box.Position.Y + (box.Height ?? 0) - reference.Y) / deltaY;
+            }
+            else if (deltaY < 0)
+            {
+                exitY = (box.Position.Y - reference.Y) / deltaY;
+            }
+            else
+            {
+                exitY = double.PositiveInfinity;
+            }
+
+            var exit = Math.Min(exitX, exitY);
+
+            if (double.IsInfinity(exit) || exit < 0 || exit >= 1)
+            {
+                return reference;
+            }
+
+            return reference + new Point(exit * deltaX, exit * deltaY);
         }
 
         /// <summary>
