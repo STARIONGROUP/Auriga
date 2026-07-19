@@ -147,9 +147,12 @@ namespace Auriga.Rendering
 
                 if (header.Label is { } headerLabel)
                 {
+                    // Capella centers the instance-role name in the header box, not in a top band,
+                    // even though the header has children (the lifeline).
                     headerLabel.Position = null;
                     headerLabel.Width = null;
                     headerLabel.Height = null;
+                    headerLabel.PinTop = false;
                 }
             }
 

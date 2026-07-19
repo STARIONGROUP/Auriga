@@ -54,6 +54,14 @@ namespace Auriga.Rendering
         public bool Framed { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the label is a container title pinned to the
+        /// box's top band — centered horizontally at the top rather than centered in the whole
+        /// box — so it sits above the box's children (ports, nested content) instead of
+        /// overlapping them. Applies only when <see cref="Position"/> is <c>null</c>.
+        /// </summary>
+        public bool PinTop { get; set; }
+
+        /// <summary>
         /// Gets or sets the image the label is prefixed with — Capella's small metaclass icon,
         /// derived from the semantic element's type — as a path the icon registry resolves (e.g.
         /// <c>Class.png</c>), or <c>null</c> when the label shows no icon (suppressed by the

@@ -359,11 +359,23 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// The distance a top-pinned container title's first line drops below the box top.
+        /// </summary>
+        private const double TitleTopPadding = 3;
+
+        /// <summary>
+        /// The estimated width of a glyph as a fraction of the font size, matching the wrapping
+        /// estimate; used to center an icon-and-text block.
+        /// </summary>
+        private const double LabelGlyphRatio = 0.6;
+
+        /// <summary>
         /// Adds the label of a box to its group: at the persisted label geometry when one was
-        /// folded in (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), or centered in
-        /// the box — wrapped to the box's width and vertically centered as a block, the way
-        /// Capella keeps a node label inside its shape. A label carrying a resolvable metaclass
-        /// icon is prefixed with it, the text shifted to make room.
+        /// folded in (wrapped into <c>&lt;tspan&gt;</c> lines when it has a width), pinned to the
+        /// box's top band when it is a container title, or centered in the box — the way Capella
+        /// keeps a leaf node label inside its shape. A label carrying a resolvable metaclass icon
+        /// is prefixed with it, the icon and text centered as one block clamped inside the box so
+        /// the icon never lands on a border port.
         /// </summary>
         /// <param name="group">the box group the label is added to</param>
         /// <param name="box">the labelled box</param>
@@ -395,17 +407,30 @@ namespace Auriga.Rendering
 
             var width = box.Width ?? DefaultBoxSize;
             var centerX = box.Position.X + (width / 2);
-            var centerY = box.Position.Y + ((box.Height ?? DefaultBoxSize) / 2);
 
-            var lines = WrapLines(label.Text, Math.Max(1, width - 4), style);
+            var lines = WrapLines(label.Text, Math.Max(1, width - 4 - iconSpace), style);
             var lineHeight = style.FontSize * 1.2;
-            var firstBaseline = centerY + (style.FontSize / 2) - ((lines.Count - 1) * lineHeight / 2);
 
-            var textCenter = centerX + (iconSpace / 2);
+            double firstBaseline;
+            if (label.PinTop)
+            {
+                firstBaseline = box.Position.Y + TitleTopPadding + style.FontSize;
+            }
+            else
+            {
+                var centerY = box.Position.Y + ((box.Height ?? DefaultBoxSize) / 2);
+                firstBaseline = centerY + (style.FontSize / 2) - ((lines.Count - 1) * lineHeight / 2);
+            }
+
+            // Center the icon and text as one block, clamped inside the box so the icon does not
+            // land on a border port when the estimated text width exceeds the box.
+            var longest = lines.Count == 0 ? 0 : lines.Max(line => line.Length) * style.FontSize * LabelGlyphRatio;
+            var blockLeft = Math.Max(box.Position.X + 2, centerX - ((iconSpace + longest) / 2));
+            var textCenter = blockLeft + iconSpace + (longest / 2);
+
             if (icon != null)
             {
-                var longest = lines.Max(line => line.Length) * style.FontSize * 0.6;
-                group.Add(BuildLabelIcon(icon, textCenter - (longest / 2) - iconSpace, firstBaseline));
+                group.Add(BuildLabelIcon(icon, blockLeft, firstBaseline));
             }
 
             var centered = BuildText(label.Text, textCenter, firstBaseline, "middle", style);

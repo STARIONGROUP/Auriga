@@ -186,21 +186,38 @@ namespace Auriga.Rendering
                 this.BuildNode(child, position, box, siriusElement, siblings, viewToBox);
             }
 
-            // A label whose persisted geometry lies inside a leaf box is Capella's inside label,
-            // rendered centered in the shape — the persisted text bounds are a render artifact, so
-            // they are dropped in favor of centering. An outside label (an icon caption, a border
-            // label) and a container title keep their persisted geometry.
-            if (box.Children.Count == 0 && box.Label is { Position: { } labelPosition } insideLabel && Contains(box, labelPosition))
-            {
-                insideLabel.Position = null;
-                insideLabel.Width = null;
-                insideLabel.Height = null;
-            }
+            PlaceTitle(box);
 
             if (siriusElement is SiriusDiagramModel.IDNodeList)
             {
                 ApplyListContainerLayout(box);
             }
+        }
+
+        /// <summary>
+        /// Positions a box's title. An outside label (a caption below an icon, a border label)
+        /// keeps its persisted geometry. A childless box centers its title in the shape — Capella's
+        /// inside label, whose persisted text bounds are a render artifact. A box with children —
+        /// a container or a ported function — pins its title to the top band, centered
+        /// horizontally, so it sits above the children instead of overlapping them.
+        /// </summary>
+        /// <param name="box">the box whose title is placed</param>
+        private static void PlaceTitle(Box box)
+        {
+            if (box.Label is not { } label)
+            {
+                return;
+            }
+
+            if (label.Position is { } labelPosition && !Contains(box, labelPosition))
+            {
+                return;
+            }
+
+            label.Position = null;
+            label.Width = null;
+            label.Height = null;
+            label.PinTop = box.Children.Count > 0;
         }
 
         /// <summary>
