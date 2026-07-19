@@ -66,8 +66,8 @@ SPDX-License-Identifier for these files: EPL-2.0
 6. Eclipse Capella diagram artwork
    Source: https://github.com/eclipse-capella/capella (tag v7.0.0)
    Project: https://projects.eclipse.org/projects/polarsys.capella
-   Files (in Auriga.Rendering/Assets/CapellaIcons): the SVG and GIF diagram
-   icons redistributed unmodified from
+   Files (in Auriga.Rendering/Assets/CapellaIcons): the SVG, GIF and PNG
+   diagram and metaclass icons redistributed unmodified from
    core/plugins/org.polarsys.capella.core.sirius.analysis/ and
    core/plugins/org.polarsys.capella.core.ui.resources/; these are also
    EPL-2.0 (see Auriga.Rendering/Assets/CapellaIcons/LICENSE-EPL-2.0.md and

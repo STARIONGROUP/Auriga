@@ -235,6 +235,11 @@ namespace Auriga.Rendering.Tests
             {
                 Assert.That(attachment.Style.Resolved.Pattern, Is.EqualTo(LinePattern.Dot), "a note attachment renders dotted");
                 Assert.That(attachment.Style.Resolved.TargetArrow, Is.Null, "and carries no arrowhead");
+                Assert.That(scenario.Edges.Where(edge => edge.Label != null).Select(edge => edge.Label!.IconPath), Is.All.Null, "sequence edge labels show no metaclass icons");
+                Assert.That(
+                    scenario.Boxes.Where(box => box.Label != null && box.Children.Any(child => ReferenceEquals(child.SemanticElement, box.SemanticElement))).Select(box => box.Label!.IconPath),
+                    Is.All.Not.Null,
+                    "instance-role headers keep their metaclass icons");
 
                 // The message router must leave it alone: its persisted anchors and bendpoints
                 // resolve against the note's own geometry — the departure is the slidable-anchor

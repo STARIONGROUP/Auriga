@@ -98,6 +98,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(
                     registry.Resolve("/org.polarsys.capella.core.sirius.analysis/icons/full/obj16/Blank.gif"),
                     Does.StartWith("data:image/gif;base64,"));
+                Assert.That(registry.Resolve("Class.png"), Does.StartWith("data:image/png;base64,"), "the metaclass icon set");
                 Assert.That(registry.Resolve("/some.plugin/images/NotVendored.svg"), Is.Null);
                 Assert.That(registry.Resolve(string.Empty), Is.Null);
             });
@@ -139,6 +140,57 @@ namespace Auriga.Rendering.Tests
 
                 Assert.That(lifelineGroup.Element(Svg + "image"), Is.Null, "a line-shaped box never renders as an image");
                 Assert.That(lifelineGroup.Element(Svg + "line"), Is.Not.Null);
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_label_icon_renders_before_the_shifted_text()
+        {
+            var box = MakeBox("classbox", 0, 0, 100, 40);
+            box.Label = new Label("Passenger") { Position = new Point(10, 10), IconPath = "Class.png" };
+
+            var unresolvable = MakeBox("plain", 200, 0, 100, 40);
+            unresolvable.Label = new Label("plain") { Position = new Point(210, 10), IconPath = "NoSuchType.png" };
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box, unresolvable }, new List<Edge>())));
+
+            var classGroup = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "classbox");
+            var icon = classGroup.Element(Svg + "image")!;
+            var text = classGroup.Element(Svg + "text")!;
+            var plainGroup = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "plain");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)icon.Attribute("x"), Is.EqualTo("10"), "the icon sits at the label position");
+                Assert.That((string?)icon.Attribute("y"), Is.EqualTo("8"), "vertically centered on the text line");
+                Assert.That((string?)icon.Attribute("width"), Is.EqualTo("12"));
+                Assert.That((string?)icon.Attribute("href"), Does.StartWith("data:image/png;base64,"));
+                Assert.That((string?)text.Attribute("x"), Is.EqualTo("24"), "the text shifts right of the icon");
+
+                Assert.That(plainGroup.Element(Svg + "image"), Is.Null, "an unresolvable icon renders text only");
+                Assert.That((string?)plainGroup.Element(Svg + "text")!.Attribute("x"), Is.EqualTo("210"), "and the text does not shift");
+            });
+        }
+
+        [Test]
+        public void Verify_that_edge_end_labels_render_backed_off_from_the_route_ends()
+        {
+            var edge = MakeEdge("association", new List<Point> { new(0, 100), new(100, 100) });
+            edge.BeginLabel = new Label("0..1");
+            edge.EndLabel = new Label("[1..*]");
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var texts = document.Descendants(Svg + "text").ToList();
+
+            var begin = texts.Single(text => text.Value == "0..1");
+            var end = texts.Single(text => text.Value == "[1..*]");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)begin.Attribute("x"), Is.EqualTo("15"), "backed off 15 units from the start");
+                Assert.That((string?)begin.Attribute("y"), Is.EqualTo("98"));
+                Assert.That((string?)end.Attribute("x"), Is.EqualTo("85"), "backed off 15 units from the end");
+                Assert.That((string?)end.Attribute("y"), Is.EqualTo("98"));
             });
         }
 

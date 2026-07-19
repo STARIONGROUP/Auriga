@@ -106,6 +106,8 @@ namespace Auriga.Rendering
             rootBoxes.Clear();
             rootBoxes.AddRange(ordered);
 
+            SuppressNonHeaderIcons(rootBoxes, edges, headers);
+
             foreach (var fragment in rootBoxes.Where(box => !headers.Contains(box) && IsCombinedFragment(box)))
             {
                 PinLabelTopLeft(fragment);
@@ -181,6 +183,43 @@ namespace Auriga.Rendering
                     mark.Style.Resolved.StrokeColor = LifelineGray;
                     mark.Style.Resolved.StrokeWidth = 1;
                     mark.Style.Resolved.Pattern = LinePattern.Solid;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Suppresses the metaclass label icons everywhere except the instance-role headers:
+        /// Capella's sequence renderer draws icons only there — message labels, fragment
+        /// operators, states and constraints are plain text.
+        /// </summary>
+        /// <param name="rootBoxes">the top-level boxes</param>
+        /// <param name="edges">the message edges</param>
+        /// <param name="headers">the instance-role header boxes that keep their icons</param>
+        private static void SuppressNonHeaderIcons(IReadOnlyList<Box> rootBoxes, IReadOnlyList<Edge> edges, HashSet<Box> headers)
+        {
+            void Visit(Box box)
+            {
+                if (!headers.Contains(box) && box.Label is { } label)
+                {
+                    label.IconPath = null;
+                }
+
+                foreach (var child in box.Children)
+                {
+                    Visit(child);
+                }
+            }
+
+            foreach (var box in rootBoxes)
+            {
+                Visit(box);
+            }
+
+            foreach (var edge in edges)
+            {
+                if (edge.Label is { } edgeLabel)
+                {
+                    edgeLabel.IconPath = null;
                 }
             }
         }

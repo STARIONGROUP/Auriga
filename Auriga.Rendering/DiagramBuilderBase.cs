@@ -171,7 +171,10 @@ namespace Auriga.Rendering
             var elementName = siriusElement.Name;
             if (!string.IsNullOrEmpty(elementName))
             {
-                box.Label = new Label(elementName);
+                box.Label = new Label(elementName)
+                {
+                    IconPath = TypeIconPath(box.SemanticElement, box.Style.SiriusStyle as SiriusViewpoint.IBasicLabelStyle),
+                };
             }
 
             box.Style.Resolved = this.styleResolver.Resolve(box);
@@ -193,6 +196,136 @@ namespace Auriga.Rendering
                 insideLabel.Width = null;
                 insideLabel.Height = null;
             }
+
+            if (siriusElement is SiriusDiagramModel.IDNodeList)
+            {
+                ApplyListContainerLayout(box);
+            }
+        }
+
+        /// <summary>
+        /// The metaclass-icon path of a label — Capella prefixes labels with the small icon of
+        /// the semantic element's type — or <c>null</c> when there is no semantic element or the
+        /// Sirius label style suppresses the icon (<c>showIcon="false"</c>, as workspace-image
+        /// styles persist).
+        /// </summary>
+        /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
+        /// <param name="labelStyle">the Sirius label style governing the label, or <c>null</c></param>
+        /// <returns>the icon path (e.g. <c>Class.png</c>), or <c>null</c></returns>
+        private static string? TypeIconPath(object? semanticElement, SiriusViewpoint.IBasicLabelStyle? labelStyle)
+        {
+            if (semanticElement == null || labelStyle?.ShowIcon == false)
+            {
+                return null;
+            }
+
+            return $"{semanticElement.GetType().Name}.png";
+        }
+
+        /// <summary>
+        /// The horizontal space a label's metaclass icon occupies before the text (the icon plus
+        /// its gap), mirrored by the exporter.
+        /// </summary>
+        internal const double LabelIconSpace = 14;
+
+        /// <summary>
+        /// The height of a list container's title compartment above the title font size.
+        /// </summary>
+        private const double ListTitlePadding = 12;
+
+        /// <summary>
+        /// The horizontal inset of a list item row from the container's edge.
+        /// </summary>
+        private const double ListItemIndent = 6;
+
+        /// <summary>
+        /// The estimated width of a glyph as a fraction of the font size, matching the exporter's
+        /// wrapping estimate.
+        /// </summary>
+        private const double GlyphWidthRatio = 0.6;
+
+        /// <summary>
+        /// Lays out a list container (a <c>DNodeList</c> — a class, enumeration or interface):
+        /// Capella auto-sizes these from their content, persisting only a position, and stacks the
+        /// <c>DNodeListElement</c> children as left-aligned rows in a compartment below the title.
+        /// The size is estimated from the title and item texts when unpersisted (a persisted size
+        /// is kept), the title centers in its compartment above a separator rule, and the item
+        /// rows become transparent single-line boxes.
+        /// </summary>
+        /// <param name="box">the list container's built box, its children in place</param>
+        private static void ApplyListContainerLayout(Box box)
+        {
+            var titleFontSize = box.Style.Resolved.FontSize;
+            var titleHeight = titleFontSize + ListTitlePadding;
+            var items = box.Children.Where(child => child.SiriusElement is SiriusDiagramModel.IDNodeListElement).ToList();
+
+            if (box.Width == null)
+            {
+                var width = ((box.Label?.Text.Length ?? 0) * titleFontSize * GlyphWidthRatio) + (4 * ListItemIndent) + IconSpace(box.Label);
+                foreach (var item in items)
+                {
+                    width = Math.Max(width, ((item.Label?.Text.Length ?? 0) * item.Style.Resolved.FontSize * GlyphWidthRatio) + (2 * ListItemIndent) + IconSpace(item.Label));
+                }
+
+                box.Width = Math.Max(50, width);
+            }
+
+            var rowTop = box.Position.Y + titleHeight;
+            foreach (var item in items)
+            {
+                var rowHeight = item.Style.Resolved.FontSize + 6;
+                item.Position = new Point(box.Position.X + ListItemIndent, rowTop);
+                item.Width = box.Width - (2 * ListItemIndent);
+                item.Height = rowHeight;
+                item.Style.Resolved.FillColor = null;
+                item.Style.Resolved.GradientColor = null;
+                item.Style.Resolved.StrokeWidth = 0;
+
+                if (item.Label is { } itemLabel)
+                {
+                    itemLabel.Position = new Point(item.Position.X, rowTop + ((rowHeight - item.Style.Resolved.FontSize) / 2));
+                    itemLabel.Width = null;
+                    itemLabel.Height = null;
+                }
+
+                rowTop += rowHeight;
+            }
+
+            box.Height ??= (rowTop - box.Position.Y) + (items.Count == 0 ? ListTitlePadding : 4);
+
+            // The title centers in its own compartment (not the whole box); without a measured
+            // text width the centering is estimated from the glyph ratio, the icon included.
+            if (box.Label is { } title)
+            {
+                var estimatedWidth = (title.Text.Length * titleFontSize * GlyphWidthRatio) + IconSpace(title);
+                title.Position = new Point(box.Position.X + ((box.Width.Value - estimatedWidth) / 2), box.Position.Y + ((titleHeight - titleFontSize) / 2));
+                title.Width = null;
+                title.Height = null;
+            }
+
+            // The separator rule between the title and the list compartment, drawn as a synthetic
+            // horizontal line child in the container's stroke color.
+            var separator = new Box($"{box.Identifier}-title-separator", new Point(box.Position.X, box.Position.Y + titleHeight), new NotationModel.Node(), new Style(null, new List<NotationModel.IStyle>()))
+            {
+                Width = box.Width,
+                Height = 0,
+            };
+            separator.Style.Resolved.Shape = ShapeKind.Line;
+            separator.Style.Resolved.FillColor = null;
+            separator.Style.Resolved.StrokeColor = box.Style.Resolved.StrokeColor;
+            separator.Style.Resolved.StrokeWidth = 1;
+            box.Add(separator);
+        }
+
+        /// <summary>
+        /// The horizontal space a label's icon will occupy in the exporter: the icon slot when the
+        /// label carries one, nothing otherwise.
+        /// </summary>
+        /// <param name="label">the label, or <c>null</c></param>
+        /// <returns>the icon space</returns>
+        private static double IconSpace(Label? label)
+        {
+            return label?.IconPath == null ? 0 : LabelIconSpace;
         }
 
         /// <summary>
@@ -346,7 +479,24 @@ namespace Auriga.Rendering
             var edgeName = siriusEdge?.Name;
             if (!string.IsNullOrEmpty(edgeName))
             {
-                edge.Label = new Label(edgeName!);
+                edge.Label = new Label(edgeName!)
+                {
+                    IconPath = TypeIconPath(edge.SemanticElement, (siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.CenterLabelStyle),
+                };
+            }
+
+            // Association multiplicities and similar end texts persist as the DEdge's begin/end
+            // labels, rendered near the respective route ends.
+            var beginLabel = siriusEdge?.BeginLabel?.Trim();
+            if (!string.IsNullOrEmpty(beginLabel))
+            {
+                edge.BeginLabel = new Label(beginLabel!);
+            }
+
+            var endLabel = siriusEdge?.EndLabel?.Trim();
+            if (!string.IsNullOrEmpty(endLabel))
+            {
+                edge.EndLabel = new Label(endLabel!);
             }
 
             edge.Style.Resolved = this.styleResolver.Resolve(edge);
