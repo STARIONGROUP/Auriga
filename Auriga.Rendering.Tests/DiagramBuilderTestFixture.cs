@@ -101,6 +101,7 @@ namespace Auriga.Rendering.Tests
             containerBuilder.RegisterType<NodeDiagramBuilder>().AsSelf();
             containerBuilder.RegisterType<SequenceDiagramBuilder>().AsSelf();
             containerBuilder.RegisterType<DiagramBuilder>().As<IDiagramBuilder>();
+            containerBuilder.RegisterType<CapellaIconRegistry>().As<IIconRegistry>();
             containerBuilder.RegisterType<SvgExporter>().As<ISvgExporter>();
 
             using var container = containerBuilder.Build();

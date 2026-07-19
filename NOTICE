@@ -63,6 +63,17 @@ SPDX-License-Identifier for these files: EPL-2.0
    Project: https://projects.eclipse.org/projects/modeling.gmf-runtime
    Files (in resources/ecore-sirius): notation.ecore
 
+6. Eclipse Capella diagram artwork
+   Source: https://github.com/eclipse-capella/capella (tag v7.0.0)
+   Project: https://projects.eclipse.org/projects/polarsys.capella
+   Files (in Auriga.Rendering/Assets/CapellaIcons): the SVG and GIF diagram
+   icons redistributed unmodified from
+   core/plugins/org.polarsys.capella.core.sirius.analysis/ and
+   core/plugins/org.polarsys.capella.core.ui.resources/; these are also
+   EPL-2.0 (see Auriga.Rendering/Assets/CapellaIcons/LICENSE-EPL-2.0.md and
+   README.md for the per-file provenance). They are embedded in the
+   Auriga.Rendering assembly and inlined into exported SVG documents.
+
 Copyright of these files remains with the respective authors or their
 employers; consult the source repository logs of the projects listed above
 for authorship information.

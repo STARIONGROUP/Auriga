@@ -42,6 +42,7 @@ namespace Auriga.Rendering.Tests
 
             Assert.Multiple(() =>
             {
+                Assert.That(() => new SvgExporter(null!), Throws.ArgumentNullException);
                 Assert.That(() => this.svgExporter.Export(null!), Throws.ArgumentNullException);
                 Assert.That(() => this.svgExporter.Export(null!, new MemoryStream()), Throws.ArgumentNullException);
                 Assert.That(() => this.svgExporter.Export(diagram, (Stream)null!), Throws.ArgumentNullException);
@@ -81,6 +82,63 @@ namespace Auriga.Rendering.Tests
                 Assert.That((string?)rect.Attribute("stroke-dasharray"), Is.EqualTo("5 3"));
 
                 Assert.That((string?)childGroup.Element(Svg + "rect")!.Attribute("fill"), Is.EqualTo("none"), "an unfilled child renders inside its parent's group");
+            });
+        }
+
+        [Test]
+        public void Verify_that_the_capella_icon_registry_resolves_vendored_artwork()
+        {
+            var registry = new CapellaIconRegistry();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(
+                    registry.Resolve("/org.polarsys.capella.core.sirius.analysis/description/images/Capability.svg"),
+                    Does.StartWith("data:image/svg+xml;base64,"));
+                Assert.That(
+                    registry.Resolve("/org.polarsys.capella.core.sirius.analysis/icons/full/obj16/Blank.gif"),
+                    Does.StartWith("data:image/gif;base64,"));
+                Assert.That(registry.Resolve("/some.plugin/images/NotVendored.svg"), Is.Null);
+                Assert.That(registry.Resolve(string.Empty), Is.Null);
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_workspace_image_box_renders_as_an_inlined_image()
+        {
+            var actor = MakeBox("actor", 20, 274, 70, 61);
+            actor.Label = new Label("Cabin Crew") { Position = new Point(91, 322) };
+            actor.Style.Resolved.ImagePath = "/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg";
+
+            var unresolved = MakeBox("unresolved", 150, 274, 70, 61);
+            unresolved.Style.Resolved.ImagePath = "Some Project/images/custom.png";
+
+            var lifeline = MakeBox("lifeline", 100, 0, 1, 200);
+            lifeline.Style.Resolved.Shape = ShapeKind.Line;
+            lifeline.Style.Resolved.ImagePath = "/org.polarsys.capella.core.sirius.analysis/description/images/handlelifeline.svg";
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { actor, unresolved, lifeline }, new List<Edge>())));
+
+            var actorGroup = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "actor");
+            var image = actorGroup.Element(Svg + "image")!;
+            var unresolvedGroup = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "unresolved");
+            var lifelineGroup = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "lifeline");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)image.Attribute("x"), Is.EqualTo("20"));
+                Assert.That((string?)image.Attribute("y"), Is.EqualTo("274"));
+                Assert.That((string?)image.Attribute("width"), Is.EqualTo("70"));
+                Assert.That((string?)image.Attribute("height"), Is.EqualTo("61"));
+                Assert.That((string?)image.Attribute("href"), Does.StartWith("data:image/svg+xml;base64,"));
+                Assert.That(actorGroup.Element(Svg + "rect"), Is.Null, "no outline behind a resolved image");
+                Assert.That(actorGroup.Element(Svg + "text"), Is.Not.Null, "the caption still renders");
+
+                Assert.That(unresolvedGroup.Element(Svg + "image"), Is.Null, "an unknown image degrades to the outline");
+                Assert.That(unresolvedGroup.Element(Svg + "rect"), Is.Not.Null);
+
+                Assert.That(lifelineGroup.Element(Svg + "image"), Is.Null, "a line-shaped box never renders as an image");
+                Assert.That(lifelineGroup.Element(Svg + "line"), Is.Not.Null);
             });
         }
 

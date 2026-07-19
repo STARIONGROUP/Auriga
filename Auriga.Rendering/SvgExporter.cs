@@ -50,6 +50,31 @@ namespace Auriga.Rendering
         private const double DefaultBoxSize = 10;
 
         /// <summary>
+        /// The registry resolving workspace-image paths to embeddable image content.
+        /// </summary>
+        private readonly IIconRegistry iconRegistry;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgExporter"/> class with the default
+        /// Capella icon registry, for direct use without a container.
+        /// </summary>
+        public SvgExporter()
+            : this(new CapellaIconRegistry())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgExporter"/> class with the supplied
+        /// icon registry — the constructor a container injects through.
+        /// </summary>
+        /// <param name="iconRegistry">the registry resolving workspace-image paths to embeddable image content</param>
+        /// <exception cref="ArgumentNullException">the registry is null</exception>
+        public SvgExporter(IIconRegistry iconRegistry)
+        {
+            this.iconRegistry = iconRegistry ?? throw new ArgumentNullException(nameof(iconRegistry));
+        }
+
+        /// <summary>
         /// Exports the diagram to an SVG document string.
         /// </summary>
         /// <param name="diagram">the diagram to export</param>
@@ -98,7 +123,7 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="diagram">the diagram to export</param>
         /// <returns>the SVG document</returns>
-        private static XDocument BuildDocument(Diagram diagram)
+        private XDocument BuildDocument(Diagram diagram)
         {
             if (diagram == null)
             {
@@ -115,7 +140,7 @@ namespace Auriga.Rendering
             var boxLayer = new XElement(Svg + "g", new XAttribute("class", "boxes"));
             foreach (var box in diagram.Boxes)
             {
-                boxLayer.Add(BuildBox(box, defs));
+                boxLayer.Add(this.BuildBox(box, defs));
             }
 
             var edgeLayer = new XElement(Svg + "g", new XAttribute("class", "edges"));
@@ -196,17 +221,65 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Builds the group of a box: its outline (a rectangle, or an ellipse when the resolved
-        /// style says so), its label and, nested, its child boxes.
+        /// Builds the group of a box: its visual (the resolved workspace image when its artwork is
+        /// known, else the styled outline), its label and, nested, its child boxes.
         /// </summary>
         /// <param name="box">the box to render</param>
         /// <param name="defs">the document's <c>&lt;defs&gt;</c>, receiving gradients on demand</param>
         /// <returns>the box group</returns>
-        private static XElement BuildBox(Box box, XElement defs)
+        private XElement BuildBox(Box box, XElement defs)
         {
             var style = box.Style.Resolved;
             var width = box.Width ?? DefaultBoxSize;
             var height = box.Height ?? DefaultBoxSize;
+
+            var group = new XElement(Svg + "g", new XAttribute("id", box.Identifier), this.BuildVisual(box, style, width, height, defs));
+
+            if (box.Label != null)
+            {
+                if (box.Label.Framed)
+                {
+                    group.Add(BuildLabelTab(box, style));
+                }
+
+                group.Add(BuildBoxLabel(box, style));
+            }
+
+            foreach (var child in box.Children)
+            {
+                group.Add(this.BuildBox(child, defs));
+            }
+
+            return group;
+        }
+
+        /// <summary>
+        /// Builds the visual of a box. A box whose style names a workspace image renders as that
+        /// image sized to the box bounds when the artwork resolves — Capella draws no outline
+        /// around an image node — while an unresolvable image degrades to the styled outline. A
+        /// box the layout rules turned into a pure line (a lifeline) always renders as its line,
+        /// never as an image.
+        /// </summary>
+        /// <param name="box">the box to render</param>
+        /// <param name="style">the box's resolved style</param>
+        /// <param name="width">the box's effective width</param>
+        /// <param name="height">the box's effective height</param>
+        /// <param name="defs">the document's <c>&lt;defs&gt;</c>, receiving gradients on demand</param>
+        /// <returns>the image or outline element</returns>
+        private XElement BuildVisual(Box box, ResolvedStyle style, double width, double height, XElement defs)
+        {
+            if (style.ImagePath is { } imagePath
+                && style.Shape != ShapeKind.Line
+                && this.iconRegistry.Resolve(imagePath) is { } imageData)
+            {
+                return new XElement(
+                    Svg + "image",
+                    new XAttribute("x", N(box.Position.X)),
+                    new XAttribute("y", N(box.Position.Y)),
+                    new XAttribute("width", N(width)),
+                    new XAttribute("height", N(height)),
+                    new XAttribute("href", imageData));
+            }
 
             XElement outline;
             if (style.Shape == ShapeKind.Ellipse)
@@ -259,24 +332,7 @@ namespace Auriga.Rendering
 
             AddDashArray(outline, style.Pattern);
 
-            var group = new XElement(Svg + "g", new XAttribute("id", box.Identifier), outline);
-
-            if (box.Label != null)
-            {
-                if (box.Label.Framed)
-                {
-                    group.Add(BuildLabelTab(box, style));
-                }
-
-                group.Add(BuildBoxLabel(box, style));
-            }
-
-            foreach (var child in box.Children)
-            {
-                group.Add(BuildBox(child, defs));
-            }
-
-            return group;
+            return outline;
         }
 
         /// <summary>
