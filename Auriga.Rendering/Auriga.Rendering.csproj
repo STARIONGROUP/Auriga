@@ -18,11 +18,17 @@
             [ADD] SvgExporter (behind the injectable ISvgExporter): serialize a Diagram to plain SVG (string, stream or file) with no external dependency — nested box groups, routed edge paths, wrapped labels, gradients and arrow markers in defs, and a padded viewBox from the persisted geometry
             [ADD] sequence-diagram rendering: the builder honors the persisted AbsoluteBoundsFilter layout (instance roles, executions, states, fragments), turns lifelines into dashed centerlines under their headers, and routes messages horizontally at their execution-anchor heights
             [ADD] per-representation-kind builders (NodeDiagramBuilder, SequenceDiagramBuilder) over a shared DiagramBuilderBase core, dispatched by the constructor-injectable IDiagramBuilder / DiagramBuilder facade
+            [ADD] Capella icon rendering: the vendored EPL-2.0 Capella artwork (Assets/CapellaIcons) is embedded in the assembly, the injectable IIconRegistry / CapellaIconRegistry resolves WorkspaceImage paths to it, and the exporter inlines the images as data: URIs sized to the box bounds
         </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga.Extensions\Auriga.Extensions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Assets\CapellaIcons\*.svg" />
+        <EmbeddedResource Include="Assets\CapellaIcons\*.gif" />
     </ItemGroup>
 
     <ItemGroup>

@@ -177,13 +177,17 @@ namespace Auriga.Rendering.Tests
                         $"{diagram.Identifier} renders visible content");
                 }
 
-                // Across the whole project the exports mirror the model: one rect per box, one
-                // non-marker path per routed edge, and the labels.
+                // Across the whole project the exports mirror the model: one rect or inlined
+                // workspace image per box, one non-marker path per routed edge, and the labels.
                 var documents = this.diagrams
                     .Select(diagram => System.Xml.Linq.XDocument.Parse(this.svgExporter.Export(diagram)))
                     .ToList();
                 var svgNs = (System.Xml.Linq.XNamespace)"http://www.w3.org/2000/svg";
-                Assert.That(documents.Sum(d => d.Descendants(svgNs + "rect").Count()), Is.GreaterThan(100), "the project's boxes");
+                Assert.That(
+                    documents.Sum(d => d.Descendants(svgNs + "rect").Count() + d.Descendants(svgNs + "image").Count()),
+                    Is.GreaterThan(100),
+                    "the project's boxes");
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "image").Count()), Is.GreaterThan(10), "the project's workspace images render as images");
                 Assert.That(documents.Sum(d => d.Descendants(svgNs + "path").Count(p => p.Parent!.Name.LocalName != "marker")), Is.GreaterThan(40), "the project's edges");
                 Assert.That(documents.Sum(d => d.Descendants(svgNs + "text").Count()), Is.GreaterThan(100), "the project's labels");
             });
