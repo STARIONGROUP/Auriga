@@ -10,6 +10,7 @@
 namespace Auriga.Rendering.Tests
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
@@ -449,6 +450,34 @@ namespace Auriga.Rendering.Tests
 
                 Assert.That(text, Contains.Substring("&lt;B&gt; &amp; C"), "reserved characters escape");
                 Assert.That(document.Descendants(Svg + "text").Single().Value, Is.EqualTo("A <B> & C"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_the_view_box_covers_labels_that_overflow_their_box()
+        {
+            // A box label persisted to the left of its box (as Capella positions the mission labels
+            // on an [MCB]) and a wide edge label reaching past the right box edge would both fall
+            // outside a viewBox computed from box and route geometry alone.
+            var box = MakeBox("mission", 100, 50, 60, 30);
+            box.Label = new Label("Provide Entertainment Solutions") { Position = new Point(-44, 60) };
+
+            var edge = MakeEdge("assoc", new List<Point> { new(100, 200), new(160, 200) });
+            edge.Label = new Label("a long association label off the right edge");
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge> { edge })));
+
+            var viewBox = ((string)document.Root!.Attribute("viewBox")!)
+                .Split(' ')
+                .Select(part => double.Parse(part, CultureInfo.InvariantCulture))
+                .ToArray();
+            var minX = viewBox[0];
+            var maxX = viewBox[0] + viewBox[2];
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(minX, Is.LessThanOrEqualTo(-64), "the viewBox reaches the label left of the box (x=-44), padded by 20");
+                Assert.That(maxX, Is.GreaterThan(180), "the viewBox reaches the wide edge label, past the geometry's right edge at x=160");
             });
         }
 
