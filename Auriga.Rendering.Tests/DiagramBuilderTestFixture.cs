@@ -127,6 +127,33 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_box_with_children_pins_its_title_to_the_top_band()
+        {
+            var containerSirius = new SiriusDiagram.DNodeContainer { Id = "cont-title", Name = "container" };
+            var childNode = new Notation.Node { Id = "n-child-t", Element = new SiriusDiagram.DNode { Id = "child-t", Name = "child" } };
+            childNode.LayoutConstraint = new Notation.Bounds { X = 5, Y = 30, Width = 40, Height = 20 };
+            var containerNode = new Notation.Node { Id = "n-cont-t", Element = containerSirius };
+            containerNode.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 120, Height = 90 };
+            containerNode.PersistedChildren.Add(childNode);
+
+            var leafNode = new Notation.Node { Id = "n-leaf-t", Element = new SiriusDiagram.DNode { Id = "leaf-t", Name = "leaf" } };
+            leafNode.LayoutConstraint = new Notation.Bounds { X = 200, Y = 0, Width = 80, Height = 40 };
+
+            var diagram = this.diagramBuilder.Build(Representation(new[] { containerNode, leafNode }));
+
+            var container = diagram.Boxes.Single(box => box.Identifier == "cont-title");
+            var leaf = diagram.Boxes.Single(box => box.Identifier == "leaf-t");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(container.Label!.PinTop, Is.True, "a box with children pins its title to the top band");
+                Assert.That(container.Label!.Position, Is.Null);
+                Assert.That(leaf.Label!.PinTop, Is.False, "a childless box centers its title");
+                Assert.That(leaf.Label!.Position, Is.Null);
+            });
+        }
+
+        [Test]
         public void Verify_that_nested_positions_accumulate_to_absolute_coordinates()
         {
             var semanticTarget = new object();

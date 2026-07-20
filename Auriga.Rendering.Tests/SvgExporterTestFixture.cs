@@ -144,6 +144,27 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_top_pinned_title_renders_at_the_top_with_a_clamped_icon()
+        {
+            var box = MakeBox("titled", 485, 674, 124, 68);
+            box.Label = new Label("Synchronize Audio Video") { PinTop = true, IconPath = "PhysicalFunction.png" };
+            box.Add(MakeBox("port", 483, 704, 10, 10));
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var group = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "titled");
+            var icon = group.Elements(Svg + "image").First();
+            var text = group.Element(Svg + "text")!;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((double)text.Attribute("y")!, Is.LessThan(690), "the title sits in the top band, not the box center");
+                Assert.That((string?)text.Attribute("text-anchor"), Is.EqualTo("middle"));
+                Assert.That((double)icon.Attribute("y")!, Is.LessThan(690), "the icon sits at the top too");
+                Assert.That((double)icon.Attribute("x")!, Is.GreaterThan(485), "the icon is clamped inside the box, clear of the left-border port at x=483");
+            });
+        }
+
+        [Test]
         public void Verify_that_a_label_icon_renders_before_the_shifted_text()
         {
             var box = MakeBox("classbox", 0, 0, 100, 40);
