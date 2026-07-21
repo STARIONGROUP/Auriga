@@ -163,6 +163,33 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_border_node_ports_render_without_name_labels()
+        {
+            var allBoxes = this.diagrams.SelectMany(diagram => diagram.QueryAllBoxes()).ToList();
+
+            var ports = allBoxes.Where(box => box.SemanticElement is Auriga.Model.Information.IPort).ToList();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ports, Is.Not.Empty, "the functions expose ports");
+                Assert.That(ports, Has.All.Matches<Box>(port => port.Label == null), "a port renders as a glyph, with no name label");
+
+                // No FIP/FOP/CP/PP port name survives as a rendered label anywhere in the project.
+                Assert.That(
+                    allBoxes.Where(box => box.Label != null).Select(box => box.Label!.Text),
+                    Has.None.Matches<string>(text => System.Text.RegularExpressions.Regex.IsMatch(text, @"^(FIP|FOP|CP|PP)\s*\d*$")),
+                    "no bare port-name label remains");
+
+                // Only ports lose their label: ordinary node labels (and the border-node labels of
+                // sequence executions/state fragments, covered by the sequence fixture) still render.
+                Assert.That(
+                    allBoxes.Where(box => box.Label != null).Select(box => box.Label!.Text),
+                    Has.Some.EqualTo("make coffee"),
+                    "non-port labels still render");
+            });
+        }
+
+        [Test]
         public void Verify_that_every_diagram_exports_to_well_formed_svg()
         {
             Assert.Multiple(() =>
