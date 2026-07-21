@@ -255,7 +255,14 @@ namespace Auriga.Rendering
             }
 
             resolved.SourceArrow = edgeStyle.SourceArrow;
-            resolved.TargetArrow = edgeStyle.TargetArrow;
+
+            // The Sirius metamodel defaults an unpersisted targetArrow to the open InputArrow
+            // chevron, but Capella renders these edges with a solid filled arrowhead and never
+            // persists an open arrow — so the open default resolves to the filled closed arrow
+            // Capella actually draws, while every persisted decoration passes through unchanged.
+            resolved.TargetArrow = edgeStyle.TargetArrow == SiriusDiagramModel.EdgeArrows.InputArrow
+                ? SiriusDiagramModel.EdgeArrows.InputFillClosedArrow
+                : edgeStyle.TargetArrow;
 
             ApplyLabelStyle(edgeStyle.CenterLabelStyle, resolved);
         }

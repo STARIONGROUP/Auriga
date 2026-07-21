@@ -168,7 +168,7 @@ namespace Auriga.Rendering.Tests
                 Size = 3,
                 LineStyle = SiriusDiagram.LineStyle.Dash,
                 SourceArrow = SiriusDiagram.EdgeArrows.Diamond,
-                TargetArrow = SiriusDiagram.EdgeArrows.InputArrow,
+                TargetArrow = SiriusDiagram.EdgeArrows.InputClosedArrow,
                 CenterLabelStyle = new SiriusDiagram.CenterLabelStyle { LabelColor = "5,6,7" },
             };
 
@@ -180,8 +180,25 @@ namespace Auriga.Rendering.Tests
                 Assert.That(resolved.StrokeWidth, Is.EqualTo(3));
                 Assert.That(resolved.Pattern, Is.EqualTo(LinePattern.Dash));
                 Assert.That(resolved.SourceArrow, Is.EqualTo(SiriusDiagram.EdgeArrows.Diamond));
-                Assert.That(resolved.TargetArrow, Is.EqualTo(SiriusDiagram.EdgeArrows.InputArrow));
+                Assert.That(resolved.TargetArrow, Is.EqualTo(SiriusDiagram.EdgeArrows.InputClosedArrow), "a persisted decoration passes through unchanged");
                 Assert.That(resolved.FontColor, Is.EqualTo(new Color(5, 6, 7)));
+            });
+        }
+
+        [Test]
+        public void Verify_that_the_default_open_target_arrow_resolves_to_the_filled_arrow()
+        {
+            // An edge that persists no targetArrow carries the metamodel default InputArrow (the
+            // open chevron), but Capella draws a solid filled arrowhead; the resolver normalizes it.
+            var edgeStyle = new SiriusDiagram.EdgeStyle();
+
+            var resolved = this.styleResolver.Resolve(EdgeWith(edgeStyle));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(edgeStyle.TargetArrow, Is.EqualTo(SiriusDiagram.EdgeArrows.InputArrow), "the metamodel default is the open chevron");
+                Assert.That(resolved.TargetArrow, Is.EqualTo(SiriusDiagram.EdgeArrows.InputFillClosedArrow), "which resolves to the filled arrow Capella renders");
+                Assert.That(resolved.SourceArrow, Is.EqualTo(SiriusDiagram.EdgeArrows.NoDecoration), "the source default stays undecorated");
             });
         }
 

@@ -143,6 +143,10 @@ namespace Auriga.Rendering.Tests
                 Assert.That(displayedMoviesList.Route[0].Y, Is.EqualTo(130).Within(0.0001));
                 Assert.That(displayedMoviesList.Route[1].X, Is.EqualTo(105).Within(0.0001), "arriving at the execution's right edge");
                 Assert.That(displayedMoviesList.Label, Is.Not.Null);
+
+                // A message persists no targetArrow, so it takes the metamodel default and must
+                // render a solid filled arrowhead — not the open chevron the ecore literal names.
+                Assert.That(displayedMoviesList.Style.Resolved.TargetArrow, Is.EqualTo(SiriusDiagram.EdgeArrows.InputFillClosedArrow), "a message renders a filled arrowhead");
             });
         }
 

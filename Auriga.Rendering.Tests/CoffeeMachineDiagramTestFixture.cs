@@ -123,6 +123,10 @@ namespace Auriga.Rendering.Tests
                 Assert.That(edge.Target, Is.Not.Null);
                 Assert.That(edge.SemanticElement, Is.InstanceOf<Auriga.Core.IAurigaElement>(), "the DEdge's target resolved into the co-loaded Capella model");
 
+                // A functional exchange renders a solid filled arrowhead, the metamodel default an
+                // unpersisted targetArrow resolves to — never the open chevron of the ecore literal.
+                Assert.That(edge.Style.Resolved.TargetArrow, Is.EqualTo(Auriga.Diagram.Diagram.EdgeArrows.InputFillClosedArrow), "the exchange arrowhead is filled");
+
                 // sourceAnchor (0.0, 0.3225806451612903) of the 41x31 box at (380, 237) is
                 // (380, 247) on the box's left edge; the edge heads away from the box, so the
                 // slidable-anchor endpoint is the reference point itself.
