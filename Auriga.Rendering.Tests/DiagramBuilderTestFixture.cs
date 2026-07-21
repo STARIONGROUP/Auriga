@@ -179,10 +179,12 @@ namespace Auriga.Rendering.Tests
                 Assert.That(parent.Width, Is.EqualTo(200));
                 Assert.That(parent.Height, Is.EqualTo(120));
 
-                // The child's persisted (10, 20) is relative to its parent; -1 means "no persisted height".
+                // The child's persisted (10, 20) is relative to its parent; its -1 height is
+                // unpersisted, so it is synthesized from the label (font size 8 + title padding)
+                // rather than left unset, while its persisted width is kept.
                 Assert.That(child.Position, Is.EqualTo(new Point(110, 70)));
                 Assert.That(child.Width, Is.EqualTo(30));
-                Assert.That(child.Height, Is.Null);
+                Assert.That(child.Height, Is.EqualTo(20));
                 Assert.That(child.Parent, Is.SameAs(parent));
 
                 Assert.That(parent.SiriusElement, Is.SameAs(parentSirius));
