@@ -88,7 +88,10 @@ namespace Auriga.Rendering
                 this.BuildNode(child, new Point(0, 0), null, siriusDiagram, rootBoxes, viewToBox);
             }
 
+            // A hidden edge (its GMF view persists visible="false") is excluded like a hidden node,
+            // so a hidden component-exchange or communication-means relationship draws no stray line.
             var edges = notationDiagram.PersistedEdges
+                .Where(notationEdge => notationEdge.Visible != false)
                 .Select(notationEdge => this.BuildEdge(notationEdge, viewToBox))
                 .ToList();
 
@@ -143,6 +146,16 @@ namespace Auriga.Rendering
             var (width, height) = Size(node.LayoutConstraint);
 
             var siriusElement = node.Element as SiriusDiagramModel.IDDiagramElement;
+
+            // A diagram element Capella hides — its GMF view persists visible="false", whether it is
+            // hidden from the diagram (a HideFilter) or a child folded away by a collapsed container
+            // (a CollapseFilter) — must not render: skip the node and its whole subtree. The layout
+            // persisted for it is stale, piling the subtree at the origin and inflating the canvas.
+            if (siriusElement != null && node.Visible == false)
+            {
+                return;
+            }
+
             var absoluteBounds = ApplyAbsoluteBounds(siriusElement, ref position, ref width, ref height);
 
             // A GMF note is a pure notation element with no Sirius counterpart: a sticky box whose
