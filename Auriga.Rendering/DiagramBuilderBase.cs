@@ -168,8 +168,15 @@ namespace Auriga.Rendering
                 SemanticElement = siriusElement.Target,
             };
 
+            // A port (a function/component/physical port) renders as a border glyph only: Capella
+            // suppresses the name label on these border mappings, so the FIP/FOP/CP/PP text never
+            // renders beside the port. Other border nodes — sequence executions, state fragments —
+            // keep their labels, so the semantic port type is the discriminator, not the border
+            // placement.
+            var isPort = box.SemanticElement is Auriga.Model.Information.IPort;
+
             var elementName = siriusElement.Name;
-            if (!string.IsNullOrEmpty(elementName))
+            if (!isPort && !string.IsNullOrEmpty(elementName))
             {
                 box.Label = new Label(elementName)
                 {
