@@ -131,11 +131,6 @@ namespace Auriga.Rendering
             }
 
             var defs = new XElement(Svg + "defs");
-            var root = new XElement(
-                Svg + "svg",
-                new XAttribute("xmlns", Svg.NamespaceName),
-                ViewBox(diagram),
-                defs);
 
             var boxLayer = new XElement(Svg + "g", new XAttribute("class", "boxes"));
             foreach (var box in diagram.Boxes)
@@ -149,18 +144,29 @@ namespace Auriga.Rendering
                 edgeLayer.Add(this.BuildEdge(edge, defs));
             }
 
-            root.Add(boxLayer, edgeLayer);
+            // The viewBox is computed after the layers are built so it can widen to the rendered
+            // label text and icon extents, not only the persisted box and route geometry.
+            var root = new XElement(
+                Svg + "svg",
+                new XAttribute("xmlns", Svg.NamespaceName),
+                ViewBox(diagram, new[] { boxLayer, edgeLayer }),
+                defs,
+                boxLayer,
+                edgeLayer);
 
             return new XDocument(root);
         }
 
         /// <summary>
         /// The <c>viewBox</c> (and matching <c>width</c>/<c>height</c>) attributes from the padded
-        /// bounding box of every box and edge route point of the diagram.
+        /// bounding box of the diagram: every box, every edge route point, and the estimated
+        /// extents of every rendered label — its <c>&lt;text&gt;</c> (a label that sits left of or
+        /// past its box would otherwise be clipped) and its <c>&lt;image&gt;</c> icon.
         /// </summary>
         /// <param name="diagram">the diagram</param>
+        /// <param name="layers">the built box and edge layers, walked for label text and icon extents</param>
         /// <returns>the sizing attributes of the SVG root</returns>
-        private static IEnumerable<XAttribute> ViewBox(Diagram diagram)
+        private static IEnumerable<XAttribute> ViewBox(Diagram diagram, IReadOnlyCollection<XElement> layers)
         {
             var minX = 0d;
             var minY = 0d;
@@ -178,6 +184,19 @@ namespace Auriga.Rendering
             foreach (var point in diagram.Edges.SelectMany(edge => edge.Route))
             {
                 Accumulate(point.X, point.Y, point.X, point.Y, ref minX, ref minY, ref maxX, ref maxY, ref first);
+            }
+
+            foreach (var text in layers.SelectMany(layer => layer.Descendants(Svg + "text")))
+            {
+                var (left, top, right, bottom) = TextExtent(text);
+                Accumulate(left, top, right, bottom, ref minX, ref minY, ref maxX, ref maxY, ref first);
+            }
+
+            foreach (var image in layers.SelectMany(layer => layer.Descendants(Svg + "image")))
+            {
+                var left = D(image, "x");
+                var top = D(image, "y");
+                Accumulate(left, top, left + D(image, "width"), top + D(image, "height"), ref minX, ref minY, ref maxX, ref maxY, ref first);
             }
 
             var x = minX - Padding;
@@ -218,6 +237,62 @@ namespace Auriga.Rendering
             minY = Math.Min(minY, top);
             maxX = Math.Max(maxX, right);
             maxY = Math.Max(maxY, bottom);
+        }
+
+        /// <summary>
+        /// The estimated bounding box of a rendered <c>&lt;text&gt;</c> element: its width from the
+        /// longest line's glyph count and font size (the same 0.6 ratio the wrapping uses), placed
+        /// by its <c>text-anchor</c>, and its height from the font size across its wrapped lines
+        /// (one <c>&lt;tspan&gt;</c> each, advancing one line height). The estimate errs wide so a
+        /// label never falls outside the viewBox.
+        /// </summary>
+        /// <param name="text">the rendered text element</param>
+        /// <returns>the left, top, right and bottom of the text's estimated extent</returns>
+        private static (double Left, double Top, double Right, double Bottom) TextExtent(XElement text)
+        {
+            var x = D(text, "x");
+            var baseline = D(text, "y");
+            var fontSize = D(text, "font-size");
+
+            var spans = text.Elements(Svg + "tspan").ToList();
+            var lines = spans.Count > 0 ? spans.Select(span => span.Value).ToList() : new List<string> { text.Value };
+            var longest = lines.Max(line => line.Length);
+            var width = longest * fontSize * LabelGlyphRatio;
+
+            double left;
+            double right;
+            switch ((string?)text.Attribute("text-anchor"))
+            {
+                case "middle":
+                    left = x - (width / 2);
+                    right = x + (width / 2);
+                    break;
+                case "end":
+                    left = x - width;
+                    right = x;
+                    break;
+                default:
+                    left = x;
+                    right = x + width;
+                    break;
+            }
+
+            var top = baseline - fontSize;
+            var bottom = baseline + (Math.Max(0, lines.Count - 1) * fontSize * 1.2);
+
+            return (left, top, right, bottom);
+        }
+
+        /// <summary>
+        /// Parses a numeric SVG attribute invariantly, defaulting to zero when it is absent or
+        /// unparseable.
+        /// </summary>
+        /// <param name="element">the element carrying the attribute</param>
+        /// <param name="name">the attribute name</param>
+        /// <returns>the parsed value, or zero</returns>
+        private static double D(XElement element, string name)
+        {
+            return double.TryParse((string?)element.Attribute(name), NumberStyles.Float, CultureInfo.InvariantCulture, out var value) ? value : 0d;
         }
 
         /// <summary>
