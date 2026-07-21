@@ -256,7 +256,7 @@ namespace Auriga.Rendering
 
             var spans = text.Elements(Svg + "tspan").ToList();
             var lines = spans.Count > 0 ? spans.Select(span => span.Value).ToList() : new List<string> { text.Value };
-            var longest = lines.Count == 0 ? 0 : lines.Max(line => line.Length);
+            var longest = lines.Max(line => line.Length);
             var width = longest * fontSize * LabelGlyphRatio;
 
             double left;
