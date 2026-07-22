@@ -101,6 +101,10 @@ namespace Auriga.Rendering
 
             this.ApplyRepresentationRules(rootBoxes, edges);
 
+            // Two exchanges between the same boxes with no distinguishing bendpoints resolve to one
+            // coincident line with their labels stacked; fan them into distinct parallel routes.
+            SeparateCoincidentEdges(edges);
+
             return new Diagram(siriusDiagram.Id ?? string.Empty, rootBoxes, edges, siriusDiagram, notationDiagram)
             {
                 Name = name,
@@ -576,6 +580,70 @@ namespace Auriga.Rendering
                 && point.Y >= box.Position.Y
                 && point.X <= box.Position.X + (box.Width ?? 0)
                 && point.Y <= box.Position.Y + (box.Height ?? 0);
+        }
+
+        /// <summary>
+        /// The perpendicular distance between the fanned-out routes of a coincident group (and,
+        /// with each label riding its route's midpoint, between their labels).
+        /// </summary>
+        private const double CoincidentEdgeGap = 10;
+
+        /// <summary>
+        /// Separates edges whose routes coincide: two exchanges between the same pair of boxes with
+        /// no distinguishing bendpoints resolve to the same polyline and print their labels on top
+        /// of one another. Each edge of a coincident group is shifted perpendicular to the run by a
+        /// centred increment, fanning the group into distinct parallel routes; the labels follow,
+        /// each riding its route's midpoint. A route and its reverse count as coincident, so a pair
+        /// drawn in opposite directions along one chord is separated too.
+        /// </summary>
+        /// <param name="edges">the built edges, shifted in place</param>
+        private static void SeparateCoincidentEdges(IReadOnlyList<Edge> edges)
+        {
+            foreach (var group in edges.Where(edge => edge.Route.Count >= 2).GroupBy(edge => RouteKey(edge.Route)))
+            {
+                var members = group.ToList();
+                if (members.Count < 2)
+                {
+                    continue;
+                }
+
+                var route = members[0].Route;
+                var perpendicular = Perpendicular(route[0], route[^1]);
+                for (var i = 0; i < members.Count; i++)
+                {
+                    var offset = (i - ((members.Count - 1) / 2.0)) * CoincidentEdgeGap;
+                    var shift = new Point(perpendicular.X * offset, perpendicular.Y * offset);
+                    members[i].Route = members[i].Route.Select(point => point + shift).ToList();
+                }
+            }
+        }
+
+        /// <summary>
+        /// A direction-independent key for a route: its points rounded to the pixel and ordered so
+        /// that a route and its reverse share the key.
+        /// </summary>
+        /// <param name="route">the route points</param>
+        /// <returns>the coincidence key</returns>
+        private static string RouteKey(IReadOnlyList<Point> route)
+        {
+            var forward = string.Join(";", route.Select(point => $"{Math.Round(point.X)},{Math.Round(point.Y)}"));
+            var reverse = string.Join(";", route.Reverse().Select(point => $"{Math.Round(point.X)},{Math.Round(point.Y)}"));
+            return string.CompareOrdinal(forward, reverse) <= 0 ? forward : reverse;
+        }
+
+        /// <summary>
+        /// The unit vector perpendicular to the run from one point to another, or zero when the
+        /// points coincide.
+        /// </summary>
+        /// <param name="from">the run's start</param>
+        /// <param name="to">the run's end</param>
+        /// <returns>the perpendicular unit vector</returns>
+        private static Point Perpendicular(Point from, Point to)
+        {
+            var deltaX = to.X - from.X;
+            var deltaY = to.Y - from.Y;
+            var length = Math.Sqrt((deltaX * deltaX) + (deltaY * deltaY));
+            return length < 0.001 ? new Point(0, 0) : new Point(-deltaY / length, deltaX / length);
         }
 
         /// <summary>
