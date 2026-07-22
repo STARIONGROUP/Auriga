@@ -92,6 +92,10 @@ namespace Auriga.Rendering
             // an edge clips to its box's synthesized bounds instead of a collapsed footprint.
             this.SynthesizeUnpersistedSizes(rootBoxes);
 
+            // Rotate each port glyph to the border side it sits on (the parent's bounds are final
+            // now the sizes are synthesized), so its arrow crosses that border in the flow direction.
+            OrientPortGlyphs(rootBoxes);
+
             // A hidden edge (its GMF view persists visible="false") is excluded like a hidden node,
             // so a hidden component-exchange or communication-means relationship draws no stray line.
             var edges = notationDiagram.PersistedEdges
@@ -465,6 +469,63 @@ namespace Auriga.Rendering
                 var fromLabel = box.Label == null ? 0 : box.Style.Resolved.FontSize + ListTitlePadding;
                 box.Height = Math.Max(Math.Max(childrenBottom - box.Position.Y, fromLabel), MinNodeSize);
             }
+        }
+
+        /// <summary>
+        /// Rotates every port glyph to the border side it sits on, depth-first: a port is a border
+        /// node of its parent, and its glyph — drawn pointing into (an input) or out of (an output)
+        /// the box from the top by default — is turned so the arrow crosses whichever border the
+        /// port actually sits on. The four glyph variants already encode the in/out direction, so
+        /// the rotation depends only on the side.
+        /// </summary>
+        /// <param name="boxes">the boxes whose port children are oriented</param>
+        private static void OrientPortGlyphs(IEnumerable<Box> boxes)
+        {
+            foreach (var box in boxes)
+            {
+                foreach (var port in box.Children.Where(child => child.SemanticElement is Auriga.Model.Information.IPort))
+                {
+                    port.Style.Resolved.ImageRotation = PortRotation(box, port);
+                }
+
+                OrientPortGlyphs(box.Children);
+            }
+        }
+
+        /// <summary>
+        /// The clockwise rotation of a port glyph, chosen by the border of its parent the port's
+        /// centre lies nearest: the top border keeps the native orientation, and each further side
+        /// clockwise adds a quarter turn (right 90°, bottom 180°, left 270°).
+        /// </summary>
+        /// <param name="parent">the box the port borders</param>
+        /// <param name="port">the border-node port</param>
+        /// <returns>the rotation in degrees</returns>
+        private static double PortRotation(Box parent, Box port)
+        {
+            var centreX = port.Position.X + ((port.Width ?? 0) / 2);
+            var centreY = port.Position.Y + ((port.Height ?? 0) / 2);
+            var toTop = Math.Abs(centreY - parent.Position.Y);
+            var toRight = Math.Abs(centreX - (parent.Position.X + (parent.Width ?? 0)));
+            var toBottom = Math.Abs(centreY - (parent.Position.Y + (parent.Height ?? 0)));
+            var toLeft = Math.Abs(centreX - parent.Position.X);
+
+            // Take the nearest border, ties resolving clockwise from the top (top, then right,
+            // bottom, left) — only a strictly smaller distance moves the choice on.
+            var angle = 0d;
+            var nearest = toTop;
+            if (toRight < nearest)
+            {
+                nearest = toRight;
+                angle = 90;
+            }
+
+            if (toBottom < nearest)
+            {
+                nearest = toBottom;
+                angle = 180;
+            }
+
+            return toLeft < nearest ? 270 : angle;
         }
 
         /// <summary>

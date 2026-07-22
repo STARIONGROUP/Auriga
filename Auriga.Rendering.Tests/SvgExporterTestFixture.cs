@@ -283,6 +283,36 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_rotated_image_carries_a_rotate_transform()
+        {
+            var port = MakeBox("port", 100, 100, 10, 10);
+            port.Style.Resolved.ImagePath = "/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg";
+            port.Style.Resolved.ImageRotation = 90;
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { port }, new List<Edge>())));
+            var image = document.Descendants(Svg + "image").Single();
+
+            Assert.Multiple(() =>
+            {
+                // Rotated about the 10x10 port's centre (105, 105).
+                Assert.That((string?)image.Attribute("transform"), Is.EqualTo("rotate(90 105 105)"));
+                Assert.That((string?)image.Attribute("href"), Does.StartWith("data:image/svg+xml;base64,"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_an_unrotated_image_carries_no_transform()
+        {
+            var box = MakeBox("actor", 20, 274, 70, 61);
+            box.Style.Resolved.ImagePath = "/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg";
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var image = document.Descendants(Svg + "image").Single();
+
+            Assert.That(image.Attribute("transform"), Is.Null, "an unrotated image needs no transform");
+        }
+
+        [Test]
         public void Verify_that_a_note_renders_with_a_dog_ear()
         {
             var note = MakeBox("note", 0, 0, 100, 60);

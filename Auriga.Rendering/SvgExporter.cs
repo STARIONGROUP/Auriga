@@ -347,13 +347,22 @@ namespace Auriga.Rendering
                 && style.Shape != ShapeKind.Line
                 && this.iconRegistry.Resolve(imagePath) is { } imageData)
             {
-                return new XElement(
+                var image = new XElement(
                     Svg + "image",
                     new XAttribute("x", N(box.Position.X)),
                     new XAttribute("y", N(box.Position.Y)),
                     new XAttribute("width", N(width)),
                     new XAttribute("height", N(height)),
                     new XAttribute("href", imageData));
+
+                // A port glyph is rotated about its centre to the border side it sits on, so its
+                // arrow crosses that border in the flow direction.
+                if (Math.Abs(style.ImageRotation) > 0.001)
+                {
+                    image.Add(new XAttribute("transform", $"rotate({N(style.ImageRotation)} {N(box.Position.X + (width / 2))} {N(box.Position.Y + (height / 2))})"));
+                }
+
+                return image;
             }
 
             XElement outline;
