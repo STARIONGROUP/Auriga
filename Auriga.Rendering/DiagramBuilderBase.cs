@@ -593,7 +593,7 @@ namespace Auriga.Rendering
             var source = FindBox(notationEdge.Source, viewToBox);
             var target = FindBox(notationEdge.Target, viewToBox);
 
-            var route = BuildRoute(notationEdge, source, target);
+            var route = BuildRoute(notationEdge, source, target, (siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.RoutingStyle);
 
             var edge = new Edge(siriusEdge?.Id ?? notationEdge.Id ?? string.Empty, route, notationEdge, BuildStyle(siriusEdge, notationEdge.Styles))
             {
@@ -687,15 +687,34 @@ namespace Auriga.Rendering
         /// <param name="notationEdge">the notation edge carrying the anchors and bendpoints</param>
         /// <param name="source">the source box, or <c>null</c> when the end does not resolve to one</param>
         /// <param name="target">the target box, or <c>null</c> when the end does not resolve to one</param>
+        /// <param name="routing">the persisted routing style of the edge, or <c>null</c></param>
         /// <returns>the absolute route polyline</returns>
-        private static IReadOnlyList<Point> BuildRoute(NotationModel.IEdge notationEdge, Box? source, Box? target)
+        private static IReadOnlyList<Point> BuildRoute(NotationModel.IEdge notationEdge, Box? source, Box? target, SiriusDiagramModel.EdgeRouting? routing)
         {
+            // A tree connector (a breakdown-diagram containment edge) is rectilinear: Capella
+            // discards the persisted bendpoints — stale artifacts that resolve far outside the
+            // canvas — and routes the child onto a shared horizontal bus between the two rows,
+            // then into the parent. Both ends must resolve to a box for the bus geometry to exist.
+            if (routing == SiriusDiagramModel.EdgeRouting.Tree && source != null && target != null && TreeRoute(source, target) is { } treeRoute)
+            {
+                return treeRoute;
+            }
+
             var bendpoints = ParseBendpoints((notationEdge.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
             var sourceReference = source == null ? (Point?)null : AnchorPoint(source, notationEdge.SourceAnchor);
             var targetReference = target == null ? (Point?)null : AnchorPoint(target, notationEdge.TargetAnchor);
 
             if (sourceReference is { } refSource && targetReference is { } refTarget)
             {
+                // A Manhattan edge with no real bendpoints is rectilinear: Capella routes it between
+                // the facing side centres, not the anchor-reference line that clips to a diagonal
+                // corner. Only bendpoint-less edges take this — a Manhattan edge with its own bends
+                // keeps them.
+                if (routing == SiriusDiagramModel.EdgeRouting.Manhattan && bendpoints.Count <= 2 && OrthogonalRoute(source!, target!, refSource, refTarget) is { } orthogonal)
+                {
+                    return orthogonal;
+                }
+
                 var intermediates = new List<Point>();
                 for (var i = 1; i < bendpoints.Count - 1; i++)
                 {
@@ -727,6 +746,162 @@ namespace Auriga.Rendering
             }
 
             return Array.Empty<Point>();
+        }
+
+        /// <summary>
+        /// The rectilinear route of a breakdown-tree containment edge: a vertical stub from the
+        /// child's facing edge onto a horizontal bus midway between the two rows, along the bus to
+        /// the parent's centre, then a vertical stub into the parent's facing edge — the org-chart
+        /// shape Capella draws, with every sibling of a parent sharing the bus and the parent stub.
+        /// The child is the source and the parent the target (the folding arrow lands on it).
+        /// Returns <c>null</c> when the boxes overlap vertically, so the caller keeps the generic
+        /// route rather than an ill-defined bus.
+        /// </summary>
+        /// <param name="source">the child box (the edge's source)</param>
+        /// <param name="target">the parent box (the edge's target)</param>
+        /// <returns>the tree route, or <c>null</c> when no vertical bus is well-defined</returns>
+        private static IReadOnlyList<Point>? TreeRoute(Box source, Box target)
+        {
+            var childCentreX = source.Position.X + ((source.Width ?? 0) / 2);
+            var parentCentreX = target.Position.X + ((target.Width ?? 0) / 2);
+            var childTop = source.Position.Y;
+            var childBottom = source.Position.Y + (source.Height ?? 0);
+            var parentTop = target.Position.Y;
+            var parentBottom = target.Position.Y + (target.Height ?? 0);
+
+            double childEdge;
+            double parentEdge;
+            if (parentBottom <= childTop)
+            {
+                // The parent sits above the child: the bus runs between them.
+                childEdge = childTop;
+                parentEdge = parentBottom;
+            }
+            else if (childBottom <= parentTop)
+            {
+                // The parent sits below the child.
+                childEdge = childBottom;
+                parentEdge = parentTop;
+            }
+            else
+            {
+                return null;
+            }
+
+            var busY = (childEdge + parentEdge) / 2;
+
+            return SimplifyRoute(new[]
+            {
+                new Point(childCentreX, childEdge),
+                new Point(childCentreX, busY),
+                new Point(parentCentreX, busY),
+                new Point(parentCentreX, parentEdge),
+            });
+        }
+
+        /// <summary>
+        /// The rectilinear route of a bendpoint-less Manhattan edge: the connector leaves the
+        /// source's facing side and enters the target's facing side — the side chosen by which gap
+        /// the boxes sit across — at each end's persisted anchor position along that side, turning
+        /// once on the mid-line between them. So a stacked pair with aligned anchors joins by a
+        /// clean vertical (or a side-by-side pair by a horizontal), a pair with offset anchors by a
+        /// rectilinear step, and neither by a diagonal corner-to-corner line — while the persisted
+        /// anchor (an off-centre connection) is honoured. Returns <c>null</c> when the boxes overlap
+        /// on both axes, so the caller keeps the generic route.
+        /// </summary>
+        /// <param name="source">the source box</param>
+        /// <param name="target">the target box</param>
+        /// <param name="sourceAnchor">the source anchor reference point, positioning the exit along its side</param>
+        /// <param name="targetAnchor">the target anchor reference point, positioning the entry along its side</param>
+        /// <returns>the orthogonal route, or <c>null</c> when no facing corridor is well-defined</returns>
+        private static IReadOnlyList<Point>? OrthogonalRoute(Box source, Box target, Point sourceAnchor, Point targetAnchor)
+        {
+            var sourceRight = source.Position.X + (source.Width ?? 0);
+            var sourceBottom = source.Position.Y + (source.Height ?? 0);
+            var targetRight = target.Position.X + (target.Width ?? 0);
+            var targetBottom = target.Position.Y + (target.Height ?? 0);
+
+            if (target.Position.Y >= sourceBottom)
+            {
+                return Elbow(sourceAnchor.X, sourceBottom, targetAnchor.X, target.Position.Y, vertical: true);
+            }
+
+            if (source.Position.Y >= targetBottom)
+            {
+                return Elbow(sourceAnchor.X, source.Position.Y, targetAnchor.X, targetBottom, vertical: true);
+            }
+
+            if (target.Position.X >= sourceRight)
+            {
+                return Elbow(sourceRight, sourceAnchor.Y, target.Position.X, targetAnchor.Y, vertical: false);
+            }
+
+            if (source.Position.X >= targetRight)
+            {
+                return Elbow(source.Position.X, sourceAnchor.Y, targetRight, targetAnchor.Y, vertical: false);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// A one-turn orthogonal connector between two side points: it runs out of the first point
+        /// along the facing axis to the mid-line, across, then into the second point. A pair whose
+        /// facing centres align on the crossing axis collapses to a single straight segment.
+        /// </summary>
+        /// <param name="fromX">the exit point's x</param>
+        /// <param name="fromY">the exit point's y</param>
+        /// <param name="toX">the entry point's x</param>
+        /// <param name="toY">the entry point's y</param>
+        /// <param name="vertical">true when the boxes are stacked (the corridor runs vertically)</param>
+        /// <returns>the orthogonal route</returns>
+        private static IReadOnlyList<Point> Elbow(double fromX, double fromY, double toX, double toY, bool vertical)
+        {
+            if (vertical)
+            {
+                var midY = (fromY + toY) / 2;
+                return SimplifyRoute(new[] { new Point(fromX, fromY), new Point(fromX, midY), new Point(toX, midY), new Point(toX, toY) });
+            }
+
+            var midX = (fromX + toX) / 2;
+            return SimplifyRoute(new[] { new Point(fromX, fromY), new Point(midX, fromY), new Point(midX, toY), new Point(toX, toY) });
+        }
+
+        /// <summary>
+        /// Simplifies a rectilinear route: drops consecutive duplicate points and axis-aligned
+        /// collinear midpoints, so a connector whose facing centres align on the crossing axis
+        /// collapses to a single straight segment rather than carrying a redundant turn.
+        /// </summary>
+        /// <param name="points">the route points</param>
+        /// <returns>the simplified route</returns>
+        private static IReadOnlyList<Point> SimplifyRoute(IReadOnlyList<Point> points)
+        {
+            var result = new List<Point> { points[0] };
+            for (var i = 1; i < points.Count; i++)
+            {
+                var point = points[i];
+                if (Math.Abs(point.X - result[^1].X) < 0.001 && Math.Abs(point.Y - result[^1].Y) < 0.001)
+                {
+                    continue;
+                }
+
+                if (result.Count >= 2)
+                {
+                    var previous = result[^2];
+                    var last = result[^1];
+                    var collinearVertical = Math.Abs(previous.X - last.X) < 0.001 && Math.Abs(last.X - point.X) < 0.001;
+                    var collinearHorizontal = Math.Abs(previous.Y - last.Y) < 0.001 && Math.Abs(last.Y - point.Y) < 0.001;
+                    if (collinearVertical || collinearHorizontal)
+                    {
+                        result[^1] = point;
+                        continue;
+                    }
+                }
+
+                result.Add(point);
+            }
+
+            return result;
         }
 
         /// <summary>
