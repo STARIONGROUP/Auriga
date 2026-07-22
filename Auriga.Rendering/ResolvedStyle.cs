@@ -91,6 +91,13 @@ namespace Auriga.Rendering
         public string? ImagePath { get; set; }
 
         /// <summary>
+        /// Gets or sets the clockwise rotation, in degrees, applied to the item's image about its
+        /// centre — a port glyph is rotated to the border side it sits on so its arrow crosses that
+        /// border in the flow direction. Zero for an unrotated image.
+        /// </summary>
+        public double ImageRotation { get; set; }
+
+        /// <summary>
         /// Gets or sets the arrow decoration at the source end of an edge, or <c>null</c> for a
         /// box or an edge without a persisted style.
         /// </summary>
