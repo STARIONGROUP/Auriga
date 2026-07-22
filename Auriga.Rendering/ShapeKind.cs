@@ -12,7 +12,8 @@ namespace Auriga.Rendering
     /// <summary>
     /// The resolved outline shape of a box, mapped from the concrete Sirius node style: an
     /// <c>Ellipse</c> or <c>Dot</c> style renders as an ellipse (e.g. the states on a sequence
-    /// diagram's lifelines), every other style as a rectangle.
+    /// diagram's lifelines), a <c>Lozenge</c> style as a diamond (a state machine's choice
+    /// pseudo-state), every other style as a rectangle.
     /// </summary>
     public enum ShapeKind
     {
@@ -32,5 +33,11 @@ namespace Auriga.Rendering
         /// tick.
         /// </summary>
         Line,
+
+        /// <summary>
+        /// A diamond (rhombus) inscribed in the box's bounds — a Sirius <c>Lozenge</c> style, as a
+        /// state machine's choice pseudo-state.
+        /// </summary>
+        Diamond,
     }
 }

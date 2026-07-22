@@ -178,6 +178,7 @@ namespace Auriga.Rendering
                     break;
                 case SiriusDiagramModel.ILozenge lozenge:
                     ApplyFill(lozenge.Color, resolved);
+                    resolved.Shape = ShapeKind.Diamond;
                     break;
                 case SiriusDiagramModel.IBundledImage bundledImage:
                     ApplyFill(bundledImage.Color, resolved);
