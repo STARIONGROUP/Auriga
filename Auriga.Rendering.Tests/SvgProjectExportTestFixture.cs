@@ -34,11 +34,6 @@ namespace Auriga.Rendering.Tests
         /// </summary>
         private readonly DiagramBuilder diagramBuilder = new();
 
-        /// <summary>
-        /// The exporter writing the SVG files.
-        /// </summary>
-        private readonly SvgExporter svgExporter = new();
-
         [Test]
         [TestCase("coffee-machine-demo.aird", "coffee-machine")]
         [TestCase("Crowd_Surveillance_System_in_DARC.aird", "crowd-surveillance-system-in-darc")]
@@ -51,6 +46,10 @@ namespace Auriga.Rendering.Tests
             var result = scope.BuildAirdModelLoader().Load(path);
 
             var diagrams = this.diagramBuilder.BuildAll(result.Elements.Values);
+
+            // Serve the vendored plugin artwork, then the model's own project-local images (an
+            // actor's custom glyph) from the directory the .aird was loaded from.
+            var svgExporter = new SvgExporter(new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(Path.GetDirectoryName(path)!)));
 
             var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports", modelFolder);
             Directory.CreateDirectory(outputDirectory);
@@ -65,7 +64,7 @@ namespace Auriga.Rendering.Tests
                     Assert.That(diagram.Name, Is.Not.Null.And.Not.Empty, $"representation {diagram.Identifier} has a descriptor name");
 
                     var file = Path.Combine(outputDirectory, FileName(diagram));
-                    this.svgExporter.ExportToFile(diagram, file);
+                    svgExporter.ExportToFile(diagram, file);
 
                     Assert.That(File.Exists(file), Is.True, file);
                     Assert.That(XDocument.Load(file).Root!.Name.LocalName, Is.EqualTo("svg"), file);

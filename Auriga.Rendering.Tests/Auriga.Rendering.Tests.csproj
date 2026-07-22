@@ -51,6 +51,10 @@
             <Link>TestData\In-Flight Entertainment System.capella</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="..\TestData\in-flight-entertainment-system\images\Operator.svg">
+            <Link>TestData\images\Operator.svg</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Include="..\TestData\fragmented-sysmodel\sysmodel.aird">
             <Link>TestData\fragmented-sysmodel\sysmodel.aird</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
