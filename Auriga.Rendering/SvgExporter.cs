@@ -633,8 +633,8 @@ namespace Auriga.Rendering
                     new XAttribute("stroke-width", N(style.StrokeWidth)));
 
                 AddDashArray(path, style.Pattern);
-                AddMarker(path, "marker-start", style.SourceArrow, style.StrokeColor, defs);
-                AddMarker(path, "marker-end", style.TargetArrow, style.StrokeColor, defs);
+                AddMarker(path, "marker-start", style.SourceArrow, style.StrokeColor, style.StrokeWidth, defs);
+                AddMarker(path, "marker-end", style.TargetArrow, style.StrokeColor, style.StrokeWidth, defs);
 
                 group.Add(path);
             }
@@ -948,8 +948,9 @@ namespace Auriga.Rendering
         /// <param name="attribute">the marker attribute (<c>marker-start</c> or <c>marker-end</c>)</param>
         /// <param name="arrow">the resolved arrow decoration, or <c>null</c></param>
         /// <param name="color">the edge's stroke color, which the marker renders in</param>
+        /// <param name="strokeWidth">the edge's stroke width, which the arrowhead grows modestly with</param>
         /// <param name="defs">the document's <c>&lt;defs&gt;</c></param>
-        private static void AddMarker(XElement path, string attribute, Auriga.Diagram.Diagram.EdgeArrows? arrow, Color color, XElement defs)
+        private static void AddMarker(XElement path, string attribute, Auriga.Diagram.Diagram.EdgeArrows? arrow, Color color, double strokeWidth, XElement defs)
         {
             var shape = MarkerShape(arrow);
             if (shape == null)
@@ -957,8 +958,9 @@ namespace Auriga.Rendering
                 return;
             }
 
+            var size = MarkerSize(strokeWidth);
             var (name, data, filled) = shape.Value;
-            var id = $"marker-{name}-{Hex(color)}";
+            var id = $"marker-{name}-{Hex(color)}-{N(size)}";
 
             if (defs.Elements(Svg + "marker").All(candidate => (string?)candidate.Attribute("id") != id))
             {
@@ -968,8 +970,14 @@ namespace Auriga.Rendering
                     new XAttribute("viewBox", "0 0 10 10"),
                     new XAttribute("refX", "9"),
                     new XAttribute("refY", "5"),
-                    new XAttribute("markerWidth", "8"),
-                    new XAttribute("markerHeight", "8"),
+                    new XAttribute("markerWidth", N(size)),
+                    new XAttribute("markerHeight", N(size)),
+
+                    // Size the arrowhead in user units, not the default stroke-width multiples: a
+                    // thick edge (e.g. a component exchange's width-4 stroke) would otherwise render
+                    // an arrowhead scaled 4x. It still grows modestly with the stroke so a thick
+                    // line's arrow does not look undersized.
+                    new XAttribute("markerUnits", "userSpaceOnUse"),
                     new XAttribute("orient", "auto-start-reverse"),
                     new XElement(
                         Svg + "path",
@@ -979,6 +987,23 @@ namespace Auriga.Rendering
             }
 
             path.Add(new XAttribute(attribute, $"url(#{id})"));
+        }
+
+        /// <summary>
+        /// The side length a thin edge's arrowhead renders at, in user units.
+        /// </summary>
+        private const double MarkerBaseSize = 8;
+
+        /// <summary>
+        /// The side length of an arrowhead marker in user units: the base size a thin edge keeps,
+        /// growing by two units per unit of stroke beyond one, so a thick edge's arrow stays
+        /// proportionate without the fourfold blow-up the default stroke-width units would give it.
+        /// </summary>
+        /// <param name="strokeWidth">the edge's stroke width</param>
+        /// <returns>the marker's side length</returns>
+        private static double MarkerSize(double strokeWidth)
+        {
+            return MarkerBaseSize + (Math.Max(0, strokeWidth - 1) * 2);
         }
 
         /// <summary>

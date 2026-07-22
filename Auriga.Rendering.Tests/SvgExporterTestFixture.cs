@@ -427,12 +427,34 @@ namespace Auriga.Rendering.Tests
                 Assert.That((string?)path.Attribute("stroke"), Is.EqualTo("#72496E"));
                 Assert.That((string?)path.Attribute("stroke-dasharray"), Is.EqualTo("1 3"));
                 Assert.That((string?)path.Attribute("fill"), Is.EqualTo("none"));
-                Assert.That((string?)path.Attribute("marker-end"), Is.EqualTo("url(#marker-arrow-72496e)"));
-                Assert.That((string?)marker.Attribute("id"), Is.EqualTo("marker-arrow-72496e"));
+                Assert.That((string?)path.Attribute("marker-end"), Is.EqualTo("url(#marker-arrow-72496e-8)"));
+                Assert.That((string?)marker.Attribute("id"), Is.EqualTo("marker-arrow-72496e-8"));
+                Assert.That((string?)marker.Attribute("markerUnits"), Is.EqualTo("userSpaceOnUse"), "the arrowhead is a fixed size, not scaled by the stroke width");
+                Assert.That((string?)marker.Attribute("markerWidth"), Is.EqualTo("8"), "a thin edge keeps the base arrowhead size");
 
                 var label = document.Descendants(Svg + "text").Single();
                 Assert.That(label.Value, Is.EqualTo("flow label"));
                 Assert.That((string?)label.Attribute("text-anchor"), Is.EqualTo("middle"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_thick_edge_grows_its_arrowhead_modestly()
+        {
+            var edge = MakeEdge("thick", new[] { new Point(0, 0), new Point(100, 0) });
+            edge.Style.Resolved.StrokeWidth = 4;
+            edge.Style.Resolved.TargetArrow = SiriusDiagram.EdgeArrows.InputFillClosedArrow;
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var marker = document.Descendants(Svg + "marker").Single();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That((string?)marker.Attribute("markerUnits"), Is.EqualTo("userSpaceOnUse"));
+                // 8 + (4 - 1) * 2 = 14 — larger than a thin edge's 8, far short of the 32 the default
+                // stroke-width units would give.
+                Assert.That((string?)marker.Attribute("markerWidth"), Is.EqualTo("14"));
+                Assert.That((string?)marker.Attribute("markerHeight"), Is.EqualTo("14"));
             });
         }
 
