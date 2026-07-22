@@ -593,7 +593,7 @@ namespace Auriga.Rendering
             var source = FindBox(notationEdge.Source, viewToBox);
             var target = FindBox(notationEdge.Target, viewToBox);
 
-            var route = BuildRoute(notationEdge, source, target);
+            var route = BuildRoute(notationEdge, source, target, (siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.RoutingStyle);
 
             var edge = new Edge(siriusEdge?.Id ?? notationEdge.Id ?? string.Empty, route, notationEdge, BuildStyle(siriusEdge, notationEdge.Styles))
             {
@@ -687,9 +687,19 @@ namespace Auriga.Rendering
         /// <param name="notationEdge">the notation edge carrying the anchors and bendpoints</param>
         /// <param name="source">the source box, or <c>null</c> when the end does not resolve to one</param>
         /// <param name="target">the target box, or <c>null</c> when the end does not resolve to one</param>
+        /// <param name="routing">the persisted routing style of the edge, or <c>null</c></param>
         /// <returns>the absolute route polyline</returns>
-        private static IReadOnlyList<Point> BuildRoute(NotationModel.IEdge notationEdge, Box? source, Box? target)
+        private static IReadOnlyList<Point> BuildRoute(NotationModel.IEdge notationEdge, Box? source, Box? target, SiriusDiagramModel.EdgeRouting? routing)
         {
+            // A tree connector (a breakdown-diagram containment edge) is rectilinear: Capella
+            // discards the persisted bendpoints — stale artifacts that resolve far outside the
+            // canvas — and routes the child onto a shared horizontal bus between the two rows,
+            // then into the parent. Both ends must resolve to a box for the bus geometry to exist.
+            if (routing == SiriusDiagramModel.EdgeRouting.Tree && source != null && target != null && TreeRoute(source, target) is { } treeRoute)
+            {
+                return treeRoute;
+            }
+
             var bendpoints = ParseBendpoints((notationEdge.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
             var sourceReference = source == null ? (Point?)null : AnchorPoint(source, notationEdge.SourceAnchor);
             var targetReference = target == null ? (Point?)null : AnchorPoint(target, notationEdge.TargetAnchor);
@@ -727,6 +737,77 @@ namespace Auriga.Rendering
             }
 
             return Array.Empty<Point>();
+        }
+
+        /// <summary>
+        /// The rectilinear route of a breakdown-tree containment edge: a vertical stub from the
+        /// child's facing edge onto a horizontal bus midway between the two rows, along the bus to
+        /// the parent's centre, then a vertical stub into the parent's facing edge — the org-chart
+        /// shape Capella draws, with every sibling of a parent sharing the bus and the parent stub.
+        /// The child is the source and the parent the target (the folding arrow lands on it).
+        /// Returns <c>null</c> when the boxes overlap vertically, so the caller keeps the generic
+        /// route rather than an ill-defined bus.
+        /// </summary>
+        /// <param name="source">the child box (the edge's source)</param>
+        /// <param name="target">the parent box (the edge's target)</param>
+        /// <returns>the tree route, or <c>null</c> when no vertical bus is well-defined</returns>
+        private static IReadOnlyList<Point>? TreeRoute(Box source, Box target)
+        {
+            var childCentreX = source.Position.X + ((source.Width ?? 0) / 2);
+            var parentCentreX = target.Position.X + ((target.Width ?? 0) / 2);
+            var childTop = source.Position.Y;
+            var childBottom = source.Position.Y + (source.Height ?? 0);
+            var parentTop = target.Position.Y;
+            var parentBottom = target.Position.Y + (target.Height ?? 0);
+
+            double childEdge;
+            double parentEdge;
+            if (parentBottom <= childTop)
+            {
+                // The parent sits above the child: the bus runs between them.
+                childEdge = childTop;
+                parentEdge = parentBottom;
+            }
+            else if (childBottom <= parentTop)
+            {
+                // The parent sits below the child.
+                childEdge = childBottom;
+                parentEdge = parentTop;
+            }
+            else
+            {
+                return null;
+            }
+
+            var busY = (childEdge + parentEdge) / 2;
+
+            return DedupeAdjacent(new[]
+            {
+                new Point(childCentreX, childEdge),
+                new Point(childCentreX, busY),
+                new Point(parentCentreX, busY),
+                new Point(parentCentreX, parentEdge),
+            });
+        }
+
+        /// <summary>
+        /// Drops consecutive duplicate points from a route, so a straight tree connector (child
+        /// directly below its parent) collapses its zero-length bus segment.
+        /// </summary>
+        /// <param name="points">the route points</param>
+        /// <returns>the route without adjacent duplicates</returns>
+        private static IReadOnlyList<Point> DedupeAdjacent(IReadOnlyList<Point> points)
+        {
+            var result = new List<Point> { points[0] };
+            for (var i = 1; i < points.Count; i++)
+            {
+                if (Math.Abs(points[i].X - result[^1].X) > 0.001 || Math.Abs(points[i].Y - result[^1].Y) > 0.001)
+                {
+                    result.Add(points[i]);
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
