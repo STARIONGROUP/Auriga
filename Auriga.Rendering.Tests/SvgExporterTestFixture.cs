@@ -283,6 +283,47 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_note_renders_with_a_dog_ear()
+        {
+            var note = MakeBox("note", 0, 0, 100, 60);
+            note.Style.Resolved.Shape = ShapeKind.Note;
+            note.Style.Resolved.FillColor = new Color(255, 255, 197);
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { note }, new List<Edge>())));
+            var group = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "note");
+            var paths = group.Descendants(Svg + "path").ToList();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(paths, Has.Count.EqualTo(2), "the note body and the folded corner");
+                // The body: a rectangle whose top-right corner is cut on the diagonal (fold 12).
+                Assert.That((string?)paths[0].Attribute("d"), Is.EqualTo("M 0 0 L 88 0 L 100 12 L 100 60 L 0 60 Z"));
+                Assert.That((string?)paths[0].Attribute("fill"), Is.EqualTo("#FFFFC5"));
+                // The dog-ear: the folded corner drawn in the cut.
+                Assert.That((string?)paths[1].Attribute("d"), Is.EqualTo("M 88 0 L 88 12 L 100 12"));
+                Assert.That(document.Descendants(Svg + "rect"), Is.Empty, "a note is not a plain rectangle");
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_widthless_label_splits_on_its_newlines()
+        {
+            var box = MakeBox("multiline", 0, 0, 100, 40);
+            box.Label = new Label("Maintenance-Aircraft\nDigital Network") { Position = new Point(5, 5) };
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var tspans = document.Descendants(Svg + "text").Single().Elements(Svg + "tspan").ToList();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(tspans, Has.Count.EqualTo(2), "the newline splits the label into two rows");
+                Assert.That(tspans[0].Value, Is.EqualTo("Maintenance-Aircraft"));
+                Assert.That(tspans[1].Value, Is.EqualTo("Digital Network"));
+                Assert.That((string?)tspans[1].Attribute("dy"), Is.EqualTo("1.2em"));
+            });
+        }
+
+        [Test]
         public void Verify_that_labels_render_centered_or_at_their_persisted_geometry()
         {
             var centered = MakeBox("centered", 0, 0, 100, 40);
