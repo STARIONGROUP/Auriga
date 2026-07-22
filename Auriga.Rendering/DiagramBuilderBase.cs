@@ -88,6 +88,10 @@ namespace Auriga.Rendering
                 this.BuildNode(child, new Point(0, 0), null, siriusDiagram, rootBoxes, viewToBox);
             }
 
+            // Fill the sizes Capella auto-computes and never persists — before the edges route, so
+            // an edge clips to its box's synthesized bounds instead of a collapsed footprint.
+            this.SynthesizeUnpersistedSizes(rootBoxes);
+
             // A hidden edge (its GMF view persists visible="false") is excluded like a hidden node,
             // so a hidden component-exchange or communication-means relationship draws no stray line.
             var edges = notationDiagram.PersistedEdges
@@ -376,6 +380,79 @@ namespace Auriga.Rendering
         private static double IconSpace(Label? label)
         {
             return label?.IconPath == null ? 0 : LabelIconSpace;
+        }
+
+        /// <summary>
+        /// The GMF default footprint of a border port. Capella persists an unsized port as the
+        /// <c>1×1</c> sentinel (or nothing) but renders its glyph at this size; giving the port
+        /// this footprint keeps the glyph visible and its attached edges anchored.
+        /// </summary>
+        private const double PortFootprint = 10;
+
+        /// <summary>
+        /// The floor a synthesized node size never drops below, so a box with neither children nor
+        /// a label still occupies the default footprint rather than collapsing.
+        /// </summary>
+        private const double MinNodeSize = 10;
+
+        /// <summary>
+        /// Synthesizes the unpersisted sizes of the built boxes. Overridden to a no-op by a
+        /// representation kind whose layout keeps unpersisted sizes meaningful — a sequence diagram
+        /// persists every element's absolute bounds and routes a self-message against a target left
+        /// unsized on purpose, so it must not synthesize.
+        /// </summary>
+        /// <param name="rootBoxes">the top-level boxes, with their children</param>
+        protected virtual void SynthesizeUnpersistedSizes(IReadOnlyList<Box> rootBoxes)
+        {
+            SynthesizeSizes(rootBoxes);
+        }
+
+        /// <summary>
+        /// Synthesizes the sizes Capella auto-computes and never persists (the GMF <c>-1</c>
+        /// sentinel), depth-first so a container sizes after its children: a border port takes the
+        /// default footprint, and any other auto-sized box grows to the extent of its children and
+        /// its own label, so a function, component or state renders at its content size instead of
+        /// the collapsed default footprint. A persisted size is always kept, per dimension.
+        /// </summary>
+        /// <param name="boxes">the boxes to size, with their children</param>
+        private static void SynthesizeSizes(IEnumerable<Box> boxes)
+        {
+            foreach (var box in boxes)
+            {
+                SynthesizeSizes(box.Children);
+                EnsureSize(box);
+            }
+        }
+
+        /// <summary>
+        /// Fills a box's unpersisted width and height. A border port takes the GMF default
+        /// footprint, replacing the <c>1×1</c> sentinel. Any other auto-sized box takes, per
+        /// dimension, the greater of its children's extent and its own label's estimated size (and
+        /// never less than the floor), so its title and children stay inside.
+        /// </summary>
+        /// <param name="box">the box to size</param>
+        private static void EnsureSize(Box box)
+        {
+            if (box.SemanticElement is Auriga.Model.Information.IPort)
+            {
+                box.Width = box.Width is null or <= 1 ? PortFootprint : box.Width;
+                box.Height = box.Height is null or <= 1 ? PortFootprint : box.Height;
+                return;
+            }
+
+            if (box.Width == null)
+            {
+                var childrenRight = box.Children.Count == 0 ? box.Position.X : box.Children.Max(child => child.Position.X + (child.Width ?? 0));
+                var fromLabel = box.Label == null ? 0 : (box.Label.Text.Length * box.Style.Resolved.FontSize * GlyphWidthRatio) + (2 * ListItemIndent) + IconSpace(box.Label);
+                box.Width = Math.Max(Math.Max(childrenRight - box.Position.X, fromLabel), MinNodeSize);
+            }
+
+            if (box.Height == null)
+            {
+                var childrenBottom = box.Children.Count == 0 ? box.Position.Y : box.Children.Max(child => child.Position.Y + (child.Height ?? 0));
+                var fromLabel = box.Label == null ? 0 : box.Style.Resolved.FontSize + ListTitlePadding;
+                box.Height = Math.Max(Math.Max(childrenBottom - box.Position.Y, fromLabel), MinNodeSize);
+            }
         }
 
         /// <summary>

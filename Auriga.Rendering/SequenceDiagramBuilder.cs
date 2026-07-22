@@ -76,6 +76,17 @@ namespace Auriga.Rendering
         private const double SelfMessageHop = 10;
 
         /// <summary>
+        /// A sequence diagram persists every element's absolute bounds and routes a self-message
+        /// against a target deliberately left unsized (the fallback to the persisted hook), so it
+        /// keeps the unpersisted sizes rather than synthesizing footprints for them.
+        /// </summary>
+        /// <param name="rootBoxes">the top-level boxes</param>
+        protected override void SynthesizeUnpersistedSizes(IReadOnlyList<Box> rootBoxes)
+        {
+            // Intentionally no size synthesis: a sequence diagram's layout is fully persisted.
+        }
+
+        /// <summary>
         /// Applies the sequence-diagram layout rules the generic pass cannot know. A lifeline (the
         /// unnamed child sharing its instance role's semantic target) becomes the dashed gray
         /// centerline under its header, running down to the diagram's lowest content. A message
