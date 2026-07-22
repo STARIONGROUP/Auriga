@@ -429,6 +429,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That((string?)path.Attribute("fill"), Is.EqualTo("none"));
                 Assert.That((string?)path.Attribute("marker-end"), Is.EqualTo("url(#marker-arrow-72496e)"));
                 Assert.That((string?)marker.Attribute("id"), Is.EqualTo("marker-arrow-72496e"));
+                Assert.That((string?)marker.Attribute("markerUnits"), Is.EqualTo("userSpaceOnUse"), "the arrowhead is a fixed size, not scaled by the stroke width");
 
                 var label = document.Descendants(Svg + "text").Single();
                 Assert.That(label.Value, Is.EqualTo("flow label"));

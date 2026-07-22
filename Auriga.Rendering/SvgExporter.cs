@@ -970,6 +970,11 @@ namespace Auriga.Rendering
                     new XAttribute("refY", "5"),
                     new XAttribute("markerWidth", "8"),
                     new XAttribute("markerHeight", "8"),
+
+                    // Size the arrowhead in user units, not the default stroke-width multiples: a
+                    // thick edge (e.g. a component exchange's width-4 stroke) would otherwise render
+                    // an arrowhead scaled 4x — the marker stays a fixed 8 units regardless.
+                    new XAttribute("markerUnits", "userSpaceOnUse"),
                     new XAttribute("orient", "auto-start-reverse"),
                     new XElement(
                         Svg + "path",
