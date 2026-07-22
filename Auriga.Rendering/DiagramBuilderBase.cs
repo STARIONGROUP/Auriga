@@ -509,18 +509,23 @@ namespace Auriga.Rendering
             var toBottom = Math.Abs(centreY - (parent.Position.Y + (parent.Height ?? 0)));
             var toLeft = Math.Abs(centreX - parent.Position.X);
 
-            var nearest = Math.Min(Math.Min(toTop, toRight), Math.Min(toBottom, toLeft));
-            if (nearest == toTop)
+            // Take the nearest border, ties resolving clockwise from the top (top, then right,
+            // bottom, left) — only a strictly smaller distance moves the choice on.
+            var angle = 0d;
+            var nearest = toTop;
+            if (toRight < nearest)
             {
-                return 0;
+                nearest = toRight;
+                angle = 90;
             }
 
-            if (nearest == toRight)
+            if (toBottom < nearest)
             {
-                return 90;
+                nearest = toBottom;
+                angle = 180;
             }
 
-            return nearest == toBottom ? 180 : 270;
+            return toLeft < nearest ? 270 : angle;
         }
 
         /// <summary>
