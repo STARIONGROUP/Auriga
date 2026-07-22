@@ -39,5 +39,10 @@ namespace Auriga.Rendering
         /// state machine's choice pseudo-state.
         /// </summary>
         Diamond,
+
+        /// <summary>
+        /// A rectangle with a folded top-right corner — the dog-ear a GMF sticky note draws.
+        /// </summary>
+        Note,
     }
 }

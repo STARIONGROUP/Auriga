@@ -401,6 +401,10 @@ namespace Auriga.Rendering
                     new XAttribute("d", $"M {N(centerX)} {N(box.Position.Y)} L {N(right)} {N(centerY)} L {N(centerX)} {N(bottom)} L {N(box.Position.X)} {N(centerY)} Z"),
                     new XAttribute("fill", Fill(style, defs)));
             }
+            else if (style.Shape == ShapeKind.Note)
+            {
+                return BuildNoteVisual(box, style, width, height, defs);
+            }
             else
             {
                 outline = new XElement(
@@ -419,6 +423,48 @@ namespace Auriga.Rendering
             AddDashArray(outline, style.Pattern);
 
             return outline;
+        }
+
+        /// <summary>
+        /// The side length of a note's folded top-right corner (the dog-ear), clamped on a small
+        /// note so the fold never exceeds the note.
+        /// </summary>
+        private const double NoteFold = 12;
+
+        /// <summary>
+        /// Builds a GMF note's visual: the sticky-note body (a rectangle whose top-right corner is
+        /// cut on the diagonal) and the small folded-corner outline drawn in that cut, so the note
+        /// reads as a dog-eared sticky rather than a plain rectangle.
+        /// </summary>
+        /// <param name="box">the note box</param>
+        /// <param name="style">the note's resolved style</param>
+        /// <param name="width">the note's effective width</param>
+        /// <param name="height">the note's effective height</param>
+        /// <param name="defs">the document's <c>&lt;defs&gt;</c>, receiving gradients on demand</param>
+        /// <returns>the note group: body and dog-ear</returns>
+        private XElement BuildNoteVisual(Box box, ResolvedStyle style, double width, double height, XElement defs)
+        {
+            var fold = Math.Min(NoteFold, Math.Min(width, height) / 2);
+            var x = box.Position.X;
+            var y = box.Position.Y;
+            var right = x + width;
+            var bottom = y + height;
+
+            var body = new XElement(
+                Svg + "path",
+                new XAttribute("d", $"M {N(x)} {N(y)} L {N(right - fold)} {N(y)} L {N(right)} {N(y + fold)} L {N(right)} {N(bottom)} L {N(x)} {N(bottom)} Z"),
+                new XAttribute("fill", Fill(style, defs)),
+                new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
+                new XAttribute("stroke-width", N(style.StrokeWidth)));
+
+            var dogEar = new XElement(
+                Svg + "path",
+                new XAttribute("d", $"M {N(right - fold)} {N(y)} L {N(right - fold)} {N(y + fold)} L {N(right)} {N(y + fold)}"),
+                new XAttribute("fill", "none"),
+                new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
+                new XAttribute("stroke-width", N(style.StrokeWidth)));
+
+            return new XElement(Svg + "g", body, dogEar);
         }
 
         /// <summary>
@@ -443,6 +489,12 @@ namespace Auriga.Rendering
                 new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
                 new XAttribute("stroke-width", "1"));
         }
+
+        /// <summary>
+        /// The effective width a widthless label wraps at: wide enough that no line word-wraps, so
+        /// only the label's explicit line breaks split it into rows.
+        /// </summary>
+        private const double NoWrapWidth = 100000;
 
         /// <summary>
         /// The distance a top-pinned container title's first line drops below the box top.
@@ -482,10 +534,10 @@ namespace Auriga.Rendering
 
                 var text = BuildText(label.Text, position.X + iconSpace, baseline, "start", style);
 
-                if (label.Width is { } labelWidth)
-                {
-                    AddWrappedLines(text, WrapLines(label.Text, labelWidth, style), position.X + iconSpace);
-                }
+                // A persisted-width label word-wraps; a widthless one still splits on its explicit
+                // line breaks (a note paragraph, a "Foo\nBar" name) into one tspan per line instead
+                // of collapsing the newline into a single run.
+                AddWrappedLines(text, WrapLines(label.Text, label.Width ?? NoWrapWidth, style), position.X + iconSpace);
 
                 group.Add(text);
                 return;

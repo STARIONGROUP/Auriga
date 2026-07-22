@@ -73,6 +73,9 @@ namespace Auriga.Rendering.Tests
                 Assert.That(viewBox[1], Is.GreaterThan(-200), "the canvas no longer starts far above");
                 Assert.That(viewBox[2], Is.LessThan(6000), "the canvas width is bounded");
                 Assert.That(viewBox[3], Is.LessThan(3000), "the canvas height is bounded");
+
+                // A containment connector is a plain line — Capella draws no arrowhead on it.
+                Assert.That(this.diagram.Edges, Has.All.Matches<Edge>(edge => edge.Style.Resolved.SourceArrow == null && edge.Style.Resolved.TargetArrow == null), "no tree connector carries an arrowhead");
             });
         }
 

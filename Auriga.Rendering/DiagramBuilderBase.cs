@@ -168,9 +168,14 @@ namespace Auriga.Rendering
 
             // A GMF note is a pure notation element with no Sirius counterpart: a sticky box whose
             // text lives in the shape's own description and whose colors are the shape's own styles.
-            if (siriusElement == null && node is NotationModel.IShape noteShape && !string.IsNullOrEmpty(noteShape.Description))
+            // A GMF note — a Shape carrying a description, or (as an [LCBD]'s annotation notes) a
+            // plain Node of type "Note" whose text lives on its ShapeStyle — becomes a note box.
+            var isNote = string.Equals(node.Type, "Note", StringComparison.Ordinal)
+                || (node is NotationModel.IShape noteShape && !string.IsNullOrEmpty(noteShape.Description));
+
+            if (siriusElement == null && isNote && NoteText(node) is { } noteText)
             {
-                Attach(this.BuildNote(node, noteShape, position, width, height), node, parentBox, siblings, viewToBox);
+                Attach(this.BuildNote(node, noteText, position, width, height), node, parentBox, siblings, viewToBox);
                 return;
             }
 
@@ -488,22 +493,48 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Builds the box of a GMF note: its own shape styles supply the fill and font, and its
-        /// description text becomes a left-aligned label wrapped to the note's width.
+        /// The text of a GMF note (a node of type <c>Note</c>): the note shape's own
+        /// <c>description</c>, or — when the note is a plain <c>Node</c> rather than a <c>Shape</c>,
+        /// as an <c>[LCBD]</c>'s annotation notes persist it — the description carried by its
+        /// <c>ShapeStyle</c>. <c>null</c> when neither carries text (an empty note).
         /// </summary>
         /// <param name="node">the notation node</param>
-        /// <param name="noteShape">the same node, as the shape carrying the note's description and styles</param>
+        /// <returns>the note text, or <c>null</c></returns>
+        private static string? NoteText(NotationModel.INode node)
+        {
+            if (node is NotationModel.IShape shape && !string.IsNullOrEmpty(shape.Description))
+            {
+                return shape.Description;
+            }
+
+            return node.Styles
+                .OfType<NotationModel.IShapeStyle>()
+                .Select(style => style.Description)
+                .FirstOrDefault(description => !string.IsNullOrEmpty(description));
+        }
+
+        /// <summary>
+        /// Builds the box of a GMF note: its shape styles (and, when the note is a <c>Shape</c>, its
+        /// own fill/font attributes) supply the styling, and its text becomes a left-aligned label
+        /// wrapped to the note's width.
+        /// </summary>
+        /// <param name="node">the notation node</param>
+        /// <param name="noteText">the resolved note text</param>
         /// <param name="position">the absolute position</param>
         /// <param name="width">the persisted width</param>
         /// <param name="height">the persisted height</param>
         /// <returns>the note box, style resolved</returns>
-        private Box BuildNote(NotationModel.INode node, NotationModel.IShape noteShape, Point position, double? width, double? height)
+        private Box BuildNote(NotationModel.INode node, string noteText, Point position, double? width, double? height)
         {
-            var note = new Box(node.Id ?? string.Empty, position, node, BuildStyle(null, node.Styles.Concat(new NotationModel.IStyle[] { noteShape })))
+            var styleSources = node is NotationModel.IShape noteShape
+                ? node.Styles.Concat(new NotationModel.IStyle[] { noteShape })
+                : node.Styles;
+
+            var note = new Box(node.Id ?? string.Empty, position, node, BuildStyle(null, styleSources))
             {
                 Width = width,
                 Height = height,
-                Label = new Label(noteShape.Description!)
+                Label = new Label(noteText)
                 {
                     Position = position + new Point(4, 2),
                     Width = Math.Max(1, (width ?? 100) - 8),
@@ -511,6 +542,7 @@ namespace Auriga.Rendering
             };
 
             note.Style.Resolved = this.styleResolver.Resolve(note);
+            note.Style.Resolved.Shape = ShapeKind.Note;
             return note;
         }
 
@@ -704,6 +736,14 @@ namespace Auriga.Rendering
             if (string.Equals(notationEdge.Type, "NoteAttachment", StringComparison.Ordinal))
             {
                 edge.Style.Resolved.Pattern = LinePattern.Dot;
+            }
+
+            // A breakdown-tree containment connector is a plain line: Capella draws no arrowhead on
+            // it, so the filled default the metamodel would give it is cleared.
+            if ((siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.RoutingStyle == SiriusDiagramModel.EdgeRouting.Tree)
+            {
+                edge.Style.Resolved.SourceArrow = null;
+                edge.Style.Resolved.TargetArrow = null;
             }
 
             return edge;
