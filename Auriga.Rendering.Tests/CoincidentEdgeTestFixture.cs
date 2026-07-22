@@ -57,19 +57,24 @@ namespace Auriga.Rendering.Tests
                     Assert.That(SameRoute(pair.First.Route, pair.Second.Route), Is.False, $"'{pair.First.Label!.Text}' and '{pair.Second.Label!.Text}' still coincide");
                 }
 
-                // Their labels ride the route midpoints, so the separated routes carry the labels
-                // apart — no two land on the same point.
+                // Their labels ride the midpoint of the route's middle segment, so the separated
+                // routes carry the labels apart by more than a line height — legibly, not merely
+                // distinct.
                 foreach (var pair in Pairs(chord))
                 {
-                    var gap = Distance(Midpoint(pair.First), Midpoint(pair.Second));
-                    Assert.That(gap, Is.GreaterThan(5), $"the labels of '{pair.First.Label!.Text}' and '{pair.Second.Label!.Text}' overlap (gap {gap:0.#})");
+                    var gap = Distance(LabelAnchor(pair.First), LabelAnchor(pair.Second));
+                    Assert.That(gap, Is.GreaterThan(12), $"the labels of '{pair.First.Label!.Text}' and '{pair.Second.Label!.Text}' are too close (gap {gap:0.#})");
                 }
             });
         }
 
-        private static Point Midpoint(Edge edge)
+        private static Point LabelAnchor(Edge edge)
         {
-            return new Point(edge.Route.Average(point => point.X), edge.Route.Average(point => point.Y));
+            // The exporter rides an edge label at the midpoint of the route's middle segment.
+            var route = edge.Route;
+            var before = route[(route.Count / 2) - 1];
+            var after = route[route.Count / 2];
+            return new Point((before.X + after.X) / 2, (before.Y + after.Y) / 2);
         }
 
         private static double Distance(Point a, Point b)

@@ -583,10 +583,12 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// The perpendicular distance between the fanned-out routes of a coincident group (and,
-        /// with each label riding its route's midpoint, between their labels).
+        /// The perpendicular distance between the fanned-out routes of a coincident group. It is
+        /// wide enough that the labels — which ride each route's midpoint — clear a line height when
+        /// the run is near-horizontal (the offset then falls mostly along the vertical, spreading
+        /// the stacked labels apart), so both the routes and their labels stay legible.
         /// </summary>
-        private const double CoincidentEdgeGap = 10;
+        private const double CoincidentEdgeGap = 16;
 
         /// <summary>
         /// Separates edges whose routes coincide: two exchanges between the same pair of boxes with
