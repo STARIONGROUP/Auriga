@@ -221,7 +221,7 @@ namespace Auriga.Rendering.Tests
                     "the project's boxes");
                 Assert.That(documents.Sum(d => d.Descendants(svgNs + "image").Count()), Is.GreaterThan(10), "the project's workspace images render as images");
                 Assert.That(documents.Sum(d => d.Descendants(svgNs + "path").Count(p => p.Parent!.Name.LocalName != "marker")), Is.GreaterThan(40), "the project's edges");
-                Assert.That(documents.Sum(d => d.Descendants(svgNs + "text").Count()), Is.GreaterThan(100), "the project's labels");
+                Assert.That(documents.Sum(d => d.Descendants(svgNs + "text").Count()), Is.GreaterThan(90), "the project's labels (state-machine pseudo-states and regions render glyph-only, without a label)");
             });
         }
 

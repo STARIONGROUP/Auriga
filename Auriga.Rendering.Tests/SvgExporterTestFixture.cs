@@ -264,6 +264,25 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_lozenge_style_renders_as_a_diamond()
+        {
+            var choice = MakeBox("choice", 100, 100, 50, 50);
+            choice.Style.Resolved.Shape = ShapeKind.Diamond;
+            choice.Style.Resolved.FillColor = new Color(228, 228, 228);
+
+            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { choice }, new List<Edge>())));
+            var diamond = document.Descendants(Svg + "path").Single();
+
+            Assert.Multiple(() =>
+            {
+                // The rhombus inscribed in the 50x50 box at (100,100): top, right, bottom, left.
+                Assert.That((string?)diamond.Attribute("d"), Is.EqualTo("M 125 100 L 150 125 L 125 150 L 100 125 Z"));
+                Assert.That((string?)diamond.Attribute("fill"), Is.EqualTo("#E4E4E4"));
+                Assert.That(document.Descendants(Svg + "rect"), Is.Empty, "the diamond replaces the rect");
+            });
+        }
+
+        [Test]
         public void Verify_that_labels_render_centered_or_at_their_persisted_geometry()
         {
             var centered = MakeBox("centered", 0, 0, 100, 40);

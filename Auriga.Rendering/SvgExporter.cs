@@ -390,6 +390,17 @@ namespace Auriga.Rendering
                         new XAttribute("y2", N(centerY)));
                 }
             }
+            else if (style.Shape == ShapeKind.Diamond)
+            {
+                var centerX = box.Position.X + (width / 2);
+                var centerY = box.Position.Y + (height / 2);
+                var right = box.Position.X + width;
+                var bottom = box.Position.Y + height;
+                outline = new XElement(
+                    Svg + "path",
+                    new XAttribute("d", $"M {N(centerX)} {N(box.Position.Y)} L {N(right)} {N(centerY)} L {N(centerX)} {N(bottom)} L {N(box.Position.X)} {N(centerY)} Z"),
+                    new XAttribute("fill", Fill(style, defs)));
+            }
             else
             {
                 outline = new XElement(
