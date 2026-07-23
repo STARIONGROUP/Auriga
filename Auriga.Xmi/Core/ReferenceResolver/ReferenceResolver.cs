@@ -41,11 +41,19 @@ namespace Auriga.Xmi.Core.ReferenceResolver
         private readonly ILogger<ReferenceResolver> logger;
 
         /// <summary>
+        /// The workspace registry that maps a <c>platform:/resource</c> library href to the canonical name
+        /// of the loaded library document, so the reference keys against the co-loaded library element.
+        /// </summary>
+        private readonly WorkspaceProjectRegistry workspaceRegistry;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceResolver"/> class.
         /// </summary>
+        /// <param name="workspaceRegistry">the registry resolving <c>platform:/resource</c> library hrefs</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
-        public ReferenceResolver(ILoggerFactory? loggerFactory = null)
+        public ReferenceResolver(WorkspaceProjectRegistry workspaceRegistry, ILoggerFactory? loggerFactory = null)
         {
+            this.workspaceRegistry = workspaceRegistry ?? throw new ArgumentNullException(nameof(workspaceRegistry));
             this.logger = (loggerFactory ?? NullLoggerFactory.Instance).CreateLogger<ReferenceResolver>();
         }
 
@@ -86,7 +94,7 @@ namespace Auriga.Xmi.Core.ReferenceResolver
         {
             foreach (var pair in element.SingleValueReferencePropertyIdentifiers)
             {
-                if (!cache.TryGetValue(ResolveKey(element, pair.Value), out var target) || target == null)
+                if (!cache.TryGetValue(this.ResolveKey(element, pair.Value), out var target) || target == null)
                 {
                     this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", pair.Key, pair.Value, element.GetType().Name);
                     unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, pair.Key, pair.Value));
@@ -142,7 +150,7 @@ namespace Auriga.Xmi.Core.ReferenceResolver
 
                 foreach (var identifier in pair.Value)
                 {
-                    if (!cache.TryGetValue(ResolveKey(element, identifier), out var target) || target == null)
+                    if (!cache.TryGetValue(this.ResolveKey(element, identifier), out var target) || target == null)
                     {
                         this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", pair.Key, identifier, element.GetType().Name);
                         unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, pair.Key, identifier));
@@ -176,13 +184,25 @@ namespace Auriga.Xmi.Core.ReferenceResolver
         /// <param name="owner">the element that owns the reference</param>
         /// <param name="token">the collected reference token (<c>id</c> or <c>path#id</c>)</param>
         /// <returns>the document-scoped cache key to look up</returns>
-        private static string ResolveKey(IAurigaElement owner, string token)
+        private string ResolveKey(IAurigaElement owner, string token)
         {
             var (documentPath, id) = HrefReference.Parse(token);
 
-            var document = documentPath.Length == 0
-                ? owner.SourceDocument
-                : HrefReference.Canonicalize(owner.SourceDocument, documentPath);
+            string? document;
+            if (documentPath.Length == 0)
+            {
+                document = owner.SourceDocument;
+            }
+            else if (this.workspaceRegistry.TryResolveDocument(documentPath, out var libraryDocument, out _))
+            {
+                // A platform:/resource library href resolves through the workspace registry to the same
+                // canonical name the reader tagged the co-loaded library elements with.
+                document = libraryDocument;
+            }
+            else
+            {
+                document = HrefReference.Canonicalize(owner.SourceDocument, documentPath);
+            }
 
             return XmiElementCache.Key(document, id);
         }

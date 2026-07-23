@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Auriga hand-authored fixture for issue #68 (platform:/resource library references). Not a real Capella export.-->
+<!--The status link crosses into the sibling library project by its declared name (CapellaLibraryFixture),-->
+<!--which differs from that project's folder name (capella-library), so the target can only be found via-->
+<!--the workspace registry reading the sibling's .project file.-->
+<org.polarsys.capella.core.data.capellamodeller:Project xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:org.polarsys.capella.core.data.capellacore="http://www.polarsys.org/capella/core/core/6.0.0"
+    xmlns:org.polarsys.capella.core.data.capellamodeller="http://www.polarsys.org/capella/core/modeller/6.0.0"
+    id="client-project-0001" name="CapellaLibraryClient">
+  <status xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+      href="platform:/resource/CapellaLibraryFixture/library.capella#lib-literal-approved"/>
+</org.polarsys.capella.core.data.capellamodeller:Project>

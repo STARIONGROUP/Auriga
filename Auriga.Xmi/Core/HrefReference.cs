@@ -52,6 +52,47 @@ namespace Auriga.Xmi.Core
         }
 
         /// <summary>
+        /// The EMF <c>platform:/resource/</c> URI prefix. An href of the form
+        /// <c>platform:/resource/&lt;projectName&gt;/&lt;path&gt;#&lt;id&gt;</c> is a workspace-absolute
+        /// reference into a (usually sibling) library project, resolved through the workspace registry
+        /// rather than relative to the referring document. <c>&lt;projectName&gt;</c> is the name declared
+        /// in the target project's <c>.project</c> file, which need not equal its folder name.
+        /// </summary>
+        public const string PlatformResourcePrefix = "platform:/resource/";
+
+        /// <summary>
+        /// Splits a <c>platform:/resource/&lt;projectName&gt;/&lt;path&gt;</c> document path into its
+        /// declared project name and the (still URL-encoded) path of the document within that project. A
+        /// path that does not carry the prefix, names no project segment, or names no document within the
+        /// project is rejected — such a token is not a resolvable library reference.
+        /// </summary>
+        /// <param name="documentPath">the document part of the href (the <c>#id</c> already stripped)</param>
+        /// <param name="projectName">the URL-decoded declared project name</param>
+        /// <param name="projectRelativePath">the still URL-encoded path of the document within the project</param>
+        /// <returns>true when the path is a well-formed <c>platform:/resource</c> reference</returns>
+        public static bool TryParsePlatformResource(string? documentPath, out string projectName, out string projectRelativePath)
+        {
+            projectName = string.Empty;
+            projectRelativePath = string.Empty;
+
+            if (documentPath == null || !documentPath.StartsWith(PlatformResourcePrefix, StringComparison.Ordinal))
+            {
+                return false;
+            }
+
+            var remainder = documentPath.Substring(PlatformResourcePrefix.Length);
+            var slash = remainder.IndexOf('/');
+            if (slash <= 0 || slash == remainder.Length - 1)
+            {
+                return false;
+            }
+
+            projectName = Uri.UnescapeDataString(remainder.Substring(0, slash));
+            projectRelativePath = remainder.Substring(slash + 1);
+            return true;
+        }
+
+        /// <summary>
         /// Resolves an <c>href</c> document path, relative to the referring document, to the canonical
         /// document name used as the source of the referenced elements: URL-decoded, forward-slashed,
         /// <c>..</c>-collapsed and relative to the model's main file — the same form as
