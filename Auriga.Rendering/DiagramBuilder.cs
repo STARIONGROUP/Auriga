@@ -14,18 +14,21 @@ namespace Auriga.Rendering
     using System.Linq;
 
     using SiriusDiagramModel = Auriga.Diagram.Diagram;
+    using SiriusTable = Auriga.Diagram.Table;
     using SiriusViewpoint = Auriga.Diagram.Viewpoint;
 
     /// <summary>
     /// The default <see cref="IDiagramBuilder"/>: dispatches a parsed Sirius representation to the
     /// builder of its kind — <see cref="SequenceDiagramBuilder"/> for a sequence representation (a
-    /// Capella scenario), <see cref="NodeDiagramBuilder"/> otherwise — which builds the
-    /// intermediate <see cref="Diagram"/> model from the representation's persisted GMF layout.
-    /// The per-kind builders are constructor-injected, so a container (e.g. Autofac) composes the
-    /// service naturally and future builder configuration flows in through their constructors; the
-    /// parameterless constructor wires the defaults for direct use. All diagram-kind-specific
-    /// knowledge lives in the builders, expressed as intermediate-model data, so
-    /// <see cref="SvgExporter"/> and <see cref="StyleResolver"/> stay kind-agnostic.
+    /// Capella scenario), <see cref="TableBuilder"/> for a table representation (a cross-table),
+    /// <see cref="NodeDiagramBuilder"/> otherwise — which builds the intermediate <see cref="Diagram"/>
+    /// model. Diagrams build from the representation's persisted GMF layout; a table has no notation
+    /// layout, so its grid is synthesized from the persisted column widths and line order. The per-kind
+    /// builders are constructor-injected, so a container (e.g. Autofac) composes the service naturally
+    /// and future builder configuration flows in through their constructors; the parameterless
+    /// constructor wires the defaults for direct use. All representation-kind-specific knowledge lives in
+    /// the builders, expressed as intermediate-model data, so <see cref="SvgExporter"/> and
+    /// <see cref="StyleResolver"/> stay kind-agnostic.
     /// </summary>
     public sealed class DiagramBuilder : IDiagramBuilder
     {
@@ -40,11 +43,16 @@ namespace Auriga.Rendering
         private readonly SequenceDiagramBuilder sequenceDiagramBuilder;
 
         /// <summary>
+        /// The builder for table representations (cross-tables).
+        /// </summary>
+        private readonly TableBuilder tableBuilder;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DiagramBuilder"/> class with default
         /// per-kind builders, for direct use without a container.
         /// </summary>
         public DiagramBuilder()
-            : this(new NodeDiagramBuilder(), new SequenceDiagramBuilder())
+            : this(new NodeDiagramBuilder(), new SequenceDiagramBuilder(), new TableBuilder())
         {
         }
 
@@ -54,11 +62,13 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="nodeDiagramBuilder">the builder for node-and-edge representations</param>
         /// <param name="sequenceDiagramBuilder">the builder for sequence representations</param>
+        /// <param name="tableBuilder">the builder for table representations</param>
         /// <exception cref="ArgumentNullException">a builder is null</exception>
-        public DiagramBuilder(NodeDiagramBuilder nodeDiagramBuilder, SequenceDiagramBuilder sequenceDiagramBuilder)
+        public DiagramBuilder(NodeDiagramBuilder nodeDiagramBuilder, SequenceDiagramBuilder sequenceDiagramBuilder, TableBuilder tableBuilder)
         {
             this.nodeDiagramBuilder = nodeDiagramBuilder ?? throw new ArgumentNullException(nameof(nodeDiagramBuilder));
             this.sequenceDiagramBuilder = sequenceDiagramBuilder ?? throw new ArgumentNullException(nameof(sequenceDiagramBuilder));
+            this.tableBuilder = tableBuilder ?? throw new ArgumentNullException(nameof(tableBuilder));
         }
 
         /// <summary>
@@ -89,14 +99,16 @@ namespace Auriga.Rendering
         /// that carries a persisted GMF layout, naming each diagram from its
         /// <c>DRepresentationDescriptor</c> — the descriptor in the <c>DAnalysis</c> owns the
         /// human-readable name (<c>DRepresentation</c> itself does not serialize one) and points at
-        /// its representation via <c>repPath</c>. A representation without a notation diagram or a
-        /// descriptor without a resolvable representation is skipped, not an error.
+        /// its representation via <c>repPath</c>. A diagram without a notation diagram, or a
+        /// descriptor without a resolvable representation, is skipped, not an error. Table
+        /// representations (<see cref="SiriusTable.IDTable"/>) are built too — they carry no notation
+        /// diagram, so their grid is synthesized — named from the same descriptors.
         /// </summary>
         /// <param name="elements">
         /// the elements of the parsed session (e.g. the loader result's element index values),
         /// providing both the representations and their descriptors
         /// </param>
-        /// <returns>the intermediate models, in element order</returns>
+        /// <returns>the intermediate models, diagrams first then tables, in element order</returns>
         /// <exception cref="ArgumentNullException">the element collection is null</exception>
         public IReadOnlyList<Diagram> BuildAll(IEnumerable<Auriga.Core.IAurigaElement> elements)
         {
@@ -123,14 +135,27 @@ namespace Auriga.Rendering
                     continue;
                 }
 
-                var name = representation.Id != null && names.TryGetValue(representation.Id, out var descriptorName)
-                    ? descriptorName
-                    : null;
+                diagrams.Add(this.Build(representation, NameOf(representation.Id, names)));
+            }
 
-                diagrams.Add(this.Build(representation, name));
+            foreach (var table in snapshot.OfType<SiriusTable.IDTable>())
+            {
+                diagrams.Add(this.tableBuilder.Build(table, NameOf(table.Id, names)));
             }
 
             return diagrams;
+        }
+
+        /// <summary>
+        /// Looks up a representation's descriptor name by its id, or <c>null</c> when the id is unknown
+        /// or no descriptor named it.
+        /// </summary>
+        /// <param name="id">the representation's id (its uid)</param>
+        /// <param name="names">the descriptor name map, keyed by representation path</param>
+        /// <returns>the descriptor name, or <c>null</c></returns>
+        private static string? NameOf(string? id, IReadOnlyDictionary<string, string> names)
+        {
+            return id != null && names.TryGetValue(id, out var name) ? name : null;
         }
     }
 }
