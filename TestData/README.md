@@ -14,6 +14,7 @@ Each obtained fixture is committed as the **complete Capella project set**: sema
 | [`fragmented-sysmodel/`](fragmented-sysmodel) | 7.0.0 nsURIs (saved by 7.0.1) | EPL-2.0 | Model split across four `.capellafragment` files; exercises cross-fragment `href` resolution |
 | [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; uses the **Cybersecurity** add-on viewpoint (out of v1 metamodel scope — the round-trip suite skips it) |
 | [`Level Crossing Traffic Control/`](Level%20Crossing%20Traffic%20Control) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; large model (~1.5 MB semantic, ~37 MB `.aird`) |
+| [`library-workspace/`](library-workspace) | 6.0.0 nsURIs | Apache-2.0 (this repo) | Hand-authored: a client project referencing a sibling **library** project by a `platform:/resource` href (issue #68) |
 
 ## minimal/
 
@@ -51,3 +52,12 @@ The official Capella "Crowd Surveillance System in DARC" sample, downloaded from
 ## Level Crossing Traffic Control/
 
 The official Capella "Level Crossing Traffic Control" sample, downloaded from the Capella 7.0.0 sample models at <https://download.eclipse.org/capella/samples/7.0.0/> (`LevelCrossingTrafficControl.zip`; the French `LevelCrossingTrafficControl_fr` variant was not added). EPL-2.0 ([LICENSE-EPL-2.0.md](Level%20Crossing%20Traffic%20Control/LICENSE-EPL-2.0.md)). ~1.5 MB semantic model across the Arcadia layers, with the ~37 MB `.aird` — the largest fixture in this repository.
+
+## library-workspace/
+
+Hand-authored for this repository (Apache-2.0, see the repo [LICENSE](../LICENSE)), for issue [#68](https://github.com/STARIONGROUP/Auriga/issues/68) — Capella **library-project** references. Two minimal `.capella` projects laid out as an Eclipse workspace (sibling project folders), **not** a real Capella export:
+
+- `library-client/` (declares project name `CapellaLibraryClient`) holds `client.capella`, whose `status` reference crosses into the library by a workspace-absolute href: `platform:/resource/CapellaLibraryFixture/library.capella#lib-literal-approved`.
+- `capella-library/` (declares project name **`CapellaLibraryFixture`**) holds `library.capella` with the referenced `EnumerationPropertyLiteral`.
+
+The fixture exercises the two things that make `platform:/resource` hrefs different from the relative fragment hrefs above: the target lives in a **sibling folder** outside the referencing project's root, and the project is named by its `.project` `<name>` (`CapellaLibraryFixture`), which deliberately **differs from the folder name** (`capella-library`) — so the target can only be found by reading the sibling's `.project`, through the workspace registry. Each project carries the Eclipse `.project` descriptor that supplies its declared name.

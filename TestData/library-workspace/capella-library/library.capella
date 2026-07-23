@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Auriga hand-authored fixture for issue #68 (platform:/resource library references). Not a real Capella export.-->
+<org.polarsys.capella.core.data.capellamodeller:Project xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:org.polarsys.capella.core.data.capellacore="http://www.polarsys.org/capella/core/core/6.0.0"
+    xmlns:org.polarsys.capella.core.data.capellamodeller="http://www.polarsys.org/capella/core/modeller/6.0.0"
+    id="lib-project-0001" name="CapellaLibraryFixture">
+  <ownedEnumerationPropertyTypes xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyType"
+      id="lib-enum-progressstatus" name="LibraryProgressStatus">
+    <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+        id="lib-literal-approved" name="APPROVED"/>
+  </ownedEnumerationPropertyTypes>
+</org.polarsys.capella.core.data.capellamodeller:Project>

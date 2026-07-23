@@ -148,6 +148,68 @@ namespace Auriga.Xmi.Tests
         }
 
         [Test]
+        public void Verify_that_a_platform_resource_path_parses_to_its_project_and_document()
+        {
+            var parsed = HrefReference.TryParsePlatformResource("platform:/resource/CapellaLibraryFixture/library.capella", out var projectName, out var projectRelativePath);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(parsed, Is.True);
+                Assert.That(projectName, Is.EqualTo("CapellaLibraryFixture"));
+                Assert.That(projectRelativePath, Is.EqualTo("library.capella"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_platform_resource_path_keeps_a_nested_document_path()
+        {
+            var parsed = HrefReference.TryParsePlatformResource("platform:/resource/Lib/sub/deep.capella", out var projectName, out var projectRelativePath);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(parsed, Is.True);
+                Assert.That(projectName, Is.EqualTo("Lib"));
+                Assert.That(projectRelativePath, Is.EqualTo("sub/deep.capella"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_platform_resource_path_url_decodes_the_project_name()
+        {
+            var parsed = HrefReference.TryParsePlatformResource("platform:/resource/My%20Library/library.capella", out var projectName, out _);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(parsed, Is.True);
+                Assert.That(projectName, Is.EqualTo("My Library"));
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_relative_path_is_not_a_platform_resource_reference()
+        {
+            var parsed = HrefReference.TryParsePlatformResource("../sysmodel.capella", out _, out _);
+
+            Assert.That(parsed, Is.False);
+        }
+
+        [Test]
+        public void Verify_that_a_platform_plugin_path_is_not_a_platform_resource_reference()
+        {
+            var parsed = HrefReference.TryParsePlatformResource("platform:/plugin/org.polarsys.capella/model.odesign", out _, out _);
+
+            Assert.That(parsed, Is.False);
+        }
+
+        [Test]
+        public void Verify_that_a_platform_resource_path_without_a_document_is_rejected()
+        {
+            var parsed = HrefReference.TryParsePlatformResource("platform:/resource/OnlyAProject/", out _, out _);
+
+            Assert.That(parsed, Is.False);
+        }
+
+        [Test]
         public void Verify_that_relativize_and_canonicalize_are_inverses()
         {
             const string from = "fragments/SA.capellafragment";

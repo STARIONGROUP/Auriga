@@ -79,6 +79,22 @@
             <Link>TestData\Level Crossing Traffic Control.aird</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="..\TestData\library-workspace\library-client\client.capella">
+            <Link>TestData\library-workspace\library-client\client.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\library-workspace\library-client\.project">
+            <Link>TestData\library-workspace\library-client\.project</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\library-workspace\capella-library\library.capella">
+            <Link>TestData\library-workspace\capella-library\library.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\library-workspace\capella-library\.project">
+            <Link>TestData\library-workspace\capella-library\.project</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

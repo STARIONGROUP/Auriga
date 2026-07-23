@@ -14,6 +14,7 @@ namespace Auriga.Xmi.Tests
     using System.IO;
     using System.Text;
 
+    using Auriga.Xmi.Core;
     using Auriga.Xmi.Core.Cache;
     using Auriga.Xmi.Core.Namespaces;
     using Auriga.Xmi.Core.Readers;
@@ -64,14 +65,16 @@ namespace Auriga.Xmi.Tests
             var cache = new XmiElementCache();
             var namespaceResolver = new NamespaceResolver(ModelReaders.AutoGenNamespaceRegistry.NamespaceToPackage);
             var facade = new ModelReaders.XmiReaderFacade(cache, namespaceResolver);
-            var referenceResolver = new ReferenceResolver();
+            var registry = new WorkspaceProjectRegistry();
+            var referenceResolver = new ReferenceResolver(registry);
 
             Assert.Multiple(() =>
             {
-                Assert.That(() => new XmiReader(null!, facade, namespaceResolver, referenceResolver), Throws.ArgumentNullException);
-                Assert.That(() => new XmiReader(cache, null!, namespaceResolver, referenceResolver), Throws.ArgumentNullException);
-                Assert.That(() => new XmiReader(cache, facade, null!, referenceResolver), Throws.ArgumentNullException);
-                Assert.That(() => new XmiReader(cache, facade, namespaceResolver, null!), Throws.ArgumentNullException);
+                Assert.That(() => new XmiReader(null!, facade, namespaceResolver, referenceResolver, registry), Throws.ArgumentNullException);
+                Assert.That(() => new XmiReader(cache, null!, namespaceResolver, referenceResolver, registry), Throws.ArgumentNullException);
+                Assert.That(() => new XmiReader(cache, facade, null!, referenceResolver, registry), Throws.ArgumentNullException);
+                Assert.That(() => new XmiReader(cache, facade, namespaceResolver, null!, registry), Throws.ArgumentNullException);
+                Assert.That(() => new XmiReader(cache, facade, namespaceResolver, referenceResolver, null!), Throws.ArgumentNullException);
             });
         }
 
@@ -211,9 +214,10 @@ namespace Auriga.Xmi.Tests
             var cache = new XmiElementCache();
             var namespaceResolver = new NamespaceResolver(ModelReaders.AutoGenNamespaceRegistry.NamespaceToPackage);
             var facade = new ModelReaders.XmiReaderFacade(cache, namespaceResolver);
-            var referenceResolver = new ReferenceResolver();
+            var registry = new WorkspaceProjectRegistry();
+            var referenceResolver = new ReferenceResolver(registry);
 
-            return new XmiReader(cache, facade, namespaceResolver, referenceResolver, fragmentExtensions: fragmentExtensions);
+            return new XmiReader(cache, facade, namespaceResolver, referenceResolver, registry, fragmentExtensions: fragmentExtensions);
         }
     }
 }

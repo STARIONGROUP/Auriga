@@ -11,6 +11,7 @@ namespace Auriga.Xmi
 {
     using Autofac;
 
+    using Auriga.Xmi.Core;
     using Auriga.Xmi.Core.Cache;
     using Auriga.Xmi.Core.Namespaces;
     using Auriga.Xmi.Core.Readers;
@@ -61,6 +62,14 @@ namespace Auriga.Xmi
 
             this.ContainerBuilder.RegisterType<XmiElementCache>().As<IXmiElementCache>().InstancePerLifetimeScope();
 
+            // Shared, per read session, by the reader (which discovers library documents to load) and the
+            // reference resolver (which keys the collected tokens against them), so both derive the same
+            // canonical name for a platform:/resource library href.
+            this.ContainerBuilder
+                .Register(context => new WorkspaceProjectRegistry(context.Resolve<ILoggerFactory>()))
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
             this.ContainerBuilder
                 .Register(context =>
                 {
@@ -101,7 +110,7 @@ namespace Auriga.Xmi
                 .InstancePerLifetimeScope();
 
             this.ContainerBuilder
-                .Register(context => new ReferenceResolver(context.Resolve<ILoggerFactory>()))
+                .Register(context => new ReferenceResolver(context.Resolve<WorkspaceProjectRegistry>(), context.Resolve<ILoggerFactory>()))
                 .As<IReferenceResolver>()
                 .InstancePerLifetimeScope();
 
@@ -111,6 +120,7 @@ namespace Auriga.Xmi
                     context.Resolve<IXmiReaderFacade>(),
                     context.Resolve<INamespaceResolver>(),
                     context.Resolve<IReferenceResolver>(),
+                    context.Resolve<WorkspaceProjectRegistry>(),
                     context.Resolve<ILoggerFactory>()))
                 .As<IXmiReader>();
 

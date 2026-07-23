@@ -87,6 +87,12 @@ namespace Auriga.Xmi.Core.Readers
         private readonly IReferenceResolver referenceResolver;
 
         /// <summary>
+        /// The workspace registry that resolves <c>platform:/resource</c> library hrefs to the sibling
+        /// project documents they reference, so those documents are loaded into the same session.
+        /// </summary>
+        private readonly WorkspaceProjectRegistry workspaceRegistry;
+
+        /// <summary>
         /// The logger used to report unresolved roots and other read-level diagnostics.
         /// </summary>
         private readonly ILogger<XmiReader> logger;
@@ -98,18 +104,20 @@ namespace Auriga.Xmi.Core.Readers
         /// <param name="facade">the reader facade (xsi:type to reader registry)</param>
         /// <param name="namespaceResolver">the namespace-URI-to-package resolver</param>
         /// <param name="referenceResolver">the second-pass reference resolver</param>
+        /// <param name="workspaceRegistry">the registry resolving <c>platform:/resource</c> library hrefs</param>
         /// <param name="loggerFactory">the logger factory, or <c>null</c> to disable logging</param>
         /// <param name="fragmentExtensions">
         /// the fragment file extensions <see cref="Read(string)"/> follows transitively, or <c>null</c>
         /// (the default) to derive them from the main document's family — <c>.airdfragment</c> for an
         /// <c>.aird</c> / <c>.airdfragment</c> main document, <c>.capellafragment</c> otherwise
         /// </param>
-        public XmiReader(IXmiElementCache cache, IXmiReaderFacade facade, INamespaceResolver namespaceResolver, IReferenceResolver referenceResolver, ILoggerFactory? loggerFactory = null, IReadOnlyCollection<string>? fragmentExtensions = null)
+        public XmiReader(IXmiElementCache cache, IXmiReaderFacade facade, INamespaceResolver namespaceResolver, IReferenceResolver referenceResolver, WorkspaceProjectRegistry workspaceRegistry, ILoggerFactory? loggerFactory = null, IReadOnlyCollection<string>? fragmentExtensions = null)
         {
             this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.facade = facade ?? throw new ArgumentNullException(nameof(facade));
             this.namespaceResolver = namespaceResolver ?? throw new ArgumentNullException(nameof(namespaceResolver));
             this.referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+            this.workspaceRegistry = workspaceRegistry ?? throw new ArgumentNullException(nameof(workspaceRegistry));
             this.logger = (loggerFactory ?? NullLoggerFactory.Instance).CreateLogger<XmiReader>();
             this.configuredFragmentExtensions = fragmentExtensions;
         }
@@ -168,6 +176,11 @@ namespace Auriga.Xmi.Core.Readers
             var baseDirectory = Path.GetDirectoryName(mainPath) ?? string.Empty;
 
             this.cache.Clear();
+
+            // Anchor the workspace registry at the model's project folder, so platform:/resource library
+            // hrefs resolve against its sibling projects and are named relative to it (matching the source
+            // document the co-loaded library elements are tagged with).
+            this.workspaceRegistry.SetAnchorDirectory(baseDirectory);
 
             var loaded = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var root = this.LoadDocument(mainPath, baseDirectory, loaded, isMain: true)!;
@@ -382,14 +395,14 @@ namespace Auriga.Xmi.Core.Readers
             {
                 foreach (var token in element.SingleValueReferencePropertyIdentifiers.Values)
                 {
-                    AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents, fragmentExtensions);
+                    this.AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents, fragmentExtensions);
                 }
 
                 foreach (var tokens in element.MultiValueReferencePropertyIdentifiers.Values)
                 {
                     foreach (var token in tokens)
                     {
-                        AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents, fragmentExtensions);
+                        this.AddReferencedDocument(element.SourceDocument, token, baseDirectory, loaded, documents, fragmentExtensions);
                     }
                 }
             }
@@ -399,10 +412,13 @@ namespace Auriga.Xmi.Core.Readers
 
         /// <summary>
         /// Adds the document referenced by a single <c>href</c> token to <paramref name="documents"/> when
-        /// the token is a not-yet-loaded reference into a fragment of the session's family. Intra-document
-        /// references (a bare id) and references to anything other than such a fragment — <c>hlink://</c>
-        /// in rich text, <c>platform:/resource</c> library links, documents of the other metamodel family —
-        /// are ignored.
+        /// it is a not-yet-loaded reference into either a fragment of the session's family or — through the
+        /// workspace registry — a <c>platform:/resource</c> library project. A library link is followed
+        /// regardless of the session's fragment extensions: unlike the relative fragment hrefs (gated to
+        /// avoid implicitly co-loading half the other metamodel family), it is an explicit cross-project
+        /// reference whose target the model deliberately depends on. Intra-document references (a bare id),
+        /// unregistered library projects, and other cross-document forms (<c>hlink://</c> rich text,
+        /// <c>platform:/plugin</c> tooling links) are ignored — and stay reported as unresolved.
         /// </summary>
         /// <param name="referringDocument">the document that owns the reference, whose directory the href
         /// path is resolved relative to</param>
@@ -411,11 +427,21 @@ namespace Auriga.Xmi.Core.Readers
         /// <param name="loaded">the set of already-loaded document paths</param>
         /// <param name="documents">the set the referenced document path is added to</param>
         /// <param name="fragmentExtensions">the fragment extensions followed in this session</param>
-        private static void AddReferencedDocument(string? referringDocument, string token, string baseDirectory, HashSet<string> loaded, HashSet<string> documents, IReadOnlyCollection<string> fragmentExtensions)
+        private void AddReferencedDocument(string? referringDocument, string token, string baseDirectory, HashSet<string> loaded, HashSet<string> documents, IReadOnlyCollection<string> fragmentExtensions)
         {
             var (documentPath, _) = HrefReference.Parse(token);
             if (documentPath.Length == 0)
             {
+                return;
+            }
+
+            if (this.workspaceRegistry.TryResolveDocument(documentPath, out _, out var libraryPath))
+            {
+                if (!loaded.Contains(libraryPath))
+                {
+                    documents.Add(libraryPath);
+                }
+
                 return;
             }
 
