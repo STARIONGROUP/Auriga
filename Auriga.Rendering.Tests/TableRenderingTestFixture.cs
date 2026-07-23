@@ -89,21 +89,58 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_narrow_persisted_widths_grow_so_the_text_fits()
+        {
+            // A table whose persisted widths are far too small for its labels — the fragmented-sysmodel
+            // "Interfaces - Capabilities and Scenarios" case: headerColumnWidth=15 against multi-word
+            // line labels, a 63px column against a long cell mark.
+            const string LineLabel = "InterfaceActor3_to_System";
+            const string CellLabel = "IS1;IS1 with TIMERS & DURATION";
+
+            var column = new DTargetColumn { Id = "col", Uid = "col", Label = "C", Width = 63 };
+            var cell = new DCell { Id = "cell", Uid = "cell", Label = CellLabel, Column = column };
+            var line = new DLine { Id = "line", Uid = "line", Label = LineLabel };
+            line.Cells.Add(cell);
+
+            var table = new DTable { Id = "t", Uid = "t", HeaderColumnWidth = 15 };
+            table.Columns.Add(column);
+            table.Lines.Add(line);
+
+            var boxes = this.tableBuilder.Build(table).QueryAllBoxes().ToList();
+
+            var corner = boxes.Single(box => box.Identifier == "t-corner");
+            var dataCell = boxes.Single(box => box.Identifier == "cell");
+
+            // The exporter's glyph metric: a label needs roughly length * fontSize * 0.6 pixels to fit
+            // on one line. Both cells must be at least that wide, so the text no longer overflows.
+            var lineLabelWidth = LineLabel.Length * 8 * 0.6;
+            var cellLabelWidth = CellLabel.Length * 8 * 0.6;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(corner.Width, Is.GreaterThanOrEqualTo(lineLabelWidth), "the header column grew past the 15px persisted width to fit the line label");
+                Assert.That(dataCell.Width, Is.GreaterThanOrEqualTo(cellLabelWidth), "the data column grew past its 63px persisted width to fit the cell text");
+            });
+        }
+
+        [Test]
         public void Verify_that_a_nested_line_is_an_indented_row_header()
         {
             var boxes = this.tableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
 
+            var corner = boxes.Single(box => box.Identifier == "table-1-corner");
             var topLine = boxes.Single(box => box.Identifier == "row-line-1");
             var subLine = boxes.Single(box => box.Identifier == "row-line-1a");
 
             Assert.Multiple(() =>
             {
                 Assert.That(topLine.Label!.Text, Is.EqualTo("Row1"));
-                Assert.That(topLine.Position.Y, Is.EqualTo(24), "the first data row is below the header row");
+                Assert.That(topLine.Position.Y, Is.EqualTo(corner.Height), "the first data row is below the header row");
 
-                // Both line headers are left-aligned (a persisted position), the nested one indented.
+                // Both line headers are left-aligned (a persisted position), the nested one indented, and
+                // stacked in document order.
                 Assert.That(subLine.Label!.Text, Is.EqualTo("Sub"));
-                Assert.That(subLine.Position.Y, Is.EqualTo(44), "the sub-line is the second data row");
+                Assert.That(subLine.Position.Y, Is.EqualTo(topLine.Position.Y + topLine.Height), "the sub-line is the next data row");
                 Assert.That(subLine.Label.Position!.Value.X, Is.GreaterThan(topLine.Label.Position!.Value.X), "the nested row header is indented");
             });
         }
@@ -113,6 +150,8 @@ namespace Auriga.Rendering.Tests
         {
             var boxes = this.tableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
 
+            var topLine = boxes.Single(box => box.Identifier == "row-line-1");
+
             // Row1 has a cell in column A ("X") and a blank in column B.
             var row1ColumnA = boxes.Single(box => box.Identifier == "cell-x");
             var row1ColumnB = boxes.Single(box => box.Identifier == "line-1-column-b");
@@ -120,7 +159,8 @@ namespace Auriga.Rendering.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(row1ColumnA.Label!.Text, Is.EqualTo("X"));
-                Assert.That(row1ColumnA.Position, Is.EqualTo(new Point(100, 24)), "the cell sits at column A, row 1");
+                Assert.That(row1ColumnA.Position.X, Is.EqualTo(100), "the cell sits in column A");
+                Assert.That(row1ColumnA.Position.Y, Is.EqualTo(topLine.Position.Y), "the cell sits in row 1");
                 Assert.That(row1ColumnB.Label, Is.Null, "the blank intersection carries no text");
             });
         }

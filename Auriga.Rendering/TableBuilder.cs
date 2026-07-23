@@ -27,27 +27,45 @@ namespace Auriga.Rendering
     /// column is omitted. Per-cell styling reuses the resolved-style bag the exporter already consumes,
     /// filled from the cell's persisted <c>currentStyle</c> when one exists.
     /// </summary>
+    /// <remarks>
+    /// Column and row-header widths are grown to fit their text: a table's persisted widths are the
+    /// tool's last interactive layout and are routinely far too small for a static export (Capella wraps
+    /// or clips, and collapses the header column to a resize handle — one fixture persists
+    /// <c>headerColumnWidth="15"</c> against multi-word row labels). Each column is therefore sized to the
+    /// widest of its persisted width and its content, clamped to a sane range; text still wider than the
+    /// clamp wraps, and the row grows to fit the wrapped lines — so no label overflows its cell.
+    /// </remarks>
     public sealed class TableBuilder
     {
         /// <summary>
-        /// The width used for a data column that persists none.
+        /// The narrowest a data column is drawn, so a short-labelled column is still a usable cell.
         /// </summary>
-        private const double DefaultColumnWidth = 64;
+        private const double MinColumnWidth = 28;
 
         /// <summary>
-        /// The width used for the header (line-label) column when the table persists none.
+        /// The widest a data column grows to fit its content before the text wraps instead.
         /// </summary>
-        private const double DefaultHeaderColumnWidth = 150;
+        private const double MaxColumnWidth = 240;
 
         /// <summary>
-        /// The height of a data row.
+        /// The narrowest the header (line-label) column is drawn.
         /// </summary>
-        private const double RowHeight = 20;
+        private const double MinHeaderColumnWidth = 60;
 
         /// <summary>
-        /// The height of the header (column-label) row.
+        /// The widest the header (line-label) column grows to fit its content before the text wraps.
         /// </summary>
-        private const double HeaderRowHeight = 24;
+        private const double MaxHeaderColumnWidth = 320;
+
+        /// <summary>
+        /// The shortest a data row is drawn (a single line of text with padding).
+        /// </summary>
+        private const double MinRowHeight = 18;
+
+        /// <summary>
+        /// The shortest the header (column-label) row is drawn.
+        /// </summary>
+        private const double MinHeaderRowHeight = 22;
 
         /// <summary>
         /// The horizontal indent applied per line-nesting level in the header column.
@@ -55,9 +73,25 @@ namespace Auriga.Rendering
         private const double IndentPerLevel = 14;
 
         /// <summary>
-        /// The left padding of a left-aligned header-column label.
+        /// The horizontal padding on each side of a cell's text.
         /// </summary>
         private const double CellPadding = 4;
+
+        /// <summary>
+        /// The combined top-and-bottom padding added to a row's text height.
+        /// </summary>
+        private const double RowPadding = 6;
+
+        /// <summary>
+        /// The line height as a multiple of the font size (matching the exporter's wrapping).
+        /// </summary>
+        private const double LineHeightRatio = 1.2;
+
+        /// <summary>
+        /// The estimated glyph width as a fraction of the font size — the exporter's text metric, reused
+        /// so the widths computed here agree with how the text actually wraps.
+        /// </summary>
+        private const double GlyphRatio = 0.6;
 
         /// <summary>
         /// The default cell font size, matching <see cref="ResolvedStyle.FontSize"/>.
@@ -102,55 +136,49 @@ namespace Auriga.Rendering
             }
 
             var columns = table.Columns.Where(column => column.Visible).ToList();
-            var headerColumnWidth = table.HeaderColumnWidth is { } persisted && persisted > 0 ? persisted : DefaultHeaderColumnWidth;
+
+            var rows = new List<Row>();
+            Flatten(table.Lines, 0, columns, rows);
+
+            var headerColumnWidth = HeaderColumnWidth(table, rows);
+            var columnWidths = ColumnWidths(columns, rows);
 
             var columnLefts = new double[columns.Count];
-            var columnWidths = new double[columns.Count];
             var left = headerColumnWidth;
             for (var i = 0; i < columns.Count; i++)
             {
                 columnLefts[i] = left;
-                columnWidths[i] = columns[i].Width is { } width && width > 0 ? width : DefaultColumnWidth;
                 left += columnWidths[i];
             }
 
             var boxes = new List<Box>();
 
-            // Header row: the empty top-left corner, then the column-header cells.
-            boxes.Add(HeaderCell($"{Identifier(table)}-corner", 0, 0, headerColumnWidth, HeaderRowHeight, label: null, indent: 0, centered: false));
+            // Header row: the empty top-left corner, then the column-header cells. Its height fits the
+            // tallest wrapped column header.
+            var headerRowHeight = HeaderRowHeight(columns, columnWidths);
+            boxes.Add(HeaderCell($"{Identifier(table)}-corner", 0, 0, headerColumnWidth, headerRowHeight, label: null, indent: 0, centered: false));
             for (var i = 0; i < columns.Count; i++)
             {
-                boxes.Add(HeaderCell($"col-{Identifier(columns[i])}", columnLefts[i], 0, columnWidths[i], HeaderRowHeight, NullIfBlank(columns[i].Label), indent: 0, centered: true));
+                boxes.Add(HeaderCell($"col-{Identifier(columns[i])}", columnLefts[i], 0, columnWidths[i], headerRowHeight, NullIfBlank(columns[i].Label), indent: 0, centered: true));
             }
 
             // Data rows: the header-column cell (the line label, indented by nesting), then one cell per
             // column — a background cell that carries the intersection's label and style when one exists.
-            var rows = new List<(SiriusTable.IDLine Line, int Depth)>();
-            Flatten(table.Lines, 0, rows);
-
-            var top = HeaderRowHeight;
-            foreach (var (line, depth) in rows)
+            var top = headerRowHeight;
+            foreach (var row in rows)
             {
-                boxes.Add(HeaderCell($"row-{Identifier(line)}", 0, top, headerColumnWidth, RowHeight, NullIfBlank(line.Label), depth, centered: false));
+                var rowHeight = RowHeight(row, columns, columnWidths, headerColumnWidth);
 
-                var cellsByColumn = new Dictionary<int, SiriusTable.IDCell>();
-                foreach (var cell in line.Cells)
-                {
-                    var index = cell.Column == null ? -1 : columns.IndexOf(cell.Column);
-                    if (index >= 0)
-                    {
-                        cellsByColumn[index] = cell;
-                    }
-                }
+                boxes.Add(HeaderCell($"row-{Identifier(row.Line)}", 0, top, headerColumnWidth, rowHeight, NullIfBlank(row.Line.Label), row.Depth, centered: false));
 
                 for (var i = 0; i < columns.Count; i++)
                 {
-                    cellsByColumn.TryGetValue(i, out var cell);
-                    var identifier = cell != null ? Identifier(cell) : $"{Identifier(line)}-{Identifier(columns[i])}";
-                    boxes.Add(DataCell(identifier, columnLefts[i], top, columnWidths[i], NullIfBlank(cell?.Label), cell?.CurrentStyle));
+                    row.Cells.TryGetValue(i, out var cell);
+                    var identifier = cell != null ? Identifier(cell) : $"{Identifier(row.Line)}-{Identifier(columns[i])}";
+                    boxes.Add(DataCell(identifier, columnLefts[i], top, columnWidths[i], rowHeight, NullIfBlank(cell?.Label), cell?.CurrentStyle));
                 }
 
-                top += RowHeight;
+                top += rowHeight;
             }
 
             return new Diagram(Identifier(table), boxes, Array.Empty<Edge>(), null, null)
@@ -161,14 +189,15 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Flattens the line tree depth-first into rows, recording each line's nesting depth for
-        /// indentation. An invisible line is skipped; a collapsed line is shown but its descendants are
-        /// not, mirroring the tool.
+        /// Flattens the line tree depth-first into rows, recording each line's nesting depth and mapping
+        /// its cells to column indices. An invisible line is skipped; a collapsed line is shown but its
+        /// descendants are not, mirroring the tool.
         /// </summary>
         /// <param name="lines">the lines to flatten</param>
         /// <param name="depth">the nesting depth of these lines</param>
+        /// <param name="columns">the visible columns, for mapping cells to their index</param>
         /// <param name="rows">the accumulating row list</param>
-        private static void Flatten(IEnumerable<SiriusTable.IDLine> lines, int depth, List<(SiriusTable.IDLine Line, int Depth)> rows)
+        private static void Flatten(IEnumerable<SiriusTable.IDLine> lines, int depth, List<SiriusTable.IDColumn> columns, List<Row> rows)
         {
             foreach (var line in lines)
             {
@@ -177,18 +206,117 @@ namespace Auriga.Rendering
                     continue;
                 }
 
-                rows.Add((line, depth));
+                var cells = new Dictionary<int, SiriusTable.IDCell>();
+                foreach (var cell in line.Cells)
+                {
+                    var index = cell.Column == null ? -1 : columns.IndexOf(cell.Column);
+                    if (index >= 0)
+                    {
+                        cells[index] = cell;
+                    }
+                }
+
+                rows.Add(new Row(line, depth, cells));
 
                 if (!line.Collapsed)
                 {
-                    Flatten(line.Lines, depth + 1, rows);
+                    Flatten(line.Lines, depth + 1, columns, rows);
                 }
             }
         }
 
         /// <summary>
+        /// The header (line-label) column width: the widest of the table's persisted width and the widest
+        /// row label (including its nesting indent), clamped so a static export stays readable and no
+        /// label overflows the cell without wrapping.
+        /// </summary>
+        /// <param name="table">the table</param>
+        /// <param name="rows">the flattened rows</param>
+        /// <returns>the header column width</returns>
+        private static double HeaderColumnWidth(SiriusTable.IDTable table, List<Row> rows)
+        {
+            var content = rows.Count == 0
+                ? 0
+                : rows.Max(row => TextWidth(row.Line.Label, CellFontSize) + (row.Depth * IndentPerLevel));
+
+            var persisted = table.HeaderColumnWidth is { } width && width > 0 ? width : 0;
+
+            return Clamp(Math.Max(persisted, content + (2 * CellPadding)), MinHeaderColumnWidth, MaxHeaderColumnWidth);
+        }
+
+        /// <summary>
+        /// The width of each data column: the widest of the column's persisted width and the widest of its
+        /// header label and cell labels, clamped to a readable range.
+        /// </summary>
+        /// <param name="columns">the visible columns</param>
+        /// <param name="rows">the flattened rows</param>
+        /// <returns>the per-column widths, indexed as <paramref name="columns"/></returns>
+        private static double[] ColumnWidths(List<SiriusTable.IDColumn> columns, List<Row> rows)
+        {
+            var widths = new double[columns.Count];
+            for (var i = 0; i < columns.Count; i++)
+            {
+                var content = TextWidth(columns[i].Label, CellFontSize);
+                foreach (var row in rows)
+                {
+                    if (row.Cells.TryGetValue(i, out var cell))
+                    {
+                        content = Math.Max(content, TextWidth(cell.Label, CellFontSizeOf(cell.CurrentStyle)));
+                    }
+                }
+
+                var persisted = columns[i].Width is { } width && width > 0 ? width : 0;
+                widths[i] = Clamp(Math.Max(persisted, content + (2 * CellPadding)), MinColumnWidth, MaxColumnWidth);
+            }
+
+            return widths;
+        }
+
+        /// <summary>
+        /// The header-row height: enough to fit the tallest wrapped column header.
+        /// </summary>
+        /// <param name="columns">the visible columns</param>
+        /// <param name="columnWidths">the resolved column widths</param>
+        /// <returns>the header-row height</returns>
+        private static double HeaderRowHeight(List<SiriusTable.IDColumn> columns, double[] columnWidths)
+        {
+            var lines = 1;
+            for (var i = 0; i < columns.Count; i++)
+            {
+                lines = Math.Max(lines, LineCount(columns[i].Label, columnWidths[i], CellFontSize));
+            }
+
+            return Math.Max(MinHeaderRowHeight, (lines * CellFontSize * LineHeightRatio) + RowPadding);
+        }
+
+        /// <summary>
+        /// A data row's height: enough to fit the tallest wrapped cell — the row header (in the header
+        /// column, less its indent) or any data cell (in its column width).
+        /// </summary>
+        /// <param name="row">the row</param>
+        /// <param name="columns">the visible columns</param>
+        /// <param name="columnWidths">the resolved column widths</param>
+        /// <param name="headerColumnWidth">the resolved header-column width</param>
+        /// <returns>the row height</returns>
+        private static double RowHeight(Row row, List<SiriusTable.IDColumn> columns, double[] columnWidths, double headerColumnWidth)
+        {
+            var lines = LineCount(row.Line.Label, headerColumnWidth - (row.Depth * IndentPerLevel) - (2 * CellPadding), CellFontSize);
+
+            for (var i = 0; i < columns.Count; i++)
+            {
+                if (row.Cells.TryGetValue(i, out var cell))
+                {
+                    lines = Math.Max(lines, LineCount(cell.Label, columnWidths[i] - (2 * CellPadding), CellFontSizeOf(cell.CurrentStyle)));
+                }
+            }
+
+            return Math.Max(MinRowHeight, (lines * CellFontSize * LineHeightRatio) + RowPadding);
+        }
+
+        /// <summary>
         /// Builds a header cell — a top-row column header or a left-column line header. A column header
-        /// centers its label; a line header left-aligns it, indented by nesting depth.
+        /// centers its (wrapped) label; a line header left-aligns it, indented by nesting depth and
+        /// wrapped to the header column.
         /// </summary>
         /// <param name="identifier">the box identifier</param>
         /// <param name="x">the cell's left</param>
@@ -203,7 +331,7 @@ namespace Auriga.Rendering
         {
             var style = GridStyle(HeaderFill, CellFontSize, bold: true);
             var box = MakeBox(identifier, x, y, width, height, style);
-            PlaceLabel(box, label, x, y, height, indent, centered, style.FontSize);
+            PlaceLabel(box, label, x, y, width, height, indent, centered, style.FontSize);
             return box;
         }
 
@@ -215,16 +343,17 @@ namespace Auriga.Rendering
         /// <param name="x">the cell's left</param>
         /// <param name="y">the cell's top</param>
         /// <param name="width">the cell width</param>
+        /// <param name="height">the cell height</param>
         /// <param name="label">the cell text, or <c>null</c> for a blank cell</param>
         /// <param name="cellStyle">the persisted cell style, or <c>null</c></param>
         /// <returns>the data box</returns>
-        private static Box DataCell(string identifier, double x, double y, double width, string? label, SiriusTable.IDCellStyle? cellStyle)
+        private static Box DataCell(string identifier, double x, double y, double width, double height, string? label, SiriusTable.IDCellStyle? cellStyle)
         {
             var style = GridStyle(CellFill, CellFontSize, bold: false);
             ApplyCellStyle(style, cellStyle);
 
-            var box = MakeBox(identifier, x, y, width, RowHeight, style);
-            PlaceLabel(box, label, x, y, RowHeight, indent: 0, centered: true, style.FontSize);
+            var box = MakeBox(identifier, x, y, width, height, style);
+            PlaceLabel(box, label, x, y, width, height, indent: 0, centered: true, style.FontSize);
             return box;
         }
 
@@ -277,19 +406,21 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Attaches the label to a cell when it has text: a centered label is placed by the exporter's
-        /// box-centering; a left-aligned one is positioned at the cell's left, offset by the padding and
-        /// the nesting indent and vertically centered. A blank cell gets no label.
+        /// Attaches the label to a cell when it has text. A centered label is placed and wrapped by the
+        /// exporter's box-centering; a left-aligned one is positioned at the cell's left — offset by the
+        /// padding and the nesting indent, wrapped to the remaining width and vertically centered over its
+        /// wrapped lines. A blank cell gets no label.
         /// </summary>
         /// <param name="box">the cell box</param>
         /// <param name="text">the label text, or <c>null</c>/blank for no label</param>
         /// <param name="x">the cell's left</param>
         /// <param name="y">the cell's top</param>
+        /// <param name="width">the cell width</param>
         /// <param name="height">the cell height</param>
         /// <param name="indent">the nesting depth (left-aligned labels only)</param>
         /// <param name="centered">whether the label centers in the box rather than left-aligning</param>
-        /// <param name="fontSize">the resolved font size, for vertical centering</param>
-        private static void PlaceLabel(Box box, string? text, double x, double y, double height, int indent, bool centered, double fontSize)
+        /// <param name="fontSize">the resolved font size, for wrapping and vertical centering</param>
+        private static void PlaceLabel(Box box, string? text, double x, double y, double width, double height, int indent, bool centered, double fontSize)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -299,7 +430,13 @@ namespace Auriga.Rendering
             var label = new Label(text!);
             if (!centered)
             {
-                label.Position = new Point(x + CellPadding + (indent * IndentPerLevel), y + ((height - fontSize) / 2));
+                var indentOffset = indent * IndentPerLevel;
+                var wrapWidth = Math.Max(1, width - indentOffset - (2 * CellPadding));
+                var lines = LineCount(text, wrapWidth, fontSize);
+                var top = y + Math.Max(CellPadding / 2, (height - (lines * fontSize * LineHeightRatio)) / 2);
+
+                label.Position = new Point(x + CellPadding + indentOffset, top);
+                label.Width = wrapWidth;
             }
 
             box.Label = label;
@@ -347,6 +484,55 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// The estimated single-line width of a label at a font size, using the exporter's glyph metric.
+        /// </summary>
+        /// <param name="text">the label text (may be <c>null</c>)</param>
+        /// <param name="fontSize">the font size</param>
+        /// <returns>the estimated width in pixels</returns>
+        private static double TextWidth(string? text, double fontSize)
+        {
+            return string.IsNullOrEmpty(text) ? 0 : text!.Length * fontSize * GlyphRatio;
+        }
+
+        /// <summary>
+        /// The number of lines a label wraps to in the available width, measured exactly as the exporter
+        /// wraps it so the reserved height matches the rendered text.
+        /// </summary>
+        /// <param name="text">the label text (may be <c>null</c>)</param>
+        /// <param name="width">the available width</param>
+        /// <param name="fontSize">the font size</param>
+        /// <returns>the line count (at least one)</returns>
+        private static int LineCount(string? text, double width, double fontSize)
+        {
+            return string.IsNullOrEmpty(text)
+                ? 1
+                : Math.Max(1, SvgExporter.WrapLines(text!, width, new ResolvedStyle { FontSize = fontSize }).Count);
+        }
+
+        /// <summary>
+        /// The font size a cell renders at — its persisted <c>labelSize</c> when set, otherwise the
+        /// default — used to measure the cell before its box style is built.
+        /// </summary>
+        /// <param name="cellStyle">the persisted cell style, or <c>null</c></param>
+        /// <returns>the font size</returns>
+        private static double CellFontSizeOf(SiriusTable.IDCellStyle? cellStyle)
+        {
+            return cellStyle?.LabelSize is { } size && size > 0 ? size : CellFontSize;
+        }
+
+        /// <summary>
+        /// Clamps a value to the inclusive range.
+        /// </summary>
+        /// <param name="value">the value</param>
+        /// <param name="min">the lower bound</param>
+        /// <param name="max">the upper bound</param>
+        /// <returns>the clamped value</returns>
+        private static double Clamp(double value, double min, double max)
+        {
+            return Math.Min(max, Math.Max(min, value));
+        }
+
+        /// <summary>
         /// The stable identifier of a table element — its <c>uid</c> (the reader stores it as the
         /// element id), falling back to a placeholder when absent so a box always has an id.
         /// </summary>
@@ -365,6 +551,40 @@ namespace Auriga.Rendering
         private static string? NullIfBlank(string? text)
         {
             return string.IsNullOrWhiteSpace(text) ? null : text;
+        }
+
+        /// <summary>
+        /// A flattened table row: the line, its nesting depth and the cells that occupy each column index.
+        /// </summary>
+        private sealed class Row
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Row"/> class.
+            /// </summary>
+            /// <param name="line">the line</param>
+            /// <param name="depth">the nesting depth</param>
+            /// <param name="cells">the cells keyed by column index</param>
+            public Row(SiriusTable.IDLine line, int depth, Dictionary<int, SiriusTable.IDCell> cells)
+            {
+                this.Line = line;
+                this.Depth = depth;
+                this.Cells = cells;
+            }
+
+            /// <summary>
+            /// Gets the line the row was flattened from.
+            /// </summary>
+            public SiriusTable.IDLine Line { get; }
+
+            /// <summary>
+            /// Gets the nesting depth (0 for a top-level line).
+            /// </summary>
+            public int Depth { get; }
+
+            /// <summary>
+            /// Gets the cells of the row, keyed by their column index.
+            /// </summary>
+            public Dictionary<int, SiriusTable.IDCell> Cells { get; }
         }
     }
 }
