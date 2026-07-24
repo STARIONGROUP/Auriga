@@ -796,7 +796,7 @@ namespace Auriga.Rendering
         /// <param name="width">the available width</param>
         /// <param name="style">the resolved style supplying the font size</param>
         /// <returns>the wrapped lines, in order</returns>
-        private static List<string> WrapLines(string content, double width, ResolvedStyle style)
+        internal static List<string> WrapLines(string content, double width, ResolvedStyle style)
         {
             var glyphWidth = style.FontSize * 0.6;
             var charactersPerLine = Math.Max(1, (int)(width / glyphWidth));

@@ -43,8 +43,9 @@ namespace Auriga.Rendering.Tests
                 Assert.That(
                     () => this.diagramBuilder.Build(new SiriusDiagram.DSemanticDiagram()),
                     Throws.InvalidOperationException.With.Message.Contains("no GMF notation diagram"));
-                Assert.That(() => new DiagramBuilder(null!, new SequenceDiagramBuilder()), Throws.ArgumentNullException);
-                Assert.That(() => new DiagramBuilder(new NodeDiagramBuilder(), null!), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(null!, new SequenceDiagramBuilder(), new TableBuilder()), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(new NodeDiagramBuilder(), null!, new TableBuilder()), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(new NodeDiagramBuilder(), new SequenceDiagramBuilder(), null!), Throws.ArgumentNullException);
                 Assert.That(() => new NodeDiagramBuilder(null!), Throws.ArgumentNullException);
                 Assert.That(() => new SequenceDiagramBuilder(null!), Throws.ArgumentNullException);
                 Assert.That(() => this.diagramBuilder.BuildAll(null!), Throws.ArgumentNullException);
