@@ -98,5 +98,75 @@ in diagram.ecore that referenced cross-file annotation-detail entries were also
 removed (see resources/ecore-sirius/README.md); no EClass, feature, or
 enumeration was affected.
 
+===============================================================================
+
+THIRD-PARTY SAMPLE MODELS (TEST FIXTURES)
+
+The TestData directory contains Capella sample models redistributed as test
+fixtures. These are NOT covered by the Apache License above; each remains under
+the license listed below, a copy of which is included in the corresponding
+fixture directory. Per-fixture provenance, including upstream commit or release
+tags, is recorded in TestData/README.md. The minimal/ and library-workspace/
+fixtures are not third-party content: they were authored for this repository
+and are Apache-2.0 like the rest of it.
+
+These fixtures are used for reader, writer and round-trip testing. They are not
+included in any distributed Auriga package.
+
+ 9. IRT Saint Exupery AIDA study case
+    Source: https://sahara.irt-saintexupery.com/AIDA/AIDAArchitecture
+    Copyright (c) 2016-2026 IRT AESE (IRT Saint Exupery)
+    Contributors: Pierre Virelizier, Tatiana Prosvirnova, Estelle Saez
+                  (initial contribution); Romaric Demachy (V4.4 and V4.5
+                  system versions)
+    Files (in TestData/aida-single-model and TestData/aida-split-models):
+           the Capella *.capella, *.aird, *.afm and .project files
+    License: Creative Commons Attribution-ShareAlike 4.0 International
+    SPDX-License-Identifier: CC-BY-SA-4.0
+    License text: TestData/aida-single-model/LICENSE-CC-BY-SA-4.0.txt and
+                  TestData/aida-split-models/LICENSE-CC-BY-SA-4.0.txt
+    Upstream notice retained verbatim as the Copyright file in each fixture
+    directory; https://creativecommons.org/licenses/by-sa/4.0/
+
+    ShareAlike: these models are the only copyleft content in this
+    repository. Redistribution must retain the attribution and license
+    notices above. Adapted material -- in particular any AIDA model written
+    back out by Auriga and then committed, for example as a round-trip
+    expected-output fixture -- must itself be offered under CC BY-SA 4.0.
+    Reading these models and asserting on the resulting in-memory graph does
+    not create adapted material. This obligation attaches to the models and
+    their adaptations only; it does not affect the Apache-2.0 license of the
+    Auriga source code, which aggregates them as data and does not
+    incorporate them.
+
+10. Eclipse Capella sample models
+    Source: https://github.com/eclipse-capella/capella (tag v7.0.1) and the
+            Capella 7.0.0 sample downloads at
+            https://download.eclipse.org/capella/samples/7.0.0/
+    Project: https://projects.eclipse.org/projects/polarsys.capella
+    Files: TestData/in-flight-entertainment-system (samples/In-Flight
+           Entertainment System), TestData/fragmented-sysmodel
+           (tests/plugins/org.polarsys.capella.test.fragmentation/model/
+           FragmentTestModel, including the ressources/ icons),
+           TestData/Crowd_Surveillance_System_in_DARC and
+           TestData/Level Crossing Traffic Control
+    SPDX-License-Identifier: EPL-2.0
+    License text: LICENSE-EPL-2.0.md in each of those directories;
+                  https://www.eclipse.org/legal/epl-2.0
+
+11. py-capellambse coffee machine demo model
+    Source: https://github.com/DSD-DBS/coffee-machine (commit db45166)
+    Copyright DB Netz AG and contributors
+    Files: TestData/coffee-machine (the *.license files are the upstream
+           REUSE sidecars)
+    SPDX-License-Identifier: Apache-2.0
+    License text: TestData/coffee-machine/LICENSE-Apache-2.0.txt
+
+Copyright of these fixtures remains with the respective authors or their
+employers; consult the source repositories listed above for authorship
+information. The models are redistributed unmodified.
+
+===============================================================================
+
 Capella is a registered trademark of the Eclipse Foundation. Sirius and GMF are
 projects of the Eclipse Foundation.

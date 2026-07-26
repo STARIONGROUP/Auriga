@@ -71,6 +71,38 @@
             <Link>TestData\fragmented-sysmodel\fragments\%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="..\TestData\aida-single-model\AIDA.capella">
+            <Link>TestData\aida-single-model\AIDA.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\aida-single-model\AIDA.aird">
+            <Link>TestData\aida-single-model\AIDA.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\aida-single-model\AIDA.afm">
+            <Link>TestData\aida-single-model\AIDA.afm</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\aida-single-model\.project">
+            <Link>TestData\aida-single-model\.project</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\aida-split-models\**\*.capella">
+            <Link>TestData\aida-split-models\%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\aida-split-models\**\*.aird">
+            <Link>TestData\aida-split-models\%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\aida-split-models\**\*.afm">
+            <Link>TestData\aida-split-models\%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\aida-split-models\**\.project">
+            <Link>TestData\aida-split-models\%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
