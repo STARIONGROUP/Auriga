@@ -93,9 +93,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Filter
                 poco.Id = xmlReader.GetAttribute("id") ?? xmlReader.GetAttribute("id", XmiNamespace) ?? xmlReader.GetAttribute("uid");
                 poco.SourceDocument = documentName;
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.Description.Filter.FilterKind>(xmlReader.GetAttribute("filterKind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("filterKind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.FilterKind = parsed;
+                        if (Auriga.Extensions.FilterKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.FilterKind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("FilterKind", "filterKind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "Mappings", xmlReader.GetAttribute("mappings"));

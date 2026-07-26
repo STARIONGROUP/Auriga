@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Libraries
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Libraries.ILibraryReference poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Model.Libraries.AccessPolicy>(xmlWriter, "accessPolicy", poco.AccessPolicy);
+            WriteEnumAttribute<Auriga.Model.Libraries.AccessPolicy>(xmlWriter, "accessPolicy", poco.AccessPolicy, Auriga.Extensions.AccessPolicyProvider.ToLiteralString);
             this.WriteReferenceAttribute(xmlWriter, "library", poco.Library, poco, "Library", context);
             this.WriteReferenceAttribute(xmlWriter, "version", poco.Version, poco, "Version", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);

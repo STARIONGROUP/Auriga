@@ -23,25 +23,21 @@ namespace Auriga.Diagram.Viewpoint
         /// <summary>
         /// The <c>Italic</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "italic")]
         Italic,
 
         /// <summary>
         /// The <c>Bold</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "bold")]
         Bold,
 
         /// <summary>
         /// The <c>Underline</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "underline")]
         Underline,
 
         /// <summary>
         /// The <c>Strike_through</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "strike_through")]
         Strike_through
 
     }

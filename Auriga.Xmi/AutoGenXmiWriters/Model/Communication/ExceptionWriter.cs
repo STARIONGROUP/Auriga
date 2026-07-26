@@ -73,7 +73,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information.Communication
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteEnumAttribute<Auriga.Model.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility);
+            WriteEnumAttribute<Auriga.Model.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility, Auriga.Extensions.VisibilityKindProvider.ToLiteralString);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "namingRules", poco.NamingRules, poco, "NamingRules", context);

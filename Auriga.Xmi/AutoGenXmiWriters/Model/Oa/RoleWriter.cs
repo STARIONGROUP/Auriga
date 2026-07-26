@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Oa
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "abstractType", poco.AbstractType, poco, "AbstractType", context);
-            WriteEnumAttribute<Auriga.Model.Information.AggregationKind>(xmlWriter, "aggregationKind", poco.AggregationKind, Auriga.Model.Information.AggregationKind.UNSET);
+            WriteEnumAttribute<Auriga.Model.Information.AggregationKind>(xmlWriter, "aggregationKind", poco.AggregationKind, Auriga.Extensions.AggregationKindProvider.ToLiteralString, Auriga.Model.Information.AggregationKind.UNSET);
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
@@ -84,7 +84,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Oa
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "unique", poco.Unique);
-            WriteEnumAttribute<Auriga.Model.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility);
+            WriteEnumAttribute<Auriga.Model.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility, Auriga.Extensions.VisibilityKindProvider.ToLiteralString);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "ownedActivityAllocations", poco.OwnedActivityAllocations, poco, "OwnedActivityAllocations", context);

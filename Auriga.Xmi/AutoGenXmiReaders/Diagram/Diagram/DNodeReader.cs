@@ -95,9 +95,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                 CollectSingleValueReference(poco, "ActualMapping", xmlReader.GetAttribute("actualMapping"));
                 foreach (var token in (xmlReader.GetAttribute("arrangeConstraints") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.ArrangeConstraint>(token, out var parsed))
+                    if (Auriga.Extensions.ArrangeConstraintProvider.TryParse(token.AsSpan(), out var parsed))
                     {
                         poco.ArrangeConstraints.Add(parsed);
+                    }
+                    else
+                    {
+                        this.HandleUnknownEnumLiteral("ArrangeConstraint", "arrangeConstraints", token, xmlLineInfo);
                     }
                 }
                 CollectMultiValueReferences(poco, "CandidatesMapping", xmlReader.GetAttribute("candidatesMapping"));
@@ -110,9 +114,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                 }
                 CollectMultiValueReferences(poco, "IncomingEdges", xmlReader.GetAttribute("incomingEdges"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.LabelPosition>(xmlReader.GetAttribute("labelPosition"), out var parsed))
+                    var raw = xmlReader.GetAttribute("labelPosition");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.LabelPosition = parsed;
+                        if (Auriga.Extensions.LabelPositionProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.LabelPosition = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LabelPosition", "labelPosition", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");
@@ -120,9 +132,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                 CollectMultiValueReferences(poco, "OutgoingEdges", xmlReader.GetAttribute("outgoingEdges"));
                 CollectMultiValueReferences(poco, "ParentLayers", xmlReader.GetAttribute("parentLayers"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.ResizeKind>(xmlReader.GetAttribute("resizeKind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("resizeKind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.ResizeKind = parsed;
+                        if (Auriga.Extensions.ResizeKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.ResizeKind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ResizeKind", "resizeKind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "SemanticElements", xmlReader.GetAttribute("semanticElements"));
@@ -174,9 +194,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                             }
                             case "arrangeConstraints":
                             {
-                                if (TryParseEnum<Auriga.Diagram.Diagram.ArrangeConstraint>(ReadElementText(xmlReader), out var parsed))
+                                var text = ReadElementText(xmlReader);
+                                if (Auriga.Extensions.ArrangeConstraintProvider.TryParse(text.AsSpan(), out var parsed))
                                 {
                                     poco.ArrangeConstraints.Add(parsed);
+                                }
+                                else
+                                {
+                                    this.HandleUnknownEnumLiteral("ArrangeConstraint", "arrangeConstraints", text, xmlLineInfo);
                                 }
 
                                 break;

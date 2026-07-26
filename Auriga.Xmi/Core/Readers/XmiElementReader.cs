@@ -135,23 +135,25 @@ namespace Auriga.Xmi.Core.Readers
         }
 
         /// <summary>
-        /// Parses an enumeration attribute value case-insensitively by literal name, returning false for a
-        /// null, empty or unrecognized value so the property is simply left at its default.
+        /// Reports an enumeration literal the generated provider did not recognize. The metamodel declares
+        /// the full set of literals, so an unrecognized one means the document was written against a
+        /// different metamodel version or by a tool Auriga does not model — worth surfacing rather than
+        /// silently leaving the property at its default, which is what the previous case-insensitive
+        /// <c>Enum.TryParse</c> did (issue #129).
         /// </summary>
-        /// <typeparam name="TEnum">the enumeration type</typeparam>
-        /// <param name="value">the raw attribute value</param>
-        /// <param name="result">the parsed value, or the default when parsing fails</param>
-        /// <returns>true when the value parsed to a defined literal</returns>
-        protected static bool TryParseEnum<TEnum>(string? value, out TEnum result)
-            where TEnum : struct
+        /// <param name="enumName">the Ecore name of the enumeration</param>
+        /// <param name="featureName">the XML name of the feature carrying the value</param>
+        /// <param name="value">the unrecognized literal</param>
+        /// <param name="xmlLineInfo">the line info of the element being read, when available</param>
+        /// <exception cref="NotSupportedException">thrown when reading strictly</exception>
+        protected void HandleUnknownEnumLiteral(string enumName, string featureName, string? value, IXmlLineInfo? xmlLineInfo)
         {
-            if (!string.IsNullOrEmpty(value) && Enum.TryParse(value, ignoreCase: true, out result))
+            if (this.XmiReaderSettings.UseStrictReading)
             {
-                return true;
+                throw new NotSupportedException($"'{value}' is not a valid {enumName} literal for '{featureName}' at line:position {xmlLineInfo?.LineNumber}:{xmlLineInfo?.LinePosition}");
             }
 
-            result = default;
-            return false;
+            this.Logger.LogWarning("'{Value}' is not a valid {EnumName} literal for the '{FeatureName}' feature at line:position {LineNumber}:{LinePosition} and was ignored", value, enumName, featureName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
         }
 
         /// <summary>

@@ -341,8 +341,10 @@ namespace Auriga.Xmi.Tests
 
             public static void Char(XmlWriter w, string n, char? v) => WriteCharAttribute(w, n, v);
 
+            // The literal converter a generated writer passes is its enumeration's provider; the test
+            // exercises the helper itself, so the member name stands in for the Ecore literal name.
             public static void Enum<TEnum>(XmlWriter w, string n, TEnum? v)
-                where TEnum : struct => WriteEnumAttribute(w, n, v);
+                where TEnum : struct => WriteEnumAttribute(w, n, v, static value => value.ToString()!);
 
             public static void StringList(XmlWriter w, string n, IEnumerable<string>? v) => WriteStringListAttribute(w, n, v);
 

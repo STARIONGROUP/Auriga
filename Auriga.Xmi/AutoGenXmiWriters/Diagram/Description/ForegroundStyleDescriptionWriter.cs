@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "foreGroundColor", poco.ForeGroundColor, poco, "ForeGroundColor", context);
             WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 12);
-            WriteEnumListElements<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
+            WriteEnumListElements<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat, Auriga.Extensions.FontFormatProvider.ToLiteralString);
         }
     }
 }

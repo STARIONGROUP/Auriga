@@ -120,9 +120,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Epbs
                 CollectMultiValueReferences(poco, "InExchangeLinks", xmlReader.GetAttribute("inExchangeLinks"));
                 poco.ItemIdentifier = xmlReader.GetAttribute("itemIdentifier");
                 {
-                    if (TryParseEnum<Auriga.Model.Epbs.ConfigurationItemKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.ConfigurationItemKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ConfigurationItemKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");

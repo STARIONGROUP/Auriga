@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                 poco.SourceDocument = documentName;
                 CollectSingleValueReference(poco, "Key", xmlReader.GetAttribute("key"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.Alignment>(xmlReader.GetAttribute("value"), out var parsed))
+                    var raw = xmlReader.GetAttribute("value");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Value = parsed;
+                        if (Auriga.Extensions.AlignmentProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Value = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Alignment", "value", raw, xmlLineInfo);
+                        }
                     }
                 }
 

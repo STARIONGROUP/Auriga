@@ -93,9 +93,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description
                 poco.Id = xmlReader.GetAttribute("id") ?? xmlReader.GetAttribute("id", XmiNamespace) ?? xmlReader.GetAttribute("uid");
                 poco.SourceDocument = documentName;
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.ContainerLayout>(xmlReader.GetAttribute("childrenPresentation"), out var parsed))
+                    var raw = xmlReader.GetAttribute("childrenPresentation");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.ChildrenPresentation = parsed;
+                        if (Auriga.Extensions.ContainerLayoutProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.ChildrenPresentation = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ContainerLayout", "childrenPresentation", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

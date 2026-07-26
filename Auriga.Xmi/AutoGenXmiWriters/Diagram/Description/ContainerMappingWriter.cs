@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.IContainerMapping poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.ContainerLayout>(xmlWriter, "childrenPresentation", poco.ChildrenPresentation, Auriga.Diagram.Diagram.ContainerLayout.FreeForm);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.ContainerLayout>(xmlWriter, "childrenPresentation", poco.ChildrenPresentation, Auriga.Extensions.ContainerLayoutProvider.ToLiteralString, Auriga.Diagram.Diagram.ContainerLayout.FreeForm);
             WriteBooleanAttribute(xmlWriter, "createElements", poco.CreateElements, true);
             this.WriteReferenceAttribute(xmlWriter, "deletionDescription", poco.DeletionDescription, poco, "DeletionDescription", context);
             this.WriteReferenceListAttribute(xmlWriter, "detailDescriptions", poco.DetailDescriptions, poco, "DetailDescriptions", context);

@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                 poco.SourceDocument = documentName;
                 CollectMultiValueReferences(poco, "FilteredObjects", xmlReader.GetAttribute("filteredObjects"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.Filtering>(xmlReader.GetAttribute("filtering"), out var parsed))
+                    var raw = xmlReader.GetAttribute("filtering");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Filtering = parsed;
+                        if (Auriga.Extensions.FilteringProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Filtering = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Filtering", "filtering", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.FilteringKeys = xmlReader.GetAttribute("filteringKeys");

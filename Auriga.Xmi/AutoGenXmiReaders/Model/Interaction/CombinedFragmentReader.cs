@@ -99,9 +99,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
                 CollectSingleValueReference(poco, "Finish", xmlReader.GetAttribute("finish"));
                 poco.Name = xmlReader.GetAttribute("name");
                 {
-                    if (TryParseEnum<Auriga.Model.Interaction.InteractionOperatorKind>(xmlReader.GetAttribute("operator"), out var parsed))
+                    var raw = xmlReader.GetAttribute("operator");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Operator = parsed;
+                        if (Auriga.Extensions.InteractionOperatorKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Operator = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("InteractionOperatorKind", "operator", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "ReferencedOperands", xmlReader.GetAttribute("referencedOperands"));

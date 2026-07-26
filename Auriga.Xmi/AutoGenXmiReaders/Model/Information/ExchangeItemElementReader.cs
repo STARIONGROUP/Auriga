@@ -104,16 +104,32 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                 }
                 poco.Description = xmlReader.GetAttribute("description");
                 {
-                    if (TryParseEnum<Auriga.Model.Information.ParameterDirection>(xmlReader.GetAttribute("direction"), out var parsed))
+                    var raw = xmlReader.GetAttribute("direction");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Direction = parsed;
+                        if (Auriga.Extensions.ParameterDirectionProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Direction = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ParameterDirection", "direction", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
                 {
-                    if (TryParseEnum<Auriga.Model.Information.ElementKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.ElementKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ElementKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

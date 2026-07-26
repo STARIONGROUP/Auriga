@@ -23,13 +23,11 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The label is on border.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "border")]
         Border,
 
         /// <summary>
         /// The label is on the node.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "node")]
         Node
 
     }

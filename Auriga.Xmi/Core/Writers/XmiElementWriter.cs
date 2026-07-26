@@ -16,8 +16,6 @@ namespace Auriga.Xmi.Core.Writers
     using System.Globalization;
     using System.Linq;
     using System.Numerics;
-    using System.Reflection;
-    using System.Runtime.Serialization;
     using System.Xml;
 
     using Microsoft.Extensions.Logging;
@@ -54,12 +52,6 @@ namespace Auriga.Xmi.Core.Writers
         /// <c>xsi:type</c> and identify an element without a domain <c>uid</c> by <c>xmi:id</c>.
         /// </summary>
         private const string EclipseNamespacePrefix = "http://www.eclipse.org/";
-
-        /// <summary>
-        /// The Ecore literal names of every enumeration type encountered, keyed by C# member name and
-        /// cached per type so the reflection lookup happens once.
-        /// </summary>
-        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, Dictionary<string, string>> LiteralNames = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmiElementWriter{T}"/> class.
@@ -220,56 +212,24 @@ namespace Auriga.Xmi.Core.Writers
         }
 
         /// <summary>
-        /// Writes an enumeration attribute, by its literal name, when the value is present and differs
-        /// from the feature's declared default. Capella's enumeration literals are upper-case, so the
-        /// C# member name round-trips verbatim.
+        /// Writes an enumeration attribute, by its Ecore literal name, when the value is present and
+        /// differs from the feature's declared default. The literal name is supplied by the enumeration's
+        /// generated provider rather than derived from the C# member name, which does not always reproduce
+        /// it — Sirius declares lower-case literals such as <c>italic</c>, generated as <c>Italic</c>.
         /// </summary>
         /// <typeparam name="TEnum">the enumeration type</typeparam>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
+        /// <param name="toLiteralString">the generated provider's <c>ToLiteralString</c>, which maps the value to its Ecore literal name</param>
         /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
-        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value, TEnum? defaultValue = null)
+        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value, Func<TEnum, string> toLiteralString, TEnum? defaultValue = null)
             where TEnum : struct
         {
             if (value.HasValue && !value.Equals(defaultValue))
             {
-                xmlWriter.WriteAttributeString(name, EnumLiteral(value.Value));
+                xmlWriter.WriteAttributeString(name, toLiteralString(value.Value));
             }
-        }
-
-        /// <summary>
-        /// The Ecore literal name of an enumeration value: the <c>EnumMember</c> value the generator
-        /// recorded when the C# member name does not reproduce the Ecore name exactly (Sirius declares
-        /// lower-case literals such as <c>italic</c>, capitalized to form a legal C# member name), and the
-        /// member name itself otherwise. EMF matches literal names case-sensitively on read, so writing the
-        /// member name would produce a file the originating tool cannot parse.
-        /// </summary>
-        /// <typeparam name="TEnum">the enumeration type</typeparam>
-        /// <param name="value">the enumeration value</param>
-        /// <returns>the Ecore literal name</returns>
-        protected static string EnumLiteral<TEnum>(TEnum value)
-            where TEnum : struct
-        {
-            var names = LiteralNames.GetOrAdd(typeof(TEnum), type =>
-            {
-                var map = new Dictionary<string, string>(StringComparer.Ordinal);
-
-                foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static))
-                {
-                    var attribute = field.GetCustomAttribute<EnumMemberAttribute>();
-                    if (attribute?.Value != null)
-                    {
-                        map[field.Name] = attribute.Value;
-                    }
-                }
-
-                return map;
-            });
-
-            var memberName = value.ToString()!;
-
-            return names.TryGetValue(memberName, out var literal) ? literal : memberName;
         }
 
         /// <summary>
@@ -447,7 +407,8 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="values">the enumeration values</param>
-        protected static void WriteEnumListAttribute<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values)
+        /// <param name="toLiteralString">the generated provider's <c>ToLiteralString</c>, which maps each value to its Ecore literal name</param>
+        protected static void WriteEnumListAttribute<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> toLiteralString)
             where TEnum : struct
         {
             if (values == null)
@@ -455,7 +416,7 @@ namespace Auriga.Xmi.Core.Writers
                 return;
             }
 
-            var joined = string.Join(" ", values.Select(EnumLiteral));
+            var joined = string.Join(" ", values.Select(toLiteralString));
             if (joined.Length > 0)
             {
                 xmlWriter.WriteAttributeString(name, joined);
@@ -524,7 +485,8 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML element name of the feature</param>
         /// <param name="values">the enumeration values, one child element each</param>
-        protected static void WriteEnumListElements<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values)
+        /// <param name="toLiteralString">the generated provider's <c>ToLiteralString</c>, which maps each value to its Ecore literal name</param>
+        protected static void WriteEnumListElements<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> toLiteralString)
             where TEnum : struct
         {
             if (values == null)
@@ -534,7 +496,7 @@ namespace Auriga.Xmi.Core.Writers
 
             foreach (var value in values)
             {
-                xmlWriter.WriteElementString(name, EnumLiteral(value));
+                xmlWriter.WriteElementString(name, toLiteralString(value));
             }
         }
 

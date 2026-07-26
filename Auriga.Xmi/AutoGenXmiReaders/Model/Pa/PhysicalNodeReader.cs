@@ -119,16 +119,32 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Pa
                 }
                 CollectMultiValueReferences(poco, "InExchangeLinks", xmlReader.GetAttribute("inExchangeLinks"));
                 {
-                    if (TryParseEnum<Auriga.Model.Pa.PhysicalComponentKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.PhysicalComponentKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("PhysicalComponentKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");
                 {
-                    if (TryParseEnum<Auriga.Model.Pa.PhysicalComponentNature>(xmlReader.GetAttribute("nature"), out var parsed))
+                    var raw = xmlReader.GetAttribute("nature");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Nature = parsed;
+                        if (Auriga.Extensions.PhysicalComponentNatureProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Nature = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("PhysicalComponentNature", "nature", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "OutExchangeLinks", xmlReader.GetAttribute("outExchangeLinks"));

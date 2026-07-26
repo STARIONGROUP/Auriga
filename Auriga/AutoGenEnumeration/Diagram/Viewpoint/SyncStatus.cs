@@ -23,13 +23,11 @@ namespace Auriga.Diagram.Viewpoint
         /// <summary>
         /// The <c>Dirty</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "dirty")]
         Dirty,
 
         /// <summary>
         /// The <c>Sync</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "sync")]
         Sync
 
     }

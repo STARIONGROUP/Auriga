@@ -9,6 +9,7 @@
 
 namespace Auriga.CodeGenerator.Tests.Generators
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -33,6 +34,12 @@ namespace Auriga.CodeGenerator.Tests.Generators
         private const string SiriusXmiRootNamespace = "Auriga.Xmi.Diagram";
 
         private const string SiriusOutputSubfolder = "Diagram";
+
+        /// <summary>
+        /// The output tree of the generated enumeration providers, which are committed to the
+        /// <c>Auriga.Extensions</c> project rather than to <c>Auriga</c> (issue #129).
+        /// </summary>
+        private const string EnumProviderFolder = "AutoGenEnumProviders";
 
         private const int ExpectedInterfaceCount = 454;
 
@@ -74,7 +81,17 @@ namespace Auriga.CodeGenerator.Tests.Generators
             Assert.Multiple(() =>
             {
                 Assert.That(this.files.Keys, Has.Some.StartsWith("AutoGenInterfaces/Diagram/Viewpoint/"));
-                Assert.That(this.files.Values, Has.All.Contain("namespace Auriga.Diagram."));
+
+                // The enumeration providers deliberately live in Auriga.Extensions rather than under the
+                // metamodel's own root namespace, so they are excluded here (issue #129).
+                var objectModel = this.files
+                    .Where(f => !f.Key.StartsWith(EnumProviderFolder + "/", StringComparison.Ordinal))
+                    .Select(f => f.Value);
+
+                Assert.That(objectModel, Has.All.Contain("namespace Auriga.Diagram."));
+                Assert.That(
+                    this.files.Where(f => f.Key.StartsWith(EnumProviderFolder + "/", StringComparison.Ordinal)).Select(f => f.Value),
+                    Has.All.Contain("namespace Auriga.Extensions"));
             });
         }
 
@@ -155,9 +172,15 @@ namespace Auriga.CodeGenerator.Tests.Generators
             var projectRoot = Path.Combine(SolutionRoot(), projectFolder);
             var problems = new List<string>();
 
+            // The enumeration providers are the one output that is committed to a different project:
+            // they extend the generated enums and live in Auriga.Extensions (issue #129).
+            string RootFor(string key) => key.StartsWith(EnumProviderFolder + "/", StringComparison.Ordinal)
+                ? Path.Combine(SolutionRoot(), "Auriga.Extensions")
+                : projectRoot;
+
             foreach (var file in generated)
             {
-                var path = Path.Combine(projectRoot, file.Key.Replace('/', Path.DirectorySeparatorChar));
+                var path = Path.Combine(RootFor(file.Key), file.Key.Replace('/', Path.DirectorySeparatorChar));
 
                 if (!File.Exists(path))
                 {
@@ -173,7 +196,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
 
             foreach (var folder in generated.Keys.Select(k => string.Join('/', k.Split('/').Take(2))).Distinct())
             {
-                var directory = Path.Combine(projectRoot, folder.Replace('/', Path.DirectorySeparatorChar));
+                var directory = Path.Combine(RootFor(folder), folder.Replace('/', Path.DirectorySeparatorChar));
 
                 if (!Directory.Exists(directory))
                 {
@@ -182,7 +205,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
 
                 foreach (var committed in Directory.GetFiles(directory, "*.cs", SearchOption.AllDirectories))
                 {
-                    var relative = Path.GetRelativePath(projectRoot, committed).Replace(Path.DirectorySeparatorChar, '/');
+                    var relative = Path.GetRelativePath(RootFor(folder), committed).Replace(Path.DirectorySeparatorChar, '/');
 
                     if (!generated.ContainsKey(relative))
                     {

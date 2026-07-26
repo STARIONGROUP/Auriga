@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
                 poco.SourceDocument = documentName;
                 poco.Documentation = xmlReader.GetAttribute("documentation");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.Description.Tool.DragSource>(xmlReader.GetAttribute("dragSource"), out var parsed))
+                    var raw = xmlReader.GetAttribute("dragSource");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.DragSource = parsed;
+                        if (Auriga.Extensions.DragSourceProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.DragSource = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("DragSource", "dragSource", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.ElementsToSelect = xmlReader.GetAttribute("elementsToSelect");

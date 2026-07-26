@@ -70,7 +70,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
-            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Tool.ReconnectionKind>(xmlWriter, "reconnectionKind", poco.ReconnectionKind, Auriga.Diagram.Diagram.Description.Tool.ReconnectionKind.RECONNECT_TARGET);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Tool.ReconnectionKind>(xmlWriter, "reconnectionKind", poco.ReconnectionKind, Auriga.Extensions.ReconnectionKindProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.Tool.ReconnectionKind.RECONNECT_TARGET);
             this.WriteContainedElement(xmlWriter, "edgeView", poco.EdgeView, poco, "EdgeView", context);
             this.WriteContainedElement(xmlWriter, "element", poco.Element, poco, "Element", context);
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);

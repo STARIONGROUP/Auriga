@@ -69,7 +69,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Capellacommon
             this.WriteReferenceListAttribute(xmlWriter, "effect", poco.Effect, poco, "Effect", context);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             this.WriteReferenceAttribute(xmlWriter, "guard", poco.Guard, poco, "Guard", context);
-            WriteEnumAttribute<Auriga.Model.Capellacommon.TransitionKind>(xmlWriter, "kind", poco.Kind);
+            WriteEnumAttribute<Auriga.Model.Capellacommon.TransitionKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.TransitionKindProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);

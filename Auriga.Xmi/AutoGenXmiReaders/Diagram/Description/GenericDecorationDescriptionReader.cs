@@ -93,17 +93,33 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description
                 poco.Id = xmlReader.GetAttribute("id") ?? xmlReader.GetAttribute("id", XmiNamespace) ?? xmlReader.GetAttribute("uid");
                 poco.SourceDocument = documentName;
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.Description.DecorationDistributionDirection>(xmlReader.GetAttribute("distributionDirection"), out var parsed))
+                    var raw = xmlReader.GetAttribute("distributionDirection");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.DistributionDirection = parsed;
+                        if (Auriga.Extensions.DecorationDistributionDirectionProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.DistributionDirection = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("DecorationDistributionDirection", "distributionDirection", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.ImageExpression = xmlReader.GetAttribute("imageExpression");
                 poco.Name = xmlReader.GetAttribute("name");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.Description.Position>(xmlReader.GetAttribute("position"), out var parsed))
+                    var raw = xmlReader.GetAttribute("position");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Position = parsed;
+                        if (Auriga.Extensions.PositionProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Position = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Position", "position", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.PreconditionExpression = xmlReader.GetAttribute("preconditionExpression");

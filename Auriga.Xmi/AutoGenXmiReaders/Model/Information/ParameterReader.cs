@@ -97,15 +97,31 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                 CollectMultiValueReferences(poco, "AppliedPropertyValues", xmlReader.GetAttribute("appliedPropertyValues"));
                 poco.Description = xmlReader.GetAttribute("description");
                 {
-                    if (TryParseEnum<Auriga.Model.Information.ParameterDirection>(xmlReader.GetAttribute("direction"), out var parsed))
+                    var raw = xmlReader.GetAttribute("direction");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Direction = parsed;
+                        if (Auriga.Extensions.ParameterDirectionProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Direction = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ParameterDirection", "direction", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Modellingcore.ParameterEffectKind>(xmlReader.GetAttribute("effect"), out var parsed))
+                    var raw = xmlReader.GetAttribute("effect");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Effect = parsed;
+                        if (Auriga.Extensions.ParameterEffectKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Effect = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ParameterEffectKind", "effect", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
@@ -131,9 +147,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Modellingcore.RateKind>(xmlReader.GetAttribute("kindOfRate"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kindOfRate");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.KindOfRate = parsed;
+                        if (Auriga.Extensions.RateKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.KindOfRate = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("RateKind", "kindOfRate", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
@@ -160,9 +184,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                 }
                 CollectMultiValueReferences(poco, "ParameterSet", xmlReader.GetAttribute("parameterSet"));
                 {
-                    if (TryParseEnum<Auriga.Model.Information.PassingMode>(xmlReader.GetAttribute("passingMode"), out var parsed))
+                    var raw = xmlReader.GetAttribute("passingMode");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.PassingMode = parsed;
+                        if (Auriga.Extensions.PassingModeProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.PassingMode = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("PassingMode", "passingMode", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Review = xmlReader.GetAttribute("review");

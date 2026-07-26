@@ -107,16 +107,32 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Cs
                 poco.Name = xmlReader.GetAttribute("name");
                 CollectSingleValueReference(poco, "RealizedFlow", xmlReader.GetAttribute("realizedFlow"));
                 {
-                    if (TryParseEnum<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlReader.GetAttribute("receiveProtocol"), out var parsed))
+                    var raw = xmlReader.GetAttribute("receiveProtocol");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.ReceiveProtocol = parsed;
+                        if (Auriga.Extensions.CommunicationLinkProtocolProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.ReceiveProtocol = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("CommunicationLinkProtocol", "receiveProtocol", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Review = xmlReader.GetAttribute("review");
                 {
-                    if (TryParseEnum<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlReader.GetAttribute("sendProtocol"), out var parsed))
+                    var raw = xmlReader.GetAttribute("sendProtocol");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.SendProtocol = parsed;
+                        if (Auriga.Extensions.CommunicationLinkProtocolProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.SendProtocol = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("CommunicationLinkProtocol", "sendProtocol", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Sid = xmlReader.GetAttribute("sid");

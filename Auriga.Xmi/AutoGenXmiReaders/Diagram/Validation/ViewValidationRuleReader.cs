@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Validation
                 poco.SourceDocument = documentName;
                 poco.Label = xmlReader.GetAttribute("label");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL>(xmlReader.GetAttribute("level"), out var parsed))
+                    var raw = xmlReader.GetAttribute("level");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Level = parsed;
+                        if (Auriga.Extensions.ERROR_LEVELProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Level = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ERROR_LEVEL", "level", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Message = xmlReader.GetAttribute("message");
