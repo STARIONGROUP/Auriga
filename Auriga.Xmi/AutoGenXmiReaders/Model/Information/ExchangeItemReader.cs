@@ -103,9 +103,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                 CollectMultiValueReferences(poco, "AppliedPropertyValues", xmlReader.GetAttribute("appliedPropertyValues"));
                 poco.Description = xmlReader.GetAttribute("description");
                 {
-                    if (TryParseEnum<Auriga.Model.Information.ExchangeMechanism>(xmlReader.GetAttribute("exchangeMechanism"), out var parsed))
+                    var raw = xmlReader.GetAttribute("exchangeMechanism");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.ExchangeMechanism = parsed;
+                        if (Auriga.Extensions.ExchangeMechanismProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.ExchangeMechanism = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ExchangeMechanism", "exchangeMechanism", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));

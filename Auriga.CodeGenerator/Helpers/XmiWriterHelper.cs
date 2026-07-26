@@ -214,8 +214,8 @@ namespace Auriga.CodeGenerator.Helpers
             {
                 var enumType = CSharpNaming.EnumType(eEnum);
                 return CSharpType.IsCollection(feature)
-                    ? $"WriteEnumListAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName});"
-                    : $"WriteEnumAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName}{DefaultArgument(feature)});";
+                    ? $"WriteEnumListAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName}, {ToXmlLiteral(eEnum)});"
+                    : $"WriteEnumAttribute<{enumType}>(xmlWriter, \"{xmlName}\", poco.{propertyName}, {ToXmlLiteral(eEnum)}{DefaultArgument(feature)});";
             }
 
             if (CSharpType.IsCollection(feature))
@@ -284,7 +284,7 @@ namespace Auriga.CodeGenerator.Helpers
             {
                 if (feature.EType is EEnum eEnum)
                 {
-                    return $"WriteEnumListElements<{CSharpNaming.EnumType(eEnum)}>(xmlWriter, \"{xmlName}\", poco.{propertyName});";
+                    return $"WriteEnumListElements<{CSharpNaming.EnumType(eEnum)}>(xmlWriter, \"{xmlName}\", poco.{propertyName}, {ToXmlLiteral(eEnum)});";
                 }
 
                 return CSharpType.BaseType(feature.EType) == "string"
@@ -295,6 +295,18 @@ namespace Auriga.CodeGenerator.Helpers
             return CSharpType.IsCollection(feature)
                 ? $"this.WriteContainedElements(xmlWriter, \"{xmlName}\", poco.{propertyName}, poco, \"{propertyName}\", context);"
                 : $"this.WriteContainedElement(xmlWriter, \"{xmlName}\", poco.{propertyName}, poco, \"{propertyName}\", context);";
+        }
+
+        /// <summary>
+        /// The fully qualified method group of an enumeration's generated <c>ToXmlLiteral</c>, passed to the
+        /// enum-writing helpers so they emit the Ecore literal name rather than the C# member name. A method
+        /// group converted to a delegate is cached by the compiler, so this stays allocation-free.
+        /// </summary>
+        /// <param name="eEnum">the enumeration</param>
+        /// <returns>the qualified method group</returns>
+        private static string ToXmlLiteral(EEnum eEnum)
+        {
+            return $"Auriga.Extensions.{EnumProviderHelper.EnumProviderName(eEnum)}.ToXmlLiteral";
         }
 
         private static string MemberName(EStructuralFeature feature)

@@ -104,9 +104,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Interaction.ScenarioKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.ScenarioKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ScenarioKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

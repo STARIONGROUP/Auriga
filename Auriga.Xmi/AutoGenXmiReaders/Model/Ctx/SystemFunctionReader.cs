@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Ctx
                 poco.SourceDocument = documentName;
                 CollectSingleValueReference(poco, "AbstractType", xmlReader.GetAttribute("abstractType"));
                 {
-                    if (TryParseEnum<Auriga.Model.Information.AggregationKind>(xmlReader.GetAttribute("aggregationKind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("aggregationKind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.AggregationKind = parsed;
+                        if (Auriga.Extensions.AggregationKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.AggregationKind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("AggregationKind", "aggregationKind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "AppliedPropertyValueGroups", xmlReader.GetAttribute("appliedPropertyValueGroups"));
@@ -150,9 +158,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Ctx
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Fa.FunctionKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.FunctionKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("FunctionKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
@@ -189,9 +205,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Ctx
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Capellacore.VisibilityKind>(xmlReader.GetAttribute("visibility"), out var parsed))
+                    var raw = xmlReader.GetAttribute("visibility");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Visibility = parsed;
+                        if (Auriga.Extensions.VisibilityKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Visibility = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("VisibilityKind", "visibility", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

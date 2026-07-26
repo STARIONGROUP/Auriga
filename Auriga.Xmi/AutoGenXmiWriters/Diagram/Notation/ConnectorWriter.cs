@@ -66,14 +66,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteBooleanAttribute(xmlWriter, "avoidObstructions", poco.AvoidObstructions, false);
             WriteBooleanAttribute(xmlWriter, "closestDistance", poco.ClosestDistance, false);
             this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkStatus>(xmlWriter, "jumpLinkStatus", poco.JumpLinkStatus, Auriga.Diagram.Notation.JumpLinkStatus.None);
-            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkType>(xmlWriter, "jumpLinkType", poco.JumpLinkType, Auriga.Diagram.Notation.JumpLinkType.Semicircle);
+            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkStatus>(xmlWriter, "jumpLinkStatus", poco.JumpLinkStatus, Auriga.Extensions.JumpLinkStatusProvider.ToXmlLiteral, Auriga.Diagram.Notation.JumpLinkStatus.None);
+            WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkType>(xmlWriter, "jumpLinkType", poco.JumpLinkType, Auriga.Extensions.JumpLinkTypeProvider.ToXmlLiteral, Auriga.Diagram.Notation.JumpLinkType.Semicircle);
             WriteBooleanAttribute(xmlWriter, "jumpLinksReverse", poco.JumpLinksReverse, false);
             WriteIntegerAttribute(xmlWriter, "lineColor", poco.LineColor, 11579568);
             WriteIntegerAttribute(xmlWriter, "lineWidth", poco.LineWidth, -1);
             WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius, 0);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Routing>(xmlWriter, "routing", poco.Routing, Auriga.Diagram.Notation.Routing.Manual);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Smoothness>(xmlWriter, "smoothness", poco.Smoothness, Auriga.Diagram.Notation.Smoothness.None);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Routing>(xmlWriter, "routing", poco.Routing, Auriga.Extensions.RoutingProvider.ToXmlLiteral, Auriga.Diagram.Notation.Routing.Manual);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Smoothness>(xmlWriter, "smoothness", poco.Smoothness, Auriga.Extensions.SmoothnessProvider.ToXmlLiteral, Auriga.Diagram.Notation.Smoothness.None);
             this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "type", poco.Type, "");

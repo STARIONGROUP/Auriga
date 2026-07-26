@@ -23,25 +23,21 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The <c>Solid</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "solid")]
         Solid,
 
         /// <summary>
         /// The <c>Dash</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "dash")]
         Dash,
 
         /// <summary>
         /// The <c>Dot</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "dot")]
         Dot,
 
         /// <summary>
         /// The <c>Dash_dot</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "dash_dot")]
         Dash_dot
 
     }

@@ -209,10 +209,8 @@ namespace Auriga.CodeGenerator.Helpers
                     : $"CollectSingleValueReference(poco, \"{propertyName}\", xmlReader.GetAttribute(\"{xmlName}\"));";
             }
 
-            if (feature.EType is EEnum)
+            if (feature.EType is EEnum attributeEnum)
             {
-                var enumType = CSharpNaming.EnumType((EEnum)feature.EType);
-
                 if (CSharpType.IsCollection(feature))
                 {
                     // A multi-valued enum attribute is a whitespace-delimited list of literals.
@@ -220,9 +218,13 @@ namespace Auriga.CodeGenerator.Helpers
                         AttributeIndent,
                         $"foreach (var token in (xmlReader.GetAttribute(\"{xmlName}\") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))",
                         "{",
-                        $"    if (TryParseEnum<{enumType}>(token, out var parsed))",
+                        $"    if ({TryParse(attributeEnum)}(token.AsSpan(), out var parsed))",
                         "    {",
                         $"        poco.{propertyName}.Add(parsed);",
+                        "    }",
+                        "    else",
+                        "    {",
+                        $"        this.HandleUnknownEnumLiteral(\"{attributeEnum.Name}\", \"{xmlName}\", token, xmlLineInfo);",
                         "    }",
                         "}");
                 }
@@ -230,9 +232,17 @@ namespace Auriga.CodeGenerator.Helpers
                 return Block(
                     AttributeIndent,
                     "{",
-                    $"    if (TryParseEnum<{enumType}>(xmlReader.GetAttribute(\"{xmlName}\"), out var parsed))",
+                    $"    var raw = xmlReader.GetAttribute(\"{xmlName}\");",
+                    "    if (!string.IsNullOrEmpty(raw))",
                     "    {",
-                    $"        poco.{propertyName} = parsed;",
+                    $"        if ({TryParse(attributeEnum)}(raw.AsSpan(), out var parsed))",
+                    "        {",
+                    $"            poco.{propertyName} = parsed;",
+                    "        }",
+                    "        else",
+                    "        {",
+                    $"            this.HandleUnknownEnumLiteral(\"{attributeEnum.Name}\", \"{xmlName}\", raw, xmlLineInfo);",
+                    "        }",
                     "    }",
                     "}");
             }
@@ -410,9 +420,14 @@ namespace Auriga.CodeGenerator.Helpers
                     ElementCaseIndent,
                     $"case \"{xmlName}\":",
                     "{",
-                    $"    if (TryParseEnum<{CSharpNaming.EnumType(eEnum)}>(ReadElementText(xmlReader), out var parsed))",
+                    "    var text = ReadElementText(xmlReader);",
+                    $"    if ({TryParse(eEnum)}(text.AsSpan(), out var parsed))",
                     "    {",
                     $"        poco.{propertyName}.Add(parsed);",
+                    "    }",
+                    "    else",
+                    "    {",
+                    $"        this.HandleUnknownEnumLiteral(\"{eEnum.Name}\", \"{xmlName}\", text, xmlLineInfo);",
                     "    }",
                     string.Empty,
                     "    break;",
@@ -470,6 +485,18 @@ namespace Auriga.CodeGenerator.Helpers
                 "BigInteger" => $"System.Numerics.BigInteger.TryParse({Text}, System.Globalization.NumberStyles.Integer, {Invariant}, out var parsed)",
                 _ => null,
             };
+        }
+
+        /// <summary>
+        /// The fully qualified <c>TryParse</c> of an enumeration's generated provider. Reading goes through
+        /// the provider rather than <c>Enum.TryParse</c> so it matches the Ecore literal names
+        /// case-sensitively, exactly as the writer emits them.
+        /// </summary>
+        /// <param name="eEnum">the enumeration</param>
+        /// <returns>the qualified method name</returns>
+        private static string TryParse(EEnum eEnum)
+        {
+            return $"Auriga.Extensions.{EnumProviderHelper.EnumProviderName(eEnum)}.TryParse";
         }
 
         private static string MemberName(EStructuralFeature feature)

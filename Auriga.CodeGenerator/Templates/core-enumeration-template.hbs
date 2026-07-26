@@ -24,7 +24,7 @@ namespace {{Namespace this}}
 {{#each (LiteralDocumentation this)}}
         /// {{{this}}}
 {{/each}}
-{{{LiteralXmlNameAttribute this}}}        {{LiteralName this}}{{#unless @last}},{{/unless}}
+        {{LiteralName this}}{{#unless @last}},{{/unless}}
 
 {{/each}}
     }

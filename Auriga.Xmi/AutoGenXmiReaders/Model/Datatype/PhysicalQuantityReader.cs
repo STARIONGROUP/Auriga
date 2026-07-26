@@ -118,9 +118,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datatype
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Information.Datatype.NumericTypeKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.NumericTypeKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("NumericTypeKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
@@ -145,9 +153,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datatype
                 poco.Summary = xmlReader.GetAttribute("summary");
                 CollectSingleValueReference(poco, "Unit", xmlReader.GetAttribute("unit"));
                 {
-                    if (TryParseEnum<Auriga.Model.Capellacore.VisibilityKind>(xmlReader.GetAttribute("visibility"), out var parsed))
+                    var raw = xmlReader.GetAttribute("visibility");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Visibility = parsed;
+                        if (Auriga.Extensions.VisibilityKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Visibility = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("VisibilityKind", "visibility", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

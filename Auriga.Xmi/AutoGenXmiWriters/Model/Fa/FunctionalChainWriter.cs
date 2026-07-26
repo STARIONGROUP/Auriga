@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Fa
             this.WriteReferenceListAttribute(xmlWriter, "availableInStates", poco.AvailableInStates, poco, "AvailableInStates", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
-            WriteEnumAttribute<Auriga.Model.Fa.FunctionalChainKind>(xmlWriter, "kind", poco.Kind);
+            WriteEnumAttribute<Auriga.Model.Fa.FunctionalChainKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.FunctionalChainKindProvider.ToXmlLiteral);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceAttribute(xmlWriter, "postCondition", poco.PostCondition, poco, "PostCondition", context);
             this.WriteReferenceAttribute(xmlWriter, "preCondition", poco.PreCondition, poco, "PreCondition", context);

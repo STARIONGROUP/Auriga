@@ -117,16 +117,32 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                 CollectSingleValueReference(poco, "Status", xmlReader.GetAttribute("status"));
                 poco.Summary = xmlReader.GetAttribute("summary");
                 {
-                    if (TryParseEnum<Auriga.Model.Information.SynchronismKind>(xmlReader.GetAttribute("synchronismKind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("synchronismKind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.SynchronismKind = parsed;
+                        if (Auriga.Extensions.SynchronismKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.SynchronismKind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("SynchronismKind", "synchronismKind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "ThrownExceptions", xmlReader.GetAttribute("thrownExceptions"));
                 {
-                    if (TryParseEnum<Auriga.Model.Capellacore.VisibilityKind>(xmlReader.GetAttribute("visibility"), out var parsed))
+                    var raw = xmlReader.GetAttribute("visibility");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Visibility = parsed;
+                        if (Auriga.Extensions.VisibilityKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Visibility = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("VisibilityKind", "visibility", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

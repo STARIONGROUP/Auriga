@@ -69,7 +69,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
             WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteStringListElements(xmlWriter, "customFeatures", poco.CustomFeatures);
-            WriteEnumListElements<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
+            WriteEnumListElements<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat, Auriga.Extensions.FontFormatProvider.ToXmlLiteral);
         }
     }
 }

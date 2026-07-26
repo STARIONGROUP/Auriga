@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Description
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "centerLabelExpression", poco.CenterLabelExpression);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.ContainerLayout>(xmlWriter, "childrenPresentation", poco.ChildrenPresentation, Auriga.Diagram.Diagram.ContainerLayout.FreeForm);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.ContainerLayout>(xmlWriter, "childrenPresentation", poco.ChildrenPresentation, Auriga.Extensions.ContainerLayoutProvider.ToXmlLiteral, Auriga.Diagram.Diagram.ContainerLayout.FreeForm);
             WriteStringAttribute(xmlWriter, "coveredLifelinesExpression", poco.CoveredLifelinesExpression);
             WriteBooleanAttribute(xmlWriter, "createElements", poco.CreateElements, true);
             this.WriteReferenceAttribute(xmlWriter, "deletionDescription", poco.DeletionDescription, poco, "DeletionDescription", context);

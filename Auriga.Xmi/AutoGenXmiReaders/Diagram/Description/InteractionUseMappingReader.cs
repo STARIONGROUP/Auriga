@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description
                 poco.SourceDocument = documentName;
                 poco.CenterLabelExpression = xmlReader.GetAttribute("centerLabelExpression");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.ContainerLayout>(xmlReader.GetAttribute("childrenPresentation"), out var parsed))
+                    var raw = xmlReader.GetAttribute("childrenPresentation");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.ChildrenPresentation = parsed;
+                        if (Auriga.Extensions.ContainerLayoutProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.ChildrenPresentation = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ContainerLayout", "childrenPresentation", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.CoveredLifelinesExpression = xmlReader.GetAttribute("coveredLifelinesExpression");

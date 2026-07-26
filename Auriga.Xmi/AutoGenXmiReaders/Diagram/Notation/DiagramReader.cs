@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                 poco.SourceDocument = documentName;
                 CollectSingleValueReference(poco, "Element", xmlReader.GetAttribute("element"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.MeasurementUnit>(xmlReader.GetAttribute("measurementUnit"), out var parsed))
+                    var raw = xmlReader.GetAttribute("measurementUnit");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.MeasurementUnit = parsed;
+                        if (Auriga.Extensions.MeasurementUnitProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.MeasurementUnit = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("MeasurementUnit", "measurementUnit", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");

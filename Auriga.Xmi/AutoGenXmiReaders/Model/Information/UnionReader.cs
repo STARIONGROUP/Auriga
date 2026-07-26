@@ -121,9 +121,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                 }
                 CollectMultiValueReferences(poco, "KeyParts", xmlReader.GetAttribute("keyParts"));
                 {
-                    if (TryParseEnum<Auriga.Model.Information.UnionKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.UnionKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("UnionKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");
@@ -132,9 +140,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
                 CollectSingleValueReference(poco, "Status", xmlReader.GetAttribute("status"));
                 poco.Summary = xmlReader.GetAttribute("summary");
                 {
-                    if (TryParseEnum<Auriga.Model.Capellacore.VisibilityKind>(xmlReader.GetAttribute("visibility"), out var parsed))
+                    var raw = xmlReader.GetAttribute("visibility");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Visibility = parsed;
+                        if (Auriga.Extensions.VisibilityKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Visibility = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("VisibilityKind", "visibility", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

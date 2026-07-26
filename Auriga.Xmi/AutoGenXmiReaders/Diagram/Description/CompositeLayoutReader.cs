@@ -93,9 +93,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
                 poco.Id = xmlReader.GetAttribute("id") ?? xmlReader.GetAttribute("id", XmiNamespace) ?? xmlReader.GetAttribute("uid");
                 poco.SourceDocument = documentName;
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.Description.LayoutDirection>(xmlReader.GetAttribute("direction"), out var parsed))
+                    var raw = xmlReader.GetAttribute("direction");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Direction = parsed;
+                        if (Auriga.Extensions.LayoutDirectionProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Direction = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LayoutDirection", "direction", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Documentation = xmlReader.GetAttribute("documentation");

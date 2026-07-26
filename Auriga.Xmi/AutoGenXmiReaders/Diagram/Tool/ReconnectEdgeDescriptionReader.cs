@@ -112,9 +112,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
                 poco.Name = xmlReader.GetAttribute("name");
                 poco.Precondition = xmlReader.GetAttribute("precondition");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.Description.Tool.ReconnectionKind>(xmlReader.GetAttribute("reconnectionKind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("reconnectionKind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.ReconnectionKind = parsed;
+                        if (Auriga.Extensions.ReconnectionKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.ReconnectionKind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ReconnectionKind", "reconnectionKind", raw, xmlLineInfo);
+                        }
                     }
                 }
 

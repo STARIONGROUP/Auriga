@@ -67,7 +67,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
-            WriteEnumAttribute<Auriga.Model.Information.ExchangeMechanism>(xmlWriter, "exchangeMechanism", poco.ExchangeMechanism);
+            WriteEnumAttribute<Auriga.Model.Information.ExchangeMechanism>(xmlWriter, "exchangeMechanism", poco.ExchangeMechanism, Auriga.Extensions.ExchangeMechanismProvider.ToXmlLiteral);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteBooleanAttribute(xmlWriter, "final", poco.Final);
             WriteStringAttribute(xmlWriter, "name", poco.Name);

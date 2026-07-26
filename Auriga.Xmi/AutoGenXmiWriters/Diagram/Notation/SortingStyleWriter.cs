@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceListAttribute(xmlWriter, "sortedObjects", poco.SortedObjects, poco, "SortedObjects", context);
-            WriteEnumAttribute<Auriga.Diagram.Notation.Sorting>(xmlWriter, "sorting", poco.Sorting, Auriga.Diagram.Notation.Sorting.None);
+            WriteEnumAttribute<Auriga.Diagram.Notation.Sorting>(xmlWriter, "sorting", poco.Sorting, Auriga.Extensions.SortingProvider.ToXmlLiteral, Auriga.Diagram.Notation.Sorting.None);
             WriteStringAttribute(xmlWriter, "sortingKeys", poco.SortingKeys);
         }
     }

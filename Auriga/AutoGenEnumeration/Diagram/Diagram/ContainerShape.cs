@@ -23,7 +23,6 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The <c>Parallelogram</c> literal.
         /// </summary>
-        [System.Runtime.Serialization.EnumMember(Value = "parallelogram")]
         Parallelogram
 
     }

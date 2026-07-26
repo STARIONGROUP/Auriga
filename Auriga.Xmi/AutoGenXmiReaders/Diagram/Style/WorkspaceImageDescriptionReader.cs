@@ -108,17 +108,29 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
                 }
                 CollectSingleValueReference(poco, "BorderColor", xmlReader.GetAttribute("borderColor"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.LineStyle>(xmlReader.GetAttribute("borderLineStyle"), out var parsed))
+                    var raw = xmlReader.GetAttribute("borderLineStyle");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.BorderLineStyle = parsed;
+                        if (Auriga.Extensions.LineStyleProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.BorderLineStyle = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LineStyle", "borderLineStyle", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.BorderSizeComputationExpression = xmlReader.GetAttribute("borderSizeComputationExpression");
                 foreach (var token in (xmlReader.GetAttribute("forbiddenSides") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.Description.Style.Side>(token, out var parsed))
+                    if (Auriga.Extensions.SideProvider.TryParse(token.AsSpan(), out var parsed))
                     {
                         poco.ForbiddenSides.Add(parsed);
+                    }
+                    else
+                    {
+                        this.HandleUnknownEnumLiteral("Side", "forbiddenSides", token, xmlLineInfo);
                     }
                 }
                 {
@@ -130,24 +142,44 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
                 }
                 poco.IconPath = xmlReader.GetAttribute("iconPath");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlReader.GetAttribute("labelAlignment"), out var parsed))
+                    var raw = xmlReader.GetAttribute("labelAlignment");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.LabelAlignment = parsed;
+                        if (Auriga.Extensions.LabelAlignmentProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.LabelAlignment = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LabelAlignment", "labelAlignment", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectSingleValueReference(poco, "LabelColor", xmlReader.GetAttribute("labelColor"));
                 poco.LabelExpression = xmlReader.GetAttribute("labelExpression");
                 foreach (var token in (xmlReader.GetAttribute("labelFormat") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.FontFormat>(token, out var parsed))
+                    if (Auriga.Extensions.FontFormatProvider.TryParse(token.AsSpan(), out var parsed))
                     {
                         poco.LabelFormat.Add(parsed);
                     }
+                    else
+                    {
+                        this.HandleUnknownEnumLiteral("FontFormat", "labelFormat", token, xmlLineInfo);
+                    }
                 }
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.LabelPosition>(xmlReader.GetAttribute("labelPosition"), out var parsed))
+                    var raw = xmlReader.GetAttribute("labelPosition");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.LabelPosition = parsed;
+                        if (Auriga.Extensions.LabelPositionProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.LabelPosition = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LabelPosition", "labelPosition", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
@@ -158,9 +190,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.ResizeKind>(xmlReader.GetAttribute("resizeKind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("resizeKind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.ResizeKind = parsed;
+                        if (Auriga.Extensions.ResizeKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.ResizeKind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ResizeKind", "resizeKind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
@@ -211,9 +251,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
                             }
                             case "forbiddenSides":
                             {
-                                if (TryParseEnum<Auriga.Diagram.Diagram.Description.Style.Side>(ReadElementText(xmlReader), out var parsed))
+                                var text = ReadElementText(xmlReader);
+                                if (Auriga.Extensions.SideProvider.TryParse(text.AsSpan(), out var parsed))
                                 {
                                     poco.ForbiddenSides.Add(parsed);
+                                }
+                                else
+                                {
+                                    this.HandleUnknownEnumLiteral("Side", "forbiddenSides", text, xmlLineInfo);
                                 }
 
                                 break;
@@ -235,9 +280,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
                             }
                             case "labelFormat":
                             {
-                                if (TryParseEnum<Auriga.Diagram.Viewpoint.FontFormat>(ReadElementText(xmlReader), out var parsed))
+                                var text = ReadElementText(xmlReader);
+                                if (Auriga.Extensions.FontFormatProvider.TryParse(text.AsSpan(), out var parsed))
                                 {
                                     poco.LabelFormat.Add(parsed);
+                                }
+                                else
+                                {
+                                    this.HandleUnknownEnumLiteral("FontFormat", "labelFormat", text, xmlLineInfo);
                                 }
 
                                 break;

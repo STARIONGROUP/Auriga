@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                 poco.SourceDocument = documentName;
                 poco.BorderColor = xmlReader.GetAttribute("borderColor");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.LineStyle>(xmlReader.GetAttribute("borderLineStyle"), out var parsed))
+                    var raw = xmlReader.GetAttribute("borderLineStyle");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.BorderLineStyle = parsed;
+                        if (Auriga.Extensions.LineStyleProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.BorderLineStyle = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LineStyle", "borderLineStyle", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

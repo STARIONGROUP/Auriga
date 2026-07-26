@@ -71,9 +71,9 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Fa
             this.WriteReferenceListAttribute(xmlWriter, "inState", poco.InState, poco, "InState", context);
             WriteBooleanAttribute(xmlWriter, "isControl", poco.IsControl);
             WriteBooleanAttribute(xmlWriter, "isControlType", poco.IsControlType);
-            WriteEnumAttribute<Auriga.Model.Activity.ObjectNodeKind>(xmlWriter, "kindOfNode", poco.KindOfNode);
+            WriteEnumAttribute<Auriga.Model.Activity.ObjectNodeKind>(xmlWriter, "kindOfNode", poco.KindOfNode, Auriga.Extensions.ObjectNodeKindProvider.ToXmlLiteral);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteEnumAttribute<Auriga.Model.Activity.ObjectNodeOrderingKind>(xmlWriter, "ordering", poco.Ordering);
+            WriteEnumAttribute<Auriga.Model.Activity.ObjectNodeOrderingKind>(xmlWriter, "ordering", poco.Ordering, Auriga.Extensions.ObjectNodeOrderingKindProvider.ToXmlLiteral);
             this.WriteReferenceListAttribute(xmlWriter, "outgoingExchangeItems", poco.OutgoingExchangeItems, poco, "OutgoingExchangeItems", context);
             this.WriteReferenceListAttribute(xmlWriter, "providedInterfaces", poco.ProvidedInterfaces, poco, "ProvidedInterfaces", context);
             this.WriteReferenceAttribute(xmlWriter, "representedComponentPort", poco.RepresentedComponentPort, poco, "RepresentedComponentPort", context);

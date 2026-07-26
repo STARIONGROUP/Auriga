@@ -98,9 +98,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
                 poco.Description = xmlReader.GetAttribute("description");
                 CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
                 {
-                    if (TryParseEnum<Auriga.Model.Fa.ComponentExchangeKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.ComponentExchangeKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ComponentExchangeKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectSingleValueReference(poco, "Link", xmlReader.GetAttribute("link"));

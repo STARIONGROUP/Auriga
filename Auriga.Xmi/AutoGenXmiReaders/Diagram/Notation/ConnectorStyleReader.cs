@@ -107,15 +107,31 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.JumpLinkStatus>(xmlReader.GetAttribute("jumpLinkStatus"), out var parsed))
+                    var raw = xmlReader.GetAttribute("jumpLinkStatus");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.JumpLinkStatus = parsed;
+                        if (Auriga.Extensions.JumpLinkStatusProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.JumpLinkStatus = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("JumpLinkStatus", "jumpLinkStatus", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.JumpLinkType>(xmlReader.GetAttribute("jumpLinkType"), out var parsed))
+                    var raw = xmlReader.GetAttribute("jumpLinkType");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.JumpLinkType = parsed;
+                        if (Auriga.Extensions.JumpLinkTypeProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.JumpLinkType = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("JumpLinkType", "jumpLinkType", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
@@ -147,15 +163,31 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.Routing>(xmlReader.GetAttribute("routing"), out var parsed))
+                    var raw = xmlReader.GetAttribute("routing");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Routing = parsed;
+                        if (Auriga.Extensions.RoutingProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Routing = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Routing", "routing", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.Smoothness>(xmlReader.GetAttribute("smoothness"), out var parsed))
+                    var raw = xmlReader.GetAttribute("smoothness");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Smoothness = parsed;
+                        if (Auriga.Extensions.SmoothnessProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Smoothness = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Smoothness", "smoothness", raw, xmlLineInfo);
+                        }
                     }
                 }
 

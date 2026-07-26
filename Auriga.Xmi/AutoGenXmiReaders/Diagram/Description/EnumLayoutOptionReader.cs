@@ -94,9 +94,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
                 poco.SourceDocument = documentName;
                 foreach (var token in (xmlReader.GetAttribute("targets") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(token, out var parsed))
+                    if (Auriga.Extensions.LayoutOptionTargetProvider.TryParse(token.AsSpan(), out var parsed))
                     {
                         poco.Targets.Add(parsed);
+                    }
+                    else
+                    {
+                        this.HandleUnknownEnumLiteral("LayoutOptionTarget", "targets", token, xmlLineInfo);
                     }
                 }
 
@@ -130,9 +134,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
                             }
                             case "targets":
                             {
-                                if (TryParseEnum<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(ReadElementText(xmlReader), out var parsed))
+                                var text = ReadElementText(xmlReader);
+                                if (Auriga.Extensions.LayoutOptionTargetProvider.TryParse(text.AsSpan(), out var parsed))
                                 {
                                     poco.Targets.Add(parsed);
+                                }
+                                else
+                                {
+                                    this.HandleUnknownEnumLiteral("LayoutOptionTarget", "targets", text, xmlLineInfo);
                                 }
 
                                 break;

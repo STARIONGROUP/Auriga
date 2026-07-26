@@ -33,6 +33,17 @@ namespace Auriga.CodeGenerator.Generators
     /// </summary>
     public sealed class CorePocoGenerator
     {
+        /// <summary>
+        /// The output tree the generated enumeration providers are written to.
+        /// </summary>
+        private const string EnumProviderFolder = "AutoGenEnumProviders";
+
+        /// <summary>
+        /// The project the generated enumeration providers belong to, a sibling of the <c>Auriga</c>
+        /// project.
+        /// </summary>
+        private const string ExtensionsProjectName = "Auriga.Extensions";
+
         private readonly string ecoreDirectory;
 
         private readonly string rootNamespace;
@@ -40,6 +51,8 @@ namespace Auriga.CodeGenerator.Generators
         private readonly string outputSubfolder;
 
         private readonly HandlebarsTemplate<object, object> enumTemplate;
+
+        private readonly HandlebarsTemplate<object, object> enumProviderTemplate;
 
         private readonly HandlebarsTemplate<object, object> interfaceTemplate;
 
@@ -66,7 +79,9 @@ namespace Auriga.CodeGenerator.Generators
 
             var handlebars = Handlebars.Create();
             handlebars.RegisterPocoHelper();
+            handlebars.RegisterEnumProviderHelper();
             this.enumTemplate = handlebars.Compile(LoadTemplate("core-enumeration-template.hbs"));
+            this.enumProviderTemplate = handlebars.Compile(LoadTemplate("core-enumprovider-template.hbs"));
             this.interfaceTemplate = handlebars.Compile(LoadTemplate("core-poco-interface-template.hbs"));
             this.classTemplate = handlebars.Compile(LoadTemplate("core-poco-class-template.hbs"));
         }
@@ -120,6 +135,7 @@ namespace Auriga.CodeGenerator.Generators
             {
                 var name = CSharpNaming.Capitalize(eEnum.Name);
                 files[$"AutoGenEnumeration/{this.outputSubfolder}/{PackageFolder(eEnum)}/{name}.cs"] = Normalize(this.enumTemplate(eEnum));
+                files[$"{EnumProviderFolder}/{this.outputSubfolder}/{PackageFolder(eEnum)}/{EnumProviderHelper.EnumProviderName(eEnum)}.cs"] = Normalize(this.enumProviderTemplate(eEnum));
             }
 
             foreach (var eClass in closureClasses.OrderBy(CSharpNaming.InterfaceType, StringComparer.Ordinal))
@@ -170,23 +186,45 @@ namespace Auriga.CodeGenerator.Generators
         {
             var files = this.Generate(targetPackageNames);
 
+            // The enumeration providers are the one output that does not belong to the Auriga project: they
+            // are extensions over the generated enums and live in Auriga.Extensions, a sibling project that
+            // Auriga.Xmi already references, so the generated readers and writers can call them.
+            var extensionsProjectDirectory = Path.Combine(
+                Path.GetDirectoryName(Path.GetFullPath(aurigaProjectDirectory))!,
+                ExtensionsProjectName);
+
             foreach (var folder in new[] { "AutoGenEnumeration", "AutoGenInterfaces", "AutoGenClasses" })
             {
-                var path = Path.Combine(aurigaProjectDirectory, folder, this.outputSubfolder);
-                if (Directory.Exists(path))
-                {
-                    Directory.Delete(path, recursive: true);
-                }
-
-                Directory.CreateDirectory(path);
+                RecreateDirectory(Path.Combine(aurigaProjectDirectory, folder, this.outputSubfolder));
             }
+
+            RecreateDirectory(Path.Combine(extensionsProjectDirectory, EnumProviderFolder, this.outputSubfolder));
 
             foreach (var file in files)
             {
-                var path = Path.Combine(aurigaProjectDirectory, file.Key.Replace('/', Path.DirectorySeparatorChar));
+                var root = file.Key.StartsWith(EnumProviderFolder + "/", StringComparison.Ordinal)
+                    ? extensionsProjectDirectory
+                    : aurigaProjectDirectory;
+
+                var path = Path.Combine(root, file.Key.Replace('/', Path.DirectorySeparatorChar));
                 Directory.CreateDirectory(Path.GetDirectoryName(path)!);
                 File.WriteAllText(path, file.Value);
             }
+        }
+
+        /// <summary>
+        /// Clears and recreates an output directory, so a regeneration cannot leave behind a file for a
+        /// classifier that no longer exists.
+        /// </summary>
+        /// <param name="path">the directory to recreate</param>
+        private static void RecreateDirectory(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, recursive: true);
+            }
+
+            Directory.CreateDirectory(path);
         }
 
         private List<EPackage> LoadMetamodel()

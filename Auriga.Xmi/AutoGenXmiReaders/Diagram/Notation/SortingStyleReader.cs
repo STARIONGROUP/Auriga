@@ -94,9 +94,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                 poco.SourceDocument = documentName;
                 CollectMultiValueReferences(poco, "SortedObjects", xmlReader.GetAttribute("sortedObjects"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.Sorting>(xmlReader.GetAttribute("sorting"), out var parsed))
+                    var raw = xmlReader.GetAttribute("sorting");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Sorting = parsed;
+                        if (Auriga.Extensions.SortingProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Sorting = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Sorting", "sorting", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.SortingKeys = xmlReader.GetAttribute("sortingKeys");

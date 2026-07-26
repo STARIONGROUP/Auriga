@@ -95,9 +95,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                 CollectSingleValueReference(poco, "ActualMapping", xmlReader.GetAttribute("actualMapping"));
                 foreach (var token in (xmlReader.GetAttribute("arrangeConstraints") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.ArrangeConstraint>(token, out var parsed))
+                    if (Auriga.Extensions.ArrangeConstraintProvider.TryParse(token.AsSpan(), out var parsed))
                     {
                         poco.ArrangeConstraints.Add(parsed);
+                    }
+                    else
+                    {
+                        this.HandleUnknownEnumLiteral("ArrangeConstraint", "arrangeConstraints", token, xmlLineInfo);
                     }
                 }
                 CollectMultiValueReferences(poco, "CandidatesMapping", xmlReader.GetAttribute("candidatesMapping"));
@@ -162,9 +166,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                             }
                             case "arrangeConstraints":
                             {
-                                if (TryParseEnum<Auriga.Diagram.Diagram.ArrangeConstraint>(ReadElementText(xmlReader), out var parsed))
+                                var text = ReadElementText(xmlReader);
+                                if (Auriga.Extensions.ArrangeConstraintProvider.TryParse(text.AsSpan(), out var parsed))
                                 {
                                     poco.ArrangeConstraints.Add(parsed);
+                                }
+                                else
+                                {
+                                    this.HandleUnknownEnumLiteral("ArrangeConstraint", "arrangeConstraints", text, xmlLineInfo);
                                 }
 
                                 break;

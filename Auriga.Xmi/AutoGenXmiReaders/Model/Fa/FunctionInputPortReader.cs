@@ -115,16 +115,32 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Activity.ObjectNodeKind>(xmlReader.GetAttribute("kindOfNode"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kindOfNode");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.KindOfNode = parsed;
+                        if (Auriga.Extensions.ObjectNodeKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.KindOfNode = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ObjectNodeKind", "kindOfNode", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");
                 {
-                    if (TryParseEnum<Auriga.Model.Activity.ObjectNodeOrderingKind>(xmlReader.GetAttribute("ordering"), out var parsed))
+                    var raw = xmlReader.GetAttribute("ordering");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Ordering = parsed;
+                        if (Auriga.Extensions.ObjectNodeOrderingKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Ordering = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ObjectNodeOrderingKind", "ordering", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "ProvidedInterfaces", xmlReader.GetAttribute("providedInterfaces"));

@@ -102,9 +102,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Pa
                 CollectSingleValueReference(poco, "Status", xmlReader.GetAttribute("status"));
                 poco.Summary = xmlReader.GetAttribute("summary");
                 {
-                    if (TryParseEnum<Auriga.Model.Capellacore.VisibilityKind>(xmlReader.GetAttribute("visibility"), out var parsed))
+                    var raw = xmlReader.GetAttribute("visibility");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Visibility = parsed;
+                        if (Auriga.Extensions.VisibilityKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Visibility = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("VisibilityKind", "visibility", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {

@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "borderColor", poco.BorderColor, "0,0,0");
-            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "borderLineStyle", poco.BorderLineStyle);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "borderLineStyle", poco.BorderLineStyle, Auriga.Extensions.LineStyleProvider.ToXmlLiteral);
             WriteIntegerAttribute(xmlWriter, "borderSize", poco.BorderSize, 0);
             WriteStringAttribute(xmlWriter, "borderSizeComputationExpression", poco.BorderSizeComputationExpression, "0");
             this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);

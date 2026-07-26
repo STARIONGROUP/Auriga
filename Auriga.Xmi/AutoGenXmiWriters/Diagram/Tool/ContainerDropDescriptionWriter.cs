@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
-            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Tool.DragSource>(xmlWriter, "dragSource", poco.DragSource);
+            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Tool.DragSource>(xmlWriter, "dragSource", poco.DragSource, Auriga.Extensions.DragSourceProvider.ToXmlLiteral);
             WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
             WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
             WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);

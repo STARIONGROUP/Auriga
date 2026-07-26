@@ -106,9 +106,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
                 CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
                 poco.Name = xmlReader.GetAttribute("name");
                 {
-                    if (TryParseEnum<Auriga.Model.Information.Datavalue.UnaryOperator>(xmlReader.GetAttribute("operator"), out var parsed))
+                    var raw = xmlReader.GetAttribute("operator");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Operator = parsed;
+                        if (Auriga.Extensions.UnaryOperatorProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Operator = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("UnaryOperator", "operator", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Review = xmlReader.GetAttribute("review");

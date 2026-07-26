@@ -64,12 +64,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Style
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
-            WriteEnumAttribute<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlWriter, "labelAlignment", poco.LabelAlignment);
+            WriteEnumAttribute<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlWriter, "labelAlignment", poco.LabelAlignment, Auriga.Extensions.LabelAlignmentProvider.ToXmlLiteral);
             this.WriteReferenceAttribute(xmlWriter, "labelColor", poco.LabelColor, poco, "LabelColor", context);
             WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression, "feature:name");
             WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
             WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);
-            WriteEnumListElements<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
+            WriteEnumListElements<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat, Auriga.Extensions.FontFormatProvider.ToXmlLiteral);
         }
     }
 }

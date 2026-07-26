@@ -72,7 +72,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Epbs
             WriteBooleanAttribute(xmlWriter, "human", poco.Human, false);
             this.WriteReferenceListAttribute(xmlWriter, "inExchangeLinks", poco.InExchangeLinks, poco, "InExchangeLinks", context);
             WriteStringAttribute(xmlWriter, "itemIdentifier", poco.ItemIdentifier);
-            WriteEnumAttribute<Auriga.Model.Epbs.ConfigurationItemKind>(xmlWriter, "kind", poco.Kind, Auriga.Model.Epbs.ConfigurationItemKind.Unset);
+            WriteEnumAttribute<Auriga.Model.Epbs.ConfigurationItemKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.ConfigurationItemKindProvider.ToXmlLiteral, Auriga.Model.Epbs.ConfigurationItemKind.Unset);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceListAttribute(xmlWriter, "outExchangeLinks", poco.OutExchangeLinks, poco, "OutExchangeLinks", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);

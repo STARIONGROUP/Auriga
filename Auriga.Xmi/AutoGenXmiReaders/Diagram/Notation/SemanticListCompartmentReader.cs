@@ -102,9 +102,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                 CollectSingleValueReference(poco, "Element", xmlReader.GetAttribute("element"));
                 CollectMultiValueReferences(poco, "FilteredObjects", xmlReader.GetAttribute("filteredObjects"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.Filtering>(xmlReader.GetAttribute("filtering"), out var parsed))
+                    var raw = xmlReader.GetAttribute("filtering");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Filtering = parsed;
+                        if (Auriga.Extensions.FilteringProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Filtering = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Filtering", "filtering", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.FilteringKeys = xmlReader.GetAttribute("filteringKeys");
@@ -117,9 +125,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                 }
                 CollectMultiValueReferences(poco, "SortedObjects", xmlReader.GetAttribute("sortedObjects"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Notation.Sorting>(xmlReader.GetAttribute("sorting"), out var parsed))
+                    var raw = xmlReader.GetAttribute("sorting");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Sorting = parsed;
+                        if (Auriga.Extensions.SortingProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Sorting = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("Sorting", "sorting", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.SortingKeys = xmlReader.GetAttribute("sortingKeys");

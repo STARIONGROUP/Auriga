@@ -69,7 +69,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Interaction
             this.WriteReferenceAttribute(xmlWriter, "exchangeContext", poco.ExchangeContext, poco, "ExchangeContext", context);
             this.WriteReferenceListAttribute(xmlWriter, "exchangedItems", poco.ExchangedItems, poco, "ExchangedItems", context);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
-            WriteEnumAttribute<Auriga.Model.Interaction.MessageKind>(xmlWriter, "kind", poco.Kind);
+            WriteEnumAttribute<Auriga.Model.Interaction.MessageKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.MessageKindProvider.ToXmlLiteral);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceAttribute(xmlWriter, "receivingEnd", poco.ReceivingEnd, poco, "ReceivingEnd", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);

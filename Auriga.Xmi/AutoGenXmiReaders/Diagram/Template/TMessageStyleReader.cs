@@ -94,23 +94,47 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Template
                 poco.SourceDocument = documentName;
                 poco.LabelExpression = xmlReader.GetAttribute("labelExpression");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.LineStyle>(xmlReader.GetAttribute("lineStyle"), out var parsed))
+                    var raw = xmlReader.GetAttribute("lineStyle");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.LineStyle = parsed;
+                        if (Auriga.Extensions.LineStyleProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.LineStyle = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LineStyle", "lineStyle", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectMultiValueReferences(poco, "Outputs", xmlReader.GetAttribute("outputs"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.EdgeArrows>(xmlReader.GetAttribute("sourceArrow"), out var parsed))
+                    var raw = xmlReader.GetAttribute("sourceArrow");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.SourceArrow = parsed;
+                        if (Auriga.Extensions.EdgeArrowsProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.SourceArrow = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("EdgeArrows", "sourceArrow", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectSingleValueReference(poco, "StrokeColor", xmlReader.GetAttribute("strokeColor"));
                 {
-                    if (TryParseEnum<Auriga.Diagram.Diagram.EdgeArrows>(xmlReader.GetAttribute("targetArrow"), out var parsed))
+                    var raw = xmlReader.GetAttribute("targetArrow");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.TargetArrow = parsed;
+                        if (Auriga.Extensions.EdgeArrowsProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.TargetArrow = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("EdgeArrows", "targetArrow", raw, xmlLineInfo);
+                        }
                     }
                 }
 

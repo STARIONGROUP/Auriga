@@ -114,9 +114,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Modellingcore.RateKind>(xmlReader.GetAttribute("kindOfRate"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kindOfRate");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.KindOfRate = parsed;
+                        if (Auriga.Extensions.RateKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.KindOfRate = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("RateKind", "kindOfRate", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");

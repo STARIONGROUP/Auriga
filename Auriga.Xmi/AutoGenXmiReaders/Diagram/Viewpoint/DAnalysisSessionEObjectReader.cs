@@ -102,9 +102,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.SyncStatus>(xmlReader.GetAttribute("synchronizationStatus"), out var parsed))
+                    var raw = xmlReader.GetAttribute("synchronizationStatus");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.SynchronizationStatus = parsed;
+                        if (Auriga.Extensions.SyncStatusProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.SynchronizationStatus = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("SyncStatus", "synchronizationStatus", raw, xmlLineInfo);
+                        }
                     }
                 }
 

@@ -71,9 +71,9 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Cs
             WriteBooleanAttribute(xmlWriter, "final", poco.Final);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
-            WriteEnumAttribute<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "receiveProtocol", poco.ReceiveProtocol);
+            WriteEnumAttribute<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "receiveProtocol", poco.ReceiveProtocol, Auriga.Extensions.CommunicationLinkProtocolProvider.ToXmlLiteral);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
-            WriteEnumAttribute<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "sendProtocol", poco.SendProtocol);
+            WriteEnumAttribute<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "sendProtocol", poco.SendProtocol, Auriga.Extensions.CommunicationLinkProtocolProvider.ToXmlLiteral);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);

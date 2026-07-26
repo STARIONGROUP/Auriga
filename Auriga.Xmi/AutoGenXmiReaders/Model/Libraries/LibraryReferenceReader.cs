@@ -93,9 +93,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Libraries
                 poco.Id = xmlReader.GetAttribute("id") ?? xmlReader.GetAttribute("id", XmiNamespace) ?? xmlReader.GetAttribute("uid");
                 poco.SourceDocument = documentName;
                 {
-                    if (TryParseEnum<Auriga.Model.Libraries.AccessPolicy>(xmlReader.GetAttribute("accessPolicy"), out var parsed))
+                    var raw = xmlReader.GetAttribute("accessPolicy");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.AccessPolicy = parsed;
+                        if (Auriga.Extensions.AccessPolicyProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.AccessPolicy = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("AccessPolicy", "accessPolicy", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectSingleValueReference(poco, "Library", xmlReader.GetAttribute("library"));

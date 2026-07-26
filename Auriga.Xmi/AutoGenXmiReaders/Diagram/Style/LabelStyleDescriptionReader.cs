@@ -94,18 +94,30 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Style
                 poco.SourceDocument = documentName;
                 poco.IconPath = xmlReader.GetAttribute("iconPath");
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlReader.GetAttribute("labelAlignment"), out var parsed))
+                    var raw = xmlReader.GetAttribute("labelAlignment");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.LabelAlignment = parsed;
+                        if (Auriga.Extensions.LabelAlignmentProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.LabelAlignment = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("LabelAlignment", "labelAlignment", raw, xmlLineInfo);
+                        }
                     }
                 }
                 CollectSingleValueReference(poco, "LabelColor", xmlReader.GetAttribute("labelColor"));
                 poco.LabelExpression = xmlReader.GetAttribute("labelExpression");
                 foreach (var token in (xmlReader.GetAttribute("labelFormat") ?? string.Empty).Split(WhitespaceSeparator, System.StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (TryParseEnum<Auriga.Diagram.Viewpoint.FontFormat>(token, out var parsed))
+                    if (Auriga.Extensions.FontFormatProvider.TryParse(token.AsSpan(), out var parsed))
                     {
                         poco.LabelFormat.Add(parsed);
+                    }
+                    else
+                    {
+                        this.HandleUnknownEnumLiteral("FontFormat", "labelFormat", token, xmlLineInfo);
                     }
                 }
                 {
@@ -153,9 +165,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Style
                             }
                             case "labelFormat":
                             {
-                                if (TryParseEnum<Auriga.Diagram.Viewpoint.FontFormat>(ReadElementText(xmlReader), out var parsed))
+                                var text = ReadElementText(xmlReader);
+                                if (Auriga.Extensions.FontFormatProvider.TryParse(text.AsSpan(), out var parsed))
                                 {
                                     poco.LabelFormat.Add(parsed);
+                                }
+                                else
+                                {
+                                    this.HandleUnknownEnumLiteral("FontFormat", "labelFormat", text, xmlLineInfo);
                                 }
 
                                 break;

@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "actualMapping", poco.ActualMapping, poco, "ActualMapping", context);
             this.WriteReferenceListAttribute(xmlWriter, "candidatesMapping", poco.CandidatesMapping, poco, "CandidatesMapping", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.ContainerLayout>(xmlWriter, "childrenPresentation", poco.ChildrenPresentation, Auriga.Diagram.Diagram.ContainerLayout.FreeForm);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.ContainerLayout>(xmlWriter, "childrenPresentation", poco.ChildrenPresentation, Auriga.Extensions.ContainerLayoutProvider.ToXmlLiteral, Auriga.Diagram.Diagram.ContainerLayout.FreeForm);
             WriteIntegerAttribute(xmlWriter, "height", poco.Height);
             this.WriteReferenceListAttribute(xmlWriter, "incomingEdges", poco.IncomingEdges, poco, "IncomingEdges", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
@@ -78,7 +78,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             WriteIntegerAttribute(xmlWriter, "width", poco.Width);
-            WriteEnumListElements<Auriga.Diagram.Diagram.ArrangeConstraint>(xmlWriter, "arrangeConstraints", poco.ArrangeConstraints);
+            WriteEnumListElements<Auriga.Diagram.Diagram.ArrangeConstraint>(xmlWriter, "arrangeConstraints", poco.ArrangeConstraints, Auriga.Extensions.ArrangeConstraintProvider.ToXmlLiteral);
             this.WriteContainedElements(xmlWriter, "decorations", poco.Decorations, poco, "Decorations", context);
             this.WriteContainedElements(xmlWriter, "graphicalFilters", poco.GraphicalFilters, poco, "GraphicalFilters", context);
             this.WriteContainedElements(xmlWriter, "ownedBorderedNodes", poco.OwnedBorderedNodes, poco, "OwnedBorderedNodes", context);

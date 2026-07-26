@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Capellacommon
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             this.WriteReferenceAttribute(xmlWriter, "expression", poco.Expression, poco, "Expression", context);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
-            WriteEnumAttribute<Auriga.Model.Capellacommon.TimeEventKind>(xmlWriter, "kind", poco.Kind);
+            WriteEnumAttribute<Auriga.Model.Capellacommon.TimeEventKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.TimeEventKindProvider.ToXmlLiteral);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);

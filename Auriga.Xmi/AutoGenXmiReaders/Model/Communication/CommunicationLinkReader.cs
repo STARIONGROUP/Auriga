@@ -98,15 +98,31 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Communication
                 CollectSingleValueReference(poco, "ExchangeItem", xmlReader.GetAttribute("exchangeItem"));
                 CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
                 {
-                    if (TryParseEnum<Auriga.Model.Information.Communication.CommunicationLinkKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.CommunicationLinkKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("CommunicationLinkKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 {
-                    if (TryParseEnum<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlReader.GetAttribute("protocol"), out var parsed))
+                    var raw = xmlReader.GetAttribute("protocol");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Protocol = parsed;
+                        if (Auriga.Extensions.CommunicationLinkProtocolProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Protocol = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("CommunicationLinkProtocol", "protocol", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Review = xmlReader.GetAttribute("review");

@@ -98,9 +98,17 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacommon
                 CollectSingleValueReference(poco, "Expression", xmlReader.GetAttribute("expression"));
                 CollectMultiValueReferences(poco, "Features", xmlReader.GetAttribute("features"));
                 {
-                    if (TryParseEnum<Auriga.Model.Capellacommon.ChangeEventKind>(xmlReader.GetAttribute("kind"), out var parsed))
+                    var raw = xmlReader.GetAttribute("kind");
+                    if (!string.IsNullOrEmpty(raw))
                     {
-                        poco.Kind = parsed;
+                        if (Auriga.Extensions.ChangeEventKindProvider.TryParse(raw.AsSpan(), out var parsed))
+                        {
+                            poco.Kind = parsed;
+                        }
+                        else
+                        {
+                            this.HandleUnknownEnumLiteral("ChangeEventKind", "kind", raw, xmlLineInfo);
+                        }
                     }
                 }
                 poco.Name = xmlReader.GetAttribute("name");
