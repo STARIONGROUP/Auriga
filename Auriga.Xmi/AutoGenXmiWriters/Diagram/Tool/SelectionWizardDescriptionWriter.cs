@@ -79,10 +79,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Tool
             WriteBooleanAttribute(xmlWriter, "tree", poco.Tree);
             WriteStringAttribute(xmlWriter, "windowImagePath", poco.WindowImagePath);
             WriteStringAttribute(xmlWriter, "windowTitle", poco.WindowTitle, "Selection Wizard");
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "containerView", poco.ContainerView, poco, "ContainerView", context);
             this.WriteContainedElement(xmlWriter, "element", poco.Element, poco, "Element", context);
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             this.WriteContainedElement(xmlWriter, "initialOperation", poco.InitialOperation, poco, "InitialOperation", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

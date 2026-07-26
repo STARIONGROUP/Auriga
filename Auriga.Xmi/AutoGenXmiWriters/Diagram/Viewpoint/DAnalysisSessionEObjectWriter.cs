@@ -67,6 +67,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
             this.WriteReferenceListAttribute(xmlWriter, "analyses", poco.Analyses, poco, "Analyses", context);
             WriteBooleanAttribute(xmlWriter, "open", poco.Open);
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.SyncStatus>(xmlWriter, "synchronizationStatus", poco.SynchronizationStatus, Auriga.Extensions.SyncStatusProvider.ToLiteralString, Auriga.Diagram.Viewpoint.SyncStatus.Dirty);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

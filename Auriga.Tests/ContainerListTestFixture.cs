@@ -468,6 +468,12 @@ namespace Auriga.Tests
             public System.Collections.Generic.IDictionary<string, System.Collections.Generic.List<string>> MultiValueReferencePropertyIdentifiers { get; }
                 = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>();
 
+            public System.Collections.Generic.IList<string> UninterpretedContent { get; }
+                = new System.Collections.Generic.List<string>();
+
+            public System.Collections.Generic.IList<UninterpretedAttribute> UninterpretedAttributes { get; }
+                = new System.Collections.Generic.List<UninterpretedAttribute>();
+
             public System.Collections.Generic.IEnumerable<IAurigaElement> QueryContainedElements()
             {
                 yield break;

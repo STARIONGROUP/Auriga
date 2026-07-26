@@ -66,6 +66,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
             WriteIntegerAttribute(xmlWriter, "blue", poco.Blue, 125);
             WriteIntegerAttribute(xmlWriter, "green", poco.Green, 125);
             WriteIntegerAttribute(xmlWriter, "red", poco.Red, 125);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

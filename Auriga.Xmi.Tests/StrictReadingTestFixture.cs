@@ -58,7 +58,7 @@ namespace Auriga.Xmi.Tests
         }
 
         [Test]
-        public void Verify_that_lenient_reading_skips_an_unrecognized_element_and_warns()
+        public void Verify_that_lenient_reading_captures_an_unrecognized_element()
         {
             var loggerFactory = new CapturingLoggerFactory();
 
@@ -75,8 +75,13 @@ namespace Auriga.Xmi.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
-                Assert.That(result.Elements, Has.Count.EqualTo(1), "the unrecognized element is skipped, not instantiated");
-                Assert.That(loggerFactory.LoggedLevels, Has.Some.EqualTo(LogLevel.Warning), "the skipped element is reported as a warning");
+                Assert.That(result.Elements, Has.Count.EqualTo(1), "the unrecognized element is not instantiated as a model element");
+
+                // It is retained verbatim rather than discarded, so it is no longer reported
+                // as a warning: nothing is lost, and the writer re-emits it unchanged.
+                Assert.That(result.Root.UninterpretedContent, Has.Count.EqualTo(1), "the unrecognized element is captured");
+                Assert.That(result.Root.UninterpretedContent[0], Does.Contain("unknownAddonFeature"));
+                Assert.That(loggerFactory.LoggedLevels, Has.None.EqualTo(LogLevel.Warning), "capturing is not a warning; no content is lost");
             });
         }
 

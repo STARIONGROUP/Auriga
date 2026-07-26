@@ -65,6 +65,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "key", poco.Key, poco, "Key", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.Alignment>(xmlWriter, "value", poco.Value, Auriga.Extensions.AlignmentProvider.ToLiteralString, Auriga.Diagram.Notation.Alignment.Center);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

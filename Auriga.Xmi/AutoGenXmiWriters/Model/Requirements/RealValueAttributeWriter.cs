@@ -66,7 +66,12 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Requirements
             this.WriteReferenceAttribute(xmlWriter, "definition", poco.Definition, poco, "Definition", context);
             WriteStringAttribute(xmlWriter, "definitionProxy", poco.DefinitionProxy);
             WriteDoubleAttribute(xmlWriter, "value", poco.Value);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

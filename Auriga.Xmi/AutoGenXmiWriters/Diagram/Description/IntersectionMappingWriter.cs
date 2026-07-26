@@ -78,6 +78,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "semanticElements", poco.SemanticElements);
             WriteBooleanAttribute(xmlWriter, "useDomainClass", poco.UseDomainClass, false);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "backgroundConditionalStyle", poco.BackgroundConditionalStyle, poco, "BackgroundConditionalStyle", context);
             this.WriteContainedElement(xmlWriter, "cellEditor", poco.CellEditor, poco, "CellEditor", context);
             this.WriteContainedElement(xmlWriter, "create", poco.Create, poco, "Create", context);
@@ -85,6 +89,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
             this.WriteContainedElement(xmlWriter, "defaultForeground", poco.DefaultForeground, poco, "DefaultForeground", context);
             this.WriteContainedElement(xmlWriter, "directEdit", poco.DirectEdit, poco, "DirectEdit", context);
             this.WriteContainedElements(xmlWriter, "foregroundConditionalStyle", poco.ForegroundConditionalStyle, poco, "ForegroundConditionalStyle", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

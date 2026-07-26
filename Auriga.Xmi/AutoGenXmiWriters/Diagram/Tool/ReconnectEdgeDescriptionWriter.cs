@@ -71,6 +71,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
             WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Tool.ReconnectionKind>(xmlWriter, "reconnectionKind", poco.ReconnectionKind, Auriga.Extensions.ReconnectionKindProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.Tool.ReconnectionKind.RECONNECT_TARGET);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "edgeView", poco.EdgeView, poco, "EdgeView", context);
             this.WriteContainedElement(xmlWriter, "element", poco.Element, poco, "Element", context);
             this.WriteContainedElements(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
@@ -79,6 +83,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
             this.WriteContainedElement(xmlWriter, "sourceView", poco.SourceView, poco, "SourceView", context);
             this.WriteContainedElement(xmlWriter, "target", poco.Target, poco, "Target", context);
             this.WriteContainedElement(xmlWriter, "targetView", poco.TargetView, poco, "TargetView", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

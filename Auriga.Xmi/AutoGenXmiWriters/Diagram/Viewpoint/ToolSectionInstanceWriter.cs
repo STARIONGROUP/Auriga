@@ -68,8 +68,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
             this.WriteReferenceAttribute(xmlWriter, "section", poco.Section as Auriga.Core.IAurigaElement, poco, "Section", context);
             this.WriteReferenceAttribute(xmlWriter, "toolEntry", poco.ToolEntry, poco, "ToolEntry", context);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "subSections", poco.SubSections, poco, "SubSections", context);
             this.WriteContainedElements(xmlWriter, "tools", poco.Tools, poco, "Tools", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

@@ -65,6 +65,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "associatedColor", poco.AssociatedColor, poco, "AssociatedColor", context);
             WriteStringAttribute(xmlWriter, "associatedValue", poco.AssociatedValue, "");
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

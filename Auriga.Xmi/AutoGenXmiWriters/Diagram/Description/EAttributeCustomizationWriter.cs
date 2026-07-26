@@ -67,6 +67,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
             WriteBooleanAttribute(xmlWriter, "applyOnAll", poco.ApplyOnAll);
             WriteStringAttribute(xmlWriter, "attributeName", poco.AttributeName);
             WriteStringAttribute(xmlWriter, "value", poco.Value);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

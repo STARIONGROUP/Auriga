@@ -409,6 +409,10 @@ namespace Auriga.Xmi.Tests
 
             public IDictionary<string, List<string>> MultiValueReferencePropertyIdentifiers { get; } = new Dictionary<string, List<string>>();
 
+            public IList<string> UninterpretedContent { get; } = new List<string>();
+
+            public IList<UninterpretedAttribute> UninterpretedAttributes { get; } = new List<UninterpretedAttribute>();
+
             public IEnumerable<IAurigaElement> QueryContainedElements() => Array.Empty<IAurigaElement>();
 
             public IEnumerable<IAurigaElement> QueryAllContainedElements() => Array.Empty<IAurigaElement>();

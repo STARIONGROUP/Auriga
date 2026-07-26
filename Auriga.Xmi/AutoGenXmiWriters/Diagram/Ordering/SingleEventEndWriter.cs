@@ -66,6 +66,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Ordering
             this.WriteReferenceAttribute(xmlWriter, "semanticEnd", poco.SemanticEnd as Auriga.Core.IAurigaElement, poco, "SemanticEnd", context);
             this.WriteReferenceAttribute(xmlWriter, "semanticEvent", poco.SemanticEvent as Auriga.Core.IAurigaElement, poco, "SemanticEvent", context);
             WriteBooleanAttribute(xmlWriter, "start", poco.Start);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

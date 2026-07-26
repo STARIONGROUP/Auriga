@@ -65,7 +65,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Filter
             WriteId(xmlWriter, poco);
             WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Filter.FilterKind>(xmlWriter, "filterKind", poco.FilterKind, Auriga.Extensions.FilterKindProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.Filter.FilterKind.HIDE);
             WriteStringAttribute(xmlWriter, "semanticConditionExpression", poco.SemanticConditionExpression, "");
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "ownedVariables", poco.OwnedVariables, poco, "OwnedVariables", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

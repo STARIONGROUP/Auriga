@@ -80,9 +80,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Description
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "semanticElements", poco.SemanticElements);
             WriteBooleanAttribute(xmlWriter, "synchronizationLock", poco.SynchronizationLock, false);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "borderedNodeMappings", poco.BorderedNodeMappings, poco, "BorderedNodeMappings", context);
             this.WriteContainedElements(xmlWriter, "conditionnalStyles", poco.ConditionnalStyles, poco, "ConditionnalStyles", context);
             this.WriteContainedElement(xmlWriter, "style", poco.Style, poco, "Style", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

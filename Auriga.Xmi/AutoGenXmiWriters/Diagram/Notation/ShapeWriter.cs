@@ -80,9 +80,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteStringAttribute(xmlWriter, "type", poco.Type, "");
             WriteBooleanAttribute(xmlWriter, "underline", poco.Underline, false);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "layoutConstraint", poco.LayoutConstraint, poco, "LayoutConstraint", context);
             this.WriteContainedElements(xmlWriter, "children", poco.PersistedChildren, poco, "PersistedChildren", context);
             this.WriteContainedElements(xmlWriter, "styles", poco.Styles, poco, "Styles", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

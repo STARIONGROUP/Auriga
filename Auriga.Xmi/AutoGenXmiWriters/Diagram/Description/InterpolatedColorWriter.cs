@@ -67,7 +67,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
             WriteStringAttribute(xmlWriter, "maxValueComputationExpression", poco.MaxValueComputationExpression, "10");
             WriteStringAttribute(xmlWriter, "minValueComputationExpression", poco.MinValueComputationExpression, "0");
             WriteStringAttribute(xmlWriter, "name", poco.Name);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "colorSteps", poco.ColorSteps, poco, "ColorSteps", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }
