@@ -48,6 +48,12 @@ namespace {{WriterFacadeNamespace}}
             // built-in Ecore map-entry type belongs to no vendored metamodel package, so it is routed to the
             // shared runtime writer here rather than generated.
             this.writers[typeof(EStringToStringMapEntry)] = new EStringToStringMapEntryWriter(this, loggerFactory);
+
+            // EMF serializes an EAnnotation-typed feature inline as an ecore:EAnnotation element carrying a
+            // source attribute and details map entries (e.g. the Requirements viewpoint's queries under a
+            // DAnalysisCustomData). Like the map-entry type it belongs to no vendored metamodel package, so
+            // it is routed to the shared runtime writer here rather than generated.
+            this.writers[typeof(EAnnotation)] = new EAnnotationWriter(this, loggerFactory);
         }
 
         /// <summary>

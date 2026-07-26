@@ -41,6 +41,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders
 
         private const string EcoreMapEntryTypeKey = "ecore:EStringToStringMapEntry";
 
+        private const string EcoreAnnotationTypeKey = "ecore:EAnnotation";
+
         private readonly IXmiElementCache cache;
 
         private readonly INamespaceResolver namespaceResolver;
@@ -373,6 +375,14 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders
             // built-in Ecore map-entry type belongs to no vendored metamodel package, so its type key is
             // routed to the shared runtime reader and its namespace registered here rather than generated.
             this.readerFactories[EcoreMapEntryTypeKey] = (xmlReader, documentName, namespaceUri) => new EStringToStringMapEntryReader(this.cache, this, this.settings, this.loggerFactory).Read(xmlReader, documentName, namespaceUri);
+
+            // EMF serializes an EAnnotation-typed feature inline as an ecore:EAnnotation element carrying a
+            // source attribute and details map entries. Capella add-ons use it as an extension point (e.g.
+            // the Requirements viewpoint's queries under a DAnalysisCustomData), so it appears as the
+            // payload of a feature whose declared type is resolved from xsi:type. Like the map-entry type
+            // it belongs to no vendored metamodel package, so it is routed to the shared runtime reader.
+            this.readerFactories[EcoreAnnotationTypeKey] = (xmlReader, documentName, namespaceUri) => new EAnnotationReader(this.cache, this, this.settings, this.loggerFactory).Read(xmlReader, documentName, namespaceUri);
+
             this.namespaceResolver.RegisterNamespace(EcoreNamespaceUri, "ecore");
         }
 
