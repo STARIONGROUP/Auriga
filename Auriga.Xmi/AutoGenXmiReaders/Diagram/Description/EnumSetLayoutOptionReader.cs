@@ -128,6 +128,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
 
                                 break;
                             }
+                            case "targets":
+                            {
+                                if (TryParseEnum<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.Targets.Add(parsed);
+                                }
+
+                                break;
+                            }
                             case "values":
                             {
                                 var href = xmlReader.GetAttribute("href");

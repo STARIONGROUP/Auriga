@@ -160,6 +160,28 @@ namespace Auriga.Xmi.Core.Readers
         /// element is logged at <see cref="LogLevel.Trace"/> so discarded content remains diagnosable.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element to skip</param>
+        /// <summary>
+        /// Reads the text content of the element at the cursor and returns it, leaving the cursor on that
+        /// element's end tag — the same position <see cref="SkipElement"/> leaves it in, so the caller's
+        /// <c>while (xmlReader.Read())</c> loop advances to the next sibling exactly once.
+        /// </summary>
+        /// <remarks>
+        /// This is why the read goes through <see cref="XmlReader.ReadSubtree"/> rather than calling
+        /// <see cref="XmlReader.ReadElementContentAsString()"/> on the outer reader: the latter advances
+        /// past the end tag to the following node, which the enclosing loop would then skip — silently
+        /// dropping the next sibling. That matters here because these features are multi-valued and their
+        /// child elements are consecutive siblings.
+        /// </remarks>
+        /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <returns>the element's text content; empty for an empty element</returns>
+        protected static string ReadElementText(XmlReader xmlReader)
+        {
+            using var subReader = xmlReader.ReadSubtree();
+            subReader.MoveToContent();
+
+            return subReader.ReadElementContentAsString();
+        }
+
         protected void SkipElement(XmlReader xmlReader)
         {
             if (this.Logger.IsEnabled(LogLevel.Trace))

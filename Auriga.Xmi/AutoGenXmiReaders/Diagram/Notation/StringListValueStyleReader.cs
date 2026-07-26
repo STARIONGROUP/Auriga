@@ -111,6 +111,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
 
                         switch (xmlReader.LocalName)
                         {
+                            case "stringListValue":
+                            {
+                                poco.StringListValue.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

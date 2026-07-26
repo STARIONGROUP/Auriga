@@ -169,6 +169,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
 
                         switch (xmlReader.LocalName)
                         {
+                            case "customFeatures":
+                            {
+                                poco.CustomFeatures.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             case "description":
                             {
                                 var href = xmlReader.GetAttribute("href");
@@ -180,6 +186,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
                                 else
                                 {
                                     SkipElement(xmlReader);
+                                }
+
+                                break;
+                            }
+                            case "labelFormat":
+                            {
+                                if (TryParseEnum<Auriga.Diagram.Viewpoint.FontFormat>(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.LabelFormat.Add(parsed);
                                 }
 
                                 break;

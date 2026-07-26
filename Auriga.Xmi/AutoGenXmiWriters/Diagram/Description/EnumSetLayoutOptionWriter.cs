@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.IEnumSetLayoutOption poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumListAttribute<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(xmlWriter, "targets", poco.Targets);
             this.WriteContainedElements(xmlWriter, "choices", poco.Choices, poco, "Choices", context);
+            WriteEnumListElements<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(xmlWriter, "targets", poco.Targets);
             this.WriteContainedElements(xmlWriter, "values", poco.Values, poco, "Values", context);
         }
     }

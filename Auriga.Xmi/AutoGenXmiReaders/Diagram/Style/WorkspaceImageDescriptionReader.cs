@@ -209,6 +209,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
 
                                 break;
                             }
+                            case "forbiddenSides":
+                            {
+                                if (TryParseEnum<Auriga.Diagram.Diagram.Description.Style.Side>(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.ForbiddenSides.Add(parsed);
+                                }
+
+                                break;
+                            }
                             case "labelColor":
                             {
                                 var href = xmlReader.GetAttribute("href");
@@ -220,6 +229,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
                                 else
                                 {
                                     SkipElement(xmlReader);
+                                }
+
+                                break;
+                            }
+                            case "labelFormat":
+                            {
+                                if (TryParseEnum<Auriga.Diagram.Viewpoint.FontFormat>(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.LabelFormat.Add(parsed);
                                 }
 
                                 break;

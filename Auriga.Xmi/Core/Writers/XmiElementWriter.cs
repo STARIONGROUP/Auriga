@@ -420,6 +420,51 @@ namespace Auriga.Xmi.Core.Writers
         }
 
         /// <summary>
+        /// Writes a multi-valued simple attribute as one child element per value — the form EMF uses for a
+        /// multi-valued <c>EAttribute</c> (e.g. a <c>DAnalysis</c>'s <c>semanticResources</c>), and the only
+        /// form the Capella and Sirius files in circulation use. An empty value is still written, because
+        /// EMF distinguishes an empty entry from an absent one.
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="name">the XML element name of the feature</param>
+        /// <param name="values">the values, one child element each</param>
+        protected static void WriteStringListElements(XmlWriter xmlWriter, string name, IEnumerable<string>? values)
+        {
+            if (values == null)
+            {
+                return;
+            }
+
+            foreach (var value in values)
+            {
+                xmlWriter.WriteElementString(name, value ?? string.Empty);
+            }
+        }
+
+        /// <summary>
+        /// Writes a multi-valued enumeration attribute as one child element per literal — the element form
+        /// EMF uses for a multi-valued <c>EAttribute</c> whose type is an <c>EEnum</c> (e.g. a
+        /// <c>DDiagramElement</c>'s <c>arrangeConstraints</c>).
+        /// </summary>
+        /// <typeparam name="TEnum">the enumeration type</typeparam>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="name">the XML element name of the feature</param>
+        /// <param name="values">the enumeration values, one child element each</param>
+        protected static void WriteEnumListElements<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values)
+            where TEnum : struct
+        {
+            if (values == null)
+            {
+                return;
+            }
+
+            foreach (var value in values)
+            {
+                xmlWriter.WriteElementString(name, value.ToString());
+            }
+        }
+
+        /// <summary>
         /// Writes a single-valued non-containment reference as an <c>#id</c> (or cross-document
         /// <c>href</c>) attribute. Prefers the resolved target; falls back to the raw identifier collected
         /// on read for a reference that never resolved.

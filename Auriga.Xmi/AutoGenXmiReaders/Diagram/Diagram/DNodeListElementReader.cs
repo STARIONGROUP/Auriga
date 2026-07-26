@@ -144,6 +144,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
 
                                 break;
                             }
+                            case "arrangeConstraints":
+                            {
+                                if (TryParseEnum<Auriga.Diagram.Diagram.ArrangeConstraint>(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.ArrangeConstraints.Add(parsed);
+                                }
+
+                                break;
+                            }
                             case "candidatesMapping":
                             {
                                 var href = xmlReader.GetAttribute("href");

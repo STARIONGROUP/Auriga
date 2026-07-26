@@ -180,6 +180,12 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Re
 
                                 break;
                             }
+                            case "unsynchronizedFeatures":
+                            {
+                                poco.UnsynchronizedFeatures.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

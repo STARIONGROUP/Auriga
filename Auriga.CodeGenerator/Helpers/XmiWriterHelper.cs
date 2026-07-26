@@ -126,18 +126,35 @@ namespace Auriga.CodeGenerator.Helpers
         private static List<EStructuralFeature> AttributeFeatures(EClass eClass)
         {
             return WriterFeatures(eClass)
-                .Where(f => f is not EReference { IsContainment: true })
+                .Where(f => f is not EReference { IsContainment: true } && !IsMultiValuedSimpleAttribute(f))
                 .ToList();
         }
 
         /// <summary>
-        /// The containment structural features, written as child elements, in Ecore declaration order.
+        /// The structural features written as child elements, ordered by member name: the containment
+        /// references, plus the multi-valued simple attributes EMF serializes as one child element per
+        /// value rather than as a whitespace-delimited attribute.
         /// </summary>
         private static List<EStructuralFeature> ElementFeatures(EClass eClass)
         {
             return WriterFeatures(eClass)
-                .Where(f => f is EReference { IsContainment: true })
+                .Where(f => f is EReference { IsContainment: true } || IsMultiValuedSimpleAttribute(f))
                 .ToList();
+        }
+
+        /// <summary>
+        /// Whether the feature is a multi-valued simple (non-reference) attribute of a type the generator
+        /// can write — a string or an enumeration. EMF serializes such a feature as repeated child elements
+        /// rather than a whitespace-delimited attribute, which is the form every Capella and Sirius file in
+        /// circulation uses (see issue #121), so it is written as elements to round-trip.
+        /// </summary>
+        /// <param name="feature">the structural feature to test</param>
+        /// <returns>true when the feature is written as repeated child elements</returns>
+        private static bool IsMultiValuedSimpleAttribute(EStructuralFeature feature)
+        {
+            return feature is not EReference
+                   && CSharpType.IsCollection(feature)
+                   && (feature.EType is EEnum || CSharpType.BaseType(feature.EType) == "string");
         }
 
         /// <summary>
@@ -253,6 +270,13 @@ namespace Auriga.CodeGenerator.Helpers
         {
             var propertyName = MemberName(feature);
             var xmlName = XmlNames.XmlName(feature);
+
+            if (IsMultiValuedSimpleAttribute(feature))
+            {
+                return feature.EType is EEnum eEnum
+                    ? $"WriteEnumListElements<{CSharpNaming.EnumType(eEnum)}>(xmlWriter, \"{xmlName}\", poco.{propertyName});"
+                    : $"WriteStringListElements(xmlWriter, \"{xmlName}\", poco.{propertyName});";
+            }
 
             return CSharpType.IsCollection(feature)
                 ? $"this.WriteContainedElements(xmlWriter, \"{xmlName}\", poco.{propertyName}, poco, \"{propertyName}\", context);"

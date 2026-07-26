@@ -132,16 +132,32 @@ namespace Auriga.CodeGenerator.Helpers
         }
 
         /// <summary>
-        /// The reference structural features that can appear as child elements, ordered by member name.
-        /// Containment is always a child element; a non-containment reference is a child element only when
-        /// its target is in another document, in which case EMF serializes it as an <c>href</c> proxy.
-        /// Scalars and enumerations are always attributes in Capella, so they are not read here.
+        /// The structural features that can appear as child elements, ordered by member name. Containment
+        /// is always a child element; a non-containment reference is a child element only when its target
+        /// is in another document, in which case EMF serializes it as an <c>href</c> proxy. A single-valued
+        /// scalar or enumeration is always an attribute, but a <em>multi-valued</em> one is serialized by
+        /// EMF as one child element per value, so it is read here as well as from the attribute form.
         /// </summary>
         private static List<EStructuralFeature> ElementFeatures(EClass eClass)
         {
             return ReaderFeatures(eClass)
-                .Where(f => f is EReference)
+                .Where(f => f is EReference || IsMultiValuedSimpleAttribute(f))
                 .ToList();
+        }
+
+        /// <summary>
+        /// Whether the feature is a multi-valued simple (non-reference) attribute of a type the generator
+        /// can read — a string or an enumeration. EMF serializes such a feature as repeated child elements
+        /// rather than a whitespace-delimited attribute, which is the form every Capella and Sirius file in
+        /// circulation uses (see issue #121).
+        /// </summary>
+        /// <param name="feature">the structural feature to test</param>
+        /// <returns>true when the feature is read from repeated child elements</returns>
+        private static bool IsMultiValuedSimpleAttribute(EStructuralFeature feature)
+        {
+            return feature is not EReference
+                   && CSharpType.IsCollection(feature)
+                   && (feature.EType is EEnum || CSharpType.BaseType(feature.EType) == "string");
         }
 
         /// <summary>
@@ -303,6 +319,12 @@ namespace Auriga.CodeGenerator.Helpers
             var xmlName = XmlNames.XmlName(feature);
             var collection = CSharpType.IsCollection(feature);
             var containment = feature is EReference { IsContainment: true };
+
+            if (IsMultiValuedSimpleAttribute(feature))
+            {
+                return SimpleAttributeElementCase(feature, propertyName, xmlName);
+            }
+
             var elementType = containment ? CSharpType.ContainmentElementType(feature) : CSharpType.BaseType(feature.EType);
 
             // A child element carrying an href is a cross-document proxy (e.g. into a .capellafragment):
@@ -372,6 +394,39 @@ namespace Auriga.CodeGenerator.Helpers
             }
 
             return builder.ToString();
+        }
+
+        /// <summary>
+        /// The child-element case for a multi-valued simple attribute: each occurrence contributes one
+        /// value, read from the element's text content. There is no <c>href</c> branch — a simple attribute
+        /// is never a proxy — and the text is read through <c>ReadElementText</c> so the cursor is left on
+        /// the end tag, letting the enclosing loop reach the next sibling occurrence.
+        /// </summary>
+        private static string SimpleAttributeElementCase(EStructuralFeature feature, string propertyName, string xmlName)
+        {
+            if (feature.EType is EEnum eEnum)
+            {
+                return Block(
+                    ElementCaseIndent,
+                    $"case \"{xmlName}\":",
+                    "{",
+                    $"    if (TryParseEnum<{CSharpNaming.EnumType(eEnum)}>(ReadElementText(xmlReader), out var parsed))",
+                    "    {",
+                    $"        poco.{propertyName}.Add(parsed);",
+                    "    }",
+                    string.Empty,
+                    "    break;",
+                    "}");
+            }
+
+            return Block(
+                ElementCaseIndent,
+                $"case \"{xmlName}\":",
+                "{",
+                $"    poco.{propertyName}.Add(ReadElementText(xmlReader));",
+                string.Empty,
+                "    break;",
+                "}");
         }
 
         private static string MemberName(EStructuralFeature feature)

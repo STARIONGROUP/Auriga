@@ -127,6 +127,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
 
                         switch (xmlReader.LocalName)
                         {
+                            case "customFeatures":
+                            {
+                                poco.CustomFeatures.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             case "description":
                             {
                                 var href = xmlReader.GetAttribute("href");
