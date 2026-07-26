@@ -41,7 +41,7 @@ namespace Auriga.Rendering.Tests
         /// </summary>
         private const string TableUid = "_HE6X0MNpEeCmUclACW4KLw";
 
-        private readonly TableBuilder tableBuilder = new();
+        private readonly ITableBuilder tableBuilder = new TableBuilder();
 
         [Test]
         public void Verify_that_a_table_builds_a_full_grid_of_boxes()
