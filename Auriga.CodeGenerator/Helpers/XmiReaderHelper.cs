@@ -157,7 +157,7 @@ namespace Auriga.CodeGenerator.Helpers
         {
             return feature is not EReference
                    && CSharpType.IsCollection(feature)
-                   && (feature.EType is EEnum || CSharpType.BaseType(feature.EType) == "string");
+                   && (feature.EType is EEnum || SimpleElementParse(feature) != null);
         }
 
         /// <summary>
@@ -419,14 +419,57 @@ namespace Auriga.CodeGenerator.Helpers
                     "}");
             }
 
+            if (CSharpType.BaseType(feature.EType) == "string")
+            {
+                return Block(
+                    ElementCaseIndent,
+                    $"case \"{xmlName}\":",
+                    "{",
+                    $"    poco.{propertyName}.Add(ReadElementText(xmlReader));",
+                    string.Empty,
+                    "    break;",
+                    "}");
+            }
+
             return Block(
                 ElementCaseIndent,
                 $"case \"{xmlName}\":",
                 "{",
-                $"    poco.{propertyName}.Add(ReadElementText(xmlReader));",
+                $"    if ({SimpleElementParse(feature)})",
+                "    {",
+                $"        poco.{propertyName}.Add(parsed);",
+                "    }",
                 string.Empty,
                 "    break;",
                 "}");
+        }
+
+        /// <summary>
+        /// The <c>TryParse</c> expression that converts a multi-valued simple attribute's element text into
+        /// its primitive type, or <c>null</c> when the generator does not support the type. The text is
+        /// always read through <c>ReadElementText</c> so the cursor lands on the end tag.
+        /// </summary>
+        /// <param name="feature">the structural feature</param>
+        /// <returns>the parse expression binding <c>parsed</c>, or <c>null</c> when unsupported</returns>
+        private static string? SimpleElementParse(EStructuralFeature feature)
+        {
+            const string Text = "ReadElementText(xmlReader)";
+            const string Invariant = "System.Globalization.CultureInfo.InvariantCulture";
+
+            return CSharpType.BaseType(feature.EType) switch
+            {
+                "string" => $"!string.IsNullOrEmpty({Text})",
+                "bool" => $"bool.TryParse({Text}, out var parsed)",
+                "sbyte" => $"sbyte.TryParse({Text}, System.Globalization.NumberStyles.Integer, {Invariant}, out var parsed)",
+                "short" => $"short.TryParse({Text}, System.Globalization.NumberStyles.Integer, {Invariant}, out var parsed)",
+                "int" => $"int.TryParse({Text}, System.Globalization.NumberStyles.Integer, {Invariant}, out var parsed)",
+                "long" => $"long.TryParse({Text}, System.Globalization.NumberStyles.Integer, {Invariant}, out var parsed)",
+                "float" => $"float.TryParse({Text}, System.Globalization.NumberStyles.Float, {Invariant}, out var parsed)",
+                "double" => $"double.TryParse({Text}, System.Globalization.NumberStyles.Float, {Invariant}, out var parsed)",
+                "decimal" => $"decimal.TryParse({Text}, System.Globalization.NumberStyles.Number, {Invariant}, out var parsed)",
+                "BigInteger" => $"System.Numerics.BigInteger.TryParse({Text}, System.Globalization.NumberStyles.Integer, {Invariant}, out var parsed)",
+                _ => null,
+            };
         }
 
         private static string MemberName(EStructuralFeature feature)

@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IDoubleListValueStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            // 'doubleListValue' is a multi-valued primitive of an unsupported element type and is not written
             WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WritePrimitiveListElements(xmlWriter, "doubleListValue", poco.DoubleListValue);
         }
     }
 }

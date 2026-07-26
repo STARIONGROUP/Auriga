@@ -109,12 +109,12 @@ namespace Auriga.Xmi.Tests
                 return "default-value: Capella omits an attribute at its ecore default; the writer emits it";
             }
 
-            if (difference.Contains("[?]: in original, not written", StringComparison.Ordinal))
+            if (difference.Contains("' != '", StringComparison.Ordinal) && IsSameNumber(difference))
             {
-                // A keyless child (no id/href) is a multi-valued primitive or reference that Capella
-                // serialized as repeated child elements (e.g. bodies, languages, unsynchronizedFeatures);
-                // the writer emits it as a single whitespace-delimited attribute instead.
-                return "multivalued-feature-as-element: Capella writes a multi-valued feature as child elements; the writer writes an attribute";
+                // The writer formats a floating-point attribute with the shortest round-trippable form
+                // ('600'), where Capella emits the EMF form that always carries a fraction ('600.0'). The
+                // two parse to the same value, so this is a formatting difference rather than data loss.
+                return "float-formatting: a floating-point value is spelled without its trailing '.0'";
             }
 
             if (difference.Contains("org.polarsys.capella.core.data", StringComparison.Ordinal) && difference.Contains(" != ", StringComparison.Ordinal))
@@ -123,6 +123,66 @@ namespace Auriga.Xmi.Tests
             }
 
             return "UNCLASSIFIED";
+        }
+
+        /// <summary>
+        /// Whether a difference of the form <c>'x' != 'y'</c> compares two spellings of the same number,
+        /// e.g. <c>'600.0'</c> and <c>'600'</c>.
+        /// </summary>
+        /// <param name="difference">the difference text</param>
+        /// <returns>true when both sides parse to the same numeric value</returns>
+        private static bool IsSameNumber(string difference)
+        {
+            var match = System.Text.RegularExpressions.Regex.Match(difference, @"'([^']*)' != '([^']*)'$");
+
+            return match.Success
+                   && double.TryParse(match.Groups[1].Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var expected)
+                   && double.TryParse(match.Groups[2].Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var actual)
+                   && expected.Equals(actual);
+        }
+
+        /// <summary>
+        /// Reads every model fixture, writes it back, and asserts that no simple-attribute value was
+        /// dropped — the scalar-fidelity half of the round-trip guarantee (issue #121).
+        ///
+        /// <para>Unlike <see cref="Audit_the_normalized_text_differences"/> this is a gate, not an on-demand
+        /// audit, and unlike <see cref="Verify_that_the_model_round_trips_semantically"/> it compares
+        /// <em>values</em> rather than structure: a multi-valued attribute that the reader never captured
+        /// leaves the object graph structurally identical, so only a value comparison can see it.</para>
+        /// </summary>
+        /// <param name="relativePath">the fixture's main semantic file, relative to <c>TestData/</c></param>
+        [TestCaseSource(nameof(Fixtures))]
+        public void Verify_that_no_simple_attribute_values_are_dropped(string relativePath)
+        {
+            var mainPath = FixturePath(relativePath);
+            var original = ReadSupportedOrIgnore(mainPath);
+            var originalDirectory = Path.GetDirectoryName(mainPath)!;
+            var directory = CreateTempDirectory();
+
+            try
+            {
+                XmiWriterBuilder.Create().Build().Write(original.Root, Path.Combine(directory, Path.GetFileName(mainPath)));
+
+                var dropped = new List<string>();
+                foreach (var writtenFile in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).OrderBy(p => p, StringComparer.Ordinal))
+                {
+                    var relative = Path.GetRelativePath(directory, writtenFile);
+                    var originalFile = Path.Combine(originalDirectory, relative);
+
+                    if (File.Exists(originalFile))
+                    {
+                        dropped.AddRange(SimpleAttributeFidelity
+                            .Dropped(XDocument.Load(originalFile), XDocument.Load(writtenFile))
+                            .Select(difference => $"{relative}: {difference}"));
+                    }
+                }
+
+                Assert.That(dropped, Is.Empty, "simple-attribute values lost on write:\n  " + string.Join("\n  ", dropped.Take(20)));
+            }
+            finally
+            {
+                Directory.Delete(directory, recursive: true);
+            }
         }
 
         /// <summary>

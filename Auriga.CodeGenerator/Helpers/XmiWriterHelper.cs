@@ -29,6 +29,15 @@ namespace Auriga.CodeGenerator.Helpers
     {
         private static readonly HashSet<string> ReservedMembers = new(StringComparer.Ordinal) { "Id", "Container" };
 
+        /// <summary>
+        /// The primitive C# types a multi-valued simple attribute may have for the generator to write it as
+        /// child elements — the same set the reader can parse back.
+        /// </summary>
+        private static readonly HashSet<string> SupportedSimpleTypes = new(StringComparer.Ordinal)
+        {
+            "string", "bool", "sbyte", "short", "int", "long", "float", "double", "decimal", "BigInteger",
+        };
+
         private static string WriterRootNamespace => NamingContext.WriterRoot;
 
         /// <summary>
@@ -154,7 +163,7 @@ namespace Auriga.CodeGenerator.Helpers
         {
             return feature is not EReference
                    && CSharpType.IsCollection(feature)
-                   && (feature.EType is EEnum || CSharpType.BaseType(feature.EType) == "string");
+                   && (feature.EType is EEnum || SupportedSimpleTypes.Contains(CSharpType.BaseType(feature.EType)));
         }
 
         /// <summary>
@@ -273,9 +282,14 @@ namespace Auriga.CodeGenerator.Helpers
 
             if (IsMultiValuedSimpleAttribute(feature))
             {
-                return feature.EType is EEnum eEnum
-                    ? $"WriteEnumListElements<{CSharpNaming.EnumType(eEnum)}>(xmlWriter, \"{xmlName}\", poco.{propertyName});"
-                    : $"WriteStringListElements(xmlWriter, \"{xmlName}\", poco.{propertyName});";
+                if (feature.EType is EEnum eEnum)
+                {
+                    return $"WriteEnumListElements<{CSharpNaming.EnumType(eEnum)}>(xmlWriter, \"{xmlName}\", poco.{propertyName});";
+                }
+
+                return CSharpType.BaseType(feature.EType) == "string"
+                    ? $"WriteStringListElements(xmlWriter, \"{xmlName}\", poco.{propertyName});"
+                    : $"WritePrimitiveListElements(xmlWriter, \"{xmlName}\", poco.{propertyName});";
             }
 
             return CSharpType.IsCollection(feature)

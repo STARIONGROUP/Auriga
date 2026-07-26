@@ -23,21 +23,25 @@ namespace Auriga.Model.Modellingcore
         /// <summary>
         /// The <c>Create</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "create")]
         Create,
 
         /// <summary>
         /// The <c>Read</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "read")]
         Read,
 
         /// <summary>
         /// The <c>Update</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "update")]
         Update,
 
         /// <summary>
         /// The <c>Delete</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "delete")]
         Delete
 
     }

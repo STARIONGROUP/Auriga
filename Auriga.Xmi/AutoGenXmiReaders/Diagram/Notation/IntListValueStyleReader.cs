@@ -108,6 +108,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
 
                         switch (xmlReader.LocalName)
                         {
+                            case "intListValue":
+                            {
+                                if (int.TryParse(ReadElementText(xmlReader), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                                {
+                                    poco.IntListValue.Add(parsed);
+                                }
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

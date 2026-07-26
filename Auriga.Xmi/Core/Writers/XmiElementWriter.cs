@@ -14,7 +14,10 @@ namespace Auriga.Xmi.Core.Writers
     using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Numerics;
+    using System.Reflection;
+    using System.Runtime.Serialization;
     using System.Xml;
 
     using Microsoft.Extensions.Logging;
@@ -51,6 +54,12 @@ namespace Auriga.Xmi.Core.Writers
         /// <c>xsi:type</c> and identify an element without a domain <c>uid</c> by <c>xmi:id</c>.
         /// </summary>
         private const string EclipseNamespacePrefix = "http://www.eclipse.org/";
+
+        /// <summary>
+        /// The Ecore literal names of every enumeration type encountered, keyed by C# member name and
+        /// cached per type so the reflection lookup happens once.
+        /// </summary>
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, Dictionary<string, string>> LiteralNames = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmiElementWriter{T}"/> class.
@@ -225,8 +234,42 @@ namespace Auriga.Xmi.Core.Writers
         {
             if (value.HasValue && !value.Equals(defaultValue))
             {
-                xmlWriter.WriteAttributeString(name, value.Value.ToString());
+                xmlWriter.WriteAttributeString(name, EnumLiteral(value.Value));
             }
+        }
+
+        /// <summary>
+        /// The Ecore literal name of an enumeration value: the <c>EnumMember</c> value the generator
+        /// recorded when the C# member name does not reproduce the Ecore name exactly (Sirius declares
+        /// lower-case literals such as <c>italic</c>, capitalized to form a legal C# member name), and the
+        /// member name itself otherwise. EMF matches literal names case-sensitively on read, so writing the
+        /// member name would produce a file the originating tool cannot parse.
+        /// </summary>
+        /// <typeparam name="TEnum">the enumeration type</typeparam>
+        /// <param name="value">the enumeration value</param>
+        /// <returns>the Ecore literal name</returns>
+        protected static string EnumLiteral<TEnum>(TEnum value)
+            where TEnum : struct
+        {
+            var names = LiteralNames.GetOrAdd(typeof(TEnum), type =>
+            {
+                var map = new Dictionary<string, string>(StringComparer.Ordinal);
+
+                foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static))
+                {
+                    var attribute = field.GetCustomAttribute<EnumMemberAttribute>();
+                    if (attribute?.Value != null)
+                    {
+                        map[field.Name] = attribute.Value;
+                    }
+                }
+
+                return map;
+            });
+
+            var memberName = value.ToString()!;
+
+            return names.TryGetValue(memberName, out var literal) ? literal : memberName;
         }
 
         /// <summary>
@@ -412,7 +455,7 @@ namespace Auriga.Xmi.Core.Writers
                 return;
             }
 
-            var joined = string.Join(" ", values);
+            var joined = string.Join(" ", values.Select(EnumLiteral));
             if (joined.Length > 0)
             {
                 xmlWriter.WriteAttributeString(name, joined);
@@ -442,6 +485,37 @@ namespace Auriga.Xmi.Core.Writers
         }
 
         /// <summary>
+        /// Writes a multi-valued primitive attribute as one child element per value, formatted
+        /// culture-invariantly (and, for a boolean, in the XML <c>true</c>/<c>false</c> spelling rather
+        /// than .NET's <c>True</c>/<c>False</c>) — e.g. a <c>DDiagramElement</c>'s <c>hiddenLabels</c>.
+        /// </summary>
+        /// <typeparam name="TValue">the primitive value type</typeparam>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="name">the XML element name of the feature</param>
+        /// <param name="values">the values, one child element each</param>
+        protected static void WritePrimitiveListElements<TValue>(XmlWriter xmlWriter, string name, IEnumerable<TValue>? values)
+            where TValue : struct
+        {
+            if (values == null)
+            {
+                return;
+            }
+
+            foreach (var value in values)
+            {
+                // bool is not IFormattable, and its .NET spelling ('True') is not the XML one.
+                var text = value switch
+                {
+                    bool flag => XmlConvert.ToString(flag),
+                    IFormattable formattable => formattable.ToString(null, CultureInfo.InvariantCulture),
+                    _ => value.ToString()!,
+                };
+
+                xmlWriter.WriteElementString(name, text);
+            }
+        }
+
+        /// <summary>
         /// Writes a multi-valued enumeration attribute as one child element per literal — the element form
         /// EMF uses for a multi-valued <c>EAttribute</c> whose type is an <c>EEnum</c> (e.g. a
         /// <c>DDiagramElement</c>'s <c>arrangeConstraints</c>).
@@ -460,7 +534,7 @@ namespace Auriga.Xmi.Core.Writers
 
             foreach (var value in values)
             {
-                xmlWriter.WriteElementString(name, value.ToString());
+                xmlWriter.WriteElementString(name, EnumLiteral(value));
             }
         }
 

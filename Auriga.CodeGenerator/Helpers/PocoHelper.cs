@@ -72,6 +72,9 @@ namespace Auriga.CodeGenerator.Helpers
             handlebars.RegisterHelper("LiteralName", (writer, _, arguments) =>
                 writer.WriteSafeString(CSharpNaming.Escape(CSharpNaming.Capitalize(((EEnumLiteral)arguments[0]!).Name))));
 
+            handlebars.RegisterHelper("LiteralXmlNameAttribute", (writer, _, arguments) =>
+                writer.WriteSafeString(LiteralXmlNameAttribute((EEnumLiteral)arguments[0]!)));
+
             handlebars.RegisterHelper("EnumerationDocumentation", (_, arguments) =>
             {
                 var eEnum = (EEnum)arguments[0]!;
@@ -118,6 +121,28 @@ namespace Auriga.CodeGenerator.Helpers
         /// <summary>
         /// Returns the own structural features rendered on an interface, filtered and ordered by name.
         /// </summary>
+        /// <summary>
+        /// The attribute line that records an enumeration literal's Ecore name when the generated C# member
+        /// name does not reproduce it exactly — Sirius declares lower-case literals such as <c>italic</c>
+        /// and <c>bold</c>, which are capitalized to form a legal, conventional C# member name. EMF matches
+        /// literal names case-sensitively on read, so the writer must emit the Ecore spelling rather than
+        /// the member name, and this is where it learns it.
+        /// </summary>
+        /// <param name="literal">the enumeration literal</param>
+        /// <returns>the attribute line including its indentation and trailing newline, or an empty string
+        /// when the member name already matches the Ecore name</returns>
+        private static string LiteralXmlNameAttribute(EEnumLiteral literal)
+        {
+            var memberName = CSharpNaming.Escape(CSharpNaming.Capitalize(literal.Name));
+
+            if (string.Equals(memberName, literal.Name, StringComparison.Ordinal))
+            {
+                return string.Empty;
+            }
+
+            return $"        [System.Runtime.Serialization.EnumMember(Value = \"{literal.Name}\")]{Environment.NewLine}";
+        }
+
         private static List<EStructuralFeature> InterfaceFeatures(EClass eClass)
         {
             return eClass.EStructuralFeatures

@@ -108,6 +108,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
 
                         switch (xmlReader.LocalName)
                         {
+                            case "booleanListValue":
+                            {
+                                if (bool.TryParse(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.BooleanListValue.Add(parsed);
+                                }
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {
