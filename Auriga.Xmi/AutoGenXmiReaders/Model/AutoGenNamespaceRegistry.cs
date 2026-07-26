@@ -30,6 +30,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders
         /// </summary>
         public static IReadOnlyDictionary<string, string> NamespaceToPackage { get; } = new Dictionary<string, string>(StringComparer.Ordinal)
         {
+            ["http://www.polarsys.org/capella/basic/requirement"] = "requirement",
             ["http://www.polarsys.org/capella/common/activity/7.0.0"] = "activity",
             ["http://www.polarsys.org/capella/common/behavior/7.0.0"] = "behavior",
             ["http://www.polarsys.org/capella/common/core/7.0.0"] = "modellingcore",
@@ -52,6 +53,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders
             ["http://www.polarsys.org/capella/core/pa/7.0.0"] = "pa",
             ["http://www.polarsys.org/capella/core/pa/deployment/7.0.0"] = "deployment",
             ["http://www.polarsys.org/capella/core/sharedmodel/7.0.0"] = "sharedmodel",
+            ["http://www.polarsys.org/capella/cybersecurity/1.0"] = "cybersecurity",
+            ["http://www.polarsys.org/capella/mass"] = "mass",
             ["http://www.polarsys.org/capella/requirements"] = "CapellaRequirements",
             ["http://www.polarsys.org/kitalpha/emde/1.0.0"] = "emde",
             ["http://www.polarsys.org/kitalpha/requirements"] = "Requirements",

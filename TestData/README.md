@@ -12,9 +12,11 @@ Each obtained fixture is committed as the **complete Capella project set**: sema
 | [`coffee-machine/`](coffee-machine) | **6.0.0** | Apache-2.0 | py-capellambse demo model; the different-version fixture — reads via version-tolerant resolution, read-only in v1 (out of round-trip scope) |
 | [`in-flight-entertainment-system/`](in-flight-entertainment-system) | 7.0.0 nsURIs (saved by 7.0.1) | EPL-2.0 | Official Capella sample; large realistic model, all five Arcadia layers |
 | [`fragmented-sysmodel/`](fragmented-sysmodel) | 7.0.0 nsURIs (saved by 7.0.1) | EPL-2.0 | Model split across four `.capellafragment` files; exercises cross-fragment `href` resolution |
-| [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; uses the **Cybersecurity** add-on viewpoint (out of v1 metamodel scope — the round-trip suite skips it) |
+| [`Crowd_Surveillance_System_in_DARC/`](Crowd_Surveillance_System_in_DARC) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; exercises the **Cybersecurity** add-on viewpoint (now vendored, so it round-trips) |
 | [`Level Crossing Traffic Control/`](Level%20Crossing%20Traffic%20Control) | 7.0.0 nsURIs | EPL-2.0 | Official Capella sample; large model (~1.5 MB semantic, ~37 MB `.aird`) |
 | [`library-workspace/`](library-workspace) | 6.0.0 nsURIs | Apache-2.0 (this repo) | Hand-authored: a client project referencing a sibling **library** project by a `platform:/resource` href (issue #68) |
+| [`aida-single-model/`](aida-single-model) | 7.0.0 nsURIs | **CC BY-SA 4.0** | IRT Saint Exupéry AIDA study case, monolithic; the only fixture loading the **Requirements**, **CapellaRequirements** and **Basic Requirement** viewpoints at once; largest `.aird` here (~81 MB) |
+| [`aida-split-models/`](aida-split-models) | 7.0.0 nsURIs | **CC BY-SA 4.0** | Same study case split into six independent projects (extended-enterprise context); one project's `.project` name differs from its folder name |
 
 ## minimal/
 
@@ -47,7 +49,7 @@ Note the **URL-encoded space (`%20`)** in the fragment file names — the reader
 
 ## Crowd_Surveillance_System_in_DARC/
 
-The official Capella "Crowd Surveillance System in DARC" sample, downloaded from the Capella 7.0.0 sample models at <https://download.eclipse.org/capella/samples/7.0.0/> (`Crowd_Surveillance_System_in_DARC.zip`). EPL-2.0 ([LICENSE-EPL-2.0.md](Crowd_Surveillance_System_in_DARC/LICENSE-EPL-2.0.md)). ~0.5 MB semantic model that exercises Physical Architecture deployment (`PartDeploymentLink`s deploying software parts onto node parts). Includes the ~7.7 MB `.aird` and the `img/` folder referenced from element descriptions. The model also uses the **Cybersecurity** add-on viewpoint (`cybersecurity:CybersecurityConfiguration`), which is not part of the metamodel the v1 reader vendors (core Capella + Requirements VP + Kitalpha); the reader rejects it with a clear "unknown Capella package" error, so the round-trip regression suite skips this fixture — it is retained as the "unsupported add-on viewpoint" case (the counterpart to the version-unsupported coffee-machine).
+The official Capella "Crowd Surveillance System in DARC" sample, downloaded from the Capella 7.0.0 sample models at <https://download.eclipse.org/capella/samples/7.0.0/> (`Crowd_Surveillance_System_in_DARC.zip`). EPL-2.0 ([LICENSE-EPL-2.0.md](Crowd_Surveillance_System_in_DARC/LICENSE-EPL-2.0.md)). ~0.5 MB semantic model that exercises Physical Architecture deployment (`PartDeploymentLink`s deploying software parts onto node parts). Includes the ~7.7 MB `.aird` and the `img/` folder referenced from element descriptions. The model also uses the **Cybersecurity** add-on viewpoint (`cybersecurity:CybersecurityConfiguration`). That viewpoint's metamodel is now vendored (`resources/ecore/Cybersecurity.ecore`, alongside the Mass and Basic Requirement add-on viewpoints), so the model reads into a fully resolved graph and this fixture is exercised by the semantic round-trip suite. It is the fixture that covers the Cybersecurity viewpoint end to end.
 
 ## Level Crossing Traffic Control/
 
@@ -61,3 +63,47 @@ Hand-authored for this repository (Apache-2.0, see the repo [LICENSE](../LICENSE
 - `capella-library/` (declares project name **`CapellaLibraryFixture`**) holds `library.capella` with the referenced `EnumerationPropertyLiteral`.
 
 The fixture exercises the two things that make `platform:/resource` hrefs different from the relative fragment hrefs above: the target lives in a **sibling folder** outside the referencing project's root, and the project is named by its `.project` `<name>` (`CapellaLibraryFixture`), which deliberately **differs from the folder name** (`capella-library`) — so the target can only be found by reading the sibling's `.project`, through the workspace registry. Each project carries the Eclipse `.project` descriptor that supplies its declared name.
+
+## aida-single-model/
+
+The AIDA (Aircraft Inspection by Drone Assistant) study case, architecture version **V4.5**, from the IRT Saint Exupéry repository <https://sahara.irt-saintexupery.com/AIDA/AIDAArchitecture> (`Capella models/AIDA - single model`, branch `master`). AIDA is a Remotely Piloted Aircraft System — a quadcopter drone, control computer and remote control — published as a reference case representative of aeronautical complexity and criticality.
+
+**Licensed CC BY-SA 4.0, not EPL-2.0 or Apache-2.0 like every other fixture here.** Copyright (c) 2016-2026 IRT AESE (IRT Saint Exupéry); contributors Pierre Virelizier, Tatiana Prosvirnova, Estelle Saez (initial contribution) and Romaric Demachy (V4.4/V4.5 system versions). The upstream notice is retained verbatim as [`Copyright`](aida-single-model/Copyright) and the licence text as [`LICENSE-CC-BY-SA-4.0.txt`](aida-single-model/LICENSE-CC-BY-SA-4.0.txt). See the **ShareAlike** note below before committing any derived or round-tripped copy of this model.
+
+Vendored as the four files that make a complete Capella project — `AIDA.capella` (5.9 MB), `AIDA.aird` (81.4 MB), `AIDA.afm`, `.project`. The model is self-contained: the `.aird` lists only `AIDA.afm` and `AIDA.capella` as `semanticResources`, has no `platform:/resource` reference and no fragment, and all 9,398 `workspacePath` values resolve into Capella's own plugin bundles (`/org.polarsys.capella.core.sirius.analysis/description/images/*.svg`) rather than project-local images.
+
+It is the heaviest and most viewpoint-dense fixture in the repository: 283 representation descriptors, 412 diagrams and ~82,800 GMF nodes in the `.aird`, and — uniquely — **three requirement metamodels in one model**, alongside the Mass viewpoint:
+
+- `Requirements:*` (kitalpha Requirements VP 0.14.0) — 118 `Requirement`, 37 `Folder`, plus the attribute/enumeration machinery
+- `CapellaRequirements:*` (Capella Requirements VP 0.14.0) — 116 `CapellaIncomingRelation` binding those requirements to Capella elements
+- `org.polarsys.capella.basic.requirement:*` (Basic Requirement 1.0.0) — 19 `RequirementsPkg`, 18 `RequirementsTrace`, 17 `SystemFunctionalRequirement`
+
+All three metamodels are vendored (`resources/ecore/Requirements.ecore`, `CapellaRequirements.ecore`, `Requirement.ecore`) and keyed apart by distinct nsURIs in `AutoGenNamespaceRegistry`, so they coexist rather than conflict. Upstream states the model needs Capella 7.0.0 with the PVMT, Diagram Styler, Basic Mass and Requirement add-ons; PVMT and Diagram Styler leave no trace in these files.
+
+## aida-split-models/
+
+The same AIDA V4.5 study case from the same repository (`Capella models/Extended enterprise split models`), split according to an extended-enterprise context: `AIDA/` holds the top-level model in which the sub-systems are black boxes, and the other five hold the detailed design of one sub-system each. Same **CC BY-SA 4.0** licence, copyright and contributors as above; see [`Copyright`](aida-split-models/Copyright) and [`LICENSE-CC-BY-SA-4.0.txt`](aida-split-models/LICENSE-CC-BY-SA-4.0.txt).
+
+Six projects, each vendored as its complete four-file set (`.capella`, `.aird`, `.afm`, `.project`) — 24 files, 107.5 MB:
+
+| Project | `.aird` | `.capella` | Viewpoints beyond core |
+| --- | --- | --- | --- |
+| `AIDA/` (top level) | 63.9 MB | 4.9 MB | Requirements, CapellaRequirements, Mass, Basic Requirement |
+| `AIDA_flight_control_system/` | 31.2 MB | 2.0 MB | Mass |
+| `AIDA_control_desk/` | 3.0 MB | 0.6 MB | — |
+| `AIDA_remote_control/` | 2.0 MB | 0.6 MB | Basic Requirement |
+| `AIDA_propulsion_unit/` | 1.9 MB | 0.5 MB | Mass |
+| `AIDA_payload/` | 1.6 MB | 0.3 MB | Mass |
+
+Despite the name, **"split" here is not fragmentation and not a library workspace**: there are no `.capellafragment`/`.airdfragment` files, no `platform:/resource` hrefs and no cross-project references at all. Each `.aird` names only its own `.afm` and `.capella`, so every project loads standalone. The split is organisational (one model per party in the extended enterprise), not a Capella-level linking mechanism.
+
+The one structural detail worth a test: `aida-split-models/AIDA/.project` declares `<name>AIDA_top_level</name>`, which **differs from its folder name** `AIDA`. The other five match their folders. This is the same folder-name-vs-declared-name divergence that [`library-workspace/`](library-workspace) sets up deliberately for issue [#68](https://github.com/STARIONGROUP/Auriga/issues/68), occurring here in a real published model — so it is a natural regression case for any code that keys projects by directory name.
+
+## A note on ShareAlike (both AIDA fixtures)
+
+The AIDA fixtures are the first content in this repository under a **copyleft** licence. Two practical consequences, neither of which affects the Apache-2.0 status of the Auriga source code (the models are aggregated data, not linked code):
+
+- **Attribution must survive.** Keep the `Copyright` notice, the licence file and this provenance section with the models; CC BY-SA 4.0 requires the notices be retained in redistribution.
+- **Adaptations inherit the licence.** A modified AIDA model is adapted material and must itself be offered under CC BY-SA 4.0. This matters for the round-trip suites: if a *written-back* AIDA model is ever committed as an expected-output fixture, that output is an adaptation and carries the ShareAlike obligation. Reading the model and asserting on the in-memory graph does not create adapted material; committing a rewritten `.capella`/`.aird` does.
+
+Upstream also asks, as a courtesy rather than a licence condition, to be told when AIDA is used as a study case (systems-engineering@irt-saintexupery.com).

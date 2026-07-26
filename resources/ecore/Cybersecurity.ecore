@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cybersecurity" nsURI="http://www.polarsys.org/capella/cybersecurity/1.0"
+    nsPrefix="cybersecurity">
+  <eClassifiers xsi:type="ecore:EClass" name="CybersecurityPkg" eSuperTypes="CapellaCore.ecore#//NamedElement eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value=" http://www.polarsys.org/capella/core/cs/7.0.0#//BlockArchitecture"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" CompositeStructure.ecore#//BlockArchitecture"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreats" upperBound="-1"
+        eType="#//Threat" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPrimaryAssets" upperBound="-1"
+        eType="#//PrimaryAsset" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedCybersecurityPkgs"
+        upperBound="-1" eType="#//CybersecurityPkg" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Threat" eSuperTypes="Interaction.ecore#//AbstractCapability">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="addressedBy" upperBound="-1"
+        eType="ecore:EClass CompositeStructure.ecore#//Component"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="kind" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyLiteral"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="level" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rationale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizedThreats" upperBound="-1"
+        eType="#//Threat" changeable="false" volatile="true" transient="true" derived="true"
+        eOpposite="#//Threat/realizingThreats">
+      <eAnnotations source="http://www.polarsys.org/capella/derived"/>
+      <eAnnotations source="http://www.polarsys.org/capella/semantic"/>
+      <eAnnotations source="http://www.polarsys.org/capella/MNoE/CapellaLike/Mapping">
+        <details key="UML/SysML semantic equivalences" value="keyword::none"/>
+        <details key="explanation" value="Derived and transient"/>
+        <details key="constraints" value="none"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizingThreats" upperBound="-1"
+        eType="#//Threat" changeable="false" volatile="true" transient="true" derived="true"
+        eOpposite="#//Threat/realizedThreats">
+      <eAnnotations source="http://www.polarsys.org/capella/derived"/>
+      <eAnnotations source="http://www.polarsys.org/capella/semantic">
+        <details key="excludefrom" value="xmlpivot"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.polarsys.org/capella/MNoE/CapellaLike/Mapping">
+        <details key="UML/SysML semantic equivalences" value="keyword::none"/>
+        <details key="explanation" value="Derived and transient"/>
+        <details key="constraints" value="none"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreatApplications"
+        upperBound="-1" eType="#//ThreatApplication" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedThreatInvolvements"
+        upperBound="-1" eType="#//ThreatInvolvement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThreatInvolvement" eSuperTypes="CapellaCore.ecore#//Relationship eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value=" http://www.polarsys.org/capella/core/cs/7.0.0#//Component"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" CompositeStructure.ecore#//AbstractActor"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threatObj" eType="#//Threat"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="ecore:EClass CompositeStructure.ecore#//Component"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionStorage" eSuperTypes="CapellaCore.ecore#//NamedElement eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value=" http://www.polarsys.org/capella/core/fa/7.0.0#//AbstractFunction"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" FunctionalAnalysis.ecore#//AbstractFunction"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exchangedItems" upperBound="-1"
+        eType="ecore:EClass Information.ecore#//ExchangeItem"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataStorage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="remanentData" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThreatApplication" eSuperTypes="CapellaCore.ecore#//Relationship eMDE.ecore#//ElementExtension">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//PrimaryAsset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threatObj" eType="#//Threat"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimaryAssetStorage" eSuperTypes="CapellaCore.ecore#//NamedElement eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value=" http://www.polarsys.org/capella/common/behavior/7.0.0#//AbstractEvent"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" Behavior.ecore#//AbstractEvent"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SecurityNeeds" eSuperTypes="CapellaCore.ecore#//NamedElement eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value="http://www.polarsys.org/capella/common/behavior/7.0.0#//AbstractEvent http://www.polarsys.org/capella/cybersecurity/1.0#//PrimaryAsset http://www.polarsys.org/capella/common/behavior/7.0.0#//AbstractEvent http://www.polarsys.org/capella/cybersecurity/1.0#//Threat"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" Behavior.ecore#//AbstractEvent #//PrimaryAsset Behavior.ecore#//AbstractEvent #//Threat"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="confidentialityValue" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyLiteral"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="integrityValue" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyLiteral"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="availabilityValue" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyLiteral"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="traceabilityValue" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyLiteral"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TrustBoundaryStorage" eSuperTypes="CapellaCore.ecore#//NamedElement eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value=" http://www.polarsys.org/capella/core/cs/7.0.0#//Component"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" CompositeStructure.ecore#//Component&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="threatSource" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="threatSourceProfile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trusted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rationale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimaryAsset" abstract="true" eSuperTypes="CapellaCore.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMembers" upperBound="-1"
+        eType="#//PrimaryAssetMember" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizedPrimaryAssets"
+        upperBound="-1" eType="#//PrimaryAsset" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.polarsys.org/capella/derived"/>
+      <eAnnotations source="http://www.polarsys.org/capella/semantic"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizingPrimaryAssets"
+        upperBound="-1" eType="#//PrimaryAsset" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.polarsys.org/capella/derived"/>
+      <eAnnotations source="http://www.polarsys.org/capella/semantic"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionalPrimaryAsset" eSuperTypes="#//PrimaryAsset">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="functions" upperBound="-1"
+        eType="ecore:EClass FunctionalAnalysis.ecore#//AbstractFunction"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="functionalChains" upperBound="-1"
+        eType="ecore:EClass FunctionalAnalysis.ecore#//FunctionalChain"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InformationPrimaryAsset" eSuperTypes="#//PrimaryAsset">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exchangeItems" upperBound="-1"
+        eType="ecore:EClass Information.ecore#//ExchangeItem"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimaryAssetMember" eSuperTypes="CapellaCore.ecore#//Relationship">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//PrimaryAsset"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="member" eType="ecore:EClass ModellingCore.ecore#//ModelElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CybersecurityConfiguration" eSuperTypes="CapellaCore.ecore#//NamedElement eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value="http://www.polarsys.org/capella/core/modeller/7.0.0#//Project"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" CompositeStructure.ecore#//BlockArchitecture"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="confidentiality" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="integrity" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="traceability" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="availability" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threatKind" eType="ecore:EClass CapellaCore.ecore#//EnumerationPropertyType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnterprisePrimaryAsset" eSuperTypes="#//PrimaryAsset">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primaryAssets" upperBound="-1"
+        eType="#//PrimaryAsset" changeable="false" volatile="true" transient="true"
+        derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThreatSourceUse" eSuperTypes="CapellaCore.ecore#//Relationship eMDE.ecore#//ElementExtension">
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraint">
+      <details key="ExtendedElement" value=" http://www.polarsys.org/capella/core/cs/7.0.0#//Component"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.polarsys.org/kitalpha/emde/1.0.0/constraintMapping">
+      <details key="Mapping" value=" CompositeStructure.ecore#//AbstractActor"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threatSource" eType="ecore:EClass CompositeStructure.ecore#//Component"
+        changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="used" eType="ecore:EClass CompositeStructure.ecore#//Component"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -13,7 +13,7 @@ contents of an ECore model.
 4. The report lists each class and feature that does contain
    any documentation.
 
-Inspection Report generated on Saturday, 11 July 2026 22:33
+Inspection Report generated on Sunday, 26 July 2026 11:20
 
 ----- PACKAGE activity ANALYSIS ------
 
@@ -2352,6 +2352,119 @@ Requirements.TypesFolder
 Requirements.TypesFolder:ownedDefinitionTypes
 Requirements.TypesFolder:ownedTypes
 
+----- PACKAGE cybersecurity ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBigInteger:0:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EDate:0:1
+value type: EDouble:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: cybersecurity:AbstractAction
+class: cybersecurity:AbstractActivity
+class: cybersecurity:AbstractNamedElement
+class: cybersecurity:ActivityEdge
+class: cybersecurity:Association
+class: cybersecurity:Component
+class: cybersecurity:DateValueAttribute
+class: cybersecurity:ExceptionHandler
+class: cybersecurity:ExchangeItem
+class: cybersecurity:FloatPropertyValue
+class: cybersecurity:IntegerPropertyValue
+class: cybersecurity:InterruptibleActivityRegion
+class: cybersecurity:ModelElement
+class: cybersecurity:OpaqueExpression
+class: cybersecurity:PhysicalLink
+class: cybersecurity:RealValueAttribute
+class: cybersecurity:Requirement
+class: cybersecurity:SendSignalAction
+class: cybersecurity:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+cybersecurity.CybersecurityConfiguration
+cybersecurity.CybersecurityConfiguration:availability
+cybersecurity.CybersecurityConfiguration:confidentiality
+cybersecurity.CybersecurityConfiguration:integrity
+cybersecurity.CybersecurityConfiguration:threatKind
+cybersecurity.CybersecurityConfiguration:traceability
+cybersecurity.CybersecurityPkg
+cybersecurity.CybersecurityPkg:ownedCybersecurityPkgs
+cybersecurity.CybersecurityPkg:ownedPrimaryAssets
+cybersecurity.CybersecurityPkg:ownedThreats
+cybersecurity.EnterprisePrimaryAsset
+cybersecurity.EnterprisePrimaryAsset:primaryAssets
+cybersecurity.FunctionalPrimaryAsset
+cybersecurity.FunctionalPrimaryAsset:functionalChains
+cybersecurity.FunctionalPrimaryAsset:functions
+cybersecurity.FunctionStorage
+cybersecurity.FunctionStorage:dataStorage
+cybersecurity.FunctionStorage:exchangedItems
+cybersecurity.FunctionStorage:remanentData
+cybersecurity.InformationPrimaryAsset
+cybersecurity.InformationPrimaryAsset:exchangeItems
+cybersecurity.PrimaryAsset
+cybersecurity.PrimaryAsset:ownedMembers
+cybersecurity.PrimaryAsset:realizedPrimaryAssets
+cybersecurity.PrimaryAsset:realizingPrimaryAssets
+cybersecurity.PrimaryAssetMember
+cybersecurity.PrimaryAssetMember:asset
+cybersecurity.PrimaryAssetMember:member
+cybersecurity.PrimaryAssetStorage
+cybersecurity.SecurityNeeds
+cybersecurity.SecurityNeeds:availabilityValue
+cybersecurity.SecurityNeeds:confidentialityValue
+cybersecurity.SecurityNeeds:integrityValue
+cybersecurity.SecurityNeeds:traceabilityValue
+cybersecurity.Threat
+cybersecurity.Threat:addressedBy
+cybersecurity.Threat:kind
+cybersecurity.Threat:level
+cybersecurity.Threat:ownedThreatApplications
+cybersecurity.Threat:ownedThreatInvolvements
+cybersecurity.Threat:rationale
+cybersecurity.Threat:realizedThreats
+cybersecurity.Threat:realizingThreats
+cybersecurity.ThreatApplication
+cybersecurity.ThreatApplication:asset
+cybersecurity.ThreatApplication:threatObj
+cybersecurity.ThreatInvolvement
+cybersecurity.ThreatInvolvement:component
+cybersecurity.ThreatInvolvement:threatObj
+cybersecurity.ThreatSourceUse
+cybersecurity.ThreatSourceUse:threatSource
+cybersecurity.ThreatSourceUse:used
+cybersecurity.TrustBoundaryStorage
+cybersecurity.TrustBoundaryStorage:rationale
+cybersecurity.TrustBoundaryStorage:threatSource
+cybersecurity.TrustBoundaryStorage:threatSourceProfile
+cybersecurity.TrustBoundaryStorage:trusted
+
 ----- PACKAGE libraries ANALYSIS ------
 
 ModelVersion -- VAL EInt:1:1
@@ -2425,6 +2538,71 @@ libraries.ModelVersion
 libraries.ModelVersion:lastModifiedFileStamp
 libraries.ModelVersion:majorVersionNumber
 libraries.ModelVersion:minorVersionNumber
+
+----- PACKAGE mass ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBigInteger:0:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EDate:0:1
+value type: EDouble:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EInt:1:1
+value type: ELong:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: mass:AbstractAction
+class: mass:AbstractActivity
+class: mass:AbstractNamedElement
+class: mass:ActivityEdge
+class: mass:Association
+class: mass:Component
+class: mass:DateValueAttribute
+class: mass:ExceptionHandler
+class: mass:ExchangeItem
+class: mass:FloatPropertyValue
+class: mass:IntegerPropertyValue
+class: mass:InterruptibleActivityRegion
+class: mass:ModelElement
+class: mass:ModelVersion
+class: mass:OpaqueExpression
+class: mass:PhysicalLink
+class: mass:RealValueAttribute
+class: mass:Requirement
+class: mass:SendSignalAction
+class: mass:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+mass.Mass
+mass.Mass:maxValue
+mass.Mass:minValue
+mass.Mass:value
+mass.PartMass
+mass.PartMass:currentMass
 
 ----- PACKAGE re ANALYSIS ------
 
@@ -2521,4 +2699,85 @@ re.ReElementContainer
 re.ReElementContainer:ownedElements
 re.ReNamedElement
 re.ReNamedElement:name
+
+----- PACKAGE requirement ANALYSIS ------
+
+
+----- MULTIPLICITY RESULTS ------
+
+reference type: 0:-1
+reference type: 0:-1:containment
+reference type: 0:1
+reference type: 0:1:containment
+reference type: 0:2
+reference type: 0:2:containment
+reference type: 1:-1
+reference type: 1:1
+reference type: 1:1:containment
+reference type: 2:2
+reference type: 2:2:containment
+enum type: 0:1
+enum type: 1:1
+value type: EBigInteger:0:1
+value type: EBoolean:0:1
+value type: EBoolean:1:1
+value type: EDate:0:1
+value type: EDouble:0:1
+value type: EFloat:0:1
+value type: EInt:0:1
+value type: EInt:1:1
+value type: ELong:0:1
+value type: EString:0:-1
+value type: EString:0:1
+value type: EString:1:1
+
+----- INTERESTING CLASSES ------
+
+class: requirement:AbstractAction
+class: requirement:AbstractActivity
+class: requirement:AbstractNamedElement
+class: requirement:ActivityEdge
+class: requirement:Association
+class: requirement:Component
+class: requirement:DateValueAttribute
+class: requirement:ExceptionHandler
+class: requirement:ExchangeItem
+class: requirement:FloatPropertyValue
+class: requirement:IntegerPropertyValue
+class: requirement:InterruptibleActivityRegion
+class: requirement:ModelElement
+class: requirement:ModelVersion
+class: requirement:OpaqueExpression
+class: requirement:PhysicalLink
+class: requirement:RealValueAttribute
+class: requirement:Requirement
+class: requirement:SendSignalAction
+class: requirement:SystemCommunication
+
+----- MISSING DOCUMENTATION ANALYSIS ------
+
+Package.Class:Feature
+
+requirement.Requirement
+requirement.Requirement:additionalInformation
+requirement.Requirement:feature
+requirement.Requirement:implementationVersion
+requirement.Requirement:isObsolete
+requirement.Requirement:relatedCapellaElements
+requirement.Requirement:requirementId
+requirement.Requirement:verificationMethod
+requirement.Requirement:verificationPhase
+requirement.RequirementsPkg
+requirement.RequirementsPkg:additionalInformation
+requirement.RequirementsPkg:level
+requirement.RequirementsPkg:ownedRequirementPkgs
+requirement.RequirementsPkg:ownedRequirements
+requirement.RequirementsTrace
+requirement.RequirementsTrace:source
+requirement.RequirementsTrace:target
+requirement.SystemFunctionalInterfaceRequirement
+requirement.SystemFunctionalRequirement
+requirement.SystemNonFunctionalInterfaceRequirement
+requirement.SystemNonFunctionalRequirement
+requirement.SystemUserRequirement
 

@@ -122,6 +122,9 @@ namespace Auriga.CodeGenerator.Tests
                 ["sharedmodel"] = (2, 0),
                 ["Requirements"] = (26, 0),
                 ["CapellaRequirements"] = (5, 0),
+                ["mass"] = (2, 0),
+                ["requirement"] = (8, 0),
+                ["cybersecurity"] = (15, 0),
             };
 
             var problems = new List<string>();
