@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The coincident-edge acceptance tests (issue #96): two exchanges between the same pair of
+    /// The coincident-edge acceptance tests: two exchanges between the same pair of
     /// boxes with no distinguishing bendpoints resolve to the same polyline, stacking their labels.
     /// The builder fans a coincident group into distinct parallel routes, offset perpendicular to
     /// the run, so each exchange and its label is legible. Verified on the In-Flight

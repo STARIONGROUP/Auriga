@@ -19,7 +19,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
 
     /// <summary>
     /// Tests for the <see cref="XmiWriterGenerator"/>, which generates the <c>Auriga.Xmi</c> per-type XMI
-    /// writers and the writer facade (issue #17) — the inverse of the reader generator. A writer is emitted
+    /// writers and the writer facade — the inverse of the reader generator. A writer is emitted
     /// for each of the 298 concrete classes, plus the facade.
     /// </summary>
     [TestFixture]

@@ -16,7 +16,7 @@ namespace Auriga.CodeGenerator.Tests
     /// <summary>
     /// Placeholder test fixture proving the test infrastructure runs and the vendored
     /// .ecore input files are available; replaced by real tests as the generator is
-    /// implemented (issues #6-#8).
+    /// implemented.
     /// </summary>
     [TestFixture]
     public class ScaffoldTestFixture

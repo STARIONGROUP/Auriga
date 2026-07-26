@@ -193,7 +193,7 @@ namespace Auriga.Xmi.Core.Writers
                 // Entitize a carriage return in element text as &#xD; rather than writing it literally.
                 // XML line-ending normalization collapses a literal CRLF to LF on the next read, so the
                 // default (Replace) silently loses every CR in multi-line content — e.g. an
-                // OpaqueExpression's bodies, which Capella stores with &#xD;&#xA; line breaks (issue #121).
+                // OpaqueExpression's bodies, which Capella stores with &#xD;&#xA; line breaks.
                 NewLineHandling = NewLineHandling.Entitize,
             };
 
@@ -255,7 +255,7 @@ namespace Auriga.Xmi.Core.Writers
                 // Entitize a carriage return in element text as &#xD; rather than writing it literally.
                 // XML line-ending normalization collapses a literal CRLF to LF on the next read, so the
                 // default (Replace) silently loses every CR in multi-line content — e.g. an
-                // OpaqueExpression's bodies, which Capella stores with &#xD;&#xA; line breaks (issue #121).
+                // OpaqueExpression's bodies, which Capella stores with &#xD;&#xA; line breaks.
                 NewLineHandling = NewLineHandling.Entitize,
             };
 

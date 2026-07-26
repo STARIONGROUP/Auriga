@@ -18,7 +18,7 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Pins down how the v1 library treats content outside its scope (issue #20, Phase 6): the vendored
+    /// Pins down how the v1 library treats content outside its scope (Phase 6): the vendored
     /// metamodel is core Capella + the Requirements, Mass, Basic Requirement and Cybersecurity viewpoints +
     /// Kitalpha at version 7.0.0, and this fixture proves the two boundary behaviors documented in
     /// <c>docs/validation.md</c> — a model saved by a different Capella version still <b>reads</b> (the

@@ -18,7 +18,7 @@ namespace Auriga.Extensions.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests the generated enumeration providers (issue #129): the conversion between an enumeration and
+    /// Tests the generated enumeration providers: the conversion between an enumeration and
     /// the Ecore literal names a Capella or Sirius document carries. The C# member names are capitalized
     /// to be legal identifiers, so they do not always reproduce the Ecore literal — Sirius declares
     /// <c>italic</c>, generated as <c>Italic</c> — and EMF matches literal names case-sensitively.

@@ -16,8 +16,8 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests how the reader handles an enumeration literal the generated provider does not recognize
-    /// (issue #129). The metamodel declares the full set of literals, so an unrecognized one means the
+    /// Tests how the reader handles an enumeration literal the generated provider does not recognize.
+    /// The metamodel declares the full set of literals, so an unrecognized one means the
     /// document was written against a different metamodel version or by a tool Auriga does not model.
     /// It is reported rather than silently leaving the property at its default, which is what the
     /// previous case-insensitive <c>Enum.TryParse</c> did.

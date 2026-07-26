@@ -21,7 +21,7 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Exercises the <see cref="IXmiReaderSettings.UseStrictReading"/> option (issue #46). A document that
+    /// Exercises the <see cref="IXmiReaderSettings.UseStrictReading"/> option. A document that
     /// carries a child element outside the vendored metamodel reads under the default (lenient) setting —
     /// the element is skipped and a warning is logged — and throws a <see cref="NotSupportedException"/>
     /// under strict reading, naming the reader, the offending element and its line/position.

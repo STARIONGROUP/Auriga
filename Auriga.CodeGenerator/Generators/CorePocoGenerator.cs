@@ -26,10 +26,10 @@ namespace Auriga.CodeGenerator.Generators
     /// Generates the Auriga Capella object model (interfaces, implementation classes and enums) from
     /// the vendored Capella <c>.ecore</c> files, following <c>docs/codegen-design.md</c>. The whole
     /// metamodel is loaded into one <see cref="ResourceSet"/> (the graph is cyclic and cannot be
-    /// generated file-by-file). By default every package is generated (the v1 scope of issue #1); a
-    /// caller may instead name a subset of packages, in which case implementation classes are emitted
-    /// only for those packages while the interfaces and enums they transitively reference are emitted
-    /// so the generated code still compiles.
+    /// generated file-by-file). By default every package is generated — the whole metamodel is the v1
+    /// scope — and a caller may instead name a subset of packages, in which case implementation classes
+    /// are emitted only for those packages while the interfaces and enums they transitively reference
+    /// are emitted so the generated code still compiles.
     /// </summary>
     public sealed class CorePocoGenerator
     {
@@ -89,7 +89,7 @@ namespace Auriga.CodeGenerator.Generators
         /// <summary>
         /// Generates the object model and returns the files as a dictionary keyed by repository-relative
         /// path (e.g. <c>AutoGenInterfaces/Model/Pa/IPhysicalFunction.cs</c>). When no target package names are
-        /// supplied the whole metamodel is generated (the confirmed v1 scope, issue #1); otherwise only
+        /// supplied the whole metamodel is generated (the confirmed v1 scope); otherwise only
         /// the named packages get implementation classes, and the interfaces and enums those classes
         /// transitively reference are emitted so the output still compiles. Each classifier is written to
         /// a per-package sub-folder so classes with the same simple name in different packages (e.g.

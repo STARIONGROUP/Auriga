@@ -24,7 +24,7 @@ namespace Auriga.CodeGenerator.Tests
     /// Tests <see cref="DefaultValues"/> against the vendored Sirius/GMF metamodels: a scalar
     /// feature's <c>defaultValueLiteral</c> resolves to the C# initializer expression the generated
     /// classes use (and the generated writers pass back as the suppression default), and features
-    /// without an expressible default resolve to <c>null</c> (issue #76).
+    /// without an expressible default resolve to <c>null</c>.
     /// </summary>
     [TestFixture]
     public class DefaultValuesTestFixture

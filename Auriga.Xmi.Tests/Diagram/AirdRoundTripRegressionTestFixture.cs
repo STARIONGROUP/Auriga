@@ -21,7 +21,7 @@ namespace Auriga.Xmi.Tests.Diagram
     using NUnit.Framework;
 
     /// <summary>
-    /// The round-trip regression suite for Sirius <c>.aird</c> diagram files (issue #60), the counterpart
+    /// The round-trip regression suite for Sirius <c>.aird</c> diagram files, the counterpart
     /// of <see cref="RoundTripRegressionTestFixture"/> for the Capella semantic models. For every
     /// <c>.aird</c> fixture under <c>TestData/</c> it reads the model, writes it back, re-reads the result
     /// and asserts the two object graphs are equivalent — proving read → write → read is stable.
@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Tests.Diagram
 
         /// <summary>
         /// Reads every <c>.aird</c> fixture, writes it back, and asserts that no simple-attribute value was
-        /// dropped — the scalar-fidelity half of the round-trip guarantee (issue #121).
+        /// dropped — the scalar-fidelity half of the round-trip guarantee.
         ///
         /// <para>This is where the multi-valued simple attributes are most dense: a Sirius
         /// <c>DAnalysis</c>'s <c>semanticResources</c> (its <c>.afm</c> / <c>.capella</c> pointers, without

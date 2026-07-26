@@ -24,7 +24,7 @@ namespace Auriga.CodeGenerator.Tests
     /// <summary>
     /// Regression tests proving that ECoreNetto loads the complete vendored Capella metamodel
     /// (resources/ecore) with fully resolved cross-file references. Converted from the standalone
-    /// validation harness written for issue #2 (see docs/ecorenetto-validation.md); guards the
+    /// validation harness (see docs/ecorenetto-validation.md); guards the
     /// code generator's input against ECoreNetto regressions and re-vendoring mistakes.
     /// </summary>
     [TestFixture]

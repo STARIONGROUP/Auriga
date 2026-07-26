@@ -30,7 +30,7 @@ namespace Auriga.Xmi.Core
     /// <see cref="Register"/> a project explicitly, and — anchored at the model's own project folder via
     /// <see cref="SetAnchorDirectory"/> — it lazily scans the sibling folders of that project (the Eclipse
     /// workspace root) for <c>.project</c> files, reading each declared name. A name that resolves to no
-    /// registered project leaves the href unresolved: it is reported, never silently dropped (issue #54).
+    /// registered project leaves the href unresolved: it is reported, never silently dropped.
     /// One instance is shared, per read session, by the reader (which discovers the library documents to
     /// load) and the reference resolver (which keys the collected tokens against the loaded elements), so
     /// both derive the same canonical document name for a given library href.

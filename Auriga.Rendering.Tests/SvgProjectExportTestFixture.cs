@@ -23,7 +23,7 @@ namespace Auriga.Rendering.Tests
     /// <c>DRepresentationDescriptor</c>, resolved by <see cref="DiagramBuilder.BuildAll"/>). The
     /// output lands under <c>svg-exports/&lt;model&gt;/</c> in the test work directory, so the
     /// rendered diagrams can be compared side-by-side with the same diagrams opened in Capella —
-    /// the visual acceptance check of issue #57. The Level Crossing model is absent: its
+    /// the visual acceptance check. The Level Crossing model is absent: its
     /// <c>.aird</c> carries an illegal raw U+001A character (a fixture defect) and cannot be read.
     /// </summary>
     [TestFixture]

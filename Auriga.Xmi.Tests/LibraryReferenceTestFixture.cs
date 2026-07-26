@@ -20,12 +20,12 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// End-to-end acceptance for issue #68: a Capella project that references an element in a sibling
+    /// End-to-end acceptance: a Capella project that references an element in a sibling
     /// <b>library</b> project through a <c>platform:/resource/&lt;projectName&gt;/…</c> href. The workspace
     /// registry resolves the declared project name (read from the sibling's <c>.project</c>, which differs
     /// from its folder name) to the library document, the reader co-loads that document into the same
     /// session, and the reference resolves to a typed library element. An href to an unknown project stays
-    /// reported as an unresolved reference rather than being silently dropped or aborting the load (#54).
+    /// reported as an unresolved reference rather than being silently dropped or aborting the load.
     /// </summary>
     [TestFixture]
     public class LibraryReferenceTestFixture

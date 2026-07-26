@@ -20,7 +20,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Table representation rendering (issue #58): a Sirius <c>DTable</c> cross-table builds into the
+    /// Table representation rendering: a Sirius <c>DTable</c> cross-table builds into the
     /// intermediate <see cref="Diagram"/> model as a grid of boxes and exports to well-formed SVG. The
     /// synthetic tests pin the grid geometry, header/line/cell placement, nesting indent and per-cell
     /// styling; the end-to-end test exports the real <c>fragmented-sysmodel</c> table — the one

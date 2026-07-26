@@ -14,7 +14,7 @@ namespace Auriga.Xmi.Tests
     using System.Xml.Linq;
 
     /// <summary>
-    /// The scalar-fidelity audit used by the round-trip regression suites (issue #121): it compares the
+    /// The scalar-fidelity audit used by the round-trip regression suites: it compares the
     /// <em>values</em> a document carries, not only its structure and references, so content that the
     /// reader never captured — and therefore silently dropped on write — is caught rather than passing
     /// unnoticed.

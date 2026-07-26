@@ -19,11 +19,11 @@ namespace Auriga.CodeGenerator.Tests.Generators
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests that the same generators drive the Sirius/GMF metamodel (<c>resources/ecore-sirius</c>,
-    /// issue #52) into the <c>Auriga.Diagram</c> object model and <c>Auriga.Xmi.Diagram</c>
+    /// Tests that the same generators drive the Sirius/GMF metamodel (<c>resources/ecore-sirius</c>)
+    /// into the <c>Auriga.Diagram</c> object model and <c>Auriga.Xmi.Diagram</c>
     /// readers/writers — the <c>Diagram</c> sub-trees of the same <c>Auriga</c> and <c>Auriga.Xmi</c>
     /// projects that carry the Capella <c>Model</c> output. The classifier counts are the ground truth
-    /// from <c>docs/sirius-metamodel-inventory.md</c> (issue #51): 454 EClasses and 39 EEnums across 20
+    /// from <c>docs/sirius-metamodel-inventory.md</c>: 454 EClasses and 39 EEnums across 20
     /// packages.
     /// </summary>
     [TestFixture]
@@ -37,7 +37,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
 
         /// <summary>
         /// The output tree of the generated enumeration providers, which are committed to the
-        /// <c>Auriga.Extensions</c> project rather than to <c>Auriga</c> (issue #129).
+        /// <c>Auriga.Extensions</c> project rather than to <c>Auriga</c>.
         /// </summary>
         private const string EnumProviderFolder = "AutoGenEnumProviders";
 
@@ -83,7 +83,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
                 Assert.That(this.files.Keys, Has.Some.StartsWith("AutoGenInterfaces/Diagram/Viewpoint/"));
 
                 // The enumeration providers deliberately live in Auriga.Extensions rather than under the
-                // metamodel's own root namespace, so they are excluded here (issue #129).
+                // metamodel's own root namespace, so they are excluded here.
                 var objectModel = this.files
                     .Where(f => !f.Key.StartsWith(EnumProviderFolder + "/", StringComparison.Ordinal))
                     .Select(f => f.Value);
@@ -173,7 +173,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
             var problems = new List<string>();
 
             // The enumeration providers are the one output that is committed to a different project:
-            // they extend the generated enums and live in Auriga.Extensions (issue #129).
+            // they extend the generated enums and live in Auriga.Extensions.
             string RootFor(string key) => key.StartsWith(EnumProviderFolder + "/", StringComparison.Ordinal)
                 ? Path.Combine(SolutionRoot(), "Auriga.Extensions")
                 : projectRoot;

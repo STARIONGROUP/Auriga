@@ -152,7 +152,7 @@ namespace Auriga.CodeGenerator.Helpers
         /// Whether the feature is a multi-valued simple (non-reference) attribute of a type the generator
         /// can read — a string or an enumeration. EMF serializes such a feature as repeated child elements
         /// rather than a whitespace-delimited attribute, which is the form every Capella and Sirius file in
-        /// circulation uses (see issue #121).
+        /// circulation uses.
         /// </summary>
         /// <param name="feature">the structural feature to test</param>
         /// <returns>true when the feature is read from repeated child elements</returns>

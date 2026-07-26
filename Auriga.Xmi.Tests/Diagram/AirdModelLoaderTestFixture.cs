@@ -25,7 +25,7 @@ namespace Auriga.Xmi.Tests.Diagram
     /// <c>referencedAnalysis</c> hrefs into <c>.airdfragment</c> siblings (URL-encoded paths and stale,
     /// renamed-on-disk fragment references included), co-loading the Capella semantic documents the
     /// diagrams href into so the cross-metamodel <c>target</c> / <c>semanticElements</c> links resolve
-    /// (issue #54) — and its clear error surface for missing, ambiguous or non-diagram paths. The
+    /// — and its clear error surface for missing, ambiguous or non-diagram paths. The
     /// diagram-only behavior (no semantic co-load) remains the raw reader's default and is pinned here
     /// too.
     /// </summary>
@@ -84,7 +84,7 @@ namespace Auriga.Xmi.Tests.Diagram
                 // which was renamed on disk without the href being updated.
                 Assert.That(sourceDocuments, Contains.Item("fragments/LA-Logical Functions-RLF-OA2-SysOA2_1.airdfragment"));
 
-                // The loader co-loads the Capella semantic documents the diagrams reference (issue #54),
+                // The loader co-loads the Capella semantic documents the diagrams reference,
                 // so the semantic model and its fragments join the session alongside the aird fragments.
                 Assert.That(sourceDocuments, Contains.Item("sysmodel.capella"));
                 Assert.That(sourceDocuments, Has.Some.Matches<string>(d => d!.EndsWith(".capellafragment", StringComparison.Ordinal)));
@@ -119,7 +119,7 @@ namespace Auriga.Xmi.Tests.Diagram
                 // The chain fragment is referenced only from the first fragment, relative to fragments/.
                 Assert.That(sourceDocuments, Contains.Item("fragments/chain.airdfragment"));
 
-                // The semantic family is co-loaded by the loader (issue #54): the referenced
+                // The semantic family is co-loaded by the loader: the referenced
                 // .capellafragment, the referenced .capella, and the .capella's own fragment chain.
                 Assert.That(sourceDocuments, Contains.Item("fragments/sem.capellafragment"));
                 Assert.That(sourceDocuments, Contains.Item("model.capella"));
@@ -173,7 +173,7 @@ namespace Auriga.Xmi.Tests.Diagram
         [Test]
         public void Verify_that_diagram_elements_resolve_to_the_co_loaded_capella_elements()
         {
-            // The end-to-end acceptance of issue #54, against the real coffee-machine project: the
+            // The end-to-end acceptance test, against the real coffee-machine project: the
             // .aird's target / semanticElements hrefs into coffee-machine-demo.capella resolve to the
             // co-loaded Capella elements.
             var result = XmiReaderBuilder.Create().BuildAirdModelLoader().Load(TestDataPath("coffee-machine-demo.aird"));

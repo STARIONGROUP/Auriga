@@ -18,7 +18,7 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests the two-pass cross-reference resolution (issue #11): intra-file <c>#id</c> references
+    /// Tests the two-pass cross-reference resolution: intra-file <c>#id</c> references
     /// resolve to typed object references regardless of the order the target appears in the document
     /// (forward references), and references whose target is missing are collected into a diagnosable
     /// report rather than aborting the load.

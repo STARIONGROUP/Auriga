@@ -16,7 +16,7 @@ namespace Auriga.Xmi.Tests
     /// <summary>
     /// Smoke-test fixture proving the test infrastructure runs and the Auriga.Xmi library
     /// assembly is referenced; expanded with real tests once the .melodymodeller reader
-    /// lands (issue #13).
+    /// lands.
     /// </summary>
     [TestFixture]
     public class ScaffoldTestFixture

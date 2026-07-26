@@ -17,7 +17,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The arrowhead-size acceptance test (issue #114): SVG markers default to
+    /// The arrowhead-size acceptance test: SVG markers default to
     /// <c>markerUnits="strokeWidth"</c>, so a thick edge (a component exchange's width-4 stroke)
     /// would render an arrowhead scaled four times over. The exporter pins the marker to
     /// <c>userSpaceOnUse</c> so the arrowhead stays a fixed size. Verified on the In-Flight

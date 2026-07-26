@@ -22,9 +22,9 @@ namespace Auriga.CodeGenerator.Tests.Generators
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests for the <see cref="CorePocoGenerator"/>, which generates the whole Capella v1 metamodel
-    /// (issue #8). The expected classifier counts are the ground truth established in the metamodel
-    /// inventory (<c>docs/metamodel-inventory.md</c>, issue #1): 455 EClasses, 298 of them concrete,
+    /// Tests for the <see cref="CorePocoGenerator"/>, which generates the whole Capella v1 metamodel.
+    /// The expected classifier counts are the ground truth established in the metamodel
+    /// inventory (<c>docs/metamodel-inventory.md</c>): 455 EClasses, 298 of them concrete,
     /// and 35 EEnums, across 28 Ecore packages (including the Mass, Basic Requirement and Cybersecurity
     /// add-on viewpoints).
     /// </summary>

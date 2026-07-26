@@ -17,12 +17,12 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The mode/state-machine acceptance tests (issue #97): a choice pseudo-state renders as a
+    /// The mode/state-machine acceptance tests: a choice pseudo-state renders as a
     /// diamond (a Sirius lozenge style), pseudo-states and the final state render as their glyph
     /// with no name label drawn over it, and a region is an unnamed compartment whose
     /// <c>[Region1]</c> placeholder must not sit in the owning state's title band — while a mode
-    /// keeps its name. The state sizes and transition routing come from the size-synthesis (#94)
-    /// and routing (#95/#96) work. Verified on the In-Flight <c>[MSM] IFE Operating Modes</c> and
+    /// keeps its name. The state sizes and transition routing come from the size-synthesis
+    /// and routing work. Verified on the In-Flight <c>[MSM] IFE Operating Modes</c> and
     /// <c>[MSM] Seat TV Modes</c>.
     /// </summary>
     [TestFixture]

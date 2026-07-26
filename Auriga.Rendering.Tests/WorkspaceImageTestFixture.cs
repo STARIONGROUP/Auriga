@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The project-local workspace-image tests (issue #98): a <c>WorkspaceImage</c> whose path
+    /// The project-local workspace-image tests: a <c>WorkspaceImage</c> whose path
     /// points inside the model project (e.g. <c>In-Flight Entertainment System/images/Operator.svg</c>)
     /// is served from the file beside the loaded <c>.aird</c> by a <see cref="WorkspaceImageRegistry"/>,
     /// composed after the vendored <see cref="CapellaIconRegistry"/>. Verified against the In-Flight
