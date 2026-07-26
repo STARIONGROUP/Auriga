@@ -51,8 +51,8 @@ namespace Auriga.Xmi.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(Fragment(w => ProbeWriter.Id(w, new FakeElement { Id = "x1" })), Does.Contain("id=\"x1\""));
-                Assert.That(Fragment(w => ProbeWriter.Id(w, new FakeElement { Id = string.Empty })), Does.Not.Contain("id="));
+                Assert.That(Fragment(w => this.writer.Id(w, new FakeElement { Id = "x1" })), Does.Contain("id=\"x1\""));
+                Assert.That(Fragment(w => this.writer.Id(w, new FakeElement { Id = string.Empty })), Does.Not.Contain("id="));
             });
         }
 
@@ -315,7 +315,7 @@ namespace Auriga.Xmi.Tests
 
             public override string NamespaceUri => "urn:probe";
 
-            public static void Id(XmlWriter w, IAurigaElement e) => WriteId(w, e);
+            public void Id(XmlWriter w, IAurigaElement e) => this.WriteId(w, e);
 
             public static void String(XmlWriter w, string n, string? v) => WriteStringAttribute(w, n, v);
 

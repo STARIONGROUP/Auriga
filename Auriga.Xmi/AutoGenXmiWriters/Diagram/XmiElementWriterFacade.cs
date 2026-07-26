@@ -396,6 +396,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters
                 [typeof(Auriga.Diagram.Viewpoint.ToolSectionInstance)] = new Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.ToolSectionInstanceWriter(this, loggerFactory),
                 [typeof(Auriga.Diagram.Viewpoint.UIState)] = new Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.UIStateWriter(this, loggerFactory),
             };
+
+            // EMF serializes an EMap<String, String>-typed feature inline as ecore:EStringToStringMapEntry
+            // child elements carrying key / value attributes (e.g. a Sirius DAnnotation's details). The
+            // built-in Ecore map-entry type belongs to no vendored metamodel package, so it is routed to the
+            // shared runtime writer here rather than generated.
+            this.writers[typeof(EStringToStringMapEntry)] = new EStringToStringMapEntryWriter(this, loggerFactory);
         }
 
         /// <summary>

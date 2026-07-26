@@ -128,7 +128,7 @@ namespace Auriga.Xmi.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(() => writer.Write(null!, "x.capella"), Throws.ArgumentNullException);
+                Assert.That(() => writer.Write((IAurigaElement)null!, "x.capella"), Throws.ArgumentNullException);
                 Assert.That(() => writer.Write(new Auriga.Model.Capellamodeller.Project(), string.Empty), Throws.ArgumentException);
                 Assert.That(() => writer.WriteDocument(null!, stream, "x"), Throws.ArgumentNullException);
                 Assert.That(() => writer.WriteDocument(new Auriga.Model.Capellamodeller.Project(), null!, "x"), Throws.ArgumentNullException);
