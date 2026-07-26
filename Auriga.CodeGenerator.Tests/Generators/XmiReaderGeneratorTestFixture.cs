@@ -19,7 +19,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
 
     /// <summary>
     /// Tests for the <see cref="XmiReaderGenerator"/>, which generates the <c>Auriga.Xmi</c> per-type XMI
-    /// readers, the reader facade and the namespace registry (issue #10). A reader is emitted for each of
+    /// readers, the reader facade and the namespace registry. A reader is emitted for each of
     /// the 298 concrete classes, plus the two aggregate files.
     /// </summary>
     [TestFixture]

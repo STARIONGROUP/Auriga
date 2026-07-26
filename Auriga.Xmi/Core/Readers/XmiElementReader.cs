@@ -139,7 +139,7 @@ namespace Auriga.Xmi.Core.Readers
         /// the full set of literals, so an unrecognized one means the document was written against a
         /// different metamodel version or by a tool Auriga does not model — worth surfacing rather than
         /// silently leaving the property at its default, which is what the previous case-insensitive
-        /// <c>Enum.TryParse</c> did (issue #129).
+        /// <c>Enum.TryParse</c> did.
         /// </summary>
         /// <param name="enumName">the Ecore name of the enumeration</param>
         /// <param name="featureName">the XML name of the feature carrying the value</param>

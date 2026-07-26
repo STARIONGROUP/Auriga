@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
 
     /// <summary>
     /// The visual-acceptance tests for the <c>[CDB] In-Flight Entertainment Dictionary</c> class
-    /// diagram of the In-Flight Entertainment System (issue #86): its classes and enumeration are
+    /// diagram of the In-Flight Entertainment System: its classes and enumeration are
     /// <c>DNodeList</c> containers Capella auto-sizes from their content — the builder synthesizes
     /// the size, stacks the <c>DNodeListElement</c> rows below the title compartment, draws the
     /// title separator, and surfaces the association multiplicities as edge end labels.

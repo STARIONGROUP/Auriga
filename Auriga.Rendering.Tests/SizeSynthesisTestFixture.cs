@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The size-synthesis acceptance tests (issue #94): Capella auto-sizes many nodes from their
+    /// The size-synthesis acceptance tests: Capella auto-sizes many nodes from their
     /// content and persists no size (the GMF <c>-1</c> sentinel), and persists ports at a <c>1×1</c>
     /// sentinel. The builder synthesizes those sizes from the children and label extents — so
     /// functions, components and states render at their content size instead of collapsing to the

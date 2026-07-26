@@ -246,7 +246,7 @@ namespace Auriga.Rendering.Tests
             };
 
             // A Sirius owned style carries its metamodel defaults even for attributes the file does
-            // not serialize (EMF default semantics, #76): labelSize 8, labelColor and borderColor
+            // not serialize (EMF default semantics): labelSize 8, labelColor and borderColor
             // black. When the style is present those defaulted values win over the notation
             // fallbacks; only properties without a Sirius counterpart (the font family) keep the
             // notation values.

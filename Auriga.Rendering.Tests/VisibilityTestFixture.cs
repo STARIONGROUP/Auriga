@@ -20,7 +20,7 @@ namespace Auriga.Rendering.Tests
     using NotationModel = Auriga.Diagram.Notation;
 
     /// <summary>
-    /// The visibility acceptance tests (issue #92): Capella hides diagram elements (a
+    /// The visibility acceptance tests: Capella hides diagram elements (a
     /// <c>HideFilter</c>) and folds a collapsed container's children away (a <c>CollapseFilter</c>)
     /// by persisting the GMF view <c>visible="false"</c>. The builder must skip those views — else
     /// their stale layout piles the hidden subtree at the origin and inflates the canvas. Verified

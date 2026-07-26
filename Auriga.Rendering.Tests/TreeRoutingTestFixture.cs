@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The tree-routing acceptance tests (issue #95, part 1): a breakdown diagram's containment
+    /// The tree-routing acceptance tests (part 1): a breakdown diagram's containment
     /// edges carry <c>routingStyle="tree"</c>, and Capella draws them rectilinearly — a vertical
     /// stub from each child onto a horizontal bus shared by its siblings, then a single stub into
     /// the parent. Their persisted bendpoints are stale artifacts that resolve far outside the

@@ -132,7 +132,7 @@ namespace Auriga.Xmi.Tests.Diagram
             {
                 // The persisted GMF layout: one notation:Diagram per Sirius representation, whose
                 // <children> / <edges> containments (the ExtendedMetaData names of persistedChildren /
-                // persistedEdges) were previously skipped entirely — issue #65.
+                // persistedEdges) were previously skipped entirely.
                 Assert.That(elements.OfType<Auriga.Diagram.Notation.IDiagram>().Count(), Is.EqualTo(6), "notation diagrams");
                 Assert.That(nodes, Has.Count.GreaterThan(500), "notation nodes");
                 Assert.That(elements.OfType<Auriga.Diagram.Notation.IEdge>().Count(), Is.GreaterThan(50), "notation edges");

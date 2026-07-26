@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The orthogonal-routing acceptance tests (issue #95, part 2): an exchange edge carrying
+    /// The orthogonal-routing acceptance tests (part 2): an exchange edge carrying
     /// <c>routingStyle="manhattan"</c> with no real bendpoints is rectilinear — Capella routes it
     /// between the facing side centres, not the anchor-reference line that clips to a diagonal
     /// corner. Verified on the In-Flight <c>[LFCD] Start Playing VOD Movie</c>, whose functional

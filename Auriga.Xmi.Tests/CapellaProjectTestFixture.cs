@@ -48,7 +48,7 @@ namespace Auriga.Xmi.Tests
             Assert.Multiple(() =>
             {
                 // The accessor returns the very architecture held by the SystemEngineering (not a copy),
-                // and containment navigation (#15) walks back up to it.
+                // and containment navigation walks back up to it.
                 Assert.That(
                     project.SystemEngineering!.OwnedArchitectures,
                     Does.Contain(project.LogicalArchitecture));

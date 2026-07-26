@@ -15,7 +15,7 @@ namespace Auriga.Rendering
     /// The styling sources of a diagram item, carried as references into the parsed object graph:
     /// the Sirius owned style (colors, line style, label format — the primary source) and the GMF
     /// notation styles attached to the view (fonts, routing). Resolving these into concrete colors
-    /// and strokes is the style-resolution phase (issue #56); the intermediate model only keeps the
+    /// and strokes is the style-resolution phase; the intermediate model only keeps the
     /// pointers so a renderer can resolve without re-walking the <c>.aird</c>.
     /// </summary>
     public sealed class Style

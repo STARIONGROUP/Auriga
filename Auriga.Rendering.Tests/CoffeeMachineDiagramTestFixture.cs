@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The end-to-end acceptance test for the intermediate diagram model (issue #55): the real
+    /// The end-to-end acceptance test for the intermediate diagram model: the real
     /// coffee-machine project is loaded through the <see cref="IAirdModelLoader"/> (diagrams,
     /// fragments and the co-loaded Capella semantic model), and every representation builds into a
     /// <see cref="Diagram"/> whose box coordinates, label geometry and edge routes match the

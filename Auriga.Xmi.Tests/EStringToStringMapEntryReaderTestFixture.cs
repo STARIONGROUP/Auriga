@@ -27,7 +27,7 @@ namespace Auriga.Xmi.Tests
     /// Tests that inline <c>ecore:EStringToStringMapEntry</c> elements — EMF's serialization of an
     /// <c>EMap&lt;String, String&gt;</c>-typed feature, e.g. a Sirius <c>DAnnotation</c>'s
     /// <c>details</c> — are read into <see cref="IEStringToStringMapEntry"/> key/value pairs retained
-    /// on the owning element's containment feature (issue #66).
+    /// on the owning element's containment feature.
     /// </summary>
     [TestFixture]
     public class EStringToStringMapEntryReaderTestFixture

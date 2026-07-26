@@ -18,9 +18,9 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests the <see cref="XmiReader"/> against the minimal hand-crafted <c>.melodymodeller</c> fixture
-    /// (issue #4): every element must load into a correctly-typed object with its attribute values and
-    /// intra-file cross-references resolved (issue #10).
+    /// Tests the <see cref="XmiReader"/> against the minimal hand-crafted <c>.melodymodeller</c>
+    /// fixture: every element must load into a correctly-typed object with its attribute values and
+    /// intra-file cross-references resolved.
     /// </summary>
     [TestFixture]
     public class XmiReaderTestFixture

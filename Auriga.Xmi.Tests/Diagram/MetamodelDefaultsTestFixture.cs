@@ -17,7 +17,7 @@ namespace Auriga.Xmi.Tests.Diagram
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests the metamodel-default semantics of issue #76: EMF omits attributes whose value equals
+    /// Tests the metamodel-default semantics: EMF omits attributes whose value equals
     /// the declared <c>defaultValueLiteral</c>, so an omitted attribute must read as the declared
     /// default (an <c>EdgeStyle</c> without <c>targetArrow</c> is an <c>InputArrow</c>, not the
     /// first enum literal), and a value equal to the declared default must be omitted again on

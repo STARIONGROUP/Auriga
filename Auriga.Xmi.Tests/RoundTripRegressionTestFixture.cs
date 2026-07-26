@@ -22,7 +22,7 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The library-wide round-trip regression suite (issue #19): for every Capella model fixture under
+    /// The library-wide round-trip regression suite: for every Capella model fixture under
     /// <c>TestData/</c>, read it, write it back, and prove the result matches the original. It runs on
     /// every CI build through the normal <c>dotnet test</c> invocation, so any regression in the reader or
     /// writer that changes what a model round-trips to fails the build.
@@ -143,7 +143,7 @@ namespace Auriga.Xmi.Tests
 
         /// <summary>
         /// Reads every model fixture, writes it back, and asserts that no simple-attribute value was
-        /// dropped — the scalar-fidelity half of the round-trip guarantee (issue #121).
+        /// dropped — the scalar-fidelity half of the round-trip guarantee.
         ///
         /// <para>Unlike <see cref="Audit_the_normalized_text_differences"/> this is a gate, not an on-demand
         /// audit, and unlike <see cref="Verify_that_the_model_round_trips_semantically"/> it compares

@@ -16,7 +16,7 @@ namespace Auriga.Tests
     /// <summary>
     /// Smoke-test fixture proving the test infrastructure runs and the Auriga library
     /// assembly is referenced; expanded with real tests as the Auriga object model is
-    /// generated (issues #6-#8).
+    /// generated.
     /// </summary>
     [TestFixture]
     public class ScaffoldTestFixture

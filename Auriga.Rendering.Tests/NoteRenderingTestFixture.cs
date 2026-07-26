@@ -17,7 +17,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The note-rendering acceptance tests (issue #99): a GMF note's text is usually its shape's
+    /// The note-rendering acceptance tests: a GMF note's text is usually its shape's
     /// <c>description</c>, but an <c>[LCBD]</c>'s annotation notes persist it on the shape's
     /// <c>ShapeStyle</c> instead — so the builder falls back to that, recovering the three
     /// "ARCHITECTURE DRIVER" notes that were dropped entirely. Verified on the In-Flight

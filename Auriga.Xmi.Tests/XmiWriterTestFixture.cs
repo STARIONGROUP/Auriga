@@ -21,7 +21,7 @@ namespace Auriga.Xmi.Tests
 
     /// <summary>
     /// Round-trip tests for the XMI writer: reading a fixture, writing it back, and reading the result
-    /// again must reproduce an equivalent object graph (issue #17). Formatting differences (attribute
+    /// again must reproduce an equivalent object graph. Formatting differences (attribute
     /// line-wrapping, ordering, the version comment) are benign and not asserted.
     /// </summary>
     [TestFixture]

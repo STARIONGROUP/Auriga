@@ -19,9 +19,9 @@ namespace Auriga.CodeGenerator.Helpers
     /// Resolves a scalar feature's Ecore <c>defaultValueLiteral</c> into the C# expression that
     /// initializes the generated property. EMF omits attributes whose value equals the declared
     /// default when serializing, so a generated reader only sees the attribute when it differs —
-    /// without the initializer the property silently reads as the CLR default (issue #76: every
+    /// without the initializer the property silently reads as the CLR default: every
     /// <c>EdgeStyle.targetArrow</c> that is the metamodel default <c>InputArrow</c> read as
-    /// <c>NoDecoration</c>, the first literal). The generated writers pass the same expression back
+    /// <c>NoDecoration</c>, the first literal. The generated writers pass the same expression back
     /// as the suppression default, so a value equal to the declared default is omitted on write,
     /// exactly as EMF serializes it.
     /// </summary>

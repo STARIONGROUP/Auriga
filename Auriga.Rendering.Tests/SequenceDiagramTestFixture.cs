@@ -22,7 +22,7 @@ namespace Auriga.Rendering.Tests
     using SiriusDiagram = Auriga.Diagram.Diagram;
 
     /// <summary>
-    /// The end-to-end acceptance tests for sequence-diagram rendering (issue #62), against the real
+    /// The end-to-end acceptance tests for sequence-diagram rendering, against the real
     /// <c>[ES] Select VOD Movie</c> exchange scenario of the In-Flight Entertainment System: the
     /// persisted <c>AbsoluteBoundsFilter</c> layout positions the instance-role headers, executions
     /// and state fragments; the lifelines become dashed centerlines under their headers; and the

@@ -25,7 +25,7 @@ namespace Auriga.Xmi.Tests
 
     /// <summary>
     /// Tests that inline <c>ecore:EAnnotation</c> elements are read into <see cref="IEAnnotation"/>
-    /// instances carrying their <c>source</c> and their contained <c>details</c> entries (issue #125).
+    /// instances carrying their <c>source</c> and their contained <c>details</c> entries.
     /// The shape under test is the one the Requirements viewpoint writes into a Sirius
     /// <c>DAnalysisCustomData</c> keyed <c>REQUIREMENTS_VP_QUERIES</c>, which previously failed the read
     /// with "No XMI reader is registered for the type 'ecore:EAnnotation'".

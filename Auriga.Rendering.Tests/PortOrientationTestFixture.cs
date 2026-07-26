@@ -18,7 +18,7 @@ namespace Auriga.Rendering.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// The port-orientation acceptance tests (issue #101): a function/flow port renders with its
+    /// The port-orientation acceptance tests: a function/flow port renders with its
     /// glyph rotated to the border side it sits on, so the arrow crosses that border in the flow
     /// direction — a left/right-border port draws a horizontal arrow, a top/bottom-border port a
     /// vertical one. Verified on the In-Flight <c>[PDFB] [CTX] Display Video and Play Audio</c>,
