@@ -35,7 +35,7 @@ namespace Auriga.Rendering
     /// widest of its persisted width and its content, clamped to a sane range; text still wider than the
     /// clamp wraps, and the row grows to fit the wrapped lines — so no label overflows its cell.
     /// </remarks>
-    public sealed class TableBuilder
+    public sealed class TableBuilder : ITableBuilder
     {
         /// <summary>
         /// The narrowest a data column is drawn, so a short-labelled column is still a usable cell.
