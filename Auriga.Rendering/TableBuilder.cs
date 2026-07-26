@@ -135,10 +135,11 @@ namespace Auriga.Rendering
                 throw new ArgumentNullException(nameof(table));
             }
 
-            var columns = table.Columns.Where(column => column.Visible).ToList();
-
-            var rows = new List<Row>();
-            Flatten(table.Lines, 0, columns, rows);
+            // The visible-line/column traversal lives in TableGrid so the SVG and XLSX exports agree on
+            // what the table contains; this builder adds only the pixel layout on top of it.
+            var grid = TableGrid.From(table);
+            var columns = grid.Columns;
+            var rows = grid.Rows;
 
             var headerColumnWidth = HeaderColumnWidth(table, rows);
             var columnWidths = ColumnWidths(columns, rows);
@@ -188,42 +189,6 @@ namespace Auriga.Rendering
             };
         }
 
-        /// <summary>
-        /// Flattens the line tree depth-first into rows, recording each line's nesting depth and mapping
-        /// its cells to column indices. An invisible line is skipped; a collapsed line is shown but its
-        /// descendants are not, mirroring the tool.
-        /// </summary>
-        /// <param name="lines">the lines to flatten</param>
-        /// <param name="depth">the nesting depth of these lines</param>
-        /// <param name="columns">the visible columns, for mapping cells to their index</param>
-        /// <param name="rows">the accumulating row list</param>
-        private static void Flatten(IEnumerable<SiriusTable.IDLine> lines, int depth, List<SiriusTable.IDColumn> columns, List<Row> rows)
-        {
-            foreach (var line in lines)
-            {
-                if (!line.Visible)
-                {
-                    continue;
-                }
-
-                var cells = new Dictionary<int, SiriusTable.IDCell>();
-                foreach (var cell in line.Cells)
-                {
-                    var index = cell.Column == null ? -1 : columns.IndexOf(cell.Column);
-                    if (index >= 0)
-                    {
-                        cells[index] = cell;
-                    }
-                }
-
-                rows.Add(new Row(line, depth, cells));
-
-                if (!line.Collapsed)
-                {
-                    Flatten(line.Lines, depth + 1, columns, rows);
-                }
-            }
-        }
 
         /// <summary>
         /// The header (line-label) column width: the widest of the table's persisted width and the widest
@@ -233,7 +198,7 @@ namespace Auriga.Rendering
         /// <param name="table">the table</param>
         /// <param name="rows">the flattened rows</param>
         /// <returns>the header column width</returns>
-        private static double HeaderColumnWidth(SiriusTable.IDTable table, List<Row> rows)
+        private static double HeaderColumnWidth(SiriusTable.IDTable table, IReadOnlyList<TableRow> rows)
         {
             var content = rows.Count == 0
                 ? 0
@@ -251,7 +216,7 @@ namespace Auriga.Rendering
         /// <param name="columns">the visible columns</param>
         /// <param name="rows">the flattened rows</param>
         /// <returns>the per-column widths, indexed as <paramref name="columns"/></returns>
-        private static double[] ColumnWidths(List<SiriusTable.IDColumn> columns, List<Row> rows)
+        private static double[] ColumnWidths(IReadOnlyList<SiriusTable.IDColumn> columns, IReadOnlyList<TableRow> rows)
         {
             var widths = new double[columns.Count];
             for (var i = 0; i < columns.Count; i++)
@@ -278,7 +243,7 @@ namespace Auriga.Rendering
         /// <param name="columns">the visible columns</param>
         /// <param name="columnWidths">the resolved column widths</param>
         /// <returns>the header-row height</returns>
-        private static double HeaderRowHeight(List<SiriusTable.IDColumn> columns, double[] columnWidths)
+        private static double HeaderRowHeight(IReadOnlyList<SiriusTable.IDColumn> columns, double[] columnWidths)
         {
             var lines = 1;
             for (var i = 0; i < columns.Count; i++)
@@ -298,7 +263,7 @@ namespace Auriga.Rendering
         /// <param name="columnWidths">the resolved column widths</param>
         /// <param name="headerColumnWidth">the resolved header-column width</param>
         /// <returns>the row height</returns>
-        private static double RowHeight(Row row, List<SiriusTable.IDColumn> columns, double[] columnWidths, double headerColumnWidth)
+        private static double RowHeight(TableRow row, IReadOnlyList<SiriusTable.IDColumn> columns, double[] columnWidths, double headerColumnWidth)
         {
             var lines = LineCount(row.Line.Label, headerColumnWidth - (row.Depth * IndentPerLevel) - (2 * CellPadding), CellFontSize);
 
@@ -553,38 +518,5 @@ namespace Auriga.Rendering
             return string.IsNullOrWhiteSpace(text) ? null : text;
         }
 
-        /// <summary>
-        /// A flattened table row: the line, its nesting depth and the cells that occupy each column index.
-        /// </summary>
-        private sealed class Row
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Row"/> class.
-            /// </summary>
-            /// <param name="line">the line</param>
-            /// <param name="depth">the nesting depth</param>
-            /// <param name="cells">the cells keyed by column index</param>
-            public Row(SiriusTable.IDLine line, int depth, Dictionary<int, SiriusTable.IDCell> cells)
-            {
-                this.Line = line;
-                this.Depth = depth;
-                this.Cells = cells;
-            }
-
-            /// <summary>
-            /// Gets the line the row was flattened from.
-            /// </summary>
-            public SiriusTable.IDLine Line { get; }
-
-            /// <summary>
-            /// Gets the nesting depth (0 for a top-level line).
-            /// </summary>
-            public int Depth { get; }
-
-            /// <summary>
-            /// Gets the cells of the row, keyed by their column index.
-            /// </summary>
-            public Dictionary<int, SiriusTable.IDCell> Cells { get; }
-        }
     }
 }
