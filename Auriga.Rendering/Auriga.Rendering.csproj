@@ -28,6 +28,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="ClosedXML" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\Auriga.Extensions\Auriga.Extensions.csproj" />
     </ItemGroup>
 
