@@ -91,7 +91,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Model.Fa.ComponentPortKind value)
+        public static string ToLiteralString(Auriga.Model.Fa.ComponentPortKind value)
         {
             return value switch
             {

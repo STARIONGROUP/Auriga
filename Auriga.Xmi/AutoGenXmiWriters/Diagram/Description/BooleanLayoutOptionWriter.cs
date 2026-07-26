@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "value", poco.Value);
-            WriteEnumListElements<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(xmlWriter, "targets", poco.Targets, Auriga.Extensions.LayoutOptionTargetProvider.ToXmlLiteral);
+            WriteEnumListElements<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(xmlWriter, "targets", poco.Targets, Auriga.Extensions.LayoutOptionTargetProvider.ToLiteralString);
         }
     }
 }

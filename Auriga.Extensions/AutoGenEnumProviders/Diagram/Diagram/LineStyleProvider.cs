@@ -103,7 +103,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Diagram.Diagram.LineStyle value)
+        public static string ToLiteralString(Auriga.Diagram.Diagram.LineStyle value)
         {
             return value switch
             {

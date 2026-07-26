@@ -97,7 +97,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Model.Fa.FunctionalChainKind value)
+        public static string ToLiteralString(Auriga.Model.Fa.FunctionalChainKind value)
         {
             return value switch
             {

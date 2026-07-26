@@ -187,7 +187,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Diagram.Diagram.EdgeArrows value)
+        public static string ToLiteralString(Auriga.Diagram.Diagram.EdgeArrows value)
         {
             return value switch
             {

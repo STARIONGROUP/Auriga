@@ -75,9 +75,9 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            WriteEnumAttribute<Auriga.Model.Information.SynchronismKind>(xmlWriter, "synchronismKind", poco.SynchronismKind, Auriga.Extensions.SynchronismKindProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Model.Information.SynchronismKind>(xmlWriter, "synchronismKind", poco.SynchronismKind, Auriga.Extensions.SynchronismKindProvider.ToLiteralString);
             this.WriteReferenceListAttribute(xmlWriter, "thrownExceptions", poco.ThrownExceptions, poco, "ThrownExceptions", context);
-            WriteEnumAttribute<Auriga.Model.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility, Auriga.Extensions.VisibilityKindProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Model.Capellacore.VisibilityKind>(xmlWriter, "visibility", poco.Visibility, Auriga.Extensions.VisibilityKindProvider.ToLiteralString);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);

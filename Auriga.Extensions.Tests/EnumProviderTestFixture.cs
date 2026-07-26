@@ -31,11 +31,11 @@ namespace Auriga.Extensions.Tests
         {
             Assert.Multiple(() =>
             {
-                Assert.That(FontFormatProvider.ToXmlLiteral(FontFormat.Italic), Is.EqualTo("italic"), "Sirius declares a lower-case literal");
-                Assert.That(FontFormatProvider.ToXmlLiteral(FontFormat.Bold), Is.EqualTo("bold"));
-                Assert.That(FontFormatProvider.ToXmlLiteral(FontFormat.Strike_through), Is.EqualTo("strike_through"));
+                Assert.That(FontFormatProvider.ToLiteralString(FontFormat.Italic), Is.EqualTo("italic"), "Sirius declares a lower-case literal");
+                Assert.That(FontFormatProvider.ToLiteralString(FontFormat.Bold), Is.EqualTo("bold"));
+                Assert.That(FontFormatProvider.ToLiteralString(FontFormat.Strike_through), Is.EqualTo("strike_through"));
 
-                Assert.That(PhysicalComponentNatureProvider.ToXmlLiteral(PhysicalComponentNature.NODE), Is.EqualTo("NODE"), "Capella's literals are upper-case and unchanged");
+                Assert.That(PhysicalComponentNatureProvider.ToLiteralString(PhysicalComponentNature.NODE), Is.EqualTo("NODE"), "Capella's literals are upper-case and unchanged");
             });
         }
 
@@ -71,14 +71,14 @@ namespace Auriga.Extensions.Tests
         {
             foreach (FontFormat value in Enum.GetValues(typeof(FontFormat)))
             {
-                var literal = FontFormatProvider.ToXmlLiteral(value);
+                var literal = FontFormatProvider.ToLiteralString(value);
 
                 Assert.That(FontFormatProvider.Parse(literal.AsSpan()), Is.EqualTo(value), $"'{literal}' must parse back to {value}");
             }
 
             foreach (PhysicalComponentNature value in Enum.GetValues(typeof(PhysicalComponentNature)))
             {
-                var literal = PhysicalComponentNatureProvider.ToXmlLiteral(value);
+                var literal = PhysicalComponentNatureProvider.ToLiteralString(value);
 
                 Assert.That(PhysicalComponentNatureProvider.Parse(literal.AsSpan()), Is.EqualTo(value), $"'{literal}' must parse back to {value}");
             }
@@ -87,7 +87,7 @@ namespace Auriga.Extensions.Tests
         [Test]
         public void Verify_that_an_undefined_value_cannot_be_written()
         {
-            Assert.That(() => FontFormatProvider.ToXmlLiteral((FontFormat)9999), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => FontFormatProvider.ToLiteralString((FontFormat)9999), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
     }
 }

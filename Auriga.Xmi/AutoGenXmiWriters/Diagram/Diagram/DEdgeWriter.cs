@@ -74,7 +74,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             this.WriteReferenceListAttribute(xmlWriter, "outgoingEdges", poco.OutgoingEdges, poco, "OutgoingEdges", context);
             this.WriteReferenceListAttribute(xmlWriter, "parentLayers", poco.ParentLayers, poco, "ParentLayers", context);
             this.WriteReferenceListAttribute(xmlWriter, "path", poco.Path, poco, "Path", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeRouting>(xmlWriter, "routingStyle", poco.RoutingStyle, Auriga.Extensions.EdgeRoutingProvider.ToXmlLiteral, Auriga.Diagram.Diagram.EdgeRouting.Straight);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeRouting>(xmlWriter, "routingStyle", poco.RoutingStyle, Auriga.Extensions.EdgeRoutingProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeRouting.Straight);
             this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
             WriteIntegerAttribute(xmlWriter, "size", poco.Size, 1);
             this.WriteReferenceAttribute(xmlWriter, "sourceNode", poco.SourceNode, poco, "SourceNode", context);
@@ -83,7 +83,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             WriteStringAttribute(xmlWriter, "tooltipText", poco.TooltipText);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
-            WriteEnumListElements<Auriga.Diagram.Diagram.ArrangeConstraint>(xmlWriter, "arrangeConstraints", poco.ArrangeConstraints, Auriga.Extensions.ArrangeConstraintProvider.ToXmlLiteral);
+            WriteEnumListElements<Auriga.Diagram.Diagram.ArrangeConstraint>(xmlWriter, "arrangeConstraints", poco.ArrangeConstraints, Auriga.Extensions.ArrangeConstraintProvider.ToLiteralString);
             this.WriteContainedElements(xmlWriter, "decorations", poco.Decorations, poco, "Decorations", context);
             this.WriteContainedElements(xmlWriter, "graphicalFilters", poco.GraphicalFilters, poco, "GraphicalFilters", context);
             this.WriteContainedElement(xmlWriter, "ownedStyle", poco.OwnedStyle, poco, "OwnedStyle", context);

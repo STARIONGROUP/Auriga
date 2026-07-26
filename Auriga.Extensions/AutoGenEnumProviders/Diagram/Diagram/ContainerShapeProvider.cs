@@ -85,7 +85,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Diagram.Diagram.ContainerShape value)
+        public static string ToLiteralString(Auriga.Diagram.Diagram.ContainerShape value)
         {
             return value switch
             {

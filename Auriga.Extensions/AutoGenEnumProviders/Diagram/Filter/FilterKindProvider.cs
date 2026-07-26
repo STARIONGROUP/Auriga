@@ -91,7 +91,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Diagram.Diagram.Description.Filter.FilterKind value)
+        public static string ToLiteralString(Auriga.Diagram.Diagram.Description.Filter.FilterKind value)
         {
             return value switch
             {

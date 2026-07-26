@@ -151,7 +151,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Model.Interaction.InteractionOperatorKind value)
+        public static string ToLiteralString(Auriga.Model.Interaction.InteractionOperatorKind value)
         {
             return value switch
             {

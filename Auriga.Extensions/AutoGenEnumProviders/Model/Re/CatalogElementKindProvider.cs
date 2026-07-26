@@ -103,7 +103,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Model.Re.CatalogElementKind value)
+        public static string ToLiteralString(Auriga.Model.Re.CatalogElementKind value)
         {
             return value switch
             {

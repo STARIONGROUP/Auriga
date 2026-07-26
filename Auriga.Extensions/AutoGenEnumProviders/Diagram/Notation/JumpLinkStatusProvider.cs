@@ -103,7 +103,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Diagram.Notation.JumpLinkStatus value)
+        public static string ToLiteralString(Auriga.Diagram.Notation.JumpLinkStatus value)
         {
             return value switch
             {

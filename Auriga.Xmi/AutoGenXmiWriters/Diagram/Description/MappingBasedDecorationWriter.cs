@@ -63,11 +63,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.IMappingBasedDecoration poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.DecorationDistributionDirection>(xmlWriter, "distributionDirection", poco.DistributionDirection, Auriga.Extensions.DecorationDistributionDirectionProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.DecorationDistributionDirection>(xmlWriter, "distributionDirection", poco.DistributionDirection, Auriga.Extensions.DecorationDistributionDirectionProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "imageExpression", poco.ImageExpression);
             this.WriteReferenceListAttribute(xmlWriter, "mappings", poco.Mappings, poco, "Mappings", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Position>(xmlWriter, "position", poco.Position, Auriga.Extensions.PositionProvider.ToXmlLiteral, Auriga.Diagram.Viewpoint.Description.Position.SOUTH_WEST);
+            WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Position>(xmlWriter, "position", poco.Position, Auriga.Extensions.PositionProvider.ToLiteralString, Auriga.Diagram.Viewpoint.Description.Position.SOUTH_WEST);
             WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression);
             WriteStringAttribute(xmlWriter, "tooltipExpression", poco.TooltipExpression);
         }

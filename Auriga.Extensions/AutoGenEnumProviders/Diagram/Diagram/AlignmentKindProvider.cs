@@ -97,7 +97,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Diagram.Diagram.AlignmentKind value)
+        public static string ToLiteralString(Auriga.Diagram.Diagram.AlignmentKind value)
         {
             return value switch
             {

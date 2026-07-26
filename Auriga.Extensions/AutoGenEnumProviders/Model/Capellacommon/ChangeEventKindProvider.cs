@@ -85,7 +85,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Model.Capellacommon.ChangeEventKind value)
+        public static string ToLiteralString(Auriga.Model.Capellacommon.ChangeEventKind value)
         {
             return value switch
             {

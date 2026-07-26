@@ -72,7 +72,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Fa
             this.WriteReferenceAttribute(xmlWriter, "interrupts", poco.Interrupts, poco, "Interrupts", context);
             WriteBooleanAttribute(xmlWriter, "isMulticast", poco.IsMulticast);
             WriteBooleanAttribute(xmlWriter, "isMultireceive", poco.IsMultireceive);
-            WriteEnumAttribute<Auriga.Model.Modellingcore.RateKind>(xmlWriter, "kindOfRate", poco.KindOfRate, Auriga.Extensions.RateKindProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Model.Modellingcore.RateKind>(xmlWriter, "kindOfRate", poco.KindOfRate, Auriga.Extensions.RateKindProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);

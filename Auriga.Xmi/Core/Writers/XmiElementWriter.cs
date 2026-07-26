@@ -221,12 +221,12 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
         /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
-        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value, Func<TEnum, string> toXmlLiteral, TEnum? defaultValue = null)
+        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value, Func<TEnum, string> ToLiteralString, TEnum? defaultValue = null)
             where TEnum : struct
         {
             if (value.HasValue && !value.Equals(defaultValue))
             {
-                xmlWriter.WriteAttributeString(name, toXmlLiteral(value.Value));
+                xmlWriter.WriteAttributeString(name, ToLiteralString(value.Value));
             }
         }
 
@@ -405,7 +405,7 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="values">the enumeration values</param>
-        protected static void WriteEnumListAttribute<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> toXmlLiteral)
+        protected static void WriteEnumListAttribute<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> ToLiteralString)
             where TEnum : struct
         {
             if (values == null)
@@ -413,7 +413,7 @@ namespace Auriga.Xmi.Core.Writers
                 return;
             }
 
-            var joined = string.Join(" ", values.Select(toXmlLiteral));
+            var joined = string.Join(" ", values.Select(ToLiteralString));
             if (joined.Length > 0)
             {
                 xmlWriter.WriteAttributeString(name, joined);
@@ -482,7 +482,7 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML element name of the feature</param>
         /// <param name="values">the enumeration values, one child element each</param>
-        protected static void WriteEnumListElements<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> toXmlLiteral)
+        protected static void WriteEnumListElements<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> ToLiteralString)
             where TEnum : struct
         {
             if (values == null)
@@ -492,7 +492,7 @@ namespace Auriga.Xmi.Core.Writers
 
             foreach (var value in values)
             {
-                xmlWriter.WriteElementString(name, toXmlLiteral(value));
+                xmlWriter.WriteElementString(name, ToLiteralString(value));
             }
         }
 

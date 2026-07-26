@@ -64,11 +64,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Template
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression, "feature:name");
-            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "lineStyle", poco.LineStyle, Auriga.Extensions.LineStyleProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "lineStyle", poco.LineStyle, Auriga.Extensions.LineStyleProvider.ToLiteralString);
             this.WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "sourceArrow", poco.SourceArrow, Auriga.Extensions.EdgeArrowsProvider.ToXmlLiteral, Auriga.Diagram.Diagram.EdgeArrows.NoDecoration);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "sourceArrow", poco.SourceArrow, Auriga.Extensions.EdgeArrowsProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeArrows.NoDecoration);
             this.WriteReferenceAttribute(xmlWriter, "strokeColor", poco.StrokeColor, poco, "StrokeColor", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow, Auriga.Extensions.EdgeArrowsProvider.ToXmlLiteral, Auriga.Diagram.Diagram.EdgeArrows.InputArrow);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow, Auriga.Extensions.EdgeArrowsProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeArrows.InputArrow);
         }
     }
 }

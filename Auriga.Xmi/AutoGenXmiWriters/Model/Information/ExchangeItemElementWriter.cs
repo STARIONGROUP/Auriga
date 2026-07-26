@@ -68,9 +68,9 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information
             this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteBooleanAttribute(xmlWriter, "composite", poco.Composite);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
-            WriteEnumAttribute<Auriga.Model.Information.ParameterDirection>(xmlWriter, "direction", poco.Direction, Auriga.Extensions.ParameterDirectionProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Model.Information.ParameterDirection>(xmlWriter, "direction", poco.Direction, Auriga.Extensions.ParameterDirectionProvider.ToLiteralString);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
-            WriteEnumAttribute<Auriga.Model.Information.ElementKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.ElementKindProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Model.Information.ElementKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.ElementKindProvider.ToLiteralString);
             WriteBooleanAttribute(xmlWriter, "maxInclusive", poco.MaxInclusive);
             WriteBooleanAttribute(xmlWriter, "minInclusive", poco.MinInclusive);
             WriteStringAttribute(xmlWriter, "name", poco.Name);

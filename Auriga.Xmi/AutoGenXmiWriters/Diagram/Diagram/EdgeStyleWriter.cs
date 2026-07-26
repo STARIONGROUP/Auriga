@@ -63,15 +63,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IEdgeStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.CenteringStyle>(xmlWriter, "centered", poco.Centered, Auriga.Extensions.CenteringStyleProvider.ToXmlLiteral, Auriga.Diagram.Diagram.Description.CenteringStyle.None);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.CenteringStyle>(xmlWriter, "centered", poco.Centered, Auriga.Extensions.CenteringStyleProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.CenteringStyle.None);
             this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.FoldingStyle>(xmlWriter, "foldingStyle", poco.FoldingStyle, Auriga.Extensions.FoldingStyleProvider.ToXmlLiteral, Auriga.Diagram.Diagram.Description.FoldingStyle.NONE);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "lineStyle", poco.LineStyle, Auriga.Extensions.LineStyleProvider.ToXmlLiteral);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeRouting>(xmlWriter, "routingStyle", poco.RoutingStyle, Auriga.Extensions.EdgeRoutingProvider.ToXmlLiteral, Auriga.Diagram.Diagram.EdgeRouting.Straight);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.FoldingStyle>(xmlWriter, "foldingStyle", poco.FoldingStyle, Auriga.Extensions.FoldingStyleProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.FoldingStyle.NONE);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "lineStyle", poco.LineStyle, Auriga.Extensions.LineStyleProvider.ToLiteralString);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeRouting>(xmlWriter, "routingStyle", poco.RoutingStyle, Auriga.Extensions.EdgeRoutingProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeRouting.Straight);
             WriteIntegerAttribute(xmlWriter, "size", poco.Size, 1);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "sourceArrow", poco.SourceArrow, Auriga.Extensions.EdgeArrowsProvider.ToXmlLiteral, Auriga.Diagram.Diagram.EdgeArrows.NoDecoration);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "sourceArrow", poco.SourceArrow, Auriga.Extensions.EdgeArrowsProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeArrows.NoDecoration);
             WriteStringAttribute(xmlWriter, "strokeColor", poco.StrokeColor, "136,136,136");
-            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow, Auriga.Extensions.EdgeArrowsProvider.ToXmlLiteral, Auriga.Diagram.Diagram.EdgeArrows.InputArrow);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow, Auriga.Extensions.EdgeArrowsProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeArrows.InputArrow);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             this.WriteContainedElement(xmlWriter, "beginLabelStyle", poco.BeginLabelStyle, poco, "BeginLabelStyle", context);
             this.WriteContainedElement(xmlWriter, "centerLabelStyle", poco.CenterLabelStyle, poco, "CenterLabelStyle", context);

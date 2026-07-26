@@ -70,7 +70,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information.Datavalue
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteEnumAttribute<Auriga.Model.Information.Datavalue.UnaryOperator>(xmlWriter, "operator", poco.Operator, Auriga.Extensions.UnaryOperatorProvider.ToXmlLiteral);
+            WriteEnumAttribute<Auriga.Model.Information.Datavalue.UnaryOperator>(xmlWriter, "operator", poco.Operator, Auriga.Extensions.UnaryOperatorProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
             this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);

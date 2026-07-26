@@ -97,7 +97,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Model.Information.PassingMode value)
+        public static string ToLiteralString(Auriga.Model.Information.PassingMode value)
         {
             return value switch
             {

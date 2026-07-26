@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Filter
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Filter.IVariableFilter poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Filter.FilterKind>(xmlWriter, "filterKind", poco.FilterKind, Auriga.Extensions.FilterKindProvider.ToXmlLiteral, Auriga.Diagram.Diagram.Description.Filter.FilterKind.HIDE);
+            WriteEnumAttribute<Auriga.Diagram.Diagram.Description.Filter.FilterKind>(xmlWriter, "filterKind", poco.FilterKind, Auriga.Extensions.FilterKindProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.Filter.FilterKind.HIDE);
             WriteStringAttribute(xmlWriter, "semanticConditionExpression", poco.SemanticConditionExpression, "");
             this.WriteContainedElements(xmlWriter, "ownedVariables", poco.OwnedVariables, poco, "OwnedVariables", context);
         }

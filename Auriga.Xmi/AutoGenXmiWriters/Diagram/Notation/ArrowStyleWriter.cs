@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IArrowStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteEnumAttribute<Auriga.Diagram.Notation.ArrowType>(xmlWriter, "arrowSource", poco.ArrowSource, Auriga.Extensions.ArrowTypeProvider.ToXmlLiteral, Auriga.Diagram.Notation.ArrowType.None);
-            WriteEnumAttribute<Auriga.Diagram.Notation.ArrowType>(xmlWriter, "arrowTarget", poco.ArrowTarget, Auriga.Extensions.ArrowTypeProvider.ToXmlLiteral, Auriga.Diagram.Notation.ArrowType.None);
+            WriteEnumAttribute<Auriga.Diagram.Notation.ArrowType>(xmlWriter, "arrowSource", poco.ArrowSource, Auriga.Extensions.ArrowTypeProvider.ToLiteralString, Auriga.Diagram.Notation.ArrowType.None);
+            WriteEnumAttribute<Auriga.Diagram.Notation.ArrowType>(xmlWriter, "arrowTarget", poco.ArrowTarget, Auriga.Extensions.ArrowTypeProvider.ToLiteralString, Auriga.Diagram.Notation.ArrowType.None);
         }
     }
 }

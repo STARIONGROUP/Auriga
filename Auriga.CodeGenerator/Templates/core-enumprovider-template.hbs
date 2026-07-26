@@ -80,7 +80,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral({{EnumQualifiedType this}} value)
+        public static string ToLiteralString({{EnumQualifiedType this}} value)
         {
             return value switch
             {

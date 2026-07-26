@@ -103,7 +103,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Diagram.Diagram.ResizeKind value)
+        public static string ToLiteralString(Auriga.Diagram.Diagram.ResizeKind value)
         {
             return value switch
             {

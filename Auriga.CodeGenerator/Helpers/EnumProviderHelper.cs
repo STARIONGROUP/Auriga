@@ -104,7 +104,7 @@ namespace Auriga.CodeGenerator.Helpers
         }
 
         /// <summary>
-        /// The arms of the generated <c>ToXmlLiteral</c> switch: one per literal, mapping the C# member
+        /// The arms of the generated <c>ToLiteralString</c> switch: one per literal, mapping the C# member
         /// back to its Ecore name.
         /// </summary>
         /// <param name="eEnum">the enumeration</param>

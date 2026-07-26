@@ -127,7 +127,7 @@ namespace Auriga.Extensions
         /// <remarks>
         /// No allocations, no boxing, branch-predictable switch, JIT friendly.
         /// </remarks>
-        public static string ToXmlLiteral(Auriga.Model.Epbs.ConfigurationItemKind value)
+        public static string ToLiteralString(Auriga.Model.Epbs.ConfigurationItemKind value)
         {
             return value switch
             {

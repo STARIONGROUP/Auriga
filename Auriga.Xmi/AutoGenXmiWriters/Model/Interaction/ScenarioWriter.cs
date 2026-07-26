@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Interaction
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteBooleanAttribute(xmlWriter, "isControlOperator", poco.IsControlOperator);
-            WriteEnumAttribute<Auriga.Model.Interaction.ScenarioKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.ScenarioKindProvider.ToXmlLiteral, Auriga.Model.Interaction.ScenarioKind.UNSET);
+            WriteEnumAttribute<Auriga.Model.Interaction.ScenarioKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.ScenarioKindProvider.ToLiteralString, Auriga.Model.Interaction.ScenarioKind.UNSET);
             WriteBooleanAttribute(xmlWriter, "merged", poco.Merged);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             this.WriteReferenceListAttribute(xmlWriter, "ownedParameter", poco.OwnedParameter, poco, "OwnedParameter", context);
