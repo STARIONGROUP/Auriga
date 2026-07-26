@@ -103,12 +103,9 @@ namespace Auriga.Xmi.Core.Writers
                 throw new ArgumentException("At least one root is required.", nameof(roots));
             }
 
-            foreach (var element in rootList)
+            if (rootList.Contains(null!))
             {
-                if (element == null)
-                {
-                    throw new ArgumentNullException(nameof(roots), "A root element is null.");
-                }
+                throw new ArgumentNullException(nameof(roots), "A root element is null.");
             }
 
             var fullMainPath = Path.GetFullPath(mainFilePath);
@@ -311,7 +308,7 @@ namespace Auriga.Xmi.Core.Writers
             {
                 if (!string.IsNullOrEmpty(current.SourceDocument))
                 {
-                    return current.SourceDocument!;
+                    return current.SourceDocument;
                 }
             }
 
