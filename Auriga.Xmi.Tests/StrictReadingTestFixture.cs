@@ -77,7 +77,7 @@ namespace Auriga.Xmi.Tests
                 Assert.That(result.Root, Is.InstanceOf<Auriga.Model.Capellamodeller.IProject>());
                 Assert.That(result.Elements, Has.Count.EqualTo(1), "the unrecognized element is not instantiated as a model element");
 
-                // It is retained verbatim rather than discarded (issue #127), so it is no longer reported
+                // It is retained verbatim rather than discarded, so it is no longer reported
                 // as a warning: nothing is lost, and the writer re-emits it unchanged.
                 Assert.That(result.Root.UninterpretedContent, Has.Count.EqualTo(1), "the unrecognized element is captured");
                 Assert.That(result.Root.UninterpretedContent[0], Does.Contain("unknownAddonFeature"));

@@ -426,7 +426,7 @@ namespace Auriga.Xmi.Core.Writers
         /// <summary>
         /// Writes the attributes the reader could not interpret, verbatim, after the modeled ones — the
         /// attributes of a package Auriga does not vendor, which would otherwise be lost on write
-        /// (issue #127).
+        ///.
         /// </summary>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="poco">the element whose uninterpreted attributes to write</param>
@@ -456,7 +456,7 @@ namespace Auriga.Xmi.Core.Writers
         /// <summary>
         /// Writes the child elements the reader could not interpret, verbatim, after the modeled children.
         /// The captured text carries the namespace declarations it needs, so it stands alone regardless of
-        /// what the surrounding document declares (issue #127).
+        /// what the surrounding document declares.
         /// </summary>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="poco">the element whose uninterpreted content to write</param>

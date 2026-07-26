@@ -11,7 +11,7 @@ namespace Auriga.Core
 {
     /// <summary>
     /// An attribute the reader could not interpret, retained verbatim so a write can re-emit it — an
-    /// attribute of a package Auriga does not vendor, or one the metamodel does not declare (issue #127).
+    /// attribute of a package Auriga does not vendor, or one the metamodel does not declare.
     /// </summary>
     /// <remarks>
     /// The namespace is carried alongside the name because a prefixed attribute cannot be written back

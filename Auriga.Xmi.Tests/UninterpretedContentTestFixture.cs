@@ -17,7 +17,7 @@ namespace Auriga.Xmi.Tests
     using NUnit.Framework;
 
     /// <summary>
-    /// Tests that content Auriga cannot interpret survives a read-write unchanged (issue #127): an
+    /// Tests that content Auriga cannot interpret survives a read-write unchanged: an
     /// element whose type belongs to a package that is not vendored — an add-on viewpoint, say — and an
     /// attribute the metamodel does not declare. Without this, a read-write of a model Auriga only
     /// partly understands silently destroys the parts it does not model, which the Capella tool itself

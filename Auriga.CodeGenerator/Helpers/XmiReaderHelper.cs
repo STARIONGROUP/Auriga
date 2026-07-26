@@ -504,9 +504,9 @@ namespace Auriga.CodeGenerator.Helpers
 
         /// <summary>
         /// The XML names of every attribute the class declares, as initializer entries for the reader's
-        /// <c>KnownAttributes</c> set. An attribute outside this set is uninterpreted and captured verbatim
-        /// (issue #127). Multi-valued simple attributes are included: they may still appear in the
-        /// attribute form even though EMF writes them as child elements.
+        /// <c>KnownAttributes</c> set. An attribute outside this set is uninterpreted and captured
+        /// verbatim. Multi-valued simple attributes are included: they may still appear in the attribute
+        /// form even though EMF writes them as child elements.
         /// </summary>
         /// <param name="eClass">the class</param>
         /// <returns>the generated set initializer entries</returns>

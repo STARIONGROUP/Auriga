@@ -194,7 +194,7 @@ namespace Auriga.Xmi.Core.Readers
         /// <em>known</em> feature whose child carried an <c>href</c>: that child has already been recorded
         /// as an unresolved reference and the writer re-emits it as a proxy, so capturing it too would
         /// write it twice. Only a reader's <c>default</c> branch — a child the metamodel does not declare —
-        /// captures (issue #127).
+        /// captures.
         ///
         /// <para><see cref="XmlReader.ReadOuterXml"/> materializes the namespace declarations the fragment
         /// needs but inherits from an ancestor, so the captured text stands alone and can be written back

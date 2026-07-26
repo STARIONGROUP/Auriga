@@ -74,7 +74,7 @@ namespace Auriga.Core
         /// document order. Populated when an element's type belongs to a package Auriga does not vendor —
         /// an add-on viewpoint, say — or is otherwise not part of the metamodel. The writer re-emits each
         /// one unchanged, so a read-write of a model Auriga only partly understands does not destroy the
-        /// parts it does not model (issue #127).
+        /// parts it does not model.
         /// </summary>
         IList<string> UninterpretedContent { get; }
 
