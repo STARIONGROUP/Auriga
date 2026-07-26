@@ -114,6 +114,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
 
                         switch (xmlReader.LocalName)
                         {
+                            case "targets":
+                            {
+                                if (TryParseEnum<Auriga.Diagram.Diagram.Description.LayoutOptionTarget>(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.Targets.Add(parsed);
+                                }
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

@@ -189,6 +189,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint
 
                                 break;
                             }
+                            case "semanticResources":
+                            {
+                                poco.SemanticResources.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

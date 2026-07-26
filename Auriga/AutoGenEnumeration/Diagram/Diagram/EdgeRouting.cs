@@ -23,16 +23,19 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The <c>Straight</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "straight")]
         Straight,
 
         /// <summary>
         /// The <c>Manhattan</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "manhattan")]
         Manhattan,
 
         /// <summary>
         /// The <c>Tree</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "tree")]
         Tree
 
     }

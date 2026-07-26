@@ -63,21 +63,21 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.IViewpoint poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringListAttribute(xmlWriter, "conflicts", poco.Conflicts);
-            WriteStringListAttribute(xmlWriter, "customizes", poco.Customizes);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation, "");
             WriteStringAttribute(xmlWriter, "icon", poco.Icon);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "modelFileExtension", poco.ModelFileExtension, "*");
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            WriteStringListAttribute(xmlWriter, "reuses", poco.Reuses);
+            WriteStringListElements(xmlWriter, "conflicts", poco.Conflicts);
+            WriteStringListElements(xmlWriter, "customizes", poco.Customizes);
             this.WriteContainedElements(xmlWriter, "ownedFeatureExtensions", poco.OwnedFeatureExtensions, poco, "OwnedFeatureExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedJavaExtensions", poco.OwnedJavaExtensions, poco, "OwnedJavaExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedMMExtensions", poco.OwnedMMExtensions, poco, "OwnedMMExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedRepresentationExtensions", poco.OwnedRepresentationExtensions, poco, "OwnedRepresentationExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedRepresentations", poco.OwnedRepresentations, poco, "OwnedRepresentations", context);
             this.WriteContainedElements(xmlWriter, "ownedTemplates", poco.OwnedTemplates, poco, "OwnedTemplates", context);
+            WriteStringListElements(xmlWriter, "reuses", poco.Reuses);
             this.WriteContainedElement(xmlWriter, "validationSet", poco.ValidationSet, poco, "ValidationSet", context);
         }
     }

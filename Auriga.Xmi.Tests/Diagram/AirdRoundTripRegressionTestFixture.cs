@@ -64,6 +64,51 @@ namespace Auriga.Xmi.Tests.Diagram
         }
 
         /// <summary>
+        /// Reads every <c>.aird</c> fixture, writes it back, and asserts that no simple-attribute value was
+        /// dropped — the scalar-fidelity half of the round-trip guarantee (issue #121).
+        ///
+        /// <para>This is where the multi-valued simple attributes are most dense: a Sirius
+        /// <c>DAnalysis</c>'s <c>semanticResources</c> (its <c>.afm</c> / <c>.capella</c> pointers, without
+        /// which the written <c>.aird</c> no longer names its semantic model) and every
+        /// <c>DDiagramElement</c>'s <c>arrangeConstraints</c>. The semantic round-trip cannot see these:
+        /// dropping a list of strings leaves the object graph structurally identical.</para>
+        /// </summary>
+        /// <param name="relativePath">the fixture's main <c>.aird</c> file, relative to <c>TestData/</c></param>
+        [TestCaseSource(nameof(Fixtures))]
+        public void Verify_that_no_simple_attribute_values_are_dropped(string relativePath)
+        {
+            var mainPath = FixturePath(relativePath);
+            var original = ReadSupportedOrIgnore(mainPath);
+            var originalDirectory = Path.GetDirectoryName(mainPath)!;
+            var directory = CreateTempDirectory();
+
+            try
+            {
+                XmiWriterBuilder.Create().Build().Write(TopLevelRoots(original), Path.Combine(directory, Path.GetFileName(mainPath)));
+
+                var dropped = new List<string>();
+                foreach (var writtenFile in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).OrderBy(p => p, StringComparer.Ordinal))
+                {
+                    var relative = Path.GetRelativePath(directory, writtenFile);
+                    var originalFile = Path.Combine(originalDirectory, relative);
+
+                    if (File.Exists(originalFile))
+                    {
+                        dropped.AddRange(SimpleAttributeFidelity
+                            .Dropped(System.Xml.Linq.XDocument.Load(originalFile), System.Xml.Linq.XDocument.Load(writtenFile))
+                            .Select(difference => $"{relative}: {difference}"));
+                    }
+                }
+
+                Assert.That(dropped, Is.Empty, "simple-attribute values lost on write:\n  " + string.Join("\n  ", dropped.Take(20)));
+            }
+            finally
+            {
+                Directory.Delete(directory, recursive: true);
+            }
+        }
+
+        /// <summary>
         /// The top-level roots of a read <c>.aird</c>, in read order with the returned <see cref="XmiReaderResult.Root"/>
         /// first: the <c>viewpoint:DAnalysis</c> and every representation root the reader loaded as a parallel
         /// top-level element (those whose <see cref="IAurigaElement.Container"/> is <c>null</c>).

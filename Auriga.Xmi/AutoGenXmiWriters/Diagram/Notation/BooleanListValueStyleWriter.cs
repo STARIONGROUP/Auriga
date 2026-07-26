@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IBooleanListValueStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            // 'booleanListValue' is a multi-valued primitive of an unsupported element type and is not written
             WriteStringAttribute(xmlWriter, "name", poco.Name);
+            WritePrimitiveListElements(xmlWriter, "booleanListValue", poco.BooleanListValue);
         }
     }
 }

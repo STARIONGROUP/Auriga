@@ -259,6 +259,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
 
                                 break;
                             }
+                            case "labelFormat":
+                            {
+                                if (TryParseEnum<Auriga.Diagram.Viewpoint.FontFormat>(ReadElementText(xmlReader), out var parsed))
+                                {
+                                    poco.LabelFormat.Add(parsed);
+                                }
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

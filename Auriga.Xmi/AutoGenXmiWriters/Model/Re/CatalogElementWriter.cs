@@ -74,11 +74,11 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Re
             WriteStringAttribute(xmlWriter, "purpose", poco.Purpose);
             WriteBooleanAttribute(xmlWriter, "readOnly", poco.ReadOnly, false);
             WriteStringAttribute(xmlWriter, "suffix", poco.Suffix);
-            WriteStringListAttribute(xmlWriter, "tags", poco.Tags);
             WriteStringAttribute(xmlWriter, "version", poco.Version);
             this.WriteContainedElements(xmlWriter, "ownedElements", poco.OwnedElements, poco, "OwnedElements", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedLinks", poco.OwnedLinks, poco, "OwnedLinks", context);
+            WriteStringListElements(xmlWriter, "tags", poco.Tags);
         }
     }
 }

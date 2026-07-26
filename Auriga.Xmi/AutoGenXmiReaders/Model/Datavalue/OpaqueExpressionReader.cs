@@ -183,6 +183,12 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
 
                                 break;
                             }
+                            case "bodies":
+                            {
+                                poco.Bodies.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             case "features":
                             {
                                 var href = xmlReader.GetAttribute("href");
@@ -195,6 +201,12 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
                                 {
                                     SkipElement(xmlReader);
                                 }
+
+                                break;
+                            }
+                            case "languages":
+                            {
+                                poco.Languages.Add(ReadElementText(xmlReader));
 
                                 break;
                             }

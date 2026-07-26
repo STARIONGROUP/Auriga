@@ -108,6 +108,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
 
                         switch (xmlReader.LocalName)
                         {
+                            case "hiddenLabels":
+                            {
+                                if (int.TryParse(ReadElementText(xmlReader), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+                                {
+                                    poco.HiddenLabels.Add(parsed);
+                                }
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

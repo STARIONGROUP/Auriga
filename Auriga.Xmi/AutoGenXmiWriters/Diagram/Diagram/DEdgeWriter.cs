@@ -64,7 +64,6 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "actualMapping", poco.ActualMapping, poco, "ActualMapping", context);
-            WriteEnumListAttribute<Auriga.Diagram.Diagram.ArrangeConstraint>(xmlWriter, "arrangeConstraints", poco.ArrangeConstraints);
             WriteStringAttribute(xmlWriter, "beginLabel", poco.BeginLabel, "");
             WriteStringAttribute(xmlWriter, "endLabel", poco.EndLabel, "");
             this.WriteReferenceListAttribute(xmlWriter, "incomingEdges", poco.IncomingEdges, poco, "IncomingEdges", context);
@@ -84,6 +83,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             WriteStringAttribute(xmlWriter, "tooltipText", poco.TooltipText);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
+            WriteEnumListElements<Auriga.Diagram.Diagram.ArrangeConstraint>(xmlWriter, "arrangeConstraints", poco.ArrangeConstraints);
             this.WriteContainedElements(xmlWriter, "decorations", poco.Decorations, poco, "Decorations", context);
             this.WriteContainedElements(xmlWriter, "graphicalFilters", poco.GraphicalFilters, poco, "GraphicalFilters", context);
             this.WriteContainedElement(xmlWriter, "ownedStyle", poco.OwnedStyle, poco, "OwnedStyle", context);

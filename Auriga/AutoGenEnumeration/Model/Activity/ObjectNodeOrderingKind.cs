@@ -33,11 +33,13 @@ namespace Auriga.Model.Activity
         /// <summary>
         /// The <c>Ordered</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "ordered")]
         Ordered,
 
         /// <summary>
         /// The <c>Unordered</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "unordered")]
         Unordered
 
     }

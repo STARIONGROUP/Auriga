@@ -23,31 +23,37 @@ namespace Auriga.Diagram.Diagram
         /// <summary>
         /// The <c>Square</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "square")]
         Square,
 
         /// <summary>
         /// The <c>Stroke</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "stroke")]
         Stroke,
 
         /// <summary>
         /// The <c>Triangle</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "triangle")]
         Triangle,
 
         /// <summary>
         /// The <c>Dot</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "dot")]
         Dot,
 
         /// <summary>
         /// The <c>Ring</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "ring")]
         Ring,
 
         /// <summary>
         /// The <c>ProvidedShape</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "providedShape")]
         ProvidedShape
 
     }

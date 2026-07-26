@@ -65,12 +65,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
             WriteId(xmlWriter, poco);
             this.WriteReferenceListAttribute(xmlWriter, "referencedAnalysis", poco.ReferencedAnalysis, poco, "ReferencedAnalysis", context);
             this.WriteReferenceListAttribute(xmlWriter, "selectedViews", poco.SelectedViews, poco, "SelectedViews", context);
-            WriteStringListAttribute(xmlWriter, "semanticResources", poco.SemanticResources);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteStringAttribute(xmlWriter, "version", poco.Version);
             this.WriteContainedElements(xmlWriter, "eAnnotations", poco.EAnnotations, poco, "EAnnotations", context);
             this.WriteContainedElements(xmlWriter, "ownedFeatureExtensions", poco.OwnedFeatureExtensions, poco, "OwnedFeatureExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedViews", poco.OwnedViews, poco, "OwnedViews", context);
+            WriteStringListElements(xmlWriter, "semanticResources", poco.SemanticResources);
         }
     }
 }

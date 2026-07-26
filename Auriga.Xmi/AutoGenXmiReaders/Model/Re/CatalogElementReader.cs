@@ -223,6 +223,12 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Re
 
                                 break;
                             }
+                            case "tags":
+                            {
+                                poco.Tags.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

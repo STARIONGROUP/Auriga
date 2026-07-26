@@ -135,6 +135,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
 
                         switch (xmlReader.LocalName)
                         {
+                            case "customFeatures":
+                            {
+                                poco.CustomFeatures.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             default:
                                 if (this.XmiReaderSettings.UseStrictReading)
                                 {

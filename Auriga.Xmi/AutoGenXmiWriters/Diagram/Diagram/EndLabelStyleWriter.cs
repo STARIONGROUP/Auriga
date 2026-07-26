@@ -63,13 +63,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IEndLabelStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            WriteStringListAttribute(xmlWriter, "customFeatures", poco.CustomFeatures);
             WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteStringAttribute(xmlWriter, "labelColor", poco.LabelColor, "0,0,0");
-            WriteEnumListAttribute<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
             WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
             WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
+            WriteStringListElements(xmlWriter, "customFeatures", poco.CustomFeatures);
+            WriteEnumListElements<Auriga.Diagram.Viewpoint.FontFormat>(xmlWriter, "labelFormat", poco.LabelFormat);
         }
     }
 }

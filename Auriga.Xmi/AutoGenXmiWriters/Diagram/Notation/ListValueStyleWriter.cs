@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "instanceType", poco.InstanceType as Auriga.Core.IAurigaElement, poco, "InstanceType", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            WriteStringListAttribute(xmlWriter, "rawValuesList", poco.RawValuesList);
+            WriteStringListElements(xmlWriter, "rawValuesList", poco.RawValuesList);
         }
     }
 }

@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IHideLabelFilter poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            // 'hiddenLabels' is a multi-valued primitive of an unsupported element type and is not written
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
+            WritePrimitiveListElements(xmlWriter, "hiddenLabels", poco.HiddenLabels);
         }
     }
 }

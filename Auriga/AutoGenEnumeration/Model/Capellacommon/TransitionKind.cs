@@ -23,16 +23,19 @@ namespace Auriga.Model.Capellacommon
         /// <summary>
         /// The <c>Internal</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "internal")]
         Internal,
 
         /// <summary>
         /// The <c>Local</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "local")]
         Local,
 
         /// <summary>
         /// The <c>External</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "external")]
         External
 
     }

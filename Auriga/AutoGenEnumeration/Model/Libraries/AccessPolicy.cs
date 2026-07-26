@@ -23,11 +23,13 @@ namespace Auriga.Model.Libraries
         /// <summary>
         /// The <c>ReadOnly</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "readOnly")]
         ReadOnly,
 
         /// <summary>
         /// The <c>ReadAndWrite</c> literal.
         /// </summary>
+        [System.Runtime.Serialization.EnumMember(Value = "readAndWrite")]
         ReadAndWrite
 
     }

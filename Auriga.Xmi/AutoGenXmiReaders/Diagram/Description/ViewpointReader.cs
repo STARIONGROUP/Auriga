@@ -124,6 +124,18 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description
 
                         switch (xmlReader.LocalName)
                         {
+                            case "conflicts":
+                            {
+                                poco.Conflicts.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
+                            case "customizes":
+                            {
+                                poco.Customizes.Add(ReadElementText(xmlReader));
+
+                                break;
+                            }
                             case "ownedFeatureExtensions":
                             {
                                 var href = xmlReader.GetAttribute("href");
@@ -211,6 +223,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description
                                 {
                                     poco.OwnedTemplates.Add((Auriga.Diagram.Viewpoint.Description.IRepresentationTemplate)this.Facade.QueryElement(xmlReader, documentName, namespaceUri));
                                 }
+
+                                break;
+                            }
+                            case "reuses":
+                            {
+                                poco.Reuses.Add(ReadElementText(xmlReader));
 
                                 break;
                             }
