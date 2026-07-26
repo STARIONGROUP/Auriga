@@ -66,6 +66,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Style
             this.WriteReferenceAttribute(xmlWriter, "borderColor", poco.BorderColor, poco, "BorderColor", context);
             WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "borderLineStyle", poco.BorderLineStyle, Auriga.Extensions.LineStyleProvider.ToLiteralString, Auriga.Diagram.Diagram.LineStyle.Solid);
             WriteStringAttribute(xmlWriter, "borderSizeComputationExpression", poco.BorderSizeComputationExpression, "0");
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

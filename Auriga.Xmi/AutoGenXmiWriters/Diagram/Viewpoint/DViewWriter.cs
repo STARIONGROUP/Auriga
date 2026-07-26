@@ -65,8 +65,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             this.WriteReferenceAttribute(xmlWriter, "viewpoint", poco.Viewpoint, poco, "Viewpoint", context);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedRepresentationDescriptors", poco.OwnedRepresentationDescriptors, poco, "OwnedRepresentationDescriptors", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

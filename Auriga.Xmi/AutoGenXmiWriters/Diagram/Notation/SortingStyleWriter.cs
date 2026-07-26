@@ -66,6 +66,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             this.WriteReferenceListAttribute(xmlWriter, "sortedObjects", poco.SortedObjects, poco, "SortedObjects", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.Sorting>(xmlWriter, "sorting", poco.Sorting, Auriga.Extensions.SortingProvider.ToLiteralString, Auriga.Diagram.Notation.Sorting.None);
             WriteStringAttribute(xmlWriter, "sortingKeys", poco.SortingKeys);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

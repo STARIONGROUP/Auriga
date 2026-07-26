@@ -67,6 +67,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Filter
             this.WriteReferenceListAttribute(xmlWriter, "mappings", poco.Mappings, poco, "Mappings", context);
             WriteStringAttribute(xmlWriter, "semanticConditionExpression", poco.SemanticConditionExpression);
             WriteStringAttribute(xmlWriter, "viewConditionExpression", poco.ViewConditionExpression);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

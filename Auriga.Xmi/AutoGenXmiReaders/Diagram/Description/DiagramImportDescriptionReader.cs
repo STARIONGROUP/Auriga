@@ -43,6 +43,34 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
         }
 
         /// <summary>
+        /// The XML names of the attributes <c>DiagramImportDescription</c> declares. An attribute outside this
+        /// set is uninterpreted and is captured verbatim so a write can re-emit it (issue #127).
+        /// </summary>
+        private static readonly System.Collections.Generic.HashSet<string> KnownAttributes = new System.Collections.Generic.HashSet<string>(System.StringComparer.Ordinal)
+        {
+            "backgroundColor",
+            "defaultConcern",
+            "documentation",
+            "domainClass",
+            "dropDescriptions",
+            "enablePopupBars",
+            "endUserDocumentation",
+            "importedDiagram",
+            "init",
+            "initialisation",
+            "label",
+            "metamodel",
+            "name",
+            "pasteDescriptions",
+            "preconditionExpression",
+            "reusedMappings",
+            "reusedTools",
+            "rootExpression",
+            "showOnStartup",
+            "titleExpression",
+        };
+
+        /// <summary>
         /// Reads an <c>DiagramImportDescription</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
@@ -130,6 +158,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
                     }
                 }
                 poco.TitleExpression = xmlReader.GetAttribute("titleExpression");
+
+                // Any attribute the metamodel does not declare is retained verbatim so a write can
+                // re-emit it, rather than being silently dropped (issue #127).
+                CaptureUninterpretedAttributes(poco, xmlReader, KnownAttributes);
 
                 this.Cache.TryAdd(poco);
 
@@ -465,8 +497,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
                                     throw new NotSupportedException($"DiagramImportDescriptionReader: {xmlReader.LocalName} at line:position {xmlLineInfo?.LineNumber}:{xmlLineInfo?.LinePosition}");
                                 }
 
-                                this.Logger.LogWarning("Not supported by DiagramImportDescriptionReader: the '{LocalName}' element at line:position {LineNumber}:{LinePosition} is not part of the metamodel and was skipped", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
-                                SkipElement(xmlReader);
+                                // Not part of the metamodel — an element of a package Auriga does not
+                                // vendor, say — so it is retained verbatim rather than discarded, and the
+                                // writer re-emits it unchanged (issue #127).
+                                this.CaptureUninterpretedElement(poco, xmlReader);
                                 break;
                         }
                     }

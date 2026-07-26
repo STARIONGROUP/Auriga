@@ -66,7 +66,12 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Libraries
             WriteLongAttribute(xmlWriter, "lastModifiedFileStamp", poco.LastModifiedFileStamp);
             WriteIntegerAttribute(xmlWriter, "majorVersionNumber", poco.MajorVersionNumber);
             WriteIntegerAttribute(xmlWriter, "minorVersionNumber", poco.MinorVersionNumber);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

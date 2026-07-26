@@ -66,9 +66,14 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.CapellaRequirements
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
             WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "ownedDefinitionTypes", poco.OwnedDefinitionTypes, poco, "OwnedDefinitionTypes", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
             this.WriteContainedElements(xmlWriter, "ownedTypes", poco.OwnedTypes, poco, "OwnedTypes", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

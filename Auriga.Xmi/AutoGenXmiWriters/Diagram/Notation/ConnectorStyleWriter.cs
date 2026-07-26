@@ -73,6 +73,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius, 0);
             WriteEnumAttribute<Auriga.Diagram.Notation.Routing>(xmlWriter, "routing", poco.Routing, Auriga.Extensions.RoutingProvider.ToLiteralString, Auriga.Diagram.Notation.Routing.Manual);
             WriteEnumAttribute<Auriga.Diagram.Notation.Smoothness>(xmlWriter, "smoothness", poco.Smoothness, Auriga.Extensions.SmoothnessProvider.ToLiteralString, Auriga.Diagram.Notation.Smoothness.None);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

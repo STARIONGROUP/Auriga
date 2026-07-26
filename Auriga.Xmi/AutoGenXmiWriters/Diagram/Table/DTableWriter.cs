@@ -67,10 +67,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
             WriteIntegerAttribute(xmlWriter, "headerColumnWidth", poco.HeaderColumnWidth);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "columns", poco.Columns, poco, "Columns", context);
             this.WriteContainedElements(xmlWriter, "eAnnotations", poco.EAnnotations, poco, "EAnnotations", context);
             this.WriteContainedElements(xmlWriter, "lines", poco.Lines, poco, "Lines", context);
             this.WriteContainedElements(xmlWriter, "ownedAnnotationEntries", poco.OwnedAnnotationEntries, poco, "OwnedAnnotationEntries", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

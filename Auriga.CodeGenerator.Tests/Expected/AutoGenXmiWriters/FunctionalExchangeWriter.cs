@@ -85,6 +85,10 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Fa
             this.WriteReferenceAttribute(xmlWriter, "transformation", poco.Transformation, poco, "Transformation", context);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "guard", poco.Guard, poco, "Guard", context);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
@@ -96,6 +100,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Fa
             this.WriteContainedElement(xmlWriter, "probability", poco.Probability, poco, "Probability", context);
             this.WriteContainedElement(xmlWriter, "rate", poco.Rate, poco, "Rate", context);
             this.WriteContainedElement(xmlWriter, "weight", poco.Weight, poco, "Weight", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

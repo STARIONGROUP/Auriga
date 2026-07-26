@@ -184,6 +184,91 @@ namespace Auriga.Xmi.Core.Readers
             return subReader.ReadElementContentAsString();
         }
 
+        /// <summary>
+        /// Captures the element at the cursor and its subtree verbatim onto <paramref name="element"/>'s
+        /// <see cref="IAurigaElement.UninterpretedContent"/>, leaving the cursor on its end tag — the same
+        /// position <see cref="SkipElement"/> leaves it in.
+        /// </summary>
+        /// <remarks>
+        /// This is deliberately separate from <see cref="SkipElement"/>, which is also called for a
+        /// <em>known</em> feature whose child carried an <c>href</c>: that child has already been recorded
+        /// as an unresolved reference and the writer re-emits it as a proxy, so capturing it too would
+        /// write it twice. Only a reader's <c>default</c> branch — a child the metamodel does not declare —
+        /// captures (issue #127).
+        ///
+        /// <para><see cref="XmlReader.ReadOuterXml"/> materializes the namespace declarations the fragment
+        /// needs but inherits from an ancestor, so the captured text stands alone and can be written back
+        /// with <c>WriteRaw</c> into a document whose prefixes differ.</para>
+        /// </remarks>
+        /// <param name="element">the element that owns the uninterpreted child</param>
+        /// <param name="xmlReader">the reader positioned on the element to capture</param>
+        protected void CaptureUninterpretedElement(IAurigaElement element, XmlReader xmlReader)
+        {
+            if (this.Logger.IsEnabled(LogLevel.Debug))
+            {
+                var lineInfo = xmlReader as IXmlLineInfo;
+                this.Logger.LogDebug("Capturing the uninterpreted '{Element}' element and its subtree at line {Line}:{Position} so a write can re-emit it", xmlReader.LocalName, lineInfo?.LineNumber ?? -1, lineInfo?.LinePosition ?? -1);
+            }
+
+            element.UninterpretedContent.Add(xmlReader.ReadOuterXml());
+        }
+
+        /// <summary>
+        /// Captures every attribute of the element at the cursor that the metamodel does not declare onto
+        /// <paramref name="element"/>'s <see cref="IAurigaElement.UninterpretedAttributes"/>, leaving the
+        /// cursor back on the element. Namespace declarations and the identity/type attributes the writer
+        /// re-emits itself are never captured.
+        /// </summary>
+        /// <param name="element">the element that owns the uninterpreted attributes</param>
+        /// <param name="xmlReader">the reader positioned on the element</param>
+        /// <param name="knownAttributes">the XML names of the attributes the element's type declares</param>
+        protected static void CaptureUninterpretedAttributes(IAurigaElement element, XmlReader xmlReader, ISet<string> knownAttributes)
+        {
+            if (!xmlReader.HasAttributes)
+            {
+                return;
+            }
+
+            if (xmlReader.MoveToFirstAttribute())
+            {
+                do
+                {
+                    if (IsCapturableAttribute(xmlReader, knownAttributes))
+                    {
+                        element.UninterpretedAttributes.Add(new UninterpretedAttribute(xmlReader.Name, xmlReader.NamespaceURI, xmlReader.Value));
+                    }
+                }
+                while (xmlReader.MoveToNextAttribute());
+
+                xmlReader.MoveToElement();
+            }
+        }
+
+        /// <summary>
+        /// Whether the attribute at the cursor is one the writer must re-emit verbatim: not a namespace
+        /// declaration, not the identity or type attribute the writer produces from the element itself, and
+        /// not a feature the metamodel declares.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on an attribute</param>
+        /// <param name="knownAttributes">the XML names of the attributes the element's type declares</param>
+        /// <returns>true when the attribute is uninterpreted and must be captured</returns>
+        private static bool IsCapturableAttribute(XmlReader xmlReader, ISet<string> knownAttributes)
+        {
+            if (xmlReader.Prefix == "xmlns" || xmlReader.Name == "xmlns")
+            {
+                return false;
+            }
+
+            if (xmlReader.NamespaceURI == XsiNamespace || xmlReader.NamespaceURI == XmiNamespace)
+            {
+                return false;
+            }
+
+            return xmlReader.LocalName != "id"
+                   && xmlReader.LocalName != "uid"
+                   && !knownAttributes.Contains(xmlReader.LocalName);
+        }
+
         protected void SkipElement(XmlReader xmlReader)
         {
             if (this.Logger.IsEnabled(LogLevel.Trace))

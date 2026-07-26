@@ -43,6 +43,16 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
         }
 
         /// <summary>
+        /// The XML names of the attributes <c>ImageStyle</c> declares. An attribute outside this
+        /// set is uninterpreted and is captured verbatim so a write can re-emit it (issue #127).
+        /// </summary>
+        private static readonly System.Collections.Generic.HashSet<string> KnownAttributes = new System.Collections.Generic.HashSet<string>(System.StringComparer.Ordinal)
+        {
+            "antiAlias",
+            "maintainAspectRatio",
+        };
+
+        /// <summary>
         /// Reads an <c>ImageStyle</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
@@ -107,6 +117,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                     }
                 }
 
+                // Any attribute the metamodel does not declare is retained verbatim so a write can
+                // re-emit it, rather than being silently dropped (issue #127).
+                CaptureUninterpretedAttributes(poco, xmlReader, KnownAttributes);
+
                 this.Cache.TryAdd(poco);
 
                 if (!xmlReader.IsEmptyElement)
@@ -141,8 +155,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
                                     throw new NotSupportedException($"ImageStyleReader: {xmlReader.LocalName} at line:position {xmlLineInfo?.LineNumber}:{xmlLineInfo?.LinePosition}");
                                 }
 
-                                this.Logger.LogWarning("Not supported by ImageStyleReader: the '{LocalName}' element at line:position {LineNumber}:{LinePosition} is not part of the metamodel and was skipped", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
-                                SkipElement(xmlReader);
+                                // Not part of the metamodel — an element of a package Auriga does not
+                                // vendor, say — so it is retained verbatim rather than discarded, and the
+                                // writer re-emits it unchanged (issue #127).
+                                this.CaptureUninterpretedElement(poco, xmlReader);
                                 break;
                         }
                     }

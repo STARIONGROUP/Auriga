@@ -72,6 +72,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
             WriteBooleanAttribute(xmlWriter, "optional", poco.Optional, true);
             this.WriteReferenceListAttribute(xmlWriter, "reusedMappings", poco.ReusedMappings, poco, "ReusedMappings", context);
             this.WriteReferenceListAttribute(xmlWriter, "reusedTools", poco.ReusedTools, poco, "ReusedTools", context);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "containerMappings", poco.ContainerMappings, poco, "ContainerMappings", context);
             this.WriteContainedElement(xmlWriter, "customization", poco.Customization, poco, "Customization", context);
             this.WriteContainedElement(xmlWriter, "decorationDescriptionsSet", poco.DecorationDescriptionsSet, poco, "DecorationDescriptionsSet", context);
@@ -79,6 +83,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
             this.WriteContainedElements(xmlWriter, "edgeMappings", poco.EdgeMappings, poco, "EdgeMappings", context);
             this.WriteContainedElements(xmlWriter, "nodeMappings", poco.NodeMappings, poco, "NodeMappings", context);
             this.WriteContainedElements(xmlWriter, "toolSections", poco.ToolSections, poco, "ToolSections", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

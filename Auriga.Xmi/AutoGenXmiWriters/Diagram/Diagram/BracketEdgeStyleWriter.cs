@@ -73,10 +73,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             WriteStringAttribute(xmlWriter, "strokeColor", poco.StrokeColor, "136,136,136");
             WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow, Auriga.Extensions.EdgeArrowsProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeArrows.InputArrow);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "beginLabelStyle", poco.BeginLabelStyle, poco, "BeginLabelStyle", context);
             this.WriteContainedElement(xmlWriter, "centerLabelStyle", poco.CenterLabelStyle, poco, "CenterLabelStyle", context);
             WriteStringListElements(xmlWriter, "customFeatures", poco.CustomFeatures);
             this.WriteContainedElement(xmlWriter, "endLabelStyle", poco.EndLabelStyle, poco, "EndLabelStyle", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

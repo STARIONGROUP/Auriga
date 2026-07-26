@@ -63,8 +63,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Tool
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.Tool.ISwitch poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "cases", poco.Cases, poco, "Cases", context);
             this.WriteContainedElement(xmlWriter, "default", poco.Default, poco, "Default", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

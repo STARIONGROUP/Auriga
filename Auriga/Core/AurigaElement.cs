@@ -70,6 +70,23 @@ namespace Auriga.Core
             = new Dictionary<string, List<string>>();
 
         /// <summary>
+        /// Gets the child elements the reader could not interpret, as the verbatim XML it read, in
+        /// document order. Populated when an element's type belongs to a package Auriga does not vendor —
+        /// an add-on viewpoint, say — or is otherwise not part of the metamodel. The writer re-emits each
+        /// one unchanged, so a read-write of a model Auriga only partly understands does not destroy the
+        /// parts it does not model.
+        /// </summary>
+        public IList<string> UninterpretedContent { get; } = new List<string>();
+
+        /// <summary>
+        /// Gets the attributes the reader could not interpret, in document order. The counterpart of
+        /// <see cref="UninterpretedContent"/> for attributes the metamodel does not declare; the writer
+        /// re-emits each one after the modeled attributes.
+        /// </summary>
+        public IList<UninterpretedAttribute> UninterpretedAttributes { get; }
+            = new List<UninterpretedAttribute>();
+
+        /// <summary>
         /// Gets the elements directly contained by this element (the analogue of EMF's <c>eContents()</c>).
         /// The base returns none; a generated class with containment features overrides this to yield them.
         /// </summary>

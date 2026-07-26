@@ -71,7 +71,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
             this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "currentStyle", poco.CurrentStyle, poco, "CurrentStyle", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

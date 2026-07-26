@@ -69,6 +69,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "modelFileExtension", poco.ModelFileExtension, "*");
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             WriteStringListElements(xmlWriter, "conflicts", poco.Conflicts);
             WriteStringListElements(xmlWriter, "customizes", poco.Customizes);
             this.WriteContainedElements(xmlWriter, "ownedFeatureExtensions", poco.OwnedFeatureExtensions, poco, "OwnedFeatureExtensions", context);
@@ -79,6 +83,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
             this.WriteContainedElements(xmlWriter, "ownedTemplates", poco.OwnedTemplates, poco, "OwnedTemplates", context);
             WriteStringListElements(xmlWriter, "reuses", poco.Reuses);
             this.WriteContainedElement(xmlWriter, "validationSet", poco.ValidationSet, poco, "ValidationSet", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

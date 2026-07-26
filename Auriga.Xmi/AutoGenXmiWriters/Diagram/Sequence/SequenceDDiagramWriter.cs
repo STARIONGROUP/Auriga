@@ -73,10 +73,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence
             WriteBooleanAttribute(xmlWriter, "synchronized", poco.Synchronized, true);
             this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "eAnnotations", poco.EAnnotations, poco, "EAnnotations", context);
             this.WriteContainedElement(xmlWriter, "filterVariableHistory", poco.FilterVariableHistory, poco, "FilterVariableHistory", context);
             this.WriteContainedElements(xmlWriter, "ownedAnnotationEntries", poco.OwnedAnnotationEntries, poco, "OwnedAnnotationEntries", context);
             this.WriteContainedElements(xmlWriter, "ownedDiagramElements", poco.OwnedDiagramElements, poco, "OwnedDiagramElements", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

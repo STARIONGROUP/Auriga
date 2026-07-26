@@ -66,6 +66,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             this.WriteReferenceListAttribute(xmlWriter, "filteredObjects", poco.FilteredObjects, poco, "FilteredObjects", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.Filtering>(xmlWriter, "filtering", poco.Filtering, Auriga.Extensions.FilteringProvider.ToLiteralString, Auriga.Diagram.Notation.Filtering.None);
             WriteStringAttribute(xmlWriter, "filteringKeys", poco.FilteringKeys);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

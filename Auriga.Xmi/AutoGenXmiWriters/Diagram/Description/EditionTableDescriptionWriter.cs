@@ -79,12 +79,17 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
             this.WriteReferenceListAttribute(xmlWriter, "reusedRepresentationNavigationDescriptions", poco.ReusedRepresentationNavigationDescriptions, poco, "ReusedRepresentationNavigationDescriptions", context);
             WriteBooleanAttribute(xmlWriter, "showOnStartup", poco.ShowOnStartup);
             WriteStringAttribute(xmlWriter, "titleExpression", poco.TitleExpression, "");
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "importedElements", poco.ImportedElements, poco, "ImportedElements", context);
             this.WriteContainedElements(xmlWriter, "ownedColumnMappings", poco.OwnedColumnMappings, poco, "OwnedColumnMappings", context);
             this.WriteContainedElements(xmlWriter, "ownedCreateLine", poco.OwnedCreateLine, poco, "OwnedCreateLine", context);
             this.WriteContainedElements(xmlWriter, "ownedLineMappings", poco.OwnedLineMappings, poco, "OwnedLineMappings", context);
             this.WriteContainedElements(xmlWriter, "ownedRepresentationCreationDescriptions", poco.OwnedRepresentationCreationDescriptions, poco, "OwnedRepresentationCreationDescriptions", context);
             this.WriteContainedElements(xmlWriter, "ownedRepresentationNavigationDescriptions", poco.OwnedRepresentationNavigationDescriptions, poco, "OwnedRepresentationNavigationDescriptions", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

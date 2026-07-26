@@ -75,6 +75,10 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Capellacommon
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElements(xmlWriter, "ownedConstraints", poco.OwnedConstraints, poco, "OwnedConstraints", context);
             this.WriteContainedElements(xmlWriter, "ownedEnumerationPropertyTypes", poco.OwnedEnumerationPropertyTypes, poco, "OwnedEnumerationPropertyTypes", context);
             this.WriteContainedElements(xmlWriter, "ownedExtensions", poco.OwnedExtensions, poco, "OwnedExtensions", context);
@@ -83,6 +87,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Capellacommon
             this.WriteContainedElements(xmlWriter, "ownedPropertyValues", poco.OwnedPropertyValues, poco, "OwnedPropertyValues", context);
             this.WriteContainedElements(xmlWriter, "ownedStates", poco.OwnedStates, poco, "OwnedStates", context);
             this.WriteContainedElements(xmlWriter, "ownedTransitions", poco.OwnedTransitions, poco, "OwnedTransitions", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

@@ -65,6 +65,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteId(xmlWriter, poco);
             this.WriteReferenceAttribute(xmlWriter, "eObjectValue", poco.EObjectValue as Auriga.Core.IAurigaElement, poco, "EObjectValue", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

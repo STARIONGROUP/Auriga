@@ -66,6 +66,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
             WriteEnumAttribute<Auriga.Diagram.Diagram.Description.LayoutDirection>(xmlWriter, "direction", poco.Direction, Auriga.Extensions.LayoutDirectionProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.LayoutDirection.TopToBottom);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteIntegerAttribute(xmlWriter, "padding", poco.Padding, 30);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

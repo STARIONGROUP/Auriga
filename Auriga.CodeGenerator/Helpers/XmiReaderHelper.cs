@@ -75,6 +75,9 @@ namespace Auriga.CodeGenerator.Helpers
             handlebars.RegisterHelper("ReaderAttributeFeatures", (_, arguments) => AttributeFeatures((EClass)arguments[0]!));
 
             handlebars.RegisterHelper("ReaderElementFeatures", (_, arguments) => ElementFeatures((EClass)arguments[0]!));
+
+            handlebars.RegisterHelper("KnownAttributeNames", (writer, _, arguments) =>
+                writer.WriteSafeString(KnownAttributeNames((EClass)arguments[0]!)));
         }
 
         /// <summary>
@@ -497,6 +500,30 @@ namespace Auriga.CodeGenerator.Helpers
         private static string TryParse(EEnum eEnum)
         {
             return $"Auriga.Extensions.{EnumProviderHelper.EnumProviderName(eEnum)}.TryParse";
+        }
+
+        /// <summary>
+        /// The XML names of every attribute the class declares, as initializer entries for the reader's
+        /// <c>KnownAttributes</c> set. An attribute outside this set is uninterpreted and captured verbatim
+        /// (issue #127). Multi-valued simple attributes are included: they may still appear in the
+        /// attribute form even though EMF writes them as child elements.
+        /// </summary>
+        /// <param name="eClass">the class</param>
+        /// <returns>the generated set initializer entries</returns>
+        private static string KnownAttributeNames(EClass eClass)
+        {
+            var builder = new StringBuilder();
+
+            foreach (var name in ReaderFeatures(eClass)
+                         .Where(f => f is not EReference { IsContainment: true })
+                         .Select(XmlNames.XmlName)
+                         .Distinct(StringComparer.Ordinal)
+                         .OrderBy(n => n, StringComparer.Ordinal))
+            {
+                builder.Append("            \"").Append(name).AppendLine("\",");
+            }
+
+            return builder.ToString();
         }
 
         private static string MemberName(EStructuralFeature feature)

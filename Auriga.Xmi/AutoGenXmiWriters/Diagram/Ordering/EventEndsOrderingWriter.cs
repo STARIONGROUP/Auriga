@@ -64,6 +64,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Ordering
         {
             WriteId(xmlWriter, poco);
             this.WriteReferenceListAttribute(xmlWriter, "eventEnds", poco.EventEnds, poco, "EventEnds", context);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

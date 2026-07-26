@@ -65,7 +65,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "antiAlias", poco.AntiAlias, true);
             WriteBooleanAttribute(xmlWriter, "maintainAspectRatio", poco.MaintainAspectRatio, true);
+
+            // Attributes must all be written before any child element, so the uninterpreted ones the
+            // reader retained are emitted here rather than alongside the uninterpreted children.
+            WriteUninterpretedAttributes(xmlWriter, poco);
             this.WriteContainedElement(xmlWriter, "cropBound", poco.CropBound, poco, "CropBound", context);
+            WriteUninterpretedContent(xmlWriter, poco);
         }
     }
 }

@@ -424,6 +424,51 @@ namespace Auriga.Xmi.Core.Writers
         }
 
         /// <summary>
+        /// Writes the attributes the reader could not interpret, verbatim, after the modeled ones — the
+        /// attributes of a package Auriga does not vendor, which would otherwise be lost on write
+        /// (issue #127).
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="poco">the element whose uninterpreted attributes to write</param>
+        protected static void WriteUninterpretedAttributes(XmlWriter xmlWriter, IAurigaElement poco)
+        {
+            foreach (var attribute in poco.UninterpretedAttributes)
+            {
+                var separator = attribute.Name.IndexOf(':');
+
+                if (separator < 0 || string.IsNullOrEmpty(attribute.NamespaceUri))
+                {
+                    xmlWriter.WriteAttributeString(attribute.Name, attribute.Value);
+                    continue;
+                }
+
+                // A prefixed attribute keeps its prefix and its namespace; the writer declares the prefix
+                // when the document does not already, which is the common case here — the package is
+                // uninterpreted precisely because Auriga does not vendor it.
+                xmlWriter.WriteAttributeString(
+                    attribute.Name.Substring(0, separator),
+                    attribute.Name.Substring(separator + 1),
+                    attribute.NamespaceUri,
+                    attribute.Value);
+            }
+        }
+
+        /// <summary>
+        /// Writes the child elements the reader could not interpret, verbatim, after the modeled children.
+        /// The captured text carries the namespace declarations it needs, so it stands alone regardless of
+        /// what the surrounding document declares (issue #127).
+        /// </summary>
+        /// <param name="xmlWriter">the XML writer</param>
+        /// <param name="poco">the element whose uninterpreted content to write</param>
+        protected static void WriteUninterpretedContent(XmlWriter xmlWriter, IAurigaElement poco)
+        {
+            foreach (var content in poco.UninterpretedContent)
+            {
+                xmlWriter.WriteRaw(content);
+            }
+        }
+
+        /// <summary>
         /// Writes a multi-valued simple attribute as one child element per value — the form EMF uses for a
         /// multi-valued <c>EAttribute</c> (e.g. a <c>DAnalysis</c>'s <c>semanticResources</c>), and the only
         /// form the Capella and Sirius files in circulation use. An empty value is still written, because

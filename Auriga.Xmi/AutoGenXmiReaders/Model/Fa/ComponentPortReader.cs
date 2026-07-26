@@ -43,6 +43,42 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
         }
 
         /// <summary>
+        /// The XML names of the attributes <c>ComponentPort</c> declares. An attribute outside this
+        /// set is uninterpreted and is captured verbatim so a write can re-emit it (issue #127).
+        /// </summary>
+        private static readonly System.Collections.Generic.HashSet<string> KnownAttributes = new System.Collections.Generic.HashSet<string>(System.StringComparer.Ordinal)
+        {
+            "abstractType",
+            "aggregationKind",
+            "appliedPropertyValueGroups",
+            "appliedPropertyValues",
+            "description",
+            "features",
+            "final",
+            "isAbstract",
+            "isDerived",
+            "isPartOfKey",
+            "isReadOnly",
+            "isStatic",
+            "kind",
+            "maxInclusive",
+            "minInclusive",
+            "name",
+            "ordered",
+            "orientation",
+            "providedInterfaces",
+            "requiredInterfaces",
+            "review",
+            "sid",
+            "status",
+            "summary",
+            "unique",
+            "visibility",
+            "visibleInDoc",
+            "visibleInLM",
+        };
+
+        /// <summary>
         /// Reads an <c>ComponentPort</c> from the element at the cursor of the supplied reader.
         /// </summary>
         /// <param name="xmlReader">the reader positioned on the element</param>
@@ -244,6 +280,10 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
                         poco.VisibleInLM = parsed;
                     }
                 }
+
+                // Any attribute the metamodel does not declare is retained verbatim so a write can
+                // re-emit it, rather than being silently dropped (issue #127).
+                CaptureUninterpretedAttributes(poco, xmlReader, KnownAttributes);
 
                 this.Cache.TryAdd(poco);
 
@@ -624,8 +664,10 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
                                     throw new NotSupportedException($"ComponentPortReader: {xmlReader.LocalName} at line:position {xmlLineInfo?.LineNumber}:{xmlLineInfo?.LinePosition}");
                                 }
 
-                                this.Logger.LogWarning("Not supported by ComponentPortReader: the '{LocalName}' element at line:position {LineNumber}:{LinePosition} is not part of the metamodel and was skipped", xmlReader.LocalName, xmlLineInfo?.LineNumber ?? -1, xmlLineInfo?.LinePosition ?? -1);
-                                SkipElement(xmlReader);
+                                // Not part of the metamodel — an element of a package Auriga does not
+                                // vendor, say — so it is retained verbatim rather than discarded, and the
+                                // writer re-emits it unchanged (issue #127).
+                                this.CaptureUninterpretedElement(poco, xmlReader);
                                 break;
                         }
                     }
