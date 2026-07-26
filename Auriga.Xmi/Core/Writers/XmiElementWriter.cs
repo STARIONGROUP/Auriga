@@ -22,11 +22,13 @@ namespace Auriga.Xmi.Core.Writers
 
     /// <summary>
     /// The abstract base from which every generated per-type XMI writer derives. It writes the shared
-    /// element scaffolding (start tag, <c>xsi:type</c>, <c>id</c>) and provides the typed helpers that
+    /// element scaffolding (start tag, type and identity attributes) and provides the typed helpers that
     /// serialize scalar, enumeration, reference and containment features — the inverse of
-    /// <c>XmiElementReader&lt;T&gt;</c>. Capella encodes non-containment references as <c>#id</c>
-    /// attributes and containment as child elements carrying an <c>xsi:type</c>; a reference into another
-    /// document becomes a relative <c>href</c>.
+    /// <c>XmiElementReader&lt;T&gt;</c>. The type and identity attributes follow the element's family:
+    /// Capella uses <c>xsi:type</c> and a bare <c>id</c>; the EMF-native Eclipse trees (Sirius, GMF,
+    /// Ecore) use <c>xmi:type</c>, with GMF notation identified by <c>xmi:id</c> and Sirius by its domain
+    /// <c>uid</c>. Non-containment references are encoded as <c>#id</c> attributes and containment as
+    /// child elements; a reference into another document becomes a relative <c>href</c>.
     /// </summary>
     /// <typeparam name="T">the type of <see cref="IAurigaElement"/> the writer serializes</typeparam>
     public abstract class XmiElementWriter<T> : IXmiElementWriter
@@ -36,6 +38,19 @@ namespace Auriga.Xmi.Core.Writers
         /// The XML Schema instance namespace, in which the <c>xsi:type</c> attribute is declared.
         /// </summary>
         protected const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
+
+        /// <summary>
+        /// The XMI namespace, in which the <c>xmi:type</c> and <c>xmi:id</c> attributes the EMF-native
+        /// Sirius / GMF trees use are declared.
+        /// </summary>
+        protected const string XmiNamespace = "http://www.omg.org/XMI";
+
+        /// <summary>
+        /// The namespace-URI prefix shared by the Eclipse-hosted metamodels (Sirius, GMF and Ecore),
+        /// which serialize a contained element's type as <c>xmi:type</c> rather than Capella's
+        /// <c>xsi:type</c> and identify an element without a domain <c>uid</c> by <c>xmi:id</c>.
+        /// </summary>
+        private const string EclipseNamespacePrefix = "http://www.eclipse.org/";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmiElementWriter{T}"/> class.
@@ -86,7 +101,18 @@ namespace Auriga.Xmi.Core.Writers
         public void Write(XmlWriter xmlWriter, IAurigaElement element, string roleName, IXmiWriteContext context)
         {
             xmlWriter.WriteStartElement(roleName);
-            xmlWriter.WriteAttributeString("xsi", "type", XsiNamespace, this.NamespacePrefix + ":" + this.TypeName);
+
+            // Capella serializes a contained element's type as xsi:type; the EMF-native Eclipse trees
+            // (Sirius, GMF, Ecore) use xmi:type. EMF treats the two as interchangeable on read.
+            if (this.IsEclipseHosted)
+            {
+                xmlWriter.WriteAttributeString("xmi", "type", XmiNamespace, this.NamespacePrefix + ":" + this.TypeName);
+            }
+            else
+            {
+                xmlWriter.WriteAttributeString("xsi", "type", XsiNamespace, this.NamespacePrefix + ":" + this.TypeName);
+            }
+
             this.WriteBody(xmlWriter, (T)element, context);
             xmlWriter.WriteEndElement();
         }
@@ -114,16 +140,42 @@ namespace Auriga.Xmi.Core.Writers
         protected abstract void WriteBody(XmlWriter xmlWriter, T poco, IXmiWriteContext context);
 
         /// <summary>
-        /// Writes the element's <c>id</c> attribute when present.
+        /// Gets whether the element belongs to an Eclipse-hosted metamodel (Sirius, GMF or Ecore), which
+        /// serialize a contained element's type as <c>xmi:type</c> rather than Capella's <c>xsi:type</c>.
+        /// Derived from the writer's own package <see cref="NamespaceUri"/>, the authoritative signal (a
+        /// contained element's own XML namespace is empty, so the reader-captured namespace is unreliable).
+        /// </summary>
+        private bool IsEclipseHosted => this.NamespaceUri.StartsWith(EclipseNamespacePrefix, StringComparison.Ordinal);
+
+        /// <summary>
+        /// Writes the element's identity attribute when present, in the family's serialization: a Sirius
+        /// element that models a domain <c>uid</c> (an <see cref="Auriga.Diagram.Viewpoint.IIdentifiedElement"/>)
+        /// carries its identity there — the generated writer emits that <c>uid</c> separately, so nothing is
+        /// written here to avoid a duplicate. The remaining EMF-native Eclipse elements (GMF notation and the
+        /// Sirius style / description trees without a <c>uid</c>) are identified by <c>xmi:id</c>; Capella by a
+        /// bare <c>id</c>.
         /// </summary>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="element">the element</param>
-        protected static void WriteId(XmlWriter xmlWriter, IAurigaElement element)
+        protected void WriteId(XmlWriter xmlWriter, IAurigaElement element)
         {
-            if (!string.IsNullOrEmpty(element.Id))
+            if (string.IsNullOrEmpty(element.Id))
             {
-                xmlWriter.WriteAttributeString("id", element.Id);
+                return;
             }
+
+            if (element is Auriga.Diagram.Viewpoint.IIdentifiedElement identified && !string.IsNullOrEmpty(identified.Uid))
+            {
+                return;
+            }
+
+            if (this.IsEclipseHosted)
+            {
+                xmlWriter.WriteAttributeString("xmi", "id", XmiNamespace, element.Id);
+                return;
+            }
+
+            xmlWriter.WriteAttributeString("id", element.Id);
         }
 
         /// <summary>

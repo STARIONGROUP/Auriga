@@ -4,7 +4,7 @@
 
 Capella model fixtures for reader, writer, and round-trip tests. Layout follows the EcoreNetto/uml4net `TestData` convention: one directory per fixture, each with its license text and the provenance recorded here.
 
-Each obtained fixture is committed as the **complete Capella project set**: semantic files (`.capella`/`.melodymodeller`, `.capellafragment`), the `.aird`/`.airdfragment` representation files, the `.afm`/`.project` sidecars, and any referenced image resources. Parsing `.aird` is out of v1 scope, but the diagram files are kept so the fixtures open unmodified in the Capella tool and so writer tests can verify that sibling files are preserved untouched. Note that the Level Crossing Traffic Control `.aird` is ~37 MB and the In-Flight Entertainment System `.aird` ~20 MB.
+Each obtained fixture is committed as the **complete Capella project set**: semantic files (`.capella`/`.melodymodeller`, `.capellafragment`), the `.aird`/`.airdfragment` representation files, the `.afm`/`.project` sidecars, and any referenced image resources. The `.aird`/`.airdfragment` diagram files are read into the Sirius object model (issue #64) and written back with a semantic round-trip regression (issue #60), and are also kept so the fixtures open unmodified in the Capella tool. Note that the Level Crossing Traffic Control `.aird` is ~37 MB and the In-Flight Entertainment System `.aird` ~20 MB; the Level Crossing `.aird` carries an illegal raw `U+001A` control character, so the `.aird` round-trip suite skips it as un-parseable XML.
 
 | Fixture | Capella version | License | Purpose |
 | --- | --- | --- | --- |
