@@ -82,12 +82,15 @@ All packages use Ecore primitive types only — **there are no custom EDataTypes
 | **Subtotal (capella repo)** | | | **396** | **35** |
 | Requirements.ecore | `Requirements` | `http://www.polarsys.org/kitalpha/requirements` | 26 | 0 |
 | CapellaRequirements.ecore | `CapellaRequirements` | `http://www.polarsys.org/capella/requirements` | 5 | 0 |
-| **Total** | | | **427** | **35** |
+| Mass.ecore | `mass` | `http://www.polarsys.org/capella/mass` | 2 | 0 |
+| Requirement.ecore | `requirement` | `http://www.polarsys.org/capella/basic/requirement` | 8 | 0 |
+| Cybersecurity.ecore | `cybersecurity` | `http://www.polarsys.org/capella/cybersecurity/1.0` | 15 | 0 |
+| **Total** | | | **452** | **35** |
 
 Notes:
 
 - **`ctx` is System Analysis.** The file/package name is `ContextArchitecture`/`ctx`, but it contains `SystemAnalysis`, `SystemFunction`, `SystemComponent`, etc. — the "sa" layer of the project context's estimate.
-- Subpackages exist in exactly two files: `Information.ecore` (`information.communication`, `information.datatype`, `information.datavalue`) and `PhysicalArchitecture.ecore` (`pa.deployment`). Each subpackage has its own nsURI and therefore its own XML namespace in `.melodymodeller` files — the reader's namespace registry must include all 24 nsURIs, not 20 (18 + 2 requirement files, +4 subpackage entries).
+- Subpackages exist in exactly two files: `Information.ecore` (`information.communication`, `information.datatype`, `information.datavalue`) and `PhysicalArchitecture.ecore` (`pa.deployment`). Each subpackage has its own nsURI and therefore its own XML namespace in `.melodymodeller` files — the reader's namespace registry must include all 27 nsURIs, not 20 (18 core + 2 requirement + 3 add-on viewpoint files, +4 subpackage entries).
 
 ## 3. Dependency graph
 
@@ -115,6 +118,9 @@ Extracted from every cross-file reference (`eSuperTypes`, `eType`, `eOpposite`) 
 | SharedModel | CapellaCore, CapellaModeller, Information |
 | Requirements (kitalpha) | **eMDE** |
 | CapellaRequirements | CapellaCore, CompositeStructure, **eMDE**, Requirements (kitalpha) |
+| Mass | CapellaCore, CompositeStructure, **eMDE** |
+| Requirement (basic vp) | CapellaCore, CompositeStructure, ModellingCore, **eMDE** |
+| Cybersecurity | Behavior, CapellaCore, CompositeStructure, FunctionalAnalysis, Information, Interaction, ModellingCore, **eMDE** |
 
 **The core graph is cyclic, by design.** Examples: `CapellaCore ↔ CapellaCommon`, `Information ↔ Interaction`, `FunctionalAnalysis ↔ ContextArchitecture`, and the architecture layers reference each other bidirectionally through derived allocation/realization features (`la ↔ pa`, `ctx ↔ la`, etc.). Only `ModellingCore`, `Behavior`, and `Activity` form an acyclic bottom layer.
 
@@ -146,10 +152,11 @@ The project context estimated "~10 packages". The dependency analysis shows the 
 | Common | `ModellingCore`, `Behavior`, `Activity`, `libraries`, `re` | 62 |
 | Core | all 13 files in `org.polarsys.capella.core.data.gen/model/` | 334 |
 | Requirements | `Requirements` (kitalpha vp), `CapellaRequirements` | 31 |
+| Add-on viewpoints | `Mass`, `Requirement` (basic vp), `Cybersecurity` | 25 |
 
-Total: **~430 EClasses, 35 EEnums, 0 EDataTypes** across 24 EPackages (20 root + 4 subpackages).
+Total: **~455 EClasses, 35 EEnums, 0 EDataTypes** across 27 EPackages (23 root + 4 subpackages).
 
-Requirements is included in v1 (rather than deferred) because real-world Capella models very commonly use the requirements viewpoint, and its cost is small (31 classes, depends only on `capellacore`, `cs`, `emde`).
+Requirements is included in v1 (rather than deferred) because real-world Capella models very commonly use the requirements viewpoint, and its cost is small (31 classes, depends only on `capellacore`, `cs`, `emde`). The Mass, Basic Requirement and Cybersecurity add-on viewpoints are vendored on the same basis — real Capella projects (e.g. the official Crowd Surveillance sample) use them, and each is a small extension package (`ownedExtensions`) depending only on already-vendored core packages and `emde`.
 
 **Out of v1 scope** (confirming the project context):
 

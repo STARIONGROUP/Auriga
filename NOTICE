@@ -47,23 +47,33 @@ SPDX-License-Identifier for these files: EPL-2.0
    Source: https://github.com/eclipse-capella/capella-requirements-vp
    Files: Requirements.ecore, CapellaRequirements.ecore
 
-3. Eclipse Kitalpha
+3. Eclipse Capella Basic Viewpoint (Mass and Basic Requirement)
+   Source: https://github.com/eclipse-capella/capella-basic-vp
+   Project: https://projects.eclipse.org/projects/polarsys.capella
+   Files: Mass.ecore, Requirement.ecore
+
+4. Eclipse Capella Cybersecurity
+   Source: https://github.com/eclipse-capella/capella-cybersecurity
+   Project: https://projects.eclipse.org/projects/polarsys.capella
+   Files: Cybersecurity.ecore
+
+5. Eclipse Kitalpha
    Source: https://github.com/eclipse-kitalpha/kitalpha
    Project: https://projects.eclipse.org/projects/polarsys.kitalpha
    Files: eMDE.ecore
 
-4. Eclipse Sirius
+6. Eclipse Sirius
    Source: https://github.com/eclipse-sirius/sirius-desktop (tag v7.6.0)
    Project: https://projects.eclipse.org/projects/modeling.sirius
    Files (in resources/ecore-sirius): viewpoint.ecore, diagram.ecore,
           sequence.ecore, table.ecore
 
-5. Eclipse GMF Runtime (Notation)
+7. Eclipse GMF Runtime (Notation)
    Source: https://github.com/eclipse-gmf-runtime/gmf-notation (commit 9655137)
    Project: https://projects.eclipse.org/projects/modeling.gmf-runtime
    Files (in resources/ecore-sirius): notation.ecore
 
-6. Eclipse Capella diagram artwork
+8. Eclipse Capella diagram artwork
    Source: https://github.com/eclipse-capella/capella (tag v7.0.0)
    Project: https://projects.eclipse.org/projects/polarsys.capella
    Files (in Auriga.Rendering/Assets/CapellaIcons): the SVG, GIF and PNG

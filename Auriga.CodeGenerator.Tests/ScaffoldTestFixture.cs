@@ -26,7 +26,7 @@ namespace Auriga.CodeGenerator.Tests
         {
             var ecoreDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "ecore");
 
-            Assert.That(Directory.GetFiles(ecoreDirectory, "*.ecore"), Has.Length.EqualTo(21));
+            Assert.That(Directory.GetFiles(ecoreDirectory, "*.ecore"), Has.Length.EqualTo(24));
         }
     }
 }

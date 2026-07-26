@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="IRequirement.cs" company="Starion Group S.A.">
+// <copyright file="ICybersecurityConfiguration.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -13,44 +13,37 @@
 
 #nullable disable
 
-namespace Auriga.Model.Requirements
+namespace Auriga.Model.Cybersecurity
 {
-    using System.Numerics;
-
     /// <summary>
-    /// Definition of the <c>Requirement</c> interface.
+    /// Definition of the <c>CybersecurityConfiguration</c> interface.
     /// </summary>
-    public partial interface IRequirement : Auriga.Model.Requirements.IAttributeOwner, Auriga.Model.Requirements.ISharedDirectAttributes
+    public partial interface ICybersecurityConfiguration : Auriga.Model.Capellacore.INamedElement, Auriga.Model.Emde.IElementExtension
     {
         /// <summary>
-        /// Gets the owned relations.
+        /// Gets or sets the availability.
         /// </summary>
-        Auriga.Core.IContainerList<Auriga.Model.Requirements.IAbstractRelation> OwnedRelations { get; }
+        Auriga.Model.Capellacore.IEnumerationPropertyType Availability { get; set; }
 
         /// <summary>
-        /// Gets or sets the req i f chapter name.
+        /// Gets or sets the confidentiality.
         /// </summary>
-        string ReqIFChapterName { get; set; }
+        Auriga.Model.Capellacore.IEnumerationPropertyType Confidentiality { get; set; }
 
         /// <summary>
-        /// Gets or sets the req i f foreign i d.
+        /// Gets or sets the integrity.
         /// </summary>
-        BigInteger? ReqIFForeignID { get; set; }
+        Auriga.Model.Capellacore.IEnumerationPropertyType Integrity { get; set; }
 
         /// <summary>
-        /// Gets or sets the req i f text.
+        /// Gets or sets the threat kind.
         /// </summary>
-        string ReqIFText { get; set; }
+        Auriga.Model.Capellacore.IEnumerationPropertyType ThreatKind { get; set; }
 
         /// <summary>
-        /// Gets or sets the requirement type.
+        /// Gets or sets the traceability.
         /// </summary>
-        Auriga.Model.Requirements.IRequirementType RequirementType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the requirement type proxy.
-        /// </summary>
-        string RequirementTypeProxy { get; set; }
+        Auriga.Model.Capellacore.IEnumerationPropertyType Traceability { get; set; }
 
     }
 }

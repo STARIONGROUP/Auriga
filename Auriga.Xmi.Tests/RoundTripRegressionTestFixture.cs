@@ -189,8 +189,9 @@ namespace Auriga.Xmi.Tests
         /// Reads the fixture, or ignores the test when the model is out of v1 scope: either it targets a
         /// metamodel version other than 7.0.0 (the writer emits 7.0.0 namespaces, so an older model such as
         /// the 6.0.0 coffee-machine fixture would be silently upgraded), or it references a package outside
-        /// the vendored metamodel — an add-on viewpoint the v1 reader does not know (e.g. the Cybersecurity
-        /// viewpoint in the Crowd Surveillance sample). Both cases are documented in <c>TestData/README.md</c>.
+        /// the vendored metamodel — an add-on viewpoint the reader does not know. Both cases are documented
+        /// in <c>TestData/README.md</c>. (The Cybersecurity, Mass and Basic Requirement add-on viewpoints
+        /// are vendored, so the Crowd Surveillance sample now round-trips rather than being skipped.)
         /// </summary>
         /// <param name="mainPath">the fixture's main semantic file</param>
         /// <returns>the read result</returns>

@@ -20,12 +20,12 @@ namespace Auriga.CodeGenerator.Tests.Generators
     /// <summary>
     /// Tests for the <see cref="XmiWriterGenerator"/>, which generates the <c>Auriga.Xmi</c> per-type XMI
     /// writers and the writer facade (issue #17) — the inverse of the reader generator. A writer is emitted
-    /// for each of the 275 concrete classes, plus the facade.
+    /// for each of the 298 concrete classes, plus the facade.
     /// </summary>
     [TestFixture]
     public class XmiWriterGeneratorTestFixture
     {
-        private const int ExpectedConcreteWriterCount = 275;
+        private const int ExpectedConcreteWriterCount = 298;
 
         private string ecoreDirectory = string.Empty;
 

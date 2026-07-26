@@ -18,6 +18,12 @@ namespace Auriga.CodeGenerator.Tests.Expected
     /// reference type, enum and multiplicity. The code generator is expected to produce an interface
     /// (and, for the concrete ones, an implementation class) that matches the committed golden files
     /// under <c>Expected/</c> for each of these.
+    ///
+    /// <para>Names must be unique by simple class name: the golden files under <c>Expected/</c> are a
+    /// flat, basename-keyed folder, so a class name that two vendored packages both declare (e.g.
+    /// <c>Requirement</c>, in both the Kitalpha <c>Requirements</c> and the Capella basic
+    /// <c>requirement</c> viewpoints) cannot be represented here. Such classes are still covered by the
+    /// deterministic-generation and classifier-count tests.</para>
     /// </summary>
     public sealed class ExpectedAllClasses : IEnumerable<string>
     {
@@ -44,7 +50,6 @@ namespace Auriga.CodeGenerator.Tests.Expected
             yield return "OpaqueExpression";
             yield return "PhysicalLink";
             yield return "RealValueAttribute";
-            yield return "Requirement";
             yield return "SendSignalAction";
             yield return "SystemCommunication";
         }
@@ -80,7 +85,6 @@ namespace Auriga.CodeGenerator.Tests.Expected
             yield return "OpaqueExpression";
             yield return "PhysicalLink";
             yield return "RealValueAttribute";
-            yield return "Requirement";
             yield return "SystemCommunication";
         }
 
