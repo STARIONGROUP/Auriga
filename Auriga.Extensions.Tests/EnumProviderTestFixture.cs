@@ -69,14 +69,14 @@ namespace Auriga.Extensions.Tests
         [Test]
         public void Verify_that_every_literal_round_trips()
         {
-            foreach (FontFormat value in Enum.GetValues(typeof(FontFormat)))
+            foreach (var value in Enum.GetValues<FontFormat>())
             {
                 var literal = FontFormatProvider.ToLiteralString(value);
 
                 Assert.That(FontFormatProvider.Parse(literal.AsSpan()), Is.EqualTo(value), $"'{literal}' must parse back to {value}");
             }
 
-            foreach (PhysicalComponentNature value in Enum.GetValues(typeof(PhysicalComponentNature)))
+            foreach (var value in Enum.GetValues<PhysicalComponentNature>())
             {
                 var literal = PhysicalComponentNatureProvider.ToLiteralString(value);
 

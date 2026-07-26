@@ -31,7 +31,7 @@ namespace Auriga.Xmi.Tests
             "xmlns:org.polarsys.capella.core.data.pa=\"http://www.polarsys.org/capella/core/pa/7.0.0\" " +
             "id=\"pc-1\" nature=\"NOT_A_NATURE\"/>";
 
-        private static Stream Document() => new MemoryStream(Encoding.UTF8.GetBytes(Xml));
+        private static MemoryStream Document() => new MemoryStream(Encoding.UTF8.GetBytes(Xml));
 
         [Test]
         public void Verify_that_an_unknown_literal_leaves_the_default_under_lenient_reading()

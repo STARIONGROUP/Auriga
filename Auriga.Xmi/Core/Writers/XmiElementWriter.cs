@@ -212,21 +212,23 @@ namespace Auriga.Xmi.Core.Writers
         }
 
         /// <summary>
-        /// Writes an enumeration attribute, by its literal name, when the value is present and differs
-        /// from the feature's declared default. Capella's enumeration literals are upper-case, so the
-        /// C# member name round-trips verbatim.
+        /// Writes an enumeration attribute, by its Ecore literal name, when the value is present and
+        /// differs from the feature's declared default. The literal name is supplied by the enumeration's
+        /// generated provider rather than derived from the C# member name, which does not always reproduce
+        /// it — Sirius declares lower-case literals such as <c>italic</c>, generated as <c>Italic</c>.
         /// </summary>
         /// <typeparam name="TEnum">the enumeration type</typeparam>
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="value">the value, or <c>null</c> to omit the attribute</param>
+        /// <param name="toLiteralString">the generated provider's <c>ToLiteralString</c>, which maps the value to its Ecore literal name</param>
         /// <param name="defaultValue">the declared default the attribute is suppressed for, or <c>null</c> when the feature declares none</param>
-        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value, Func<TEnum, string> ToLiteralString, TEnum? defaultValue = null)
+        protected static void WriteEnumAttribute<TEnum>(XmlWriter xmlWriter, string name, TEnum? value, Func<TEnum, string> toLiteralString, TEnum? defaultValue = null)
             where TEnum : struct
         {
             if (value.HasValue && !value.Equals(defaultValue))
             {
-                xmlWriter.WriteAttributeString(name, ToLiteralString(value.Value));
+                xmlWriter.WriteAttributeString(name, toLiteralString(value.Value));
             }
         }
 
@@ -405,7 +407,8 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML attribute name</param>
         /// <param name="values">the enumeration values</param>
-        protected static void WriteEnumListAttribute<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> ToLiteralString)
+        /// <param name="toLiteralString">the generated provider's <c>ToLiteralString</c>, which maps each value to its Ecore literal name</param>
+        protected static void WriteEnumListAttribute<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> toLiteralString)
             where TEnum : struct
         {
             if (values == null)
@@ -413,7 +416,7 @@ namespace Auriga.Xmi.Core.Writers
                 return;
             }
 
-            var joined = string.Join(" ", values.Select(ToLiteralString));
+            var joined = string.Join(" ", values.Select(toLiteralString));
             if (joined.Length > 0)
             {
                 xmlWriter.WriteAttributeString(name, joined);
@@ -482,7 +485,8 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="xmlWriter">the XML writer</param>
         /// <param name="name">the XML element name of the feature</param>
         /// <param name="values">the enumeration values, one child element each</param>
-        protected static void WriteEnumListElements<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> ToLiteralString)
+        /// <param name="toLiteralString">the generated provider's <c>ToLiteralString</c>, which maps each value to its Ecore literal name</param>
+        protected static void WriteEnumListElements<TEnum>(XmlWriter xmlWriter, string name, IEnumerable<TEnum>? values, Func<TEnum, string> toLiteralString)
             where TEnum : struct
         {
             if (values == null)
@@ -492,7 +496,7 @@ namespace Auriga.Xmi.Core.Writers
 
             foreach (var value in values)
             {
-                xmlWriter.WriteElementString(name, ToLiteralString(value));
+                xmlWriter.WriteElementString(name, toLiteralString(value));
             }
         }
 
