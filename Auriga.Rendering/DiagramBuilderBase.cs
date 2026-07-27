@@ -199,10 +199,10 @@ namespace Auriga.Rendering
             };
 
             // A glyph-only element carries no name label. A port — function, component or physical —
-            // is suppressed so the FIP/FOP/CP/PP text never renders beside its border glyph;
-            // a state machine's pseudo-states and final state render as their glyph or diamond, and
+            // is suppressed so that its FIP, FOP, CP and PP name never renders beside the border glyph.
+            // A state machine's pseudo-states and final state render as their glyph or diamond, and
             // a region is an unnamed compartment whose Region1 placeholder must not sit in the
-            // owning state's title band. A Mode/State keeps its name — it is not glyph-only.
+            // owning state's title band. A mode or state keeps its name and is not glyph-only.
             var glyphOnly = box.SemanticElement is Auriga.Model.Information.IPort
                 or Auriga.Model.Capellacommon.IPseudostate
                 or Auriga.Model.Capellacommon.IFinalState
@@ -775,7 +775,7 @@ namespace Auriga.Rendering
             {
                 edge.Label = new Label(edgeName)
                 {
-                    IconPath = TypeIconPath(edge.SemanticElement, (siriusEdge.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.CenterLabelStyle),
+                    IconPath = TypeIconPath(edge.SemanticElement, siriusEdge.OwnedStyle?.CenterLabelStyle),
                 };
             }
 

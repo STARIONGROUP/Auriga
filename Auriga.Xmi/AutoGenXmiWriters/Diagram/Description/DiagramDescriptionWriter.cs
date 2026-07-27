@@ -63,22 +63,22 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.IDiagramDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor, poco, "BackgroundColor", context);
-            this.WriteReferenceAttribute(xmlWriter, "defaultConcern", poco.DefaultConcern, poco, "DefaultConcern", context);
+            WriteReferenceAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor, poco, "BackgroundColor", context);
+            WriteReferenceAttribute(xmlWriter, "defaultConcern", poco.DefaultConcern, poco, "DefaultConcern", context);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "domainClass", poco.DomainClass);
-            this.WriteReferenceListAttribute(xmlWriter, "dropDescriptions", poco.DropDescriptions, poco, "DropDescriptions", context);
+            WriteReferenceListAttribute(xmlWriter, "dropDescriptions", poco.DropDescriptions, poco, "DropDescriptions", context);
             WriteBooleanAttribute(xmlWriter, "enablePopupBars", poco.EnablePopupBars);
             WriteStringAttribute(xmlWriter, "endUserDocumentation", poco.EndUserDocumentation, "");
-            this.WriteReferenceAttribute(xmlWriter, "init", poco.Init, poco, "Init", context);
+            WriteReferenceAttribute(xmlWriter, "init", poco.Init, poco, "Init", context);
             WriteBooleanAttribute(xmlWriter, "initialisation", poco.Initialisation);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            this.WriteReferenceListAttribute(xmlWriter, "metamodel", poco.Metamodel, poco, "Metamodel", context);
+            WriteReferenceListAttribute(xmlWriter, "metamodel", poco.Metamodel, poco, "Metamodel", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceListAttribute(xmlWriter, "pasteDescriptions", poco.PasteDescriptions, poco, "PasteDescriptions", context);
+            WriteReferenceListAttribute(xmlWriter, "pasteDescriptions", poco.PasteDescriptions, poco, "PasteDescriptions", context);
             WriteStringAttribute(xmlWriter, "preconditionExpression", poco.PreconditionExpression);
-            this.WriteReferenceListAttribute(xmlWriter, "reusedMappings", poco.ReusedMappings, poco, "ReusedMappings", context);
-            this.WriteReferenceListAttribute(xmlWriter, "reusedTools", poco.ReusedTools, poco, "ReusedTools", context);
+            WriteReferenceListAttribute(xmlWriter, "reusedMappings", poco.ReusedMappings, poco, "ReusedMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "reusedTools", poco.ReusedTools, poco, "ReusedTools", context);
             WriteStringAttribute(xmlWriter, "rootExpression", poco.RootExpression);
             WriteBooleanAttribute(xmlWriter, "showOnStartup", poco.ShowOnStartup);
             WriteStringAttribute(xmlWriter, "titleExpression", poco.TitleExpression, "");

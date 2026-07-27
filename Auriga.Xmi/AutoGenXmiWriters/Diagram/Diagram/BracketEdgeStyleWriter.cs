@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         {
             WriteId(xmlWriter, poco);
             WriteEnumAttribute<Auriga.Diagram.Diagram.Description.CenteringStyle>(xmlWriter, "centered", poco.Centered, Auriga.Extensions.CenteringStyleProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.CenteringStyle.None);
-            this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
+            WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
             WriteEnumAttribute<Auriga.Diagram.Diagram.Description.FoldingStyle>(xmlWriter, "foldingStyle", poco.FoldingStyle, Auriga.Extensions.FoldingStyleProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.FoldingStyle.NONE);
             WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "lineStyle", poco.LineStyle, Auriga.Extensions.LineStyleProvider.ToLiteralString);
             WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeRouting>(xmlWriter, "routingStyle", poco.RoutingStyle, Auriga.Extensions.EdgeRoutingProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeRouting.Straight);

@@ -65,13 +65,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Description.Tool
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
-            this.WriteReferenceListAttribute(xmlWriter, "extraMappings", poco.ExtraMappings, poco, "ExtraMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "extraMappings", poco.ExtraMappings, poco, "ExtraMappings", context);
             WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
             WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceListAttribute(xmlWriter, "nodeMappings", poco.NodeMappings, poco, "NodeMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "nodeMappings", poco.NodeMappings, poco, "NodeMappings", context);
             WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

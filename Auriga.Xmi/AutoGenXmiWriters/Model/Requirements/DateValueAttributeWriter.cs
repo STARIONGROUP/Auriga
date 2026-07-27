@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Requirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Requirements.IDateValueAttribute poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "definition", poco.Definition, poco, "Definition", context);
+            WriteReferenceAttribute(xmlWriter, "definition", poco.Definition, poco, "Definition", context);
             WriteStringAttribute(xmlWriter, "definitionProxy", poco.DefinitionProxy);
             WriteDateTimeAttribute(xmlWriter, "value", poco.Value);
 

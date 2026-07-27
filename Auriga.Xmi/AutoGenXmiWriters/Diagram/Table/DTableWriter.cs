@@ -63,9 +63,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.IDTable poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
+            WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
             WriteIntegerAttribute(xmlWriter, "headerColumnWidth", poco.HeaderColumnWidth);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

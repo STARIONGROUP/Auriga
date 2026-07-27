@@ -63,9 +63,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IEObjectVariableValue poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "modelElement", poco.ModelElement as Auriga.Core.IAurigaElement, poco, "ModelElement", context);
+            WriteReferenceAttribute(xmlWriter, "modelElement", poco.ModelElement as Auriga.Core.IAurigaElement, poco, "ModelElement", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
-            this.WriteReferenceAttribute(xmlWriter, "variableDefinition", poco.VariableDefinition, poco, "VariableDefinition", context);
+            WriteReferenceAttribute(xmlWriter, "variableDefinition", poco.VariableDefinition, poco, "VariableDefinition", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

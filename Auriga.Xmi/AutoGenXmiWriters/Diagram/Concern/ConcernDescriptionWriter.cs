@@ -63,12 +63,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Concern
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Concern.IConcernDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "behaviors", poco.Behaviors, poco, "Behaviors", context);
+            WriteReferenceListAttribute(xmlWriter, "behaviors", poco.Behaviors, poco, "Behaviors", context);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
-            this.WriteReferenceListAttribute(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
+            WriteReferenceListAttribute(xmlWriter, "filters", poco.Filters, poco, "Filters", context);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceListAttribute(xmlWriter, "rules", poco.Rules, poco, "Rules", context);
+            WriteReferenceListAttribute(xmlWriter, "rules", poco.Rules, poco, "Rules", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

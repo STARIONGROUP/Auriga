@@ -66,7 +66,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Template
             WriteStringAttribute(xmlWriter, "domainClass", poco.DomainClass);
             WriteStringAttribute(xmlWriter, "finishingEndFinderExpression", poco.FinishingEndFinderExpression);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            this.WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
+            WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
             WriteBooleanAttribute(xmlWriter, "recursive", poco.Recursive);
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "startingEndFinderExpression", poco.StartingEndFinderExpression);

@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.Description.IForegroundStyleDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "foreGroundColor", poco.ForeGroundColor, poco, "ForeGroundColor", context);
+            WriteReferenceAttribute(xmlWriter, "foreGroundColor", poco.ForeGroundColor, poco, "ForeGroundColor", context);
             WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 12);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

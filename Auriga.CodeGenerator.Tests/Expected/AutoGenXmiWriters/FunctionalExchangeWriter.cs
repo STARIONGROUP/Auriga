@@ -63,26 +63,26 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Fa
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Fa.IFunctionalExchange poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
-            this.WriteReferenceListAttribute(xmlWriter, "exchangeSpecifications", poco.ExchangeSpecifications, poco, "ExchangeSpecifications", context);
-            this.WriteReferenceListAttribute(xmlWriter, "exchangedItems", poco.ExchangedItems, poco, "ExchangedItems", context);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
-            this.WriteReferenceAttribute(xmlWriter, "interrupts", poco.Interrupts, poco, "Interrupts", context);
+            WriteReferenceListAttribute(xmlWriter, "exchangeSpecifications", poco.ExchangeSpecifications, poco, "ExchangeSpecifications", context);
+            WriteReferenceListAttribute(xmlWriter, "exchangedItems", poco.ExchangedItems, poco, "ExchangedItems", context);
+            WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteReferenceAttribute(xmlWriter, "interrupts", poco.Interrupts, poco, "Interrupts", context);
             WriteBooleanAttribute(xmlWriter, "isMulticast", poco.IsMulticast);
             WriteBooleanAttribute(xmlWriter, "isMultireceive", poco.IsMultireceive);
             WriteEnumAttribute<Auriga.Model.Modellingcore.RateKind>(xmlWriter, "kindOfRate", poco.KindOfRate, Auriga.Extensions.RateKindProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
+            WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
-            this.WriteReferenceAttribute(xmlWriter, "selection", poco.Selection, poco, "Selection", context);
+            WriteReferenceAttribute(xmlWriter, "selection", poco.Selection, poco, "Selection", context);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
-            this.WriteReferenceAttribute(xmlWriter, "transformation", poco.Transformation, poco, "Transformation", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "transformation", poco.Transformation, poco, "Transformation", context);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);
 

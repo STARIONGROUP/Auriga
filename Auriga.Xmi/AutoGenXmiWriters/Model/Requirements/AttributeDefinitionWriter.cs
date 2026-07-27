@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Requirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Requirements.IAttributeDefinition poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "definitionType", poco.DefinitionType, poco, "DefinitionType", context);
+            WriteReferenceAttribute(xmlWriter, "definitionType", poco.DefinitionType, poco, "DefinitionType", context);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
             WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);

@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Style
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
-            this.WriteReferenceAttribute(xmlWriter, "labelColor", poco.LabelColor, poco, "LabelColor", context);
+            WriteReferenceAttribute(xmlWriter, "labelColor", poco.LabelColor, poco, "LabelColor", context);
             WriteStringAttribute(xmlWriter, "labelExpression", poco.LabelExpression, "feature:name");
             WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
             WriteBooleanAttribute(xmlWriter, "showIcon", poco.ShowIcon, true);

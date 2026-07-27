@@ -65,13 +65,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Template
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "domainClass", poco.DomainClass);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            this.WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
+            WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
             WriteStringAttribute(xmlWriter, "receivingEndFinderExpression", poco.ReceivingEndFinderExpression);
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "sendingEndFinderExpression", poco.SendingEndFinderExpression);
-            this.WriteReferenceListAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            WriteReferenceListAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
             WriteStringAttribute(xmlWriter, "sourceFinderExpression", poco.SourceFinderExpression);
-            this.WriteReferenceListAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
+            WriteReferenceListAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "targetFinderExpression", poco.TargetFinderExpression);
             WriteBooleanAttribute(xmlWriter, "useDomainElement", poco.UseDomainElement, false);
 

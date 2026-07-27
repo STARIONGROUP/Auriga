@@ -64,8 +64,8 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Libraries
         {
             WriteId(xmlWriter, poco);
             WriteEnumAttribute<Auriga.Model.Libraries.AccessPolicy>(xmlWriter, "accessPolicy", poco.AccessPolicy, Auriga.Extensions.AccessPolicyProvider.ToLiteralString);
-            this.WriteReferenceAttribute(xmlWriter, "library", poco.Library, poco, "Library", context);
-            this.WriteReferenceAttribute(xmlWriter, "version", poco.Version, poco, "Version", context);
+            WriteReferenceAttribute(xmlWriter, "library", poco.Library, poco, "Library", context);
+            WriteReferenceAttribute(xmlWriter, "version", poco.Version, poco, "Version", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

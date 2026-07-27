@@ -63,14 +63,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.IDFeatureColumn poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "cells", poco.Cells, poco, "Cells", context);
+            WriteReferenceListAttribute(xmlWriter, "cells", poco.Cells, poco, "Cells", context);
             WriteStringAttribute(xmlWriter, "featureName", poco.FeatureName);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceAttribute(xmlWriter, "originMapping", poco.OriginMapping, poco, "OriginMapping", context);
-            this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
-            this.WriteReferenceAttribute(xmlWriter, "table", poco.Table, poco, "Table", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "originMapping", poco.OriginMapping, poco, "OriginMapping", context);
+            WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
+            WriteReferenceAttribute(xmlWriter, "table", poco.Table, poco, "Table", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
             WriteIntegerAttribute(xmlWriter, "width", poco.Width);

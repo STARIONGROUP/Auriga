@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.IEAttributeCustomization poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedOn", poco.AppliedOn, poco, "AppliedOn", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedOn", poco.AppliedOn, poco, "AppliedOn", context);
             WriteBooleanAttribute(xmlWriter, "applyOnAll", poco.ApplyOnAll);
             WriteStringAttribute(xmlWriter, "attributeName", poco.AttributeName);
             WriteStringAttribute(xmlWriter, "value", poco.Value);

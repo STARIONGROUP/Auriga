@@ -72,7 +72,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             WriteStringAttribute(xmlWriter, "navigationNameExpression", poco.NavigationNameExpression);
             WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
-            this.WriteReferenceAttribute(xmlWriter, "tableDescription", poco.TableDescription, poco, "TableDescription", context);
+            WriteReferenceAttribute(xmlWriter, "tableDescription", poco.TableDescription, poco, "TableDescription", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

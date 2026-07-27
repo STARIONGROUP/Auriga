@@ -63,15 +63,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Sequence.ISequenceDDiagram poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "activateBehaviors", poco.ActivateBehaviors, poco, "ActivateBehaviors", context);
-            this.WriteReferenceListAttribute(xmlWriter, "activatedFilters", poco.ActivatedFilters, poco, "ActivatedFilters", context);
-            this.WriteReferenceListAttribute(xmlWriter, "activatedLayers", poco.ActivatedLayers, poco, "ActivatedLayers", context);
-            this.WriteReferenceListAttribute(xmlWriter, "activatedRules", poco.ActivatedRules, poco, "ActivatedRules", context);
-            this.WriteReferenceAttribute(xmlWriter, "currentConcern", poco.CurrentConcern, poco, "CurrentConcern", context);
-            this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
+            WriteReferenceListAttribute(xmlWriter, "activateBehaviors", poco.ActivateBehaviors, poco, "ActivateBehaviors", context);
+            WriteReferenceListAttribute(xmlWriter, "activatedFilters", poco.ActivatedFilters, poco, "ActivatedFilters", context);
+            WriteReferenceListAttribute(xmlWriter, "activatedLayers", poco.ActivatedLayers, poco, "ActivatedLayers", context);
+            WriteReferenceListAttribute(xmlWriter, "activatedRules", poco.ActivatedRules, poco, "ActivatedRules", context);
+            WriteReferenceAttribute(xmlWriter, "currentConcern", poco.CurrentConcern, poco, "CurrentConcern", context);
+            WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
             WriteIntegerAttribute(xmlWriter, "headerHeight", poco.HeaderHeight, 1);
             WriteBooleanAttribute(xmlWriter, "synchronized", poco.Synchronized, true);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

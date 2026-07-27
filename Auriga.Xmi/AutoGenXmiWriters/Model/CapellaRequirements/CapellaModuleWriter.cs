@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.CapellaRequirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.CapellaRequirements.ICapellaModule poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "moduleType", poco.ModuleType, poco, "ModuleType", context);
+            WriteReferenceAttribute(xmlWriter, "moduleType", poco.ModuleType, poco, "ModuleType", context);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
             WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);

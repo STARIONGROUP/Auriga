@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.IMetamodelExtensionSetting poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "extensionGroup", poco.ExtensionGroup as Auriga.Core.IAurigaElement, poco, "ExtensionGroup", context);
+            WriteReferenceAttribute(xmlWriter, "extensionGroup", poco.ExtensionGroup as Auriga.Core.IAurigaElement, poco, "ExtensionGroup", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

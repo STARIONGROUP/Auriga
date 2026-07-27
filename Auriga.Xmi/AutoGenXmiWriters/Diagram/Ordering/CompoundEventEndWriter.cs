@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Ordering
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Sequence.Ordering.ICompoundEventEnd poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "semanticEnd", poco.SemanticEnd as Auriga.Core.IAurigaElement, poco, "SemanticEnd", context);
+            WriteReferenceAttribute(xmlWriter, "semanticEnd", poco.SemanticEnd as Auriga.Core.IAurigaElement, poco, "SemanticEnd", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

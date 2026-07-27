@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Validation
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceListAttribute(xmlWriter, "reusedRules", poco.ReusedRules, poco, "ReusedRules", context);
+            WriteReferenceListAttribute(xmlWriter, "reusedRules", poco.ReusedRules, poco, "ReusedRules", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

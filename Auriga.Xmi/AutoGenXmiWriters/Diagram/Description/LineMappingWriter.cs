@@ -63,14 +63,14 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.Description.ILineMapping poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "detailDescriptions", poco.DetailDescriptions, poco, "DetailDescriptions", context);
+            WriteReferenceListAttribute(xmlWriter, "detailDescriptions", poco.DetailDescriptions, poco, "DetailDescriptions", context);
             WriteStringAttribute(xmlWriter, "domainClass", poco.DomainClass);
             WriteStringAttribute(xmlWriter, "headerLabelExpression", poco.HeaderLabelExpression);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceListAttribute(xmlWriter, "navigationDescriptions", poco.NavigationDescriptions, poco, "NavigationDescriptions", context);
-            this.WriteReferenceListAttribute(xmlWriter, "reusedInMappings", poco.ReusedInMappings, poco, "ReusedInMappings", context);
-            this.WriteReferenceListAttribute(xmlWriter, "reusedSubLines", poco.ReusedSubLines, poco, "ReusedSubLines", context);
+            WriteReferenceListAttribute(xmlWriter, "navigationDescriptions", poco.NavigationDescriptions, poco, "NavigationDescriptions", context);
+            WriteReferenceListAttribute(xmlWriter, "reusedInMappings", poco.ReusedInMappings, poco, "ReusedInMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "reusedSubLines", poco.ReusedSubLines, poco, "ReusedSubLines", context);
             WriteStringAttribute(xmlWriter, "semanticCandidatesExpression", poco.SemanticCandidatesExpression);
             WriteStringAttribute(xmlWriter, "semanticElements", poco.SemanticElements);
 

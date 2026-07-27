@@ -63,15 +63,15 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Style
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.Description.Style.IBracketEdgeStyleDescription poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "centeredSourceMappings", poco.CenteredSourceMappings, poco, "CenteredSourceMappings", context);
-            this.WriteReferenceListAttribute(xmlWriter, "centeredTargetMappings", poco.CenteredTargetMappings, poco, "CenteredTargetMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "centeredSourceMappings", poco.CenteredSourceMappings, poco, "CenteredSourceMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "centeredTargetMappings", poco.CenteredTargetMappings, poco, "CenteredTargetMappings", context);
             WriteEnumAttribute<Auriga.Diagram.Diagram.Description.CenteringStyle>(xmlWriter, "endsCentering", poco.EndsCentering, Auriga.Extensions.CenteringStyleProvider.ToLiteralString, Auriga.Diagram.Diagram.Description.CenteringStyle.None);
             WriteEnumAttribute<Auriga.Diagram.Diagram.Description.FoldingStyle>(xmlWriter, "foldingStyle", poco.FoldingStyle, Auriga.Extensions.FoldingStyleProvider.ToLiteralString);
             WriteEnumAttribute<Auriga.Diagram.Diagram.LineStyle>(xmlWriter, "lineStyle", poco.LineStyle, Auriga.Extensions.LineStyleProvider.ToLiteralString);
             WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeRouting>(xmlWriter, "routingStyle", poco.RoutingStyle, Auriga.Extensions.EdgeRoutingProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeRouting.Straight);
             WriteStringAttribute(xmlWriter, "sizeComputationExpression", poco.SizeComputationExpression, "1");
             WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "sourceArrow", poco.SourceArrow, Auriga.Extensions.EdgeArrowsProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeArrows.NoDecoration);
-            this.WriteReferenceAttribute(xmlWriter, "strokeColor", poco.StrokeColor, poco, "StrokeColor", context);
+            WriteReferenceAttribute(xmlWriter, "strokeColor", poco.StrokeColor, poco, "StrokeColor", context);
             WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeArrows>(xmlWriter, "targetArrow", poco.TargetArrow, Auriga.Extensions.EdgeArrowsProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeArrows.InputArrow);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

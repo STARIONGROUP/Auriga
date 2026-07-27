@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "containerViewExpression", poco.ContainerViewExpression, "");
-            this.WriteReferenceAttribute(xmlWriter, "mapping", poco.Mapping, poco, "Mapping", context);
+            WriteReferenceAttribute(xmlWriter, "mapping", poco.Mapping, poco, "Mapping", context);
             WriteStringAttribute(xmlWriter, "variableName", poco.VariableName, "createdView");
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

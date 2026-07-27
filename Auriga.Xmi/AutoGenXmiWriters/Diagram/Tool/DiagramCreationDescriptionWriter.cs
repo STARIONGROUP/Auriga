@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "browseExpression", poco.BrowseExpression);
-            this.WriteReferenceAttribute(xmlWriter, "diagramDescription", poco.DiagramDescription, poco, "DiagramDescription", context);
+            WriteReferenceAttribute(xmlWriter, "diagramDescription", poco.DiagramDescription, poco, "DiagramDescription", context);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
             WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);

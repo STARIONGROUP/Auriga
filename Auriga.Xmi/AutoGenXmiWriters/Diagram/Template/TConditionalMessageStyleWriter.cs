@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Template
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Sequence.Template.ITConditionalMessageStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
+            WriteReferenceListAttribute(xmlWriter, "outputs", poco.Outputs, poco, "Outputs", context);
             WriteStringAttribute(xmlWriter, "predicateExpression", poco.PredicateExpression);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
-            this.WriteReferenceAttribute(xmlWriter, "importedMapping", poco.ImportedMapping, poco, "ImportedMapping", context);
+            WriteReferenceAttribute(xmlWriter, "importedMapping", poco.ImportedMapping, poco, "ImportedMapping", context);
             WriteBooleanAttribute(xmlWriter, "inheritsAncestorFilters", poco.InheritsAncestorFilters, true);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");

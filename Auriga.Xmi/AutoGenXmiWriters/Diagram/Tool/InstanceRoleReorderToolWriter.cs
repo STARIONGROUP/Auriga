@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Description.Tool
             WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
             WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            this.WriteReferenceListAttribute(xmlWriter, "mappings", poco.Mappings, poco, "Mappings", context);
+            WriteReferenceListAttribute(xmlWriter, "mappings", poco.Mappings, poco, "Mappings", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             WriteStringAttribute(xmlWriter, "precondition", poco.Precondition, "");
 

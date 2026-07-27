@@ -63,10 +63,10 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Re
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Re.ICatalogElementLink poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "origin", poco.Origin, poco, "Origin", context);
-            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            WriteReferenceAttribute(xmlWriter, "origin", poco.Origin, poco, "Origin", context);
+            WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
             WriteBooleanAttribute(xmlWriter, "suffixed", poco.Suffixed);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.IVSMElementCustomizationReuse poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedOn", poco.AppliedOn, poco, "AppliedOn", context);
-            this.WriteReferenceListAttribute(xmlWriter, "reuse", poco.Reuse, poco, "Reuse", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedOn", poco.AppliedOn, poco, "AppliedOn", context);
+            WriteReferenceListAttribute(xmlWriter, "reuse", poco.Reuse, poco, "Reuse", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

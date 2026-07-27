@@ -65,10 +65,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Description.Tool
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "connectionStartPrecondition", poco.ConnectionStartPrecondition);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
-            this.WriteReferenceListAttribute(xmlWriter, "edgeMappings", poco.EdgeMappings, poco, "EdgeMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "edgeMappings", poco.EdgeMappings, poco, "EdgeMappings", context);
             WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
-            this.WriteReferenceListAttribute(xmlWriter, "extraSourceMappings", poco.ExtraSourceMappings, poco, "ExtraSourceMappings", context);
-            this.WriteReferenceListAttribute(xmlWriter, "extraTargetMappings", poco.ExtraTargetMappings, poco, "ExtraTargetMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "extraSourceMappings", poco.ExtraSourceMappings, poco, "ExtraSourceMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "extraTargetMappings", poco.ExtraTargetMappings, poco, "ExtraTargetMappings", context);
             WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
             WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);

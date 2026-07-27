@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IFilteringStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "filteredObjects", poco.FilteredObjects, poco, "FilteredObjects", context);
+            WriteReferenceListAttribute(xmlWriter, "filteredObjects", poco.FilteredObjects, poco, "FilteredObjects", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.Filtering>(xmlWriter, "filtering", poco.Filtering, Auriga.Extensions.FilteringProvider.ToLiteralString, Auriga.Diagram.Notation.Filtering.None);
             WriteStringAttribute(xmlWriter, "filteringKeys", poco.FilteringKeys);
 

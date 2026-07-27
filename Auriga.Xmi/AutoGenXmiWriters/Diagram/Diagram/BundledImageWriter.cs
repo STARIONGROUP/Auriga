@@ -68,7 +68,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             WriteIntegerAttribute(xmlWriter, "borderSize", poco.BorderSize, 0);
             WriteStringAttribute(xmlWriter, "borderSizeComputationExpression", poco.BorderSizeComputationExpression, "0");
             WriteStringAttribute(xmlWriter, "color", poco.Color, "0,0,0");
-            this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
+            WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
             WriteBooleanAttribute(xmlWriter, "hideLabelByDefault", poco.HideLabelByDefault, false);
             WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.LabelAlignment>(xmlWriter, "labelAlignment", poco.LabelAlignment, Auriga.Extensions.LabelAlignmentProvider.ToLiteralString);

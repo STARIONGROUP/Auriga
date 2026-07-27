@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram.Description.Tool
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "createIfNotExistent", poco.CreateIfNotExistent);
-            this.WriteReferenceAttribute(xmlWriter, "diagramDescription", poco.DiagramDescription, poco, "DiagramDescription", context);
+            WriteReferenceAttribute(xmlWriter, "diagramDescription", poco.DiagramDescription, poco, "DiagramDescription", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

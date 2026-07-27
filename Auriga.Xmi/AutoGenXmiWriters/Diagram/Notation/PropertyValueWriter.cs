@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IPropertyValue poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "instanceType", poco.InstanceType as Auriga.Core.IAurigaElement, poco, "InstanceType", context);
+            WriteReferenceAttribute(xmlWriter, "instanceType", poco.InstanceType as Auriga.Core.IAurigaElement, poco, "InstanceType", context);
             WriteStringAttribute(xmlWriter, "rawValue", poco.RawValue);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

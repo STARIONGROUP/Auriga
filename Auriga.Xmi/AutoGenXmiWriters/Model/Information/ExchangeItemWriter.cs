@@ -64,16 +64,16 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "abstract", poco.Abstract);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             WriteEnumAttribute<Auriga.Model.Information.ExchangeMechanism>(xmlWriter, "exchangeMechanism", poco.ExchangeMechanism, Auriga.Extensions.ExchangeMechanismProvider.ToLiteralString);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteBooleanAttribute(xmlWriter, "final", poco.Final);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);

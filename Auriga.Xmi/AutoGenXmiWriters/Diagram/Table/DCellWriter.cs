@@ -63,13 +63,13 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Table.IDCell poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "column", poco.Column, poco, "Column", context);
-            this.WriteReferenceAttribute(xmlWriter, "intersectionMapping", poco.IntersectionMapping, poco, "IntersectionMapping", context);
+            WriteReferenceAttribute(xmlWriter, "column", poco.Column, poco, "Column", context);
+            WriteReferenceAttribute(xmlWriter, "intersectionMapping", poco.IntersectionMapping, poco, "IntersectionMapping", context);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
-            this.WriteReferenceAttribute(xmlWriter, "line", poco.Line, poco, "Line", context);
+            WriteReferenceAttribute(xmlWriter, "line", poco.Line, poco, "Line", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
+            WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

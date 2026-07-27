@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.IDAnalysis poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "referencedAnalysis", poco.ReferencedAnalysis, poco, "ReferencedAnalysis", context);
-            this.WriteReferenceListAttribute(xmlWriter, "selectedViews", poco.SelectedViews, poco, "SelectedViews", context);
+            WriteReferenceListAttribute(xmlWriter, "referencedAnalysis", poco.ReferencedAnalysis, poco, "ReferencedAnalysis", context);
+            WriteReferenceListAttribute(xmlWriter, "selectedViews", poco.SelectedViews, poco, "SelectedViews", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteStringAttribute(xmlWriter, "version", poco.Version);
 

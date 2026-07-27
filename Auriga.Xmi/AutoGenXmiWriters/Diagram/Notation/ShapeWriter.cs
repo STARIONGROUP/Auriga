@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "bold", poco.Bold, false);
             WriteStringAttribute(xmlWriter, "description", poco.Description, "");
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
+            WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             WriteIntegerAttribute(xmlWriter, "fillColor", poco.FillColor, 16777215);
             WriteIntegerAttribute(xmlWriter, "fontColor", poco.FontColor, 0);
             WriteIntegerAttribute(xmlWriter, "fontHeight", poco.FontHeight, 9);

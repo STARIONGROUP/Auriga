@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.IColorStep poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "associatedColor", poco.AssociatedColor, poco, "AssociatedColor", context);
+            WriteReferenceAttribute(xmlWriter, "associatedColor", poco.AssociatedColor, poco, "AssociatedColor", context);
             WriteStringAttribute(xmlWriter, "associatedValue", poco.AssociatedValue, "");
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
