@@ -14,6 +14,7 @@ namespace Auriga.Xmi.Tests
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Xml;
     using System.Xml.Linq;
 
@@ -34,7 +35,7 @@ namespace Auriga.Xmi.Tests
     /// listed in <c>docs/xmi-writer.md</c> and applied by <see cref="Canonicalize"/>.</para>
     /// </summary>
     [TestFixture]
-    public class RoundTripRegressionTestFixture
+    public partial class RoundTripRegressionTestFixture
     {
         /// <summary>
         /// The auditable textual round-trip: reads the fixture, writes every document back, and reports how
@@ -133,7 +134,7 @@ namespace Auriga.Xmi.Tests
         /// <returns>true when both sides parse to the same numeric value</returns>
         private static bool IsSameNumber(string difference)
         {
-            var match = System.Text.RegularExpressions.Regex.Match(difference, @"'([^']*)' != '([^']*)'$");
+            var match = ValuePairRegex().Match(difference);
 
             return match.Success
                    && double.TryParse(match.Groups[1].Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var expected)
@@ -481,5 +482,12 @@ namespace Auriga.Xmi.Tests
             var hash = token.LastIndexOf('#');
             return hash >= 0 ? token.Substring(hash + 1) : token;
         }
+
+        /// <summary>
+        /// Matches a difference of the form <c>'x' != 'y'</c> at the end of the text, capturing both
+        /// spellings.
+        /// </summary>
+        [GeneratedRegex(@"'([^']*)' != '([^']*)'$")]
+        private static partial Regex ValuePairRegex();
     }
 }
