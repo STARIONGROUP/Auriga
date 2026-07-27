@@ -10,6 +10,7 @@
 namespace Auriga.Rendering.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
@@ -82,12 +83,12 @@ namespace Auriga.Rendering.Tests
             return Math.Sqrt(((a.X - b.X) * (a.X - b.X)) + ((a.Y - b.Y) * (a.Y - b.Y)));
         }
 
-        private static bool SameRoute(System.Collections.Generic.IReadOnlyList<Point> a, System.Collections.Generic.IReadOnlyList<Point> b)
+        private static bool SameRoute(IReadOnlyList<Point> a, IReadOnlyList<Point> b)
         {
             return a.Count == b.Count && a.Zip(b, (x, y) => Distance(x, y) < 0.001).All(equal => equal);
         }
 
-        private static System.Collections.Generic.IEnumerable<(Edge First, Edge Second)> Pairs(System.Collections.Generic.IReadOnlyList<Edge> items)
+        private static IEnumerable<(Edge First, Edge Second)> Pairs(List<Edge> items)
         {
             for (var i = 0; i < items.Count; i++)
             {
