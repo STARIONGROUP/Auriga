@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ArmTimerEventReader : XmiElementReader<Auriga.Model.Interaction.IArmTimerEvent>, IXmiElementReader<Auriga.Model.Interaction.IArmTimerEvent>
+    public class ArmTimerEventReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.IArmTimerEvent>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ArmTimerEventReader"/> class.

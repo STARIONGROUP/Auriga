@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Pa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class PhysicalFunctionReader : XmiElementReader<Auriga.Model.Pa.IPhysicalFunction>, IXmiElementReader<Auriga.Model.Pa.IPhysicalFunction>
+    public class PhysicalFunctionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Pa.IPhysicalFunction>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalFunctionReader"/> class.

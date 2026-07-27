@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ReorderToolReader : XmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IReorderTool>, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IReorderTool>
+    public class ReorderToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IReorderTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReorderToolReader"/> class.

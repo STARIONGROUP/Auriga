@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Ordering
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SingleEventEndReader : XmiElementReader<Auriga.Diagram.Sequence.Ordering.ISingleEventEnd>, IXmiElementReader<Auriga.Diagram.Sequence.Ordering.ISingleEventEnd>
+    public class SingleEventEndReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Ordering.ISingleEventEnd>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleEventEndReader"/> class.

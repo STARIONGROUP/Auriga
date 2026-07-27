@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Template
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TReturnMessageMappingReader : XmiElementReader<Auriga.Diagram.Sequence.Template.ITReturnMessageMapping>, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITReturnMessageMapping>
+    public class TReturnMessageMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITReturnMessageMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TReturnMessageMappingReader"/> class.

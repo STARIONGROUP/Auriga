@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BracketEdgeStyleDescriptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Style.IBracketEdgeStyleDescription>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.IBracketEdgeStyleDescription>
+    public class BracketEdgeStyleDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.IBracketEdgeStyleDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BracketEdgeStyleDescriptionReader"/> class.

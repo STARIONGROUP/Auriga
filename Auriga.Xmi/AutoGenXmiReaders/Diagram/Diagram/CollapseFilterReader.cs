@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CollapseFilterReader : XmiElementReader<Auriga.Diagram.Diagram.ICollapseFilter>, IXmiElementReader<Auriga.Diagram.Diagram.ICollapseFilter>
+    public class CollapseFilterReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.ICollapseFilter>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CollapseFilterReader"/> class.

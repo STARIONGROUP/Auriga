@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class PortRealizationReader : XmiElementReader<Auriga.Model.Information.IPortRealization>, IXmiElementReader<Auriga.Model.Information.IPortRealization>
+    public class PortRealizationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.IPortRealization>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PortRealizationReader"/> class.

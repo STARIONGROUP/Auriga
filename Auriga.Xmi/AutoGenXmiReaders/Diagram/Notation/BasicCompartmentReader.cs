@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BasicCompartmentReader : XmiElementReader<Auriga.Diagram.Notation.IBasicCompartment>, IXmiElementReader<Auriga.Diagram.Notation.IBasicCompartment>
+    public class BasicCompartmentReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IBasicCompartment>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BasicCompartmentReader"/> class.

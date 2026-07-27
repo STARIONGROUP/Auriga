@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EllipseReader : XmiElementReader<Auriga.Diagram.Diagram.IEllipse>, IXmiElementReader<Auriga.Diagram.Diagram.IEllipse>
+    public class EllipseReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IEllipse>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipseReader"/> class.

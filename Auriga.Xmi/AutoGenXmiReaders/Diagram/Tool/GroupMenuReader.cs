@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class GroupMenuReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IGroupMenu>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IGroupMenu>
+    public class GroupMenuReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IGroupMenu>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GroupMenuReader"/> class.

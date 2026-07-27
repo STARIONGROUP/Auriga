@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Validation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ValidationSetReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IValidationSet>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IValidationSet>
+    public class ValidationSetReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IValidationSet>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationSetReader"/> class.

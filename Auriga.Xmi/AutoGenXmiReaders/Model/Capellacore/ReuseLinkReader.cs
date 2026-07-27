@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacore
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ReuseLinkReader : XmiElementReader<Auriga.Model.Capellacore.IReuseLink>, IXmiElementReader<Auriga.Model.Capellacore.IReuseLink>
+    public class ReuseLinkReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacore.IReuseLink>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReuseLinkReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class LiteralBooleanValueReader : XmiElementReader<Auriga.Model.Information.Datavalue.ILiteralBooleanValue>, IXmiElementReader<Auriga.Model.Information.Datavalue.ILiteralBooleanValue>
+    public class LiteralBooleanValueReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Datavalue.ILiteralBooleanValue>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LiteralBooleanValueReader"/> class.

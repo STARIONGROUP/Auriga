@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Style
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class LabelBorderStyleDescriptionReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Style.ILabelBorderStyleDescription>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Style.ILabelBorderStyleDescription>
+    public class LabelBorderStyleDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Style.ILabelBorderStyleDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LabelBorderStyleDescriptionReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TypedVariableValueReader : XmiElementReader<Auriga.Diagram.Diagram.ITypedVariableValue>, IXmiElementReader<Auriga.Diagram.Diagram.ITypedVariableValue>
+    public class TypedVariableValueReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.ITypedVariableValue>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TypedVariableValueReader"/> class.

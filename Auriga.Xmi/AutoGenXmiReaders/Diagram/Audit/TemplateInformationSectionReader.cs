@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Audit
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TemplateInformationSectionReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Audit.ITemplateInformationSection>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Audit.ITemplateInformationSection>
+    public class TemplateInformationSectionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Audit.ITemplateInformationSection>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateInformationSectionReader"/> class.

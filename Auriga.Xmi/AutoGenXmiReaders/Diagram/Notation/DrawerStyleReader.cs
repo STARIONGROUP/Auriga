@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DrawerStyleReader : XmiElementReader<Auriga.Diagram.Notation.IDrawerStyle>, IXmiElementReader<Auriga.Diagram.Notation.IDrawerStyle>
+    public class DrawerStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IDrawerStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawerStyleReader"/> class.

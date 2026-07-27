@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CreationEventReader : XmiElementReader<Auriga.Model.Interaction.ICreationEvent>, IXmiElementReader<Auriga.Model.Interaction.ICreationEvent>
+    public class CreationEventReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.ICreationEvent>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CreationEventReader"/> class.

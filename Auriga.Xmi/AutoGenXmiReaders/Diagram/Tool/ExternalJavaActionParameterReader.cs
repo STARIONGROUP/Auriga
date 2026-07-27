@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ExternalJavaActionParameterReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IExternalJavaActionParameter>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IExternalJavaActionParameter>
+    public class ExternalJavaActionParameterReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IExternalJavaActionParameter>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalJavaActionParameterReader"/> class.

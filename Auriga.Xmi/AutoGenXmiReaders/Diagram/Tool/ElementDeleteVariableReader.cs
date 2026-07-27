@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ElementDeleteVariableReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IElementDeleteVariable>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IElementDeleteVariable>
+    public class ElementDeleteVariableReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IElementDeleteVariable>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementDeleteVariableReader"/> class.

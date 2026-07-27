@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacommon
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class GenericTraceReader : XmiElementReader<Auriga.Model.Capellacommon.IGenericTrace>, IXmiElementReader<Auriga.Model.Capellacommon.IGenericTrace>
+    public class GenericTraceReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacommon.IGenericTrace>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericTraceReader"/> class.

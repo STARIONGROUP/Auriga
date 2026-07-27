@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Mass
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class PartMassReader : XmiElementReader<Auriga.Model.Mass.IPartMass>, IXmiElementReader<Auriga.Model.Mass.IPartMass>
+    public class PartMassReader : XmiElementReader, IXmiElementReader<Auriga.Model.Mass.IPartMass>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PartMassReader"/> class.

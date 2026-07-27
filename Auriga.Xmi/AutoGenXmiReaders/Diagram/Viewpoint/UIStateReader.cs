@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class UIStateReader : XmiElementReader<Auriga.Diagram.Viewpoint.IUIState>, IXmiElementReader<Auriga.Diagram.Viewpoint.IUIState>
+    public class UIStateReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.IUIState>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UIStateReader"/> class.

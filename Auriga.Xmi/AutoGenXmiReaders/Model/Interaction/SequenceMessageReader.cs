@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SequenceMessageReader : XmiElementReader<Auriga.Model.Interaction.ISequenceMessage>, IXmiElementReader<Auriga.Model.Interaction.ISequenceMessage>
+    public class SequenceMessageReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.ISequenceMessage>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SequenceMessageReader"/> class.

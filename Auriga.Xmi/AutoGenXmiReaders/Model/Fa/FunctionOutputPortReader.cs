@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FunctionOutputPortReader : XmiElementReader<Auriga.Model.Fa.IFunctionOutputPort>, IXmiElementReader<Auriga.Model.Fa.IFunctionOutputPort>
+    public class FunctionOutputPortReader : XmiElementReader, IXmiElementReader<Auriga.Model.Fa.IFunctionOutputPort>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionOutputPortReader"/> class.

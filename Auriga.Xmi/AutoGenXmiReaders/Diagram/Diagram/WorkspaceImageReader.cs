@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class WorkspaceImageReader : XmiElementReader<Auriga.Diagram.Diagram.IWorkspaceImage>, IXmiElementReader<Auriga.Diagram.Diagram.IWorkspaceImage>
+    public class WorkspaceImageReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IWorkspaceImage>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkspaceImageReader"/> class.

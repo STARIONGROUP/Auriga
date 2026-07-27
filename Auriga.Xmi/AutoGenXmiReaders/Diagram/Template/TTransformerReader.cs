@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Template
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TTransformerReader : XmiElementReader<Auriga.Diagram.Sequence.Template.ITTransformer>, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITTransformer>
+    public class TTransformerReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITTransformer>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TTransformerReader"/> class.

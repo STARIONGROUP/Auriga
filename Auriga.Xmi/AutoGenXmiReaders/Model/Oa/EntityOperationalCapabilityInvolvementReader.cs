@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Oa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EntityOperationalCapabilityInvolvementReader : XmiElementReader<Auriga.Model.Oa.IEntityOperationalCapabilityInvolvement>, IXmiElementReader<Auriga.Model.Oa.IEntityOperationalCapabilityInvolvement>
+    public class EntityOperationalCapabilityInvolvementReader : XmiElementReader, IXmiElementReader<Auriga.Model.Oa.IEntityOperationalCapabilityInvolvement>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityOperationalCapabilityInvolvementReader"/> class.

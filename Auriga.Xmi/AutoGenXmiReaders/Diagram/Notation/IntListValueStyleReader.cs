@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class IntListValueStyleReader : XmiElementReader<Auriga.Diagram.Notation.IIntListValueStyle>, IXmiElementReader<Auriga.Diagram.Notation.IIntListValueStyle>
+    public class IntListValueStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IIntListValueStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IntListValueStyleReader"/> class.

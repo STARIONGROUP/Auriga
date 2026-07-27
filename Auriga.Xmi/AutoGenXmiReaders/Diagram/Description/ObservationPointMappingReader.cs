@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ObservationPointMappingReader : XmiElementReader<Auriga.Diagram.Sequence.Description.IObservationPointMapping>, IXmiElementReader<Auriga.Diagram.Sequence.Description.IObservationPointMapping>
+    public class ObservationPointMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.IObservationPointMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ObservationPointMappingReader"/> class.

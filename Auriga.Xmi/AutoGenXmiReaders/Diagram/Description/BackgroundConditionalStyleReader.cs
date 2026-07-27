@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Table.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BackgroundConditionalStyleReader : XmiElementReader<Auriga.Diagram.Table.Description.IBackgroundConditionalStyle>, IXmiElementReader<Auriga.Diagram.Table.Description.IBackgroundConditionalStyle>
+    public class BackgroundConditionalStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Table.Description.IBackgroundConditionalStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundConditionalStyleReader"/> class.

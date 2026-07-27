@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Table.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DeleteLineToolReader : XmiElementReader<Auriga.Diagram.Table.Description.IDeleteLineTool>, IXmiElementReader<Auriga.Diagram.Table.Description.IDeleteLineTool>
+    public class DeleteLineToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Table.Description.IDeleteLineTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteLineToolReader"/> class.

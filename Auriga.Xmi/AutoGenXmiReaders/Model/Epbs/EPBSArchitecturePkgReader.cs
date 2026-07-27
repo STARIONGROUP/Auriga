@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Epbs
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EPBSArchitecturePkgReader : XmiElementReader<Auriga.Model.Epbs.IEPBSArchitecturePkg>, IXmiElementReader<Auriga.Model.Epbs.IEPBSArchitecturePkg>
+    public class EPBSArchitecturePkgReader : XmiElementReader, IXmiElementReader<Auriga.Model.Epbs.IEPBSArchitecturePkg>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EPBSArchitecturePkgReader"/> class.

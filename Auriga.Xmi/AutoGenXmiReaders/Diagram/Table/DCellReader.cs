@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Table
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DCellReader : XmiElementReader<Auriga.Diagram.Table.IDCell>, IXmiElementReader<Auriga.Diagram.Table.IDCell>
+    public class DCellReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Table.IDCell>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DCellReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Cybersecurity
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FunctionStorageReader : XmiElementReader<Auriga.Model.Cybersecurity.IFunctionStorage>, IXmiElementReader<Auriga.Model.Cybersecurity.IFunctionStorage>
+    public class FunctionStorageReader : XmiElementReader, IXmiElementReader<Auriga.Model.Cybersecurity.IFunctionStorage>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionStorageReader"/> class.

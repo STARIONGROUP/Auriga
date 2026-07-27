@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FunctionalExchangeSpecificationReader : XmiElementReader<Auriga.Model.Fa.IFunctionalExchangeSpecification>, IXmiElementReader<Auriga.Model.Fa.IFunctionalExchangeSpecification>
+    public class FunctionalExchangeSpecificationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Fa.IFunctionalExchangeSpecification>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionalExchangeSpecificationReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Oa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class RoleAssemblyUsageReader : XmiElementReader<Auriga.Model.Oa.IRoleAssemblyUsage>, IXmiElementReader<Auriga.Model.Oa.IRoleAssemblyUsage>
+    public class RoleAssemblyUsageReader : XmiElementReader, IXmiElementReader<Auriga.Model.Oa.IRoleAssemblyUsage>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleAssemblyUsageReader"/> class.

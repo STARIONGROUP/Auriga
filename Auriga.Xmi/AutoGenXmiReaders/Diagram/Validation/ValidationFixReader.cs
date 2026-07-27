@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Validation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ValidationFixReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IValidationFix>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IValidationFix>
+    public class ValidationFixReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IValidationFix>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationFixReader"/> class.

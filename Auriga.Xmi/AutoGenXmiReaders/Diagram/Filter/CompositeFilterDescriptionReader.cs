@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Filter
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CompositeFilterDescriptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Filter.ICompositeFilterDescription>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Filter.ICompositeFilterDescription>
+    public class CompositeFilterDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Filter.ICompositeFilterDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CompositeFilterDescriptionReader"/> class.

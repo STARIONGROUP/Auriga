@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class OrderedTreeLayoutReader : XmiElementReader<Auriga.Diagram.Diagram.Description.IOrderedTreeLayout>, IXmiElementReader<Auriga.Diagram.Diagram.Description.IOrderedTreeLayout>
+    public class OrderedTreeLayoutReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.IOrderedTreeLayout>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OrderedTreeLayoutReader"/> class.

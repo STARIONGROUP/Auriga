@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class StringToPropertyValueMapEntryReader : XmiElementReader<Auriga.Diagram.Notation.IStringToPropertyValueMapEntry>, IXmiElementReader<Auriga.Diagram.Notation.IStringToPropertyValueMapEntry>
+    public class StringToPropertyValueMapEntryReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IStringToPropertyValueMapEntry>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StringToPropertyValueMapEntryReader"/> class.

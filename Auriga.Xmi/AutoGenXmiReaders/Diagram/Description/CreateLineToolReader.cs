@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Table.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CreateLineToolReader : XmiElementReader<Auriga.Diagram.Table.Description.ICreateLineTool>, IXmiElementReader<Auriga.Diagram.Table.Description.ICreateLineTool>
+    public class CreateLineToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Table.Description.ICreateLineTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateLineToolReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DragAndDropTargetReader : XmiElementReader<Auriga.Diagram.Diagram.IDragAndDropTarget>, IXmiElementReader<Auriga.Diagram.Diagram.IDragAndDropTarget>
+    public class DragAndDropTargetReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IDragAndDropTarget>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DragAndDropTargetReader"/> class.

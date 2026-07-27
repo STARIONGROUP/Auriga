@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Oa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CommunityOfInterestReader : XmiElementReader<Auriga.Model.Oa.ICommunityOfInterest>, IXmiElementReader<Auriga.Model.Oa.ICommunityOfInterest>
+    public class CommunityOfInterestReader : XmiElementReader, IXmiElementReader<Auriga.Model.Oa.ICommunityOfInterest>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommunityOfInterestReader"/> class.

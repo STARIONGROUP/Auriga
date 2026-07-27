@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ExecutionReader : XmiElementReader<Auriga.Model.Interaction.IExecution>, IXmiElementReader<Auriga.Model.Interaction.IExecution>
+    public class ExecutionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.IExecution>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExecutionReader"/> class.

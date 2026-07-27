@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ValuePartReader : XmiElementReader<Auriga.Model.Information.Datavalue.IValuePart>, IXmiElementReader<Auriga.Model.Information.Datavalue.IValuePart>
+    public class ValuePartReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Datavalue.IValuePart>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValuePartReader"/> class.

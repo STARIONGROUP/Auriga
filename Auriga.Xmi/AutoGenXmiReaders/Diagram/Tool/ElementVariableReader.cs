@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ElementVariableReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IElementVariable>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IElementVariable>
+    public class ElementVariableReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IElementVariable>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementVariableReader"/> class.

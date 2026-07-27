@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FunctionalChainAbstractCapabilityInvolvementReader : XmiElementReader<Auriga.Model.Interaction.IFunctionalChainAbstractCapabilityInvolvement>, IXmiElementReader<Auriga.Model.Interaction.IFunctionalChainAbstractCapabilityInvolvement>
+    public class FunctionalChainAbstractCapabilityInvolvementReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.IFunctionalChainAbstractCapabilityInvolvement>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionalChainAbstractCapabilityInvolvementReader"/> class.

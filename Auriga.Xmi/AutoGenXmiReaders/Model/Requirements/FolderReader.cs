@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Requirements
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FolderReader : XmiElementReader<Auriga.Model.Requirements.IFolder>, IXmiElementReader<Auriga.Model.Requirements.IFolder>
+    public class FolderReader : XmiElementReader, IXmiElementReader<Auriga.Model.Requirements.IFolder>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FolderReader"/> class.

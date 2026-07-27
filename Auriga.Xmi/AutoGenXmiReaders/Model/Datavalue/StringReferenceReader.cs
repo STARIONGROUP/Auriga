@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class StringReferenceReader : XmiElementReader<Auriga.Model.Information.Datavalue.IStringReference>, IXmiElementReader<Auriga.Model.Information.Datavalue.IStringReference>
+    public class StringReferenceReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Datavalue.IStringReference>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StringReferenceReader"/> class.

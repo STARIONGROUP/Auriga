@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Re
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class RecCatalogReader : XmiElementReader<Auriga.Model.Re.IRecCatalog>, IXmiElementReader<Auriga.Model.Re.IRecCatalog>
+    public class RecCatalogReader : XmiElementReader, IXmiElementReader<Auriga.Model.Re.IRecCatalog>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecCatalogReader"/> class.

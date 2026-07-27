@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Libraries
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class LibraryReferenceReader : XmiElementReader<Auriga.Model.Libraries.ILibraryReference>, IXmiElementReader<Auriga.Model.Libraries.ILibraryReference>
+    public class LibraryReferenceReader : XmiElementReader, IXmiElementReader<Auriga.Model.Libraries.ILibraryReference>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryReferenceReader"/> class.

@@ -24,7 +24,7 @@ namespace Auriga.Xmi.Core.Readers
     /// no vendored metamodel package, so every generated reader facade routes its type key here
     /// instead of to a generated per-type reader.
     /// </summary>
-    public sealed class EStringToStringMapEntryReader : XmiElementReader<IEStringToStringMapEntry>
+    public sealed class EStringToStringMapEntryReader : XmiElementReader
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EStringToStringMapEntryReader"/> class.

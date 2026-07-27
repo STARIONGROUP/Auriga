@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Sharedmodel
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SharedPkgReader : XmiElementReader<Auriga.Model.Sharedmodel.ISharedPkg>, IXmiElementReader<Auriga.Model.Sharedmodel.ISharedPkg>
+    public class SharedPkgReader : XmiElementReader, IXmiElementReader<Auriga.Model.Sharedmodel.ISharedPkg>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SharedPkgReader"/> class.

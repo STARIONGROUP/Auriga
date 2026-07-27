@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EditMaskVariablesReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IEditMaskVariables>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IEditMaskVariables>
+    public class EditMaskVariablesReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IEditMaskVariables>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EditMaskVariablesReader"/> class.

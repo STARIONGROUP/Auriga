@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ComponentFunctionalAllocationReader : XmiElementReader<Auriga.Model.Fa.IComponentFunctionalAllocation>, IXmiElementReader<Auriga.Model.Fa.IComponentFunctionalAllocation>
+    public class ComponentFunctionalAllocationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Fa.IComponentFunctionalAllocation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ComponentFunctionalAllocationReader"/> class.

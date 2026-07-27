@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Requirements
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class AttributeDefinitionEnumerationReader : XmiElementReader<Auriga.Model.Requirements.IAttributeDefinitionEnumeration>, IXmiElementReader<Auriga.Model.Requirements.IAttributeDefinitionEnumeration>
+    public class AttributeDefinitionEnumerationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Requirements.IAttributeDefinitionEnumeration>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeDefinitionEnumerationReader"/> class.

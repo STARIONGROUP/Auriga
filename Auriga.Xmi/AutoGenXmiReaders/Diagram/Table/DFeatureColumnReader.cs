@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Table
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DFeatureColumnReader : XmiElementReader<Auriga.Diagram.Table.IDFeatureColumn>, IXmiElementReader<Auriga.Diagram.Table.IDFeatureColumn>
+    public class DFeatureColumnReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Table.IDFeatureColumn>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DFeatureColumnReader"/> class.

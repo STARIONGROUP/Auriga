@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ChangeContextReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IChangeContext>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IChangeContext>
+    public class ChangeContextReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IChangeContext>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ChangeContextReader"/> class.

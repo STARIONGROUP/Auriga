@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class NodeCreationVariableReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Tool.INodeCreationVariable>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.INodeCreationVariable>
+    public class NodeCreationVariableReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.INodeCreationVariable>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NodeCreationVariableReader"/> class.

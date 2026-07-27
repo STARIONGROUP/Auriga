@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Table.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DeleteColumnToolReader : XmiElementReader<Auriga.Diagram.Table.Description.IDeleteColumnTool>, IXmiElementReader<Auriga.Diagram.Table.Description.IDeleteColumnTool>
+    public class DeleteColumnToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Table.Description.IDeleteColumnTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteColumnToolReader"/> class.

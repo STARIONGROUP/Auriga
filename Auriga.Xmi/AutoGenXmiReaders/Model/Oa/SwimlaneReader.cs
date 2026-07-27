@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Oa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SwimlaneReader : XmiElementReader<Auriga.Model.Oa.ISwimlane>, IXmiElementReader<Auriga.Model.Oa.ISwimlane>
+    public class SwimlaneReader : XmiElementReader, IXmiElementReader<Auriga.Model.Oa.ISwimlane>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SwimlaneReader"/> class.

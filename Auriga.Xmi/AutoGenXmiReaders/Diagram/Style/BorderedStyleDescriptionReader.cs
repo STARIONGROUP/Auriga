@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BorderedStyleDescriptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Style.IBorderedStyleDescription>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.IBorderedStyleDescription>
+    public class BorderedStyleDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.IBorderedStyleDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BorderedStyleDescriptionReader"/> class.

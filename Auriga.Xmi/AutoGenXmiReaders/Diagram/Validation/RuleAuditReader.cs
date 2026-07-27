@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Validation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class RuleAuditReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IRuleAudit>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IRuleAudit>
+    public class RuleAuditReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Validation.IRuleAudit>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RuleAuditReader"/> class.

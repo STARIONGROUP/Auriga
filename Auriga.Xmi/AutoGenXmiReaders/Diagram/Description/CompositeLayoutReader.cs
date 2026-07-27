@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CompositeLayoutReader : XmiElementReader<Auriga.Diagram.Diagram.Description.ICompositeLayout>, IXmiElementReader<Auriga.Diagram.Diagram.Description.ICompositeLayout>
+    public class CompositeLayoutReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.ICompositeLayout>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CompositeLayoutReader"/> class.

@@ -28,7 +28,7 @@ namespace {{ReaderNamespace this}}
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class {{ReaderClassName this}} : XmiElementReader<{{PocoInterface this}}>, IXmiElementReader<{{PocoInterface this}}>
+    public class {{ReaderClassName this}} : XmiElementReader, IXmiElementReader<{{PocoInterface this}}>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="{{ReaderClassName this}}"/> class.

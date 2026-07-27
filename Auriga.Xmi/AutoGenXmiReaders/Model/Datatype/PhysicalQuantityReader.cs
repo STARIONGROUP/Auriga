@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datatype
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class PhysicalQuantityReader : XmiElementReader<Auriga.Model.Information.Datatype.IPhysicalQuantity>, IXmiElementReader<Auriga.Model.Information.Datatype.IPhysicalQuantity>
+    public class PhysicalQuantityReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Datatype.IPhysicalQuantity>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalQuantityReader"/> class.

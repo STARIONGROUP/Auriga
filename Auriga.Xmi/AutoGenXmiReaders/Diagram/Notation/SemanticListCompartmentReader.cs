@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SemanticListCompartmentReader : XmiElementReader<Auriga.Diagram.Notation.ISemanticListCompartment>, IXmiElementReader<Auriga.Diagram.Notation.ISemanticListCompartment>
+    public class SemanticListCompartmentReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.ISemanticListCompartment>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SemanticListCompartmentReader"/> class.

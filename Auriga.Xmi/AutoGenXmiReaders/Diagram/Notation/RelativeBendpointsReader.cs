@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class RelativeBendpointsReader : XmiElementReader<Auriga.Diagram.Notation.IRelativeBendpoints>, IXmiElementReader<Auriga.Diagram.Notation.IRelativeBendpoints>
+    public class RelativeBendpointsReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IRelativeBendpoints>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RelativeBendpointsReader"/> class.

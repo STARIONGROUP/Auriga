@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DropContainerVariableReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IDropContainerVariable>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IDropContainerVariable>
+    public class DropContainerVariableReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IDropContainerVariable>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DropContainerVariableReader"/> class.

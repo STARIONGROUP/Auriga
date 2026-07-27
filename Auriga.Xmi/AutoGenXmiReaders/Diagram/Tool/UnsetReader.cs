@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class UnsetReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IUnset>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IUnset>
+    public class UnsetReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IUnset>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnsetReader"/> class.

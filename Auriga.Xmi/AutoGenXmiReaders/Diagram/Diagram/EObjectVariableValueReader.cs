@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EObjectVariableValueReader : XmiElementReader<Auriga.Diagram.Diagram.IEObjectVariableValue>, IXmiElementReader<Auriga.Diagram.Diagram.IEObjectVariableValue>
+    public class EObjectVariableValueReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IEObjectVariableValue>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EObjectVariableValueReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CombinedFragmentReader : XmiElementReader<Auriga.Model.Interaction.ICombinedFragment>, IXmiElementReader<Auriga.Model.Interaction.ICombinedFragment>
+    public class CombinedFragmentReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.ICombinedFragment>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CombinedFragmentReader"/> class.

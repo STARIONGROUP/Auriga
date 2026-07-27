@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Epbs
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ConfigurationItemPkgReader : XmiElementReader<Auriga.Model.Epbs.IConfigurationItemPkg>, IXmiElementReader<Auriga.Model.Epbs.IConfigurationItemPkg>
+    public class ConfigurationItemPkgReader : XmiElementReader, IXmiElementReader<Auriga.Model.Epbs.IConfigurationItemPkg>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationItemPkgReader"/> class.

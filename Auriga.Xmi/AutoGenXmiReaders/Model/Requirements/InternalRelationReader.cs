@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Requirements
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class InternalRelationReader : XmiElementReader<Auriga.Model.Requirements.IInternalRelation>, IXmiElementReader<Auriga.Model.Requirements.IInternalRelation>
+    public class InternalRelationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Requirements.IInternalRelation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InternalRelationReader"/> class.

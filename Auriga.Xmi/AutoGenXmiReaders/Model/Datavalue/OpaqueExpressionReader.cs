@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class OpaqueExpressionReader : XmiElementReader<Auriga.Model.Information.Datavalue.IOpaqueExpression>, IXmiElementReader<Auriga.Model.Information.Datavalue.IOpaqueExpression>
+    public class OpaqueExpressionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Datavalue.IOpaqueExpression>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OpaqueExpressionReader"/> class.

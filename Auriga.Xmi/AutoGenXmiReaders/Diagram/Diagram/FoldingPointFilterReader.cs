@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FoldingPointFilterReader : XmiElementReader<Auriga.Diagram.Diagram.IFoldingPointFilter>, IXmiElementReader<Auriga.Diagram.Diagram.IFoldingPointFilter>
+    public class FoldingPointFilterReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IFoldingPointFilter>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FoldingPointFilterReader"/> class.

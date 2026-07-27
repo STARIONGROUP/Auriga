@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FlatContainerStyleReader : XmiElementReader<Auriga.Diagram.Diagram.IFlatContainerStyle>, IXmiElementReader<Auriga.Diagram.Diagram.IFlatContainerStyle>
+    public class FlatContainerStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IFlatContainerStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FlatContainerStyleReader"/> class.

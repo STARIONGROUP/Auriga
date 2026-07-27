@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class RoundedCornersStyleReader : XmiElementReader<Auriga.Diagram.Notation.IRoundedCornersStyle>, IXmiElementReader<Auriga.Diagram.Notation.IRoundedCornersStyle>
+    public class RoundedCornersStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IRoundedCornersStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RoundedCornersStyleReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FontStyleReader : XmiElementReader<Auriga.Diagram.Notation.IFontStyle>, IXmiElementReader<Auriga.Diagram.Notation.IFontStyle>
+    public class FontStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IFontStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FontStyleReader"/> class.

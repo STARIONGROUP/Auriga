@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DNodeListReader : XmiElementReader<Auriga.Diagram.Diagram.IDNodeList>, IXmiElementReader<Auriga.Diagram.Diagram.IDNodeList>
+    public class DNodeListReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IDNodeList>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DNodeListReader"/> class.

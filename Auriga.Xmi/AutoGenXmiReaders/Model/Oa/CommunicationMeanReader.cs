@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Oa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CommunicationMeanReader : XmiElementReader<Auriga.Model.Oa.ICommunicationMean>, IXmiElementReader<Auriga.Model.Oa.ICommunicationMean>
+    public class CommunicationMeanReader : XmiElementReader, IXmiElementReader<Auriga.Model.Oa.ICommunicationMean>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CommunicationMeanReader"/> class.

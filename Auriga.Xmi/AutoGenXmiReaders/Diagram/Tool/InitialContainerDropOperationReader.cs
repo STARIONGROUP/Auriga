@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class InitialContainerDropOperationReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IInitialContainerDropOperation>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IInitialContainerDropOperation>
+    public class InitialContainerDropOperationReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IInitialContainerDropOperation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InitialContainerDropOperationReader"/> class.

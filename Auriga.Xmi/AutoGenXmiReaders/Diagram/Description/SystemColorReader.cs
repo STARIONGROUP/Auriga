@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SystemColorReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.ISystemColor>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.ISystemColor>
+    public class SystemColorReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.ISystemColor>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemColorReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellamodeller
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ProjectReader : XmiElementReader<Auriga.Model.Capellamodeller.IProject>, IXmiElementReader<Auriga.Model.Capellamodeller.IProject>
+    public class ProjectReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellamodeller.IProject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectReader"/> class.

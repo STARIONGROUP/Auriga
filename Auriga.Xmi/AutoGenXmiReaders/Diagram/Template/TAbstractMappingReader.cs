@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Template
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TAbstractMappingReader : XmiElementReader<Auriga.Diagram.Sequence.Template.ITAbstractMapping>, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITAbstractMapping>
+    public class TAbstractMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITAbstractMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TAbstractMappingReader"/> class.

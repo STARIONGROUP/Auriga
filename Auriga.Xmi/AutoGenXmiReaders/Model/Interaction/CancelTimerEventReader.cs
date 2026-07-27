@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CancelTimerEventReader : XmiElementReader<Auriga.Model.Interaction.ICancelTimerEvent>, IXmiElementReader<Auriga.Model.Interaction.ICancelTimerEvent>
+    public class CancelTimerEventReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.ICancelTimerEvent>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CancelTimerEventReader"/> class.

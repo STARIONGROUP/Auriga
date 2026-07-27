@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ControlNodeReader : XmiElementReader<Auriga.Model.Fa.IControlNode>, IXmiElementReader<Auriga.Model.Fa.IControlNode>
+    public class ControlNodeReader : XmiElementReader, IXmiElementReader<Auriga.Model.Fa.IControlNode>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ControlNodeReader"/> class.

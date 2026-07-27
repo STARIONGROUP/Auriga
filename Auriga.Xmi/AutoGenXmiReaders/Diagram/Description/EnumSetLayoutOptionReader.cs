@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EnumSetLayoutOptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.IEnumSetLayoutOption>, IXmiElementReader<Auriga.Diagram.Diagram.Description.IEnumSetLayoutOption>
+    public class EnumSetLayoutOptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.IEnumSetLayoutOption>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumSetLayoutOptionReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EndLabelStyleReader : XmiElementReader<Auriga.Diagram.Diagram.IEndLabelStyle>, IXmiElementReader<Auriga.Diagram.Diagram.IEndLabelStyle>
+    public class EndLabelStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IEndLabelStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EndLabelStyleReader"/> class.

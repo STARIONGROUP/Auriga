@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class JavaExtensionReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.IJavaExtension>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.IJavaExtension>
+    public class JavaExtensionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.IJavaExtension>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="JavaExtensionReader"/> class.

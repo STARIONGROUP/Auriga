@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ConstraintDurationReader : XmiElementReader<Auriga.Model.Interaction.IConstraintDuration>, IXmiElementReader<Auriga.Model.Interaction.IConstraintDuration>
+    public class ConstraintDurationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.IConstraintDuration>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConstraintDurationReader"/> class.

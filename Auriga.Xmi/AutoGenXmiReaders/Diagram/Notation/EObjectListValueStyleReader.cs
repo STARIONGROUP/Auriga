@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EObjectListValueStyleReader : XmiElementReader<Auriga.Diagram.Notation.IEObjectListValueStyle>, IXmiElementReader<Auriga.Diagram.Notation.IEObjectListValueStyle>
+    public class EObjectListValueStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IEObjectListValueStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EObjectListValueStyleReader"/> class.
