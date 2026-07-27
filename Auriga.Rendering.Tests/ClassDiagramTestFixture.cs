@@ -24,13 +24,8 @@ namespace Auriga.Rendering.Tests
     /// title separator, and surfaces the association multiplicities as edge end labels.
     /// </summary>
     [TestFixture]
-    public class ClassDiagramTestFixture
+    public class ClassDiagramTestFixture : RenderingTestFixtureBase
     {
-        /// <summary>
-        /// The builder under test, composed with the default per-kind builders.
-        /// </summary>
-        private readonly DiagramBuilder diagramBuilder = new();
-
         /// <summary>
         /// The built <c>[CDB] In-Flight Entertainment Dictionary</c> diagram.
         /// </summary>
@@ -43,7 +38,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_I_i0sLZ4EeS6m7-8Vqqevw");
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_I_i0sLZ4EeS6m7-8Vqqevw");
         }
 
         [Test]

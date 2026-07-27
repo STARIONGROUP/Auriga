@@ -24,11 +24,15 @@
             [ADD] DNodeList container rendering (classes, enumerations, interfaces): sizes synthesized from the content when unpersisted, DNodeListElement rows stacked left-aligned under a title compartment with a separator rule, and association multiplicities rendered as edge begin/end labels
             [FIX] GMF-faithful edge endpoints: the persisted first/last bendpoint entries are stale artifacts â€” each endpoint is recomputed as the crossing of the anchor-reference line with the node's bounds (GMF slidable-anchor rule), so arrows meet node boundaries instead of stale points inside or beside them
             [ADD] Capella icon rendering: the vendored EPL-2.0 Capella artwork (Assets/CapellaIcons) is embedded in the assembly, the injectable IIconRegistry / CapellaIconRegistry resolves WorkspaceImage paths to it, and the exporter inlines the images as data: URIs sized to the box bounds
+            [CHG] Autofac-based composition (following Auriga.Xmi): RenderingBuilder is the fluent entry point over a disposable RenderingScope container declaring every default registration in one place, with UsingPalette/UsingStyleResolver/UsingIconRegistry/WithLogger overrides and BuildDiagramBuilder/BuildSvgExporter/BuildXlsxTableExporter terminals; the self-wiring parameterless constructors of DiagramBuilder, NodeDiagramBuilder, SequenceDiagramBuilder, StyleResolver and SvgExporter are removed
+            [ADD] INodeDiagramBuilder and ISequenceDiagramBuilder: DiagramBuilder now depends on the per-kind builder interfaces (with ITableBuilder) rather than on the concrete builders, so each kind is substitutable
         </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" />
         <PackageReference Include="ClosedXML" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     </ItemGroup>
 
     <ItemGroup>

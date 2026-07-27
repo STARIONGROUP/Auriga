@@ -18,7 +18,7 @@ The **Auriga.Extensions** library provides LINQ-style query extension methods ov
 
 ## Auriga.Rendering
 
-The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `DiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `SvgExporter` serializes a diagram to plain SVG (string, stream or file) with no external dependency.
+The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `IDiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `ISvgExporter` serializes a diagram to plain SVG (string, stream or file) with no external dependency. The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver — can be substituted in one place.
 
 ## Auriga.Reporting
 
@@ -65,6 +65,26 @@ var exchanges = project.Project!
 // 4) Write the (possibly modified) model back to disk — the fragment layout is preserved.
 var writer = XmiWriterBuilder.Create().Build();
 writer.Write(project.Project!, "out/In-Flight Entertainment System.capella");
+```
+
+Render the diagrams of a Sirius `.aird` session to SVG:
+
+```csharp
+using Auriga.Rendering;
+
+// The rendering services compose the same way the readers do: a disposable scope with
+// fluent overrides for the parts you want to replace.
+using var rendering = RenderingBuilder.Create();
+
+using var reader = XmiReaderBuilder.Create();
+var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
+
+var svgExporter = rendering.BuildSvgExporter();
+
+foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+{
+    svgExporter.ExportToFile(diagram, $"out/{diagram.Name}.svg");
+}
 ```
 
 See [ContainerList Design](docs/containment-list.md), [Query Extension Methods](docs/query-extensions.md)

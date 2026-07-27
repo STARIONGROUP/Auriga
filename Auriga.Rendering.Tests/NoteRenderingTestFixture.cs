@@ -24,7 +24,7 @@ namespace Auriga.Rendering.Tests
     /// <c>[LCBD] Architecture Drivers</c>.
     /// </summary>
     [TestFixture]
-    public class NoteRenderingTestFixture
+    public class NoteRenderingTestFixture : RenderingTestFixtureBase
     {
         private const string ArchitectureDriversLcbdUid = "_3blN8KK2Ed6k26nfEmjK4A";
 
@@ -39,7 +39,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = new DiagramBuilder().BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == ArchitectureDriversLcbdUid);
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == ArchitectureDriversLcbdUid);
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace Auriga.Rendering.Tests
                 .Where(box => box.SemanticElement == null && box.Style.Resolved.Shape == ShapeKind.Note)
                 .ToList();
 
-            var texts = System.Xml.Linq.XDocument.Parse(new SvgExporter().Export(this.diagram)).Descendants(Svg + "text").Select(text => text.Value).ToList();
+            var texts = System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(this.diagram)).Descendants(Svg + "text").Select(text => text.Value).ToList();
 
             Assert.Multiple(() =>
             {

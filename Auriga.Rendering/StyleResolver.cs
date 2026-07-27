@@ -31,17 +31,8 @@ namespace Auriga.Rendering
         private readonly ICapellaDefaultPalette palette;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StyleResolver"/> class with the default
-        /// Capella palette, for direct use without a container.
-        /// </summary>
-        public StyleResolver()
-            : this(new CapellaDefaultPalette())
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="StyleResolver"/> class with the supplied
-        /// palette — the constructor a container injects through.
+        /// palette.
         /// </summary>
         /// <param name="palette">the palette seeding the defaults of every resolved property</param>
         /// <exception cref="ArgumentNullException">the palette is null</exception>

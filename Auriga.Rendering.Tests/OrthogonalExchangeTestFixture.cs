@@ -26,7 +26,7 @@ namespace Auriga.Rendering.Tests
     /// centre-line skew the generic route produced.
     /// </summary>
     [TestFixture]
-    public class OrthogonalExchangeTestFixture
+    public class OrthogonalExchangeTestFixture : RenderingTestFixtureBase
     {
         private const string StartPlayingVodMovieLfcdUid = "_IjNiALFqEeSsWZm7HcO6OQ";
 
@@ -39,7 +39,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = new DiagramBuilder().BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == StartPlayingVodMovieLfcdUid);
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == StartPlayingVodMovieLfcdUid);
         }
 
         [Test]

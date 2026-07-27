@@ -26,7 +26,7 @@ namespace Auriga.Rendering.Tests
     /// In-Flight <c>[CDI]</c>, <c>[SDFB]</c> and <c>[MSM]</c> representations.
     /// </summary>
     [TestFixture]
-    public class SizeSynthesisTestFixture
+    public class SizeSynthesisTestFixture : RenderingTestFixtureBase
     {
         private const string StreamingServerCdiUid = "_au4DgLm1EeSceeI4mBNpyA";
 
@@ -43,7 +43,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagrams = new DiagramBuilder().BuildAll(result.Elements.Values).ToList();
+            this.diagrams = this.DiagramBuilder.BuildAll(result.Elements.Values).ToList();
         }
 
         [Test]

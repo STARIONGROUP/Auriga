@@ -28,7 +28,7 @@ namespace Auriga.Rendering.Tests
     /// manual Excel step is needed.
     /// </summary>
     [TestFixture]
-    public class XlsxTableExportTestFixture
+    public class XlsxTableExportTestFixture : RenderingTestFixtureBase
     {
         /// <summary>
         /// The Capella name of the table representation in the fragmented-sysmodel fixture.
@@ -39,8 +39,6 @@ namespace Auriga.Rendering.Tests
         /// The uid of that table representation.
         /// </summary>
         private const string TableUid = "_HE6X0MNpEeCmUclACW4KLw";
-
-        private readonly XlsxTableExporter exporter = new();
 
         [Test]
         public void Verify_that_the_grid_is_written_with_its_headers_and_intersections()
@@ -141,7 +139,7 @@ namespace Auriga.Rendering.Tests
             };
 
             var path = Path.Combine(TestContext.CurrentContext.WorkDirectory, "tables-batch.xlsx");
-            this.exporter.Export(tables, path);
+            this.XlsxTableExporter.Export(tables, path);
 
             using var workbook = new XLWorkbook(path);
 
@@ -174,7 +172,7 @@ namespace Auriga.Rendering.Tests
             var table = result.Elements.Values.OfType<IDTable>().Single(candidate => candidate.Uid == TableUid);
 
             var file = Path.Combine(TestContext.CurrentContext.WorkDirectory, "table-export.xlsx");
-            this.exporter.Export(table, file, TableName);
+            this.XlsxTableExporter.Export(table, file, TableName);
 
             using var workbook = new XLWorkbook(file);
             var sheet = workbook.Worksheet(1);
@@ -207,7 +205,7 @@ namespace Auriga.Rendering.Tests
         private XLWorkbook Export(DTable table, string name)
         {
             var stream = new MemoryStream();
-            this.exporter.Export(table, stream, name);
+            this.XlsxTableExporter.Export(table, stream, name);
             stream.Position = 0;
 
             return new XLWorkbook(stream);

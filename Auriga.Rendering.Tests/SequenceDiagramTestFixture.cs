@@ -29,19 +29,9 @@ namespace Auriga.Rendering.Tests
     /// messages route horizontally at their execution-anchor heights.
     /// </summary>
     [TestFixture]
-    public class SequenceDiagramTestFixture
+    public class SequenceDiagramTestFixture : RenderingTestFixtureBase
     {
         private const string SelectVodMovieUid = "_QD67YMAFEeS91_vDABbjUA";
-
-        /// <summary>
-        /// The builder under test, composed with the default per-kind builders.
-        /// </summary>
-        private readonly DiagramBuilder diagramBuilder = new();
-
-        /// <summary>
-        /// The exporter the export smoke test drives.
-        /// </summary>
-        private readonly SvgExporter svgExporter = new();
 
         private Diagram diagram = null!;
 
@@ -52,7 +42,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SelectVodMovieUid);
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SelectVodMovieUid);
         }
 
         [Test]
@@ -157,7 +147,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var performAudio = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_FremALbzEeSpk5KlhVegeg");
+            var performAudio = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_FremALbzEeSpk5KlhVegeg");
 
             var fragment = performAudio.Boxes[0];
             var state = performAudio.QueryAllBoxes().First(box => box.Label?.Text == "Play Audio-Video Stream on Seat TV");
@@ -196,7 +186,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var performAudio = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_5o4FkLD5EeSk6sURco8jXw");
+            var performAudio = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_5o4FkLD5EeSk6sURco8jXw");
 
             var notes = performAudio.QueryAllBoxes()
                 .Where(box => box.SiriusElement == null && box.NotationView is Auriga.Diagram.Notation.IShape)
@@ -230,7 +220,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenario = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_duRY4JiwEeSFKIU85IonOQ");
+            var scenario = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_duRY4JiwEeSFKIU85IonOQ");
 
             var attachment = scenario.Edges.Single(edge => edge.Identifier == "_25tm0KfIEeSfJNzMtsfIDg");
             var note = scenario.QueryAllBoxes().Single(box => box.Identifier == "_xPpnAKfIEeSfJNzMtsfIDg");
@@ -331,7 +321,7 @@ namespace Auriga.Rendering.Tests
                 Data = notationDiagram,
             });
 
-            var scenario = this.diagramBuilder.Build(representation, "synthetic scenario");
+            var scenario = this.DiagramBuilder.Build(representation, "synthetic scenario");
 
             var bareRoute = scenario.Edges.Single(edge => edge.Identifier == "self-bare").Route;
             var hookedRoute = scenario.Edges.Single(edge => edge.Identifier == "self-hooked").Route;
@@ -352,7 +342,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenario = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_pHpF4LEPEeSk6sURco8jXw");
+            var scenario = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_pHpF4LEPEeSk6sURco8jXw");
 
             var constraint = scenario.QueryAllBoxes().Single(box => box.Label?.Text == "Profile = CORE SERVICES ONLY");
             var link = scenario.Edges.Single(edge => edge.SiriusElement?.Id == "_khfXMIoOEeaQmcRqIfTB6w");
@@ -380,7 +370,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var scenarios = this.diagramBuilder.BuildAll(result.Elements.Values)
+            var scenarios = this.DiagramBuilder.BuildAll(result.Elements.Values)
                 .Where(candidate => candidate.SiriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram)
                 .ToList();
 
@@ -390,7 +380,7 @@ namespace Auriga.Rendering.Tests
 
                 foreach (var scenario in scenarios)
                 {
-                    Assert.That(() => this.svgExporter.Export(scenario), Throws.Nothing, scenario.Name);
+                    Assert.That(() => this.SvgExporter.Export(scenario), Throws.Nothing, scenario.Name);
                 }
             });
         }

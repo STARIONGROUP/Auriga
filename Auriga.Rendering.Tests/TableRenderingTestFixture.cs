@@ -28,7 +28,7 @@ namespace Auriga.Rendering.Tests
     /// use, and confirms it is well-formed SVG carrying the header and cell text.
     /// </summary>
     [TestFixture]
-    public class TableRenderingTestFixture
+    public class TableRenderingTestFixture : RenderingTestFixtureBase
     {
         /// <summary>
         /// The Capella name of the table representation in the fragmented-sysmodel fixture (from its
@@ -41,6 +41,10 @@ namespace Auriga.Rendering.Tests
         /// </summary>
         private const string TableUid = "_HE6X0MNpEeCmUclACW4KLw";
 
+        /// <summary>
+        /// The builder under test, constructed directly: these are unit tests of the table builder
+        /// itself, not of the composition <see cref="RenderingScope"/> performs.
+        /// </summary>
         private readonly ITableBuilder tableBuilder = new TableBuilder();
 
         [Test]
@@ -200,10 +204,10 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var table = new DiagramBuilder().BuildAll(result.Elements.Values).Single(diagram => diagram.Identifier == TableUid);
+            var table = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(diagram => diagram.Identifier == TableUid);
 
             var file = Path.Combine(TestContext.CurrentContext.WorkDirectory, "table-export.svg");
-            new SvgExporter().ExportToFile(table, file);
+            this.SvgExporter.ExportToFile(table, file);
 
             var document = XDocument.Load(file);
             var texts = document.Descendants().Where(element => element.Name.LocalName == "text").ToList();

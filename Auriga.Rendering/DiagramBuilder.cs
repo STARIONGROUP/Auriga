@@ -24,47 +24,37 @@ namespace Auriga.Rendering
     /// <see cref="NodeDiagramBuilder"/> otherwise — which builds the intermediate <see cref="Diagram"/>
     /// model. Diagrams build from the representation's persisted GMF layout; a table has no notation
     /// layout, so its grid is synthesized from the persisted column widths and line order. The per-kind
-    /// builders are constructor-injected, so a container (e.g. Autofac) composes the service naturally
-    /// and future builder configuration flows in through their constructors; the parameterless
-    /// constructor wires the defaults for direct use. All representation-kind-specific knowledge lives in
-    /// the builders, expressed as intermediate-model data, so <see cref="SvgExporter"/> and
-    /// <see cref="StyleResolver"/> stay kind-agnostic.
+    /// builders are injected as interfaces, so each is substitutable and the whole graph is composed in
+    /// one place — <see cref="RenderingScope"/>, reached through <see cref="RenderingBuilder.Create"/>.
+    /// All representation-kind-specific knowledge lives in the builders, expressed as intermediate-model
+    /// data, so <see cref="SvgExporter"/> and <see cref="StyleResolver"/> stay kind-agnostic.
     /// </summary>
     public sealed class DiagramBuilder : IDiagramBuilder
     {
         /// <summary>
         /// The builder for node-and-edge representations, the default kind.
         /// </summary>
-        private readonly NodeDiagramBuilder nodeDiagramBuilder;
+        private readonly INodeDiagramBuilder nodeDiagramBuilder;
 
         /// <summary>
         /// The builder for sequence representations (Capella scenarios).
         /// </summary>
-        private readonly SequenceDiagramBuilder sequenceDiagramBuilder;
+        private readonly ISequenceDiagramBuilder sequenceDiagramBuilder;
 
         /// <summary>
         /// The builder for table representations (cross-tables).
         /// </summary>
-        private readonly TableBuilder tableBuilder;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DiagramBuilder"/> class with default
-        /// per-kind builders, for direct use without a container.
-        /// </summary>
-        public DiagramBuilder()
-            : this(new NodeDiagramBuilder(), new SequenceDiagramBuilder(), new TableBuilder())
-        {
-        }
+        private readonly ITableBuilder tableBuilder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagramBuilder"/> class with the supplied
-        /// per-kind builders — the constructor a container injects through.
+        /// per-kind builders.
         /// </summary>
         /// <param name="nodeDiagramBuilder">the builder for node-and-edge representations</param>
         /// <param name="sequenceDiagramBuilder">the builder for sequence representations</param>
         /// <param name="tableBuilder">the builder for table representations</param>
         /// <exception cref="ArgumentNullException">a builder is null</exception>
-        public DiagramBuilder(NodeDiagramBuilder nodeDiagramBuilder, SequenceDiagramBuilder sequenceDiagramBuilder, TableBuilder tableBuilder)
+        public DiagramBuilder(INodeDiagramBuilder nodeDiagramBuilder, ISequenceDiagramBuilder sequenceDiagramBuilder, ITableBuilder tableBuilder)
         {
             this.nodeDiagramBuilder = nodeDiagramBuilder ?? throw new ArgumentNullException(nameof(nodeDiagramBuilder));
             this.sequenceDiagramBuilder = sequenceDiagramBuilder ?? throw new ArgumentNullException(nameof(sequenceDiagramBuilder));
@@ -87,11 +77,9 @@ namespace Auriga.Rendering
         /// <exception cref="InvalidOperationException">the representation carries no GMF notation diagram</exception>
         public Diagram Build(SiriusDiagramModel.IDDiagram siriusDiagram, string? name = null)
         {
-            DiagramBuilderBase builder = siriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram
-                ? this.sequenceDiagramBuilder
-                : this.nodeDiagramBuilder;
-
-            return builder.Build(siriusDiagram, name);
+            return siriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram
+                ? this.sequenceDiagramBuilder.Build(siriusDiagram, name)
+                : this.nodeDiagramBuilder.Build(siriusDiagram, name);
         }
 
         /// <summary>

@@ -26,11 +26,9 @@ namespace Auriga.Rendering.Tests
     /// <c>[LFBD] All Functions</c>, whose generic route inflated the canvas to ~8749px wide.
     /// </summary>
     [TestFixture]
-    public class TreeRoutingTestFixture
+    public class TreeRoutingTestFixture : RenderingTestFixtureBase
     {
         private const string AllFunctionsLfbdUid = "_XUQUUJqIEeS8H_8qEOr5gg";
-
-        private readonly SvgExporter svgExporter = new();
 
         private Diagram diagram = null!;
 
@@ -41,13 +39,13 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = new DiagramBuilder().BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == AllFunctionsLfbdUid);
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == AllFunctionsLfbdUid);
         }
 
         [Test]
         public void Verify_that_tree_connectors_are_rectilinear_and_the_canvas_is_bounded()
         {
-            var viewBox = ((string)System.Xml.Linq.XDocument.Parse(this.svgExporter.Export(this.diagram)).Root!.Attribute("viewBox")!)
+            var viewBox = ((string)System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(this.diagram)).Root!.Attribute("viewBox")!)
                 .Split(' ')
                 .Select(part => double.Parse(part, CultureInfo.InvariantCulture))
                 .ToArray();

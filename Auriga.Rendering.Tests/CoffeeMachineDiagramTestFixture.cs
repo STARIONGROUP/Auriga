@@ -25,23 +25,13 @@ namespace Auriga.Rendering.Tests
     /// persisted GMF layout, with the Sirius and semantic back-links in place.
     /// </summary>
     [TestFixture]
-    public class CoffeeMachineDiagramTestFixture
+    public class CoffeeMachineDiagramTestFixture : RenderingTestFixtureBase
     {
         private const string MakeCoffeeNodeUid = "_OLzagFucEe2iJbuWznnyfw";
 
         private const string FirstRepresentationUid = "_J1uyIFucEe2iJbuWznnyfw";
 
         private const string FunctionalExchangeEdgeUid = "_XKSYcFucEe2iJbuWznnyfw";
-
-        /// <summary>
-        /// The builder under test, composed with the default per-kind builders.
-        /// </summary>
-        private readonly DiagramBuilder diagramBuilder = new();
-
-        /// <summary>
-        /// The exporter the export round-trip tests drive.
-        /// </summary>
-        private readonly SvgExporter svgExporter = new();
 
         private List<Diagram> diagrams = null!;
 
@@ -52,7 +42,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagrams = this.diagramBuilder.BuildAll(result.Elements.Values).ToList();
+            this.diagrams = this.DiagramBuilder.BuildAll(result.Elements.Values).ToList();
         }
 
         [Test]
@@ -196,7 +186,7 @@ namespace Auriga.Rendering.Tests
             {
                 foreach (var diagram in this.diagrams)
                 {
-                    var text = this.svgExporter.Export(diagram);
+                    var text = this.SvgExporter.Export(diagram);
                     var document = System.Xml.Linq.XDocument.Parse(text);
                     var ns = document.Root!.Name.Namespace;
 
@@ -212,7 +202,7 @@ namespace Auriga.Rendering.Tests
                 // Across the whole project the exports mirror the model: one rect or inlined
                 // workspace image per box, one non-marker path per routed edge, and the labels.
                 var documents = this.diagrams
-                    .Select(diagram => System.Xml.Linq.XDocument.Parse(this.svgExporter.Export(diagram)))
+                    .Select(diagram => System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(diagram)))
                     .ToList();
                 var svgNs = (System.Xml.Linq.XNamespace)"http://www.w3.org/2000/svg";
                 Assert.That(

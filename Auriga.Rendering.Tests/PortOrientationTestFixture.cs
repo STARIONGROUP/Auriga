@@ -25,7 +25,7 @@ namespace Auriga.Rendering.Tests
     /// whose ports previously all rendered identically oriented.
     /// </summary>
     [TestFixture]
-    public class PortOrientationTestFixture
+    public class PortOrientationTestFixture : RenderingTestFixtureBase
     {
         private const string DisplayVideoPdfbUid = "_gB07gLBMEeSnJaHm1OLKKw";
 
@@ -40,7 +40,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = new DiagramBuilder().BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == DisplayVideoPdfbUid);
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == DisplayVideoPdfbUid);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_the_rotation_reaches_the_exported_svg()
         {
-            var document = System.Xml.Linq.XDocument.Parse(new SvgExporter().Export(this.diagram));
+            var document = System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(this.diagram));
             var transforms = document.Descendants(Svg + "image")
                 .Select(image => (string?)image.Attribute("transform"))
                 .Where(transform => transform != null)

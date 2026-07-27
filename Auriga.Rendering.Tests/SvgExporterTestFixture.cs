@@ -27,14 +27,9 @@ namespace Auriga.Rendering.Tests
     /// export overloads.
     /// </summary>
     [TestFixture]
-    public class SvgExporterTestFixture
+    public class SvgExporterTestFixture : RenderingTestFixtureBase
     {
         private static readonly XNamespace Svg = "http://www.w3.org/2000/svg";
-
-        /// <summary>
-        /// The exporter under test.
-        /// </summary>
-        private readonly SvgExporter svgExporter = new();
 
         [Test]
         public void Verify_that_the_exporter_guards_its_arguments()
@@ -44,11 +39,11 @@ namespace Auriga.Rendering.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(() => new SvgExporter(null!), Throws.ArgumentNullException);
-                Assert.That(() => this.svgExporter.Export(null!), Throws.ArgumentNullException);
-                Assert.That(() => this.svgExporter.Export(null!, new MemoryStream()), Throws.ArgumentNullException);
-                Assert.That(() => this.svgExporter.Export(diagram, (Stream)null!), Throws.ArgumentNullException);
-                Assert.That(() => this.svgExporter.ExportToFile(diagram, string.Empty), Throws.ArgumentException);
-                Assert.That(() => this.svgExporter.ExportToFile(null!, "out.svg"), Throws.ArgumentNullException);
+                Assert.That(() => this.SvgExporter.Export(null!), Throws.ArgumentNullException);
+                Assert.That(() => this.SvgExporter.Export(null!, new MemoryStream()), Throws.ArgumentNullException);
+                Assert.That(() => this.SvgExporter.Export(diagram, (Stream)null!), Throws.ArgumentNullException);
+                Assert.That(() => this.SvgExporter.ExportToFile(diagram, string.Empty), Throws.ArgumentException);
+                Assert.That(() => this.SvgExporter.ExportToFile(null!, "out.svg"), Throws.ArgumentNullException);
             });
         }
 
@@ -65,7 +60,7 @@ namespace Auriga.Rendering.Tests
             parent.Style.Resolved.Pattern = LinePattern.Dash;
             parent.Add(child);
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { parent }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { parent }, new List<Edge>())));
 
             var parentGroup = document.Root!.Element(Svg + "g")!.Elements(Svg + "g").Single(g => (string?)g.Attribute("id") == "parent");
             var rect = parentGroup.Element(Svg + "rect")!;
@@ -119,7 +114,7 @@ namespace Auriga.Rendering.Tests
             lifeline.Style.Resolved.Shape = ShapeKind.Line;
             lifeline.Style.Resolved.ImagePath = "/org.polarsys.capella.core.sirius.analysis/description/images/handlelifeline.svg";
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { actor, unresolved, lifeline }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { actor, unresolved, lifeline }, new List<Edge>())));
 
             var actorGroup = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "actor");
             var image = actorGroup.Element(Svg + "image")!;
@@ -151,7 +146,7 @@ namespace Auriga.Rendering.Tests
             box.Label = new Label("Synchronize Audio Video") { PinTop = true, IconPath = "PhysicalFunction.png" };
             box.Add(MakeBox("port", 483, 704, 10, 10));
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
             var group = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "titled");
             var icon = group.Elements(Svg + "image").First();
             var text = group.Element(Svg + "text")!;
@@ -174,7 +169,7 @@ namespace Auriga.Rendering.Tests
             var unresolvable = MakeBox("plain", 200, 0, 100, 40);
             unresolvable.Label = new Label("plain") { Position = new Point(210, 10), IconPath = "NoSuchType.png" };
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box, unresolvable }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { box, unresolvable }, new List<Edge>())));
 
             var classGroup = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "classbox");
             var icon = classGroup.Element(Svg + "image")!;
@@ -201,7 +196,7 @@ namespace Auriga.Rendering.Tests
             edge.BeginLabel = new Label("0..1");
             edge.EndLabel = new Label("[1..*]");
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
             var texts = document.Descendants(Svg + "text").ToList();
 
             var begin = texts.Single(text => text.Value == "0..1");
@@ -228,7 +223,7 @@ namespace Auriga.Rendering.Tests
             var edge = MakeEdge("dotted", new List<Point> { new(0, 100), new(100, 100) });
             edge.Style.Resolved.TargetArrow = SiriusDiagram.EdgeArrows.Dot;
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge> { edge })));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge> { edge })));
             var text = document.Descendants(Svg + "text").Single();
 
             Assert.Multiple(() =>
@@ -249,7 +244,7 @@ namespace Auriga.Rendering.Tests
             state.Style.Resolved.Shape = ShapeKind.Ellipse;
             state.Style.Resolved.FillColor = new Color(228, 228, 228);
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { state }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { state }, new List<Edge>())));
             var ellipse = document.Descendants(Svg + "ellipse").Single();
 
             Assert.Multiple(() =>
@@ -270,7 +265,7 @@ namespace Auriga.Rendering.Tests
             choice.Style.Resolved.Shape = ShapeKind.Diamond;
             choice.Style.Resolved.FillColor = new Color(228, 228, 228);
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { choice }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { choice }, new List<Edge>())));
             var diamond = document.Descendants(Svg + "path").Single();
 
             Assert.Multiple(() =>
@@ -289,7 +284,7 @@ namespace Auriga.Rendering.Tests
             port.Style.Resolved.ImagePath = "/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg";
             port.Style.Resolved.ImageRotation = 90;
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { port }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { port }, new List<Edge>())));
             var image = document.Descendants(Svg + "image").Single();
 
             Assert.Multiple(() =>
@@ -306,7 +301,7 @@ namespace Auriga.Rendering.Tests
             var box = MakeBox("actor", 20, 274, 70, 61);
             box.Style.Resolved.ImagePath = "/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg";
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
             var image = document.Descendants(Svg + "image").Single();
 
             Assert.That(image.Attribute("transform"), Is.Null, "an unrotated image needs no transform");
@@ -319,7 +314,7 @@ namespace Auriga.Rendering.Tests
             note.Style.Resolved.Shape = ShapeKind.Note;
             note.Style.Resolved.FillColor = new Color(255, 255, 197);
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { note }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { note }, new List<Edge>())));
             var group = document.Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == "note");
             var paths = group.Descendants(Svg + "path").ToList();
 
@@ -341,7 +336,7 @@ namespace Auriga.Rendering.Tests
             var box = MakeBox("multiline", 0, 0, 100, 40);
             box.Label = new Label("Maintenance-Aircraft\nDigital Network") { Position = new Point(5, 5) };
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
             var tspans = document.Descendants(Svg + "text").Single().Elements(Svg + "tspan").ToList();
 
             Assert.Multiple(() =>
@@ -366,7 +361,7 @@ namespace Auriga.Rendering.Tests
                 Width = 60,
             };
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { centered, positioned }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { centered, positioned }, new List<Edge>())));
             var texts = document.Descendants(Svg + "text").ToList();
 
             Assert.Multiple(() =>
@@ -388,7 +383,7 @@ namespace Auriga.Rendering.Tests
             var box = MakeBox("wrapped", 0, 0, 100, 50);
             box.Label = new Label("Seat TV Airline-Specific Interactions Manager");
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>())));
             var text = document.Descendants(Svg + "text").Single();
             var tspans = text.Elements(Svg + "tspan").ToList();
 
@@ -416,7 +411,7 @@ namespace Auriga.Rendering.Tests
             edge.Style.Resolved.Pattern = LinePattern.Dot;
             edge.Style.Resolved.TargetArrow = SiriusDiagram.EdgeArrows.InputArrow;
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
 
             var path = document.Descendants(Svg + "path").Single(p => p.Parent!.Name.LocalName == "g" && (string?)p.Parent.Attribute("id") == "flow");
             var marker = document.Descendants(Svg + "marker").Single();
@@ -445,7 +440,7 @@ namespace Auriga.Rendering.Tests
             edge.Style.Resolved.StrokeWidth = 4;
             edge.Style.Resolved.TargetArrow = SiriusDiagram.EdgeArrows.InputFillClosedArrow;
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
             var marker = document.Descendants(Svg + "marker").Single();
 
             Assert.Multiple(() =>
@@ -466,7 +461,7 @@ namespace Auriga.Rendering.Tests
             lifeline.Style.Resolved.Pattern = LinePattern.LongDash;
             lifeline.Style.Resolved.StrokeColor = new Color(128, 128, 128);
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { lifeline }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { lifeline }, new List<Edge>())));
             var line = document.Descendants(Svg + "line").Single();
 
             Assert.Multiple(() =>
@@ -487,7 +482,7 @@ namespace Auriga.Rendering.Tests
             frame.Style.Resolved.FillColor = null;
             frame.Label = new Label("PAR") { Position = new Point(324, 404), Framed = true };
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { frame }, new List<Edge>())));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { frame }, new List<Edge>())));
             var tab = document.Descendants(Svg + "path").Single();
 
             Assert.Multiple(() =>
@@ -504,7 +499,7 @@ namespace Auriga.Rendering.Tests
             var edge = MakeEdge("straight", new[] { new Point(0, 20), new Point(100, 20) });
             edge.Label = new Label("centered");
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box>(), new List<Edge> { edge })));
             var label = document.Descendants(Svg + "text").Single();
 
             Assert.Multiple(() =>
@@ -534,7 +529,7 @@ namespace Auriga.Rendering.Tests
                 })
                 .ToList();
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { first, second }, edges)));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { first, second }, edges)));
 
             Assert.Multiple(() =>
             {
@@ -550,7 +545,7 @@ namespace Auriga.Rendering.Tests
             var box = MakeBox("only", 100, 50, 200, 100);
             box.Label = new Label("A <B> & C");
 
-            var text = this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>()));
+            var text = this.SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge>()));
             var document = XDocument.Parse(text);
 
             Assert.Multiple(() =>
@@ -577,7 +572,7 @@ namespace Auriga.Rendering.Tests
             var edge = MakeEdge("assoc", new List<Point> { new(100, 200), new(160, 200) });
             edge.Label = new Label("a long association label off the right edge");
 
-            var document = XDocument.Parse(this.svgExporter.Export(Diagram(new List<Box> { box }, new List<Edge> { edge })));
+            var document = XDocument.Parse(this.SvgExporter.Export(Diagram(new List<Box> { box }, new List<Edge> { edge })));
 
             var viewBox = ((string)document.Root!.Attribute("viewBox")!)
                 .Split(' ')
@@ -600,11 +595,11 @@ namespace Auriga.Rendering.Tests
             var diagram = Diagram(new List<Box> { box }, new List<Edge>());
 
             using var stream = new MemoryStream();
-            this.svgExporter.Export(diagram, stream);
+            this.SvgExporter.Export(diagram, stream);
             stream.Position = 0;
 
             var path = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exporter-test.svg");
-            this.svgExporter.ExportToFile(diagram, path);
+            this.SvgExporter.ExportToFile(diagram, path);
 
             Assert.Multiple(() =>
             {

@@ -55,17 +55,8 @@ namespace Auriga.Rendering
         private readonly IIconRegistry iconRegistry;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SvgExporter"/> class with the default
-        /// Capella icon registry, for direct use without a container.
-        /// </summary>
-        public SvgExporter()
-            : this(new CapellaIconRegistry())
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SvgExporter"/> class with the supplied
-        /// icon registry — the constructor a container injects through.
+        /// icon registry.
         /// </summary>
         /// <param name="iconRegistry">the registry resolving workspace-image paths to embeddable image content</param>
         /// <exception cref="ArgumentNullException">the registry is null</exception>

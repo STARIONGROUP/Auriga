@@ -28,14 +28,9 @@ namespace Auriga.Rendering.Tests
     /// implementation-component subtree is persisted hidden.
     /// </summary>
     [TestFixture]
-    public class VisibilityTestFixture
+    public class VisibilityTestFixture : RenderingTestFixtureBase
     {
         private const string BehaviouralComponentsUid = "_o27AcKO1EeSgDIOKB3Rd0g";
-
-        /// <summary>
-        /// The builder under test, composed with the default per-kind builders.
-        /// </summary>
-        private readonly DiagramBuilder diagramBuilder = new();
 
         private Diagram diagram = null!;
 
@@ -46,7 +41,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == BehaviouralComponentsUid);
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == BehaviouralComponentsUid);
         }
 
         [Test]

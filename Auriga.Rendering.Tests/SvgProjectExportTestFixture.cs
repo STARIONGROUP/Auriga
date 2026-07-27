@@ -27,13 +27,8 @@ namespace Auriga.Rendering.Tests
     /// <c>.aird</c> carries an illegal raw U+001A character (a fixture defect) and cannot be read.
     /// </summary>
     [TestFixture]
-    public class SvgProjectExportTestFixture
+    public class SvgProjectExportTestFixture : RenderingTestFixtureBase
     {
-        /// <summary>
-        /// The builder under test, composed with the default per-kind builders.
-        /// </summary>
-        private readonly DiagramBuilder diagramBuilder = new();
-
         [Test]
         [TestCase("coffee-machine-demo.aird", "coffee-machine")]
         [TestCase("Crowd_Surveillance_System_in_DARC.aird", "crowd-surveillance-system-in-darc")]
@@ -45,11 +40,14 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var diagrams = this.diagramBuilder.BuildAll(result.Elements.Values);
+            var diagrams = this.DiagramBuilder.BuildAll(result.Elements.Values);
 
             // Serve the vendored plugin artwork, then the model's own project-local images (an
-            // actor's custom glyph) from the directory the .aird was loaded from.
-            var svgExporter = new SvgExporter(new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(Path.GetDirectoryName(path)!)));
+            // actor's custom glyph) from the directory the .aird was loaded from — the registry
+            // override is why this export composes its own scope rather than using the fixture's.
+            using var renderingScope = RenderingBuilder.Create()
+                .UsingIconRegistry(new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(Path.GetDirectoryName(path)!)));
+            var svgExporter = renderingScope.BuildSvgExporter();
 
             var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports", modelFolder);
             Directory.CreateDirectory(outputDirectory);

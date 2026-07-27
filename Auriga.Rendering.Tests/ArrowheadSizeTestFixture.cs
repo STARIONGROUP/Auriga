@@ -25,7 +25,7 @@ namespace Auriga.Rendering.Tests
     /// stroke.
     /// </summary>
     [TestFixture]
-    public class ArrowheadSizeTestFixture
+    public class ArrowheadSizeTestFixture : RenderingTestFixtureBase
     {
         private const string WatchImposedVideoLabUid = "_nzxH0LL_EeSGuvnnapXBhA";
 
@@ -37,9 +37,9 @@ namespace Auriga.Rendering.Tests
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "In-Flight Entertainment System.aird");
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
-            var diagram = new DiagramBuilder().BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == WatchImposedVideoLabUid);
+            var diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == WatchImposedVideoLabUid);
 
-            var document = System.Xml.Linq.XDocument.Parse(new SvgExporter().Export(diagram));
+            var document = System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(diagram));
             var markers = document.Descendants(Svg + "marker").ToList();
 
             Assert.Multiple(() =>
