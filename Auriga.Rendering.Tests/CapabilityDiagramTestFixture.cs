@@ -25,13 +25,8 @@ namespace Auriga.Rendering.Tests
     /// line with the node's bounds, exactly as Capella renders.
     /// </summary>
     [TestFixture]
-    public class CapabilityDiagramTestFixture
+    public class CapabilityDiagramTestFixture : RenderingTestFixtureBase
     {
-        /// <summary>
-        /// The builder under test, composed with the default per-kind builders.
-        /// </summary>
-        private readonly DiagramBuilder diagramBuilder = new();
-
         /// <summary>
         /// The built <c>[CC] Provide Audio and Video Intercommunication Means</c> diagram.
         /// </summary>
@@ -44,7 +39,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = this.diagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_yh-l8LweEeSJUNJMyfAosg");
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == "_yh-l8LweEeSJUNJMyfAosg");
         }
 
         [Test]

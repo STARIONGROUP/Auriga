@@ -23,20 +23,11 @@ namespace Auriga.Rendering
     /// fragments paint as background frames with operator tabs and dashed operand rules. Every
     /// rule is expressed as intermediate-model data, keeping the exporter kind-agnostic.
     /// </summary>
-    public sealed class SequenceDiagramBuilder : DiagramBuilderBase
+    public sealed class SequenceDiagramBuilder : DiagramBuilderBase, ISequenceDiagramBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SequenceDiagramBuilder"/> class with the
-        /// default style resolver, for direct use without a container.
-        /// </summary>
-        public SequenceDiagramBuilder()
-            : base(new StyleResolver())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SequenceDiagramBuilder"/> class with the
-        /// supplied style resolver — the constructor a container injects through.
+        /// supplied style resolver.
         /// </summary>
         /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
         /// <exception cref="System.ArgumentNullException">the resolver is null</exception>

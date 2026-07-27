@@ -25,7 +25,7 @@ namespace Auriga.Rendering.Tests
     /// <c>[SC] System Actors</c>, whose Ground Operator carries a custom image.
     /// </summary>
     [TestFixture]
-    public class WorkspaceImageTestFixture
+    public class WorkspaceImageTestFixture : RenderingTestFixtureBase
     {
         private const string SystemActorsScUid = "_LzrP8LclEd6PZMYM-Vvo5g";
 
@@ -70,17 +70,19 @@ namespace Auriga.Rendering.Tests
             var path = Path.Combine(ProjectRoot, "In-Flight Entertainment System.aird");
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
-            var diagram = new DiagramBuilder().BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SystemActorsScUid);
+            var diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == SystemActorsScUid);
 
             var operatorBox = diagram.QueryAllBoxes().Single(box => box.Style.Resolved.ImagePath == OperatorPath);
 
-            var composed = new SvgExporter(new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(ProjectRoot)));
+            using var renderingScope = RenderingBuilder.Create()
+                .UsingIconRegistry(new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(ProjectRoot)));
+            var composed = renderingScope.BuildSvgExporter();
             var group = XDocument.Parse(composed.Export(diagram)).Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == operatorBox.Identifier);
             var image = group.Element(Svg + "image");
 
             // With only the vendored registry the project image is unknown, so the box degrades to
             // its outline; the workspace registry serves the file beside the .aird.
-            var plainGroup = XDocument.Parse(new SvgExporter().Export(diagram)).Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == operatorBox.Identifier);
+            var plainGroup = XDocument.Parse(this.SvgExporter.Export(diagram)).Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == operatorBox.Identifier);
 
             Assert.Multiple(() =>
             {

@@ -26,15 +26,13 @@ namespace Auriga.Rendering.Tests
     /// <c>[MSM] Seat TV Modes</c>.
     /// </summary>
     [TestFixture]
-    public class StateMachineTestFixture
+    public class StateMachineTestFixture : RenderingTestFixtureBase
     {
         private const string OperatingModesMsmUid = "_ZlrrsPhmEeyYD7A3qrV3tA";
 
         private const string SeatTvModesMsmUid = "_8Rf4kPhoEeyYD7A3qrV3tA";
 
         private static readonly System.Xml.Linq.XNamespace Svg = "http://www.w3.org/2000/svg";
-
-        private readonly SvgExporter svgExporter = new();
 
         private System.Collections.Generic.List<Diagram> diagrams = null!;
 
@@ -45,7 +43,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagrams = new DiagramBuilder().BuildAll(result.Elements.Values).ToList();
+            this.diagrams = this.DiagramBuilder.BuildAll(result.Elements.Values).ToList();
         }
 
         [Test]
@@ -54,7 +52,7 @@ namespace Auriga.Rendering.Tests
             var diagram = this.diagrams.Single(d => d.Identifier == OperatingModesMsmUid);
             var choices = diagram.QueryAllBoxes().Where(box => box.SemanticElement?.GetType().Name == "ChoicePseudoState").ToList();
 
-            var document = System.Xml.Linq.XDocument.Parse(this.svgExporter.Export(diagram));
+            var document = System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(diagram));
 
             Assert.Multiple(() =>
             {
@@ -76,7 +74,7 @@ namespace Auriga.Rendering.Tests
             var regions = boxes.Where(box => box.SemanticElement?.GetType().Name == "Region").ToList();
             var modes = boxes.Where(box => box.SemanticElement?.GetType().Name == "Mode").ToList();
 
-            var labels = System.Xml.Linq.XDocument.Parse(this.svgExporter.Export(diagram)).Descendants(Svg + "text").Select(text => text.Value).ToList();
+            var labels = System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(diagram)).Descendants(Svg + "text").Select(text => text.Value).ToList();
 
             Assert.Multiple(() =>
             {
@@ -96,7 +94,7 @@ namespace Auriga.Rendering.Tests
             var diagram = this.diagrams.Single(d => d.Identifier == SeatTvModesMsmUid);
             var history = diagram.QueryAllBoxes().Where(box => box.SemanticElement is Auriga.Model.Capellacommon.IPseudostate).ToList();
 
-            var texts = System.Xml.Linq.XDocument.Parse(this.svgExporter.Export(diagram)).Descendants(Svg + "text").Select(text => text.Value).ToList();
+            var texts = System.Xml.Linq.XDocument.Parse(this.SvgExporter.Export(diagram)).Descendants(Svg + "text").Select(text => text.Value).ToList();
 
             Assert.Multiple(() =>
             {

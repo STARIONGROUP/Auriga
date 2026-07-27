@@ -28,7 +28,7 @@ namespace Auriga.Rendering.Tests
     /// use, and confirms it is well-formed SVG carrying the header and cell text.
     /// </summary>
     [TestFixture]
-    public class TableRenderingTestFixture
+    public class TableRenderingTestFixture : RenderingTestFixtureBase
     {
         /// <summary>
         /// The Capella name of the table representation in the fragmented-sysmodel fixture (from its
@@ -41,12 +41,10 @@ namespace Auriga.Rendering.Tests
         /// </summary>
         private const string TableUid = "_HE6X0MNpEeCmUclACW4KLw";
 
-        private readonly ITableBuilder tableBuilder = new TableBuilder();
-
         [Test]
         public void Verify_that_a_table_builds_a_full_grid_of_boxes()
         {
-            var diagram = this.tableBuilder.Build(SampleTable(), "Sample");
+            var diagram = this.TableBuilder.Build(SampleTable(), "Sample");
 
             var boxes = diagram.QueryAllBoxes().ToList();
 
@@ -65,7 +63,7 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_the_header_row_carries_the_corner_and_column_labels()
         {
-            var boxes = this.tableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
+            var boxes = this.TableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
 
             var corner = boxes.Single(box => box.Identifier == "table-1-corner");
             var columnA = boxes.Single(box => box.Identifier == "col-column-a");
@@ -106,7 +104,7 @@ namespace Auriga.Rendering.Tests
             table.Columns.Add(column);
             table.Lines.Add(line);
 
-            var boxes = this.tableBuilder.Build(table).QueryAllBoxes().ToList();
+            var boxes = this.TableBuilder.Build(table).QueryAllBoxes().ToList();
 
             var corner = boxes.Single(box => box.Identifier == "t-corner");
             var dataCell = boxes.Single(box => box.Identifier == "cell");
@@ -126,7 +124,7 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_a_nested_line_is_an_indented_row_header()
         {
-            var boxes = this.tableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
+            var boxes = this.TableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
 
             var corner = boxes.Single(box => box.Identifier == "table-1-corner");
             var topLine = boxes.Single(box => box.Identifier == "row-line-1");
@@ -148,7 +146,7 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_cells_place_their_label_in_the_right_column_and_blanks_stay_empty()
         {
-            var boxes = this.tableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
+            var boxes = this.TableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
 
             var topLine = boxes.Single(box => box.Identifier == "row-line-1");
 
@@ -168,7 +166,7 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_a_persisted_cell_style_colors_the_cell()
         {
-            var boxes = this.tableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
+            var boxes = this.TableBuilder.Build(SampleTable()).QueryAllBoxes().ToList();
 
             var styledCell = boxes.Single(box => box.Identifier == "cell-x").Style.Resolved;
 
@@ -186,7 +184,7 @@ namespace Auriga.Rendering.Tests
             var table = SampleTable();
             ((IDLine)table.Lines[0]).Visible = false;
 
-            var boxes = this.tableBuilder.Build(table).QueryAllBoxes().ToList();
+            var boxes = this.TableBuilder.Build(table).QueryAllBoxes().ToList();
 
             // Hiding the top line drops it and its sub-line: only the header row (corner + 2 columns)
             // remains.
@@ -200,10 +198,10 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            var table = new DiagramBuilder().BuildAll(result.Elements.Values).Single(diagram => diagram.Identifier == TableUid);
+            var table = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(diagram => diagram.Identifier == TableUid);
 
             var file = Path.Combine(TestContext.CurrentContext.WorkDirectory, "table-export.svg");
-            new SvgExporter().ExportToFile(table, file);
+            this.SvgExporter.ExportToFile(table, file);
 
             var document = XDocument.Load(file);
             var texts = document.Descendants().Where(element => element.Name.LocalName == "text").ToList();

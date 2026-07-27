@@ -26,9 +26,11 @@ namespace Auriga.Rendering.Tests
     public class StyleResolverTestFixture
     {
         /// <summary>
-        /// The resolver under test, composed with the default Capella palette.
+        /// The resolver under test, constructed directly over the default Capella palette: these
+        /// are unit tests of the resolver itself, not of the composition <see cref="RenderingScope"/>
+        /// performs.
         /// </summary>
-        private readonly StyleResolver styleResolver = new();
+        private readonly StyleResolver styleResolver = new(new CapellaDefaultPalette());
 
         [Test]
         public void Verify_the_color_encodings()

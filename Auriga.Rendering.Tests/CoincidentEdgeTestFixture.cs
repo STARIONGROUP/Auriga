@@ -26,7 +26,7 @@ namespace Auriga.Rendering.Tests
     /// <c>Chosen Music</c> exchanges ride one chord.
     /// </summary>
     [TestFixture]
-    public class CoincidentEdgeTestFixture
+    public class CoincidentEdgeTestFixture : RenderingTestFixtureBase
     {
         private const string ListenToAudioOaibUid = "_8XjTwLLlEeSVmfu1BIQISw";
 
@@ -39,7 +39,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = new DiagramBuilder().BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == ListenToAudioOaibUid);
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).Single(candidate => candidate.Identifier == ListenToAudioOaibUid);
         }
 
         [Test]
