@@ -84,7 +84,7 @@ namespace Auriga.Rendering
         /// </remarks>
         public bool Equals(Point other)
         {
-            return this.X.CompareTo(other.X) == 0 && this.Y.CompareTo(other.Y) == 0;
+            return this.X.Equals(other.X) && this.Y.Equals(other.Y);
         }
 
         /// <summary>
