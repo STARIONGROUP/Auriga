@@ -13,6 +13,8 @@ namespace Auriga.CodeGenerator.Helpers
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Xml;
+    using System.Xml.Linq;
 
     using ECoreNetto;
     using ECoreNetto.Extensions;
@@ -332,6 +334,8 @@ namespace Auriga.CodeGenerator.Helpers
                         .Select(l => l.Trim())
                         .Where(l => l.Length > 0)
                         .ToList();
+
+                lines = EscapeMarkup(lines);
             }
             catch (Exception)
             {
@@ -348,6 +352,48 @@ namespace Auriga.CodeGenerator.Helpers
             result.Add("</summary>");
 
             return result;
+        }
+
+        /// <summary>
+        /// Makes the documentation well-formed XML so the emitted doc comment compiles without a CS1570.
+        /// </summary>
+        /// <param name="lines">the verbatim documentation lines</param>
+        /// <returns>the escaped lines</returns>
+        /// <remarks>
+        /// Ampersands are always escaped: the annotation value arrives already XML-decoded, so every
+        /// <c>&amp;</c> in it is a literal one (e.g. "Drag &amp; Drop") and never the start of an entity.
+        /// Angle brackets are left alone as long as the result parses, because the ecore prose uses inline
+        /// markup (e.g. <c>&lt;code&gt;true&lt;/code&gt;</c>) that is valid in a doc comment and renders as
+        /// intended. Only when the documentation still does not parse — unbalanced or stray brackets — is it
+        /// escaped wholesale, which shows the prose verbatim rather than emitting a broken comment.
+        /// </remarks>
+        private static List<string> EscapeMarkup(List<string> lines)
+        {
+            var escaped = lines.Select(l => l.Replace("&", "&amp;", StringComparison.Ordinal)).ToList();
+
+            return IsWellFormed(escaped)
+                ? escaped
+                : escaped.Select(l => l.Replace("<", "&lt;", StringComparison.Ordinal).Replace(">", "&gt;", StringComparison.Ordinal)).ToList();
+        }
+
+        /// <summary>
+        /// Whether the documentation parses as the XML content of a doc-comment element. The lines are
+        /// checked as one block so that markup spanning several lines is judged as a whole.
+        /// </summary>
+        /// <param name="lines">the documentation lines</param>
+        /// <returns>true when the documentation is well-formed</returns>
+        private static bool IsWellFormed(IEnumerable<string> lines)
+        {
+            try
+            {
+                XElement.Parse("<summary>" + string.Join("\n", lines) + "</summary>");
+
+                return true;
+            }
+            catch (XmlException)
+            {
+                return false;
+            }
         }
 
         private const string GenModelAnnotationSource = "http://www.eclipse.org/emf/2002/GenModel";

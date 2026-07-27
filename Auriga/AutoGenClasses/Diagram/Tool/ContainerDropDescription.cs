@@ -18,7 +18,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
     using System.Collections.Generic;
 
     /// <summary>
-    /// Tool that describes a Drag & Drop operation.
+    /// Tool that describes a Drag &amp; Drop operation.
     /// </summary>
     public partial class ContainerDropDescription : Auriga.Core.AurigaElement, Auriga.Diagram.Diagram.Description.Tool.IContainerDropDescription
     {

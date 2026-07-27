@@ -262,7 +262,7 @@ namespace Auriga.Xmi.Core
 
             if (this.scannedProjects.TryGetValue(declaredName!, out var existing))
             {
-                this.logger.LogWarning("Workspace project name {Name} is declared by both {First} and {Second}; keeping {First}", declaredName, existing, directory);
+                this.logger.LogWarning("Workspace project name {Name} is declared by both {RegisteredDirectory} and {DuplicateDirectory}; keeping the registered one", declaredName, existing, directory);
                 return;
             }
 

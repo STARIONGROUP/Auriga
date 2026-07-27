@@ -77,6 +77,11 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="other">the point to compare with</param>
         /// <returns>true when both coordinates are equal</returns>
+        /// <remarks>
+        /// The coordinates are compared exactly rather than within a tolerance: the values originate
+        /// from the persisted notation model and are not the result of arithmetic, and an exact
+        /// comparison is what keeps <see cref="Equals(Point)"/> consistent with <see cref="GetHashCode"/>.
+        /// </remarks>
         public bool Equals(Point other)
         {
             return this.X.Equals(other.X) && this.Y.Equals(other.Y);

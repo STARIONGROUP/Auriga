@@ -147,6 +147,38 @@ namespace Auriga.Xmi.Tests
             Assert.That(registry.TryResolveDocument("platform:/resource/CapellaLibraryFixture/library.capella", out _, out _), Is.True);
         }
 
+        [Test]
+        public void Verify_that_a_name_declared_by_two_projects_resolves_to_one_of_them()
+        {
+            var duplicateDirectory = Path.Combine(this.workspaceRoot, "capella-library-copy");
+            Directory.CreateDirectory(duplicateDirectory);
+            WriteProjectDescriptor(duplicateDirectory, "CapellaLibraryFixture");
+            File.WriteAllText(Path.Combine(duplicateDirectory, "library.capella"), "<root/>");
+
+            var registry = new WorkspaceProjectRegistry();
+            registry.SetAnchorDirectory(this.clientDirectory);
+            var resolved = registry.TryResolveDocument(
+                "platform:/resource/CapellaLibraryFixture/library.capella", out _, out var fullPath);
+
+            // Which of the two declarations the scan meets first is the file system's enumeration order,
+            // so the guarantee is that one of them wins outright and keeps winning — not which one.
+            var rescanned = new WorkspaceProjectRegistry();
+            rescanned.SetAnchorDirectory(this.clientDirectory);
+            rescanned.TryResolveDocument(
+                "platform:/resource/CapellaLibraryFixture/library.capella", out _, out var rescannedPath);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(resolved, Is.True);
+                Assert.That(
+                    fullPath,
+                    Is.AnyOf(
+                        Path.Combine(this.libraryDirectory, "library.capella"),
+                        Path.Combine(duplicateDirectory, "library.capella")));
+                Assert.That(rescannedPath, Is.EqualTo(fullPath), "the declaration that wins does not change between scans");
+            });
+        }
+
         private static void WriteProjectDescriptor(string directory, string declaredName)
         {
             var descriptor = $"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<projectDescription>\n\t<name>\n\t\t{declaredName}\n\t</name>\n</projectDescription>\n";

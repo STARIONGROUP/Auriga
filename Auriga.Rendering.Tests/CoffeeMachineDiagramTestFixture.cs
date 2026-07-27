@@ -12,6 +12,7 @@ namespace Auriga.Rendering.Tests
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     using Auriga.Xmi;
 
@@ -25,7 +26,7 @@ namespace Auriga.Rendering.Tests
     /// persisted GMF layout, with the Sirius and semantic back-links in place.
     /// </summary>
     [TestFixture]
-    public class CoffeeMachineDiagramTestFixture : RenderingTestFixtureBase
+    public partial class CoffeeMachineDiagramTestFixture : RenderingTestFixtureBase
     {
         private const string MakeCoffeeNodeUid = "_OLzagFucEe2iJbuWznnyfw";
 
@@ -167,7 +168,7 @@ namespace Auriga.Rendering.Tests
                 // No FIP/FOP/CP/PP port name survives as a rendered label anywhere in the project.
                 Assert.That(
                     allBoxes.Where(box => box.Label != null).Select(box => box.Label!.Text),
-                    Has.None.Matches<string>(text => System.Text.RegularExpressions.Regex.IsMatch(text, @"^(FIP|FOP|CP|PP)\s*\d*$")),
+                    Has.None.Matches<string>(text => PortNameLabelRegex().IsMatch(text)),
                     "no bare port-name label remains");
 
                 // Only ports lose their label: ordinary node labels (and the border-node labels of
@@ -225,5 +226,12 @@ namespace Auriga.Rendering.Tests
         {
             return this.diagrams.SelectMany(diagram => diagram.QueryAllBoxes()).Single(box => box.Identifier == siriusUid);
         }
+
+        /// <summary>
+        /// Matches a bare port-name label — an FIP/FOP/CP/PP prefix followed by an optional ordinal —
+        /// which a port must never render.
+        /// </summary>
+        [GeneratedRegex(@"^(FIP|FOP|CP|PP)\s*\d*$")]
+        private static partial Regex PortNameLabelRegex();
     }
 }

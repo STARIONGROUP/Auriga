@@ -61,7 +61,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(choices, Has.All.Matches<Box>(choice => choice.Label == null), "a choice carries no name label");
 
                 // The rendered SVG draws a diamond path, never a 'Choice' label on top of it.
-                Assert.That(document.Descendants(Svg + "path"), Has.Some.Matches<System.Xml.Linq.XElement>(path => ((string?)path.Attribute("d"))!.EndsWith("Z") && ((string?)path.Attribute("fill")) != "none"), "a filled diamond path renders");
+                Assert.That(document.Descendants(Svg + "path"), Has.Some.Matches<System.Xml.Linq.XElement>(path => ((string?)path.Attribute("d"))!.EndsWith('Z') && ((string?)path.Attribute("fill")) != "none"), "a filled diamond path renders");
                 Assert.That(document.Descendants(Svg + "text").Select(text => text.Value), Has.None.EqualTo("Choice"));
             });
         }

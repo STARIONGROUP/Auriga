@@ -26,7 +26,7 @@ namespace Auriga.Xmi.Tests
     /// must load into a typed object and the vast majority of intra-file cross-references must resolve.
     /// </summary>
     [TestFixture]
-    public class RealModelReaderTestFixture
+    public partial class RealModelReaderTestFixture
     {
         [Test]
         [TestCase("coffee-machine-demo.capella")]
@@ -147,7 +147,7 @@ namespace Auriga.Xmi.Tests
         private static HashSet<string> DistinctIdentifiers(string path)
         {
             var text = File.ReadAllText(path);
-            return Regex.Matches(text, "\\sid=\"([^\"]+)\"")
+            return IdentifierAttributeRegex().Matches(text)
                 .Select(m => m.Groups[1].Value)
                 .ToHashSet(System.StringComparer.Ordinal);
         }
@@ -202,5 +202,11 @@ namespace Auriga.Xmi.Tests
             return new[] { mainPath }
                 .Concat(Directory.EnumerateFiles(Path.Combine(directory, "fragments"), "*.capellafragment"));
         }
+
+        /// <summary>
+        /// Matches an <c>id</c> attribute in the raw model text, capturing its value.
+        /// </summary>
+        [GeneratedRegex("\\sid=\"([^\"]+)\"")]
+        private static partial Regex IdentifierAttributeRegex();
     }
 }
