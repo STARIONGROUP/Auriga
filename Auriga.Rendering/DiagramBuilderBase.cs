@@ -199,9 +199,9 @@ namespace Auriga.Rendering
             };
 
             // A glyph-only element carries no name label. A port — function, component or physical —
-            // is suppressed so that its short name never renders beside the border glyph.
+            // is suppressed so that its FIP, FOP, CP and PP name never renders beside the border glyph.
             // A state machine's pseudo-states and final state render as their glyph or diamond, and
-            // a region is an unnamed compartment whose placeholder name must not sit in the
+            // a region is an unnamed compartment whose Region1 placeholder must not sit in the
             // owning state's title band. A mode or state keeps its name and is not glyph-only.
             var glyphOnly = box.SemanticElement is Auriga.Model.Information.IPort
                 or Auriga.Model.Capellacommon.IPseudostate
