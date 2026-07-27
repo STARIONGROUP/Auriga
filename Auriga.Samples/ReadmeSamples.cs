@@ -1,0 +1,101 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="ReadmeSamples.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+namespace Auriga.Samples
+{
+    using System.Linq;
+
+    using Auriga.Extensions;
+    using Auriga.Rendering;
+    using Auriga.Xmi;
+
+    /// <summary>
+    /// The code samples of the repository README, compiled. None of these methods is executed — the
+    /// point is that a signature change which would invalidate the documentation breaks the build.
+    /// The bodies are kept identical to the fenced blocks in <c>README.md</c>, which
+    /// <c>ReadmeSampleTestFixture</c> asserts; edit the two together.
+    /// </summary>
+    public static class ReadmeSamples
+    {
+        /// <summary>
+        /// Loads a project, navigates the Arcadia layers, queries it, and writes it back.
+        /// </summary>
+        public static void LoadNavigateQueryAndWrite()
+        {
+            // 1) Load a project — pass the .capella / .melodymodeller file or the project directory.
+            //    Referenced .capellafragment files are discovered and resolved into one object graph.
+            var project = CapellaProject.Load("In-Flight Entertainment System/In-Flight Entertainment System.capella");
+
+            // 2) Navigate the Arcadia layers as first-class properties (null when a layer is absent).
+            var logical = project.LogicalArchitecture;
+            var physical = project.PhysicalArchitecture;
+
+            // 3) Query with LINQ and the Auriga.Extensions methods.
+            foreach (var component in logical!.QueryAllComponents())
+            {
+                foreach (var function in component.QueryAllocatedFunctions())
+                {
+                    // function.IsAllocatedTo(component) == true
+                }
+            }
+
+            // Any element can walk its own subtree; combine with LINQ for ad-hoc queries.
+            var exchanges = project.Project!
+                .QueryAllContainedElements()
+                .OfType<Auriga.Model.Fa.IFunctionalExchange>();
+
+            // 4) Write the (possibly modified) model back to disk — the fragment layout is preserved.
+            var writer = XmiWriterBuilder.Create().Build();
+            writer.Write(project.Project!, "out/In-Flight Entertainment System.capella");
+        }
+
+        /// <summary>
+        /// Renders the diagrams of a Sirius session to SVG.
+        /// </summary>
+        public static void RenderDiagramsToSvg()
+        {
+            // The rendering services compose the same way the readers do: a disposable scope with
+            // fluent overrides for the parts you want to replace.
+            using var rendering = RenderingBuilder.Create();
+
+            using var reader = XmiReaderBuilder.Create();
+            var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
+
+            var svgExporter = rendering.BuildSvgExporter();
+
+            foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+            {
+                svgExporter.ExportToFile(diagram, $"out/{diagram.Name}.svg");
+            }
+        }
+
+        /// <summary>
+        /// Exports the table representations of a Sirius session to Excel.
+        /// </summary>
+        public static void ExportTablesToExcel()
+        {
+            using var rendering = RenderingBuilder.Create();
+            using var reader = XmiReaderBuilder.Create();
+
+            var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
+            var tables = session.Elements.Values.OfType<Auriga.Diagram.Table.IDTable>().ToList();
+
+            var xlsxExporter = rendering.BuildXlsxTableExporter();
+
+            // One workbook per table, or pass a name-to-table sequence to get one workbook of many sheets.
+            foreach (var table in tables)
+            {
+                xlsxExporter.Export(table, $"out/{table.Uid}.xlsx");
+            }
+
+            // The same table also lays out as a grid of boxes, which the SVG exporter renders.
+            var grid = rendering.BuildTableBuilder().Build(tables.First());
+        }
+    }
+}
