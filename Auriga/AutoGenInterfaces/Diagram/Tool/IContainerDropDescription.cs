@@ -18,7 +18,7 @@ namespace Auriga.Diagram.Diagram.Description.Tool
     using System.Collections.Generic;
 
     /// <summary>
-    /// Tool that describes a Drag & Drop operation.
+    /// Tool that describes a Drag &amp; Drop operation.
     /// </summary>
     public partial interface IContainerDropDescription : Auriga.Diagram.Viewpoint.Description.Tool.IMappingBasedToolDescription
     {

@@ -157,12 +157,6 @@ namespace Auriga.Xmi.Core.Readers
         }
 
         /// <summary>
-        /// Fully consumes the element (and its subtree) at the cursor, leaving the reader on its end tag,
-        /// so an unrecognized child element does not derail the parent's child-element loop. The skipped
-        /// element is logged at <see cref="LogLevel.Trace"/> so discarded content remains diagnosable.
-        /// </summary>
-        /// <param name="xmlReader">the reader positioned on the element to skip</param>
-        /// <summary>
         /// Reads the text content of the element at the cursor and returns it, leaving the cursor on that
         /// element's end tag — the same position <see cref="SkipElement"/> leaves it in, so the caller's
         /// <c>while (xmlReader.Read())</c> loop advances to the next sibling exactly once.
@@ -269,6 +263,12 @@ namespace Auriga.Xmi.Core.Readers
                    && !knownAttributes.Contains(xmlReader.LocalName);
         }
 
+        /// <summary>
+        /// Fully consumes the element (and its subtree) at the cursor, leaving the reader on its end tag,
+        /// so an unrecognized child element does not derail the parent's child-element loop. The skipped
+        /// element is logged at <see cref="LogLevel.Trace"/> so discarded content remains diagnosable.
+        /// </summary>
+        /// <param name="xmlReader">the reader positioned on the element to skip</param>
         protected void SkipElement(XmlReader xmlReader)
         {
             if (this.Logger.IsEnabled(LogLevel.Trace))
