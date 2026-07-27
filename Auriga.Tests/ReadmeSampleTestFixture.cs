@@ -33,7 +33,7 @@ namespace Auriga.Tests
         private static bool IsNamespaceImport(string line)
         {
             return line.StartsWith("using ", StringComparison.Ordinal)
-                   && line.EndsWith(";", StringComparison.Ordinal)
+                   && line.EndsWith(';')
                    && !line.Contains('=')
                    && !line.Contains('(');
         }
@@ -118,7 +118,7 @@ namespace Auriga.Tests
         /// </summary>
         /// <param name="text">the text to split</param>
         /// <returns>the lines</returns>
-        private static IEnumerable<string> Lines(string text)
+        private static string[] Lines(string text)
         {
             return text.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
         }
