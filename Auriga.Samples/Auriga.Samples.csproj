@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!--
+      The README's code samples, compiled. Nothing here is executed or published: the project
+      exists so that a signature change that would invalidate the documentation breaks the build
+      instead of going unnoticed. ReadmeSampleTestFixture asserts that the code below and the
+      fenced blocks in README.md stay identical.
+    -->
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Description>Compile-checked versions of the code samples in the repository README. Development-time project; not packable.</Description>
+        <AssemblyTitle>Auriga.Samples</AssemblyTitle>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Auriga\Auriga.csproj" />
+        <ProjectReference Include="..\Auriga.Extensions\Auriga.Extensions.csproj" />
+        <ProjectReference Include="..\Auriga.Rendering\Auriga.Rendering.csproj" />
+        <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
+    </ItemGroup>
+
+</Project>

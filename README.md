@@ -80,6 +80,7 @@ Render the diagrams of a Sirius `.aird` session to SVG:
 
 ```csharp
 using Auriga.Rendering;
+using Auriga.Xmi;
 
 // The rendering services compose the same way the readers do: a disposable scope with
 // fluent overrides for the parts you want to replace.
