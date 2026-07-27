@@ -13,6 +13,7 @@ namespace Auriga.Xmi.Core.Writers
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Xml;
 
@@ -215,12 +216,9 @@ namespace Auriga.Xmi.Core.Writers
             xmlWriter.WriteAttributeString("xmi", "version", XmiNamespace, "2.0");
             xmlWriter.WriteAttributeString("xmlns", "xsi", XmlnsNamespace, XsiNamespace);
 
-            foreach (var pair in namespaces)
+            foreach (var pair in namespaces.Where(pair => !string.Equals(pair.Key, rootWriter.NamespacePrefix, StringComparison.Ordinal)))
             {
-                if (!string.Equals(pair.Key, rootWriter.NamespacePrefix, StringComparison.Ordinal))
-                {
-                    xmlWriter.WriteAttributeString("xmlns", pair.Key, XmlnsNamespace, pair.Value);
-                }
+                xmlWriter.WriteAttributeString("xmlns", pair.Key, XmlnsNamespace, pair.Value);
             }
 
             rootWriter.WriteBody(xmlWriter, documentRoot, context);
@@ -367,12 +365,12 @@ namespace Auriga.Xmi.Core.Writers
             var writer = this.facade.ResolveWriter(element);
             namespaces[writer.NamespacePrefix] = writer.NamespaceUri;
 
-            foreach (var child in element.QueryContainedElements())
+            var sameDocument = element.QueryContainedElements()
+                .Where(child => string.IsNullOrEmpty(child.SourceDocument) || string.Equals(child.SourceDocument, documentName, StringComparison.Ordinal));
+
+            foreach (var child in sameDocument)
             {
-                if (string.IsNullOrEmpty(child.SourceDocument) || string.Equals(child.SourceDocument, documentName, StringComparison.Ordinal))
-                {
-                    this.CollectNamespaces(child, documentName, namespaces);
-                }
+                this.CollectNamespaces(child, documentName, namespaces);
             }
         }
     }

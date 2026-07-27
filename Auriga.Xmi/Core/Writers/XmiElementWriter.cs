@@ -570,7 +570,7 @@ namespace Auriga.Xmi.Core.Writers
 
             if (target != null)
             {
-                xmlWriter.WriteAttributeString(name, this.Href(target, context));
+                xmlWriter.WriteAttributeString(name, Href(target, context));
             }
         }
 
@@ -604,7 +604,7 @@ namespace Auriga.Xmi.Core.Writers
                 {
                     if (candidate is IAurigaElement element)
                     {
-                        hrefs.Add(this.Href(element, context));
+                        hrefs.Add(Href(element, context));
                     }
                 }
             }
@@ -682,7 +682,7 @@ namespace Auriga.Xmi.Core.Writers
             }
             else
             {
-                WriteProxy(xmlWriter, roleName, this.Href(child, context));
+                WriteProxy(xmlWriter, roleName, Href(child, context));
             }
         }
 
@@ -705,7 +705,7 @@ namespace Auriga.Xmi.Core.Writers
             return identifier.IndexOf('#') >= 0 ? identifier : "#" + identifier;
         }
 
-        private string Href(IAurigaElement target, IXmiWriteContext context)
+        private static string Href(IAurigaElement target, IXmiWriteContext context)
         {
             if (IsSameDocument(target, context))
             {

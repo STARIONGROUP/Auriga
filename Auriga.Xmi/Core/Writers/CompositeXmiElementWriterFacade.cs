@@ -98,12 +98,10 @@ namespace Auriga.Xmi.Core.Writers
         /// </exception>
         private IXmiElementWriterFacade ResolveFacade(IAurigaElement element)
         {
-            foreach (var facade in this.facades)
+            var owning = this.facades.FirstOrDefault(facade => facade.CanWrite(element));
+            if (owning != null)
             {
-                if (facade.CanWrite(element))
-                {
-                    return facade;
-                }
+                return owning;
             }
 
             throw new InvalidOperationException(

@@ -72,7 +72,7 @@ namespace Auriga.Rendering
                 throw new ArgumentException("The path is required.", nameof(path));
             }
 
-            using var workbook = this.Build(new[] { new KeyValuePair<string, SiriusTable.IDTable>(name ?? DefaultSheetName, table) });
+            using var workbook = Build(new[] { new KeyValuePair<string, SiriusTable.IDTable>(name ?? DefaultSheetName, table) });
             workbook.SaveAs(path);
         }
 
@@ -90,7 +90,7 @@ namespace Auriga.Rendering
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            using var workbook = this.Build(new[] { new KeyValuePair<string, SiriusTable.IDTable>(name ?? DefaultSheetName, table) });
+            using var workbook = Build(new[] { new KeyValuePair<string, SiriusTable.IDTable>(name ?? DefaultSheetName, table) });
             workbook.SaveAs(stream);
         }
 
@@ -108,7 +108,7 @@ namespace Auriga.Rendering
                 throw new ArgumentException("The path is required.", nameof(path));
             }
 
-            using var workbook = this.Build(tables);
+            using var workbook = Build(tables);
             workbook.SaveAs(path);
         }
 
@@ -125,7 +125,7 @@ namespace Auriga.Rendering
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            using var workbook = this.Build(tables);
+            using var workbook = Build(tables);
             workbook.SaveAs(stream);
         }
 
@@ -135,7 +135,7 @@ namespace Auriga.Rendering
         /// <param name="tables">the tables, paired with the name each worksheet takes</param>
         /// <returns>the workbook, which the caller disposes</returns>
         /// <exception cref="ArgumentNullException">the tables, or one of them, is null</exception>
-        private XLWorkbook Build(IEnumerable<KeyValuePair<string, SiriusTable.IDTable>> tables)
+        private static XLWorkbook Build(IEnumerable<KeyValuePair<string, SiriusTable.IDTable>> tables)
         {
             if (tables == null)
             {

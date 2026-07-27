@@ -549,12 +549,9 @@ namespace Auriga.Xmi.Core.Readers
         private IReadOnlyDictionary<string, IAurigaElement> BuildIndex()
         {
             var index = new Dictionary<string, IAurigaElement>(StringComparer.Ordinal);
-            foreach (var element in this.cache.Values)
+            foreach (var element in this.cache.Values.Where(element => !string.IsNullOrEmpty(element.Id)))
             {
-                if (!string.IsNullOrEmpty(element.Id))
-                {
-                    index[element.Id!] = element;
-                }
+                index[element.Id!] = element;
             }
 
             return index;

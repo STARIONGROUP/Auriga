@@ -182,7 +182,7 @@ namespace Auriga.Xmi.Core
                 return segments;
             }
 
-            var lastSlash = document!.LastIndexOf('/');
+            var lastSlash = document.LastIndexOf('/');
             if (lastSlash >= 0)
             {
                 segments.AddRange(document.Substring(0, lastSlash).Split('/'));

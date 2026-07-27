@@ -39,6 +39,11 @@ namespace Auriga.Rendering
         private const string StrokeAttribute = "stroke";
 
         /// <summary>
+        /// The SVG <c>text-anchor</c> value that centres a label on its anchor point.
+        /// </summary>
+        private const string MiddleAnchor = "middle";
+
+        /// <summary>
         /// The padding around the diagram's bounding box, in pixels.
         /// </summary>
         private const double Padding = 20;
@@ -254,7 +259,7 @@ namespace Auriga.Rendering
             double right;
             switch ((string?)text.Attribute("text-anchor"))
             {
-                case "middle":
+                case MiddleAnchor:
                     left = x - (width / 2);
                     right = x + (width / 2);
                     break;
@@ -442,7 +447,7 @@ namespace Auriga.Rendering
         /// <param name="height">the note's effective height</param>
         /// <param name="defs">the document's <c>&lt;defs&gt;</c>, receiving gradients on demand</param>
         /// <returns>the note group: body and dog-ear</returns>
-        private XElement BuildNoteVisual(Box box, ResolvedStyle style, double width, double height, XElement defs)
+        private static XElement BuildNoteVisual(Box box, ResolvedStyle style, double width, double height, XElement defs)
         {
             var fold = Math.Min(NoteFold, Math.Min(width, height) / 2);
             var x = box.Position.X;
@@ -571,7 +576,7 @@ namespace Auriga.Rendering
                 group.Add(BuildLabelIcon(icon, blockLeft, firstBaseline));
             }
 
-            var centered = BuildText(label.Text, textCenter, firstBaseline, "middle", style);
+            var centered = BuildText(label.Text, textCenter, firstBaseline, MiddleAnchor, style);
             AddWrappedLines(centered, lines, textCenter);
 
             group.Add(centered);
@@ -657,7 +662,7 @@ namespace Auriga.Rendering
                         group.Add(BuildLabelIcon(icon, textCenter - (estimated / 2) - iconSpace, midpoint.Y - 2));
                     }
 
-                    group.Add(BuildText(edge.Label.Text, textCenter, midpoint.Y - 2, "middle", style));
+                    group.Add(BuildText(edge.Label.Text, textCenter, midpoint.Y - 2, MiddleAnchor, style));
                 }
             }
 
@@ -666,13 +671,13 @@ namespace Auriga.Rendering
                 if (edge.BeginLabel is { } beginLabel)
                 {
                     var at = BackOff(edge.Route[0], edge.Route[1]);
-                    group.Add(BuildText(beginLabel.Text, at.X, at.Y - 2, "middle", style));
+                    group.Add(BuildText(beginLabel.Text, at.X, at.Y - 2, MiddleAnchor, style));
                 }
 
                 if (edge.EndLabel is { } endLabel)
                 {
                     var at = BackOff(edge.Route[^1], edge.Route[^2]);
-                    group.Add(BuildText(endLabel.Text, at.X, at.Y - 2, "middle", style));
+                    group.Add(BuildText(endLabel.Text, at.X, at.Y - 2, MiddleAnchor, style));
                 }
             }
 

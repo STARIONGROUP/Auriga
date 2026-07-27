@@ -198,10 +198,10 @@ namespace Auriga.Rendering
                 SemanticElement = siriusElement.Target,
             };
 
-            // A glyph-only element carries no name label. A port (a function/component/physical
-            // port) is suppressed so the FIP/FOP/CP/PP text never renders beside its border glyph;
+            // A glyph-only element carries no name label. A port — function, component or physical —
+            // is suppressed so the FIP/FOP/CP/PP text never renders beside its border glyph;
             // a state machine's pseudo-states and final state render as their glyph or diamond, and
-            // a region is an unnamed compartment whose "[Region1]" placeholder must not sit in the
+            // a region is an unnamed compartment whose Region1 placeholder must not sit in the
             // owning state's title band. A Mode/State keeps its name — it is not glyph-only.
             var glyphOnly = box.SemanticElement is Auriga.Model.Information.IPort
                 or Auriga.Model.Capellacommon.IPseudostate
@@ -769,12 +769,13 @@ namespace Auriga.Rendering
                 SemanticElement = siriusEdge?.Target,
             };
 
-            var edgeName = siriusEdge?.Name;
-            if (!string.IsNullOrEmpty(edgeName))
+            // Matching the name against a non-empty pattern also establishes that the edge itself is
+            // there, so the style lookup below needs no further null check.
+            if (siriusEdge?.Name is { Length: > 0 } edgeName)
             {
-                edge.Label = new Label(edgeName!)
+                edge.Label = new Label(edgeName)
                 {
-                    IconPath = TypeIconPath(edge.SemanticElement, (siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.CenterLabelStyle),
+                    IconPath = TypeIconPath(edge.SemanticElement, (siriusEdge.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.CenterLabelStyle),
                 };
             }
 
@@ -1172,7 +1173,7 @@ namespace Auriga.Rendering
                 return null;
             }
 
-            var parts = anchorId!.Trim('(', ')').Split(',');
+            var parts = anchorId.Trim('(', ')').Split(',');
             if (parts.Length == 2
                 && double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out var x)
                 && double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var y))
@@ -1199,7 +1200,7 @@ namespace Auriga.Rendering
                 return result;
             }
 
-            foreach (var segment in points!.Split('$'))
+            foreach (var segment in points.Split('$'))
             {
                 var values = segment.Trim().Trim('[', ']').Split(',');
                 if (values.Length == 4

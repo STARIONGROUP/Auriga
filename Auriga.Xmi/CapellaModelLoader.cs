@@ -86,7 +86,7 @@ namespace Auriga.Xmi
                 throw new ArgumentException("The path must be provided.", nameof(path));
             }
 
-            var modelFile = this.ResolveModelFile(path);
+            var modelFile = ResolveModelFile(path);
 
             this.logger.LogInformation("Loading Capella project from semantic model file {File}", modelFile);
 
@@ -99,7 +99,7 @@ namespace Auriga.Xmi
         /// </summary>
         /// <param name="path">the semantic model file path, or the project directory path</param>
         /// <returns>the absolute path of the semantic model file to read</returns>
-        private string ResolveModelFile(string path)
+        private static string ResolveModelFile(string path)
         {
             if (Directory.Exists(path))
             {

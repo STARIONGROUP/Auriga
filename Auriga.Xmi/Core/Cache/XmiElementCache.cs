@@ -53,7 +53,7 @@ namespace Auriga.Xmi.Core.Cache
                 return false;
             }
 
-            return this.elements.TryAdd(Key(element.SourceDocument, element.Id!), element);
+            return this.elements.TryAdd(Key(element.SourceDocument, element.Id), element);
         }
 
         /// <summary>

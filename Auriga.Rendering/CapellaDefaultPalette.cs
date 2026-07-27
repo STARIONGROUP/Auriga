@@ -122,7 +122,7 @@ namespace Auriga.Rendering
             {
                 foreach (var (suffix, fill, stroke) in BoxDefaults)
                 {
-                    if (semanticTypeName!.EndsWith(suffix, StringComparison.Ordinal))
+                    if (semanticTypeName.EndsWith(suffix, StringComparison.Ordinal))
                     {
                         return (fill, stroke);
                     }
