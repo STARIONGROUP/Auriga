@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacore
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class NamingRuleReader : XmiElementReader<Auriga.Model.Capellacore.INamingRule>, IXmiElementReader<Auriga.Model.Capellacore.INamingRule>
+    public class NamingRuleReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacore.INamingRule>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NamingRuleReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FunctionalChainInvolvementFunctionReader : XmiElementReader<Auriga.Model.Fa.IFunctionalChainInvolvementFunction>, IXmiElementReader<Auriga.Model.Fa.IFunctionalChainInvolvementFunction>
+    public class FunctionalChainInvolvementFunctionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Fa.IFunctionalChainInvolvementFunction>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionalChainInvolvementFunctionReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BehaviorToolReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IBehaviorTool>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IBehaviorTool>
+    public class BehaviorToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IBehaviorTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BehaviorToolReader"/> class.

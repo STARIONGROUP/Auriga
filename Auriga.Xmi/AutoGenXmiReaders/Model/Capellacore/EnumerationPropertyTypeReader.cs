@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacore
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EnumerationPropertyTypeReader : XmiElementReader<Auriga.Model.Capellacore.IEnumerationPropertyType>, IXmiElementReader<Auriga.Model.Capellacore.IEnumerationPropertyType>
+    public class EnumerationPropertyTypeReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacore.IEnumerationPropertyType>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumerationPropertyTypeReader"/> class.

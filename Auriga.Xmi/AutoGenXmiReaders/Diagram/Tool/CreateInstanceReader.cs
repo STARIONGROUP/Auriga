@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CreateInstanceReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.ICreateInstance>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.ICreateInstance>
+    public class CreateInstanceReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.ICreateInstance>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateInstanceReader"/> class.

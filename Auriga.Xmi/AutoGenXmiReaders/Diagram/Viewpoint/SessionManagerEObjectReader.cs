@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SessionManagerEObjectReader : XmiElementReader<Auriga.Diagram.Viewpoint.ISessionManagerEObject>, IXmiElementReader<Auriga.Diagram.Viewpoint.ISessionManagerEObject>
+    public class SessionManagerEObjectReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.ISessionManagerEObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionManagerEObjectReader"/> class.

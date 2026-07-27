@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FilterVariableHistoryReader : XmiElementReader<Auriga.Diagram.Diagram.IFilterVariableHistory>, IXmiElementReader<Auriga.Diagram.Diagram.IFilterVariableHistory>
+    public class FilterVariableHistoryReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IFilterVariableHistory>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FilterVariableHistoryReader"/> class.

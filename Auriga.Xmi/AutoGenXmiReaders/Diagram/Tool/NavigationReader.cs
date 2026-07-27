@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class NavigationReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Tool.INavigation>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.INavigation>
+    public class NavigationReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.INavigation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NavigationReader"/> class.

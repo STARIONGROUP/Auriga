@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ScenarioReader : XmiElementReader<Auriga.Model.Interaction.IScenario>, IXmiElementReader<Auriga.Model.Interaction.IScenario>
+    public class ScenarioReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.IScenario>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ScenarioReader"/> class.

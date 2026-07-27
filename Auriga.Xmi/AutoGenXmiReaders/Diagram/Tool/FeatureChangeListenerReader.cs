@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FeatureChangeListenerReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IFeatureChangeListener>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IFeatureChangeListener>
+    public class FeatureChangeListenerReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IFeatureChangeListener>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FeatureChangeListenerReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ObservationPointCreationToolReader : XmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IObservationPointCreationTool>, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IObservationPointCreationTool>
+    public class ObservationPointCreationToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IObservationPointCreationTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ObservationPointCreationToolReader"/> class.

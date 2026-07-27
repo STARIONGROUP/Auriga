@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Table
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DLineReader : XmiElementReader<Auriga.Diagram.Table.IDLine>, IXmiElementReader<Auriga.Diagram.Table.IDLine>
+    public class DLineReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Table.IDLine>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DLineReader"/> class.

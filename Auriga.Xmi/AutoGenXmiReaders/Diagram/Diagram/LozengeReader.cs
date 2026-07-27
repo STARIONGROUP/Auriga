@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class LozengeReader : XmiElementReader<Auriga.Diagram.Diagram.ILozenge>, IXmiElementReader<Auriga.Diagram.Diagram.ILozenge>
+    public class LozengeReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.ILozenge>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LozengeReader"/> class.

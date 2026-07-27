@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacore
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class KeyValueReader : XmiElementReader<Auriga.Model.Capellacore.IKeyValue>, IXmiElementReader<Auriga.Model.Capellacore.IKeyValue>
+    public class KeyValueReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacore.IKeyValue>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyValueReader"/> class.

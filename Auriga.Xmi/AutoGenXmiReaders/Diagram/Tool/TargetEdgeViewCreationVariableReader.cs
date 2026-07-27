@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TargetEdgeViewCreationVariableReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Tool.ITargetEdgeViewCreationVariable>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.ITargetEdgeViewCreationVariable>
+    public class TargetEdgeViewCreationVariableReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.ITargetEdgeViewCreationVariable>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TargetEdgeViewCreationVariableReader"/> class.

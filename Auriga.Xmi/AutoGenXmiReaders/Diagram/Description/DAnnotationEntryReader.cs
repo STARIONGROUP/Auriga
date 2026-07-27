@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DAnnotationEntryReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.IDAnnotationEntry>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.IDAnnotationEntry>
+    public class DAnnotationEntryReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.IDAnnotationEntry>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DAnnotationEntryReader"/> class.

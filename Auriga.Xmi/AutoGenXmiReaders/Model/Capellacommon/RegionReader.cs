@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacommon
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class RegionReader : XmiElementReader<Auriga.Model.Capellacommon.IRegion>, IXmiElementReader<Auriga.Model.Capellacommon.IRegion>
+    public class RegionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacommon.IRegion>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionReader"/> class.

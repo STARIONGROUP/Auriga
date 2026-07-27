@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Oa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class LocationReader : XmiElementReader<Auriga.Model.Oa.ILocation>, IXmiElementReader<Auriga.Model.Oa.ILocation>
+    public class LocationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Oa.ILocation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LocationReader"/> class.

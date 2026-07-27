@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SingleValueStyleReader : XmiElementReader<Auriga.Diagram.Notation.ISingleValueStyle>, IXmiElementReader<Auriga.Diagram.Notation.ISingleValueStyle>
+    public class SingleValueStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.ISingleValueStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleValueStyleReader"/> class.

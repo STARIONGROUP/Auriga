@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ComputedStyleDescriptionRegistryReader : XmiElementReader<Auriga.Diagram.Diagram.IComputedStyleDescriptionRegistry>, IXmiElementReader<Auriga.Diagram.Diagram.IComputedStyleDescriptionRegistry>
+    public class ComputedStyleDescriptionRegistryReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IComputedStyleDescriptionRegistry>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ComputedStyleDescriptionRegistryReader"/> class.

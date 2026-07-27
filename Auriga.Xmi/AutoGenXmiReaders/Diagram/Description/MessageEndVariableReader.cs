@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class MessageEndVariableReader : XmiElementReader<Auriga.Diagram.Sequence.Description.IMessageEndVariable>, IXmiElementReader<Auriga.Diagram.Sequence.Description.IMessageEndVariable>
+    public class MessageEndVariableReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.IMessageEndVariable>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageEndVariableReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Requirements
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EnumerationValueAttributeReader : XmiElementReader<Auriga.Model.Requirements.IEnumerationValueAttribute>, IXmiElementReader<Auriga.Model.Requirements.IEnumerationValueAttribute>
+    public class EnumerationValueAttributeReader : XmiElementReader, IXmiElementReader<Auriga.Model.Requirements.IEnumerationValueAttribute>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumerationValueAttributeReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Communication
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SignalReader : XmiElementReader<Auriga.Model.Information.Communication.ISignal>, IXmiElementReader<Auriga.Model.Information.Communication.ISignal>
+    public class SignalReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Communication.ISignal>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SignalReader"/> class.

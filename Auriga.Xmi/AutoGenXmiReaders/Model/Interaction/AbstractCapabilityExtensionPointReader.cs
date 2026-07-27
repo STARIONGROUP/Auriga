@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class AbstractCapabilityExtensionPointReader : XmiElementReader<Auriga.Model.Interaction.IAbstractCapabilityExtensionPoint>, IXmiElementReader<Auriga.Model.Interaction.IAbstractCapabilityExtensionPoint>
+    public class AbstractCapabilityExtensionPointReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.IAbstractCapabilityExtensionPoint>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractCapabilityExtensionPointReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class PaneBasedSelectionWizardDescriptionReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IPaneBasedSelectionWizardDescription>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IPaneBasedSelectionWizardDescription>
+    public class PaneBasedSelectionWizardDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Tool.IPaneBasedSelectionWizardDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PaneBasedSelectionWizardDescriptionReader"/> class.

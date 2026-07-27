@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacommon
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class InitialPseudoStateReader : XmiElementReader<Auriga.Model.Capellacommon.IInitialPseudoState>, IXmiElementReader<Auriga.Model.Capellacommon.IInitialPseudoState>
+    public class InitialPseudoStateReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacommon.IInitialPseudoState>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InitialPseudoStateReader"/> class.

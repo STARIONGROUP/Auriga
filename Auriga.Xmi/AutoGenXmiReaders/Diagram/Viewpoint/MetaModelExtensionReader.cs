@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class MetaModelExtensionReader : XmiElementReader<Auriga.Diagram.Viewpoint.IMetaModelExtension>, IXmiElementReader<Auriga.Diagram.Viewpoint.IMetaModelExtension>
+    public class MetaModelExtensionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.IMetaModelExtension>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MetaModelExtensionReader"/> class.

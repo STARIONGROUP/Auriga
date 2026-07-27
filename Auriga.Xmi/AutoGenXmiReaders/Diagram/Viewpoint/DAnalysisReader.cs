@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DAnalysisReader : XmiElementReader<Auriga.Diagram.Viewpoint.IDAnalysis>, IXmiElementReader<Auriga.Diagram.Viewpoint.IDAnalysis>
+    public class DAnalysisReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.IDAnalysis>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DAnalysisReader"/> class.

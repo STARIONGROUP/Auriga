@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Re
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CompliancyDefinitionReader : XmiElementReader<Auriga.Model.Re.ICompliancyDefinition>, IXmiElementReader<Auriga.Model.Re.ICompliancyDefinition>
+    public class CompliancyDefinitionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Re.ICompliancyDefinition>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CompliancyDefinitionReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class VSMElementCustomizationReuseReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.IVSMElementCustomizationReuse>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.IVSMElementCustomizationReuse>
+    public class VSMElementCustomizationReuseReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.IVSMElementCustomizationReuse>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VSMElementCustomizationReuseReader"/> class.

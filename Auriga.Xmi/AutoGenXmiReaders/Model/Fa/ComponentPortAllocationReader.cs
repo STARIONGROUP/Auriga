@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Fa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ComponentPortAllocationReader : XmiElementReader<Auriga.Model.Fa.IComponentPortAllocation>, IXmiElementReader<Auriga.Model.Fa.IComponentPortAllocation>
+    public class ComponentPortAllocationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Fa.IComponentPortAllocation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ComponentPortAllocationReader"/> class.

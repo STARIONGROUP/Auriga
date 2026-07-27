@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Re
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class GroupingElementPkgReader : XmiElementReader<Auriga.Model.Re.IGroupingElementPkg>, IXmiElementReader<Auriga.Model.Re.IGroupingElementPkg>
+    public class GroupingElementPkgReader : XmiElementReader, IXmiElementReader<Auriga.Model.Re.IGroupingElementPkg>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GroupingElementPkgReader"/> class.

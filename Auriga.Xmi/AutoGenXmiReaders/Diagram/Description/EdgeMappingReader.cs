@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EdgeMappingReader : XmiElementReader<Auriga.Diagram.Diagram.Description.IEdgeMapping>, IXmiElementReader<Auriga.Diagram.Diagram.Description.IEdgeMapping>
+    public class EdgeMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.IEdgeMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EdgeMappingReader"/> class.

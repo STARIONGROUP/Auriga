@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class GaugeSectionDescriptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Style.IGaugeSectionDescription>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.IGaugeSectionDescription>
+    public class GaugeSectionDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.IGaugeSectionDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GaugeSectionDescriptionReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.CapellaRequirements
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CapellaOutgoingRelationReader : XmiElementReader<Auriga.Model.CapellaRequirements.ICapellaOutgoingRelation>, IXmiElementReader<Auriga.Model.CapellaRequirements.ICapellaOutgoingRelation>
+    public class CapellaOutgoingRelationReader : XmiElementReader, IXmiElementReader<Auriga.Model.CapellaRequirements.ICapellaOutgoingRelation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CapellaOutgoingRelationReader"/> class.

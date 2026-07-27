@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ReconnectEdgeDescriptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IReconnectEdgeDescription>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IReconnectEdgeDescription>
+    public class ReconnectEdgeDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IReconnectEdgeDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReconnectEdgeDescriptionReader"/> class.

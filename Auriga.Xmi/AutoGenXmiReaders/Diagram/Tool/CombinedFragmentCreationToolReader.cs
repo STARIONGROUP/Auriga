@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CombinedFragmentCreationToolReader : XmiElementReader<Auriga.Diagram.Sequence.Description.Tool.ICombinedFragmentCreationTool>, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.ICombinedFragmentCreationTool>
+    public class CombinedFragmentCreationToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.ICombinedFragmentCreationTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CombinedFragmentCreationToolReader"/> class.

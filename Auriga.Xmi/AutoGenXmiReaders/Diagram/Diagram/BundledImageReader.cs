@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BundledImageReader : XmiElementReader<Auriga.Diagram.Diagram.IBundledImage>, IXmiElementReader<Auriga.Diagram.Diagram.IBundledImage>
+    public class BundledImageReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IBundledImage>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BundledImageReader"/> class.

@@ -111,12 +111,10 @@ namespace Auriga.Xmi.Core.Readers
         {
             var typeKey = explicitTypeKey ?? this.ResolveTypeKey(xmlReader);
 
-            foreach (var facade in this.facades)
+            var owning = this.facades.FirstOrDefault(facade => facade.CanRead(typeKey));
+            if (owning != null)
             {
-                if (facade.CanRead(typeKey))
-                {
-                    return facade.QueryElement(xmlReader, documentName, namespaceUri, typeKey);
-                }
+                return owning.QueryElement(xmlReader, documentName, namespaceUri, typeKey);
             }
 
             throw new InvalidOperationException(

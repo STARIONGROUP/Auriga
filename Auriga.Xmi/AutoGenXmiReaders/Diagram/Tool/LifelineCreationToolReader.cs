@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class LifelineCreationToolReader : XmiElementReader<Auriga.Diagram.Sequence.Description.Tool.ILifelineCreationTool>, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.ILifelineCreationTool>
+    public class LifelineCreationToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.ILifelineCreationTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LifelineCreationToolReader"/> class.

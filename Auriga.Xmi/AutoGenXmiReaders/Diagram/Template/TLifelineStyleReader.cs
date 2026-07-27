@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Template
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TLifelineStyleReader : XmiElementReader<Auriga.Diagram.Sequence.Template.ITLifelineStyle>, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITLifelineStyle>
+    public class TLifelineStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITLifelineStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TLifelineStyleReader"/> class.

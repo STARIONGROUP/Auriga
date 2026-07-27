@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Interaction
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class GateReader : XmiElementReader<Auriga.Model.Interaction.IGate>, IXmiElementReader<Auriga.Model.Interaction.IGate>
+    public class GateReader : XmiElementReader, IXmiElementReader<Auriga.Model.Interaction.IGate>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GateReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datatype
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class NumericTypeReader : XmiElementReader<Auriga.Model.Information.Datatype.INumericType>, IXmiElementReader<Auriga.Model.Information.Datatype.INumericType>
+    public class NumericTypeReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Datatype.INumericType>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericTypeReader"/> class.

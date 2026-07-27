@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class MultiDiagramLinkStyleReader : XmiElementReader<Auriga.Diagram.Notation.IMultiDiagramLinkStyle>, IXmiElementReader<Auriga.Diagram.Notation.IMultiDiagramLinkStyle>
+    public class MultiDiagramLinkStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IMultiDiagramLinkStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiDiagramLinkStyleReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.La
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class LogicalArchitectureReader : XmiElementReader<Auriga.Model.La.ILogicalArchitecture>, IXmiElementReader<Auriga.Model.La.ILogicalArchitecture>
+    public class LogicalArchitectureReader : XmiElementReader, IXmiElementReader<Auriga.Model.La.ILogicalArchitecture>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LogicalArchitectureReader"/> class.

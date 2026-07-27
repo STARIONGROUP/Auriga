@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacore
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ConstraintReader : XmiElementReader<Auriga.Model.Capellacore.IConstraint>, IXmiElementReader<Auriga.Model.Capellacore.IConstraint>
+    public class ConstraintReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacore.IConstraint>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConstraintReader"/> class.

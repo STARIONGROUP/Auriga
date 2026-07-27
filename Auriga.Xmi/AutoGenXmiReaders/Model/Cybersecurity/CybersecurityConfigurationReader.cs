@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Cybersecurity
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CybersecurityConfigurationReader : XmiElementReader<Auriga.Model.Cybersecurity.ICybersecurityConfiguration>, IXmiElementReader<Auriga.Model.Cybersecurity.ICybersecurityConfiguration>
+    public class CybersecurityConfigurationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Cybersecurity.ICybersecurityConfiguration>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CybersecurityConfigurationReader"/> class.

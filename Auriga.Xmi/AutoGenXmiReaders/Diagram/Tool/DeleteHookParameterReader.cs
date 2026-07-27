@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DeleteHookParameterReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IDeleteHookParameter>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IDeleteHookParameter>
+    public class DeleteHookParameterReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Tool.IDeleteHookParameter>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteHookParameterReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description.Style
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CenterLabelStyleDescriptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.Style.ICenterLabelStyleDescription>, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.ICenterLabelStyleDescription>
+    public class CenterLabelStyleDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.Style.ICenterLabelStyleDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CenterLabelStyleDescriptionReader"/> class.

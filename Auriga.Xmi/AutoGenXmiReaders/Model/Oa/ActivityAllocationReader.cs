@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Oa
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ActivityAllocationReader : XmiElementReader<Auriga.Model.Oa.IActivityAllocation>, IXmiElementReader<Auriga.Model.Oa.IActivityAllocation>
+    public class ActivityAllocationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Oa.IActivityAllocation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ActivityAllocationReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint.Description.Style
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TooltipStyleDescriptionReader : XmiElementReader<Auriga.Diagram.Viewpoint.Description.Style.ITooltipStyleDescription>, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Style.ITooltipStyleDescription>
+    public class TooltipStyleDescriptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.Description.Style.ITooltipStyleDescription>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TooltipStyleDescriptionReader"/> class.

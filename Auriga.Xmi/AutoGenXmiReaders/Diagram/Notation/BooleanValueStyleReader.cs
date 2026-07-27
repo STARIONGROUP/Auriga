@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BooleanValueStyleReader : XmiElementReader<Auriga.Diagram.Notation.IBooleanValueStyle>, IXmiElementReader<Auriga.Diagram.Notation.IBooleanValueStyle>
+    public class BooleanValueStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IBooleanValueStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BooleanValueStyleReader"/> class.

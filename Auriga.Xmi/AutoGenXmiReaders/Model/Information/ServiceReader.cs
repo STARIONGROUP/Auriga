@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ServiceReader : XmiElementReader<Auriga.Model.Information.IService>, IXmiElementReader<Auriga.Model.Information.IService>
+    public class ServiceReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.IService>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceReader"/> class.

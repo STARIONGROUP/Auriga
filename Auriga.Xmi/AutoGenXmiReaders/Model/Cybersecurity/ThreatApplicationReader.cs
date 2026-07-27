@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Cybersecurity
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ThreatApplicationReader : XmiElementReader<Auriga.Model.Cybersecurity.IThreatApplication>, IXmiElementReader<Auriga.Model.Cybersecurity.IThreatApplication>
+    public class ThreatApplicationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Cybersecurity.IThreatApplication>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ThreatApplicationReader"/> class.

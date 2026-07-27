@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class StateMappingReader : XmiElementReader<Auriga.Diagram.Sequence.Description.IStateMapping>, IXmiElementReader<Auriga.Diagram.Sequence.Description.IStateMapping>
+    public class StateMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.IStateMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StateMappingReader"/> class.

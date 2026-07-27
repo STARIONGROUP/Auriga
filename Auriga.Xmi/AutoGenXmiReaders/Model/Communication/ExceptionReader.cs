@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Communication
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ExceptionReader : XmiElementReader<Auriga.Model.Information.Communication.IException>, IXmiElementReader<Auriga.Model.Information.Communication.IException>
+    public class ExceptionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Communication.IException>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionReader"/> class.

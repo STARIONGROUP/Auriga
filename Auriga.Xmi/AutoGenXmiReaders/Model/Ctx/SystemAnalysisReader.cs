@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Ctx
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class SystemAnalysisReader : XmiElementReader<Auriga.Model.Ctx.ISystemAnalysis>, IXmiElementReader<Auriga.Model.Ctx.ISystemAnalysis>
+    public class SystemAnalysisReader : XmiElementReader, IXmiElementReader<Auriga.Model.Ctx.ISystemAnalysis>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemAnalysisReader"/> class.

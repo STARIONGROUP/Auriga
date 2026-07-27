@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class InstanceRoleMappingReader : XmiElementReader<Auriga.Diagram.Sequence.Description.IInstanceRoleMapping>, IXmiElementReader<Auriga.Diagram.Sequence.Description.IInstanceRoleMapping>
+    public class InstanceRoleMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.IInstanceRoleMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InstanceRoleMappingReader"/> class.

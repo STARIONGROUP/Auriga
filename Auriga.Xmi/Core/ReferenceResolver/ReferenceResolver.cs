@@ -148,27 +148,49 @@ namespace Auriga.Xmi.Core.ReferenceResolver
                     ? property.PropertyType.GetGenericArguments()[0]
                     : typeof(object);
 
-                foreach (var identifier in pair.Value)
+                this.AppendReferences(cache, element, pair, collection, elementType, unresolved);
+            }
+        }
+
+        /// <summary>
+        /// Resolves every <c>#id</c> of one multi-valued reference against the cache and appends the targets
+        /// to the property's collection. A reference whose id is unknown, or whose target is not assignable
+        /// to the collection's element type, is logged and skipped.
+        /// </summary>
+        /// <param name="cache">the cache holding all instantiated elements</param>
+        /// <param name="element">the element that owns the reference</param>
+        /// <param name="reference">the property name paired with its collected <c>#id</c> tokens</param>
+        /// <param name="collection">the collection property the targets are appended to</param>
+        /// <param name="elementType">the collection's element type, which a target must be assignable to</param>
+        /// <param name="unresolved">the collection to which dangling references are appended</param>
+        private void AppendReferences(
+            IXmiElementCache cache,
+            IAurigaElement element,
+            KeyValuePair<string, List<string>> reference,
+            IList collection,
+            Type elementType,
+            ICollection<UnresolvedReference> unresolved)
+        {
+            foreach (var identifier in reference.Value)
+            {
+                if (!cache.TryGetValue(this.ResolveKey(element, identifier), out var target) || target == null)
                 {
-                    if (!cache.TryGetValue(this.ResolveKey(element, identifier), out var target) || target == null)
-                    {
-                        this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", pair.Key, identifier, element.GetType().Name);
-                        unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, pair.Key, identifier));
-                        continue;
-                    }
+                    this.logger.LogWarning("Unresolved reference {Property}={Id} on {Type}", reference.Key, identifier, element.GetType().Name);
+                    unresolved.Add(new UnresolvedReference(element.Id ?? string.Empty, element.GetType().Name, reference.Key, identifier));
+                    continue;
+                }
 
-                    if (!elementType.IsInstanceOfType(target))
-                    {
-                        this.logger.LogWarning("Reference {Property} target {TargetType} is not assignable to {ElementType}", pair.Key, target.GetType().Name, elementType.Name);
-                        continue;
-                    }
+                if (!elementType.IsInstanceOfType(target))
+                {
+                    this.logger.LogWarning("Reference {Property} target {TargetType} is not assignable to {ElementType}", reference.Key, target.GetType().Name, elementType.Name);
+                    continue;
+                }
 
-                    // A containment collection is a ContainerList whose Add re-parents the target and rejects
-                    // duplicates; skip a target already present so a repeated href does not trip that guard.
-                    if (!collection.Contains(target))
-                    {
-                        collection.Add(target);
-                    }
+                // A containment collection is a ContainerList whose Add re-parents the target and rejects
+                // duplicates; skip a target already present so a repeated href does not trip that guard.
+                if (!collection.Contains(target))
+                {
+                    collection.Add(target);
                 }
             }
         }

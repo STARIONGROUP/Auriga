@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Pa.Deployment
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class PartDeploymentLinkReader : XmiElementReader<Auriga.Model.Pa.Deployment.IPartDeploymentLink>, IXmiElementReader<Auriga.Model.Pa.Deployment.IPartDeploymentLink>
+    public class PartDeploymentLinkReader : XmiElementReader, IXmiElementReader<Auriga.Model.Pa.Deployment.IPartDeploymentLink>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PartDeploymentLinkReader"/> class.

@@ -63,7 +63,7 @@ namespace Auriga.Rendering
                 return false;
             }
 
-            var parts = rgbValues!.Split(',');
+            var parts = rgbValues.Split(',');
             if (parts.Length == 3
                 && byte.TryParse(parts[0].Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var red)
                 && byte.TryParse(parts[1].Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var green)

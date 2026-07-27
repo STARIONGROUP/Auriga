@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class OperationAllocationReader : XmiElementReader<Auriga.Model.Information.IOperationAllocation>, IXmiElementReader<Auriga.Model.Information.IOperationAllocation>
+    public class OperationAllocationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.IOperationAllocation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OperationAllocationReader"/> class.

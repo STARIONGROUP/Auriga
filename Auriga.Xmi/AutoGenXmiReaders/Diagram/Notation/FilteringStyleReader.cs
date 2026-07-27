@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class FilteringStyleReader : XmiElementReader<Auriga.Diagram.Notation.IFilteringStyle>, IXmiElementReader<Auriga.Diagram.Notation.IFilteringStyle>
+    public class FilteringStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IFilteringStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FilteringStyleReader"/> class.

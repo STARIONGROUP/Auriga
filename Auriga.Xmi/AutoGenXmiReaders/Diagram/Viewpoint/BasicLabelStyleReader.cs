@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Viewpoint
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BasicLabelStyleReader : XmiElementReader<Auriga.Diagram.Viewpoint.IBasicLabelStyle>, IXmiElementReader<Auriga.Diagram.Viewpoint.IBasicLabelStyle>
+    public class BasicLabelStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Viewpoint.IBasicLabelStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BasicLabelStyleReader"/> class.

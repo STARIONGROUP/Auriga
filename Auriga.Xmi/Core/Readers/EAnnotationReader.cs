@@ -27,7 +27,7 @@ namespace Auriga.Xmi.Core.Readers
     /// vendored metamodel package, so every generated reader facade routes its type key here instead of to
     /// a generated per-type reader.
     /// </summary>
-    public sealed class EAnnotationReader : XmiElementReader<IEAnnotation>
+    public sealed class EAnnotationReader : XmiElementReader
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EAnnotationReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BooleanLayoutOptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.IBooleanLayoutOption>, IXmiElementReader<Auriga.Diagram.Diagram.Description.IBooleanLayoutOption>
+    public class BooleanLayoutOptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.IBooleanLayoutOption>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BooleanLayoutOptionReader"/> class.

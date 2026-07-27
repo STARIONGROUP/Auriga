@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacore
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class GeneralizationReader : XmiElementReader<Auriga.Model.Capellacore.IGeneralization>, IXmiElementReader<Auriga.Model.Capellacore.IGeneralization>
+    public class GeneralizationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacore.IGeneralization>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizationReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Information.Datavalue
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BinaryExpressionReader : XmiElementReader<Auriga.Model.Information.Datavalue.IBinaryExpression>, IXmiElementReader<Auriga.Model.Information.Datavalue.IBinaryExpression>
+    public class BinaryExpressionReader : XmiElementReader, IXmiElementReader<Auriga.Model.Information.Datavalue.IBinaryExpression>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryExpressionReader"/> class.

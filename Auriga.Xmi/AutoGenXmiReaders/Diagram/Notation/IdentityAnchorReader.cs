@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Notation
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class IdentityAnchorReader : XmiElementReader<Auriga.Diagram.Notation.IIdentityAnchor>, IXmiElementReader<Auriga.Diagram.Notation.IIdentityAnchor>
+    public class IdentityAnchorReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Notation.IIdentityAnchor>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IdentityAnchorReader"/> class.

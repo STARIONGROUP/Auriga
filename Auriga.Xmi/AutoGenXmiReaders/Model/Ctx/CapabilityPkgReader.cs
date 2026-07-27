@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Ctx
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class CapabilityPkgReader : XmiElementReader<Auriga.Model.Ctx.ICapabilityPkg>, IXmiElementReader<Auriga.Model.Ctx.ICapabilityPkg>
+    public class CapabilityPkgReader : XmiElementReader, IXmiElementReader<Auriga.Model.Ctx.ICapabilityPkg>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CapabilityPkgReader"/> class.

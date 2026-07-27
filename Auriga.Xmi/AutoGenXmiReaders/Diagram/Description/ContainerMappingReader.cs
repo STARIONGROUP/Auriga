@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class ContainerMappingReader : XmiElementReader<Auriga.Diagram.Diagram.Description.IContainerMapping>, IXmiElementReader<Auriga.Diagram.Diagram.Description.IContainerMapping>
+    public class ContainerMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.IContainerMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContainerMappingReader"/> class.

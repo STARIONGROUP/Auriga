@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class StringLayoutOptionReader : XmiElementReader<Auriga.Diagram.Diagram.Description.IStringLayoutOption>, IXmiElementReader<Auriga.Diagram.Diagram.Description.IStringLayoutOption>
+    public class StringLayoutOptionReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.Description.IStringLayoutOption>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StringLayoutOptionReader"/> class.

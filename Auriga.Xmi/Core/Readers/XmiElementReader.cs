@@ -24,11 +24,10 @@ namespace Auriga.Xmi.Core.Readers
     /// shared <see cref="IXmiElementCache"/> and <see cref="IXmiReaderFacade"/> and provides the helpers
     /// that collect unresolved <c>#id</c> references into the element's deferred-reference dictionaries
     /// (resolved on the reader's second pass). This is the analogue of uml4net's
-    /// <c>XmiElementReader&lt;T&gt;</c>.
+    /// <c>XmiElementReader&lt;T&gt;</c>, without the type parameter: nothing here depends on the element
+    /// type, which each reader declares on the <see cref="IXmiElementReader{T}"/> it implements.
     /// </summary>
-    /// <typeparam name="T">the type of <see cref="IAurigaElement"/> the reader produces</typeparam>
-    public abstract class XmiElementReader<T>
-        where T : IAurigaElement
+    public abstract class XmiElementReader
     {
         /// <summary>
         /// The XML Schema instance namespace, in which the <c>xsi:type</c> attribute is declared.
@@ -48,7 +47,7 @@ namespace Auriga.Xmi.Core.Readers
         protected static readonly char[] WhitespaceSeparator = { ' ', '\t', '\r', '\n' };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="XmiElementReader{T}"/> class.
+        /// Initializes a new instance of the <see cref="XmiElementReader"/> class.
         /// </summary>
         /// <param name="cache">the cache in which every read element is registered by <c>xmi:id</c></param>
         /// <param name="facade">the facade used to read contained elements</param>
@@ -96,7 +95,7 @@ namespace Auriga.Xmi.Core.Readers
                 return;
             }
 
-            element.SingleValueReferencePropertyIdentifiers[propertyName] = NormalizeIdentifier(attributeValue!);
+            element.SingleValueReferencePropertyIdentifiers[propertyName] = NormalizeIdentifier(attributeValue);
         }
 
         /// <summary>
@@ -114,7 +113,7 @@ namespace Auriga.Xmi.Core.Readers
                 return;
             }
 
-            var tokens = attributeValue!.Split(WhitespaceSeparator, StringSplitOptions.RemoveEmptyEntries);
+            var tokens = attributeValue.Split(WhitespaceSeparator, StringSplitOptions.RemoveEmptyEntries);
             if (tokens.Length == 0)
             {
                 return;
@@ -280,6 +279,8 @@ namespace Auriga.Xmi.Core.Readers
             using var subReader = xmlReader.ReadSubtree();
             while (subReader.Read())
             {
+                // Reading the subtree to its end is the whole point: the content is discarded, and the
+                // outer reader is left on the element's end tag.
             }
         }
 

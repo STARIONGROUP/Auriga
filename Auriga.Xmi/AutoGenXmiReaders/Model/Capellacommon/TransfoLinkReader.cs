@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacommon
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TransfoLinkReader : XmiElementReader<Auriga.Model.Capellacommon.ITransfoLink>, IXmiElementReader<Auriga.Model.Capellacommon.ITransfoLink>
+    public class TransfoLinkReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacommon.ITransfoLink>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TransfoLinkReader"/> class.

@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class HideLabelFilterReader : XmiElementReader<Auriga.Diagram.Diagram.IHideLabelFilter>, IXmiElementReader<Auriga.Diagram.Diagram.IHideLabelFilter>
+    public class HideLabelFilterReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IHideLabelFilter>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HideLabelFilterReader"/> class.

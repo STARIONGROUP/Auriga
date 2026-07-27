@@ -260,13 +260,13 @@ namespace Auriga.Xmi.Core
                 return;
             }
 
-            if (this.scannedProjects.TryGetValue(declaredName!, out var existing))
+            if (this.scannedProjects.TryGetValue(declaredName, out var existing))
             {
                 this.logger.LogWarning("Workspace project name {Name} is declared by both {RegisteredDirectory} and {DuplicateDirectory}; keeping the registered one", declaredName, existing, directory);
                 return;
             }
 
-            this.scannedProjects[declaredName!] = Path.GetFullPath(directory);
+            this.scannedProjects[declaredName] = Path.GetFullPath(directory);
         }
     }
 }

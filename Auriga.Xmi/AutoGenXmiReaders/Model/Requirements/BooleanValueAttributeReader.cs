@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Requirements
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class BooleanValueAttributeReader : XmiElementReader<Auriga.Model.Requirements.IBooleanValueAttribute>, IXmiElementReader<Auriga.Model.Requirements.IBooleanValueAttribute>
+    public class BooleanValueAttributeReader : XmiElementReader, IXmiElementReader<Auriga.Model.Requirements.IBooleanValueAttribute>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BooleanValueAttributeReader"/> class.

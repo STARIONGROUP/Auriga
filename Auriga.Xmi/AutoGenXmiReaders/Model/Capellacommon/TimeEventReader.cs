@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Capellacommon
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TimeEventReader : XmiElementReader<Auriga.Model.Capellacommon.ITimeEvent>, IXmiElementReader<Auriga.Model.Capellacommon.ITimeEvent>
+    public class TimeEventReader : XmiElementReader, IXmiElementReader<Auriga.Model.Capellacommon.ITimeEvent>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeEventReader"/> class.

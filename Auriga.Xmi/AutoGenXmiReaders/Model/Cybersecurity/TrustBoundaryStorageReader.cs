@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Cybersecurity
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TrustBoundaryStorageReader : XmiElementReader<Auriga.Model.Cybersecurity.ITrustBoundaryStorage>, IXmiElementReader<Auriga.Model.Cybersecurity.ITrustBoundaryStorage>
+    public class TrustBoundaryStorageReader : XmiElementReader, IXmiElementReader<Auriga.Model.Cybersecurity.ITrustBoundaryStorage>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TrustBoundaryStorageReader"/> class.

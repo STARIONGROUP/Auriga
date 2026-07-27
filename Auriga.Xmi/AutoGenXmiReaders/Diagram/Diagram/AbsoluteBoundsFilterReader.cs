@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Diagram
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class AbsoluteBoundsFilterReader : XmiElementReader<Auriga.Diagram.Diagram.IAbsoluteBoundsFilter>, IXmiElementReader<Auriga.Diagram.Diagram.IAbsoluteBoundsFilter>
+    public class AbsoluteBoundsFilterReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Diagram.IAbsoluteBoundsFilter>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AbsoluteBoundsFilterReader"/> class.

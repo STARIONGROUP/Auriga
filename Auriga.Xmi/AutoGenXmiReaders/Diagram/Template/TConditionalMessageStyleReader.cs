@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Template
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class TConditionalMessageStyleReader : XmiElementReader<Auriga.Diagram.Sequence.Template.ITConditionalMessageStyle>, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITConditionalMessageStyle>
+    public class TConditionalMessageStyleReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Template.ITConditionalMessageStyle>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TConditionalMessageStyleReader"/> class.

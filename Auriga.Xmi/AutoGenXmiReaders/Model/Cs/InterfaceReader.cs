@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Cs
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class InterfaceReader : XmiElementReader<Auriga.Model.Cs.IInterface>, IXmiElementReader<Auriga.Model.Cs.IInterface>
+    public class InterfaceReader : XmiElementReader, IXmiElementReader<Auriga.Model.Cs.IInterface>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InterfaceReader"/> class.

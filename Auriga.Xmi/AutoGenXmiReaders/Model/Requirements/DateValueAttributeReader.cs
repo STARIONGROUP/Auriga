@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Requirements
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class DateValueAttributeReader : XmiElementReader<Auriga.Model.Requirements.IDateValueAttribute>, IXmiElementReader<Auriga.Model.Requirements.IDateValueAttribute>
+    public class DateValueAttributeReader : XmiElementReader, IXmiElementReader<Auriga.Model.Requirements.IDateValueAttribute>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DateValueAttributeReader"/> class.

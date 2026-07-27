@@ -392,7 +392,7 @@ namespace Auriga.Rendering
                 return;
             }
 
-            var label = new Label(text!);
+            var label = new Label(text);
             if (!centered)
             {
                 var indentOffset = indent * IndentPerLevel;
@@ -456,7 +456,7 @@ namespace Auriga.Rendering
         /// <returns>the estimated width in pixels</returns>
         private static double TextWidth(string? text, double fontSize)
         {
-            return string.IsNullOrEmpty(text) ? 0 : text!.Length * fontSize * GlyphRatio;
+            return string.IsNullOrEmpty(text) ? 0 : text.Length * fontSize * GlyphRatio;
         }
 
         /// <summary>
@@ -471,7 +471,7 @@ namespace Auriga.Rendering
         {
             return string.IsNullOrEmpty(text)
                 ? 1
-                : Math.Max(1, SvgExporter.WrapLines(text!, width, new ResolvedStyle { FontSize = fontSize }).Count);
+                : Math.Max(1, SvgExporter.WrapLines(text, width, new ResolvedStyle { FontSize = fontSize }).Count);
         }
 
         /// <summary>

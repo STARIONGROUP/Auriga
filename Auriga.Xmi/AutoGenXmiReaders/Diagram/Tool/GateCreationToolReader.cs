@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description.Tool
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class GateCreationToolReader : XmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IGateCreationTool>, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IGateCreationTool>
+    public class GateCreationToolReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.Tool.IGateCreationTool>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GateCreationToolReader"/> class.

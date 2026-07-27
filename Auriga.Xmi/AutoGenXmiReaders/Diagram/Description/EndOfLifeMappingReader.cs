@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiReaders.Sequence.Description
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class EndOfLifeMappingReader : XmiElementReader<Auriga.Diagram.Sequence.Description.IEndOfLifeMapping>, IXmiElementReader<Auriga.Diagram.Sequence.Description.IEndOfLifeMapping>
+    public class EndOfLifeMappingReader : XmiElementReader, IXmiElementReader<Auriga.Diagram.Sequence.Description.IEndOfLifeMapping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EndOfLifeMappingReader"/> class.

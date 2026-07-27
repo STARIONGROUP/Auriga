@@ -28,7 +28,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiReaders.Cs
     /// XMI representation. Contained elements are read recursively; cross-references are collected for the
     /// reference-resolution pass.
     /// </summary>
-    public class PhysicalPathRealizationReader : XmiElementReader<Auriga.Model.Cs.IPhysicalPathRealization>, IXmiElementReader<Auriga.Model.Cs.IPhysicalPathRealization>
+    public class PhysicalPathRealizationReader : XmiElementReader, IXmiElementReader<Auriga.Model.Cs.IPhysicalPathRealization>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalPathRealizationReader"/> class.
