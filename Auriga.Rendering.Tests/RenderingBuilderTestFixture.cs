@@ -44,6 +44,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(diagram.Boxes[0].Position, Is.EqualTo(new Point(10, 20)), "the node diagram builder ran");
                 Assert.That(diagram.Boxes[0].Style.Resolved, Is.Not.Null, "the style resolver ran");
                 Assert.That(scope.BuildSvgExporter().Export(diagram), Does.Contain("<svg"));
+                Assert.That(scope.BuildTableBuilder(), Is.Not.Null);
                 Assert.That(scope.BuildXlsxTableExporter(), Is.Not.Null);
             });
         }
@@ -56,6 +57,7 @@ namespace Auriga.Rendering.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(scope.BuildDiagramBuilder(), Is.SameAs(scope.BuildDiagramBuilder()));
+                Assert.That(scope.BuildTableBuilder(), Is.SameAs(scope.BuildTableBuilder()));
                 Assert.That(scope.BuildSvgExporter(), Is.SameAs(scope.BuildSvgExporter()));
                 Assert.That(scope.BuildXlsxTableExporter(), Is.SameAs(scope.BuildXlsxTableExporter()));
             });
@@ -133,6 +135,7 @@ namespace Auriga.Rendering.Tests
                 Assert.That(() => ((RenderingScope)null!).UsingStyleResolver(new RecordingStyleResolver()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingStyleResolver(null!), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).BuildDiagramBuilder(), Throws.ArgumentNullException);
+                Assert.That(() => ((RenderingScope)null!).BuildTableBuilder(), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).BuildSvgExporter(), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).BuildXlsxTableExporter(), Throws.ArgumentNullException);
             });

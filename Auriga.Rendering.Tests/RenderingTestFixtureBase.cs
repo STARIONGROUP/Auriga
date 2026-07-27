@@ -34,6 +34,11 @@ namespace Auriga.Rendering.Tests
         protected IDiagramBuilder DiagramBuilder => this.renderingScope.BuildDiagramBuilder();
 
         /// <summary>
+        /// Gets the table builder composed by the fixture's rendering scope.
+        /// </summary>
+        protected ITableBuilder TableBuilder => this.renderingScope.BuildTableBuilder();
+
+        /// <summary>
         /// Gets the SVG exporter composed by the fixture's rendering scope.
         /// </summary>
         protected ISvgExporter SvgExporter => this.renderingScope.BuildSvgExporter();

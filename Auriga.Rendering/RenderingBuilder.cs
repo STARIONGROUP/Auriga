@@ -20,9 +20,9 @@ namespace Auriga.Rendering
     /// and the exporters built alongside it — through the Autofac container owned by a
     /// <see cref="RenderingScope"/>, mirroring <c>XmiReaderBuilder</c>. <see cref="Create"/> opens the
     /// scope, the fluent methods register caller-supplied services on it, and a terminal method
-    /// (<see cref="BuildDiagramBuilder"/>, <see cref="BuildSvgExporter"/>,
-    /// <see cref="BuildXlsxTableExporter"/>) resolves the requested service. The scope is disposable;
-    /// disposing it releases every service built from it.
+    /// (<see cref="BuildDiagramBuilder"/>, <see cref="BuildTableBuilder"/>,
+    /// <see cref="BuildSvgExporter"/>, <see cref="BuildXlsxTableExporter"/>) resolves the requested
+    /// service. The scope is disposable; disposing it releases every service built from it.
     /// </summary>
     /// <example>
     /// <code>
@@ -164,6 +164,25 @@ namespace Auriga.Rendering
             }
 
             return scope.Resolve<IDiagramBuilder>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="ITableBuilder"/> — the builder of the grid a Sirius table
+        /// representation does not persist. <see cref="BuildDiagramBuilder"/> already dispatches
+        /// tables to it; this terminal is for a caller that holds a table and wants its grid
+        /// directly.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the table builder</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        public static ITableBuilder BuildTableBuilder(this RenderingScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.Resolve<ITableBuilder>();
         }
 
         /// <summary>
