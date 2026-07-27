@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteStringAttribute(xmlWriter, "value", poco.Value);
-            this.WriteReferenceAttribute(xmlWriter, "variableDefinition", poco.VariableDefinition, poco, "VariableDefinition", context);
+            WriteReferenceAttribute(xmlWriter, "variableDefinition", poco.VariableDefinition, poco, "VariableDefinition", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

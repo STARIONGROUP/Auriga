@@ -63,8 +63,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.IDAnalysisSessionEObject poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "activatedViewpoints", poco.ActivatedViewpoints, poco, "ActivatedViewpoints", context);
-            this.WriteReferenceListAttribute(xmlWriter, "analyses", poco.Analyses, poco, "Analyses", context);
+            WriteReferenceListAttribute(xmlWriter, "activatedViewpoints", poco.ActivatedViewpoints, poco, "ActivatedViewpoints", context);
+            WriteReferenceListAttribute(xmlWriter, "analyses", poco.Analyses, poco, "Analyses", context);
             WriteBooleanAttribute(xmlWriter, "open", poco.Open);
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.SyncStatus>(xmlWriter, "synchronizationStatus", poco.SynchronizationStatus, Auriga.Extensions.SyncStatusProvider.ToLiteralString, Auriga.Diagram.Viewpoint.SyncStatus.Dirty);
 

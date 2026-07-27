@@ -64,12 +64,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed, false);
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
-            this.WriteReferenceListAttribute(xmlWriter, "filteredObjects", poco.FilteredObjects, poco, "FilteredObjects", context);
+            WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
+            WriteReferenceListAttribute(xmlWriter, "filteredObjects", poco.FilteredObjects, poco, "FilteredObjects", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.Filtering>(xmlWriter, "filtering", poco.Filtering, Auriga.Extensions.FilteringProvider.ToLiteralString, Auriga.Diagram.Notation.Filtering.None);
             WriteStringAttribute(xmlWriter, "filteringKeys", poco.FilteringKeys);
             WriteBooleanAttribute(xmlWriter, "showTitle", poco.ShowTitle, false);
-            this.WriteReferenceListAttribute(xmlWriter, "sortedObjects", poco.SortedObjects, poco, "SortedObjects", context);
+            WriteReferenceListAttribute(xmlWriter, "sortedObjects", poco.SortedObjects, poco, "SortedObjects", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.Sorting>(xmlWriter, "sorting", poco.Sorting, Auriga.Extensions.SortingProvider.ToLiteralString, Auriga.Diagram.Notation.Sorting.None);
             WriteStringAttribute(xmlWriter, "sortingKeys", poco.SortingKeys);
             WriteStringAttribute(xmlWriter, "type", poco.Type, "");

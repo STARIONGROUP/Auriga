@@ -63,23 +63,23 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IDEdge poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "actualMapping", poco.ActualMapping, poco, "ActualMapping", context);
+            WriteReferenceAttribute(xmlWriter, "actualMapping", poco.ActualMapping, poco, "ActualMapping", context);
             WriteStringAttribute(xmlWriter, "beginLabel", poco.BeginLabel, "");
             WriteStringAttribute(xmlWriter, "endLabel", poco.EndLabel, "");
-            this.WriteReferenceListAttribute(xmlWriter, "incomingEdges", poco.IncomingEdges, poco, "IncomingEdges", context);
+            WriteReferenceListAttribute(xmlWriter, "incomingEdges", poco.IncomingEdges, poco, "IncomingEdges", context);
             WriteBooleanAttribute(xmlWriter, "isFold", poco.IsFold);
             WriteBooleanAttribute(xmlWriter, "isMockEdge", poco.IsMockEdge);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceAttribute(xmlWriter, "originalStyle", poco.OriginalStyle, poco, "OriginalStyle", context);
-            this.WriteReferenceListAttribute(xmlWriter, "outgoingEdges", poco.OutgoingEdges, poco, "OutgoingEdges", context);
-            this.WriteReferenceListAttribute(xmlWriter, "parentLayers", poco.ParentLayers, poco, "ParentLayers", context);
-            this.WriteReferenceListAttribute(xmlWriter, "path", poco.Path, poco, "Path", context);
+            WriteReferenceAttribute(xmlWriter, "originalStyle", poco.OriginalStyle, poco, "OriginalStyle", context);
+            WriteReferenceListAttribute(xmlWriter, "outgoingEdges", poco.OutgoingEdges, poco, "OutgoingEdges", context);
+            WriteReferenceListAttribute(xmlWriter, "parentLayers", poco.ParentLayers, poco, "ParentLayers", context);
+            WriteReferenceListAttribute(xmlWriter, "path", poco.Path, poco, "Path", context);
             WriteEnumAttribute<Auriga.Diagram.Diagram.EdgeRouting>(xmlWriter, "routingStyle", poco.RoutingStyle, Auriga.Extensions.EdgeRoutingProvider.ToLiteralString, Auriga.Diagram.Diagram.EdgeRouting.Straight);
-            this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
+            WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
             WriteIntegerAttribute(xmlWriter, "size", poco.Size, 1);
-            this.WriteReferenceAttribute(xmlWriter, "sourceNode", poco.SourceNode, poco, "SourceNode", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
-            this.WriteReferenceAttribute(xmlWriter, "targetNode", poco.TargetNode, poco, "TargetNode", context);
+            WriteReferenceAttribute(xmlWriter, "sourceNode", poco.SourceNode, poco, "SourceNode", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "targetNode", poco.TargetNode, poco, "TargetNode", context);
             WriteStringAttribute(xmlWriter, "tooltipText", poco.TooltipText);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);

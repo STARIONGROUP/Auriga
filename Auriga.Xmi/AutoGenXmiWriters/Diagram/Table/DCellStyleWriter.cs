@@ -64,11 +64,11 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "backgroundColor", poco.BackgroundColor, "255,255,255");
-            this.WriteReferenceAttribute(xmlWriter, "backgroundStyleOrigin", poco.BackgroundStyleOrigin, poco, "BackgroundStyleOrigin", context);
+            WriteReferenceAttribute(xmlWriter, "backgroundStyleOrigin", poco.BackgroundStyleOrigin, poco, "BackgroundStyleOrigin", context);
             WriteBooleanAttribute(xmlWriter, "defaultBackgroundStyle", poco.DefaultBackgroundStyle, false);
             WriteBooleanAttribute(xmlWriter, "defaultForegroundStyle", poco.DefaultForegroundStyle, false);
             WriteStringAttribute(xmlWriter, "foregroundColor", poco.ForegroundColor, "0,0,0");
-            this.WriteReferenceAttribute(xmlWriter, "foregroundStyleOrigin", poco.ForegroundStyleOrigin, poco, "ForegroundStyleOrigin", context);
+            WriteReferenceAttribute(xmlWriter, "foregroundStyleOrigin", poco.ForegroundStyleOrigin, poco, "ForegroundStyleOrigin", context);
             WriteIntegerAttribute(xmlWriter, "labelSize", poco.LabelSize, 8);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
 

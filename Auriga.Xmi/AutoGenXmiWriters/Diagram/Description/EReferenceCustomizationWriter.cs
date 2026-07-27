@@ -63,10 +63,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.Description.IEReferenceCustomization poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedOn", poco.AppliedOn, poco, "AppliedOn", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedOn", poco.AppliedOn, poco, "AppliedOn", context);
             WriteBooleanAttribute(xmlWriter, "applyOnAll", poco.ApplyOnAll);
             WriteStringAttribute(xmlWriter, "referenceName", poco.ReferenceName);
-            this.WriteReferenceAttribute(xmlWriter, "value", poco.Value as Auriga.Core.IAurigaElement, poco, "Value", context);
+            WriteReferenceAttribute(xmlWriter, "value", poco.Value as Auriga.Core.IAurigaElement, poco, "Value", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

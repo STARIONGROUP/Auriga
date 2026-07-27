@@ -63,19 +63,19 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Interaction
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Interaction.ISequenceMessage poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
-            this.WriteReferenceAttribute(xmlWriter, "exchangeContext", poco.ExchangeContext, poco, "ExchangeContext", context);
-            this.WriteReferenceListAttribute(xmlWriter, "exchangedItems", poco.ExchangedItems, poco, "ExchangedItems", context);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteReferenceAttribute(xmlWriter, "exchangeContext", poco.ExchangeContext, poco, "ExchangeContext", context);
+            WriteReferenceListAttribute(xmlWriter, "exchangedItems", poco.ExchangedItems, poco, "ExchangedItems", context);
+            WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteEnumAttribute<Auriga.Model.Interaction.MessageKind>(xmlWriter, "kind", poco.Kind, Auriga.Extensions.MessageKindProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            this.WriteReferenceAttribute(xmlWriter, "receivingEnd", poco.ReceivingEnd, poco, "ReceivingEnd", context);
+            WriteReferenceAttribute(xmlWriter, "receivingEnd", poco.ReceivingEnd, poco, "ReceivingEnd", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
-            this.WriteReferenceAttribute(xmlWriter, "sendingEnd", poco.SendingEnd, poco, "SendingEnd", context);
+            WriteReferenceAttribute(xmlWriter, "sendingEnd", poco.SendingEnd, poco, "SendingEnd", context);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);

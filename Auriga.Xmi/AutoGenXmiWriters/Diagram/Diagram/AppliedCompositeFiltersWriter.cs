@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IAppliedCompositeFilters poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "compositeFilterDescriptions", poco.CompositeFilterDescriptions, poco, "CompositeFilterDescriptions", context);
+            WriteReferenceListAttribute(xmlWriter, "compositeFilterDescriptions", poco.CompositeFilterDescriptions, poco, "CompositeFilterDescriptions", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

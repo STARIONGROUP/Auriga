@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "description", poco.Description, "");
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
+            WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.MeasurementUnit>(xmlWriter, "measurementUnit", poco.MeasurementUnit, Auriga.Extensions.MeasurementUnitProvider.ToLiteralString, Auriga.Diagram.Notation.MeasurementUnit.Himetric);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
             WriteIntegerAttribute(xmlWriter, "pageHeight", poco.PageHeight, 100);

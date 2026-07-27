@@ -66,9 +66,9 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Table
             WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed, false);
             WriteStringAttribute(xmlWriter, "label", poco.Label);
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceAttribute(xmlWriter, "originMapping", poco.OriginMapping, poco, "OriginMapping", context);
-            this.WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "originMapping", poco.OriginMapping, poco, "OriginMapping", context);
+            WriteReferenceListAttribute(xmlWriter, "semanticElements", poco.SemanticElements, poco, "SemanticElements", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target as Auriga.Core.IAurigaElement, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
 

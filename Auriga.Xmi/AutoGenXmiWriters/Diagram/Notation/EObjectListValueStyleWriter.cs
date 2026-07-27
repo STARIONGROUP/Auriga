@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IEObjectListValueStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "eObjectListValue", poco.EObjectListValue, poco, "EObjectListValue", context);
+            WriteReferenceListAttribute(xmlWriter, "eObjectListValue", poco.EObjectListValue, poco, "EObjectListValue", context);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

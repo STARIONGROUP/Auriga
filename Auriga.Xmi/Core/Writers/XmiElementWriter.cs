@@ -556,7 +556,7 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="owner">the element that owns the reference (source of the fallback identifier)</param>
         /// <param name="propertyName">the PascalCase reference property name</param>
         /// <param name="context">the write context</param>
-        protected void WriteReferenceAttribute(XmlWriter xmlWriter, string name, IAurigaElement? target, IAurigaElement owner, string propertyName, IXmiWriteContext context)
+        protected static void WriteReferenceAttribute(XmlWriter xmlWriter, string name, IAurigaElement? target, IAurigaElement owner, string propertyName, IXmiWriteContext context)
         {
             // Prefer the reference token collected on read: it is the verbatim original (including a
             // cross-document path and, for a genuinely external target, the unresolved reference), so
@@ -585,7 +585,7 @@ namespace Auriga.Xmi.Core.Writers
         /// <param name="owner">the element that owns the reference</param>
         /// <param name="propertyName">the PascalCase reference property name</param>
         /// <param name="context">the write context</param>
-        protected void WriteReferenceListAttribute(XmlWriter xmlWriter, string name, IEnumerable? targets, IAurigaElement owner, string propertyName, IXmiWriteContext context)
+        protected static void WriteReferenceListAttribute(XmlWriter xmlWriter, string name, IEnumerable? targets, IAurigaElement owner, string propertyName, IXmiWriteContext context)
         {
             var hrefs = new List<string>();
 

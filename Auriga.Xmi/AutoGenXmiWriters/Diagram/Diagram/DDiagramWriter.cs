@@ -63,12 +63,12 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Diagram
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Diagram.IDDiagram poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "activateBehaviors", poco.ActivateBehaviors, poco, "ActivateBehaviors", context);
-            this.WriteReferenceListAttribute(xmlWriter, "activatedFilters", poco.ActivatedFilters, poco, "ActivatedFilters", context);
-            this.WriteReferenceListAttribute(xmlWriter, "activatedLayers", poco.ActivatedLayers, poco, "ActivatedLayers", context);
-            this.WriteReferenceListAttribute(xmlWriter, "activatedRules", poco.ActivatedRules, poco, "ActivatedRules", context);
-            this.WriteReferenceAttribute(xmlWriter, "currentConcern", poco.CurrentConcern, poco, "CurrentConcern", context);
-            this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
+            WriteReferenceListAttribute(xmlWriter, "activateBehaviors", poco.ActivateBehaviors, poco, "ActivateBehaviors", context);
+            WriteReferenceListAttribute(xmlWriter, "activatedFilters", poco.ActivatedFilters, poco, "ActivatedFilters", context);
+            WriteReferenceListAttribute(xmlWriter, "activatedLayers", poco.ActivatedLayers, poco, "ActivatedLayers", context);
+            WriteReferenceListAttribute(xmlWriter, "activatedRules", poco.ActivatedRules, poco, "ActivatedRules", context);
+            WriteReferenceAttribute(xmlWriter, "currentConcern", poco.CurrentConcern, poco, "CurrentConcern", context);
+            WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
             WriteIntegerAttribute(xmlWriter, "headerHeight", poco.HeaderHeight, 1);
             WriteBooleanAttribute(xmlWriter, "synchronized", poco.Synchronized, true);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);

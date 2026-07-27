@@ -64,7 +64,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         {
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "collapsed", poco.Collapsed, false);
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
+            WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             WriteStringAttribute(xmlWriter, "type", poco.Type, "");
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
 

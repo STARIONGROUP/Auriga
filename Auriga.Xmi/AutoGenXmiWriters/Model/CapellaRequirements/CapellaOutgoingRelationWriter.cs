@@ -63,13 +63,13 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.CapellaRequirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.CapellaRequirements.ICapellaOutgoingRelation poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "relationType", poco.RelationType, poco, "RelationType", context);
+            WriteReferenceAttribute(xmlWriter, "relationType", poco.RelationType, poco, "RelationType", context);
             WriteStringAttribute(xmlWriter, "relationTypeProxy", poco.RelationTypeProxy);
             WriteStringAttribute(xmlWriter, "ReqIFDescription", poco.ReqIFDescription);
             WriteStringAttribute(xmlWriter, "ReqIFIdentifier", poco.ReqIFIdentifier);
             WriteStringAttribute(xmlWriter, "ReqIFLongName", poco.ReqIFLongName);
-            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

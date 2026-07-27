@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------------------------------
 // <copyright file="XmiElementWriterTestFixture.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
@@ -115,7 +115,7 @@ namespace Auriga.Xmi.Tests
             var owner = new FakeElement();
             owner.SingleValueReferencePropertyIdentifiers["Ref"] = "abc";
 
-            Assert.That(Fragment(w => this.writer.Reference(w, "r", null, owner, "Ref")), Does.Contain("r=\"#abc\""));
+            Assert.That(Fragment(w => ProbeWriter.Reference(w, "r", null, owner, "Ref")), Does.Contain("r=\"#abc\""));
         }
 
         [Test]
@@ -124,7 +124,7 @@ namespace Auriga.Xmi.Tests
             var owner = new FakeElement();
             owner.SingleValueReferencePropertyIdentifiers["Ref"] = "fragments/SA.capellafragment#abc";
 
-            Assert.That(Fragment(w => this.writer.Reference(w, "r", null, owner, "Ref")), Does.Contain("r=\"fragments/SA.capellafragment#abc\""));
+            Assert.That(Fragment(w => ProbeWriter.Reference(w, "r", null, owner, "Ref")), Does.Contain("r=\"fragments/SA.capellafragment#abc\""));
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace Auriga.Xmi.Tests
             var owner = new FakeElement { SourceDocument = "sysmodel.capella" };
             var target = new FakeElement { Id = "t1", SourceDocument = "sysmodel.capella" };
 
-            Assert.That(Fragment(w => this.writer.Reference(w, "r", target, owner, "Ref", "sysmodel.capella")), Does.Contain("r=\"#t1\""));
+            Assert.That(Fragment(w => ProbeWriter.Reference(w, "r", target, owner, "Ref", "sysmodel.capella")), Does.Contain("r=\"#t1\""));
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace Auriga.Xmi.Tests
             var owner = new FakeElement();
             var target = new FakeElement { Id = "t1", SourceDocument = "fragments/SA.capellafragment" };
 
-            Assert.That(Fragment(w => this.writer.Reference(w, "r", target, owner, "Ref", "sysmodel.capella")), Does.Contain("r=\"fragments/SA.capellafragment#t1\""));
+            Assert.That(Fragment(w => ProbeWriter.Reference(w, "r", target, owner, "Ref", "sysmodel.capella")), Does.Contain("r=\"fragments/SA.capellafragment#t1\""));
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace Auriga.Xmi.Tests
         {
             var owner = new FakeElement();
 
-            Assert.That(Fragment(w => this.writer.Reference(w, "r", null, owner, "Ref")), Does.Not.Contain("r="));
+            Assert.That(Fragment(w => ProbeWriter.Reference(w, "r", null, owner, "Ref")), Does.Not.Contain("r="));
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace Auriga.Xmi.Tests
             var owner = new FakeElement();
             owner.MultiValueReferencePropertyIdentifiers["Refs"] = new List<string> { "a", "b" };
 
-            Assert.That(Fragment(w => this.writer.ReferenceList(w, "l", new List<IAurigaElement>(), owner, "Refs")), Does.Contain("l=\"#a #b\""));
+            Assert.That(Fragment(w => ProbeWriter.ReferenceList(w, "l", new List<IAurigaElement>(), owner, "Refs")), Does.Contain("l=\"#a #b\""));
         }
 
         [Test]
@@ -172,7 +172,7 @@ namespace Auriga.Xmi.Tests
                 new FakeElement { Id = "t2" },
             };
 
-            Assert.That(Fragment(w => this.writer.ReferenceList(w, "l", targets, owner, "Refs")), Does.Contain("l=\"#t1 #t2\""));
+            Assert.That(Fragment(w => ProbeWriter.ReferenceList(w, "l", targets, owner, "Refs")), Does.Contain("l=\"#t1 #t2\""));
         }
 
         [Test]
@@ -180,7 +180,7 @@ namespace Auriga.Xmi.Tests
         {
             var owner = new FakeElement();
 
-            Assert.That(Fragment(w => this.writer.ReferenceList(w, "l", new List<IAurigaElement>(), owner, "Refs")), Does.Not.Contain("l="));
+            Assert.That(Fragment(w => ProbeWriter.ReferenceList(w, "l", new List<IAurigaElement>(), owner, "Refs")), Does.Not.Contain("l="));
         }
 
         [Test]
@@ -348,11 +348,11 @@ namespace Auriga.Xmi.Tests
 
             public static void StringList(XmlWriter w, string n, IEnumerable<string>? v) => WriteStringListAttribute(w, n, v);
 
-            public void Reference(XmlWriter w, string n, IAurigaElement? target, IAurigaElement owner, string property, string document = "doc")
-                => this.WriteReferenceAttribute(w, n, target, owner, property, new XmiWriteContext(document));
+            public static void Reference(XmlWriter w, string n, IAurigaElement? target, IAurigaElement owner, string property, string document = "doc")
+                => WriteReferenceAttribute(w, n, target, owner, property, new XmiWriteContext(document));
 
-            public void ReferenceList(XmlWriter w, string n, IEnumerable targets, IAurigaElement owner, string property, string document = "doc")
-                => this.WriteReferenceListAttribute(w, n, targets, owner, property, new XmiWriteContext(document));
+            public static void ReferenceList(XmlWriter w, string n, IEnumerable targets, IAurigaElement owner, string property, string document = "doc")
+                => WriteReferenceListAttribute(w, n, targets, owner, property, new XmiWriteContext(document));
 
             public void ContainedElement(XmlWriter w, string role, IAurigaElement? child, IAurigaElement owner, string property, string document = "doc")
                 => this.WriteContainedElement(w, role, child, owner, property, new XmiWriteContext(document));

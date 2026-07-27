@@ -63,25 +63,25 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Fa
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Fa.IFunctionOutputPort poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "abstractType", poco.AbstractType, poco, "AbstractType", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteReferenceAttribute(xmlWriter, "abstractType", poco.AbstractType, poco, "AbstractType", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
-            this.WriteReferenceListAttribute(xmlWriter, "inState", poco.InState, poco, "InState", context);
+            WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteReferenceListAttribute(xmlWriter, "inState", poco.InState, poco, "InState", context);
             WriteBooleanAttribute(xmlWriter, "isControl", poco.IsControl);
             WriteBooleanAttribute(xmlWriter, "isControlType", poco.IsControlType);
             WriteEnumAttribute<Auriga.Model.Activity.ObjectNodeKind>(xmlWriter, "kindOfNode", poco.KindOfNode, Auriga.Extensions.ObjectNodeKindProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             WriteEnumAttribute<Auriga.Model.Activity.ObjectNodeOrderingKind>(xmlWriter, "ordering", poco.Ordering, Auriga.Extensions.ObjectNodeOrderingKindProvider.ToLiteralString);
-            this.WriteReferenceListAttribute(xmlWriter, "outgoingExchangeItems", poco.OutgoingExchangeItems, poco, "OutgoingExchangeItems", context);
-            this.WriteReferenceListAttribute(xmlWriter, "providedInterfaces", poco.ProvidedInterfaces, poco, "ProvidedInterfaces", context);
-            this.WriteReferenceAttribute(xmlWriter, "representedComponentPort", poco.RepresentedComponentPort, poco, "RepresentedComponentPort", context);
-            this.WriteReferenceListAttribute(xmlWriter, "requiredInterfaces", poco.RequiredInterfaces, poco, "RequiredInterfaces", context);
+            WriteReferenceListAttribute(xmlWriter, "outgoingExchangeItems", poco.OutgoingExchangeItems, poco, "OutgoingExchangeItems", context);
+            WriteReferenceListAttribute(xmlWriter, "providedInterfaces", poco.ProvidedInterfaces, poco, "ProvidedInterfaces", context);
+            WriteReferenceAttribute(xmlWriter, "representedComponentPort", poco.RepresentedComponentPort, poco, "RepresentedComponentPort", context);
+            WriteReferenceListAttribute(xmlWriter, "requiredInterfaces", poco.RequiredInterfaces, poco, "RequiredInterfaces", context);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
-            this.WriteReferenceAttribute(xmlWriter, "selection", poco.Selection, poco, "Selection", context);
+            WriteReferenceAttribute(xmlWriter, "selection", poco.Selection, poco, "Selection", context);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);

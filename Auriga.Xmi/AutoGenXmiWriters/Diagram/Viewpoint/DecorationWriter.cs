@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Viewpoint.IDecoration poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
+            WriteReferenceAttribute(xmlWriter, "description", poco.Description, poco, "Description", context);
             WriteStringAttribute(xmlWriter, "uid", poco.Uid);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

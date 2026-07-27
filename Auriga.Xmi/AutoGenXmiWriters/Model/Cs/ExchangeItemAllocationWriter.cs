@@ -63,19 +63,19 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Cs
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Cs.IExchangeItemAllocation poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "allocatedItem", poco.AllocatedItem, poco, "AllocatedItem", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteReferenceAttribute(xmlWriter, "allocatedItem", poco.AllocatedItem, poco, "AllocatedItem", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteBooleanAttribute(xmlWriter, "final", poco.Final);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
-            this.WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
+            WriteReferenceAttribute(xmlWriter, "realizedFlow", poco.RealizedFlow, poco, "RealizedFlow", context);
             WriteEnumAttribute<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "receiveProtocol", poco.ReceiveProtocol, Auriga.Extensions.CommunicationLinkProtocolProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
             WriteEnumAttribute<Auriga.Model.Information.Communication.CommunicationLinkProtocol>(xmlWriter, "sendProtocol", poco.SendProtocol, Auriga.Extensions.CommunicationLinkProtocolProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);
             WriteBooleanAttribute(xmlWriter, "visibleInLM", poco.VisibleInLM, true);

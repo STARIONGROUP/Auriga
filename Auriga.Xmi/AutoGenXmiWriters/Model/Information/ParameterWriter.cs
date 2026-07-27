@@ -63,13 +63,13 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Information.IParameter poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "abstractType", poco.AbstractType, poco, "AbstractType", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteReferenceAttribute(xmlWriter, "abstractType", poco.AbstractType, poco, "AbstractType", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             WriteEnumAttribute<Auriga.Model.Information.ParameterDirection>(xmlWriter, "direction", poco.Direction, Auriga.Extensions.ParameterDirectionProvider.ToLiteralString);
             WriteEnumAttribute<Auriga.Model.Modellingcore.ParameterEffectKind>(xmlWriter, "effect", poco.Effect, Auriga.Extensions.ParameterEffectKindProvider.ToLiteralString);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteBooleanAttribute(xmlWriter, "isException", poco.IsException);
             WriteBooleanAttribute(xmlWriter, "isOptional", poco.IsOptional);
             WriteBooleanAttribute(xmlWriter, "isStream", poco.IsStream);
@@ -78,11 +78,11 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Information
             WriteBooleanAttribute(xmlWriter, "minInclusive", poco.MinInclusive);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             WriteBooleanAttribute(xmlWriter, "ordered", poco.Ordered);
-            this.WriteReferenceListAttribute(xmlWriter, "parameterSet", poco.ParameterSet, poco, "ParameterSet", context);
+            WriteReferenceListAttribute(xmlWriter, "parameterSet", poco.ParameterSet, poco, "ParameterSet", context);
             WriteEnumAttribute<Auriga.Model.Information.PassingMode>(xmlWriter, "passingMode", poco.PassingMode, Auriga.Extensions.PassingModeProvider.ToLiteralString);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteBooleanAttribute(xmlWriter, "unique", poco.Unique);
             WriteBooleanAttribute(xmlWriter, "visibleInDoc", poco.VisibleInDoc, true);

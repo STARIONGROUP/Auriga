@@ -71,7 +71,7 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Requirements
             WriteStringAttribute(xmlWriter, "ReqIFName", poco.ReqIFName);
             WriteStringAttribute(xmlWriter, "ReqIFPrefix", poco.ReqIFPrefix);
             WriteStringAttribute(xmlWriter, "ReqIFText", poco.ReqIFText);
-            this.WriteReferenceAttribute(xmlWriter, "requirementType", poco.RequirementType, poco, "RequirementType", context);
+            WriteReferenceAttribute(xmlWriter, "requirementType", poco.RequirementType, poco, "RequirementType", context);
             WriteStringAttribute(xmlWriter, "requirementTypeProxy", poco.RequirementTypeProxy);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

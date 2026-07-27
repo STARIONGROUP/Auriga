@@ -63,9 +63,9 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Requirements
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Model.Requirements.IEnumerationValueAttribute poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "definition", poco.Definition, poco, "Definition", context);
+            WriteReferenceAttribute(xmlWriter, "definition", poco.Definition, poco, "Definition", context);
             WriteStringAttribute(xmlWriter, "definitionProxy", poco.DefinitionProxy);
-            this.WriteReferenceListAttribute(xmlWriter, "values", poco.Values, poco, "Values", context);
+            WriteReferenceListAttribute(xmlWriter, "values", poco.Values, poco, "Values", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

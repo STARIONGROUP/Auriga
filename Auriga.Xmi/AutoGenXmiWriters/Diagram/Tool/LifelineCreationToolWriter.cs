@@ -63,10 +63,10 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Description.Tool
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Sequence.Description.Tool.ILifelineCreationTool poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "containerMappings", poco.ContainerMappings, poco, "ContainerMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "containerMappings", poco.ContainerMappings, poco, "ContainerMappings", context);
             WriteStringAttribute(xmlWriter, "documentation", poco.Documentation, "");
             WriteStringAttribute(xmlWriter, "elementsToSelect", poco.ElementsToSelect, "");
-            this.WriteReferenceListAttribute(xmlWriter, "extraMappings", poco.ExtraMappings, poco, "ExtraMappings", context);
+            WriteReferenceListAttribute(xmlWriter, "extraMappings", poco.ExtraMappings, poco, "ExtraMappings", context);
             WriteBooleanAttribute(xmlWriter, "forceRefresh", poco.ForceRefresh, false);
             WriteStringAttribute(xmlWriter, "iconPath", poco.IconPath, "");
             WriteBooleanAttribute(xmlWriter, "inverseSelectionOrder", poco.InverseSelectionOrder, false);

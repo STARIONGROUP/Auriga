@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Notation.IHintedDiagramLinkStyle poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceAttribute(xmlWriter, "diagramLink", poco.DiagramLink, poco, "DiagramLink", context);
+            WriteReferenceAttribute(xmlWriter, "diagramLink", poco.DiagramLink, poco, "DiagramLink", context);
             WriteStringAttribute(xmlWriter, "hint", poco.Hint);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the

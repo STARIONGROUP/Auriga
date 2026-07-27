@@ -67,7 +67,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Viewpoint.Description.Validation
             WriteEnumAttribute<Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL>(xmlWriter, "level", poco.Level, Auriga.Extensions.ERROR_LEVELProvider.ToLiteralString, Auriga.Diagram.Viewpoint.Description.Validation.ERROR_LEVEL.INFO);
             WriteStringAttribute(xmlWriter, "message", poco.Message, "The element has...");
             WriteStringAttribute(xmlWriter, "name", poco.Name, "");
-            this.WriteReferenceListAttribute(xmlWriter, "targets", poco.Targets, poco, "Targets", context);
+            WriteReferenceListAttribute(xmlWriter, "targets", poco.Targets, poco, "Targets", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

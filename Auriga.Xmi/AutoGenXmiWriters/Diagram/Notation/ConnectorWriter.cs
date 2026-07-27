@@ -65,7 +65,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteId(xmlWriter, poco);
             WriteBooleanAttribute(xmlWriter, "avoidObstructions", poco.AvoidObstructions, false);
             WriteBooleanAttribute(xmlWriter, "closestDistance", poco.ClosestDistance, false);
-            this.WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
+            WriteReferenceAttribute(xmlWriter, "element", poco.Element as Auriga.Core.IAurigaElement, poco, "Element", context);
             WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkStatus>(xmlWriter, "jumpLinkStatus", poco.JumpLinkStatus, Auriga.Extensions.JumpLinkStatusProvider.ToLiteralString, Auriga.Diagram.Notation.JumpLinkStatus.None);
             WriteEnumAttribute<Auriga.Diagram.Notation.JumpLinkType>(xmlWriter, "jumpLinkType", poco.JumpLinkType, Auriga.Extensions.JumpLinkTypeProvider.ToLiteralString, Auriga.Diagram.Notation.JumpLinkType.Semicircle);
             WriteBooleanAttribute(xmlWriter, "jumpLinksReverse", poco.JumpLinksReverse, false);
@@ -74,8 +74,8 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Notation
             WriteIntegerAttribute(xmlWriter, "roundedBendpointsRadius", poco.RoundedBendpointsRadius, 0);
             WriteEnumAttribute<Auriga.Diagram.Notation.Routing>(xmlWriter, "routing", poco.Routing, Auriga.Extensions.RoutingProvider.ToLiteralString, Auriga.Diagram.Notation.Routing.Manual);
             WriteEnumAttribute<Auriga.Diagram.Notation.Smoothness>(xmlWriter, "smoothness", poco.Smoothness, Auriga.Extensions.SmoothnessProvider.ToLiteralString, Auriga.Diagram.Notation.Smoothness.None);
-            this.WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
-            this.WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
+            WriteReferenceAttribute(xmlWriter, "source", poco.Source, poco, "Source", context);
+            WriteReferenceAttribute(xmlWriter, "target", poco.Target, poco, "Target", context);
             WriteStringAttribute(xmlWriter, "type", poco.Type, "");
             WriteBooleanAttribute(xmlWriter, "visible", poco.Visible, true);
 

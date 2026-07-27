@@ -63,7 +63,7 @@ namespace Auriga.Xmi.Diagram.AutoGenXmiWriters.Sequence.Ordering
         protected override void WriteBody(XmlWriter xmlWriter, Auriga.Diagram.Sequence.Ordering.IInstanceRolesOrdering poco, IXmiWriteContext context)
         {
             WriteId(xmlWriter, poco);
-            this.WriteReferenceListAttribute(xmlWriter, "semanticInstanceRoles", poco.SemanticInstanceRoles, poco, "SemanticInstanceRoles", context);
+            WriteReferenceListAttribute(xmlWriter, "semanticInstanceRoles", poco.SemanticInstanceRoles, poco, "SemanticInstanceRoles", context);
 
             // Attributes must all be written before any child element, so the uninterpreted ones the
             // reader retained are emitted here rather than alongside the uninterpreted children.

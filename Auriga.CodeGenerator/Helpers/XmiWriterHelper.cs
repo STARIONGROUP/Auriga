@@ -201,13 +201,13 @@ namespace Auriga.CodeGenerator.Helpers
             {
                 if (CSharpType.IsCollection(feature))
                 {
-                    return $"this.WriteReferenceListAttribute(xmlWriter, \"{xmlName}\", poco.{propertyName}, poco, \"{propertyName}\", context);";
+                    return $"WriteReferenceListAttribute(xmlWriter, \"{xmlName}\", poco.{propertyName}, poco, \"{propertyName}\", context);";
                 }
 
                 var target = CSharpType.BaseType(feature.EType) == "object"
                     ? $"poco.{propertyName} as Auriga.Core.IAurigaElement"
                     : $"poco.{propertyName}";
-                return $"this.WriteReferenceAttribute(xmlWriter, \"{xmlName}\", {target}, poco, \"{propertyName}\", context);";
+                return $"WriteReferenceAttribute(xmlWriter, \"{xmlName}\", {target}, poco, \"{propertyName}\", context);";
             }
 
             if (feature.EType is EEnum eEnum)

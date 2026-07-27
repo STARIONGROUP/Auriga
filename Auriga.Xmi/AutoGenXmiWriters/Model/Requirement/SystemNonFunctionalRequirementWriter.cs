@@ -64,18 +64,18 @@ namespace Auriga.Xmi.Model.AutoGenXmiWriters.Requirement
         {
             WriteId(xmlWriter, poco);
             WriteStringAttribute(xmlWriter, "additionalInformation", poco.AdditionalInformation);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
-            this.WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValueGroups", poco.AppliedPropertyValueGroups, poco, "AppliedPropertyValueGroups", context);
+            WriteReferenceListAttribute(xmlWriter, "appliedPropertyValues", poco.AppliedPropertyValues, poco, "AppliedPropertyValues", context);
             WriteStringAttribute(xmlWriter, "description", poco.Description);
             WriteStringAttribute(xmlWriter, "feature", poco.Feature);
-            this.WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
+            WriteReferenceListAttribute(xmlWriter, "features", poco.Features, poco, "Features", context);
             WriteStringAttribute(xmlWriter, "implementationVersion", poco.ImplementationVersion);
             WriteBooleanAttribute(xmlWriter, "isObsolete", poco.IsObsolete);
             WriteStringAttribute(xmlWriter, "name", poco.Name);
             WriteStringAttribute(xmlWriter, "requirementId", poco.RequirementId);
             WriteStringAttribute(xmlWriter, "review", poco.Review);
             WriteStringAttribute(xmlWriter, "sid", poco.Sid);
-            this.WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
+            WriteReferenceAttribute(xmlWriter, "status", poco.Status, poco, "Status", context);
             WriteStringAttribute(xmlWriter, "summary", poco.Summary);
             WriteStringAttribute(xmlWriter, "verificationMethod", poco.VerificationMethod);
             WriteStringAttribute(xmlWriter, "verificationPhase", poco.VerificationPhase);
