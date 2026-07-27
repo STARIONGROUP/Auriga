@@ -88,6 +88,28 @@ namespace Auriga.Xmi.Core.Writers
         /// <exception cref="ArgumentException"><paramref name="roots"/> is empty, or <paramref name="mainFilePath"/> is <c>null</c> or empty</exception>
         public void Write(IReadOnlyCollection<IAurigaElement> roots, string mainFilePath)
         {
+            var rootList = ValidateRoots(roots, mainFilePath);
+
+            var fullMainPath = Path.GetFullPath(mainFilePath);
+            var mainDirectory = Path.GetDirectoryName(fullMainPath) ?? string.Empty;
+            var mainDocument = string.IsNullOrEmpty(rootList[0].SourceDocument) ? Path.GetFileName(fullMainPath) : rootList[0].SourceDocument!;
+
+            foreach (var group in GroupByDocument(rootList, mainDocument))
+            {
+                this.WriteDocumentGroup(group, mainDocument, fullMainPath, mainDirectory);
+            }
+        }
+
+        /// <summary>
+        /// Validates the write arguments and materializes the roots.
+        /// </summary>
+        /// <param name="roots">the roots of the object graph</param>
+        /// <param name="mainFilePath">the path of the main file to write</param>
+        /// <returns>the roots as a list</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="roots"/> is <c>null</c> or contains a <c>null</c></exception>
+        /// <exception cref="ArgumentException"><paramref name="roots"/> is empty, or <paramref name="mainFilePath"/> is <c>null</c> or empty</exception>
+        private static List<IAurigaElement> ValidateRoots(IReadOnlyCollection<IAurigaElement> roots, string mainFilePath)
+        {
             if (roots == null)
             {
                 throw new ArgumentNullException(nameof(roots));
@@ -109,50 +131,65 @@ namespace Auriga.Xmi.Core.Writers
                 throw new ArgumentNullException(nameof(roots), "A root element is null.");
             }
 
-            var fullMainPath = Path.GetFullPath(mainFilePath);
-            var mainDirectory = Path.GetDirectoryName(fullMainPath) ?? string.Empty;
-            var mainDocument = string.IsNullOrEmpty(rootList[0].SourceDocument) ? Path.GetFileName(fullMainPath) : rootList[0].SourceDocument!;
+            return rootList;
+        }
 
+        /// <summary>
+        /// Flattens every root and partitions all elements by the document they belong to.
+        /// </summary>
+        /// <param name="rootList">the roots of the object graph</param>
+        /// <param name="mainDocument">the main document's name, which elements without one fall back to</param>
+        /// <returns>the elements of each document, keyed by document name</returns>
+        private static Dictionary<string, List<IAurigaElement>> GroupByDocument(List<IAurigaElement> rootList, string mainDocument)
+        {
             var groups = new Dictionary<string, List<IAurigaElement>>(StringComparer.Ordinal);
-            foreach (var root in rootList)
-            {
-                foreach (var element in Flatten(root))
-                {
-                    var document = ResolveDocument(element, mainDocument);
-                    if (!groups.TryGetValue(document, out var list))
-                    {
-                        list = new List<IAurigaElement>();
-                        groups[document] = list;
-                    }
 
-                    list.Add(element);
+            foreach (var element in rootList.SelectMany(Flatten))
+            {
+                var document = ResolveDocument(element, mainDocument);
+                if (!groups.TryGetValue(document, out var list))
+                {
+                    list = new List<IAurigaElement>();
+                    groups[document] = list;
                 }
+
+                list.Add(element);
             }
 
-            foreach (var group in groups)
+            return groups;
+        }
+
+        /// <summary>
+        /// Writes one document's elements to its file, wrapped in an <c>xmi:XMI</c> element when it holds
+        /// more than one root or is a Sirius <c>.aird</c> / <c>.airdfragment</c>.
+        /// </summary>
+        /// <param name="group">the document name paired with the elements it holds</param>
+        /// <param name="mainDocument">the main document's name</param>
+        /// <param name="fullMainPath">the absolute path of the main file</param>
+        /// <param name="mainDirectory">the directory the main file lives in, which fragments are placed under</param>
+        private void WriteDocumentGroup(KeyValuePair<string, List<IAurigaElement>> group, string mainDocument, string fullMainPath, string mainDirectory)
+        {
+            var documentName = group.Key;
+            var documentRoots = FindDocumentRoots(group.Value, documentName, mainDocument);
+            var path = string.Equals(documentName, mainDocument, StringComparison.Ordinal)
+                ? fullMainPath
+                : Path.Combine(mainDirectory, documentName.Replace('/', Path.DirectorySeparatorChar));
+
+            var directory = Path.GetDirectoryName(Path.GetFullPath(path));
+            if (!string.IsNullOrEmpty(directory))
             {
-                var documentName = group.Key;
-                var documentRoots = FindDocumentRoots(group.Value, documentName, mainDocument);
-                var path = string.Equals(documentName, mainDocument, StringComparison.Ordinal)
-                    ? fullMainPath
-                    : Path.Combine(mainDirectory, documentName.Replace('/', Path.DirectorySeparatorChar));
+                Directory.CreateDirectory(directory);
+            }
 
-                var directory = Path.GetDirectoryName(Path.GetFullPath(path));
-                if (!string.IsNullOrEmpty(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
+            using var stream = File.Create(path);
 
-                using var stream = File.Create(path);
-
-                if (documentRoots.Count > 1 || IsAirdFamilyDocument(documentName))
-                {
-                    this.WriteWrapperDocument(documentRoots, stream, documentName);
-                }
-                else
-                {
-                    this.WriteDocument(documentRoots[0], stream, documentName);
-                }
+            if (documentRoots.Count > 1 || IsAirdFamilyDocument(documentName))
+            {
+                this.WriteWrapperDocument(documentRoots, stream, documentName);
+            }
+            else
+            {
+                this.WriteDocument(documentRoots[0], stream, documentName);
             }
         }
 

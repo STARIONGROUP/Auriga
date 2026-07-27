@@ -619,69 +619,103 @@ namespace Auriga.Rendering
             var style = edge.Style.Resolved;
             var group = new XElement(Svg + "g", new XAttribute("id", edge.Identifier));
 
-            if (edge.Route.Count >= 2)
+            if (edge.Route.Count < 2)
             {
-                var path = new XElement(
-                    Svg + "path",
-                    new XAttribute("d", PathData(edge.Route)),
-                    new XAttribute("fill", "none"),
-                    new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
-                    new XAttribute("stroke-width", N(style.StrokeWidth)));
-
-                AddDashArray(path, style.Pattern);
-                AddMarker(path, "marker-start", style.SourceArrow, style.StrokeColor, style.StrokeWidth, defs);
-                AddMarker(path, "marker-end", style.TargetArrow, style.StrokeColor, style.StrokeWidth, defs);
-
-                group.Add(path);
+                return group;
             }
 
-            if (edge.Label != null && edge.Route.Count >= 2)
+            group.Add(BuildRoutePath(edge, style, defs));
+
+            if (edge.Label is { } label)
             {
-                var (midpoint, vertical) = Midpoint(edge.Route);
-                var icon = edge.Label.IconPath == null ? null : this.iconRegistry.Resolve(edge.Label.IconPath);
-                var iconSpace = icon == null ? 0 : DiagramBuilderBase.LabelIconSpace;
-
-                // A label on a horizontal segment sits centered above it; a label on a vertical
-                // segment (a self-message hook) sits beside it, to the right.
-                if (vertical)
-                {
-                    var baseline = midpoint.Y + (style.FontSize / 2);
-                    if (icon != null)
-                    {
-                        group.Add(BuildLabelIcon(icon, midpoint.X + 4, baseline));
-                    }
-
-                    group.Add(BuildText(edge.Label.Text, midpoint.X + 4 + iconSpace, baseline, "start", style));
-                }
-                else
-                {
-                    var textCenter = midpoint.X + (iconSpace / 2);
-                    if (icon != null)
-                    {
-                        var estimated = edge.Label.Text.Length * style.FontSize * 0.6;
-                        group.Add(BuildLabelIcon(icon, textCenter - (estimated / 2) - iconSpace, midpoint.Y - 2));
-                    }
-
-                    group.Add(BuildText(edge.Label.Text, textCenter, midpoint.Y - 2, MiddleAnchor, style));
-                }
+                this.AddMidpointLabel(group, edge, label, style);
             }
 
-            if (edge.Route.Count >= 2)
-            {
-                if (edge.BeginLabel is { } beginLabel)
-                {
-                    var at = BackOff(edge.Route[0], edge.Route[1]);
-                    group.Add(BuildText(beginLabel.Text, at.X, at.Y - 2, MiddleAnchor, style));
-                }
-
-                if (edge.EndLabel is { } endLabel)
-                {
-                    var at = BackOff(edge.Route[^1], edge.Route[^2]);
-                    group.Add(BuildText(endLabel.Text, at.X, at.Y - 2, MiddleAnchor, style));
-                }
-            }
+            AddEndLabels(group, edge, style);
 
             return group;
+        }
+
+        /// <summary>
+        /// The path over an edge's absolute route, with its stroke, pattern and arrow markers.
+        /// </summary>
+        /// <param name="edge">the edge to render</param>
+        /// <param name="style">the edge's resolved style</param>
+        /// <param name="defs">the document's <c>&lt;defs&gt;</c>, receiving markers on demand</param>
+        /// <returns>the route path</returns>
+        private static XElement BuildRoutePath(Edge edge, ResolvedStyle style, XElement defs)
+        {
+            var path = new XElement(
+                Svg + "path",
+                new XAttribute("d", PathData(edge.Route)),
+                new XAttribute("fill", "none"),
+                new XAttribute(StrokeAttribute, style.StrokeColor.ToHex()),
+                new XAttribute("stroke-width", N(style.StrokeWidth)));
+
+            AddDashArray(path, style.Pattern);
+            AddMarker(path, "marker-start", style.SourceArrow, style.StrokeColor, style.StrokeWidth, defs);
+            AddMarker(path, "marker-end", style.TargetArrow, style.StrokeColor, style.StrokeWidth, defs);
+
+            return path;
+        }
+
+        /// <summary>
+        /// Adds the edge's midpoint label, icon-prefixed when the label carries a resolvable metaclass icon.
+        /// </summary>
+        /// <param name="group">the edge group the label is added to</param>
+        /// <param name="edge">the edge being rendered</param>
+        /// <param name="label">the edge's midpoint label</param>
+        /// <param name="style">the edge's resolved style</param>
+        private void AddMidpointLabel(XElement group, Edge edge, Label label, ResolvedStyle style)
+        {
+            var (midpoint, vertical) = Midpoint(edge.Route);
+            var icon = label.IconPath == null ? null : this.iconRegistry.Resolve(label.IconPath);
+            var iconSpace = icon == null ? 0 : DiagramBuilderBase.LabelIconSpace;
+
+            // A label on a horizontal segment sits centered above it; a label on a vertical
+            // segment (a self-message hook) sits beside it, to the right.
+            if (vertical)
+            {
+                var baseline = midpoint.Y + (style.FontSize / 2);
+                if (icon != null)
+                {
+                    group.Add(BuildLabelIcon(icon, midpoint.X + 4, baseline));
+                }
+
+                group.Add(BuildText(label.Text, midpoint.X + 4 + iconSpace, baseline, "start", style));
+
+                return;
+            }
+
+            var textCenter = midpoint.X + (iconSpace / 2);
+            if (icon != null)
+            {
+                var estimated = label.Text.Length * style.FontSize * 0.6;
+                group.Add(BuildLabelIcon(icon, textCenter - (estimated / 2) - iconSpace, midpoint.Y - 2));
+            }
+
+            group.Add(BuildText(label.Text, textCenter, midpoint.Y - 2, MiddleAnchor, style));
+        }
+
+        /// <summary>
+        /// Adds the edge's begin and end labels, each backed off from its route end.
+        /// </summary>
+        /// <param name="group">the edge group the labels are added to</param>
+        /// <param name="edge">the edge being rendered</param>
+        /// <param name="style">the edge's resolved style</param>
+        private static void AddEndLabels(XElement group, Edge edge, ResolvedStyle style)
+        {
+            if (edge.BeginLabel is { } beginLabel)
+            {
+                var at = BackOff(edge.Route[0], edge.Route[1]);
+                group.Add(BuildText(beginLabel.Text, at.X, at.Y - 2, MiddleAnchor, style));
+            }
+
+            if (edge.EndLabel is { } endLabel)
+            {
+                var at = BackOff(edge.Route[^1], edge.Route[^2]);
+                group.Add(BuildText(endLabel.Text, at.X, at.Y - 2, MiddleAnchor, style));
+            }
         }
 
         /// <summary>
