@@ -22,10 +22,17 @@ namespace Auriga.Xmi.Core.Namespaces
     public sealed class NamespaceResolver : INamespaceResolver
     {
         /// <summary>
+        /// The ceiling on a single <see cref="TrailingVersion"/> match. Every repetition in the pattern is
+        /// anchored to a literal separator, so it cannot backtrack catastrophically on the namespace URIs a
+        /// document carries; the bound is a backstop against a hostile URI, not an expected code path.
+        /// </summary>
+        private static readonly TimeSpan MatchTimeout = TimeSpan.FromSeconds(1);
+
+        /// <summary>
         /// Matches a trailing version segment (e.g. <c>/7.0.0</c>, optionally followed by a slash) at the
         /// end of a namespace URI, so it can be stripped for version-tolerant matching.
         /// </summary>
-        private static readonly Regex TrailingVersion = new Regex(@"/\d+(\.\d+)*/?$", RegexOptions.Compiled);
+        private static readonly Regex TrailingVersion = new Regex(@"/\d+(\.\d+)*/?$", RegexOptions.Compiled, MatchTimeout);
 
         /// <summary>
         /// The exact namespace-URI-to-package-name map, seeded from the metamodel and extendable via
