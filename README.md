@@ -18,7 +18,15 @@ The **Auriga.Extensions** library provides LINQ-style query extension methods ov
 
 ## Auriga.Rendering
 
-The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `IDiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `ISvgExporter` serializes a diagram to plain SVG (string, stream or file) with no external dependency. The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver — can be substituted in one place.
+The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `IDiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `ISvgExporter` serializes a diagram to plain SVG (string, stream or file) — the SVG writer itself is dependency-free, built on `System.Xml.Linq` alone.
+
+Sirius table representations are covered as well. Unlike a diagram, a table persists no layout, so `ITableBuilder` synthesizes the grid: it lays a `DTable` out as the same `Diagram` of boxes, which makes the SVG exporter the table's visual export. `IXlsxTableExporter` is the editable counterpart, writing one or more tables to an Excel workbook (a worksheet each) via [ClosedXML](https://github.com/ClosedXML/ClosedXML).
+
+The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver — can be substituted in one place.
+
+## Auriga.CodeGenerator
+
+The **Auriga.CodeGenerator** tool generates both object models described above from the vendored `.ecore` files, using [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) to load the metamodel and Handlebars templates to emit the code — the POCOs and interfaces in **Auriga**, and the per-type XMI readers and writers in **Auriga.Xmi**. The generated code is committed, and a CI drift guard regenerates it on every build and fails if the result differs from what is committed, so the templates and the checked-in code cannot fall out of step. Generation itself is driven from `[Explicit]` tests rather than a CLI, following the same convention as uml4net. See [Auriga.CodeGenerator Design](docs/codegen-design.md). It is a development-time tool and is not published as a package.
 
 ## Auriga.Reporting
 
@@ -32,6 +40,7 @@ Install the packages from NuGet (once published):
 dotnet add package Auriga
 dotnet add package Auriga.Xmi
 dotnet add package Auriga.Extensions
+dotnet add package Auriga.Rendering
 ```
 
 Load a Capella project, navigate the Arcadia layers, query it, and write it back:
@@ -87,6 +96,30 @@ foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Element
 }
 ```
 
+Export the table representations of the same session to Excel:
+
+```csharp
+using Auriga.Rendering;
+using Auriga.Xmi;
+
+using var rendering = RenderingBuilder.Create();
+using var reader = XmiReaderBuilder.Create();
+
+var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
+var tables = session.Elements.Values.OfType<Auriga.Diagram.Table.IDTable>().ToList();
+
+var xlsxExporter = rendering.BuildXlsxTableExporter();
+
+// One workbook per table, or pass a name-to-table sequence to get one workbook of many sheets.
+foreach (var table in tables)
+{
+    xlsxExporter.Export(table, $"out/{table.Uid}.xlsx");
+}
+
+// The same table also lays out as a grid of boxes, which the SVG exporter renders.
+var grid = rendering.BuildTableBuilder().Build(tables.First());
+```
+
 See [ContainerList Design](docs/containment-list.md), [Query Extension Methods](docs/query-extensions.md)
 and [XMI Writer](docs/xmi-writer.md) for the containment, query and write-back APIs in depth.
 
@@ -110,7 +143,7 @@ Auriga is in early development and has not yet had its first release. Once publi
   - `Auriga` — the Capella object model (`Auriga.Model.*`) and the Sirius/GMF diagram object model (`Auriga.Diagram.*`)
   - `Auriga.Xmi` — the `.capella` / `.melodymodeller` / `.aird` readers and writers
   - `Auriga.Extensions` — query extension methods
-  - `Auriga.Rendering` — the intermediate diagram model built from the persisted `.aird` layout
+  - `Auriga.Rendering` — the intermediate diagram model built from the persisted `.aird` layout, with SVG and Excel exports
 
 # Build Status
 
@@ -126,8 +159,12 @@ Development | ![Build Status](https://github.com/STARIONGROUP/Auriga/actions/wor
 Background and design documentation lives in the [`docs`](docs) folder:
 
   - [Capella Metamodel Inventory](docs/metamodel-inventory.md) — the `.ecore` files, the inter-package dependency graph, and the v1 code-generation scope
+  - [Sirius Metamodel Inventory](docs/sirius-metamodel-inventory.md) — the same inventory for the Sirius/GMF diagramming `.ecore` files behind the `.aird` representation model
   - [Arcadia Semantics Not Visible in Raw Ecore](docs/arcadia-notes.md) — the layer, allocation, realization, and containment conventions the public API must respect
   - [ECoreNetto Validation Against the Capella Metamodel](docs/ecorenetto-validation.md) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
+  - [ECoreNetto Validation Against the Sirius Metamodel](docs/sirius-ecorenetto-validation.md) — the same proof for the Sirius/GMF metamodel
+  - [Auriga.CodeGenerator Design](docs/codegen-design.md) — how the vendored `.ecore` files become the committed C# object model: the pipeline, the Handlebars templates, and the naming rules
+  - [Fragment Loading](docs/fragment-loading.md) — how a model split across `.capellafragment` files is loaded and its cross-fragment `href`s resolved
   - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with Docker build scripts)
   - [Query Extension Methods](docs/query-extensions.md) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
   - [ContainerList Design](docs/containment-list.md) — the non-bypassable `Collection<T>`-based containment collection and its exclusive-ownership (reject-not-steal) semantics
