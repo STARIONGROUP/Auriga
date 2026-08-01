@@ -136,9 +136,37 @@ jobs:
               inside && /^- / { sub(/^- /, ""); print }
             ' unreleased.md)"
 
+            # Escape the XML metacharacters and indent as the csproj is written by hand. The value
+            # is spliced in with awk rather than written with `xmlstarlet ed`, which reformats the
+            # whole document (re-indenting it and closing every empty element differently) and would
+            # turn each release into a wholesale rewrite of four csproj files.
+            printf '%s\n' "$notes" \
+              | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/^/            /' > notes.block
+
             # A package with no entries this release must not ship the previous release's notes,
-            # so the element is written either way — empty when the package did not change.
-            xmlstarlet ed -L -u '(//Project/PropertyGroup/PackageReleaseNotes)[1]' -v "$notes" "$csproj"
+            # so the element is rewritten either way — empty when the package did not change.
+            awk -v empty="$([ -z "$notes" ] && echo 1 || echo 0)" '
+              FNR == NR { block = block $0 "\n"; next }
+              /<PackageReleaseNotes>/ {
+                if (empty == 1) {
+                  print "        <PackageReleaseNotes></PackageReleaseNotes>"
+                } else {
+                  print "        <PackageReleaseNotes>"
+                  printf "%s", block
+                  print "        </PackageReleaseNotes>"
+                }
+                # Drop whatever the element held before, single-line or multi-line.
+                if ($0 !~ /<\/PackageReleaseNotes>/) {
+                  while ((getline previous) > 0) {
+                    if (previous ~ /<\/PackageReleaseNotes>/) { break }
+                  }
+                }
+                next
+              }
+              { print }
+            ' notes.block "$csproj" > "$csproj.synced" && mv "$csproj.synced" "$csproj"
+
+            rm -f notes.block
 
             if [ -n "$notes" ]; then
               printf "**%s [%s]**\n" "$pkg_id" "$pkg_version" >> RELEASE_NOTES.md
@@ -165,10 +193,16 @@ jobs:
 
           echo "----- RELEASE_NOTES.md -----"
           cat RELEASE_NOTES.md
-          echo "----- csproj release notes -----"
+          echo "----- generated csproj release notes -----"
           for csproj in "${CSPROJS[@]}"; do
-            xmlstarlet sel -t -v 'concat((//Project/PropertyGroup/PackageId)[1], ": ")' -v 'count(//Project/PropertyGroup/PackageReleaseNotes/text())' -n "$csproj" 2>/dev/null || true
+            if grep -q '<PackageReleaseNotes>' "$csproj"; then
+              printf "%s: %s entr(y/ies)\n" "$csproj" \
+                "$(sed -n '/<PackageReleaseNotes>/,/<\/PackageReleaseNotes>/p' "$csproj" | grep -c '^[[:space:]]*\[' || true)"
+            fi
           done
+
+          echo "----- what the release will change in the working tree -----"
+          git --no-pager diff --stat
 
       - name: Upload the rendered release (dry run)
         if: ${{ inputs.dry_run }}
