@@ -24,9 +24,11 @@ namespace Auriga.Rendering
     /// segment (the <c>.aird</c> sits at the project root, so the segment maps to the root). The
     /// file is inlined as a <c>data:</c> URI; a path with no matching file resolves to <c>null</c>.
     /// Compose it after <see cref="CapellaIconRegistry"/> (see <see cref="CompositeIconRegistry"/>)
-    /// so plugin artwork still serves from the vendored set. Resolved URIs are cached per instance.
+    /// so plugin artwork still serves from the vendored set — the composition
+    /// <see cref="RenderingBuilder.UsingProjectImages"/> performs. Resolved URIs are cached per
+    /// instance.
     /// </summary>
-    public sealed class WorkspaceImageRegistry : IIconRegistry
+    public sealed class WorkspaceImageRegistry : IProjectImageRegistry
     {
         /// <summary>
         /// The root directory of the loaded project the workspace paths resolve against.

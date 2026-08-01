@@ -69,6 +69,27 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_project_images_add_to_the_vendored_set_and_yield_to_a_substituted_registry()
+        {
+            const string VendoredActor = "/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg";
+
+            using var layered = RenderingBuilder.Create().UsingProjectImages(ProjectRoot);
+            using var substituted = RenderingBuilder.Create()
+                .UsingProjectImages(ProjectRoot)
+                .UsingIconRegistry(new CapellaIconRegistry(NullLoggerFactory.Instance));
+
+            var layeredRegistry = layered.Resolve<IIconRegistry>();
+            var substitutedRegistry = substituted.Resolve<IIconRegistry>();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(layeredRegistry.Resolve(VendoredActor), Is.Not.Null, "the vendored set still serves its own artwork");
+                Assert.That(layeredRegistry.Resolve(OperatorPath), Is.Not.Null, "and the project images are chained onto it, not swapped in for it");
+                Assert.That(substitutedRegistry.Resolve(OperatorPath), Is.Null, "a substituted registry replaces the whole chain, project images included");
+            });
+        }
+
+        [Test]
         public void Verify_that_the_ground_operator_renders_as_its_project_image()
         {
             var path = Path.Combine(ProjectRoot, "In-Flight Entertainment System.aird");
