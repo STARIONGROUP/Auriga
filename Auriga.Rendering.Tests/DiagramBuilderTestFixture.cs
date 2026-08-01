@@ -33,8 +33,9 @@ namespace Auriga.Rendering.Tests
         public void Verify_that_the_builder_guards_its_arguments()
         {
             var styleResolver = new StyleResolver(new CapellaDefaultPalette(), NullLoggerFactory.Instance);
-            var nodeDiagramBuilder = new NodeDiagramBuilder(styleResolver, NullLoggerFactory.Instance);
-            var sequenceDiagramBuilder = new SequenceDiagramBuilder(styleResolver, NullLoggerFactory.Instance);
+            var tooltipResolver = new TooltipResolver();
+            var nodeDiagramBuilder = new NodeDiagramBuilder(styleResolver, tooltipResolver, NullLoggerFactory.Instance);
+            var sequenceDiagramBuilder = new SequenceDiagramBuilder(styleResolver, tooltipResolver, NullLoggerFactory.Instance);
 
             Assert.Multiple(() =>
             {
@@ -46,10 +47,14 @@ namespace Auriga.Rendering.Tests
                 Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, null!, new TableBuilder(), NullLoggerFactory.Instance), Throws.ArgumentNullException);
                 Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, sequenceDiagramBuilder, null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
                 Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, sequenceDiagramBuilder, new TableBuilder(), null!), Throws.ArgumentNullException);
-                Assert.That(() => new NodeDiagramBuilder(null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
-                Assert.That(() => new NodeDiagramBuilder(styleResolver, null!), Throws.ArgumentNullException);
-                Assert.That(() => new SequenceDiagramBuilder(null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
-                Assert.That(() => new SequenceDiagramBuilder(styleResolver, null!), Throws.ArgumentNullException);
+                Assert.That(() => new NodeDiagramBuilder(null!, tooltipResolver, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new NodeDiagramBuilder(styleResolver, null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new NodeDiagramBuilder(styleResolver, tooltipResolver, null!), Throws.ArgumentNullException);
+                Assert.That(() => new SequenceDiagramBuilder(null!, tooltipResolver, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new SequenceDiagramBuilder(styleResolver, null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new SequenceDiagramBuilder(styleResolver, tooltipResolver, null!), Throws.ArgumentNullException);
+                Assert.That(() => tooltipResolver.Resolve((Box)null!), Throws.ArgumentNullException);
+                Assert.That(() => tooltipResolver.Resolve((Edge)null!), Throws.ArgumentNullException);
                 Assert.That(() => this.DiagramBuilder.BuildAll(null!), Throws.ArgumentNullException);
             });
         }

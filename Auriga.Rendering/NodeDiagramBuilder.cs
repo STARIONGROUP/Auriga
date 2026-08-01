@@ -26,10 +26,11 @@ namespace Auriga.Rendering
         /// supplied style resolver.
         /// </summary>
         /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
+        /// <param name="tooltipResolver">the resolver producing each built item's hover text</param>
         /// <param name="loggerFactory">the factory the builder creates its logger from</param>
-        /// <exception cref="System.ArgumentNullException">the resolver or the logger factory is null</exception>
-        public NodeDiagramBuilder(IStyleResolver styleResolver, ILoggerFactory loggerFactory)
-            : base(styleResolver, loggerFactory)
+        /// <exception cref="System.ArgumentNullException">a resolver or the logger factory is null</exception>
+        public NodeDiagramBuilder(IStyleResolver styleResolver, ITooltipResolver tooltipResolver, ILoggerFactory loggerFactory)
+            : base(styleResolver, tooltipResolver, loggerFactory)
         {
         }
 

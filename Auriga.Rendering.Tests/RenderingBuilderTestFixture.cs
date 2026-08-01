@@ -120,6 +120,20 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_a_substituted_tooltip_resolver_reaches_the_per_kind_builders()
+        {
+            using var scope = RenderingBuilder.Create().UsingTooltipResolver(new FixedTooltipResolver());
+
+            var diagram = scope.BuildDiagramBuilder().Build(Representation(Node("node-tip", "tipped", 0, 0)));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(diagram.Boxes[0].Tooltip, Is.EqualTo(FixedTooltipResolver.Text), "the node diagram builder resolved through the substituted resolver");
+                Assert.That(scope.BuildSvgExporter().Export(diagram), Does.Contain($"<title>{FixedTooltipResolver.Text}</title>"), "and the exporter rendered what it returned");
+            });
+        }
+
+        [Test]
         public void Verify_that_the_fluent_methods_guard_their_arguments()
         {
             using var scope = RenderingBuilder.Create();
@@ -136,6 +150,8 @@ namespace Auriga.Rendering.Tests
                 Assert.That(() => scope.UsingPalette(null!), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).UsingStyleResolver(new RecordingStyleResolver()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingStyleResolver(null!), Throws.ArgumentNullException);
+                Assert.That(() => ((RenderingScope)null!).UsingTooltipResolver(new FixedTooltipResolver()), Throws.ArgumentNullException);
+                Assert.That(() => scope.UsingTooltipResolver(null!), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).BuildDiagramBuilder(), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).BuildTableBuilder(), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).BuildSvgExporter(), Throws.ArgumentNullException);
@@ -254,6 +270,38 @@ namespace Auriga.Rendering.Tests
             public (Color Stroke, double Width) ForEdge(string? semanticTypeName)
             {
                 return (Green, 1);
+            }
+        }
+
+        /// <summary>
+        /// An <see cref="ITooltipResolver"/> that answers the same text for everything, so a test
+        /// can tell whether the per-kind builders were composed over the registered resolver.
+        /// </summary>
+        private sealed class FixedTooltipResolver : ITooltipResolver
+        {
+            /// <summary>
+            /// The hover text this resolver answers every item with.
+            /// </summary>
+            internal const string Text = "substituted tooltip";
+
+            /// <summary>
+            /// Answers <see cref="Text"/>.
+            /// </summary>
+            /// <param name="box">the box to resolve</param>
+            /// <returns>the substituted hover text</returns>
+            public string? Resolve(Box box)
+            {
+                return Text;
+            }
+
+            /// <summary>
+            /// Answers <see cref="Text"/>.
+            /// </summary>
+            /// <param name="edge">the edge to resolve</param>
+            /// <returns>the substituted hover text</returns>
+            public string? Resolve(Edge edge)
+            {
+                return Text;
             }
         }
 

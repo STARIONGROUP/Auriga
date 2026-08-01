@@ -197,6 +197,32 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// Configures the composed builders to resolve their hover text through the supplied
+        /// <see cref="ITooltipResolver"/>, replacing the default <see cref="TooltipResolver"/> —
+        /// the override a caller uses to say something else about a rendered element (its property
+        /// values, a translated text) or nothing at all.
+        /// </summary>
+        /// <param name="scope">the scope to register the resolver on</param>
+        /// <param name="tooltipResolver">the resolver producing each built item's hover text</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope or the resolver is null</exception>
+        public static RenderingScope UsingTooltipResolver(this RenderingScope scope, ITooltipResolver tooltipResolver)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (tooltipResolver == null)
+            {
+                throw new ArgumentNullException(nameof(tooltipResolver));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(tooltipResolver).As<ITooltipResolver>();
+            return scope;
+        }
+
+        /// <summary>
         /// Builds a fully-wired <see cref="IDiagramBuilder"/> — the dispatcher over the
         /// per-representation-kind builders, and the entry point of the rendering pipeline.
         /// </summary>
