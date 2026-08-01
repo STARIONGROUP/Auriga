@@ -15,6 +15,8 @@ namespace Auriga.Rendering.Tests
     using System.Linq;
     using System.Xml.Linq;
 
+    using Microsoft.Extensions.Logging.Abstractions;
+
     using NUnit.Framework;
 
     using Notation = Auriga.Diagram.Notation;
@@ -38,7 +40,8 @@ namespace Auriga.Rendering.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(() => new SvgExporter(null!), Throws.ArgumentNullException);
+                Assert.That(() => new SvgExporter(null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new SvgExporter(new CapellaIconRegistry(NullLoggerFactory.Instance), null!), Throws.ArgumentNullException);
                 Assert.That(() => this.SvgExporter.Export(null!), Throws.ArgumentNullException);
                 Assert.That(() => this.SvgExporter.Export(null!, new MemoryStream()), Throws.ArgumentNullException);
                 Assert.That(() => this.SvgExporter.Export(diagram, (Stream)null!), Throws.ArgumentNullException);
@@ -84,7 +87,7 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_the_capella_icon_registry_resolves_vendored_artwork()
         {
-            var registry = new CapellaIconRegistry();
+            var registry = new CapellaIconRegistry(NullLoggerFactory.Instance);
 
             Assert.Multiple(() =>
             {

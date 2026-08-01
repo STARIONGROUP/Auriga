@@ -48,9 +48,13 @@ namespace Auriga.Rendering
         /// replacing the no-op default.
         /// </summary>
         /// <remarks>
-        /// None of the default rendering services logs today — the registration exists so a service
-        /// resolved from this scope can take an <see cref="ILoggerFactory"/> without every caller
-        /// having to re-register one.
+        /// Rendering degrades rather than throws, and the supplied factory is where those
+        /// degradations surface: at Debug, the workspace images and label icons no registry
+        /// resolved, the representations skipped for want of a persisted layout, and the malformed
+        /// bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved
+        /// image path as the registries see it and each style value that did not parse. Turning on
+        /// Debug therefore explains every visual difference between what Capella shows and what
+        /// Auriga exported, while a well-formed model stays silent at Information and above.
         /// </remarks>
         /// <param name="scope">the scope to register the logger factory on</param>
         /// <param name="loggerFactory">the logger factory</param>

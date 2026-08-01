@@ -15,6 +15,8 @@ namespace Auriga.Rendering
     using System.IO;
     using System.Linq;
 
+    using Microsoft.Extensions.Logging;
+
     /// <summary>
     /// The default <see cref="IIconRegistry"/>: serves the Capella diagram artwork vendored into
     /// this assembly (<c>Assets/CapellaIcons</c>, redistributed from eclipse-capella under
@@ -45,6 +47,26 @@ namespace Auriga.Rendering
         private readonly ConcurrentDictionary<string, string?> cache = new(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
+        /// The logger reporting the file names the vendored set does not carry.
+        /// </summary>
+        private readonly ILogger<CapellaIconRegistry> logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CapellaIconRegistry"/> class.
+        /// </summary>
+        /// <param name="loggerFactory">the factory the registry creates its logger from</param>
+        /// <exception cref="ArgumentNullException">the logger factory is null</exception>
+        public CapellaIconRegistry(ILoggerFactory loggerFactory)
+        {
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            this.logger = loggerFactory.CreateLogger<CapellaIconRegistry>();
+        }
+
+        /// <summary>
         /// Resolves a workspace-image path to a <c>data:</c> URI of the vendored Capella artwork
         /// with the same file name.
         /// </summary>
@@ -57,21 +79,23 @@ namespace Auriga.Rendering
                 return null;
             }
 
-            return this.cache.GetOrAdd(imagePath, Load);
+            return this.cache.GetOrAdd(imagePath, this.Load);
         }
 
         /// <summary>
         /// Loads the embedded artwork matching the path's file name and encodes it as a
-        /// <c>data:</c> URI.
+        /// <c>data:</c> URI. Only a cache miss reaches here, so the trace of an absent file name is
+        /// emitted once per distinct path without the registry keeping any state to that effect.
         /// </summary>
         /// <param name="imagePath">the persisted workspace-image path</param>
         /// <returns>the <c>data:</c> URI, or <c>null</c> when no vendored file matches</returns>
-        private static string? Load(string imagePath)
+        private string? Load(string imagePath)
         {
             var fileName = imagePath.Substring(imagePath.LastIndexOfAny(new[] { '/', '\\' }) + 1);
 
             if (!ResourceNamesByFileName.TryGetValue(fileName, out var resourceName))
             {
+                this.logger.LogTrace("The vendored Capella artwork carries no {FileName}, requested as {Path}", fileName, imagePath);
                 return null;
             }
 

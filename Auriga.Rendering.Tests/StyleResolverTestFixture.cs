@@ -11,6 +11,8 @@ namespace Auriga.Rendering.Tests
 {
     using System.Collections.Generic;
 
+    using Microsoft.Extensions.Logging.Abstractions;
+
     using NUnit.Framework;
 
     using Notation = Auriga.Diagram.Notation;
@@ -30,7 +32,7 @@ namespace Auriga.Rendering.Tests
         /// are unit tests of the resolver itself, not of the composition <see cref="RenderingScope"/>
         /// performs.
         /// </summary>
-        private readonly StyleResolver styleResolver = new(new CapellaDefaultPalette());
+        private readonly StyleResolver styleResolver = new(new CapellaDefaultPalette(), NullLoggerFactory.Instance);
 
         [Test]
         public void Verify_the_color_encodings()
@@ -65,7 +67,8 @@ namespace Auriga.Rendering.Tests
             {
                 Assert.That(() => this.styleResolver.Resolve((Box)null!), Throws.ArgumentNullException);
                 Assert.That(() => this.styleResolver.Resolve((Edge)null!), Throws.ArgumentNullException);
-                Assert.That(() => new StyleResolver(null!), Throws.ArgumentNullException);
+                Assert.That(() => new StyleResolver(null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new StyleResolver(new CapellaDefaultPalette(), null!), Throws.ArgumentNullException);
             });
         }
 

@@ -264,7 +264,7 @@ namespace Auriga.Rendering.Tests
             /// <summary>
             /// The resolver the recorder delegates to, so the diagrams it produces stay usable.
             /// </summary>
-            private readonly StyleResolver inner = new(new CapellaDefaultPalette());
+            private readonly StyleResolver inner = new(new CapellaDefaultPalette(), NullLoggerFactory.Instance);
 
             /// <summary>
             /// Gets the number of boxes the resolver was asked to resolve.

@@ -15,6 +15,8 @@ namespace Auriga.Rendering.Tests
 
     using Auriga.Xmi;
 
+    using Microsoft.Extensions.Logging.Abstractions;
+
     using NUnit.Framework;
 
     /// <summary>
@@ -38,11 +40,12 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_a_project_local_image_resolves_from_the_project_root()
         {
-            var registry = new WorkspaceImageRegistry(ProjectRoot);
+            var registry = new WorkspaceImageRegistry(ProjectRoot, NullLoggerFactory.Instance);
 
             Assert.Multiple(() =>
             {
-                Assert.That(() => new WorkspaceImageRegistry(string.Empty), Throws.ArgumentException);
+                Assert.That(() => new WorkspaceImageRegistry(string.Empty, NullLoggerFactory.Instance), Throws.ArgumentException);
+                Assert.That(() => new WorkspaceImageRegistry(ProjectRoot, null!), Throws.ArgumentNullException);
                 Assert.That(registry.Resolve(OperatorPath), Does.StartWith("data:image/svg+xml;base64,"), "the project-name-prefixed path resolves against the root");
                 Assert.That(registry.Resolve("images/Operator.svg"), Does.StartWith("data:image/svg+xml;base64,"), "the un-prefixed path resolves too");
                 Assert.That(registry.Resolve("In-Flight Entertainment System/images/NoSuchImage.png"), Is.Null, "an unknown file resolves to null");
@@ -53,11 +56,12 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_the_composite_serves_plugin_and_project_images_and_falls_through()
         {
-            var registry = new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(ProjectRoot));
+            var registry = new CompositeIconRegistry(new CapellaIconRegistry(NullLoggerFactory.Instance), new WorkspaceImageRegistry(ProjectRoot, NullLoggerFactory.Instance));
 
             Assert.Multiple(() =>
             {
                 Assert.That(() => new CompositeIconRegistry(null!), Throws.ArgumentNullException);
+                Assert.That(() => new CapellaIconRegistry(null!), Throws.ArgumentNullException);
                 Assert.That(registry.Resolve("/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg"), Does.StartWith("data:image/svg+xml;base64,"), "vendored plugin artwork still serves");
                 Assert.That(registry.Resolve(OperatorPath), Does.StartWith("data:image/svg+xml;base64,"), "a project-local image falls through to the workspace source");
                 Assert.That(registry.Resolve("Some Project/images/NotVendored.png"), Is.Null, "an image no registry knows resolves to null");
@@ -75,7 +79,7 @@ namespace Auriga.Rendering.Tests
             var operatorBox = diagram.QueryAllBoxes().Single(box => box.Style.Resolved.ImagePath == OperatorPath);
 
             using var renderingScope = RenderingBuilder.Create()
-                .UsingIconRegistry(new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(ProjectRoot)));
+                .UsingIconRegistry(new CompositeIconRegistry(new CapellaIconRegistry(NullLoggerFactory.Instance), new WorkspaceImageRegistry(ProjectRoot, NullLoggerFactory.Instance)));
             var composed = renderingScope.BuildSvgExporter();
             var group = XDocument.Parse(composed.Export(diagram)).Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == operatorBox.Identifier);
             var image = group.Element(Svg + "image");
