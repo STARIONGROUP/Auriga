@@ -27,15 +27,23 @@ namespace Auriga.Rendering
     public sealed class TooltipResolver : ITooltipResolver
     {
         /// <summary>
+        /// The time either markup pattern may run before it is abandoned. Neither backtracks in a
+        /// way a description could exploit, but a description is model content like any other and
+        /// no rendering should hang on one. Declared before the patterns that read it, since static
+        /// field initializers run in textual order.
+        /// </summary>
+        private static readonly TimeSpan MarkupTimeout = TimeSpan.FromSeconds(1);
+
+        /// <summary>
         /// Matches an HTML tag, so the markup Capella wraps a description in can be dropped.
         /// </summary>
-        private static readonly Regex Tag = new("<[^>]+>", RegexOptions.Compiled);
+        private static readonly Regex Tag = new("<[^>]+>", RegexOptions.Compiled, MarkupTimeout);
 
         /// <summary>
         /// Matches a run of whitespace, so the line breaks and indentation of persisted HTML
         /// collapse into single spaces.
         /// </summary>
-        private static readonly Regex WhitespaceRun = new(@"\s+", RegexOptions.Compiled);
+        private static readonly Regex WhitespaceRun = new(@"\s+", RegexOptions.Compiled, MarkupTimeout);
 
         /// <summary>
         /// Resolves the hover text of a box: its heading and, when the model carries one, its
@@ -232,11 +240,20 @@ namespace Auriga.Rendering
                 return null;
             }
 
-            // The tags become spaces rather than nothing, so that text either side of a block
-            // element does not run together into one word.
-            var text = WebUtility.HtmlDecode(Tag.Replace(html, " "));
+            try
+            {
+                // The tags become spaces rather than nothing, so that text either side of a block
+                // element does not run together into one word.
+                var text = WebUtility.HtmlDecode(Tag.Replace(html, " "));
 
-            return Trimmed(WhitespaceRun.Replace(text, " "));
+                return Trimmed(WhitespaceRun.Replace(text, " "));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                // A description that outruns the timeout costs its tooltip its detail line, not the
+                // render: the item still names what it is, as an element with no description does.
+                return null;
+            }
         }
 
         /// <summary>
