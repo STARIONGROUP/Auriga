@@ -195,22 +195,30 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
-        public void Verify_that_a_well_formed_model_is_silent_at_information_and_above()
+        public void Verify_that_a_real_model_reports_at_debug_and_stays_silent_at_information_and_above()
         {
             var path = Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "coffee-machine-demo.aird");
             using var readerScope = XmiReaderBuilder.Create();
             var result = readerScope.BuildAirdModelLoader().Load(path);
 
             var exporter = this.scope.BuildSvgExporter();
-            foreach (var diagram in this.scope.BuildDiagramBuilder().BuildAll(result.Elements.Values))
+            var diagrams = this.scope.BuildDiagramBuilder().BuildAll(result.Elements.Values);
+            foreach (var diagram in diagrams)
             {
                 exporter.Export(diagram);
             }
 
-            Assert.That(
-                this.loggerFactory.Entries.Where(entry => entry.Level >= LogLevel.Information),
-                Is.Empty,
-                "rendering a well-formed model reports nothing a consumer has to act on");
+            Assert.Multiple(() =>
+            {
+                Assert.That(
+                    this.loggerFactory.Entries.Select(entry => entry.Message),
+                    Has.Some.Contains($"Built {diagrams.Count} of"),
+                    "a whole-model build reports what it built");
+                Assert.That(
+                    this.loggerFactory.Entries.Where(entry => entry.Level >= LogLevel.Information),
+                    Is.Empty,
+                    "and rendering a well-formed model reports nothing a consumer has to act on");
+            });
         }
 
         /// <summary>
