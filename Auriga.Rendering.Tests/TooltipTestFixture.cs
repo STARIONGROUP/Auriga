@@ -49,6 +49,19 @@ namespace Auriga.Rendering.Tests
         }
 
         [Test]
+        public void Verify_that_an_unnamed_semantic_element_is_named_by_what_the_diagram_shows()
+        {
+            // A StateFragment or an Execution has no name of its own — the state it displays is
+            // named by the Sirius element, which is what Capella draws on the shape. Without that
+            // fallback the tooltip degrades to a bare metaclass and says nothing useful.
+            var fragment = new Auriga.Model.Interaction.StateFragment { Id = "sf-1" };
+
+            var diagram = this.DiagramBuilder.Build(Representation(Node("n-fragment", "Degraded", fragment)));
+
+            Assert.That(diagram.Boxes.Single().Tooltip, Is.EqualTo("StateFragment: Degraded"));
+        }
+
+        [Test]
         public void Verify_that_the_tooltip_falls_back_to_the_sirius_element_and_the_notation_type()
         {
             var diagramOnly = this.DiagramBuilder.Build(Representation(Node("n-unresolved", "Unresolved Target", semanticElement: null)));
@@ -132,11 +145,110 @@ namespace Auriga.Rendering.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(edgeGroup.Elements().First().Name, Is.EqualTo(Svg + "title"), "the title is the group's first child");
-                Assert.That(edgeGroup.Element(Svg + "title")!.Value, Is.EqualTo("ComponentExchange: Audio Stream\nCarries the stream"));
+                Assert.That(
+                    edgeGroup.Element(Svg + "title")!.Value,
+                    Is.EqualTo("ComponentExchange: Audio Stream\nsource → target\nCarries the stream"),
+                    "a relationship names what it connects between its heading and its description");
                 Assert.That(boxGroup.Elements().First().Name, Is.EqualTo(Svg + "title"), "and so it is on a box group");
                 Assert.That(boxGroup.Element(Svg + "title")!.Value, Is.EqualTo("DNode: source"));
                 Assert.That(document.Descendants(Svg + "script"), Is.Empty, "the export stays script-free");
             });
+        }
+
+        [Test]
+        public void Verify_that_a_relationship_with_no_element_of_its_own_still_names_its_ends()
+        {
+            // A connector the session persists without a Sirius element — a class diagram's
+            // containment links among them — knows nothing about itself, but the boxes it runs
+            // between are named, and that is what a reader hovering the line wants.
+            var sourceNode = Node("n-src-bare", "Citizen", semanticElement: null);
+            sourceNode.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 60, Height = 40 };
+            var targetNode = Node("n-tgt-bare", "Private Data", semanticElement: null);
+            targetNode.LayoutConstraint = new Notation.Bounds { X = 200, Y = 0, Width = 60, Height = 40 };
+
+            var bare = new Notation.Edge { Source = sourceNode, Target = targetNode };
+            var danglingEnd = new Notation.Edge { Source = sourceNode };
+
+            var diagram = this.DiagramBuilder.Build(Representation(new Notation.INode[] { sourceNode, targetNode }, new[] { bare, danglingEnd }));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(diagram.Edges[0].Tooltip, Is.EqualTo("Citizen → Private Data"));
+                Assert.That(diagram.Edges[1].Tooltip, Is.EqualTo("from Citizen"), "one resolved end is still worth reporting");
+            });
+        }
+
+        [Test]
+        public void Verify_that_a_nameless_item_is_placed_by_the_element_that_owns_it()
+        {
+            // An execution bar is nameless in the model and on the diagram alike; the lifeline it
+            // runs on is what tells a reader which one they are looking at.
+            var execution = new Auriga.Model.Interaction.Execution { Id = "exec-1" };
+
+            var executionNode = new Notation.Node { Id = "n-exec", Element = new SiriusDiagram.DNode { Id = "sirius-exec", Target = execution } };
+            executionNode.LayoutConstraint = new Notation.Bounds { X = 5, Y = 20, Width = 10, Height = 60 };
+
+            var lifeline = Node("n-lifeline", "System", semanticElement: null);
+            lifeline.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 100, Height = 200 };
+            lifeline.PersistedChildren.Add(executionNode);
+
+            var diagram = this.DiagramBuilder.Build(Representation(lifeline));
+
+            Assert.That(diagram.Boxes.Single().Children.Single().Tooltip, Is.EqualTo("Execution in System"));
+        }
+
+        [Test]
+        public void Verify_that_an_exchange_between_ports_names_the_components_they_belong_to()
+        {
+            // A port carries no label of its own — Capella renders the glyph alone — so naming the
+            // ends by the ports would read as two identical "CP 1"s instead of the components a
+            // component exchange actually runs between.
+            var exchange = new Auriga.Model.Fa.ComponentExchange { Id = "cex-ports", Name = "position" };
+
+            var sourcePort = PortNode("n-port-src", "CP 1", 60, 20);
+            var source = Node("n-comp-src", "Positioning", semanticElement: null);
+            source.LayoutConstraint = new Notation.Bounds { X = 0, Y = 0, Width = 60, Height = 40 };
+            source.PersistedChildren.Add(sourcePort);
+
+            var targetPort = PortNode("n-port-tgt", "CP 2", -5, 20);
+            var target = Node("n-comp-tgt", "Display", semanticElement: null);
+            target.LayoutConstraint = new Notation.Bounds { X = 200, Y = 0, Width = 60, Height = 40 };
+            target.PersistedChildren.Add(targetPort);
+
+            var notationEdge = new Notation.Edge
+            {
+                Id = "n-edge-ports",
+                Element = new SiriusDiagram.DEdge { Id = "e-ports", Name = "position", Target = exchange },
+                Source = sourcePort,
+                Target = targetPort,
+            };
+
+            var diagram = this.DiagramBuilder.Build(Representation(new Notation.INode[] { source, target }, new[] { notationEdge }));
+
+            Assert.That(diagram.Edges.Single().Tooltip, Is.EqualTo("ComponentExchange: position\nPositioning → Display"));
+        }
+
+        /// <summary>
+        /// Builds a border-node port, which the builder renders as a glyph without a label.
+        /// </summary>
+        /// <param name="identifier">the notation identifier</param>
+        /// <param name="name">the port name</param>
+        /// <param name="x">the offset from the owning component's left edge</param>
+        /// <param name="y">the offset from the owning component's top edge</param>
+        /// <returns>the notation node</returns>
+        private static Notation.Node PortNode(string identifier, string name, int x, int y)
+        {
+            return new Notation.Node
+            {
+                Id = identifier,
+                Element = new SiriusDiagram.DNode
+                {
+                    Id = $"sirius-{identifier}",
+                    Name = name,
+                    Target = new Auriga.Model.Fa.ComponentPort { Id = $"semantic-{identifier}", Name = name },
+                },
+                LayoutConstraint = new Notation.Bounds { X = x, Y = y, Width = 10, Height = 10 },
+            };
         }
 
         /// <summary>

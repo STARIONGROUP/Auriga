@@ -234,7 +234,7 @@ namespace Auriga.Rendering
             }
 
             box.Style.Resolved = this.styleResolver.Resolve(box);
-            box.Tooltip = ElementTooltip.For(box.SemanticElement, siriusElement, node);
+            box.Tooltip = ElementTooltip.ForBox(box.SemanticElement, siriusElement, node, parentBox);
 
             Attach(box, node, parentBox, siblings, viewToBox);
 
@@ -621,7 +621,7 @@ namespace Auriga.Rendering
 
             note.Style.Resolved = this.styleResolver.Resolve(note);
             note.Style.Resolved.Shape = ShapeKind.Note;
-            note.Tooltip = ElementTooltip.For(null, null, node);
+            note.Tooltip = ElementTooltip.ForBox(null, null, node, null);
             return note;
         }
 
@@ -811,7 +811,7 @@ namespace Auriga.Rendering
             }
 
             edge.Style.Resolved = this.styleResolver.Resolve(edge);
-            edge.Tooltip = ElementTooltip.For(edge.SemanticElement, siriusEdge, notationEdge);
+            edge.Tooltip = ElementTooltip.ForEdge(edge.SemanticElement, siriusEdge, notationEdge, source, target);
 
             // A note attachment is not a model relationship: Capella draws it as a thin dotted
             // line between the note and the element it annotates.

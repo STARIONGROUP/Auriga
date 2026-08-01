@@ -9,6 +9,7 @@
 
 namespace Auriga.Rendering
 {
+    using System.Linq;
     using System.Net;
     using System.Text.RegularExpressions;
 
@@ -52,50 +53,157 @@ namespace Auriga.Rendering
         /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
         /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
         /// <param name="notationView">the GMF notation view the item was built from</param>
+        /// <param name="owner">the enclosing box, which names an item that has no name of its own</param>
         /// <returns>the hover text, or <c>null</c></returns>
-        internal static string? For(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, NotationModel.IView notationView)
+        internal static string? ForBox(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, NotationModel.IView notationView, Box? owner)
         {
-            var heading = SemanticHeading(semanticElement)
-                ?? SiriusHeading(siriusElement)
-                ?? Trimmed(notationView.Type);
+            var heading = Heading(semanticElement, siriusElement, notationView);
 
-            var detail = PlainText((semanticElement as Auriga.Model.Capellacore.ICapellaElement)?.Description)
-                ?? PlainText(siriusElement?.TooltipText);
-
-            if (heading == null)
+            // An execution bar or an interaction state is nameless in the model and on the diagram
+            // alike; what identifies it is the lifeline it runs on, so the owner stands in.
+            if (heading != null && heading.IndexOf(':') < 0 && OwnerName(owner) is { } ownerName)
             {
-                return detail;
+                heading = $"{heading} in {ownerName}";
             }
 
-            return detail == null ? heading : $"{heading}\n{detail}";
+            return Compose(heading, null, Detail(semanticElement, siriusElement));
         }
 
         /// <summary>
-        /// The heading of a Capella semantic element: its metaclass name qualified by its name when
-        /// it has one (e.g. <c>LogicalFunction: Broadcast Audio Video Streams</c>), the metaclass
-        /// name alone otherwise.
+        /// The hover text of a built relationship, which names the elements it connects between its
+        /// heading and its detail — a line on a diagram says least about itself, so the ends are
+        /// what make its tooltip worth reading. An edge whose own type is unknown still gets a
+        /// tooltip when its ends are known.
         /// </summary>
         /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
-        /// <returns>the heading, or <c>null</c> when there is no semantic element</returns>
-        private static string? SemanticHeading(object? semanticElement)
+        /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
+        /// <param name="notationView">the GMF notation view the edge was built from</param>
+        /// <param name="source">the box the edge leaves, or <c>null</c> when the end does not resolve to one</param>
+        /// <param name="target">the box the edge enters, or <c>null</c> when the end does not resolve to one</param>
+        /// <returns>the hover text, or <c>null</c></returns>
+        internal static string? ForEdge(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, NotationModel.IView notationView, Box? source, Box? target)
         {
-            if (semanticElement == null)
+            return Compose(Heading(semanticElement, siriusElement, notationView), Ends(source, target), Detail(semanticElement, siriusElement));
+        }
+
+        /// <summary>
+        /// Joins the lines that are present into the hover text, or <c>null</c> when none is.
+        /// </summary>
+        /// <param name="heading">the heading line, or <c>null</c></param>
+        /// <param name="ends">the connected-ends line, or <c>null</c></param>
+        /// <param name="detail">the detail line, or <c>null</c></param>
+        /// <returns>the hover text, or <c>null</c></returns>
+        private static string? Compose(string? heading, string? ends, string? detail)
+        {
+            var lines = new[] { heading, ends, detail }.Where(line => line != null);
+
+            var tooltip = string.Join("\n", lines);
+
+            return tooltip.Length == 0 ? null : tooltip;
+        }
+
+        /// <summary>
+        /// The heading of a built item: the Capella semantic element's metaclass, qualified by its
+        /// name — or, when the semantic element is unnamed, by the name the diagram displays for it
+        /// (a <c>StateFragment</c> or an <c>Execution</c> has no name of its own, but the Sirius
+        /// element that shows it does). It falls back to the Sirius element's own type and name
+        /// when the semantic target is unresolved, and to the notation type for a pure notation
+        /// element.
+        /// </summary>
+        /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
+        /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
+        /// <param name="notationView">the GMF notation view the item was built from</param>
+        /// <returns>the heading, or <c>null</c> when the item represents nothing nameable</returns>
+        private static string? Heading(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, NotationModel.IView notationView)
+        {
+            if (semanticElement != null)
+            {
+                var semanticName = (semanticElement as Auriga.Model.Modellingcore.IAbstractNamedElement)?.Name;
+
+                return Qualified(semanticElement.GetType().Name, Trimmed(semanticName) ?? siriusElement?.Name);
+            }
+
+            return siriusElement != null
+                ? Qualified(siriusElement.GetType().Name, siriusElement.Name)
+                : Trimmed(notationView.Type);
+        }
+
+        /// <summary>
+        /// The line naming what a relationship connects, or <c>null</c> when neither end resolves
+        /// to a box. Each end is named as the diagram labels it, falling back to the heading of its
+        /// own tooltip when it carries no label.
+        /// </summary>
+        /// <param name="source">the box the edge leaves, or <c>null</c></param>
+        /// <param name="target">the box the edge enters, or <c>null</c></param>
+        /// <returns>the connected-ends line, or <c>null</c></returns>
+        private static string? Ends(Box? source, Box? target)
+        {
+            var from = EndName(source);
+            var to = EndName(target);
+
+            if (from != null && to != null)
+            {
+                return $"{from} → {to}";
+            }
+
+            if (from != null)
+            {
+                return $"from {from}";
+            }
+
+            return to == null ? null : $"to {to}";
+        }
+
+        /// <summary>
+        /// How an edge end is named in the connected-ends line: the label the diagram shows on the
+        /// box, or — for an end the diagram leaves unlabelled, which a port always is — the element
+        /// that owns it, so a component exchange reads as the components it runs between rather
+        /// than as two identically named ports. The heading of the end's own tooltip is the last
+        /// resort.
+        /// </summary>
+        /// <param name="box">the box an edge end attaches to, or <c>null</c></param>
+        /// <returns>the end's name, or <c>null</c></returns>
+        private static string? EndName(Box? box)
+        {
+            if (box == null)
             {
                 return null;
             }
 
-            return Qualified(semanticElement.GetType().Name, (semanticElement as Auriga.Model.Modellingcore.IAbstractNamedElement)?.Name);
+            return Trimmed(box.Label?.Text) ?? OwnerName(box.Parent) ?? Trimmed(box.Tooltip?.Split('\n')[0]);
         }
 
         /// <summary>
-        /// The heading of a Sirius representation element, used when the semantic target is
-        /// unresolved: its type qualified by the name the diagram displays.
+        /// The label of the nearest enclosing box that carries one, or <c>null</c> when no ancestor
+        /// is labelled.
         /// </summary>
-        /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
-        /// <returns>the heading, or <c>null</c> when there is no Sirius element</returns>
-        private static string? SiriusHeading(SiriusDiagramModel.IDDiagramElement? siriusElement)
+        /// <param name="owner">the enclosing box, or <c>null</c></param>
+        /// <returns>the owner's name, or <c>null</c></returns>
+        private static string? OwnerName(Box? owner)
         {
-            return siriusElement == null ? null : Qualified(siriusElement.GetType().Name, siriusElement.Name);
+            for (var ancestor = owner; ancestor != null; ancestor = ancestor.Parent)
+            {
+                if (Trimmed(ancestor.Label?.Text) is { } name)
+                {
+                    return name;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// The detail line of a built item: the model's own words about it — the semantic element's
+        /// <c>description</c> as plain text, or the Sirius element's persisted tooltip when the
+        /// semantic element carries no description.
+        /// </summary>
+        /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
+        /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
+        /// <returns>the detail line, or <c>null</c></returns>
+        private static string? Detail(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement)
+        {
+            return PlainText((semanticElement as Auriga.Model.Capellacore.ICapellaElement)?.Description)
+                ?? PlainText(siriusElement?.TooltipText);
         }
 
         /// <summary>
