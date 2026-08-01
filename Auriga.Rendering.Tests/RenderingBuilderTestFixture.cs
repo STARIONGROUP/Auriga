@@ -130,6 +130,8 @@ namespace Auriga.Rendering.Tests
                 Assert.That(() => scope.WithLogger(null!), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).UsingIconRegistry(new RecordingIconRegistry()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingIconRegistry(null!), Throws.ArgumentNullException);
+                Assert.That(() => ((RenderingScope)null!).UsingProjectImages("root"), Throws.ArgumentNullException);
+                Assert.That(() => scope.UsingProjectImages(string.Empty), Throws.ArgumentException);
                 Assert.That(() => ((RenderingScope)null!).UsingPalette(new GreenPalette()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingPalette(null!), Throws.ArgumentNullException);
                 Assert.That(() => ((RenderingScope)null!).UsingStyleResolver(new RecordingStyleResolver()), Throws.ArgumentNullException);
@@ -264,7 +266,7 @@ namespace Auriga.Rendering.Tests
             /// <summary>
             /// The resolver the recorder delegates to, so the diagrams it produces stay usable.
             /// </summary>
-            private readonly StyleResolver inner = new(new CapellaDefaultPalette());
+            private readonly StyleResolver inner = new(new CapellaDefaultPalette(), NullLoggerFactory.Instance);
 
             /// <summary>
             /// Gets the number of boxes the resolver was asked to resolve.

@@ -52,16 +52,29 @@ namespace Auriga.Rendering
         /// stateless or already thread-safe, and sharing them lets the icon registry reuse its
         /// extracted artwork across render sessions instead of re-extracting it for each. A future
         /// rendering service that takes mutable per-render state must opt out of singleton explicitly.
-        /// Reflection-based registration is safe here because every implementation has exactly one
-        /// constructor and none takes an optional parameter.
+        /// Reflection-based registration is safe for the services registered that way because each
+        /// has exactly one constructor and none takes an optional parameter; the icon registry is
+        /// registered through a lambda instead, since it is composed rather than constructed.
         /// </remarks>
         internal RenderingScope()
         {
             // Overridable defaults (the last registration for a service wins in Autofac).
             this.ContainerBuilder.RegisterType<CapellaDefaultPalette>().As<ICapellaDefaultPalette>().SingleInstance();
             this.ContainerBuilder.RegisterType<StyleResolver>().As<IStyleResolver>().SingleInstance();
-            this.ContainerBuilder.RegisterType<CapellaIconRegistry>().As<IIconRegistry>().SingleInstance();
+            this.ContainerBuilder.RegisterInstance(EmptyProjectImageRegistry.Instance).As<IProjectImageRegistry>();
             this.ContainerBuilder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
+
+            // The icon registry is the vendored Capella artwork chained with the model's own
+            // project images, so RenderingBuilder.UsingProjectImages fills its own slot instead of
+            // replacing this one — the two overrides then compose rather than collide. Nothing
+            // fills the project-image slot by default, so an unconfigured scope resolves exactly
+            // what the vendored registry alone resolves.
+            this.ContainerBuilder
+                .Register(context => new CompositeIconRegistry(
+                    new CapellaIconRegistry(context.Resolve<ILoggerFactory>()),
+                    context.Resolve<IProjectImageRegistry>()))
+                .As<IIconRegistry>()
+                .SingleInstance();
 
             this.ContainerBuilder.RegisterType<NodeDiagramBuilder>().As<INodeDiagramBuilder>().SingleInstance();
             this.ContainerBuilder.RegisterType<SequenceDiagramBuilder>().As<ISequenceDiagramBuilder>().SingleInstance();

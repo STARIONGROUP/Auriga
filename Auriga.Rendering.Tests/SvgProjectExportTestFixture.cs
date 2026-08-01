@@ -46,7 +46,7 @@ namespace Auriga.Rendering.Tests
             // actor's custom glyph) from the directory the .aird was loaded from — the registry
             // override is why this export composes its own scope rather than using the fixture's.
             using var renderingScope = RenderingBuilder.Create()
-                .UsingIconRegistry(new CompositeIconRegistry(new CapellaIconRegistry(), new WorkspaceImageRegistry(Path.GetDirectoryName(path)!)));
+                .UsingProjectImages(Path.GetDirectoryName(path)!);
             var svgExporter = renderingScope.BuildSvgExporter();
 
             var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports", modelFolder);

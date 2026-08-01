@@ -11,6 +11,8 @@ namespace Auriga.Rendering.Tests
 {
     using System.Linq;
 
+    using Microsoft.Extensions.Logging.Abstractions;
+
     using NUnit.Framework;
 
     using Notation = Auriga.Diagram.Notation;
@@ -30,9 +32,9 @@ namespace Auriga.Rendering.Tests
         [Test]
         public void Verify_that_the_builder_guards_its_arguments()
         {
-            var styleResolver = new StyleResolver(new CapellaDefaultPalette());
-            var nodeDiagramBuilder = new NodeDiagramBuilder(styleResolver);
-            var sequenceDiagramBuilder = new SequenceDiagramBuilder(styleResolver);
+            var styleResolver = new StyleResolver(new CapellaDefaultPalette(), NullLoggerFactory.Instance);
+            var nodeDiagramBuilder = new NodeDiagramBuilder(styleResolver, NullLoggerFactory.Instance);
+            var sequenceDiagramBuilder = new SequenceDiagramBuilder(styleResolver, NullLoggerFactory.Instance);
 
             Assert.Multiple(() =>
             {
@@ -40,11 +42,14 @@ namespace Auriga.Rendering.Tests
                 Assert.That(
                     () => this.DiagramBuilder.Build(new SiriusDiagram.DSemanticDiagram()),
                     Throws.InvalidOperationException.With.Message.Contains("no GMF notation diagram"));
-                Assert.That(() => new DiagramBuilder(null!, sequenceDiagramBuilder, new TableBuilder()), Throws.ArgumentNullException);
-                Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, null!, new TableBuilder()), Throws.ArgumentNullException);
-                Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, sequenceDiagramBuilder, null!), Throws.ArgumentNullException);
-                Assert.That(() => new NodeDiagramBuilder(null!), Throws.ArgumentNullException);
-                Assert.That(() => new SequenceDiagramBuilder(null!), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(null!, sequenceDiagramBuilder, new TableBuilder(), NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, null!, new TableBuilder(), NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, sequenceDiagramBuilder, null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new DiagramBuilder(nodeDiagramBuilder, sequenceDiagramBuilder, new TableBuilder(), null!), Throws.ArgumentNullException);
+                Assert.That(() => new NodeDiagramBuilder(null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new NodeDiagramBuilder(styleResolver, null!), Throws.ArgumentNullException);
+                Assert.That(() => new SequenceDiagramBuilder(null!, NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => new SequenceDiagramBuilder(styleResolver, null!), Throws.ArgumentNullException);
                 Assert.That(() => this.DiagramBuilder.BuildAll(null!), Throws.ArgumentNullException);
             });
         }

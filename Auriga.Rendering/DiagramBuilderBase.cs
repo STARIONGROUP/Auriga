@@ -14,6 +14,8 @@ namespace Auriga.Rendering
     using System.Globalization;
     using System.Linq;
 
+    using Microsoft.Extensions.Logging;
+
     using NotationModel = Auriga.Diagram.Notation;
     using SiriusDiagramModel = Auriga.Diagram.Diagram;
     using SiriusViewpoint = Auriga.Diagram.Viewpoint;
@@ -44,13 +46,27 @@ namespace Auriga.Rendering
         private readonly IStyleResolver styleResolver;
 
         /// <summary>
+        /// The logger reporting the persisted geometry that did not parse. Its category is the
+        /// concrete builder's type, so an entry names the kind of representation it came from.
+        /// </summary>
+        private readonly ILogger logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DiagramBuilderBase"/> class.
         /// </summary>
         /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
-        /// <exception cref="ArgumentNullException">the resolver is null</exception>
-        protected DiagramBuilderBase(IStyleResolver styleResolver)
+        /// <param name="loggerFactory">the factory the builder creates its logger from</param>
+        /// <exception cref="ArgumentNullException">the resolver or the logger factory is null</exception>
+        protected DiagramBuilderBase(IStyleResolver styleResolver, ILoggerFactory loggerFactory)
         {
             this.styleResolver = styleResolver ?? throw new ArgumentNullException(nameof(styleResolver));
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            this.logger = loggerFactory.CreateLogger(this.GetType());
         }
 
         /// <summary>
@@ -100,7 +116,7 @@ namespace Auriga.Rendering
             // so a hidden component-exchange or communication-means relationship draws no stray line.
             var edges = notationDiagram.PersistedEdges
                 .Where(notationEdge => notationEdge.Visible != false)
-                .Select(notationEdge => this.BuildEdge(notationEdge, viewToBox))
+                .Select(notationEdge => this.BuildEdge(notationEdge, viewToBox, siriusDiagram.Id))
                 .ToList();
 
             this.ApplyRepresentationRules(rootBoxes, edges);
@@ -751,15 +767,16 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="notationEdge">the notation edge</param>
         /// <param name="viewToBox">the notation-view-to-box map</param>
+        /// <param name="representationId">the uid of the representation being built, named by the geometry traces</param>
         /// <returns>the edge</returns>
-        private Edge BuildEdge(NotationModel.IEdge notationEdge, Dictionary<NotationModel.IView, Box> viewToBox)
+        private Edge BuildEdge(NotationModel.IEdge notationEdge, Dictionary<NotationModel.IView, Box> viewToBox, string? representationId)
         {
             var siriusEdge = notationEdge.Element as SiriusDiagramModel.IDEdge;
 
             var source = FindBox(notationEdge.Source, viewToBox);
             var target = FindBox(notationEdge.Target, viewToBox);
 
-            var route = BuildRoute(notationEdge, source, target, (siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.RoutingStyle);
+            var route = this.BuildRoute(notationEdge, source, target, (siriusEdge?.OwnedStyle as SiriusDiagramModel.IEdgeStyle)?.RoutingStyle, representationId);
 
             var edge = new Edge(siriusEdge?.Id ?? notationEdge.Id ?? string.Empty, route, notationEdge, BuildStyle(siriusEdge, notationEdge.Styles))
             {
@@ -863,8 +880,9 @@ namespace Auriga.Rendering
         /// <param name="source">the source box, or <c>null</c> when the end does not resolve to one</param>
         /// <param name="target">the target box, or <c>null</c> when the end does not resolve to one</param>
         /// <param name="routing">the persisted routing style of the edge, or <c>null</c></param>
+        /// <param name="representationId">the uid of the representation being built, named by the geometry traces</param>
         /// <returns>the absolute route polyline</returns>
-        private static IReadOnlyList<Point> BuildRoute(NotationModel.IEdge notationEdge, Box? source, Box? target, SiriusDiagramModel.EdgeRouting? routing)
+        private IReadOnlyList<Point> BuildRoute(NotationModel.IEdge notationEdge, Box? source, Box? target, SiriusDiagramModel.EdgeRouting? routing, string? representationId)
         {
             // A tree connector (a breakdown-diagram containment edge) is rectilinear: Capella
             // discards the persisted bendpoints — stale artifacts that resolve far outside the
@@ -875,9 +893,12 @@ namespace Auriga.Rendering
                 return treeRoute;
             }
 
-            var bendpoints = ParseBendpoints((notationEdge.Bendpoints as NotationModel.IRelativeBendpoints)?.Points);
-            var sourceReference = source == null ? (Point?)null : AnchorPoint(source, notationEdge.SourceAnchor);
-            var targetReference = target == null ? (Point?)null : AnchorPoint(target, notationEdge.TargetAnchor);
+            var persistedBendpoints = (notationEdge.Bendpoints as NotationModel.IRelativeBendpoints)?.Points;
+            var bendpoints = ParseBendpoints(persistedBendpoints);
+            this.ReportSkippedBendpoints(persistedBendpoints, bendpoints.Count, notationEdge, representationId);
+
+            var sourceReference = source == null ? (Point?)null : this.AnchorPoint(source, notationEdge.SourceAnchor, representationId);
+            var targetReference = target == null ? (Point?)null : this.AnchorPoint(target, notationEdge.TargetAnchor, representationId);
 
             if (sourceReference is { } refSource && targetReference is { } refTarget)
             {
@@ -1140,10 +1161,52 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="box">the box the edge end attaches to</param>
         /// <param name="anchor">the persisted anchor, or <c>null</c></param>
+        /// <param name="representationId">the uid of the representation being built, named by the geometry traces</param>
         /// <returns>the absolute anchor point</returns>
-        private static Point AnchorPoint(Box box, NotationModel.IAnchor? anchor)
+        private Point AnchorPoint(Box box, NotationModel.IAnchor? anchor, string? representationId)
         {
-            return FractionPoint(box, ParseAnchorFraction(anchor) ?? CenterAnchor);
+            var fraction = ParseAnchorFraction(anchor);
+
+            if (fraction == null && (anchor as NotationModel.IIdentityAnchor)?.Id is { Length: > 0 } anchorId)
+            {
+                this.logger.LogDebug(
+                    "The identity anchor id {AnchorId} on {Box} of representation {Uid} is not a fraction; the edge end falls back to the view centre",
+                    anchorId,
+                    box.Identifier,
+                    representationId);
+            }
+
+            return FractionPoint(box, fraction ?? CenterAnchor);
+        }
+
+        /// <summary>
+        /// Reports the persisted bendpoint entries <see cref="ParseBendpoints"/> discarded as
+        /// malformed. The route keeps the entries that did parse, so the only visible consequence
+        /// is a bend Capella draws that Auriga does not.
+        /// </summary>
+        /// <param name="persistedBendpoints">the raw persisted bendpoint list, or <c>null</c></param>
+        /// <param name="parsedCount">the number of entries that parsed</param>
+        /// <param name="notationEdge">the notation edge the list belongs to</param>
+        /// <param name="representationId">the uid of the representation being built</param>
+        private void ReportSkippedBendpoints(string? persistedBendpoints, int parsedCount, NotationModel.IEdge notationEdge, string? representationId)
+        {
+            if (string.IsNullOrEmpty(persistedBendpoints))
+            {
+                return;
+            }
+
+            var persistedCount = persistedBendpoints!.Split('$').Length;
+
+            if (persistedCount > parsedCount)
+            {
+                this.logger.LogDebug(
+                    "Skipped {Skipped} of {Persisted} malformed bendpoint entries on edge {Edge} of representation {Uid}: {Bendpoints}",
+                    persistedCount - parsedCount,
+                    persistedCount,
+                    notationEdge.Id,
+                    representationId,
+                    persistedBendpoints);
+            }
         }
 
         /// <summary>

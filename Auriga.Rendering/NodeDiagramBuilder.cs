@@ -11,6 +11,8 @@ namespace Auriga.Rendering
 {
     using System.Collections.Generic;
 
+    using Microsoft.Extensions.Logging;
+
     /// <summary>
     /// Builds the intermediate model of a node-and-edge representation — Capella's architecture
     /// and data-flow blank diagrams (LAB, PAB, OAB, SAB, xDFB, …) and any other kind without
@@ -24,9 +26,10 @@ namespace Auriga.Rendering
         /// supplied style resolver.
         /// </summary>
         /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
-        /// <exception cref="System.ArgumentNullException">the resolver is null</exception>
-        public NodeDiagramBuilder(IStyleResolver styleResolver)
-            : base(styleResolver)
+        /// <param name="loggerFactory">the factory the builder creates its logger from</param>
+        /// <exception cref="System.ArgumentNullException">the resolver or the logger factory is null</exception>
+        public NodeDiagramBuilder(IStyleResolver styleResolver, ILoggerFactory loggerFactory)
+            : base(styleResolver, loggerFactory)
         {
         }
 

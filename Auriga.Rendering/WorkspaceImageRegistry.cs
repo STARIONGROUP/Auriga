@@ -13,6 +13,8 @@ namespace Auriga.Rendering
     using System.Collections.Concurrent;
     using System.IO;
 
+    using Microsoft.Extensions.Logging;
+
     /// <summary>
     /// An <see cref="IIconRegistry"/> that serves the project-local images a Capella model stores
     /// beside its <c>.aird</c> — a <c>WorkspaceImage</c> whose path points inside the model project
@@ -22,9 +24,11 @@ namespace Auriga.Rendering
     /// segment (the <c>.aird</c> sits at the project root, so the segment maps to the root). The
     /// file is inlined as a <c>data:</c> URI; a path with no matching file resolves to <c>null</c>.
     /// Compose it after <see cref="CapellaIconRegistry"/> (see <see cref="CompositeIconRegistry"/>)
-    /// so plugin artwork still serves from the vendored set. Resolved URIs are cached per instance.
+    /// so plugin artwork still serves from the vendored set — the composition
+    /// <see cref="RenderingBuilder.UsingProjectImages"/> performs. Resolved URIs are cached per
+    /// instance.
     /// </summary>
-    public sealed class WorkspaceImageRegistry : IIconRegistry
+    public sealed class WorkspaceImageRegistry : IProjectImageRegistry
     {
         /// <summary>
         /// The root directory of the loaded project the workspace paths resolve against.
@@ -37,19 +41,32 @@ namespace Auriga.Rendering
         private readonly ConcurrentDictionary<string, string?> cache = new(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
+        /// The logger reporting the paths that resolve to no file under the project root.
+        /// </summary>
+        private readonly ILogger<WorkspaceImageRegistry> logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="WorkspaceImageRegistry"/> class rooted at
         /// the loaded project's directory.
         /// </summary>
         /// <param name="projectRoot">the root directory the workspace paths resolve against (typically the directory of the loaded <c>.aird</c>)</param>
+        /// <param name="loggerFactory">the factory the registry creates its logger from</param>
         /// <exception cref="ArgumentException">the project root is null or empty</exception>
-        public WorkspaceImageRegistry(string projectRoot)
+        /// <exception cref="ArgumentNullException">the logger factory is null</exception>
+        public WorkspaceImageRegistry(string projectRoot, ILoggerFactory loggerFactory)
         {
             if (string.IsNullOrEmpty(projectRoot))
             {
                 throw new ArgumentException("The project root must be provided.", nameof(projectRoot));
             }
 
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
             this.projectRoot = projectRoot;
+            this.logger = loggerFactory.CreateLogger<WorkspaceImageRegistry>();
         }
 
         /// <summary>
@@ -71,7 +88,9 @@ namespace Auriga.Rendering
         /// <summary>
         /// Loads the project-local file a workspace path names and encodes it as a <c>data:</c> URI.
         /// The path is tried both whole and with its leading project-name segment dropped, since the
-        /// project root the <c>.aird</c> sits in is that segment.
+        /// project root the <c>.aird</c> sits in is that segment. Only a cache miss reaches here, so
+        /// the trace of an unresolved path is emitted once per distinct path without the registry
+        /// keeping any state to that effect.
         /// </summary>
         /// <param name="imagePath">the persisted workspace-image path</param>
         /// <returns>the <c>data:</c> URI, or <c>null</c> when no file matches</returns>
@@ -93,6 +112,7 @@ namespace Auriga.Rendering
                 }
             }
 
+            this.logger.LogTrace("No file under {ProjectRoot} matches the workspace image {Path}", this.projectRoot, imagePath);
             return null;
         }
 

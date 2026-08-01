@@ -16,6 +16,8 @@ namespace Auriga.Rendering
     using System.Linq;
     using System.Xml.Linq;
 
+    using Microsoft.Extensions.Logging;
+
     /// <summary>
     /// The default <see cref="ISvgExporter"/>: serializes the intermediate <see cref="Diagram"/>
     /// model to plain SVG using <see cref="XDocument"/> — no external dependency. Boxes render as
@@ -60,14 +62,28 @@ namespace Auriga.Rendering
         private readonly IIconRegistry iconRegistry;
 
         /// <summary>
+        /// The logger reporting the images that rendered as a fallback because no registry
+        /// resolved them.
+        /// </summary>
+        private readonly ILogger<SvgExporter> logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SvgExporter"/> class with the supplied
         /// icon registry.
         /// </summary>
         /// <param name="iconRegistry">the registry resolving workspace-image paths to embeddable image content</param>
-        /// <exception cref="ArgumentNullException">the registry is null</exception>
-        public SvgExporter(IIconRegistry iconRegistry)
+        /// <param name="loggerFactory">the factory the exporter creates its logger from</param>
+        /// <exception cref="ArgumentNullException">the registry or the logger factory is null</exception>
+        public SvgExporter(IIconRegistry iconRegistry, ILoggerFactory loggerFactory)
         {
             this.iconRegistry = iconRegistry ?? throw new ArgumentNullException(nameof(iconRegistry));
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            this.logger = loggerFactory.CreateLogger<SvgExporter>();
         }
 
         /// <summary>
@@ -140,6 +156,8 @@ namespace Auriga.Rendering
                 edgeLayer.Add(this.BuildEdge(edge, defs));
             }
 
+            this.ReportUnresolvedImages(diagram);
+
             // The viewBox is computed after the layers are built so it can widen to the rendered
             // label text and icon extents, not only the persisted box and route geometry.
             var root = new XElement(
@@ -151,6 +169,62 @@ namespace Auriga.Rendering
                 edgeLayer);
 
             return new XDocument(root);
+        }
+
+        /// <summary>
+        /// Reports every image the diagram asked for that no registry resolved — a box whose
+        /// workspace image fell back to an outline, and a label whose metaclass icon was dropped —
+        /// once per distinct path. The exporter is the one that knows the fallback was visible, so
+        /// it reports it here rather than at each resolution site: a walk of the built diagram
+        /// deduplicates by path without the exporter carrying any state between exports, and the
+        /// whole pass is skipped when Debug is off, so a default render pays nothing for it. Both
+        /// bundled registries cache their answers, so the second resolution costs nothing either.
+        /// </summary>
+        /// <param name="diagram">the diagram that was just serialized</param>
+        private void ReportUnresolvedImages(Diagram diagram)
+        {
+            if (!this.logger.IsEnabled(LogLevel.Debug))
+            {
+                return;
+            }
+
+            var reported = new HashSet<string>(StringComparer.Ordinal);
+
+            foreach (var box in diagram.QueryAllBoxes())
+            {
+                var imagePath = box.Style.Resolved.Shape == ShapeKind.Line ? null : box.Style.Resolved.ImagePath;
+
+                if (this.IsUnresolved(imagePath, reported))
+                {
+                    this.logger.LogDebug("No icon registry resolved the workspace image {Path} of {Box}; an outline was rendered instead", imagePath, box.Identifier);
+                }
+
+                if (this.IsUnresolved(box.Label?.IconPath, reported))
+                {
+                    this.logger.LogDebug("No icon registry resolved the label icon {Path}; the label was rendered without it", box.Label!.IconPath);
+                }
+            }
+
+            foreach (var edge in diagram.Edges)
+            {
+                if (this.IsUnresolved(edge.Label?.IconPath, reported))
+                {
+                    this.logger.LogDebug("No icon registry resolved the label icon {Path}; the label was rendered without it", edge.Label!.IconPath);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Whether an image path is one the registry does not resolve and that has not been
+        /// reported yet — a path is added to the reported set on its first sighting, so a path
+        /// shared by many boxes is resolved and reported at most once per export.
+        /// </summary>
+        /// <param name="imagePath">the image path a box or label asked for, or <c>null</c></param>
+        /// <param name="reported">the paths already seen during this export</param>
+        /// <returns>true when the path is unresolved and not yet reported</returns>
+        private bool IsUnresolved(string? imagePath, HashSet<string> reported)
+        {
+            return imagePath != null && reported.Add(imagePath) && this.iconRegistry.Resolve(imagePath) == null;
         }
 
         /// <summary>

@@ -48,9 +48,13 @@ namespace Auriga.Rendering
         /// replacing the no-op default.
         /// </summary>
         /// <remarks>
-        /// None of the default rendering services logs today — the registration exists so a service
-        /// resolved from this scope can take an <see cref="ILoggerFactory"/> without every caller
-        /// having to re-register one.
+        /// Rendering degrades rather than throws, and the supplied factory is where those
+        /// degradations surface: at Debug, the workspace images and label icons no registry
+        /// resolved, the representations skipped for want of a persisted layout, and the malformed
+        /// bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved
+        /// image path as the registries see it and each style value that did not parse. Turning on
+        /// Debug therefore explains every visual difference between what Capella shows and what
+        /// Auriga exported, while a well-formed model stays silent at Information and above.
         /// </remarks>
         /// <param name="scope">the scope to register the logger factory on</param>
         /// <param name="loggerFactory">the logger factory</param>
@@ -74,9 +78,12 @@ namespace Auriga.Rendering
 
         /// <summary>
         /// Configures the composed services to resolve workspace-image paths through the supplied
-        /// <see cref="IIconRegistry"/>, replacing the default <see cref="CapellaIconRegistry"/> — the
-        /// override a caller uses to add the project-local artwork of a loaded model, typically through
-        /// a <see cref="CompositeIconRegistry"/>.
+        /// <see cref="IIconRegistry"/> — the override a caller uses to serve artwork from somewhere
+        /// else entirely. It replaces the whole default chain, the vendored
+        /// <see cref="CapellaIconRegistry"/> and the <see cref="IProjectImageRegistry"/> slot
+        /// alike, so it supersedes <see cref="UsingProjectImages"/> however the two are ordered.
+        /// To add the project-local artwork of a loaded model to the vendored set — the common
+        /// case — reach for <see cref="UsingProjectImages"/> instead.
         /// </summary>
         /// <param name="scope">the scope to register the registry on</param>
         /// <param name="iconRegistry">the icon registry</param>
@@ -95,6 +102,46 @@ namespace Auriga.Rendering
             }
 
             scope.ContainerBuilder.RegisterInstance(iconRegistry).As<IIconRegistry>();
+            return scope;
+        }
+
+        /// <summary>
+        /// Configures the composed services to serve the artwork the loaded model carries itself —
+        /// a <c>WorkspaceImage</c> whose path points inside the model project rather than at a
+        /// Capella plugin — from the supplied directory, through a
+        /// <see cref="WorkspaceImageRegistry"/> rooted there.
+        /// </summary>
+        /// <remarks>
+        /// This fills the <see cref="IProjectImageRegistry"/> slot, which the default
+        /// <see cref="IIconRegistry"/> is already composed over: the vendored
+        /// <see cref="CapellaIconRegistry"/> is consulted first and a path it does not know falls
+        /// through to the project's own images. It therefore adds to the vendored set instead of
+        /// replacing it, and does not collide with anything — unlike
+        /// <see cref="UsingIconRegistry"/>, which replaces the whole chain and so supersedes what
+        /// is registered here.
+        /// </remarks>
+        /// <param name="scope">the scope to register the project images on</param>
+        /// <param name="projectRoot">the root directory the workspace paths resolve against (typically the directory of the loaded <c>.aird</c>)</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        /// <exception cref="ArgumentException">the project root is null or empty</exception>
+        public static RenderingScope UsingProjectImages(this RenderingScope scope, string projectRoot)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (string.IsNullOrEmpty(projectRoot))
+            {
+                throw new ArgumentException("The project root must be provided.", nameof(projectRoot));
+            }
+
+            scope.ContainerBuilder
+                .Register(context => new WorkspaceImageRegistry(projectRoot, context.Resolve<ILoggerFactory>()))
+                .As<IProjectImageRegistry>()
+                .SingleInstance();
+
             return scope;
         }
 

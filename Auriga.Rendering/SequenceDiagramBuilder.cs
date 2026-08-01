@@ -13,6 +13,8 @@ namespace Auriga.Rendering
     using System.Collections.Generic;
     using System.Linq;
 
+    using Microsoft.Extensions.Logging;
+
     using NotationModel = Auriga.Diagram.Notation;
 
     /// <summary>
@@ -30,9 +32,10 @@ namespace Auriga.Rendering
         /// supplied style resolver.
         /// </summary>
         /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
-        /// <exception cref="System.ArgumentNullException">the resolver is null</exception>
-        public SequenceDiagramBuilder(IStyleResolver styleResolver)
-            : base(styleResolver)
+        /// <param name="loggerFactory">the factory the builder creates its logger from</param>
+        /// <exception cref="System.ArgumentNullException">the resolver or the logger factory is null</exception>
+        public SequenceDiagramBuilder(IStyleResolver styleResolver, ILoggerFactory loggerFactory)
+            : base(styleResolver, loggerFactory)
         {
         }
 

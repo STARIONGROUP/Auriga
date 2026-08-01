@@ -11,6 +11,8 @@ namespace Auriga.Rendering
 {
     using System;
 
+    using Microsoft.Extensions.Logging;
+
     using NotationModel = Auriga.Diagram.Notation;
     using SiriusDiagramModel = Auriga.Diagram.Diagram;
     using SiriusViewpoint = Auriga.Diagram.Viewpoint;
@@ -31,14 +33,27 @@ namespace Auriga.Rendering
         private readonly ICapellaDefaultPalette palette;
 
         /// <summary>
+        /// The logger reporting the persisted style values that did not parse.
+        /// </summary>
+        private readonly ILogger<StyleResolver> logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="StyleResolver"/> class with the supplied
         /// palette.
         /// </summary>
         /// <param name="palette">the palette seeding the defaults of every resolved property</param>
-        /// <exception cref="ArgumentNullException">the palette is null</exception>
-        public StyleResolver(ICapellaDefaultPalette palette)
+        /// <param name="loggerFactory">the factory the resolver creates its logger from</param>
+        /// <exception cref="ArgumentNullException">the palette or the logger factory is null</exception>
+        public StyleResolver(ICapellaDefaultPalette palette, ILoggerFactory loggerFactory)
         {
             this.palette = palette ?? throw new ArgumentNullException(nameof(palette));
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            this.logger = loggerFactory.CreateLogger<StyleResolver>();
         }
 
         /// <summary>
@@ -63,7 +78,7 @@ namespace Auriga.Rendering
             };
 
             ApplyNotationStyles(box.Style.NotationStyles, resolved);
-            ApplySiriusNodeStyle(box.Style.SiriusStyle, resolved);
+            this.ApplySiriusNodeStyle(box.Style.SiriusStyle, resolved);
 
             return resolved;
         }
@@ -90,7 +105,7 @@ namespace Auriga.Rendering
             };
 
             ApplyNotationStyles(edge.Style.NotationStyles, resolved);
-            ApplySiriusEdgeStyle(edge.Style.SiriusStyle, resolved);
+            this.ApplySiriusEdgeStyle(edge.Style.SiriusStyle, resolved);
 
             return resolved;
         }
@@ -156,37 +171,37 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="siriusStyle">the Sirius owned style, or <c>null</c></param>
         /// <param name="resolved">the style being resolved</param>
-        private static void ApplySiriusNodeStyle(SiriusViewpoint.IStyle? siriusStyle, ResolvedStyle resolved)
+        private void ApplySiriusNodeStyle(SiriusViewpoint.IStyle? siriusStyle, ResolvedStyle resolved)
         {
             switch (siriusStyle)
             {
                 case SiriusDiagramModel.ISquare square:
-                    ApplyFill(square.Color, resolved);
+                    this.ApplyFill(square.Color, resolved);
                     break;
                 case SiriusDiagramModel.IEllipse ellipse:
-                    ApplyFill(ellipse.Color, resolved);
+                    this.ApplyFill(ellipse.Color, resolved);
                     resolved.Shape = ShapeKind.Ellipse;
                     break;
                 case SiriusDiagramModel.ILozenge lozenge:
-                    ApplyFill(lozenge.Color, resolved);
+                    this.ApplyFill(lozenge.Color, resolved);
                     resolved.Shape = ShapeKind.Diamond;
                     break;
                 case SiriusDiagramModel.IBundledImage bundledImage:
-                    ApplyFill(bundledImage.Color, resolved);
+                    this.ApplyFill(bundledImage.Color, resolved);
                     break;
                 case SiriusDiagramModel.INote note:
-                    ApplyFill(note.Color, resolved);
+                    this.ApplyFill(note.Color, resolved);
                     break;
                 case SiriusDiagramModel.IDot dot:
-                    ApplyFill(dot.BackgroundColor, resolved);
+                    this.ApplyFill(dot.BackgroundColor, resolved);
                     resolved.Shape = ShapeKind.Ellipse;
                     break;
                 case SiriusDiagramModel.IShapeContainerStyle shapeContainer:
-                    ApplyFill(shapeContainer.BackgroundColor, resolved);
+                    this.ApplyFill(shapeContainer.BackgroundColor, resolved);
                     break;
                 case SiriusDiagramModel.IFlatContainerStyle flatContainer:
-                    ApplyFill(flatContainer.BackgroundColor, resolved);
-                    if (Color.TryParse(flatContainer.ForegroundColor, out var foreground))
+                    this.ApplyFill(flatContainer.BackgroundColor, resolved);
+                    if (this.TryParseColor(flatContainer.ForegroundColor, "gradient", out var foreground))
                     {
                         resolved.GradientColor = foreground;
                     }
@@ -199,7 +214,7 @@ namespace Auriga.Rendering
 
             if (siriusStyle is SiriusDiagramModel.IBorderedStyle borderedStyle)
             {
-                if (Color.TryParse(borderedStyle.BorderColor, out var borderColor))
+                if (this.TryParseColor(borderedStyle.BorderColor, "border", out var borderColor))
                 {
                     resolved.StrokeColor = borderColor;
                 }
@@ -215,7 +230,7 @@ namespace Auriga.Rendering
                 }
             }
 
-            ApplyLabelStyle(siriusStyle as SiriusViewpoint.IBasicLabelStyle, resolved);
+            this.ApplyLabelStyle(siriusStyle as SiriusViewpoint.IBasicLabelStyle, resolved);
         }
 
         /// <summary>
@@ -224,14 +239,14 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="siriusStyle">the Sirius owned style, or <c>null</c></param>
         /// <param name="resolved">the style being resolved</param>
-        private static void ApplySiriusEdgeStyle(SiriusViewpoint.IStyle? siriusStyle, ResolvedStyle resolved)
+        private void ApplySiriusEdgeStyle(SiriusViewpoint.IStyle? siriusStyle, ResolvedStyle resolved)
         {
             if (siriusStyle is not SiriusDiagramModel.IEdgeStyle edgeStyle)
             {
                 return;
             }
 
-            if (Color.TryParse(edgeStyle.StrokeColor, out var strokeColor))
+            if (this.TryParseColor(edgeStyle.StrokeColor, "stroke", out var strokeColor))
             {
                 resolved.StrokeColor = strokeColor;
             }
@@ -256,7 +271,7 @@ namespace Auriga.Rendering
                 ? SiriusDiagramModel.EdgeArrows.InputFillClosedArrow
                 : edgeStyle.TargetArrow;
 
-            ApplyLabelStyle(edgeStyle.CenterLabelStyle, resolved);
+            this.ApplyLabelStyle(edgeStyle.CenterLabelStyle, resolved);
         }
 
         /// <summary>
@@ -265,14 +280,14 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="labelStyle">the Sirius label style, or <c>null</c></param>
         /// <param name="resolved">the style being resolved</param>
-        private static void ApplyLabelStyle(SiriusViewpoint.IBasicLabelStyle? labelStyle, ResolvedStyle resolved)
+        private void ApplyLabelStyle(SiriusViewpoint.IBasicLabelStyle? labelStyle, ResolvedStyle resolved)
         {
             if (labelStyle == null)
             {
                 return;
             }
 
-            if (Color.TryParse(labelStyle.LabelColor, out var labelColor))
+            if (this.TryParseColor(labelStyle.LabelColor, "label", out var labelColor))
             {
                 resolved.FontColor = labelColor;
             }
@@ -307,12 +322,38 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="rgbValues">the raw persisted <c>"r,g,b"</c> value</param>
         /// <param name="resolved">the style being resolved</param>
-        private static void ApplyFill(string? rgbValues, ResolvedStyle resolved)
+        private void ApplyFill(string? rgbValues, ResolvedStyle resolved)
         {
-            if (Color.TryParse(rgbValues, out var color))
+            if (this.TryParseColor(rgbValues, "fill", out var color))
             {
                 resolved.FillColor = color;
             }
+        }
+
+        /// <summary>
+        /// Parses a persisted Sirius <c>"r,g,b"</c> value, tracing the ones that are present but
+        /// malformed — those are the values whose resolved property silently keeps its palette or
+        /// notation default. A value that is simply absent is not a degradation: most styles
+        /// persist only the properties they override, so tracing those would put a line on every
+        /// unset property of every box and edge.
+        /// </summary>
+        /// <param name="rgbValues">the raw persisted value, or <c>null</c></param>
+        /// <param name="property">the resolved property the value would have set, named in the trace</param>
+        /// <param name="color">the parsed color, or default when the value is absent or malformed</param>
+        /// <returns>true when the value parsed</returns>
+        private bool TryParseColor(string? rgbValues, string property, out Color color)
+        {
+            if (Color.TryParse(rgbValues, out color))
+            {
+                return true;
+            }
+
+            if (!string.IsNullOrEmpty(rgbValues))
+            {
+                this.logger.LogTrace("The persisted {Property} color {RawValue} is not an \"r,g,b\" triple; the resolved style keeps its default", property, rgbValues);
+            }
+
+            return false;
         }
 
         /// <summary>

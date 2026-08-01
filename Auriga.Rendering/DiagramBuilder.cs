@@ -13,6 +13,8 @@ namespace Auriga.Rendering
     using System.Collections.Generic;
     using System.Linq;
 
+    using Microsoft.Extensions.Logging;
+
     using SiriusDiagramModel = Auriga.Diagram.Diagram;
     using SiriusTable = Auriga.Diagram.Table;
     using SiriusViewpoint = Auriga.Diagram.Viewpoint;
@@ -47,18 +49,31 @@ namespace Auriga.Rendering
         private readonly ITableBuilder tableBuilder;
 
         /// <summary>
+        /// The logger reporting what <see cref="BuildAll"/> built and what it skipped.
+        /// </summary>
+        private readonly ILogger<DiagramBuilder> logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DiagramBuilder"/> class with the supplied
         /// per-kind builders.
         /// </summary>
         /// <param name="nodeDiagramBuilder">the builder for node-and-edge representations</param>
         /// <param name="sequenceDiagramBuilder">the builder for sequence representations</param>
         /// <param name="tableBuilder">the builder for table representations</param>
-        /// <exception cref="ArgumentNullException">a builder is null</exception>
-        public DiagramBuilder(INodeDiagramBuilder nodeDiagramBuilder, ISequenceDiagramBuilder sequenceDiagramBuilder, ITableBuilder tableBuilder)
+        /// <param name="loggerFactory">the factory the builder creates its logger from</param>
+        /// <exception cref="ArgumentNullException">a builder or the logger factory is null</exception>
+        public DiagramBuilder(INodeDiagramBuilder nodeDiagramBuilder, ISequenceDiagramBuilder sequenceDiagramBuilder, ITableBuilder tableBuilder, ILoggerFactory loggerFactory)
         {
             this.nodeDiagramBuilder = nodeDiagramBuilder ?? throw new ArgumentNullException(nameof(nodeDiagramBuilder));
             this.sequenceDiagramBuilder = sequenceDiagramBuilder ?? throw new ArgumentNullException(nameof(sequenceDiagramBuilder));
             this.tableBuilder = tableBuilder ?? throw new ArgumentNullException(nameof(tableBuilder));
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            this.logger = loggerFactory.CreateLogger<DiagramBuilder>();
         }
 
         /// <summary>
@@ -116,20 +131,37 @@ namespace Auriga.Rendering
             }
 
             var diagrams = new List<Diagram>();
+            var representationCount = 0;
             foreach (var representation in snapshot.OfType<SiriusDiagramModel.IDDiagram>())
             {
+                representationCount++;
+
                 if (DiagramBuilderBase.FindNotationDiagram(representation) == null)
                 {
+                    this.logger.LogDebug(
+                        "Skipped the representation {Uid} ({Name}): it carries no GMF notation diagram, so there is no persisted layout to build from",
+                        representation.Id,
+                        NameOf(representation.Id, names));
                     continue;
                 }
 
                 diagrams.Add(this.Build(representation, NameOf(representation.Id, names)));
             }
 
+            var tableCount = 0;
             foreach (var table in snapshot.OfType<SiriusTable.IDTable>())
             {
+                tableCount++;
                 diagrams.Add(this.tableBuilder.Build(table, NameOf(table.Id, names)));
             }
+
+            this.logger.LogDebug(
+                "Built {Built} of {Total} representations: {Diagrams} of {DiagramTotal} diagrams and {Tables} tables",
+                diagrams.Count,
+                representationCount + tableCount,
+                diagrams.Count - tableCount,
+                representationCount,
+                tableCount);
 
             return diagrams;
         }

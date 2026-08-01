@@ -22,7 +22,9 @@ The **Auriga.Rendering** library provides the renderer-agnostic intermediate dia
 
 Sirius table representations are covered as well. Unlike a diagram, a table persists no layout, so `ITableBuilder` synthesizes the grid: it lays a `DTable` out as the same `Diagram` of boxes, which makes the SVG exporter the table's visual export. `IXlsxTableExporter` is the editable counterpart, writing one or more tables to an Excel workbook (a worksheet each) via [ClosedXML](https://github.com/ClosedXML/ClosedXML).
 
-The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver — can be substituted in one place.
+The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver — can be substituted in one place. `UsingProjectImages(projectRoot)` adds the artwork a model carries itself (a `WorkspaceImage` pointing inside the project rather than at a Capella plugin) to the vendored Capella icon set rather than replacing it.
+
+Rendering degrades rather than throws — a diagram that renders imperfectly beats one that does not render at all — and `WithLogger(ILoggerFactory)` is where those degradations surface: at Debug, the images no registry resolved, the representations skipped for want of a persisted layout, and the malformed bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved image path and each style value that did not parse. A well-formed model stays silent at Information and above, so turning on Debug is what explains a difference between what Capella shows and what Auriga exported.
 
 ## Auriga.CodeGenerator
 
@@ -81,10 +83,16 @@ Render the diagrams of a Sirius `.aird` session to SVG:
 ```csharp
 using Auriga.Rendering;
 using Auriga.Xmi;
+using Microsoft.Extensions.Logging;
 
 // The rendering services compose the same way the readers do: a disposable scope with
-// fluent overrides for the parts you want to replace.
-using var rendering = RenderingBuilder.Create();
+// fluent overrides for the parts you want to replace. UsingProjectImages serves the
+// artwork the model carries itself, chained onto the vendored Capella icons; your own
+// logger factory reports what the renderer degraded — an image no registry resolved, a
+// representation with no persisted layout, geometry that did not parse — at Debug.
+using var rendering = RenderingBuilder.Create()
+    .UsingProjectImages("In-Flight Entertainment System")
+    .WithLogger(loggerFactory);
 
 using var reader = XmiReaderBuilder.Create();
 var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
