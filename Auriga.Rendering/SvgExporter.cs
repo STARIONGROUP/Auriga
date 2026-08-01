@@ -378,7 +378,7 @@ namespace Auriga.Rendering
             var width = box.Width ?? DefaultBoxSize;
             var height = box.Height ?? DefaultBoxSize;
 
-            var group = new XElement(Svg + "g", new XAttribute("id", box.Identifier), this.BuildVisual(box, style, width, height, defs));
+            var group = new XElement(Svg + "g", new XAttribute("id", box.Identifier), Title(box.Tooltip), this.BuildVisual(box, style, width, height, defs));
 
             if (box.Label != null)
             {
@@ -547,6 +547,21 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
+        /// Builds the SVG <c>title</c> of an item's group — the element a browser or SVG viewer
+        /// shows as the native hover tooltip, which keeps the export self-contained and
+        /// script-free. It is added as the group's first child, before the item's own shapes, so a
+        /// viewer picks it up as the group's title rather than a child's. An item with nothing to
+        /// say (a synthetic render-only artifact) contributes none: <see cref="XElement"/> skips
+        /// null content, so the group is built exactly as before.
+        /// </summary>
+        /// <param name="tooltip">the item's hover text, or <c>null</c></param>
+        /// <returns>the title element, or <c>null</c></returns>
+        private static XElement? Title(string? tooltip)
+        {
+            return string.IsNullOrEmpty(tooltip) ? null : new XElement(Svg + "title", tooltip);
+        }
+
+        /// <summary>
         /// Builds the pentagon title tab a framed label sits in — the corner tab Capella draws
         /// around a combined fragment's operator — anchored at the box's top-left corner and sized
         /// to the label text.
@@ -691,7 +706,7 @@ namespace Auriga.Rendering
         private XElement BuildEdge(Edge edge, XElement defs)
         {
             var style = edge.Style.Resolved;
-            var group = new XElement(Svg + "g", new XAttribute("id", edge.Identifier));
+            var group = new XElement(Svg + "g", new XAttribute("id", edge.Identifier), Title(edge.Tooltip));
 
             if (edge.Route.Count < 2)
             {

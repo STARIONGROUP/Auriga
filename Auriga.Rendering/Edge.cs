@@ -65,6 +65,14 @@ namespace Auriga.Rendering
         public Label? Label { get; set; }
 
         /// <summary>
+        /// Gets or sets the hover text of the edge — what it represents and what the model says
+        /// about it — or <c>null</c> when there is nothing to say, as for a synthetic render-only
+        /// artifact. Resolved by the builder from the back-links below, and rendered by
+        /// <see cref="SvgExporter"/> as the edge group's SVG <c>title</c>.
+        /// </summary>
+        public string? Tooltip { get; set; }
+
+        /// <summary>
         /// Gets or sets the label shown near the edge's source end (e.g. an association's source
         /// multiplicity), or <c>null</c> when the Sirius edge carries no begin label.
         /// </summary>

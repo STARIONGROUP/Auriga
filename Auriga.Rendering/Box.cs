@@ -76,6 +76,14 @@ namespace Auriga.Rendering
         public Label? Label { get; set; }
 
         /// <summary>
+        /// Gets or sets the hover text of the box — what it represents and what the model says
+        /// about it — or <c>null</c> when there is nothing to say, as for a synthetic render-only
+        /// artifact. Resolved by the builder from the back-links below, and rendered by
+        /// <see cref="SvgExporter"/> as the box group's SVG <c>title</c>.
+        /// </summary>
+        public string? Tooltip { get; set; }
+
+        /// <summary>
         /// Gets the box that contains this box, or <c>null</c> for a top-level box of the diagram.
         /// </summary>
         public Box? Parent { get; internal set; }
