@@ -15,6 +15,8 @@ namespace Auriga.Samples
     using Auriga.Rendering;
     using Auriga.Xmi;
 
+    using Microsoft.Extensions.Logging;
+
     /// <summary>
     /// The code samples of the repository README, compiled. None of these methods is executed — the
     /// point is that a signature change which would invalidate the documentation breaks the build.
@@ -56,13 +58,20 @@ namespace Auriga.Samples
         }
 
         /// <summary>
-        /// Renders the diagrams of a Sirius session to SVG.
+        /// Renders the diagrams of a Sirius session to SVG, serving the model's own artwork and
+        /// reporting what the renderer had to fall back on.
         /// </summary>
-        public static void RenderDiagramsToSvg()
+        /// <param name="loggerFactory">the caller's logger factory</param>
+        public static void RenderDiagramsToSvg(ILoggerFactory loggerFactory)
         {
             // The rendering services compose the same way the readers do: a disposable scope with
-            // fluent overrides for the parts you want to replace.
-            using var rendering = RenderingBuilder.Create();
+            // fluent overrides for the parts you want to replace. UsingProjectImages serves the
+            // artwork the model carries itself, chained onto the vendored Capella icons; your own
+            // logger factory reports what the renderer degraded — an image no registry resolved, a
+            // representation with no persisted layout, geometry that did not parse — at Debug.
+            using var rendering = RenderingBuilder.Create()
+                .UsingProjectImages("In-Flight Entertainment System")
+                .WithLogger(loggerFactory);
 
             using var reader = XmiReaderBuilder.Create();
             var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
