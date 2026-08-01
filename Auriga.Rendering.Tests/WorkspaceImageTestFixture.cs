@@ -78,8 +78,7 @@ namespace Auriga.Rendering.Tests
 
             var operatorBox = diagram.QueryAllBoxes().Single(box => box.Style.Resolved.ImagePath == OperatorPath);
 
-            using var renderingScope = RenderingBuilder.Create()
-                .UsingIconRegistry(new CompositeIconRegistry(new CapellaIconRegistry(NullLoggerFactory.Instance), new WorkspaceImageRegistry(ProjectRoot, NullLoggerFactory.Instance)));
+            using var renderingScope = RenderingBuilder.Create().UsingProjectImages(ProjectRoot);
             var composed = renderingScope.BuildSvgExporter();
             var group = XDocument.Parse(composed.Export(diagram)).Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == operatorBox.Identifier);
             var image = group.Element(Svg + "image");

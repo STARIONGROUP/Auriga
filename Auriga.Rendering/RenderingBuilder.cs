@@ -79,8 +79,10 @@ namespace Auriga.Rendering
         /// <summary>
         /// Configures the composed services to resolve workspace-image paths through the supplied
         /// <see cref="IIconRegistry"/>, replacing the default <see cref="CapellaIconRegistry"/> — the
-        /// override a caller uses to add the project-local artwork of a loaded model, typically through
-        /// a <see cref="CompositeIconRegistry"/>.
+        /// override a caller uses to serve artwork from somewhere else entirely. To add the
+        /// project-local artwork of a loaded model to the vendored set, the common case, reach for
+        /// <see cref="UsingProjectImages"/> instead: it composes that pair here, where the scope's
+        /// logger factory is in hand.
         /// </summary>
         /// <param name="scope">the scope to register the registry on</param>
         /// <param name="iconRegistry">the icon registry</param>
@@ -99,6 +101,44 @@ namespace Auriga.Rendering
             }
 
             scope.ContainerBuilder.RegisterInstance(iconRegistry).As<IIconRegistry>();
+            return scope;
+        }
+
+        /// <summary>
+        /// Configures the composed services to resolve workspace-image paths against the loaded
+        /// project's own artwork as well as the vendored Capella set: the registrations become a
+        /// <see cref="CompositeIconRegistry"/> over the vendored <see cref="CapellaIconRegistry"/>
+        /// and a <see cref="WorkspaceImageRegistry"/> rooted at the supplied directory, in that
+        /// order, so plugin artwork still serves from the vendored set and a project-local image
+        /// falls through to the file beside the model. This is the composition
+        /// <see cref="UsingIconRegistry"/> would otherwise be handed by the caller — expressed here
+        /// so the project root is the only thing a caller has to supply and the registries take
+        /// their logger from the scope.
+        /// </summary>
+        /// <param name="scope">the scope to register the composed registry on</param>
+        /// <param name="projectRoot">the root directory the workspace paths resolve against (typically the directory of the loaded <c>.aird</c>)</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        /// <exception cref="ArgumentException">the project root is null or empty</exception>
+        public static RenderingScope UsingProjectImages(this RenderingScope scope, string projectRoot)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (string.IsNullOrEmpty(projectRoot))
+            {
+                throw new ArgumentException("The project root must be provided.", nameof(projectRoot));
+            }
+
+            scope.ContainerBuilder
+                .Register(context => new CompositeIconRegistry(
+                    new CapellaIconRegistry(context.Resolve<ILoggerFactory>()),
+                    new WorkspaceImageRegistry(projectRoot, context.Resolve<ILoggerFactory>())))
+                .As<IIconRegistry>()
+                .SingleInstance();
+
             return scope;
         }
 
