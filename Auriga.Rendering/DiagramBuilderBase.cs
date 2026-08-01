@@ -46,6 +46,11 @@ namespace Auriga.Rendering
         private readonly IStyleResolver styleResolver;
 
         /// <summary>
+        /// The resolver producing each built item's hover text.
+        /// </summary>
+        private readonly ITooltipResolver tooltipResolver;
+
+        /// <summary>
         /// The logger reporting the persisted geometry that did not parse. Its category is the
         /// concrete builder's type, so an entry names the kind of representation it came from.
         /// </summary>
@@ -55,11 +60,13 @@ namespace Auriga.Rendering
         /// Initializes a new instance of the <see cref="DiagramBuilderBase"/> class.
         /// </summary>
         /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
+        /// <param name="tooltipResolver">the resolver producing each built item's hover text</param>
         /// <param name="loggerFactory">the factory the builder creates its logger from</param>
-        /// <exception cref="ArgumentNullException">the resolver or the logger factory is null</exception>
-        protected DiagramBuilderBase(IStyleResolver styleResolver, ILoggerFactory loggerFactory)
+        /// <exception cref="ArgumentNullException">a resolver or the logger factory is null</exception>
+        protected DiagramBuilderBase(IStyleResolver styleResolver, ITooltipResolver tooltipResolver, ILoggerFactory loggerFactory)
         {
             this.styleResolver = styleResolver ?? throw new ArgumentNullException(nameof(styleResolver));
+            this.tooltipResolver = tooltipResolver ?? throw new ArgumentNullException(nameof(tooltipResolver));
 
             if (loggerFactory == null)
             {
@@ -195,7 +202,9 @@ namespace Auriga.Rendering
 
             if (siriusElement == null && isNote && NoteText(node) is { } noteText)
             {
-                Attach(this.BuildNote(node, noteText, position, width, height), node, parentBox, siblings, viewToBox);
+                var note = this.BuildNote(node, noteText, position, width, height);
+                Attach(note, node, parentBox, siblings, viewToBox);
+                note.Tooltip = this.tooltipResolver.Resolve(note);
                 return;
             }
 
@@ -234,9 +243,11 @@ namespace Auriga.Rendering
             }
 
             box.Style.Resolved = this.styleResolver.Resolve(box);
-            box.Tooltip = ElementTooltip.ForBox(box.SemanticElement, siriusElement, node, parentBox);
 
+            // The tooltip resolves after the box is attached: an item the model leaves nameless is
+            // named by the element that owns it, which the attachment is what establishes.
             Attach(box, node, parentBox, siblings, viewToBox);
+            box.Tooltip = this.tooltipResolver.Resolve(box);
 
             foreach (var child in node.PersistedChildren)
             {
@@ -621,7 +632,6 @@ namespace Auriga.Rendering
 
             note.Style.Resolved = this.styleResolver.Resolve(note);
             note.Style.Resolved.Shape = ShapeKind.Note;
-            note.Tooltip = ElementTooltip.ForBox(null, null, node, null);
             return note;
         }
 
@@ -811,7 +821,7 @@ namespace Auriga.Rendering
             }
 
             edge.Style.Resolved = this.styleResolver.Resolve(edge);
-            edge.Tooltip = ElementTooltip.ForEdge(edge.SemanticElement, siriusEdge, notationEdge, source, target);
+            edge.Tooltip = this.tooltipResolver.Resolve(edge);
 
             // A note attachment is not a model relationship: Capella draws it as a thin dotted
             // line between the note and the element it annotates.

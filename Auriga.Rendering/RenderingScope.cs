@@ -61,6 +61,7 @@ namespace Auriga.Rendering
             // Overridable defaults (the last registration for a service wins in Autofac).
             this.ContainerBuilder.RegisterType<CapellaDefaultPalette>().As<ICapellaDefaultPalette>().SingleInstance();
             this.ContainerBuilder.RegisterType<StyleResolver>().As<IStyleResolver>().SingleInstance();
+            this.ContainerBuilder.RegisterType<TooltipResolver>().As<ITooltipResolver>().SingleInstance();
             this.ContainerBuilder.RegisterInstance(EmptyProjectImageRegistry.Instance).As<IProjectImageRegistry>();
             this.ContainerBuilder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
 

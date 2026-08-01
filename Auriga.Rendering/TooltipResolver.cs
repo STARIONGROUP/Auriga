@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="ElementTooltip.cs" company="Starion Group S.A.">
+// <copyright file="TooltipResolver.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -9,21 +9,22 @@
 
 namespace Auriga.Rendering
 {
+    using System;
     using System.Linq;
     using System.Net;
     using System.Text.RegularExpressions;
 
-    using NotationModel = Auriga.Diagram.Notation;
     using SiriusDiagramModel = Auriga.Diagram.Diagram;
 
     /// <summary>
-    /// Composes the hover text of a built item from the back-links it carries: what the item
-    /// represents, and what the model says about it. The builders resolve it once per item into
+    /// The default <see cref="ITooltipResolver"/>: composes a built item's hover text from the
+    /// back-links it carries, in up to three lines — what the item is, what a relationship
+    /// connects, and what the model says about it. Resolved once per item by the builder into
     /// <see cref="Box.Tooltip"/> and <see cref="Edge.Tooltip"/>, so an exporter renders the text
     /// (<see cref="SvgExporter"/> as an SVG <c>title</c> element) without reaching into the Capella
     /// or Sirius metamodels itself.
     /// </summary>
-    internal static class ElementTooltip
+    public sealed class TooltipResolver : ITooltipResolver
     {
         /// <summary>
         /// Matches an HTML tag, so the markup Capella wraps a description in can be dropped.
@@ -37,53 +38,56 @@ namespace Auriga.Rendering
         private static readonly Regex WhitespaceRun = new(@"\s+", RegexOptions.Compiled);
 
         /// <summary>
-        /// The hover text of a built item, or <c>null</c> when there is nothing to say about it —
-        /// which is what a synthetic render-only artifact (a list container's title rule, a
-        /// combined fragment's operand separator) resolves to, since it carries no semantic
-        /// element, no Sirius element and no notation type of its own.
+        /// Resolves the hover text of a box: its heading and, when the model carries one, its
+        /// detail. A synthetic render-only artifact (a list container's title rule) resolves to
+        /// <c>null</c> — it carries no semantic element, no Sirius element and no notation type, so
+        /// there is nothing to say about it.
         /// </summary>
-        /// <remarks>
-        /// The heading names what the item represents: the Capella semantic element's type and
-        /// name, falling back to the Sirius element's when the semantic target is unresolved (a
-        /// diagram-only session) and to the notation type for a pure notation element such as a GMF
-        /// note. The detail line carries the model's own words — the semantic element's
-        /// <c>description</c> reduced to plain text, or the Sirius element's persisted tooltip when
-        /// the semantic element has no description.
-        /// </remarks>
-        /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
-        /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
-        /// <param name="notationView">the GMF notation view the item was built from</param>
-        /// <param name="owner">the enclosing box, which names an item that has no name of its own</param>
+        /// <param name="box">the box to resolve, its labels and back-links in place</param>
         /// <returns>the hover text, or <c>null</c></returns>
-        internal static string? ForBox(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, NotationModel.IView notationView, Box? owner)
+        /// <exception cref="ArgumentNullException">the box is null</exception>
+        public string? Resolve(Box box)
         {
-            var heading = Heading(semanticElement, siriusElement, notationView);
+            if (box == null)
+            {
+                throw new ArgumentNullException(nameof(box));
+            }
+
+            var siriusElement = box.SiriusElement;
+            var heading = Heading(box.SemanticElement, siriusElement, box.NotationView.Type);
 
             // An execution bar or an interaction state is nameless in the model and on the diagram
             // alike; what identifies it is the lifeline it runs on, so the owner stands in.
-            if (heading != null && heading.IndexOf(':') < 0 && OwnerName(owner) is { } ownerName)
+            if (heading != null && heading.IndexOf(':') < 0 && OwnerName(box.Parent) is { } ownerName)
             {
                 heading = $"{heading} in {ownerName}";
             }
 
-            return Compose(heading, null, Detail(semanticElement, siriusElement));
+            return Compose(heading, null, Detail(box.SemanticElement, siriusElement));
         }
 
         /// <summary>
-        /// The hover text of a built relationship, which names the elements it connects between its
+        /// Resolves the hover text of an edge, which names the elements it connects between its
         /// heading and its detail — a line on a diagram says least about itself, so the ends are
-        /// what make its tooltip worth reading. An edge whose own type is unknown still gets a
-        /// tooltip when its ends are known.
+        /// what make its tooltip worth reading. An edge whose own type is unknown still resolves to
+        /// a tooltip when its ends are known.
         /// </summary>
-        /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
-        /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
-        /// <param name="notationView">the GMF notation view the edge was built from</param>
-        /// <param name="source">the box the edge leaves, or <c>null</c> when the end does not resolve to one</param>
-        /// <param name="target">the box the edge enters, or <c>null</c> when the end does not resolve to one</param>
+        /// <param name="edge">the edge to resolve, its ends and back-links in place</param>
         /// <returns>the hover text, or <c>null</c></returns>
-        internal static string? ForEdge(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, NotationModel.IView notationView, Box? source, Box? target)
+        /// <exception cref="ArgumentNullException">the edge is null</exception>
+        public string? Resolve(Edge edge)
         {
-            return Compose(Heading(semanticElement, siriusElement, notationView), Ends(source, target), Detail(semanticElement, siriusElement));
+            if (edge == null)
+            {
+                throw new ArgumentNullException(nameof(edge));
+            }
+
+            var siriusElement = edge.SiriusElement;
+
+            return Compose(
+                Heading(edge.SemanticElement, siriusElement, edge.NotationView.Type),
+                Ends(edge.Source, edge.Target),
+                Detail(edge.SemanticElement, siriusElement));
         }
 
         /// <summary>
@@ -95,9 +99,7 @@ namespace Auriga.Rendering
         /// <returns>the hover text, or <c>null</c></returns>
         private static string? Compose(string? heading, string? ends, string? detail)
         {
-            var lines = new[] { heading, ends, detail }.Where(line => line != null);
-
-            var tooltip = string.Join("\n", lines);
+            var tooltip = string.Join("\n", new[] { heading, ends, detail }.Where(line => line != null));
 
             return tooltip.Length == 0 ? null : tooltip;
         }
@@ -112,9 +114,9 @@ namespace Auriga.Rendering
         /// </summary>
         /// <param name="semanticElement">the resolved Capella semantic element, or <c>null</c></param>
         /// <param name="siriusElement">the Sirius representation element, or <c>null</c></param>
-        /// <param name="notationView">the GMF notation view the item was built from</param>
+        /// <param name="notationType">the type of the GMF notation view the item was built from, or <c>null</c></param>
         /// <returns>the heading, or <c>null</c> when the item represents nothing nameable</returns>
-        private static string? Heading(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, NotationModel.IView notationView)
+        private static string? Heading(object? semanticElement, SiriusDiagramModel.IDDiagramElement? siriusElement, string? notationType)
         {
             if (semanticElement != null)
             {
@@ -125,13 +127,12 @@ namespace Auriga.Rendering
 
             return siriusElement != null
                 ? Qualified(siriusElement.GetType().Name, siriusElement.Name)
-                : Trimmed(notationView.Type);
+                : Trimmed(notationType);
         }
 
         /// <summary>
         /// The line naming what a relationship connects, or <c>null</c> when neither end resolves
-        /// to a box. Each end is named as the diagram labels it, falling back to the heading of its
-        /// own tooltip when it carries no label.
+        /// to a box.
         /// </summary>
         /// <param name="source">the box the edge leaves, or <c>null</c></param>
         /// <param name="target">the box the edge enters, or <c>null</c></param>
@@ -155,11 +156,10 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// How an edge end is named in the connected-ends line: the label the diagram shows on the
-        /// box, or — for an end the diagram leaves unlabelled, which a port always is — the element
-        /// that owns it, so a component exchange reads as the components it runs between rather
-        /// than as two identically named ports. The heading of the end's own tooltip is the last
-        /// resort.
+        /// How an edge end is named: the label the diagram shows on the box, or — for an end the
+        /// diagram leaves unlabelled, which a port always is — the element that owns it, so a
+        /// component exchange reads as the components it runs between rather than as two
+        /// identically named ports. The heading of the end's own tooltip is the last resort.
         /// </summary>
         /// <param name="box">the box an edge end attaches to, or <c>null</c></param>
         /// <returns>the end's name, or <c>null</c></returns>
