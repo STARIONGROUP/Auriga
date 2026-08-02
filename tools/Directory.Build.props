@@ -1,0 +1,9 @@
+<Project>
+
+    <!--
+      Deliberately empty: it stops MSBuild's upward search so the repository's packaging, SBOM and
+      SourceLink properties are not applied to the release-time scripts in this directory, which
+      produce no package and reference nothing.
+    -->
+
+</Project>

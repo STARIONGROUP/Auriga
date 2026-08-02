@@ -6,11 +6,16 @@ name: Nuget-Release
 # Packaging metadata, SBOM generation (Microsoft.Sbom.Targets) and SourceLink are configured in
 # Directory.Build.props.
 #
-# CHANGELOG.md is the source of truth for what a release contains. This workflow moves its
-# [Unreleased] section under the version being released, writes each package's entries into that
-# package's <PackageReleaseNotes> — which is generated, never hand-edited — and builds the GitHub
-# release body from the same section. Run it with dry_run to see what a release would say without
-# committing, packing or publishing anything.
+# CHANGELOG.md is the source of truth for what a release contains. tools/SyncReleaseNotes.cs moves
+# its [Unreleased] section under the version being released, writes each package's entries into that
+# package's <PackageReleaseNotes> — which is generated, never hand-edited — and renders the GitHub
+# release body; this workflow commits, packs, publishes and tags what that leaves behind. The tool
+# runs anywhere the .NET SDK does, so the release machinery can be exercised on a laptop:
+#
+#     dotnet run tools/SyncReleaseNotes.cs -- --version 1.1.0
+#
+# Run the workflow with dry_run to see what a release would say without committing, packing or
+# publishing anything.
 
 on:
   workflow_dispatch:
@@ -69,11 +74,6 @@ jobs:
           DATE=$(date +'%Y-%m-%d')
           echo "DATE=$DATE" >> $GITHUB_ENV
 
-      - name: Install xmlstarlet (for editing csproj)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xmlstarlet
-
       - name: Update CITATION.cff (version + date)
         run: |
           set -euo pipefail
@@ -88,118 +88,10 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ ! -f CHANGELOG.md ]; then
-            echo "CHANGELOG.md not found: it is the source of a release's notes." >&2
-            exit 1
-          fi
-
-          # The body of '## [Unreleased]', up to the next '## ' heading.
-          awk '
-            /^## \[Unreleased\]/ { inside = 1; next }
-            inside && /^## / { exit }
-            inside { print }
-          ' CHANGELOG.md > unreleased.md
-
-          if ! grep -q '^### ' unreleased.md; then
-            echo "CHANGELOG.md carries no package entries under [Unreleased]; there is nothing to release." >&2
-            exit 1
-          fi
-
-          echo "The following items have been fixed in this release:" > RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-
-          mapfile -t CSPROJS < <(git ls-files '*.csproj' | sort)
-
-          for csproj in "${CSPROJS[@]}"; do
-            # Only the packable projects carry the generated element.
-            has_notes="$(xmlstarlet sel -t -v 'count(//Project/PropertyGroup/PackageReleaseNotes)' "$csproj" 2>/dev/null || echo 0)"
-            if [ "$has_notes" = "0" ]; then
-              continue
-            fi
-
-            # PackageId (fallback to file name)
-            pkg_id="$(xmlstarlet sel -t -v '(//Project/PropertyGroup/PackageId)[1]' "$csproj" 2>/dev/null || true)"
-            if [ -z "$pkg_id" ]; then
-              pkg_id="$(basename "$csproj" .csproj)"
-            fi
-
-            # Version (fallback to the workflow input)
-            pkg_version="$(xmlstarlet sel -t -v '(//Project/PropertyGroup/Version)[1]' "$csproj" 2>/dev/null || true)"
-            if [ -z "$pkg_version" ]; then
-              pkg_version="${VERSION}"
-            fi
-
-            # This package's bullets, from its '### <PackageId>' subsection.
-            notes="$(awk -v heading="### ${pkg_id}" '
-              $0 == heading { inside = 1; next }
-              inside && /^#/ { exit }
-              inside && /^- / { sub(/^- /, ""); print }
-            ' unreleased.md)"
-
-            # Escape the XML metacharacters and indent as the csproj is written by hand. The value
-            # is spliced in with awk rather than written with `xmlstarlet ed`, which reformats the
-            # whole document (re-indenting it and closing every empty element differently) and would
-            # turn each release into a wholesale rewrite of four csproj files.
-            printf '%s\n' "$notes" \
-              | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/^/            /' > notes.block
-
-            # A package with no entries this release must not ship the previous release's notes,
-            # so the element is rewritten either way — empty when the package did not change.
-            awk -v empty="$([ -z "$notes" ] && echo 1 || echo 0)" '
-              FNR == NR { block = block $0 "\n"; next }
-              /<PackageReleaseNotes>/ {
-                if (empty == 1) {
-                  print "        <PackageReleaseNotes></PackageReleaseNotes>"
-                } else {
-                  print "        <PackageReleaseNotes>"
-                  printf "%s", block
-                  print "        </PackageReleaseNotes>"
-                }
-                # Drop whatever the element held before, single-line or multi-line.
-                if ($0 !~ /<\/PackageReleaseNotes>/) {
-                  while ((getline previous) > 0) {
-                    if (previous ~ /<\/PackageReleaseNotes>/) { break }
-                  }
-                }
-                next
-              }
-              { print }
-            ' notes.block "$csproj" > "$csproj.synced" && mv "$csproj.synced" "$csproj"
-
-            rm -f notes.block
-
-            if [ -n "$notes" ]; then
-              printf "**%s [%s]**\n" "$pkg_id" "$pkg_version" >> RELEASE_NOTES.md
-              while IFS= read -r line; do
-                printf "  - %s\n" "$line" >> RELEASE_NOTES.md
-              done <<< "$notes"
-              echo "" >> RELEASE_NOTES.md
-            fi
-          done
-
-          # Move [Unreleased] under the version being released and open a fresh one.
-          awk -v version="${VERSION}" -v date="${DATE}" '
-            /^## \[Unreleased\]/ && !rolled {
-              print "## [Unreleased]";
-              print "";
-              print "## [" version "] - " date;
-              rolled = 1;
-              next
-            }
-            { print }
-          ' CHANGELOG.md > CHANGELOG.rolled && mv CHANGELOG.rolled CHANGELOG.md
-
-          rm -f unreleased.md
+          dotnet run tools/SyncReleaseNotes.cs -- --version "${VERSION}" --date "${DATE}"
 
           echo "----- RELEASE_NOTES.md -----"
           cat RELEASE_NOTES.md
-          echo "----- generated csproj release notes -----"
-          for csproj in "${CSPROJS[@]}"; do
-            if grep -q '<PackageReleaseNotes>' "$csproj"; then
-              printf "%s: %s entr(y/ies)\n" "$csproj" \
-                "$(sed -n '/<PackageReleaseNotes>/,/<\/PackageReleaseNotes>/p' "$csproj" | grep -c '^[[:space:]]*\[' || true)"
-            fi
-          done
 
           echo "----- what the release will change in the working tree -----"
           git --no-pager diff --stat
