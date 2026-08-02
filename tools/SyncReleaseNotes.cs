@@ -17,10 +17,11 @@
 // RELEASE_NOTES.md for the GitHub release body. Nothing is committed: the caller decides what to do
 // with the modified working tree, so a dry run is simply a run that does not commit.
 //
-// The element is spliced into the csproj as text rather than written through an XML writer, so the
-// rest of the document — its indentation, blank lines, line endings and empty-element style — comes
-// out byte-identical. The result is parsed before it is saved, so a bad splice fails the release
-// instead of committing a broken project file.
+// A release must change nothing in a csproj but the notes, so before the value is written the
+// untouched document is serialized and compared with the file it was read from. That holds for the
+// projects as they stand — the declaration, the blank lines, the indentation, the line endings and
+// the empty-element style all survive the round-trip — and the comparison is what keeps it true: a
+// document that would come back reformatted fails the release rather than being rewritten wholesale.
 
 using System;
 using System.Collections.Generic;
@@ -93,18 +94,25 @@ if (!unreleased.Any(line => line.StartsWith("### ", StringComparison.Ordinal)))
 var notes = new StringBuilder("The following items have been fixed in this release:\n\n");
 var synced = 0;
 
-foreach (var csproj in Packable(root))
+foreach (var csproj in Projects(root))
 {
     var source = Read(csproj);
-    var project = XDocument.Parse(source.Text);
+    var project = XDocument.Parse(source.Text, LoadOptions.PreserveWhitespace);
     var scope = project.Root!.Name.Namespace;
 
     var properties = project.Root.Elements(scope + "PropertyGroup").ToList();
+    var element = properties.Elements(scope + "PackageReleaseNotes").FirstOrDefault();
 
     // Only the packable projects carry the generated element; the others are none of our business.
-    if (!properties.Elements(scope + "PackageReleaseNotes").Any())
+    if (element is null)
     {
         continue;
+    }
+
+    if (!Serialize(project, source.Eol, source.Bom).SequenceEqual(source.Bytes))
+    {
+        Console.Error.WriteLine($"{Relative(root, csproj)} does not survive an XML round-trip unchanged, so writing the release notes would reformat the rest of the file. Release it by hand and report this.");
+        return 1;
     }
 
     var packageId = FirstValue(properties, scope + "PackageId") ?? Path.GetFileNameWithoutExtension(csproj);
@@ -113,19 +121,9 @@ foreach (var csproj in Packable(root))
 
     // A package with no entries this release must not ship the previous release's notes, so the
     // element is rewritten either way — emptied when the package did not change.
-    var updated = Splice(source.Text, entries, source.Eol);
+    element.ReplaceNodes(new XText(Value(entries, IndentOf(element))));
 
-    try
-    {
-        XDocument.Parse(updated);
-    }
-    catch (XmlException exception)
-    {
-        Console.Error.WriteLine($"{Relative(root, csproj)} would no longer be well-formed XML: {exception.Message}");
-        return 1;
-    }
-
-    Write(csproj, updated, source.Bom);
+    File.WriteAllBytes(csproj, Serialize(project, source.Eol, source.Bom));
     synced++;
 
     Console.WriteLine($"{Relative(root, csproj)}: {packageId} [{packageVersion}], {entries.Count} entr{(entries.Count == 1 ? "y" : "ies")}");
@@ -174,8 +172,8 @@ static string ValueOf(string[] arguments, ref int index)
     return arguments[++index];
 }
 
-/// The packable projects, in a stable order. bin/obj and the dot-directories hold no source project.
-static IEnumerable<string> Packable(string root)
+/// The projects, in a stable order. bin/obj and the dot-directories hold no source project.
+static IEnumerable<string> Projects(string root)
 {
     return Directory.EnumerateFiles(root, "*.csproj", SearchOption.AllDirectories)
         .Where(path => !Relative(root, path)
@@ -252,80 +250,32 @@ static List<string> EntriesFor(IReadOnlyList<string> unreleased, string packageI
     return entries;
 }
 
-/// Replaces the value of the first &lt;PackageReleaseNotes&gt; element, leaving every other byte of
-/// the document as it was found — including the indentation, which is taken from the element itself.
-static string Splice(string csproj, IReadOnlyList<string> entries, string eol)
+/// The element's text: one entry per line, indented a level deeper than the element itself, with
+/// the closing tag left on its own line. The writer turns the newlines into the file's own.
+static string Value(IReadOnlyList<string> entries, string indent)
 {
-    const string Open = "<PackageReleaseNotes";
-    const string Close = "</PackageReleaseNotes>";
-
-    var start = csproj.IndexOf(Open, StringComparison.Ordinal);
-
-    if (start < 0)
-    {
-        throw new InvalidOperationException($"No {Open}> element to write into.");
-    }
-
-    var openEnd = csproj.IndexOf('>', start);
-
-    if (openEnd < 0)
-    {
-        throw new InvalidOperationException($"The {Open}> element is unterminated.");
-    }
-
-    int end;
-
-    if (csproj[openEnd - 1] == '/')
-    {
-        end = openEnd + 1;
-    }
-    else
-    {
-        var close = csproj.IndexOf(Close, openEnd, StringComparison.Ordinal);
-
-        if (close < 0)
-        {
-            throw new InvalidOperationException($"The {Open}> element is never closed.");
-        }
-
-        end = close + Close.Length;
-    }
-
-    var indentStart = start;
-
-    while (indentStart > 0 && (csproj[indentStart - 1] == ' ' || csproj[indentStart - 1] == '\t'))
-    {
-        indentStart--;
-    }
-
-    var indent = csproj[indentStart..start];
-    var inner = indent + (indent.Contains('\t') ? "\t" : "    ");
-
-    var element = new StringBuilder(Open).Append('>');
-
     if (entries.Count == 0)
     {
-        element.Append(Close);
-    }
-    else
-    {
-        foreach (var entry in entries)
-        {
-            element.Append(eol).Append(inner).Append(Escape(entry));
-        }
-
-        element.Append(eol).Append(indent).Append(Close);
+        return string.Empty;
     }
 
-    return string.Concat(csproj.AsSpan(0, start), element.ToString(), csproj.AsSpan(end));
+    var inner = indent + (indent.Contains('\t') ? "\t" : "    ");
+
+    return $"\n{string.Join("\n", entries.Select(entry => inner + entry))}\n{indent}";
 }
 
-static string Escape(string entry)
+/// What the element is indented by, read from the whitespace it sits behind.
+static string IndentOf(XElement element)
 {
-    return entry
-        .Replace("&", "&amp;", StringComparison.Ordinal)
-        .Replace("<", "&lt;", StringComparison.Ordinal)
-        .Replace(">", "&gt;", StringComparison.Ordinal);
+    if (element.PreviousNode is XText whitespace && whitespace.Value.Trim().Length == 0)
+    {
+        var value = whitespace.Value;
+        var line = value.LastIndexOf('\n');
+
+        return line < 0 ? value : value[(line + 1)..];
+    }
+
+    return "        ";
 }
 
 /// Moves '## [Unreleased]' under the version being released and opens a fresh one above it.
@@ -363,13 +313,36 @@ static IEnumerable<string> Lines(string text)
     return text.Replace("\r\n", "\n", StringComparison.Ordinal).Split('\n');
 }
 
-static (string Text, string Eol, bool Bom) Read(string path)
+/// The document as the file should hold it: the line endings it was read with, the encoding it was
+/// read with, and no reformatting of anything the caller did not change.
+static byte[] Serialize(XDocument document, string eol, bool bom)
+{
+    var settings = new XmlWriterSettings
+    {
+        Indent = false,
+        NewLineHandling = NewLineHandling.Replace,
+        NewLineChars = eol,
+        Encoding = new UTF8Encoding(bom),
+        OmitXmlDeclaration = document.Declaration is null,
+    };
+
+    using var buffer = new MemoryStream();
+
+    using (var writer = XmlWriter.Create(buffer, settings))
+    {
+        document.Save(writer);
+    }
+
+    return buffer.ToArray();
+}
+
+static (byte[] Bytes, string Text, string Eol, bool Bom) Read(string path)
 {
     var bytes = File.ReadAllBytes(path);
     var bom = bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF;
     var text = new UTF8Encoding(false).GetString(bytes, bom ? 3 : 0, bytes.Length - (bom ? 3 : 0));
 
-    return (text, text.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n", bom);
+    return (bytes, text, text.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n", bom);
 }
 
 static void Write(string path, string text, bool bom)
