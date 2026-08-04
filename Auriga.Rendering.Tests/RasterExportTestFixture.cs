@@ -56,7 +56,7 @@ namespace Auriga.Rendering.Tests
             using var scope = XmiReaderBuilder.Create();
             var result = scope.BuildAirdModelLoader().Load(path);
 
-            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values).First();
+            this.diagram = this.DiagramBuilder.BuildAll(result.Elements.Values)[0];
         }
 
         [Test]

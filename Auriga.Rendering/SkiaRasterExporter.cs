@@ -93,20 +93,6 @@ namespace Auriga.Rendering
         }
 
         /// <summary>
-        /// Rasterizes the diagram to an image file, taking the format from the file extension.
-        /// </summary>
-        /// <param name="diagram">the diagram to rasterize</param>
-        /// <param name="path">the file path the encoded image is written to, ending in <c>.png</c>, <c>.jpg</c> or <c>.jpeg</c></param>
-        /// <param name="options">how the diagram is rasterized, or <c>null</c> for the defaults</param>
-        /// <exception cref="ArgumentNullException">the diagram is null</exception>
-        /// <exception cref="ArgumentException">the path is null or empty, or names no supported format</exception>
-        /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
-        public void ExportToFile(Diagram diagram, string path, RasterOptions? options = null)
-        {
-            this.ExportToFile(this.ToSvg(diagram), path, options);
-        }
-
-        /// <summary>
         /// Rasterizes an SVG document and returns the encoded image.
         /// </summary>
         /// <param name="svg">the SVG document text</param>
@@ -142,6 +128,20 @@ namespace Auriga.Rendering
             using var data = this.Encode(svg, format, options ?? new RasterOptions());
 
             data.SaveTo(stream);
+        }
+
+        /// <summary>
+        /// Rasterizes the diagram to an image file, taking the format from the file extension.
+        /// </summary>
+        /// <param name="diagram">the diagram to rasterize</param>
+        /// <param name="path">the file path the encoded image is written to, ending in <c>.png</c>, <c>.jpg</c> or <c>.jpeg</c></param>
+        /// <param name="options">how the diagram is rasterized, or <c>null</c> for the defaults</param>
+        /// <exception cref="ArgumentNullException">the diagram is null</exception>
+        /// <exception cref="ArgumentException">the path is null or empty, or names no supported format</exception>
+        /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
+        public void ExportToFile(Diagram diagram, string path, RasterOptions? options = null)
+        {
+            this.ExportToFile(this.ToSvg(diagram), path, options);
         }
 
         /// <summary>
