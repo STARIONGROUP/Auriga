@@ -85,6 +85,34 @@ namespace Auriga.Samples
         }
 
         /// <summary>
+        /// Rasterizes the diagrams of a Sirius session to PNG, for the consumers that cannot take
+        /// a vector document.
+        /// </summary>
+        public static void RasterizeDiagramsToPng()
+        {
+            using var rendering = RenderingBuilder.Create();
+            using var reader = XmiReaderBuilder.Create();
+
+            var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
+
+            // The raster exporter draws the very SVG the SVG exporter produces, so the bitmap
+            // carries the same palette, styles and artwork. The format comes from the extension.
+            var rasterExporter = rendering.BuildRasterExporter();
+
+            foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+            {
+                // Twice the persisted size, on a white background instead of PNG's transparency.
+                rasterExporter.ExportToFile(
+                    diagram,
+                    $"out/{diagram.Name}.png",
+                    new RasterOptions { Scale = 2, Background = new Color(255, 255, 255) });
+
+                // Or hand the bytes to whatever wanted the picture, at print resolution.
+                var jpeg = rasterExporter.Export(diagram, RasterFormat.Jpeg, RasterOptions.FromDpi(300));
+            }
+        }
+
+        /// <summary>
         /// Exports the table representations of a Sirius session to Excel.
         /// </summary>
         public static void ExportTablesToExcel()

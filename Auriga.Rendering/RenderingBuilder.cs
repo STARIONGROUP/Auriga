@@ -21,14 +21,16 @@ namespace Auriga.Rendering
     /// <see cref="RenderingScope"/>, mirroring <c>XmiReaderBuilder</c>. <see cref="Create"/> opens the
     /// scope, the fluent methods register caller-supplied services on it, and a terminal method
     /// (<see cref="BuildDiagramBuilder"/>, <see cref="BuildTableBuilder"/>,
-    /// <see cref="BuildSvgExporter"/>, <see cref="BuildXlsxTableExporter"/>) resolves the requested
-    /// service. The scope is disposable; disposing it releases every service built from it.
+    /// <see cref="BuildSvgExporter"/>, <see cref="BuildRasterExporter"/>,
+    /// <see cref="BuildXlsxTableExporter"/>) resolves the requested service. The scope is
+    /// disposable; disposing it releases every service built from it.
     /// </summary>
     /// <example>
     /// <code>
     /// using var scope = RenderingBuilder.Create();
     /// var diagrams = scope.BuildDiagramBuilder().BuildAll(result.Elements.Values);
     /// scope.BuildSvgExporter().ExportToFile(diagrams[0], "diagram.svg");
+    /// scope.BuildRasterExporter().ExportToFile(diagrams[0], "diagram.png");
     /// </code>
     /// </example>
     public static class RenderingBuilder
@@ -273,6 +275,24 @@ namespace Auriga.Rendering
             }
 
             return scope.Resolve<ISvgExporter>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="IRasterExporter"/> — the rasterizer turning a diagram
+        /// into a PNG or JPEG, by way of the very SVG <see cref="BuildSvgExporter"/> produces, so
+        /// the bitmap carries the same palette, styles and artwork as the vector export.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the raster exporter</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        public static IRasterExporter BuildRasterExporter(this RenderingScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.Resolve<IRasterExporter>();
         }
 
         /// <summary>

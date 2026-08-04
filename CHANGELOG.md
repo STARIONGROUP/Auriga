@@ -54,6 +54,7 @@ that ship no package, so they are not recorded here.
 - [ADD] IProjectImageRegistry and RenderingBuilder.UsingProjectImages(projectRoot): the default icon registry is the vendored Capella artwork chained with a project-image slot of its own, so serving a model's own images takes a path rather than a hand-built CompositeIconRegistry and adds to the vendored set instead of replacing it
 - [ADD] logging through the ILoggerFactory registered with RenderingBuilder.WithLogger: the icon registries trace the paths they do not resolve, the SVG exporter reports each image that rendered as a fallback, the diagram builders report the representations they skipped and the persisted bendpoints and anchor ids that did not parse, and the style resolver traces the style values it could not read; the services take the factory as a constructor parameter
 - [ADD] INodeDiagramBuilder and ISequenceDiagramBuilder: DiagramBuilder now depends on the per-kind builder interfaces (with ITableBuilder) rather than on the concrete builders, so each kind is substitutable
+- [ADD] raster export (behind the injectable IRasterExporter / SkiaRasterExporter, resolved with RenderingBuilder.BuildRasterExporter): rasterize a Diagram or any SVG text to PNG or JPEG (bytes, stream or file, the format taken from the extension) at a scale or DPI, with a choice of background and JPEG quality; the image is the diagram's viewport rounded to whole pixels times the scale. The package consequently carries SkiaSharp and Svg.Skia, and with them a native asset per platform
 
 ## [1.0.0] - 2026-07-10
 

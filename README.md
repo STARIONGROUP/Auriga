@@ -20,9 +20,11 @@ The **Auriga.Extensions** library provides LINQ-style query extension methods ov
 
 The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `IDiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `ISvgExporter` serializes a diagram to plain SVG (string, stream or file) — the SVG writer itself is dependency-free, built on `System.Xml.Linq` alone. Every item also carries a `Tooltip`, resolved by the injectable `ITooltipResolver` — the type and name of what it represents, what a relationship connects, and the Capella `description` reduced to plain text — which the exporter emits as the group's SVG `title`, so hovering a rendered element in a browser explains it without any scripting.
 
+`IRasterExporter` is the bitmap counterpart, for the consumers that cannot take a vector document — a thumbnail, a Word or PowerPoint report, an issue-tracker attachment. It rasterizes a diagram (or any SVG text) to PNG or JPEG at a requested scale or DPI, by way of the very SVG the exporter produces, so the bitmap carries the same palette, styles and artwork. The image measures the diagram's viewport rounded to whole pixels, multiplied by `RasterOptions.Scale`; PNG keeps transparency, JPEG composites onto white unless a background is given. Rasterization is done with [SkiaSharp](https://github.com/mono/SkiaSharp) and [Svg.Skia](https://github.com/wieslawsoltes/Svg.Skia), which is why this package — unlike the rest of Auriga — carries native assets, one set per platform; the SVG *writer* itself remains `System.Xml.Linq` alone.
+
 Sirius table representations are covered as well. Unlike a diagram, a table persists no layout, so `ITableBuilder` synthesizes the grid: it lays a `DTable` out as the same `Diagram` of boxes, which makes the SVG exporter the table's visual export. `IXlsxTableExporter` is the editable counterpart, writing one or more tables to an Excel workbook (a worksheet each) via [ClosedXML](https://github.com/ClosedXML/ClosedXML).
 
-The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver, the tooltip resolver — can be substituted in one place. `UsingProjectImages(projectRoot)` adds the artwork a model carries itself (a `WorkspaceImage` pointing inside the project rather than at a Capella plugin) to the vendored Capella icon set rather than replacing it.
+The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver, the tooltip resolver, the exporters — can be substituted in one place. `UsingProjectImages(projectRoot)` adds the artwork a model carries itself (a `WorkspaceImage` pointing inside the project rather than at a Capella plugin) to the vendored Capella icon set rather than replacing it.
 
 Rendering degrades rather than throws — a diagram that renders imperfectly beats one that does not render at all — and `WithLogger(ILoggerFactory)` is where those degradations surface: at Debug, the images no registry resolved, the representations skipped for want of a persisted layout, and the malformed bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved image path and each style value that did not parse. A well-formed model stays silent at Information and above, so turning on Debug is what explains a difference between what Capella shows and what Auriga exported.
 
@@ -105,6 +107,34 @@ foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Element
 }
 ```
 
+Rasterize the same diagrams to PNG or JPEG, for the consumers that cannot take a vector document:
+
+```csharp
+using Auriga.Rendering;
+using Auriga.Xmi;
+
+using var rendering = RenderingBuilder.Create();
+using var reader = XmiReaderBuilder.Create();
+
+var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
+
+// The raster exporter draws the very SVG the SVG exporter produces, so the bitmap
+// carries the same palette, styles and artwork. The format comes from the extension.
+var rasterExporter = rendering.BuildRasterExporter();
+
+foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+{
+    // Twice the persisted size, on a white background instead of PNG's transparency.
+    rasterExporter.ExportToFile(
+        diagram,
+        $"out/{diagram.Name}.png",
+        new RasterOptions { Scale = 2, Background = new Color(255, 255, 255) });
+
+    // Or hand the bytes to whatever wanted the picture, at print resolution.
+    var jpeg = rasterExporter.Export(diagram, RasterFormat.Jpeg, RasterOptions.FromDpi(300));
+}
+```
+
 Export the table representations of the same session to Excel:
 
 ```csharp
@@ -152,7 +182,7 @@ Auriga is in early development and has not yet had its first release. Once publi
   - `Auriga` — the Capella object model (`Auriga.Model.*`) and the Sirius/GMF diagram object model (`Auriga.Diagram.*`)
   - `Auriga.Xmi` — the `.capella` / `.melodymodeller` / `.aird` readers and writers
   - `Auriga.Extensions` — query extension methods
-  - `Auriga.Rendering` — the intermediate diagram model built from the persisted `.aird` layout, with SVG and Excel exports
+  - `Auriga.Rendering` — the intermediate diagram model built from the persisted `.aird` layout, with SVG, PNG/JPEG and Excel exports
 
 # Build Status
 
