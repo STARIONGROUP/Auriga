@@ -20,6 +20,10 @@
         <PackageReference Include="Autofac" />
         <PackageReference Include="ClosedXML" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="SkiaSharp" />
+        <!-- SkiaSharp ships native assets for Windows and macOS only; Linux needs this one. -->
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+        <PackageReference Include="Svg.Skia" />
     </ItemGroup>
 
     <ItemGroup>

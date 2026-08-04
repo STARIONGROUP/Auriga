@@ -44,6 +44,11 @@ namespace Auriga.Rendering.Tests
         protected ISvgExporter SvgExporter => this.renderingScope.BuildSvgExporter();
 
         /// <summary>
+        /// Gets the raster exporter composed by the fixture's rendering scope.
+        /// </summary>
+        protected IRasterExporter RasterExporter => this.renderingScope.BuildRasterExporter();
+
+        /// <summary>
         /// Gets the XLSX table exporter composed by the fixture's rendering scope.
         /// </summary>
         protected IXlsxTableExporter XlsxTableExporter => this.renderingScope.BuildXlsxTableExporter();

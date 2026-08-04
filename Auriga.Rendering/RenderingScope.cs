@@ -17,8 +17,8 @@ namespace Auriga.Rendering
     /// <summary>
     /// The default <see cref="IRenderingScope"/>: an Autofac container holding the composition of the
     /// rendering services — the Capella default palette, the style resolver, the icon registry, the
-    /// per-representation-kind builders behind the <see cref="DiagramBuilder"/> dispatcher, and the SVG
-    /// and XLSX exporters. Created by <see cref="RenderingBuilder.Create"/> and configured through the
+    /// per-representation-kind builders behind the <see cref="DiagramBuilder"/> dispatcher, and the SVG,
+    /// raster and XLSX exporters. Created by <see cref="RenderingBuilder.Create"/> and configured through the
     /// fluent <see cref="RenderingBuilder"/> extension methods; each terminal <c>Build*</c> call resolves
     /// its service from the container. Disposing the scope disposes the container and every service
     /// built from it.
@@ -84,6 +84,7 @@ namespace Auriga.Rendering
 
             this.ContainerBuilder.RegisterType<SvgExporter>().As<ISvgExporter>().SingleInstance();
             this.ContainerBuilder.RegisterType<XlsxTableExporter>().As<IXlsxTableExporter>().SingleInstance();
+            this.ContainerBuilder.RegisterType<SkiaRasterExporter>().As<IRasterExporter>().SingleInstance();
         }
 
         /// <summary>
