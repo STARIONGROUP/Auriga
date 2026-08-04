@@ -1,9 +1,21 @@
 name: Nuget-Release
 
-# Manual, versioned release of the Auriga NuGet packages (Auriga, Auriga.Xmi, Auriga.Extensions).
-# Auriga.CodeGenerator and Auriga.Reporting are IsPackable=false, so `dotnet pack` on the solution
-# produces exactly the three library packages (plus their .snupkg symbol packages). Packaging metadata,
-# SBOM generation (Microsoft.Sbom.Targets) and SourceLink are configured in Directory.Build.props.
+# Manual, versioned release of the Auriga NuGet packages (Auriga, Auriga.Xmi, Auriga.Extensions,
+# Auriga.Rendering). Auriga.CodeGenerator and Auriga.Reporting are IsPackable=false, so `dotnet pack`
+# on the solution produces exactly the library packages (plus their .snupkg symbol packages).
+# Packaging metadata, SBOM generation (Microsoft.Sbom.Targets) and SourceLink are configured in
+# Directory.Build.props.
+#
+# CHANGELOG.md is the source of truth for what a release contains. tools/SyncReleaseNotes.cs moves
+# its [Unreleased] section under the version being released, writes each package's entries into that
+# package's <PackageReleaseNotes> — which is generated, never hand-edited — and renders the GitHub
+# release body; this workflow commits, packs, publishes and tags what that leaves behind. The tool
+# runs anywhere the .NET SDK does, so the release machinery can be exercised on a laptop:
+#
+#     dotnet run tools/SyncReleaseNotes.cs -- --version 1.1.0
+#
+# Run the workflow with dry_run to see what a release would say without committing, packing or
+# publishing anything.
 
 on:
   workflow_dispatch:
@@ -12,6 +24,11 @@ on:
         description: 'SemVer (e.g., 1.0.0 or 1.0.0-beta.1)'
         required: true
         type: string
+      dry_run:
+        description: 'Render the release notes and stop: no commit, no pack, no publish, no tag'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -26,7 +43,9 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
-          ref: ${{ github.event.repository.default_branch }}
+          # A release is always cut from the default branch. A dry run takes the ref it was
+          # dispatched from, so a change to the release machinery can be rehearsed on its branch.
+          ref: ${{ inputs.dry_run && github.ref_name || github.event.repository.default_branch }}
 
       - name: Validate version (SemVer)
         id: semver
@@ -65,81 +84,69 @@ jobs:
           sed -i "s/^  version:.*/  version: \"${VERSION}\"/" CITATION.cff
           sed -i "s/^  date-released:.*/  date-released: \"${DATE}\"/" CITATION.cff
 
-      - name: Commit CITATION.cff to default branch
+      - name: Roll CHANGELOG.md and sync csproj release notes
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add CITATION.cff
 
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: release ${VERSION} (update CITATION.cff)"
-            git push origin HEAD:${DEFAULT_BRANCH}
-          else
-            echo "No changes to CITATION.cff."
-          fi
-
-      - name: Install xmlstarlet (for parsing csproj)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xmlstarlet
-
-      - name: Build RELEASE_NOTES.md from PackageReleaseNotes
-        run: |
-          set -euo pipefail
-          echo "The following items have been fixed in this release:" > RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-
-          mapfile -t CSPROJS < <(git ls-files '*.csproj' | sort)
-
-          for csproj in "${CSPROJS[@]}"; do
-            # PackageId (fallback to file name)
-            pkg_id="$(xmlstarlet sel -t -v '(//Project/PropertyGroup/PackageId)[1]' "$csproj" 2>/dev/null || true)"
-            if [ -z "$pkg_id" ]; then
-              pkg_id="$(basename "$csproj" .csproj)"
-            fi
-
-            # Version (fallback to the workflow input)
-            pkg_version="$(xmlstarlet sel -t -v '(//Project/PropertyGroup/Version)[1]' "$csproj" 2>/dev/null || true)"
-            if [ -z "$pkg_version" ]; then
-              pkg_version="${VERSION}"
-            fi
-
-            # Multiline PackageReleaseNotes
-            notes="$(xmlstarlet sel -t -v '(//Project/PropertyGroup/PackageReleaseNotes)[1]' "$csproj" 2>/dev/null || true)"
-            notes="$(printf "%s" "$notes" | sed -e 's/\r$//')"
-
-            if [ -n "$notes" ]; then
-              printf "**%s [%s]**\n" "$pkg_id" "$pkg_version" >> RELEASE_NOTES.md
-              while IFS= read -r line; do
-                trimmed="$(printf "%s" "$line" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-                if [ -n "$trimmed" ]; then
-                  cleaned="$(printf "%s" "$trimmed" | sed 's/^- \{0,1\}//')"
-                  printf "  - %s\n" "$cleaned" >> RELEASE_NOTES.md
-                fi
-              done <<< "$notes"
-              echo "" >> RELEASE_NOTES.md
-            fi
-          done
+          dotnet run tools/SyncReleaseNotes.cs -- --version "${VERSION}" --date "${DATE}"
 
           echo "----- RELEASE_NOTES.md -----"
           cat RELEASE_NOTES.md
 
+          echo "----- what the release will change in the working tree -----"
+          git --no-pager diff --stat
+
+      - name: Upload the rendered release (dry run)
+        if: ${{ inputs.dry_run }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-${{ github.event.inputs.version }}-dry-run
+          path: |
+            RELEASE_NOTES.md
+            CHANGELOG.md
+            **/*.csproj
+            CITATION.cff
+
+      - name: Stop here on a dry run
+        if: ${{ inputs.dry_run }}
+        run: |
+          echo "Dry run: nothing was committed, packed, published or tagged." >> "$GITHUB_STEP_SUMMARY"
+          echo "The rendered release notes and the edited files are attached as an artifact." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit the release metadata to the default branch
+        if: ${{ !inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CITATION.cff CHANGELOG.md '*.csproj'
+
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: release ${VERSION} (CITATION.cff, CHANGELOG.md, package release notes)"
+            git push origin HEAD:${DEFAULT_BRANCH}
+          else
+            echo "No release metadata changed."
+          fi
+
       - name: Pack
+        if: ${{ !inputs.dry_run }}
         run: dotnet pack -c Release -o ReleaseBuilds Auriga.sln
 
       - name: Push to NuGet
+        if: ${{ !inputs.dry_run }}
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: dotnet nuget push ReleaseBuilds/*.nupkg -k "$NUGET_API_KEY" -s https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Create annotated tag at this commit
+        if: ${{ !inputs.dry_run }}
         run: |
           set -euo pipefail
           git tag -a "${VERSION}" -m "Release ${VERSION}"
           git push origin "refs/tags/${VERSION}"
 
       - name: Create draft GitHub release
+        if: ${{ !inputs.dry_run }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

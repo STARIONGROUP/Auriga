@@ -202,6 +202,20 @@ The Auriga libraries are provided to the community under the Apache License 2.0.
 
 Eclipse Capella™ is a trademark of the Eclipse Foundation. Auriga is an independent project and is not affiliated with or endorsed by the Eclipse Foundation.
 
+# Changelog
+
+Notable changes are recorded in [CHANGELOG.md](CHANGELOG.md), under `## [Unreleased]`, in the `### <PackageId>` subsection of the package they affect, as a `- [ADD]` (new capability), `- [FIX]` (corrected behaviour) or `- [CHG]` (changed or removed API) bullet. A change confined to the development-time tools (`Auriga.CodeGenerator`, `Auriga.Reporting`), to tests or to documentation needs no entry.
+
+The `<PackageReleaseNotes>` in each `.csproj` is **generated, not written**: the `Nuget-Release` workflow moves the `[Unreleased]` section under the version being released, writes each package's bullets into that package's `.csproj`, and builds the GitHub release body from the same section — so a published package carries exactly the notes of the release it belongs to. Editing those elements by hand has no lasting effect, since the next release overwrites them. The workflow takes a `dry_run` input that renders the release notes and stops, without committing, packing or publishing anything.
+
+That rendering is done by [`tools/SyncReleaseNotes.cs`](tools/SyncReleaseNotes.cs), which the workflow invokes and which runs anywhere the .NET SDK does, so what a release will say can be checked before dispatching one:
+
+```bash
+dotnet run tools/SyncReleaseNotes.cs -- --version 1.1.0
+```
+
+It rewrites `CHANGELOG.md`, the four packable `.csproj` files and `RELEASE_NOTES.md` in the working tree and commits nothing, so `git diff` shows the whole of what a release would change, and `git checkout .` undoes it.
+
 # Contributions
 
 Contributions to the code-base are welcome. However, before we can accept your contributions we ask any contributor to sign the Contributor License Agreement (CLA) and send this digitally signed to s.gerene@stariongroup.eu. You can find the CLA's in the CLA folder.

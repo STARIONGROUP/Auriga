@@ -12,16 +12,8 @@
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
         <AssemblyTitle>Auriga.Xmi</AssemblyTitle>
         <PackageTags>Capella Arcadia Sirius GMF Aird Ecore XMI MBSE modeltopia</PackageTags>
-        <PackageReleaseNotes>
-            [CHG] merge Auriga.Xmi.Core and Auriga.Sirius.Xmi into the Auriga.Xmi package; the Capella readers/writers move to Auriga.Xmi.Model.* and the Sirius readers/writers ship as Auriga.Xmi.Diagram.*
-            [CHG] a single XmiReaderBuilder/XmiWriterBuilder now reads and writes both .capella and .aird documents; SiriusXmiReaderBuilder is removed
-            [CHG] Autofac-based composition (following uml4net): XmiReaderBuilder/XmiWriterBuilder are fluent entry points over disposable XmiReaderScope/XmiWriterScope containers; CapellaModelLoader.Create and AirdModelLoader.Create are replaced by the BuildCapellaModelLoader/BuildAirdModelLoader scope terminals
-            [ADD] AirdModelLoader: load a Sirius .aird (file or project directory) with transitive .airdfragment following
-            [ADD] AirdModelLoader co-loads the Capella semantic documents the diagrams reference; the cross-metamodel target/semanticElements links resolve into the Capella graph (IXmiReader gains a Read overload taking the referenced-document extensions)
-            [ADD] read inline ecore:EStringToStringMapEntry map entries into key/value pairs on the owning EMap-typed feature; the .aird documents that carry them (DAnnotation details, GMF style property maps) now read
-            [ADD] the GMF notation geometry tree reads: the generators honor ExtendedMetaData XML names, so the notation:Diagram children/edges containments (persistedChildren/persistedEdges) load with their Bounds, Location and bendpoint layout data
-            [FIX] the generated writers omit attribute values equal to the metamodel's defaultValueLiteral, mirroring EMF, so the new default-initialized properties round-trip without materializing attributes the original file never had
-        </PackageReleaseNotes>
+        <!-- Generated at release time from CHANGELOG.md by .github/workflows/nuget-release.yml. Record a change there, not here. -->
+        <PackageReleaseNotes></PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
