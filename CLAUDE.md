@@ -19,8 +19,7 @@ Use `[ADD]` for a new capability, `[FIX]` for corrected behaviour, and `[CHG]` f
 removed API. Write what a consumer gains or must change, not how it was implemented — one bullet per
 change, in the same voice as the entries already there.
 
-No entry is needed for a change confined to the development-time tools (`Auriga.CodeGenerator`,
-`Auriga.Reporting`, `Auriga.Samples`), to tests, or to documentation.
+No entry is needed for a change confined to the development-time tools (`Auriga.CodeGenerator`, `Auriga.Samples`), to tests, or to documentation.
 
 ## Never edit `<PackageReleaseNotes>`
 

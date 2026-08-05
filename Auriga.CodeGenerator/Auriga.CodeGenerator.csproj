@@ -3,10 +3,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Version>0.1.0</Version>
-        <Description>Ecore-to-C# code generator that emits the Auriga Capella object model from the vendored Capella .ecore files, built on ECoreNetto and ECoreNetto.HandleBars. Development-time tool; not packable.</Description>
+        <Description>The development-time tooling over the vendored Capella .ecore files: the Ecore-to-C# generator that emits the Auriga object model (built on ECoreNetto and ECoreNetto.HandleBars, driven from [Explicit] tests) and the command-line entry point that renders the metamodel HTML report. Not packable.</Description>
         <PackageId>Auriga.CodeGenerator</PackageId>
         <AssemblyTitle>Auriga.CodeGenerator</AssemblyTitle>
         <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -17,6 +18,8 @@
     <ItemGroup>
         <PackageReference Include="ECoreNetto" />
         <PackageReference Include="ECoreNetto.HandleBars" />
+        <!-- The metamodel HTML report the Program entry point renders. -->
+        <PackageReference Include="ECoreNetto.Reporting" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     </ItemGroup>
 

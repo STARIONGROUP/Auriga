@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------------------------------
 // <copyright file="Program.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
@@ -7,7 +7,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------
 
-namespace Auriga.Reporting
+namespace Auriga.CodeGenerator
 {
     using System;
     using System.IO;
@@ -18,7 +18,7 @@ namespace Auriga.Reporting
 
     /// <summary>
     /// The command-line entry point: renders the Capella metamodel as an HTML report from the vendored
-    /// <c>.ecore</c> files, using the ECoreNetto <see cref="HtmlReportGenerator"/> — the same report
+    /// <c>.ecore</c> files, using the ECoreNetto <see cref="HtmlReportGenerator"/> â€” the same report
     /// generator used by the sibling projects (uml4net, SysML2.NET).
     /// </summary>
     public static class Program
@@ -40,7 +40,7 @@ namespace Auriga.Reporting
             if (!Directory.Exists(ecoreDirectory))
             {
                 Console.Error.WriteLine($"Ecore directory not found: '{ecoreDirectory}'.");
-                Console.Error.WriteLine("Usage: Auriga.Reporting [--ecore <dir>] [--output <file.html>]");
+                Console.Error.WriteLine("Usage: Auriga.CodeGenerator [--ecore <dir>] [--output <file.html>]");
                 return 1;
             }
 

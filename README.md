@@ -30,11 +30,11 @@ Rendering degrades rather than throws — a diagram that renders imperfectly bea
 
 ## Auriga.CodeGenerator
 
-The **Auriga.CodeGenerator** tool generates both object models described above from the vendored `.ecore` files, using [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) to load the metamodel and Handlebars templates to emit the code — the POCOs and interfaces in **Auriga**, and the per-type XMI readers and writers in **Auriga.Xmi**. The generated code is committed, and a CI drift guard regenerates it on every build and fails if the result differs from what is committed, so the templates and the checked-in code cannot fall out of step. Generation itself is driven from `[Explicit]` tests rather than a CLI, following the same convention as uml4net. See [Auriga.CodeGenerator Design](docs/codegen-design.md). It is a development-time tool and is not published as a package.
+The **Auriga.CodeGenerator** tool is everything the repository does with the vendored `.ecore` files, and is a development-time tool published as no package.
 
-## Auriga.Reporting
+It generates both object models described above, using [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) to load the metamodel and Handlebars templates to emit the code — the POCOs and interfaces in **Auriga**, and the per-type XMI readers and writers in **Auriga.Xmi**. The generated code is committed, and a CI drift guard regenerates it on every build and fails if the result differs from what is committed, so the templates and the checked-in code cannot fall out of step. Generation itself is driven from `[Explicit]` tests rather than a CLI, following the same convention as uml4net. See [Auriga.CodeGenerator Design](docs/codegen-design.md).
 
-The **Auriga.Reporting** tool renders a browsable HTML report of the Capella metamodel from the vendored `.ecore` files, using the [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions. It is a development-time tool and is not published as a package.
+Its command-line entry point renders a browsable HTML report of the Capella metamodel from the same `.ecore` files, using the ECoreNetto `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions.
 
 # Getting Started
 
@@ -204,7 +204,7 @@ Background and design documentation lives in the [`docs`](docs) folder:
   - [ECoreNetto Validation Against the Sirius Metamodel](docs/sirius-ecorenetto-validation.md) — the same proof for the Sirius/GMF metamodel
   - [Auriga.CodeGenerator Design](docs/codegen-design.md) — how the vendored `.ecore` files become the committed C# object model: the pipeline, the Handlebars templates, and the naming rules
   - [Fragment Loading](docs/fragment-loading.md) — how a model split across `.capellafragment` files is loaded and its cross-fragment `href`s resolved
-  - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.Reporting`, with Docker build scripts)
+  - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.CodeGenerator`, with Docker build scripts)
   - [Query Extension Methods](docs/query-extensions.md) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
   - [ContainerList Design](docs/containment-list.md) — the non-bypassable `Collection<T>`-based containment collection and its exclusive-ownership (reject-not-steal) semantics
   - [XMI Writer](docs/xmi-writer.md) — serializing the object graph back to Capella-faithful XMI (`Auriga.Xmi`), fragment layout, and the fidelity model
@@ -234,7 +234,7 @@ Eclipse Capella™ is a trademark of the Eclipse Foundation. Auriga is an indepe
 
 # Changelog
 
-Notable changes are recorded in [CHANGELOG.md](CHANGELOG.md), under `## [Unreleased]`, in the `### <PackageId>` subsection of the package they affect, as a `- [ADD]` (new capability), `- [FIX]` (corrected behaviour) or `- [CHG]` (changed or removed API) bullet. A change confined to the development-time tools (`Auriga.CodeGenerator`, `Auriga.Reporting`), to tests or to documentation needs no entry.
+Notable changes are recorded in [CHANGELOG.md](CHANGELOG.md), under `## [Unreleased]`, in the `### <PackageId>` subsection of the package they affect, as a `- [ADD]` (new capability), `- [FIX]` (corrected behaviour) or `- [CHG]` (changed or removed API) bullet. A change confined to the development-time tools (`Auriga.CodeGenerator`), to tests or to documentation needs no entry.
 
 The `<PackageReleaseNotes>` in each `.csproj` is **generated, not written**: the `Nuget-Release` workflow moves the `[Unreleased]` section under the version being released, writes each package's bullets into that package's `.csproj`, and builds the GitHub release body from the same section — so a published package carries exactly the notes of the release it belongs to. Editing those elements by hand has no lasting effect, since the next release overwrites them. The workflow takes a `dry_run` input that renders the release notes and stops, without committing, packing or publishing anything.
 
