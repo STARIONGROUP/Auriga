@@ -33,7 +33,7 @@ namespace Auriga.Reporting.Tests
     {
         /// <summary>
         /// The resolver under test, constructed directly over the default Capella palette: these
-        /// are unit tests of the resolver itself, not of the composition <see cref="RenderingScope"/>
+        /// are unit tests of the resolver itself, not of the composition <see cref="ReportingScope"/>
         /// performs.
         /// </summary>
         private readonly StyleResolver styleResolver = new(new CapellaDefaultPalette(), NullLoggerFactory.Instance);

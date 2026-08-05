@@ -31,7 +31,7 @@ namespace Auriga.Reporting.Tests
     /// that must hold regardless of fixture content.
     /// </summary>
     [TestFixture]
-    public class DiagramBuilderTestFixture : RenderingTestFixtureBase
+    public class DiagramBuilderTestFixture : ReportingTestFixtureBase
     {
         [Test]
         public void Verify_that_the_builder_guards_its_arguments()

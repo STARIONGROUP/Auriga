@@ -17,9 +17,9 @@ namespace Auriga.Reporting.Icons
     /// plugin. It is a registration slot of its own, separate from <see cref="IIconRegistry"/>:
     /// the composed exporter always resolves through the vendored artwork chained with whatever
     /// fills this slot, so serving a project's own images (<see cref="WorkspaceImageRegistry"/>,
-    /// registered by <see cref="RenderingBuilder.UsingProjectImages"/>) adds to the vendored set
+    /// registered by <see cref="ReportingBuilder.UsingProjectImages"/>) adds to the vendored set
     /// instead of replacing it. Nothing fills the slot by default, and
-    /// <see cref="RenderingBuilder.UsingIconRegistry"/> still replaces the whole chain.
+    /// <see cref="ReportingBuilder.UsingIconRegistry"/> still replaces the whole chain.
     /// </summary>
     public interface IProjectImageRegistry : IIconRegistry
     {

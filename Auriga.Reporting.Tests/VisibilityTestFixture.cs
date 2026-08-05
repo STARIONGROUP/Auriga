@@ -31,7 +31,7 @@ namespace Auriga.Reporting.Tests
     /// implementation-component subtree is persisted hidden.
     /// </summary>
     [TestFixture]
-    public class VisibilityTestFixture : RenderingTestFixtureBase
+    public class VisibilityTestFixture : ReportingTestFixtureBase
     {
         private const string BehaviouralComponentsUid = "_o27AcKO1EeSgDIOKB3Rd0g";
 

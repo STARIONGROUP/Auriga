@@ -27,7 +27,7 @@ namespace Auriga.Reporting.Icons
     /// file is inlined as a <c>data:</c> URI; a path with no matching file resolves to <c>null</c>.
     /// Compose it after <see cref="CapellaIconRegistry"/> (see <see cref="CompositeIconRegistry"/>)
     /// so plugin artwork still serves from the vendored set — the composition
-    /// <see cref="RenderingBuilder.UsingProjectImages"/> performs. Resolved URIs are cached per
+    /// <see cref="ReportingBuilder.UsingProjectImages"/> performs. Resolved URIs are cached per
     /// instance.
     /// </summary>
     public sealed class WorkspaceImageRegistry : IProjectImageRegistry

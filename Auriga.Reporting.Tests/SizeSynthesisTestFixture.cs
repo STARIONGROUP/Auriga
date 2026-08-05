@@ -29,7 +29,7 @@ namespace Auriga.Reporting.Tests
     /// In-Flight <c>[CDI]</c>, <c>[SDFB]</c> and <c>[MSM]</c> representations.
     /// </summary>
     [TestFixture]
-    public class SizeSynthesisTestFixture : RenderingTestFixtureBase
+    public class SizeSynthesisTestFixture : ReportingTestFixtureBase
     {
         private const string StreamingServerCdiUid = "_au4DgLm1EeSceeI4mBNpyA";
 

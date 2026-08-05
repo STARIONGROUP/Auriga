@@ -18,7 +18,7 @@ namespace Auriga.Reporting.Styles
     /// model says about it — from the back-links the item carries. The default implementation,
     /// <see cref="TooltipResolver"/>, states the Capella metaclass and name, what a relationship
     /// connects, and the element's description; register another through
-    /// <see cref="RenderingBuilder.UsingTooltipResolver"/> to say something else entirely (an
+    /// <see cref="ReportingBuilder.UsingTooltipResolver"/> to say something else entirely (an
     /// element's property values, a translated text, nothing at all). The resolved text lands on
     /// <see cref="Box.Tooltip"/> and <see cref="Edge.Tooltip"/>, which
     /// <see cref="SvgExporter"/> emits as the item's SVG <c>title</c>.

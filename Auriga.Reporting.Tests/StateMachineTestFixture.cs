@@ -30,7 +30,7 @@ namespace Auriga.Reporting.Tests
     /// <c>[MSM] Seat TV Modes</c>.
     /// </summary>
     [TestFixture]
-    public class StateMachineTestFixture : RenderingTestFixtureBase
+    public class StateMachineTestFixture : ReportingTestFixtureBase
     {
         private const string OperatingModesMsmUid = "_ZlrrsPhmEeyYD7A3qrV3tA";
 

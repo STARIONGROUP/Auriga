@@ -33,7 +33,7 @@ namespace Auriga.Reporting.Tests
     /// messages route horizontally at their execution-anchor heights.
     /// </summary>
     [TestFixture]
-    public class SequenceDiagramTestFixture : RenderingTestFixtureBase
+    public class SequenceDiagramTestFixture : ReportingTestFixtureBase
     {
         private const string SelectVodMovieUid = "_QD67YMAFEeS91_vDABbjUA";
 

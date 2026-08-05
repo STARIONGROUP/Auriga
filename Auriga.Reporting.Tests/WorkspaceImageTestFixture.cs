@@ -33,7 +33,7 @@ namespace Auriga.Reporting.Tests
     /// <c>[SC] System Actors</c>, whose Ground Operator carries a custom image.
     /// </summary>
     [TestFixture]
-    public class WorkspaceImageTestFixture : RenderingTestFixtureBase
+    public class WorkspaceImageTestFixture : ReportingTestFixtureBase
     {
         private const string SystemActorsScUid = "_LzrP8LclEd6PZMYM-Vvo5g";
 
@@ -79,8 +79,8 @@ namespace Auriga.Reporting.Tests
         {
             const string VendoredActor = "/org.polarsys.capella.core.sirius.analysis/description/images/Actor.svg";
 
-            using var layered = RenderingBuilder.Create().UsingProjectImages(ProjectRoot);
-            using var substituted = RenderingBuilder.Create()
+            using var layered = ReportingBuilder.Create().UsingProjectImages(ProjectRoot);
+            using var substituted = ReportingBuilder.Create()
                 .UsingProjectImages(ProjectRoot)
                 .UsingIconRegistry(new CapellaIconRegistry(NullLoggerFactory.Instance));
 
@@ -105,8 +105,8 @@ namespace Auriga.Reporting.Tests
 
             var operatorBox = diagram.QueryAllBoxes().Single(box => box.Style.Resolved.ImagePath == OperatorPath);
 
-            using var renderingScope = RenderingBuilder.Create().UsingProjectImages(ProjectRoot);
-            var composed = renderingScope.BuildSvgExporter();
+            using var reportingScope = ReportingBuilder.Create().UsingProjectImages(ProjectRoot);
+            var composed = reportingScope.BuildSvgExporter();
             var group = XDocument.Parse(composed.Export(diagram)).Descendants(Svg + "g").Single(g => (string?)g.Attribute("id") == operatorBox.Identifier);
             var image = group.Element(Svg + "image");
 

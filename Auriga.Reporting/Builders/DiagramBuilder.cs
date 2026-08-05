@@ -32,7 +32,7 @@ namespace Auriga.Reporting.Builders
     /// model. Diagrams build from the representation's persisted GMF layout; a table has no notation
     /// layout, so its grid is synthesized from the persisted column widths and line order. The per-kind
     /// builders are injected as interfaces, so each is substitutable and the whole graph is composed in
-    /// one place — <see cref="RenderingScope"/>, reached through <see cref="RenderingBuilder.Create"/>.
+    /// one place — <see cref="ReportingScope"/>, reached through <see cref="ReportingBuilder.Create"/>.
     /// All representation-kind-specific knowledge lives in the builders, expressed as intermediate-model
     /// data, so <see cref="SvgExporter"/> and <see cref="StyleResolver"/> stay kind-agnostic.
     /// </summary>

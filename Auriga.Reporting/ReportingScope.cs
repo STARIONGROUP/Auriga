@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="RenderingScope.cs" company="Starion Group S.A.">
+// <copyright file="ReportingScope.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -21,20 +21,20 @@ namespace Auriga.Reporting
     using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
-    /// The default <see cref="IRenderingScope"/>: an Autofac container holding the composition of the
+    /// The default <see cref="IReportingScope"/>: an Autofac container holding the composition of the
     /// rendering services — the Capella default palette, the style resolver, the icon registry, the
     /// per-representation-kind builders behind the <see cref="DiagramBuilder"/> dispatcher, and the SVG,
-    /// raster and XLSX exporters. Created by <see cref="RenderingBuilder.Create"/> and configured through the
-    /// fluent <see cref="RenderingBuilder"/> extension methods; each terminal <c>Build*</c> call resolves
+    /// raster and XLSX exporters. Created by <see cref="ReportingBuilder.Create"/> and configured through the
+    /// fluent <see cref="ReportingBuilder"/> extension methods; each terminal <c>Build*</c> call resolves
     /// its service from the container. Disposing the scope disposes the container and every service
     /// built from it.
     /// </summary>
     /// <remarks>
-    /// Autofac is an implementation detail of this class: <see cref="IRenderingScope"/> declares no
+    /// Autofac is an implementation detail of this class: <see cref="IReportingScope"/> declares no
     /// Autofac type and <see cref="ContainerBuilder"/> is internal, so no Autofac type reaches a
     /// consumer of the rendering API.
     /// </remarks>
-    public sealed class RenderingScope : IRenderingScope
+    public sealed class ReportingScope : IReportingScope
     {
         /// <summary>
         /// The container built lazily from <see cref="ContainerBuilder"/> on the first
@@ -44,9 +44,9 @@ namespace Auriga.Reporting
         private IContainer? container;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RenderingScope"/> class, declaring the default
+        /// Initializes a new instance of the <see cref="ReportingScope"/> class, declaring the default
         /// registrations. The palette, style resolver, icon registry and logger factory registrations
-        /// are the overridable defaults the fluent <see cref="RenderingBuilder"/> methods replace with
+        /// are the overridable defaults the fluent <see cref="ReportingBuilder"/> methods replace with
         /// caller-supplied instances.
         /// </summary>
         /// <remarks>
@@ -62,7 +62,7 @@ namespace Auriga.Reporting
         /// has exactly one constructor and none takes an optional parameter; the icon registry is
         /// registered through a lambda instead, since it is composed rather than constructed.
         /// </remarks>
-        internal RenderingScope()
+        internal ReportingScope()
         {
             // Overridable defaults (the last registration for a service wins in Autofac).
             this.ContainerBuilder.RegisterType<CapellaDefaultPalette>().As<ICapellaDefaultPalette>().SingleInstance();
@@ -72,7 +72,7 @@ namespace Auriga.Reporting
             this.ContainerBuilder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
 
             // The icon registry is the vendored Capella artwork chained with the model's own
-            // project images, so RenderingBuilder.UsingProjectImages fills its own slot instead of
+            // project images, so ReportingBuilder.UsingProjectImages fills its own slot instead of
             // replacing this one — the two overrides then compose rather than collide. Nothing
             // fills the project-image slot by default, so an unconfigured scope resolves exactly
             // what the vendored registry alone resolves.
@@ -94,7 +94,7 @@ namespace Auriga.Reporting
         }
 
         /// <summary>
-        /// Gets the Autofac builder the fluent <see cref="RenderingBuilder"/> methods register
+        /// Gets the Autofac builder the fluent <see cref="ReportingBuilder"/> methods register
         /// caller-supplied instances (palette, style resolver, icon registry, logger factory) on,
         /// before the container is built.
         /// </summary>

@@ -33,7 +33,7 @@ namespace Auriga.Reporting.Tests
     /// export overloads.
     /// </summary>
     [TestFixture]
-    public class SvgExporterTestFixture : RenderingTestFixtureBase
+    public class SvgExporterTestFixture : ReportingTestFixtureBase
     {
         private static readonly XNamespace Svg = "http://www.w3.org/2000/svg";
 

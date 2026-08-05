@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="RenderingBuilderTestFixture.cs" company="Starion Group S.A.">
+// <copyright file="ReportingBuilderTestFixture.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -27,18 +27,18 @@ namespace Auriga.Reporting.Tests
     using SiriusDiagram = Auriga.Diagram.Diagram;
 
     /// <summary>
-    /// Tests the composition root: <see cref="RenderingBuilder.Create"/> wires the full default graph,
+    /// Tests the composition root: <see cref="ReportingBuilder.Create"/> wires the full default graph,
     /// each fluent override actually reaches the service that consumes it (a substituted icon registry
     /// is called by the exporter, a substituted palette seeds the resolved styles), the terminals hand
     /// out the composed singletons, and disposing the scope disposes what it built.
     /// </summary>
     [TestFixture]
-    public class RenderingBuilderTestFixture
+    public class ReportingBuilderTestFixture
     {
         [Test]
         public void Verify_that_the_default_scope_composes_the_whole_graph()
         {
-            using var scope = RenderingBuilder.Create();
+            using var scope = ReportingBuilder.Create();
 
             var diagram = scope.BuildDiagramBuilder().Build(Representation(Node("node-1", "composed", 10, 20)), "composed");
 
@@ -57,7 +57,7 @@ namespace Auriga.Reporting.Tests
         [Test]
         public void Verify_that_the_terminals_hand_out_the_same_singleton_within_a_scope()
         {
-            using var scope = RenderingBuilder.Create();
+            using var scope = ReportingBuilder.Create();
 
             Assert.Multiple(() =>
             {
@@ -73,7 +73,7 @@ namespace Auriga.Reporting.Tests
         {
             var registry = new RecordingIconRegistry();
 
-            using var scope = RenderingBuilder.Create().UsingIconRegistry(registry);
+            using var scope = ReportingBuilder.Create().UsingIconRegistry(registry);
 
             var node = Node("node-image", "imaged", 0, 0);
             node.Element = new SiriusDiagram.DNode
@@ -97,8 +97,8 @@ namespace Auriga.Reporting.Tests
         [Test]
         public void Verify_that_a_substituted_palette_seeds_the_resolved_styles()
         {
-            using var defaultScope = RenderingBuilder.Create();
-            using var scope = RenderingBuilder.Create().UsingPalette(new GreenPalette());
+            using var defaultScope = ReportingBuilder.Create();
+            using var scope = ReportingBuilder.Create().UsingPalette(new GreenPalette());
 
             var representation = Representation(Node("node-palette", "palette", 0, 0));
 
@@ -117,7 +117,7 @@ namespace Auriga.Reporting.Tests
         {
             var styleResolver = new RecordingStyleResolver();
 
-            using var scope = RenderingBuilder.Create().UsingStyleResolver(styleResolver);
+            using var scope = ReportingBuilder.Create().UsingStyleResolver(styleResolver);
 
             scope.BuildDiagramBuilder().Build(Representation(Node("node-style", "styled", 0, 0)));
 
@@ -127,7 +127,7 @@ namespace Auriga.Reporting.Tests
         [Test]
         public void Verify_that_a_substituted_tooltip_resolver_reaches_the_per_kind_builders()
         {
-            using var scope = RenderingBuilder.Create().UsingTooltipResolver(new FixedTooltipResolver());
+            using var scope = ReportingBuilder.Create().UsingTooltipResolver(new FixedTooltipResolver());
 
             var diagram = scope.BuildDiagramBuilder().Build(Representation(Node("node-tip", "tipped", 0, 0)));
 
@@ -141,34 +141,34 @@ namespace Auriga.Reporting.Tests
         [Test]
         public void Verify_that_the_fluent_methods_guard_their_arguments()
         {
-            using var scope = RenderingBuilder.Create();
+            using var scope = ReportingBuilder.Create();
 
             Assert.Multiple(() =>
             {
-                Assert.That(() => ((RenderingScope)null!).WithLogger(NullLoggerFactory.Instance), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).WithLogger(NullLoggerFactory.Instance), Throws.ArgumentNullException);
                 Assert.That(() => scope.WithLogger(null!), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).UsingIconRegistry(new RecordingIconRegistry()), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).UsingIconRegistry(new RecordingIconRegistry()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingIconRegistry(null!), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).UsingProjectImages("root"), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).UsingProjectImages("root"), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingProjectImages(string.Empty), Throws.ArgumentException);
-                Assert.That(() => ((RenderingScope)null!).UsingPalette(new GreenPalette()), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).UsingPalette(new GreenPalette()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingPalette(null!), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).UsingStyleResolver(new RecordingStyleResolver()), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).UsingStyleResolver(new RecordingStyleResolver()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingStyleResolver(null!), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).UsingTooltipResolver(new FixedTooltipResolver()), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).UsingTooltipResolver(new FixedTooltipResolver()), Throws.ArgumentNullException);
                 Assert.That(() => scope.UsingTooltipResolver(null!), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).BuildDiagramBuilder(), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).BuildTableBuilder(), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).BuildSvgExporter(), Throws.ArgumentNullException);
-                Assert.That(() => ((RenderingScope)null!).BuildXlsxTableExporter(), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).BuildDiagramBuilder(), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).BuildTableBuilder(), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).BuildSvgExporter(), Throws.ArgumentNullException);
+                Assert.That(() => ((ReportingScope)null!).BuildXlsxTableExporter(), Throws.ArgumentNullException);
             });
         }
 
         [Test]
         public void Verify_that_a_scope_disposes_cleanly_whether_or_not_it_built_anything()
         {
-            var unused = RenderingBuilder.Create();
-            var used = RenderingBuilder.Create().WithLogger(NullLoggerFactory.Instance);
+            var unused = ReportingBuilder.Create();
+            var used = ReportingBuilder.Create().WithLogger(NullLoggerFactory.Instance);
             used.BuildDiagramBuilder();
 
             Assert.Multiple(() =>

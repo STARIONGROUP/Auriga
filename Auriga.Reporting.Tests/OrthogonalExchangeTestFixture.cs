@@ -29,7 +29,7 @@ namespace Auriga.Reporting.Tests
     /// centre-line skew the generic route produced.
     /// </summary>
     [TestFixture]
-    public class OrthogonalExchangeTestFixture : RenderingTestFixtureBase
+    public class OrthogonalExchangeTestFixture : ReportingTestFixtureBase
     {
         private const string StartPlayingVodMovieLfcdUid = "_IjNiALFqEeSsWZm7HcO6OQ";
 

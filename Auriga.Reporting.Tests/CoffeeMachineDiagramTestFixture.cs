@@ -30,7 +30,7 @@ namespace Auriga.Reporting.Tests
     /// persisted GMF layout, with the Sirius and semantic back-links in place.
     /// </summary>
     [TestFixture]
-    public partial class CoffeeMachineDiagramTestFixture : RenderingTestFixtureBase
+    public partial class CoffeeMachineDiagramTestFixture : ReportingTestFixtureBase
     {
         private const string MakeCoffeeNodeUid = "_OLzagFucEe2iJbuWznnyfw";
 

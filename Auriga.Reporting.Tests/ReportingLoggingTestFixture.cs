@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="RenderingLoggingTestFixture.cs" company="Starion Group S.A.">
+// <copyright file="ReportingLoggingTestFixture.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -30,7 +30,7 @@ namespace Auriga.Reporting.Tests
 
     /// <summary>
     /// Tests that the rendering services report their silent degradations through the
-    /// <see cref="ILoggerFactory"/> registered with <see cref="RenderingBuilder.WithLogger"/>: an
+    /// <see cref="ILoggerFactory"/> registered with <see cref="ReportingBuilder.WithLogger"/>: an
     /// image no registry resolved, a representation skipped for want of a persisted layout,
     /// persisted geometry that did not parse, and a style value that did not read. Every assertion
     /// runs through the composed scope rather than a hand-constructed service, so it proves the
@@ -39,7 +39,7 @@ namespace Auriga.Reporting.Tests
     /// alter it.
     /// </summary>
     [TestFixture]
-    public class RenderingLoggingTestFixture
+    public class ReportingLoggingTestFixture
     {
         /// <summary>
         /// A workspace-image path no registry resolves.
@@ -54,7 +54,7 @@ namespace Auriga.Reporting.Tests
         /// <summary>
         /// The scope composing the services under test over <see cref="loggerFactory"/>.
         /// </summary>
-        private RenderingScope scope = null!;
+        private ReportingScope scope = null!;
 
         /// <summary>
         /// Composes a scope whose services log into a fresh capturing factory.
@@ -63,7 +63,7 @@ namespace Auriga.Reporting.Tests
         public void SetUp()
         {
             this.loggerFactory = new CapturingLoggerFactory();
-            this.scope = RenderingBuilder.Create().WithLogger(this.loggerFactory);
+            this.scope = ReportingBuilder.Create().WithLogger(this.loggerFactory);
         }
 
         /// <summary>

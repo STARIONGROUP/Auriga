@@ -34,7 +34,7 @@ namespace Auriga.Reporting.Tests
     /// proves the SkiaSharp native asset resolved on whichever platform the suite is running.
     /// </summary>
     [TestFixture]
-    public class RasterExportTestFixture : RenderingTestFixtureBase
+    public class RasterExportTestFixture : ReportingTestFixtureBase
     {
         /// <summary>
         /// An SVG whose geometry is known exactly, for the assertions about size and color: a

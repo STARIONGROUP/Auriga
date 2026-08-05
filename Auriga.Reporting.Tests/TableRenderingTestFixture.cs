@@ -32,7 +32,7 @@ namespace Auriga.Reporting.Tests
     /// use, and confirms it is well-formed SVG carrying the header and cell text.
     /// </summary>
     [TestFixture]
-    public class TableRenderingTestFixture : RenderingTestFixtureBase
+    public class TableRenderingTestFixture : ReportingTestFixtureBase
     {
         /// <summary>
         /// The Capella name of the table representation in the fragmented-sysmodel fixture (from its

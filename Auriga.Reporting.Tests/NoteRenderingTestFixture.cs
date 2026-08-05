@@ -28,7 +28,7 @@ namespace Auriga.Reporting.Tests
     /// <c>[LCBD] Architecture Drivers</c>.
     /// </summary>
     [TestFixture]
-    public class NoteRenderingTestFixture : RenderingTestFixtureBase
+    public class NoteRenderingTestFixture : ReportingTestFixtureBase
     {
         private const string ArchitectureDriversLcbdUid = "_3blN8KK2Ed6k26nfEmjK4A";
 

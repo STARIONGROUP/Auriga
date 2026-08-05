@@ -36,7 +36,7 @@ namespace Auriga.Reporting.Tests
     /// fixture defect) and cannot be read.
     /// </summary>
     [TestFixture]
-    public class SvgProjectExportTestFixture : RenderingTestFixtureBase
+    public class SvgProjectExportTestFixture : ReportingTestFixtureBase
     {
         /// <summary>
         /// The first bytes of a PNG file, asserted so that a raster which failed to encode is a
@@ -67,10 +67,10 @@ namespace Auriga.Reporting.Tests
             // Serve the vendored plugin artwork, then the model's own project-local images (an
             // actor's custom glyph) from the directory the .aird was loaded from — the registry
             // override is why this export composes its own scope rather than using the fixture's.
-            using var renderingScope = RenderingBuilder.Create()
+            using var reportingScope = ReportingBuilder.Create()
                 .UsingProjectImages(Path.GetDirectoryName(path)!);
-            var svgExporter = renderingScope.BuildSvgExporter();
-            var rasterExporter = renderingScope.BuildRasterExporter();
+            var svgExporter = reportingScope.BuildSvgExporter();
+            var rasterExporter = reportingScope.BuildRasterExporter();
 
             var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "diagram-exports", modelFolder);
             Directory.CreateDirectory(outputDirectory);

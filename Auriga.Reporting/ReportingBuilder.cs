@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------------------
-// <copyright file="RenderingBuilder.cs" company="Starion Group S.A.">
+// <copyright file="ReportingBuilder.cs" company="Starion Group S.A.">
 //
 //   Copyright 2026 Starion Group S.A.
 //   SPDX-License-Identifier: Apache-2.0
@@ -25,7 +25,7 @@ namespace Auriga.Reporting
     /// <summary>
     /// The fluent entry point that composes the rendering services — the <see cref="IDiagramBuilder"/>
     /// and the exporters built alongside it — through the Autofac container owned by a
-    /// <see cref="RenderingScope"/>, mirroring <c>XmiReaderBuilder</c>. <see cref="Create"/> opens the
+    /// <see cref="ReportingScope"/>, mirroring <c>XmiReaderBuilder</c>. <see cref="Create"/> opens the
     /// scope, the fluent methods register caller-supplied services on it, and a terminal method
     /// (<see cref="BuildDiagramBuilder"/>, <see cref="BuildTableBuilder"/>,
     /// <see cref="BuildSvgExporter"/>, <see cref="BuildRasterExporter"/>,
@@ -34,22 +34,22 @@ namespace Auriga.Reporting
     /// </summary>
     /// <example>
     /// <code>
-    /// using var scope = RenderingBuilder.Create();
+    /// using var scope = ReportingBuilder.Create();
     /// var diagrams = scope.BuildDiagramBuilder().BuildAll(result.Elements.Values);
     /// scope.BuildSvgExporter().ExportToFile(diagrams[0], "diagram.svg");
     /// scope.BuildRasterExporter().ExportToFile(diagrams[0], "diagram.png");
     /// </code>
     /// </example>
-    public static class RenderingBuilder
+    public static class ReportingBuilder
     {
         /// <summary>
-        /// Creates a new <see cref="RenderingScope"/> carrying the default registrations, ready to be
+        /// Creates a new <see cref="ReportingScope"/> carrying the default registrations, ready to be
         /// configured with the fluent methods and consumed by a terminal <c>Build*</c> method.
         /// </summary>
         /// <returns>the scope</returns>
-        public static RenderingScope Create()
+        public static ReportingScope Create()
         {
-            return new RenderingScope();
+            return new ReportingScope();
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Auriga.Reporting
         /// <param name="loggerFactory">the logger factory</param>
         /// <returns>the same scope, for chaining</returns>
         /// <exception cref="ArgumentNullException">the scope or the logger factory is null</exception>
-        public static RenderingScope WithLogger(this RenderingScope scope, ILoggerFactory loggerFactory)
+        public static ReportingScope WithLogger(this ReportingScope scope, ILoggerFactory loggerFactory)
         {
             if (scope == null)
             {
@@ -98,7 +98,7 @@ namespace Auriga.Reporting
         /// <param name="iconRegistry">the icon registry</param>
         /// <returns>the same scope, for chaining</returns>
         /// <exception cref="ArgumentNullException">the scope or the registry is null</exception>
-        public static RenderingScope UsingIconRegistry(this RenderingScope scope, IIconRegistry iconRegistry)
+        public static ReportingScope UsingIconRegistry(this ReportingScope scope, IIconRegistry iconRegistry)
         {
             if (scope == null)
             {
@@ -134,7 +134,7 @@ namespace Auriga.Reporting
         /// <returns>the same scope, for chaining</returns>
         /// <exception cref="ArgumentNullException">the scope is null</exception>
         /// <exception cref="ArgumentException">the project root is null or empty</exception>
-        public static RenderingScope UsingProjectImages(this RenderingScope scope, string projectRoot)
+        public static ReportingScope UsingProjectImages(this ReportingScope scope, string projectRoot)
         {
             if (scope == null)
             {
@@ -162,7 +162,7 @@ namespace Auriga.Reporting
         /// <param name="palette">the palette seeding the defaults of every resolved property</param>
         /// <returns>the same scope, for chaining</returns>
         /// <exception cref="ArgumentNullException">the scope or the palette is null</exception>
-        public static RenderingScope UsingPalette(this RenderingScope scope, ICapellaDefaultPalette palette)
+        public static ReportingScope UsingPalette(this ReportingScope scope, ICapellaDefaultPalette palette)
         {
             if (scope == null)
             {
@@ -189,7 +189,7 @@ namespace Auriga.Reporting
         /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
         /// <returns>the same scope, for chaining</returns>
         /// <exception cref="ArgumentNullException">the scope or the resolver is null</exception>
-        public static RenderingScope UsingStyleResolver(this RenderingScope scope, IStyleResolver styleResolver)
+        public static ReportingScope UsingStyleResolver(this ReportingScope scope, IStyleResolver styleResolver)
         {
             if (scope == null)
             {
@@ -215,7 +215,7 @@ namespace Auriga.Reporting
         /// <param name="tooltipResolver">the resolver producing each built item's hover text</param>
         /// <returns>the same scope, for chaining</returns>
         /// <exception cref="ArgumentNullException">the scope or the resolver is null</exception>
-        public static RenderingScope UsingTooltipResolver(this RenderingScope scope, ITooltipResolver tooltipResolver)
+        public static ReportingScope UsingTooltipResolver(this ReportingScope scope, ITooltipResolver tooltipResolver)
         {
             if (scope == null)
             {
@@ -238,7 +238,7 @@ namespace Auriga.Reporting
         /// <param name="scope">the configured scope</param>
         /// <returns>the diagram builder</returns>
         /// <exception cref="ArgumentNullException">the scope is null</exception>
-        public static IDiagramBuilder BuildDiagramBuilder(this RenderingScope scope)
+        public static IDiagramBuilder BuildDiagramBuilder(this ReportingScope scope)
         {
             if (scope == null)
             {
@@ -257,7 +257,7 @@ namespace Auriga.Reporting
         /// <param name="scope">the configured scope</param>
         /// <returns>the table builder</returns>
         /// <exception cref="ArgumentNullException">the scope is null</exception>
-        public static ITableBuilder BuildTableBuilder(this RenderingScope scope)
+        public static ITableBuilder BuildTableBuilder(this ReportingScope scope)
         {
             if (scope == null)
             {
@@ -274,7 +274,7 @@ namespace Auriga.Reporting
         /// <param name="scope">the configured scope</param>
         /// <returns>the SVG exporter</returns>
         /// <exception cref="ArgumentNullException">the scope is null</exception>
-        public static ISvgExporter BuildSvgExporter(this RenderingScope scope)
+        public static ISvgExporter BuildSvgExporter(this ReportingScope scope)
         {
             if (scope == null)
             {
@@ -292,7 +292,7 @@ namespace Auriga.Reporting
         /// <param name="scope">the configured scope</param>
         /// <returns>the raster exporter</returns>
         /// <exception cref="ArgumentNullException">the scope is null</exception>
-        public static IRasterExporter BuildRasterExporter(this RenderingScope scope)
+        public static IRasterExporter BuildRasterExporter(this ReportingScope scope)
         {
             if (scope == null)
             {
@@ -309,7 +309,7 @@ namespace Auriga.Reporting
         /// <param name="scope">the configured scope</param>
         /// <returns>the XLSX table exporter</returns>
         /// <exception cref="ArgumentNullException">the scope is null</exception>
-        public static IXlsxTableExporter BuildXlsxTableExporter(this RenderingScope scope)
+        public static IXlsxTableExporter BuildXlsxTableExporter(this ReportingScope scope)
         {
             if (scope == null)
             {

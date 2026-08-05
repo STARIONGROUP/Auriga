@@ -28,7 +28,7 @@ namespace Auriga.Reporting.Tests
     /// line with the node's bounds, exactly as Capella renders.
     /// </summary>
     [TestFixture]
-    public class CapabilityDiagramTestFixture : RenderingTestFixtureBase
+    public class CapabilityDiagramTestFixture : ReportingTestFixtureBase
     {
         /// <summary>
         /// The built <c>[CC] Provide Audio and Video Intercommunication Means</c> diagram.

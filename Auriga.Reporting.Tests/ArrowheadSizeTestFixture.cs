@@ -29,7 +29,7 @@ namespace Auriga.Reporting.Tests
     /// stroke.
     /// </summary>
     [TestFixture]
-    public class ArrowheadSizeTestFixture : RenderingTestFixtureBase
+    public class ArrowheadSizeTestFixture : ReportingTestFixtureBase
     {
         private const string WatchImposedVideoLabUid = "_nzxH0LL_EeSGuvnnapXBhA";
 

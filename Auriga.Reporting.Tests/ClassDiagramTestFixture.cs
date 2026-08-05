@@ -27,7 +27,7 @@ namespace Auriga.Reporting.Tests
     /// title separator, and surfaces the association multiplicities as edge end labels.
     /// </summary>
     [TestFixture]
-    public class ClassDiagramTestFixture : RenderingTestFixtureBase
+    public class ClassDiagramTestFixture : ReportingTestFixtureBase
     {
         /// <summary>
         /// The built <c>[CDB] In-Flight Entertainment Dictionary</c> diagram.

@@ -30,7 +30,7 @@ namespace Auriga.Reporting.Tests
     /// <c>[LFBD] All Functions</c>, whose generic route inflated the canvas to ~8749px wide.
     /// </summary>
     [TestFixture]
-    public class TreeRoutingTestFixture : RenderingTestFixtureBase
+    public class TreeRoutingTestFixture : ReportingTestFixtureBase
     {
         private const string AllFunctionsLfbdUid = "_XUQUUJqIEeS8H_8qEOr5gg";
 

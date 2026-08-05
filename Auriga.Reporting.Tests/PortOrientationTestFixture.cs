@@ -29,7 +29,7 @@ namespace Auriga.Reporting.Tests
     /// whose ports previously all rendered identically oriented.
     /// </summary>
     [TestFixture]
-    public class PortOrientationTestFixture : RenderingTestFixtureBase
+    public class PortOrientationTestFixture : ReportingTestFixtureBase
     {
         private const string DisplayVideoPdfbUid = "_gB07gLBMEeSnJaHm1OLKKw";
 

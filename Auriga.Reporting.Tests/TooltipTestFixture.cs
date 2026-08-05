@@ -30,7 +30,7 @@ namespace Auriga.Reporting.Tests
     /// group's <c>title</c>, the native tooltip of a browser or SVG viewer, without any scripting.
     /// </summary>
     [TestFixture]
-    public class TooltipTestFixture : RenderingTestFixtureBase
+    public class TooltipTestFixture : ReportingTestFixtureBase
     {
         private static readonly XNamespace Svg = "http://www.w3.org/2000/svg";
 

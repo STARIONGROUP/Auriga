@@ -32,7 +32,7 @@ namespace Auriga.Reporting.Tests
     /// manual Excel step is needed.
     /// </summary>
     [TestFixture]
-    public class XlsxTableExportTestFixture : RenderingTestFixtureBase
+    public class XlsxTableExportTestFixture : ReportingTestFixtureBase
     {
         /// <summary>
         /// The Capella name of the table representation in the fragmented-sysmodel fixture.

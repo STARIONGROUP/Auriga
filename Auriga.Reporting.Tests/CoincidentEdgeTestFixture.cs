@@ -30,7 +30,7 @@ namespace Auriga.Reporting.Tests
     /// <c>Chosen Music</c> exchanges ride one chord.
     /// </summary>
     [TestFixture]
-    public class CoincidentEdgeTestFixture : RenderingTestFixtureBase
+    public class CoincidentEdgeTestFixture : ReportingTestFixtureBase
     {
         private const string ListenToAudioOaibUid = "_8XjTwLLlEeSVmfu1BIQISw";
 

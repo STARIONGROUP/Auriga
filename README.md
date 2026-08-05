@@ -24,7 +24,7 @@ The **Auriga.Reporting** library turns a model's diagrams into the artifacts a r
 
 Sirius table representations are covered as well. Unlike a diagram, a table persists no layout, so `ITableBuilder` synthesizes the grid: it lays a `DTable` out as the same `Diagram` of boxes, which makes the SVG exporter the table's visual export. `IXlsxTableExporter` is the editable counterpart, writing one or more tables to an Excel workbook (a worksheet each) via [ClosedXML](https://github.com/ClosedXML/ClosedXML).
 
-The services are composed through `RenderingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver, the tooltip resolver, the exporters — can be substituted in one place. `UsingProjectImages(projectRoot)` adds the artwork a model carries itself (a `WorkspaceImage` pointing inside the project rather than at a Capella plugin) to the vendored Capella icon set rather than replacing it.
+The services are composed through `ReportingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver, the tooltip resolver, the exporters — can be substituted in one place. `UsingProjectImages(projectRoot)` adds the artwork a model carries itself (a `WorkspaceImage` pointing inside the project rather than at a Capella plugin) to the vendored Capella icon set rather than replacing it.
 
 Rendering degrades rather than throws — a diagram that renders imperfectly beats one that does not render at all — and `WithLogger(ILoggerFactory)` is where those degradations surface: at Debug, the images no registry resolved, the representations skipped for want of a persisted layout, and the malformed bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved image path and each style value that did not parse. A well-formed model stays silent at Information and above, so turning on Debug is what explains a difference between what Capella shows and what Auriga exported.
 
@@ -92,16 +92,16 @@ using Microsoft.Extensions.Logging;
 // artwork the model carries itself, chained onto the vendored Capella icons; your own
 // logger factory reports what the renderer degraded — an image no registry resolved, a
 // representation with no persisted layout, geometry that did not parse — at Debug.
-using var rendering = RenderingBuilder.Create()
+using var reporting = ReportingBuilder.Create()
     .UsingProjectImages("In-Flight Entertainment System")
     .WithLogger(loggerFactory);
 
 using var reader = XmiReaderBuilder.Create();
 var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
 
-var svgExporter = rendering.BuildSvgExporter();
+var svgExporter = reporting.BuildSvgExporter();
 
-foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+foreach (var diagram in reporting.BuildDiagramBuilder().BuildAll(session.Elements.Values))
 {
     svgExporter.ExportToFile(diagram, $"out/{diagram.Name}.svg");
 }
@@ -113,16 +113,16 @@ Rasterize the same diagrams to PNG or JPEG, for the consumers that cannot take a
 using Auriga.Reporting;
 using Auriga.Xmi;
 
-using var rendering = RenderingBuilder.Create();
+using var reporting = ReportingBuilder.Create();
 using var reader = XmiReaderBuilder.Create();
 
 var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
 
 // The raster exporter draws the very SVG the SVG exporter produces, so the bitmap
 // carries the same palette, styles and artwork. The format comes from the extension.
-var rasterExporter = rendering.BuildRasterExporter();
+var rasterExporter = reporting.BuildRasterExporter();
 
-foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+foreach (var diagram in reporting.BuildDiagramBuilder().BuildAll(session.Elements.Values))
 {
     // Twice the persisted size, on a white background instead of PNG's transparency.
     rasterExporter.ExportToFile(
@@ -141,13 +141,13 @@ Export the table representations of the same session to Excel:
 using Auriga.Reporting;
 using Auriga.Xmi;
 
-using var rendering = RenderingBuilder.Create();
+using var reporting = ReportingBuilder.Create();
 using var reader = XmiReaderBuilder.Create();
 
 var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
 var tables = session.Elements.Values.OfType<Auriga.Diagram.Table.IDTable>().ToList();
 
-var xlsxExporter = rendering.BuildXlsxTableExporter();
+var xlsxExporter = reporting.BuildXlsxTableExporter();
 
 // One workbook per table, or pass a name-to-table sequence to get one workbook of many sheets.
 foreach (var table in tables)
@@ -156,7 +156,7 @@ foreach (var table in tables)
 }
 
 // The same table also lays out as a grid of boxes, which the SVG exporter renders.
-var grid = rendering.BuildTableBuilder().Build(tables.First());
+var grid = reporting.BuildTableBuilder().Build(tables.First());
 ```
 
 See [ContainerList Design](docs/containment-list.md), [Query Extension Methods](docs/query-extensions.md)
