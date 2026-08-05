@@ -162,12 +162,14 @@ namespace Auriga.Reporting.Tests
         [Test]
         public void Verify_that_the_file_name_is_the_diagram_name_disambiguated_by_its_uid()
         {
-            var named = new Diagram("_abc123", new List<Box>(), new List<Edge>(), null, null) { Name = "Physical Architecture: pumps / valves" };
+            // Every character Windows rejects, so the assertion pins the same answer on a Linux
+            // runner, where Path.GetInvalidFileNameChars would object to only the slash.
+            var named = new Diagram("_abc123", new List<Box>(), new List<Edge>(), null, null) { Name = "A<b>c:d\"e/f\\g|h?i*j" };
             var unnamed = new Diagram("_def456", new List<Box>(), new List<Edge>(), null, null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(DiagramReportGenerator.FileNameOf(named), Is.EqualTo("Physical Architecture_ pumps _ valves (abc123)"));
+                Assert.That(DiagramReportGenerator.FileNameOf(named), Is.EqualTo("A_b_c_d_e_f_g_h_i_j (abc123)"));
                 Assert.That(DiagramReportGenerator.FileNameOf(unnamed), Is.EqualTo("def456"), "the uid alone when no descriptor named it");
             });
         }

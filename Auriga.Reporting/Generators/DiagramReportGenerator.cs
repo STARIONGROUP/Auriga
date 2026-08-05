@@ -41,6 +41,16 @@ namespace Auriga.Reporting.Generators
         private static readonly TimeSpan FilterTimeout = TimeSpan.FromSeconds(1);
 
         /// <summary>
+        /// The characters a file name may not carry. Deliberately not
+        /// <see cref="Path.GetInvalidFileNameChars"/>, which is the running platform's answer —
+        /// Linux objects only to <c>/</c> and NUL, so the same diagram would export as
+        /// <c>Overview: pumps.svg</c> there and <c>Overview_ pumps.svg</c> on Windows. Exported
+        /// diagrams get shared, committed and opened elsewhere, so the set is fixed at the strictest
+        /// of the platforms and a name is the same wherever it was produced.
+        /// </summary>
+        private static readonly char[] InvalidInAName = { '<', '>', ':', '"', '/', '\\', '|', '?', '*' };
+
+        /// <summary>
         /// The factory every composed service logs through.
         /// </summary>
         private readonly ILoggerFactory loggerFactory;
@@ -176,10 +186,12 @@ namespace Auriga.Reporting.Generators
         /// The export file name of a representation, without an extension, so a representation's
         /// artifacts sort next to each other: its Capella name with filesystem-hostile characters
         /// replaced, suffixed with the uid because Capella allows two representations to share a
-        /// name, and the uid alone when no descriptor named it.
+        /// name, and the uid alone when no descriptor named it. The same on every platform — see
+        /// <see cref="InvalidInAName"/>.
         /// </summary>
         /// <param name="diagram">the representation</param>
         /// <returns>the file name, without an extension</returns>
+        /// <exception cref="ArgumentNullException">the representation is null</exception>
         public static string FileNameOf(Diagram diagram)
         {
             if (diagram == null)
@@ -191,9 +203,9 @@ namespace Auriga.Reporting.Generators
                 ? diagram.Identifier.TrimStart('_')
                 : $"{diagram.Name} ({diagram.Identifier.TrimStart('_')})";
 
-            var invalid = Path.GetInvalidFileNameChars();
-
-            return new string(name.Select(character => invalid.Contains(character) ? '_' : character).ToArray());
+            return new string(name
+                .Select(character => InvalidInAName.Contains(character) || char.IsControl(character) ? '_' : character)
+                .ToArray());
         }
 
         /// <summary>
