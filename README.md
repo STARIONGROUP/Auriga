@@ -16,9 +16,9 @@ The **Auriga.Xmi** library provides XMI reader implementations to read Capella s
 
 The **Auriga.Extensions** library provides LINQ-style query extension methods over the Auriga object graph, following the `uml4net.Extensions` pattern: containment navigation (`QueryAncestors`, `QueryRoot`, `QueryAllFunctions`, `QueryAllComponents`), component-functional allocation (`QueryAllocatedFunctions`, `IsAllocatedTo`, `QueryAllocatingBlocks`), function/component ports and functional exchanges, and cross-layer realization (`QueryRealizedFunctions`/`QueryRealizingFunctions` and the component equivalents). See [Query Extension Methods](docs/query-extensions.md).
 
-## Auriga.Rendering
+## Auriga.Reporting
 
-The **Auriga.Rendering** library provides the renderer-agnostic intermediate diagram model: `IDiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `ISvgExporter` serializes a diagram to plain SVG (string, stream or file) — the SVG writer itself is dependency-free, built on `System.Xml.Linq` alone. Every item also carries a `Tooltip`, resolved by the injectable `ITooltipResolver` — the type and name of what it represents, what a relationship connects, and the Capella `description` reduced to plain text — which the exporter emits as the group's SVG `title`, so hovering a rendered element in a browser explains it without any scripting.
+The **Auriga.Reporting** library turns a model's diagrams into the artifacts a reader consumes — SVG, PNG, JPEG and Excel — over a renderer-agnostic intermediate diagram model: `IDiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `ISvgExporter` serializes a diagram to plain SVG (string, stream or file) — the SVG writer itself is dependency-free, built on `System.Xml.Linq` alone. Every item also carries a `Tooltip`, resolved by the injectable `ITooltipResolver` — the type and name of what it represents, what a relationship connects, and the Capella `description` reduced to plain text — which the exporter emits as the group's SVG `title`, so hovering a rendered element in a browser explains it without any scripting.
 
 `IRasterExporter` is the bitmap counterpart, for the consumers that cannot take a vector document — a thumbnail, a Word or PowerPoint report, an issue-tracker attachment. It rasterizes a diagram (or any SVG text) to PNG or JPEG at a requested scale or DPI, by way of the very SVG the exporter produces, so the bitmap carries the same palette, styles and artwork. The image measures the diagram's viewport rounded to whole pixels, multiplied by `RasterOptions.Scale`; PNG keeps transparency, JPEG composites onto white unless a background is given. Rasterization is done with [SkiaSharp](https://github.com/mono/SkiaSharp) and [Svg.Skia](https://github.com/wieslawsoltes/Svg.Skia), which is why this package — unlike the rest of Auriga — carries native assets, one set per platform; the SVG *writer* itself remains `System.Xml.Linq` alone.
 
@@ -44,7 +44,7 @@ Install the packages from NuGet (once published):
 dotnet add package Auriga
 dotnet add package Auriga.Xmi
 dotnet add package Auriga.Extensions
-dotnet add package Auriga.Rendering
+dotnet add package Auriga.Reporting
 ```
 
 Load a Capella project, navigate the Arcadia layers, query it, and write it back:
@@ -83,7 +83,7 @@ writer.Write(project.Project!, "out/In-Flight Entertainment System.capella");
 Render the diagrams of a Sirius `.aird` session to SVG:
 
 ```csharp
-using Auriga.Rendering;
+using Auriga.Reporting;
 using Auriga.Xmi;
 using Microsoft.Extensions.Logging;
 
@@ -110,7 +110,7 @@ foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Element
 Rasterize the same diagrams to PNG or JPEG, for the consumers that cannot take a vector document:
 
 ```csharp
-using Auriga.Rendering;
+using Auriga.Reporting;
 using Auriga.Xmi;
 
 using var rendering = RenderingBuilder.Create();
@@ -138,7 +138,7 @@ foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Element
 Export the table representations of the same session to Excel:
 
 ```csharp
-using Auriga.Rendering;
+using Auriga.Reporting;
 using Auriga.Xmi;
 
 using var rendering = RenderingBuilder.Create();
@@ -182,7 +182,7 @@ Auriga is in early development and has not yet had its first release. Once publi
   - `Auriga` — the Capella object model (`Auriga.Model.*`) and the Sirius/GMF diagram object model (`Auriga.Diagram.*`)
   - `Auriga.Xmi` — the `.capella` / `.melodymodeller` / `.aird` readers and writers
   - `Auriga.Extensions` — query extension methods
-  - `Auriga.Rendering` — the intermediate diagram model built from the persisted `.aird` layout, with SVG, PNG/JPEG and Excel exports
+  - `Auriga.Reporting` — the intermediate diagram model built from the persisted `.aird` layout, with SVG, PNG/JPEG and Excel exports
 
 # Build Status
 

@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Xmi.Tests", "Auriga.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Extensions.Tests", "Auriga.Extensions.Tests\Auriga.Extensions.Tests.csproj", "{08ACF53A-8D94-43F4-A1F4-9C052E8E8A64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Rendering", "Auriga.Rendering\Auriga.Rendering.csproj", "{6C5B230B-8CEB-40D5-962E-4548A6795C38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Reporting", "Auriga.Reporting\Auriga.Reporting.csproj", "{6C5B230B-8CEB-40D5-962E-4548A6795C38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Rendering.Tests", "Auriga.Rendering.Tests\Auriga.Rendering.Tests.csproj", "{29B9585F-01C6-46DD-AEF7-E57B5C9122E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Reporting.Tests", "Auriga.Reporting.Tests\Auriga.Reporting.Tests.csproj", "{29B9585F-01C6-46DD-AEF7-E57B5C9122E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auriga.Samples", "Auriga.Samples\Auriga.Samples.csproj", "{9C9B0B00-D2CA-44AF-A8EE-C9F76D26B405}"
 EndProject

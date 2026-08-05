@@ -10,7 +10,7 @@ does not have one yet:
 ```markdown
 ## [Unreleased]
 
-### Auriga.Rendering
+### Auriga.Reporting
 
 - [ADD] hover tooltips on the rendered elements, emitted as the SVG group's title
 ```
@@ -30,7 +30,7 @@ release body from the same section; the workflow commits, packs and publishes wh
 Anything written into the element by hand is overwritten at the next release, and it will not appear
 in the release notes — put it in `CHANGELOG.md` instead.
 
-The packable projects are `Auriga`, `Auriga.Xmi`, `Auriga.Extensions` and `Auriga.Rendering`; they
+The packable projects are `Auriga`, `Auriga.Xmi`, `Auriga.Extensions` and `Auriga.Reporting`; they
 are the only ones that carry the element, and the only ones a changelog subsection can name.
 
 `dotnet run tools/SyncReleaseNotes.cs -- --version <semver>` performs the whole rewrite in the

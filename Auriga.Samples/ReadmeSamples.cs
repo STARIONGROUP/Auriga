@@ -12,7 +12,7 @@ namespace Auriga.Samples
     using System.Linq;
 
     using Auriga.Extensions;
-    using Auriga.Rendering;
+    using Auriga.Reporting;
     using Auriga.Xmi;
 
     using Microsoft.Extensions.Logging;

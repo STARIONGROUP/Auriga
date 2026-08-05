@@ -1,7 +1,7 @@
 name: Nuget-Release
 
 # Manual, versioned release of the Auriga NuGet packages (Auriga, Auriga.Xmi, Auriga.Extensions,
-# Auriga.Rendering). Auriga.CodeGenerator and Auriga.Samples are IsPackable=false, so `dotnet pack`
+# Auriga.Reporting). Auriga.CodeGenerator and Auriga.Samples are IsPackable=false, so `dotnet pack`
 # on the solution produces exactly the library packages (plus their .snupkg symbol packages).
 # Packaging metadata, SBOM generation (Microsoft.Sbom.Targets) and SourceLink are configured in
 # Directory.Build.props.

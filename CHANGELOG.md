@@ -10,7 +10,7 @@ not change in that release.
 The `Nuget-Release` workflow is what turns this file into a release: it moves `[Unreleased]` under
 the version being released, writes each package's bullets into that package's
 `<PackageReleaseNotes>` — which is generated, never hand-edited — and builds the GitHub release
-body from the same section. `Auriga.CodeGenerator` and `Auriga.Reporting` are development-time tools
+body from the same section. `Auriga.CodeGenerator` and `Auriga.Samples` are development-time projects
 that ship no package, so they are not recorded here.
 
 ## [Unreleased]
@@ -36,7 +36,7 @@ that ship no package, so they are not recorded here.
 
 - [ADD] LINQ query extension methods for functions, components, ports, exchanges, and cross-layer allocation/realization; fixes #16
 
-### Auriga.Rendering
+### Auriga.Reporting
 
 - [ADD] the intermediate diagram model (Diagram, Box, Edge, Label, Point, Style) and the DiagramBuilder that builds it from a parsed .aird session: persisted GMF geometry paired with the Sirius representation elements and their resolved Capella semantic targets
 - [ADD] style resolution (behind the injectable IStyleResolver / ICapellaDefaultPalette): every built item carries a ResolvedStyle (fill/gradient, stroke color-width-pattern, font, arrows, workspace-image path) resolved from the Sirius owned style, the GMF notation styles and the Capella default palette, with sane fallbacks for unknown or malformed styles
