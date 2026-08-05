@@ -22,7 +22,7 @@ namespace Auriga.Rendering.Tests
     /// folder per model named after the model and one pair of files per diagram named after the
     /// diagram's Capella name (from its <c>DRepresentationDescriptor</c>, resolved by
     /// <see cref="DiagramBuilder.BuildAll"/>). The output lands under
-    /// <c>svg-exports/&lt;model&gt;/</c> in the test work directory, so the rendered diagrams can be
+    /// <c>diagram-exports/&lt;model&gt;/</c> in the test work directory, so the rendered diagrams can be
     /// compared side-by-side with the same diagrams opened in Capella — the visual acceptance
     /// check. The PNG is what makes that check quick: it opens in any viewer and in a preview pane,
     /// where the SVG needs a browser. Exporting both also runs <see cref="IRasterExporter"/> over
@@ -67,7 +67,7 @@ namespace Auriga.Rendering.Tests
             var svgExporter = renderingScope.BuildSvgExporter();
             var rasterExporter = renderingScope.BuildRasterExporter();
 
-            var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "svg-exports", modelFolder);
+            var outputDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "diagram-exports", modelFolder);
             Directory.CreateDirectory(outputDirectory);
 
             Assert.That(diagrams, Is.Not.Empty, "the model carries GMF-backed representations");
