@@ -203,6 +203,11 @@ namespace Auriga.Rendering.Tests
             var file = Path.Combine(TestContext.CurrentContext.WorkDirectory, "table-export.svg");
             this.SvgExporter.ExportToFile(table, file);
 
+            // A table renders as a grid of boxes like any other diagram, so it gets the raster
+            // beside its SVG that every exported fixture diagram gets.
+            var raster = Path.Combine(TestContext.CurrentContext.WorkDirectory, "table-export.png");
+            this.RasterExporter.ExportToFile(table, raster, new RasterOptions { Background = new Color(255, 255, 255) });
+
             var document = XDocument.Load(file);
             var texts = document.Descendants().Where(element => element.Name.LocalName == "text").ToList();
             var rects = document.Descendants().Where(element => element.Name.LocalName == "rect").ToList();
@@ -217,6 +222,8 @@ namespace Auriga.Rendering.Tests
                 Assert.That(texts.Any(text => text.Value.Contains("OA1")), Is.True, "a column header is rendered");
                 Assert.That(texts.Any(text => text.Value.Contains("SysOA1_1")), Is.True, "a line header is rendered");
                 Assert.That(texts.Any(text => text.Value.Trim() == "X"), Is.True, "an intersection mark is rendered");
+
+                Assert.That(File.ReadAllBytes(raster).Take(4), Is.EqualTo(new byte[] { 0x89, 0x50, 0x4E, 0x47 }), "the grid rasterizes beside its SVG");
             });
         }
 
