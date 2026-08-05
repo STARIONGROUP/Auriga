@@ -28,6 +28,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga.Extensions\Auriga.Extensions.csproj" />
+        <!-- The report generator loads the .aird itself, so one package install is enough to go
+             from a model file to a picture. Acyclic: Auriga.Xmi knows nothing of this package. -->
+        <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
     </ItemGroup>
 
     <ItemGroup>
