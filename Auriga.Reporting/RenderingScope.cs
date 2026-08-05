@@ -9,6 +9,12 @@
 
 namespace Auriga.Reporting
 {
+    using Auriga.Reporting.Builders;
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Generators;
+    using Auriga.Reporting.Icons;
+    using Auriga.Reporting.Styles;
+
     using Autofac;
 
     using Microsoft.Extensions.Logging;

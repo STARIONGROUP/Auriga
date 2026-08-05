@@ -14,6 +14,10 @@ namespace Auriga.Reporting.Tests
     using System.Linq;
     using System.Xml.Linq;
 
+    using Auriga.Reporting.Builders;
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Model;
+
     using Auriga.Xmi;
 
     using Microsoft.Extensions.Logging.Abstractions;

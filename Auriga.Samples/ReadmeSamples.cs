@@ -11,6 +11,9 @@ namespace Auriga.Samples
 {
     using System.Linq;
 
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Model;
+
     using Auriga.Extensions;
     using Auriga.Reporting;
     using Auriga.Xmi;

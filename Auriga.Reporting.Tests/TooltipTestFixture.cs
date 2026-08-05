@@ -13,6 +13,10 @@ namespace Auriga.Reporting.Tests
     using System.Linq;
     using System.Xml.Linq;
 
+    using Auriga.Reporting.Builders;
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Model;
+
     using NUnit.Framework;
 
     using Notation = Auriga.Diagram.Notation;

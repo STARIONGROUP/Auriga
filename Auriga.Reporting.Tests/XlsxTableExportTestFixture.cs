@@ -13,6 +13,10 @@ namespace Auriga.Reporting.Tests
     using System.IO;
     using System.Linq;
 
+    using Auriga.Reporting.Builders;
+    using Auriga.Reporting.Generators;
+    using Auriga.Reporting.Model;
+
     using Auriga.Diagram.Table;
     using Auriga.Xmi;
 

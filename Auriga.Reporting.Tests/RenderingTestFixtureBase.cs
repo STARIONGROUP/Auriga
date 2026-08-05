@@ -9,6 +9,11 @@
 
 namespace Auriga.Reporting.Tests
 {
+    using Auriga.Reporting;
+    using Auriga.Reporting.Builders;
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Generators;
+
     using NUnit.Framework;
 
     /// <summary>

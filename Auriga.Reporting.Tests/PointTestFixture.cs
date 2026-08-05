@@ -9,6 +9,8 @@
 
 namespace Auriga.Reporting.Tests
 {
+    using Auriga.Reporting.Model;
+
     using NUnit.Framework;
 
     /// <summary>
