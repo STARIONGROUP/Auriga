@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="Moq" />
         <PackageReference Include="NUnit" />
         <PackageReference Include="NUnit3TestAdapter">
             <PrivateAssets>all</PrivateAssets>
@@ -23,6 +24,17 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Auriga.Tools\Auriga.Tools.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\TestData\coffee-machine\coffee-machine-demo.aird">
+            <Link>TestData\coffee-machine-demo.aird</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\TestData\coffee-machine\coffee-machine-demo.capella">
+            <Link>TestData\coffee-machine-demo.capella</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
