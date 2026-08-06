@@ -43,7 +43,7 @@ namespace Auriga.Reporting.Tests
         /// <summary>
         /// The generator under test, which loads each model and composes the pipeline itself.
         /// </summary>
-        private readonly IDiagramReportGenerator generator = new DiagramReportGenerator();
+        private readonly DiagramReportGenerator generator = new();
 
         [Test]
         [TestCase("coffee-machine-demo.aird", "coffee-machine")]

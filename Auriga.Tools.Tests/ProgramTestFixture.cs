@@ -24,6 +24,18 @@ namespace Auriga.Tools.Tests
     [TestFixture]
     public class ProgramTestFixture
     {
+        /// <summary>
+        /// The command lines that must answer without a model: the help of the root and of each
+        /// command, and the version.
+        /// </summary>
+        private static readonly string[][] HelpAndVersion =
+        {
+            new[] { "--help" },
+            new[] { "export", "--help" },
+            new[] { "list", "--help" },
+            new[] { "--version" },
+        };
+
         private string model = string.Empty;
 
         [SetUp]
@@ -43,7 +55,7 @@ namespace Auriga.Tools.Tests
         [Test]
         public async Task Verify_that_the_tool_exports_a_model()
         {
-            var output = this.Output("program-export");
+            var output = Output("program-export");
 
             var exitCode = await Program.Main(new[]
             {
@@ -68,7 +80,7 @@ namespace Auriga.Tools.Tests
         [Test]
         public async Task Verify_that_the_export_options_reach_the_output()
         {
-            var output = this.Output("program-options");
+            var output = Output("program-options");
 
             var exitCode = await Program.Main(new[]
             {
@@ -113,7 +125,7 @@ namespace Auriga.Tools.Tests
             var exitCode = await Program.Main(new[]
             {
                 "export", this.model,
-                "--output", this.Output("program-bad-format").FullName,
+                "--output", Output("program-bad-format").FullName,
                 "--format", "bmp",
                 "--no-logo",
                 "--log-level", "Warning",
@@ -129,10 +141,10 @@ namespace Auriga.Tools.Tests
             // overload, runs as async void and is never awaited, so nothing inside it can fail.
             await Assert.MultipleAsync(async () =>
             {
-                Assert.That(await Program.Main(new[] { "--help" }), Is.EqualTo(0));
-                Assert.That(await Program.Main(new[] { "export", "--help" }), Is.EqualTo(0));
-                Assert.That(await Program.Main(new[] { "list", "--help" }), Is.EqualTo(0));
-                Assert.That(await Program.Main(new[] { "--version" }), Is.EqualTo(0));
+                foreach (var line in HelpAndVersion)
+                {
+                    Assert.That(await Program.Main(line), Is.EqualTo(0), string.Join(' ', line));
+                }
             });
         }
 
@@ -141,7 +153,7 @@ namespace Auriga.Tools.Tests
         /// </summary>
         /// <param name="name">the test's own folder</param>
         /// <returns>the directory</returns>
-        private DirectoryInfo Output(string name)
+        private static DirectoryInfo Output(string name)
         {
             var directory = new DirectoryInfo(Path.Combine(TestContext.CurrentContext.WorkDirectory, "tools", name));
 

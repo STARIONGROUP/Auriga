@@ -36,7 +36,7 @@ namespace Auriga.Reporting.Tests
     [TestFixture]
     public class DiagramReportGeneratorTestFixture
     {
-        private IDiagramReportGenerator generator = null!;
+        private DiagramReportGenerator generator = null!;
 
         private FileInfo coffeeMachine = null!;
 
@@ -56,13 +56,13 @@ namespace Auriga.Reporting.Tests
             Assert.Multiple(() =>
             {
                 Assert.That(() => new DiagramReportGenerator(null!), Throws.ArgumentNullException);
-                Assert.That(() => this.generator.Generate(null!, this.Output("guards")), Throws.ArgumentNullException);
+                Assert.That(() => this.generator.Generate(null!, Output("guards")), Throws.ArgumentNullException);
                 Assert.That(() => this.generator.Generate(this.coffeeMachine, null!), Throws.ArgumentNullException);
                 Assert.That(() => this.generator.Query(null!), Throws.ArgumentNullException);
                 Assert.That(() => DiagramReportGenerator.FileNameOf(null!), Throws.ArgumentNullException);
 
                 Assert.That(
-                    () => this.generator.Generate(this.coffeeMachine, this.Output("guards"), new DiagramReportOptions { Formats = DiagramFormats.None }),
+                    () => this.generator.Generate(this.coffeeMachine, Output("guards"), new DiagramReportOptions { Formats = DiagramFormats.None }),
                     Throws.ArgumentException,
                     "a run that would write nothing is a mistake, not an empty run");
 
@@ -73,7 +73,7 @@ namespace Auriga.Reporting.Tests
         [Test]
         public void Verify_that_the_defaults_write_an_svg_and_a_png_of_every_representation()
         {
-            var output = this.Output("defaults");
+            var output = Output("defaults");
 
             var written = this.generator.Generate(this.coffeeMachine, output);
             var representations = this.generator.Query(this.coffeeMachine);
@@ -94,7 +94,7 @@ namespace Auriga.Reporting.Tests
         {
             var written = this.generator.Generate(
                 this.coffeeMachine,
-                this.Output("jpeg-only"),
+                Output("jpeg-only"),
                 new DiagramReportOptions { Formats = DiagramFormats.Jpeg, NameFilter = "*make coffee*" });
 
             Assert.Multiple(() =>
@@ -113,7 +113,7 @@ namespace Auriga.Reporting.Tests
 
             var written = this.generator.Generate(
                 this.coffeeMachine,
-                this.Output("filtered"),
+                Output("filtered"),
                 new DiagramReportOptions { Formats = DiagramFormats.Svg, NameFilter = "[ES]*" });
 
             Assert.Multiple(() =>
@@ -130,7 +130,7 @@ namespace Auriga.Reporting.Tests
         {
             var written = this.generator.Generate(
                 this.coffeeMachine,
-                this.Output("no-match"),
+                Output("no-match"),
                 new DiagramReportOptions { NameFilter = "there is no such diagram" });
 
             Assert.That(written, Is.Empty);
@@ -141,12 +141,12 @@ namespace Auriga.Reporting.Tests
         {
             var withTables = this.generator.Generate(
                 this.fragmented,
-                this.Output("tables"),
+                Output("tables"),
                 new DiagramReportOptions { Formats = DiagramFormats.Xlsx });
 
             var withoutTables = this.generator.Generate(
                 this.coffeeMachine,
-                this.Output("no-tables"),
+                Output("no-tables"),
                 new DiagramReportOptions { Formats = DiagramFormats.Xlsx });
 
             Assert.Multiple(() =>
@@ -179,12 +179,12 @@ namespace Auriga.Reporting.Tests
         {
             var single = this.generator.Generate(
                 this.coffeeMachine,
-                this.Output("scale-1"),
+                Output("scale-1"),
                 new DiagramReportOptions { Formats = DiagramFormats.Png, NameFilter = "*make coffee*" });
 
             var doubled = this.generator.Generate(
                 this.coffeeMachine,
-                this.Output("scale-2"),
+                Output("scale-2"),
                 new DiagramReportOptions { Formats = DiagramFormats.Png, NameFilter = "*make coffee*", Raster = new RasterOptions { Scale = 2 } });
 
             Assert.That(doubled[0].Length, Is.GreaterThan(single[0].Length), "twice the size is more pixels, and more bytes");
@@ -195,7 +195,7 @@ namespace Auriga.Reporting.Tests
         /// </summary>
         /// <param name="name">the test's own folder</param>
         /// <returns>the directory</returns>
-        private DirectoryInfo Output(string name)
+        private static DirectoryInfo Output(string name)
         {
             return new DirectoryInfo(Path.Combine(TestContext.CurrentContext.WorkDirectory, "generator", name));
         }

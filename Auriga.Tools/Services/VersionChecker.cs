@@ -56,13 +56,10 @@ namespace Auriga.Tools.Services
         /// <exception cref="ArgumentNullException">the client factory or the logger factory is null</exception>
         public VersionChecker(IHttpClientFactory clientFactory, ILoggerFactory loggerFactory)
         {
-            this.clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
+            ArgumentNullException.ThrowIfNull(clientFactory);
+            ArgumentNullException.ThrowIfNull(loggerFactory);
 
-            if (loggerFactory == null)
-            {
-                throw new ArgumentNullException(nameof(loggerFactory));
-            }
-
+            this.clientFactory = clientFactory;
             this.logger = loggerFactory.CreateLogger<VersionChecker>();
         }
 

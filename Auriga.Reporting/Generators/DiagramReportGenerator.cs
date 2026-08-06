@@ -245,7 +245,7 @@ namespace Auriga.Reporting.Generators
                 return diagrams;
             }
 
-            var pattern = "^" + Regex.Escape(options.NameFilter!).Replace("\\*", ".*").Replace("\\?", ".") + "$";
+            var pattern = "^" + Regex.Escape(options.NameFilter).Replace("\\*", ".*").Replace("\\?", ".") + "$";
 
             return diagrams
                 .Where(diagram => Regex.IsMatch(diagram.Name ?? string.Empty, pattern, RegexOptions.IgnoreCase, FilterTimeout))

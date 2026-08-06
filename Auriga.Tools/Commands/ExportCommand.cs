@@ -235,7 +235,11 @@ namespace Auriga.Tools.Commands
                     .Start(context =>
                     {
                         var reading = context.AddTask($"[green]Reading[/] {Ui.Escape(model.Name)}", maxValue: 1);
-                        ProgressTask? writing = null;
+
+                        // Both tasks exist from the start, the writing one unstarted until there is
+                        // something to write: how many diagrams there are is only known once the
+                        // model has been read, and its maximum is raised then.
+                        var writing = context.AddTask("[grey]Waiting to write[/]", autoStart: false, maxValue: 1);
 
                         // The generator runs on this thread, so the reports arrive here rather than
                         // on a pool thread — a plain Progress<T> would post them elsewhere and the
@@ -250,7 +254,13 @@ namespace Auriga.Tools.Commands
 
                                 case DiagramReportStage.Writing:
                                     reading.Value = 1;
-                                    writing ??= context.AddTask("[green]Writing[/] diagrams", maxValue: Math.Max(1, report.Total));
+
+                                    if (!writing.IsStarted)
+                                    {
+                                        writing.StartTask();
+                                    }
+
+                                    writing.MaxValue = Math.Max(1, report.Total);
                                     writing.Value = report.Completed;
                                     writing.Description = $"[green]Writing[/] {Ui.Escape(Shorten(report.Subject))}";
                                     break;
@@ -265,7 +275,7 @@ namespace Auriga.Tools.Commands
 
                         reading.Value = 1;
 
-                        if (writing != null)
+                        if (writing.IsStarted)
                         {
                             writing.Value = writing.MaxValue;
                             writing.Description = "[green]Wrote[/] every diagram";
@@ -295,7 +305,7 @@ namespace Auriga.Tools.Commands
 
                 if (!string.IsNullOrEmpty(background))
                 {
-                    raster.Background = OptionParsing.Colour(background!);
+                    raster.Background = OptionParsing.Colour(background);
                 }
 
                 return new DiagramReportOptions

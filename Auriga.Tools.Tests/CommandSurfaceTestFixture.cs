@@ -27,6 +27,19 @@ namespace Auriga.Tools.Tests
     [TestFixture]
     public class CommandSurfaceTestFixture
     {
+        /// <summary>
+        /// The options the export command documents, and that other people's scripts rely on.
+        /// </summary>
+        private static readonly string[] ExportOptions =
+        {
+            "--output", "--format", "--scale", "--dpi", "--background", "--quality", "--open", "--name", "--no-logo", "--log-level",
+        };
+
+        /// <summary>
+        /// The options the list command documents.
+        /// </summary>
+        private static readonly string[] ListOptions = { "--name", "--no-logo", "--log-level" };
+
         [Test]
         public void Verify_that_export_carries_the_options_it_documents()
         {
@@ -37,7 +50,7 @@ namespace Auriga.Tools.Tests
             {
                 Assert.That(command.Name, Is.EqualTo("export"));
                 Assert.That(command.Arguments.Select(argument => argument.Name), Does.Contain("model"));
-                Assert.That(options, Is.SupersetOf(new[] { "--output", "--format", "--scale", "--dpi", "--background", "--quality", "--open", "--name", "--no-logo", "--log-level" }));
+                Assert.That(options, Is.SupersetOf(ExportOptions));
 
                 Assert.That(command.Options.Single(option => option.Name == "--output").Aliases, Does.Contain("-o"));
                 Assert.That(command.Options.Single(option => option.Name == "--format").Aliases, Does.Contain("-f"));
@@ -54,7 +67,7 @@ namespace Auriga.Tools.Tests
             {
                 Assert.That(command.Name, Is.EqualTo("list"));
                 Assert.That(command.Arguments.Select(argument => argument.Name), Does.Contain("model"));
-                Assert.That(command.Options.Select(option => option.Name), Is.SupersetOf(new[] { "--name", "--no-logo", "--log-level" }));
+                Assert.That(command.Options.Select(option => option.Name), Is.SupersetOf(ListOptions));
             });
         }
 
