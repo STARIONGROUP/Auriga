@@ -81,7 +81,7 @@ namespace Auriga.Reporting
                 throw new ArgumentNullException(nameof(loggerFactory));
             }
 
-            scope.ContainerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>();
+            scope.ContainerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>().ExternallyOwned();
             return scope;
         }
 
@@ -110,7 +110,7 @@ namespace Auriga.Reporting
                 throw new ArgumentNullException(nameof(iconRegistry));
             }
 
-            scope.ContainerBuilder.RegisterInstance(iconRegistry).As<IIconRegistry>();
+            scope.ContainerBuilder.RegisterInstance(iconRegistry).As<IIconRegistry>().ExternallyOwned();
             return scope;
         }
 
@@ -174,7 +174,7 @@ namespace Auriga.Reporting
                 throw new ArgumentNullException(nameof(palette));
             }
 
-            scope.ContainerBuilder.RegisterInstance(palette).As<ICapellaDefaultPalette>();
+            scope.ContainerBuilder.RegisterInstance(palette).As<ICapellaDefaultPalette>().ExternallyOwned();
             return scope;
         }
 
@@ -201,7 +201,7 @@ namespace Auriga.Reporting
                 throw new ArgumentNullException(nameof(styleResolver));
             }
 
-            scope.ContainerBuilder.RegisterInstance(styleResolver).As<IStyleResolver>();
+            scope.ContainerBuilder.RegisterInstance(styleResolver).As<IStyleResolver>().ExternallyOwned();
             return scope;
         }
 
@@ -227,7 +227,7 @@ namespace Auriga.Reporting
                 throw new ArgumentNullException(nameof(tooltipResolver));
             }
 
-            scope.ContainerBuilder.RegisterInstance(tooltipResolver).As<ITooltipResolver>();
+            scope.ContainerBuilder.RegisterInstance(tooltipResolver).As<ITooltipResolver>().ExternallyOwned();
             return scope;
         }
 

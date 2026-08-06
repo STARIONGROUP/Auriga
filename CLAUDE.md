@@ -30,8 +30,9 @@ release body from the same section; the workflow commits, packs and publishes wh
 Anything written into the element by hand is overwritten at the next release, and it will not appear
 in the release notes — put it in `CHANGELOG.md` instead.
 
-The packable projects are `Auriga`, `Auriga.Xmi`, `Auriga.Extensions` and `Auriga.Reporting`; they
-are the only ones that carry the element, and the only ones a changelog subsection can name.
+The packable projects are `Auriga`, `Auriga.Xmi`, `Auriga.Extensions`, `Auriga.Reporting` and
+`Auriga.Tools`; they are the only ones that carry the element, and the only ones a changelog
+subsection can name.
 
 `dotnet run tools/SyncReleaseNotes.cs -- --version <semver>` performs the whole rewrite in the
 working tree without committing anything, so what a release would say can be read from `git diff`

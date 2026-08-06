@@ -86,11 +86,12 @@ namespace Auriga.Reporting.Generators
         /// <param name="aird">the Sirius <c>.aird</c> file, or the project directory holding exactly one</param>
         /// <param name="output">the directory the artifacts are written to; created when absent</param>
         /// <param name="options">what to write and how, or <c>null</c> for an SVG and a PNG of every representation</param>
+        /// <param name="progress">receives what the run is doing, for a caller with a user waiting on it, or <c>null</c> to report nothing</param>
         /// <returns>the files written, in the order they were produced</returns>
         /// <exception cref="ArgumentNullException">the model path or the output directory is null</exception>
         /// <exception cref="ArgumentException">no format was asked for</exception>
         /// <exception cref="FileNotFoundException">the path names no readable Sirius model</exception>
-        public IReadOnlyList<FileInfo> Generate(FileInfo aird, DirectoryInfo output, DiagramReportOptions? options = null)
+        public IReadOnlyList<FileInfo> Generate(FileInfo aird, DirectoryInfo output, DiagramReportOptions? options = null, IProgress<DiagramReportProgress>? progress = null)
         {
             if (aird == null)
             {
@@ -109,11 +110,15 @@ namespace Auriga.Reporting.Generators
                 throw new ArgumentException("No format was requested, so there is nothing to write.", nameof(options));
             }
 
+            progress?.Report(new DiagramReportProgress(DiagramReportStage.Loading, aird.Name, 0, 0));
+
             var session = this.Load(aird);
 
             using var reporting = ReportingBuilder.Create()
                 .UsingProjectImages(ProjectDirectoryOf(aird))
                 .WithLogger(this.loggerFactory);
+
+            progress?.Report(new DiagramReportProgress(DiagramReportStage.Building, aird.Name, 0, 0));
 
             var diagrams = Matching(reporting.BuildDiagramBuilder().BuildAll(session.Elements.Values), options);
 
@@ -122,10 +127,13 @@ namespace Auriga.Reporting.Generators
             var written = new List<FileInfo>();
             var svgExporter = reporting.BuildSvgExporter();
             var rasterExporter = reporting.BuildRasterExporter();
+            var completed = 0;
 
             foreach (var diagram in diagrams)
             {
                 var name = FileNameOf(diagram);
+
+                progress?.Report(new DiagramReportProgress(DiagramReportStage.Writing, diagram.Name ?? name, completed, diagrams.Count));
 
                 if (options.Formats.HasFlag(DiagramFormats.Svg))
                 {
@@ -141,10 +149,15 @@ namespace Auriga.Reporting.Generators
                 {
                     written.Add(Write(output, name, ".jpg", path => rasterExporter.ExportToFile(diagram, path, options.Raster)));
                 }
+
+                completed++;
+                progress?.Report(new DiagramReportProgress(DiagramReportStage.Writing, diagram.Name ?? name, completed, diagrams.Count));
             }
 
             if (options.Formats.HasFlag(DiagramFormats.Xlsx))
             {
+                progress?.Report(new DiagramReportProgress(DiagramReportStage.WritingWorkbook, aird.Name, completed, diagrams.Count));
+
                 written.AddRange(this.WriteWorkbook(session, reporting, output));
             }
 

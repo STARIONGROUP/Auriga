@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Title>Auriga.Tools</Title>
+        <Version>1.0.0</Version>
+        <Description>A command line application that exports the diagrams of an Eclipse Capella model to SVG, PNG, JPEG and Excel. Install it as a dotnet tool and run "aurigatools export &lt;model.aird&gt;" — no compiler and no code required.</Description>
+        <PackageId>Auriga.Tools</PackageId>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>aurigatools</ToolCommandName>
+        <AssemblyTitle>Auriga.Tools</AssemblyTitle>
+        <PackageTags>Capella Arcadia Sirius Aird Diagram SVG PNG CLI dotnet-tool MBSE modeltopia</PackageTags>
+        <!-- Generated at release time from CHANGELOG.md by .github/workflows/nuget-release.yml. Record a change there, not here. -->
+        <PackageReleaseNotes></PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Extensions.Http" />
+        <PackageReference Include="Serilog.Extensions.Logging" />
+        <PackageReference Include="Serilog.Sinks.File" />
+        <PackageReference Include="Spectre.Console" />
+        <PackageReference Include="System.CommandLine" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Auriga.Reporting\Auriga.Reporting.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Resources\ascii-art.txt" />
+        <EmbeddedResource Include="Resources\ascii-art.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(MSBuildProjectName).Tests" />
+    </ItemGroup>
+
+</Project>

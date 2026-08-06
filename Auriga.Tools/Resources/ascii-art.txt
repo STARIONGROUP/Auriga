@@ -1,0 +1,13 @@
+
+     █████╗ ██╗   ██╗██████╗ ██╗ ██████╗  █████╗
+    ██╔══██╗██║   ██║██╔══██╗██║██╔════╝ ██╔══██╗
+    ███████║██║   ██║██████╔╝██║██║  ███╗███████║
+    ██╔══██║██║   ██║██╔══██╗██║██║   ██║██╔══██║
+    ██║  ██║╚██████╔╝██║  ██║██║╚██████╔╝██║  ██║
+    ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝
+
+  copyright 2026 Starion Group S.A. https://www.stariongroup.eu
+  email: info@stariongroup.eu
+  Source: https://github.com/STARIONGROUP/Auriga
+
+  AURIGA TOOLS version: aurigaToolsVersion

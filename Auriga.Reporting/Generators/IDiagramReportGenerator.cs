@@ -39,11 +39,12 @@ namespace Auriga.Reporting.Generators
         /// <param name="aird">the Sirius <c>.aird</c> file, or the project directory holding exactly one</param>
         /// <param name="output">the directory the artifacts are written to; created when absent</param>
         /// <param name="options">what to write and how, or <c>null</c> for an SVG and a PNG of every representation</param>
+        /// <param name="progress">receives what the run is doing, for a caller with a user waiting on it, or <c>null</c> to report nothing</param>
         /// <returns>the files written, in the order they were produced</returns>
         /// <exception cref="ArgumentNullException">the model path or the output directory is null</exception>
         /// <exception cref="ArgumentException">no format was asked for</exception>
         /// <exception cref="FileNotFoundException">the path names no readable Sirius model</exception>
-        IReadOnlyList<FileInfo> Generate(FileInfo aird, DirectoryInfo output, DiagramReportOptions? options = null);
+        IReadOnlyList<FileInfo> Generate(FileInfo aird, DirectoryInfo output, DiagramReportOptions? options = null, IProgress<DiagramReportProgress>? progress = null);
 
         /// <summary>
         /// The representations the model holds, without writing anything — what a caller shows

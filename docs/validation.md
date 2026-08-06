@@ -78,7 +78,7 @@ Kitalpha/EMDE) at metamodel version 7.0.0. Anything else is handled by one of fo
 
 | Encountered content | Strategy | Behavior |
 | --- | --- | --- |
-| Diagram/representation files (`.aird`, `.airdfragment`), project sidecars (`.afm`, `.project`), image resources | **preserve** | Never opened. Fragment discovery follows only `.capellafragment` hrefs; `hlink://` rich-text links, `platform:/resource` library links and `.aird` references are ignored. The writer emits only semantic files, so sibling diagram/sidecar files are left on disk untouched. |
+| Diagram/representation files (`.aird`, `.airdfragment`), project sidecars (`.afm`, `.project`), image resources | **preserve** | Not opened by a *semantic* read: `CapellaModelLoader` follows only `.capellafragment` hrefs, and `hlink://` rich-text links and `platform:/resource` library links are ignored. A diagram read is a separate entry point — `AirdModelLoader` reads the `.aird`, its `.airdfragment`s and the Capella documents the representations point into. The writer emits only semantic files either way, so diagram and sidecar files are left on disk untouched. |
 | Model saved by a different Capella minor version (e.g. 6.0.0 coffee-machine) | **read: normalize · write: migrate** | The reader resolves packages by a version-stripped namespace match ([`NamespaceResolver`](../Auriga.Xmi/Namespaces/NamespaceResolver.cs)), so a structurally-compatible model of another version loads into a fully resolved graph. **The writer always emits 7.0.0 namespaces**, so writing such a model back silently migrates its version — hence these models are read-only in v1 and excluded from the round-trip suite. |
 | Add-on viewpoint / any package outside the vendored metamodel (e.g. the Cybersecurity viewpoint) | **reject** | The whole load fails fast with `InvalidDataException`: *"Cannot resolve the xsi:type '…' to a known Capella package"* (or, for a document root, *"The root namespace '…' … is not a known Capella package"*). Nothing is silently dropped — the model is refused until the viewpoint is vendored. |
 | Unknown element **type** within a known package | **reject** | `InvalidOperationException`: *"No XMI reader is registered for the type '…'."* |
@@ -108,8 +108,11 @@ var reader = XmiReaderBuilder.Create()
 - **Add-on viewpoints are not supported.** Only the vendored packages are known. A model using an add-on
   viewpoint (Cybersecurity, and any other non-vendored viewpoint) is rejected on read. Supporting one means
   vendoring its `.ecore` and regenerating the readers/writers.
-- **Diagrams are out of scope.** `.aird`/`.airdfragment` Sirius representations are neither read nor
-  written; they are preserved untouched on disk but their contents are opaque to the library.
+- **Diagrams are read, not written.** `.aird`/`.airdfragment` Sirius representations are read into the
+  `Auriga.Diagram.*` model — including the GMF notation geometry — and rendered to SVG, PNG, JPEG and
+  Excel by **Auriga.Reporting**. The writer still does not emit them: a written model preserves the
+  diagram files untouched on disk, so a model whose semantic content changed keeps the diagram layout
+  it had. Writing `.aird` is tracked separately.
 - **Byte-for-byte output is not a goal.** The writer targets semantic fidelity; see the benign-difference
   catalogue in [XMI Writer → Fidelity](xmi-writer.md#fidelity). Confirming a written file reopens in the
   Capella 7.0.0 tool is a manual step; the automated proxy is round-trip equivalence plus well-formed,

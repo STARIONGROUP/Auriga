@@ -28,6 +28,22 @@ The services are composed through `ReportingBuilder.Create()`, the same fluent-s
 
 Rendering degrades rather than throws — a diagram that renders imperfectly beats one that does not render at all — and `WithLogger(ILoggerFactory)` is where those degradations surface: at Debug, the images no registry resolved, the representations skipped for want of a persisted layout, and the malformed bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved image path and each style value that did not parse. A well-formed model stays silent at Information and above, so turning on Debug is what explains a difference between what Capella shows and what Auriga exported.
 
+## Auriga.Tools
+
+The **Auriga.Tools** command-line application exports the diagrams of a Capella model without writing any code — it is the way to use Auriga if you are not a developer. It is published as a [dotnet tool](https://learn.microsoft.com/dotnet/core/tools/global-tools):
+
+```
+dotnet tool install --global Auriga.Tools
+
+aurigatools list "In-Flight Entertainment System.aird"
+aurigatools export "In-Flight Entertainment System.aird" -o out --format svg,png --scale 2
+aurigatools export model.aird -o out --format jpeg --dpi 300 --name "[SAB]*" --background "#FFFFFF"
+```
+
+`list` names the representations a model holds — with their box and edge counts — so you can see what is there before exporting. `export` writes them: `--format` takes any of `svg`, `png`, `jpeg` and `xlsx`, `--scale` or `--dpi` sizes the rasters, `--background` sets the colour they are drawn on, `--name` narrows the run to the diagrams whose name matches a wildcard, and `--open` opens the output folder when it finishes. Progress, a per-format summary and any failure are rendered with [Spectre.Console](https://spectreconsole.net/); the log goes to a rolling `auriga.logs` file so it never disturbs the display.
+
+The tool holds no logic of its own: each command resolves `IDiagramReportGenerator` from **Auriga.Reporting** and binds the parsed options to it, so what the tool does and what your own code does are the same code path.
+
 ## Auriga.CodeGenerator
 
 The **Auriga.CodeGenerator** tool is everything the repository does with the vendored `.ecore` files, and is a development-time tool published as no package.
@@ -183,6 +199,7 @@ Auriga is in early development and has not yet had its first release. Once publi
   - `Auriga.Xmi` — the `.capella` / `.melodymodeller` / `.aird` readers and writers
   - `Auriga.Extensions` — query extension methods
   - `Auriga.Reporting` — the intermediate diagram model built from the persisted `.aird` layout, with SVG, PNG/JPEG and Excel exports
+  - `Auriga.Tools` — the `aurigatools` command-line application, installed with `dotnet tool install -g Auriga.Tools`
 
 # Build Status
 
@@ -204,6 +221,7 @@ Background and design documentation lives in the [`docs`](docs) folder:
   - [ECoreNetto Validation Against the Sirius Metamodel](docs/sirius-ecorenetto-validation.md) — the same proof for the Sirius/GMF metamodel
   - [Auriga.CodeGenerator Design](docs/codegen-design.md) — how the vendored `.ecore` files become the committed C# object model: the pipeline, the Handlebars templates, and the naming rules
   - [Fragment Loading](docs/fragment-loading.md) — how a model split across `.capellafragment` files is loaded and its cross-fragment `href`s resolved
+  - [Sirius `.aird` Diagrams](docs/aird.md) — the two parallel trees an `.aird` carries, how they pair into the intermediate diagram model, and what the rendering does and does not promise
   - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.CodeGenerator`, with Docker build scripts)
   - [Query Extension Methods](docs/query-extensions.md) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
   - [ContainerList Design](docs/containment-list.md) — the non-bypassable `Collection<T>`-based containment collection and its exclusive-ownership (reject-not-steal) semantics

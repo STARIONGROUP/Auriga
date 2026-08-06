@@ -31,6 +31,7 @@ that ship no package, so they are not recorded here.
 - [ADD] read inline ecore:EStringToStringMapEntry map entries into key/value pairs on the owning EMap-typed feature; the .aird documents that carry them (DAnnotation details, GMF style property maps) now read
 - [ADD] the GMF notation geometry tree reads: the generators honor ExtendedMetaData XML names, so the notation:Diagram children/edges containments (persistedChildren/persistedEdges) load with their Bounds, Location and bendpoint layout data
 - [FIX] the generated writers omit attribute values equal to the metamodel's defaultValueLiteral, mirroring EMF, so the new default-initialized properties round-trip without materializing attributes the original file never had
+- [FIX] a reader or writer scope no longer disposes the ILoggerFactory or the settings it was handed; they are registered as externally owned, so a caller can build a second scope from the same logger factory instead of meeting ObjectDisposedException
 
 ### Auriga.Extensions
 
@@ -55,6 +56,13 @@ that ship no package, so they are not recorded here.
 - [ADD] logging through the ILoggerFactory registered with ReportingBuilder.WithLogger: the icon registries trace the paths they do not resolve, the SVG exporter reports each image that rendered as a fallback, the diagram builders report the representations they skipped and the persisted bendpoints and anchor ids that did not parse, and the style resolver traces the style values it could not read; the services take the factory as a constructor parameter
 - [ADD] INodeDiagramBuilder and ISequenceDiagramBuilder: DiagramBuilder now depends on the per-kind builder interfaces (with ITableBuilder) rather than on the concrete builders, so each kind is substitutable
 - [ADD] raster export (behind the injectable IRasterExporter / SkiaRasterExporter, resolved with ReportingBuilder.BuildRasterExporter): rasterize a Diagram or any SVG text to PNG or JPEG (bytes, stream or file, the format taken from the extension) at a scale or DPI, with a choice of background and JPEG quality; the image is the diagram's viewport rounded to whole pixels times the scale. The package consequently carries SkiaSharp and Svg.Skia, and with them a native asset per platform
+- [CHG] the package is renamed from Auriga.Rendering to Auriga.Reporting: it writes Excel workbooks as well as SVG and PNG, so it reports rather than renders, matching uml4net.Reporting. The types move into Model, Builders, Drawing, Generators, Styles and Icons namespaces, and RenderingBuilder / RenderingScope / IRenderingScope become ReportingBuilder / ReportingScope / IReportingScope
+- [ADD] IDiagramReportGenerator / DiagramReportGenerator: load a .aird and write every representation to SVG, PNG, JPEG and Excel in one call, with a format set, a raster scale or DPI, a background and a wildcard name filter (DiagramReportOptions), reporting what it is doing through an optional IProgress. It resolves a model's own artwork against the model's directory, so UsingProjectImages needs no wiring, and Query lists a model's representations without writing anything
+- [FIX] a scope no longer disposes the services it was handed: the ILoggerFactory given to WithLogger, and the palette, style resolver, tooltip resolver and icon registry given to the Using* methods, are registered as externally owned. Disposing one scope previously disposed the caller's logger factory, so a second scope built from the same factory threw ObjectDisposedException
+
+### Auriga.Tools
+
+- [ADD] a command-line tool, published as a dotnet tool: `dotnet tool install -g Auriga.Tools` then `aurigatools export <model.aird> -o out --format svg,png` writes a picture per diagram with no compiler and no code, and `aurigatools list <model.aird>` names what a model holds without writing anything. Formats, raster scale or DPI, background, JPEG quality and a wildcard name filter are options; progress, a per-format summary and errors are rendered with Spectre.Console
 
 ## [1.0.0] - 2026-07-10
 

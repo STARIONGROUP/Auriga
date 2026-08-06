@@ -68,8 +68,8 @@ namespace Auriga.Reporting
             this.ContainerBuilder.RegisterType<CapellaDefaultPalette>().As<ICapellaDefaultPalette>().SingleInstance();
             this.ContainerBuilder.RegisterType<StyleResolver>().As<IStyleResolver>().SingleInstance();
             this.ContainerBuilder.RegisterType<TooltipResolver>().As<ITooltipResolver>().SingleInstance();
-            this.ContainerBuilder.RegisterInstance(EmptyProjectImageRegistry.Instance).As<IProjectImageRegistry>();
-            this.ContainerBuilder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
+            this.ContainerBuilder.RegisterInstance(EmptyProjectImageRegistry.Instance).As<IProjectImageRegistry>().ExternallyOwned();
+            this.ContainerBuilder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>().ExternallyOwned();
 
             // The icon registry is the vendored Capella artwork chained with the model's own
             // project images, so ReportingBuilder.UsingProjectImages fills its own slot instead of
