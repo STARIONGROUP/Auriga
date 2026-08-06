@@ -435,3 +435,6 @@ FodyWeavers.xsd
 report/
 report-output/
 HtmlDocs/index.html
+
+# The rolling log Auriga.Tools writes beside wherever it is run.
+auriga*.logs
