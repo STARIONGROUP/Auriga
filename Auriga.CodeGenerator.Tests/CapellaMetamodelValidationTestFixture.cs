@@ -24,7 +24,7 @@ namespace Auriga.CodeGenerator.Tests
     /// <summary>
     /// Regression tests proving that ECoreNetto loads the complete vendored Capella metamodel
     /// (resources/ecore) with fully resolved cross-file references. Converted from the standalone
-    /// validation harness (see docs/ecorenetto-validation.md); guards the
+    /// validation harness (see the <see href="https://github.com/STARIONGROUP/Auriga/wiki/ECoreNetto-Validation">ECoreNetto Validation</see> wiki page); guards the
     /// code generator's input against ECoreNetto regressions and re-vendoring mistakes.
     /// </summary>
     [TestFixture]
@@ -94,7 +94,7 @@ namespace Auriga.CodeGenerator.Tests
         [Test]
         public void Verify_that_classifier_counts_match_the_metamodel_inventory()
         {
-            // expected EClass/EEnum counts per package, from docs/metamodel-inventory.md
+            // expected EClass/EEnum counts per package, from the Metamodel Inventory wiki page
             var expectedCounts = new Dictionary<string, (int Classes, int Enums)>
             {
                 ["emde"] = (3, 0),

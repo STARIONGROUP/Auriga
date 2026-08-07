@@ -26,8 +26,9 @@ namespace Auriga.CodeGenerator.Tests
     /// (resources/ecore-sirius) with fully resolved cross-file references. This is the metamodel
     /// behind the Sirius `.aird` diagram/representation files; the fixture guards the code
     /// generator's second input against ECoreNetto regressions and re-vendoring mistakes. It
-    /// mirrors <see cref="CapellaMetamodelValidationTestFixture"/>; see
-    /// docs/sirius-ecorenetto-validation.md and docs/sirius-metamodel-inventory.md.
+    /// mirrors <see cref="CapellaMetamodelValidationTestFixture"/>; see the
+    /// <see href="https://github.com/STARIONGROUP/Auriga/wiki/Sirius-ECoreNetto-Validation">Sirius ECoreNetto Validation</see> and
+    /// <see href="https://github.com/STARIONGROUP/Auriga/wiki/Sirius-Metamodel-Inventory">Sirius Metamodel Inventory</see> wiki pages.
     /// </summary>
     [TestFixture]
     public class SiriusMetamodelValidationTestFixture
@@ -97,7 +98,7 @@ namespace Auriga.CodeGenerator.Tests
         [Test]
         public void Verify_that_classifier_counts_match_the_metamodel_inventory()
         {
-            // expected EClass/EEnum/EDataType counts per package, from docs/sirius-metamodel-inventory.md
+            // expected EClass/EEnum/EDataType counts per package, from the Sirius Metamodel Inventory wiki page
             var expectedCounts = new Dictionary<string, (int Classes, int Enums, int DataTypes)>
             {
                 ["viewpoint"] = (30, 3, 2),

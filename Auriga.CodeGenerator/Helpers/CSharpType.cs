@@ -17,7 +17,7 @@ namespace Auriga.CodeGenerator.Helpers
     /// <summary>
     /// Resolves an Ecore <see cref="EStructuralFeature"/> to the C# member declarations emitted in
     /// the generated interface and implementation class, per the feature-mapping and type-mapping
-    /// rules in <c>docs/codegen-design.md</c> §5/§6. Types are rendered fully-qualified so the
+    /// rules in the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Codegen-Design">Codegen Design</see> wiki page, §5/§6. Types are rendered fully-qualified so the
     /// generated code needs no <c>using</c> management.
     /// </summary>
     public static class CSharpType

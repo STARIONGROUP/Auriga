@@ -29,7 +29,7 @@ namespace Auriga.Core
     /// <see cref="InvalidOperationException"/> rather than silently re-pointing its container (which would
     /// leave the element in two lists). To move an element between containers, remove it from its current
     /// container first, then add it to the new one. This mirrors SysML2.NET's "reject when already owned"
-    /// choice — see <c>docs/containment-list.md</c> for the full rationale and the three-way comparison with
+    /// choice — see <see href="https://github.com/STARIONGROUP/Auriga/wiki/Containment-List">Containment List</see> for the full rationale and the three-way comparison with
     /// uml4net and SysML2.NET.</para>
     /// </summary>
     /// <typeparam name="T">the element type, an <see cref="IAurigaElement"/></typeparam>

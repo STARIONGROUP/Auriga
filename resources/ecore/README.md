@@ -1,6 +1,6 @@
 # Vendored Capella Metamodel (`.ecore`)
 
-Pinned copies of the Eclipse Capella 7.0 semantic metamodel plus its dependencies, used as the input for code generation and validation. See [`docs/metamodel-inventory.md`](../../docs/metamodel-inventory.md) for the full inventory and [`docs/ecorenetto-validation.md`](../../docs/ecorenetto-validation.md) for how these files are validated.
+Pinned copies of the Eclipse Capella 7.0 semantic metamodel plus its dependencies, used as the input for code generation and validation. See the [Metamodel Inventory](https://github.com/STARIONGROUP/Auriga/wiki/Metamodel-Inventory) wiki page for the full inventory and [ECoreNetto Validation](https://github.com/STARIONGROUP/Auriga/wiki/ECoreNetto-Validation) for how these files are validated.
 
 ## Provenance
 

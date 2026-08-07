@@ -19,7 +19,7 @@ namespace Auriga.Core
     ///
     /// <para>Containment is <b>exclusive</b>: an element already held by another container is rejected
     /// (not silently stolen), so it belongs to exactly one owner. Move it by removing it from its current
-    /// container first. See <c>docs/containment-list.md</c>.</para>
+    /// container first. See <see href="https://github.com/STARIONGROUP/Auriga/wiki/Containment-List">Containment List</see>.</para>
     /// </summary>
     /// <typeparam name="T">the element type, an <see cref="IAurigaElement"/></typeparam>
     public interface IContainerList<T> : IList<T> where T : class, IAurigaElement

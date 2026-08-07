@@ -23,7 +23,7 @@ namespace Auriga.CodeGenerator.Tests.Generators
     /// into the <c>Auriga.Diagram</c> object model and <c>Auriga.Xmi.Diagram</c>
     /// readers/writers — the <c>Diagram</c> sub-trees of the same <c>Auriga</c> and <c>Auriga.Xmi</c>
     /// projects that carry the Capella <c>Model</c> output. The classifier counts are the ground truth
-    /// from <c>docs/sirius-metamodel-inventory.md</c>: 454 EClasses and 39 EEnums across 20
+    /// from the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Sirius-Metamodel-Inventory">Sirius Metamodel Inventory</see> wiki page: 454 EClasses and 39 EEnums across 20
     /// packages.
     /// </summary>
     [TestFixture]

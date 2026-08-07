@@ -10,11 +10,11 @@ The core library that contains the shared base types (the `Auriga.Core` namespac
 
 ## Auriga.Xmi
 
-The **Auriga.Xmi** library provides XMI reader implementations to read Capella semantic model files (`.capella` / `.melodymodeller`, the `Auriga.Xmi.Model.*` namespaces) and Sirius diagram files (`.aird`, the `Auriga.Xmi.Diagram.*` namespaces), and an XMI writer implementation to write them back, all built on a metamodel-agnostic XMI runtime (the `Auriga.Xmi.Core.*` namespaces). It resolves intra-file (`xmi:id`) and cross-file (`href`) references, including references that cross `.capellafragment` boundaries, into a fully resolved object graph. The writer serializes the graph back to Capella-faithful XMI, preserving the fragment layout — see [XMI Writer](docs/xmi-writer.md).
+The **Auriga.Xmi** library provides XMI reader implementations to read Capella semantic model files (`.capella` / `.melodymodeller`, the `Auriga.Xmi.Model.*` namespaces) and Sirius diagram files (`.aird`, the `Auriga.Xmi.Diagram.*` namespaces), and an XMI writer implementation to write them back, all built on a metamodel-agnostic XMI runtime (the `Auriga.Xmi.Core.*` namespaces). It resolves intra-file (`xmi:id`) and cross-file (`href`) references, including references that cross `.capellafragment` boundaries, into a fully resolved object graph. The writer serializes the graph back to Capella-faithful XMI, preserving the fragment layout — see [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer).
 
 ## Auriga.Extensions
 
-The **Auriga.Extensions** library provides LINQ-style query extension methods over the Auriga object graph, following the `uml4net.Extensions` pattern: containment navigation (`QueryAncestors`, `QueryRoot`, `QueryAllFunctions`, `QueryAllComponents`), component-functional allocation (`QueryAllocatedFunctions`, `IsAllocatedTo`, `QueryAllocatingBlocks`), function/component ports and functional exchanges, and cross-layer realization (`QueryRealizedFunctions`/`QueryRealizingFunctions` and the component equivalents). See [Query Extension Methods](docs/query-extensions.md).
+The **Auriga.Extensions** library provides LINQ-style query extension methods over the Auriga object graph, following the `uml4net.Extensions` pattern: containment navigation (`QueryAncestors`, `QueryRoot`, `QueryAllFunctions`, `QueryAllComponents`), component-functional allocation (`QueryAllocatedFunctions`, `IsAllocatedTo`, `QueryAllocatingBlocks`), function/component ports and functional exchanges, and cross-layer realization (`QueryRealizedFunctions`/`QueryRealizingFunctions` and the component equivalents). See [Query Extension Methods](https://github.com/STARIONGROUP/Auriga/wiki/Query-Extensions).
 
 ## Auriga.Reporting
 
@@ -70,9 +70,9 @@ The bundled native libraries are unpacked to a temporary directory the first tim
 
 The **Auriga.CodeGenerator** tool is everything the repository does with the vendored `.ecore` files, and is a development-time tool published as no package.
 
-It generates both object models described above, using [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) to load the metamodel and Handlebars templates to emit the code — the POCOs and interfaces in **Auriga**, and the per-type XMI readers and writers in **Auriga.Xmi**. The generated code is committed, and a CI drift guard regenerates it on every build and fails if the result differs from what is committed, so the templates and the checked-in code cannot fall out of step. Generation itself is driven from `[Explicit]` tests rather than a CLI, following the same convention as uml4net. See [Auriga.CodeGenerator Design](docs/codegen-design.md).
+It generates both object models described above, using [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) to load the metamodel and Handlebars templates to emit the code — the POCOs and interfaces in **Auriga**, and the per-type XMI readers and writers in **Auriga.Xmi**. The generated code is committed, and a CI drift guard regenerates it on every build and fails if the result differs from what is committed, so the templates and the checked-in code cannot fall out of step. Generation itself is driven from `[Explicit]` tests rather than a CLI, following the same convention as uml4net. See [Auriga.CodeGenerator Design](https://github.com/STARIONGROUP/Auriga/wiki/Codegen-Design).
 
-Its command-line entry point renders a browsable HTML report of the Capella metamodel from the same `.ecore` files, using the ECoreNetto `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](docs/metamodel-report.md) for build and run instructions.
+Its command-line entry point renders a browsable HTML report of the Capella metamodel from the same `.ecore` files, using the ECoreNetto `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](https://github.com/STARIONGROUP/Auriga/wiki/Metamodel-Report) for build and run instructions.
 
 # Getting Started
 
@@ -197,8 +197,8 @@ foreach (var table in tables)
 var grid = reporting.BuildTableBuilder().Build(tables.First());
 ```
 
-See [ContainerList Design](docs/containment-list.md), [Query Extension Methods](docs/query-extensions.md)
-and [XMI Writer](docs/xmi-writer.md) for the containment, query and write-back APIs in depth.
+See [ContainerList Design](https://github.com/STARIONGROUP/Auriga/wiki/Containment-List), [Query Extension Methods](https://github.com/STARIONGROUP/Auriga/wiki/Query-Extensions)
+and [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer) for the containment, query and write-back APIs in depth.
 
 # Code Quality
 
@@ -234,21 +234,22 @@ Development | ![Build Status](https://github.com/STARIONGROUP/Auriga/actions/wor
 
 # Documentation
 
-Background and design documentation lives in the [`docs`](docs) folder:
+Background and design documentation lives in the [Auriga wiki](https://github.com/STARIONGROUP/Auriga/wiki):
 
-  - [Capella Metamodel Inventory](docs/metamodel-inventory.md) — the `.ecore` files, the inter-package dependency graph, and the v1 code-generation scope
-  - [Sirius Metamodel Inventory](docs/sirius-metamodel-inventory.md) — the same inventory for the Sirius/GMF diagramming `.ecore` files behind the `.aird` representation model
-  - [Arcadia Semantics Not Visible in Raw Ecore](docs/arcadia-notes.md) — the layer, allocation, realization, and containment conventions the public API must respect
-  - [ECoreNetto Validation Against the Capella Metamodel](docs/ecorenetto-validation.md) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
-  - [ECoreNetto Validation Against the Sirius Metamodel](docs/sirius-ecorenetto-validation.md) — the same proof for the Sirius/GMF metamodel
-  - [Auriga.CodeGenerator Design](docs/codegen-design.md) — how the vendored `.ecore` files become the committed C# object model: the pipeline, the Handlebars templates, and the naming rules
-  - [Fragment Loading](docs/fragment-loading.md) — how a model split across `.capellafragment` files is loaded and its cross-fragment `href`s resolved
-  - [Sirius `.aird` Diagrams](docs/aird.md) — the two parallel trees an `.aird` carries, how they pair into the intermediate diagram model, and what the rendering does and does not promise
-  - [Capella Metamodel HTML Report](docs/metamodel-report.md) — building and hosting the browsable metamodel report (`Auriga.CodeGenerator`, with Docker build scripts)
-  - [Query Extension Methods](docs/query-extensions.md) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
-  - [ContainerList Design](docs/containment-list.md) — the non-bypassable `Collection<T>`-based containment collection and its exclusive-ownership (reject-not-steal) semantics
-  - [XMI Writer](docs/xmi-writer.md) — serializing the object graph back to Capella-faithful XMI (`Auriga.Xmi`), fragment layout, and the fidelity model
-  - [Validation Against Real Capella Models](docs/validation.md) — the round-trip validation harness, per-model results, and exactly how out-of-scope content (other versions, add-on viewpoints, diagrams) is handled
+  - [Capella Metamodel Inventory](https://github.com/STARIONGROUP/Auriga/wiki/Metamodel-Inventory) — the `.ecore` files, the inter-package dependency graph, and the v1 code-generation scope
+  - [Sirius Metamodel Inventory](https://github.com/STARIONGROUP/Auriga/wiki/Sirius-Metamodel-Inventory) — the same inventory for the Sirius/GMF diagramming `.ecore` files behind the `.aird` representation model
+  - [Arcadia Notes](https://github.com/STARIONGROUP/Auriga/wiki/Arcadia-Notes) — the layer, allocation, realization, and containment conventions the public API must respect
+  - [ECoreNetto Validation](https://github.com/STARIONGROUP/Auriga/wiki/ECoreNetto-Validation) — proof that ECoreNetto loads the full Capella metamodel with fully resolved references
+  - [Sirius ECoreNetto Validation](https://github.com/STARIONGROUP/Auriga/wiki/Sirius-ECoreNetto-Validation) — the same proof for the Sirius/GMF metamodel
+  - [Auriga.CodeGenerator Design](https://github.com/STARIONGROUP/Auriga/wiki/Codegen-Design) — how the vendored `.ecore` files become the committed C# object model: the pipeline, the Handlebars templates, and the naming rules
+  - [Fragment Loading](https://github.com/STARIONGROUP/Auriga/wiki/Fragment-Loading) — how a model split across `.capellafragment` files is loaded and its cross-fragment `href`s resolved
+  - [Sirius `.aird` Diagrams](https://github.com/STARIONGROUP/Auriga/wiki/Aird) — the two parallel trees an `.aird` carries, how they pair into the intermediate diagram model, and what the rendering does and does not promise
+  - [Capella Metamodel HTML Report](https://github.com/STARIONGROUP/Auriga/wiki/Metamodel-Report) — building and hosting the browsable metamodel report (`Auriga.CodeGenerator`, with Docker build scripts)
+  - [Query Extension Methods](https://github.com/STARIONGROUP/Auriga/wiki/Query-Extensions) — the `Auriga.Extensions` LINQ query set for functions, components, ports, exchanges, and cross-layer allocation/realization
+  - [ContainerList Design](https://github.com/STARIONGROUP/Auriga/wiki/Containment-List) — the non-bypassable `Collection<T>`-based containment collection and its exclusive-ownership (reject-not-steal) semantics
+  - [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer) — serializing the object graph back to Capella-faithful XMI (`Auriga.Xmi`), fragment layout, and the fidelity model
+  - [Validation Against Real Capella Models](https://github.com/STARIONGROUP/Auriga/wiki/Validation) — the round-trip validation harness, per-model results, and exactly how out-of-scope content (other versions, add-on viewpoints, diagrams) is handled
+  - [Project Context](https://github.com/STARIONGROUP/Auriga/wiki/Project-Context) — the original design conversation behind the project's scope and phased plan
 
 # Capella and Arcadia Documentation
 

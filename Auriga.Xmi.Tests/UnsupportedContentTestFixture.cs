@@ -21,7 +21,7 @@ namespace Auriga.Xmi.Tests
     /// Pins down how the v1 library treats content outside its scope (Phase 6): the vendored
     /// metamodel is core Capella + the Requirements, Mass, Basic Requirement and Cybersecurity viewpoints +
     /// Kitalpha at version 7.0.0, and this fixture proves the two boundary behaviors documented in
-    /// <c>docs/validation.md</c> — a model saved by a different Capella version still <b>reads</b> (the
+    /// the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Validation">Validation</see> wiki page — a model saved by a different Capella version still <b>reads</b> (the
     /// namespace resolver is version-tolerant), while a model that uses an add-on viewpoint outside the
     /// vendored metamodel is <b>rejected</b> up front with a clear, actionable error rather than silently
     /// dropping the unknown content.
@@ -33,7 +33,7 @@ namespace Auriga.Xmi.Tests
         /// The coffee-machine fixture is saved by Capella 6.0.0, yet the reader must still load it into a
         /// fully resolved graph: the resolver falls back to a version-stripped namespace match, so a
         /// structurally-compatible model of another minor version reads. (It is nonetheless out of
-        /// round-trip scope because the writer emits 7.0.0 namespaces — see <c>docs/validation.md</c>.)
+        /// round-trip scope because the writer emits 7.0.0 namespaces — see the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Validation">Validation</see> wiki page.)
         /// </summary>
         [Test]
         public void Verify_that_a_model_from_a_different_capella_version_still_reads()

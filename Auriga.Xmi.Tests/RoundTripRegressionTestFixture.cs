@@ -32,7 +32,7 @@ namespace Auriga.Xmi.Tests
     /// the originals, after neutralizing the documented benign formatting differences) and a <b>semantic
     /// round-trip</b> (read → write → re-read → object-graph compare, which catches anything the text diff
     /// normalizes away). Byte-identical output is not attainable — the accepted, benign normalizations are
-    /// listed in <c>docs/xmi-writer.md</c> and applied by <see cref="Canonicalize"/>.</para>
+    /// listed in the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer">Xmi Writer</see> wiki page and applied by <see cref="Canonicalize"/>.</para>
     /// </summary>
     [TestFixture]
     public partial class RoundTripRegressionTestFixture
@@ -41,7 +41,7 @@ namespace Auriga.Xmi.Tests
         /// The auditable textual round-trip: reads the fixture, writes every document back, and reports how
         /// the written text differs from the original once ordering, whitespace/tag-wrapping, namespace
         /// declaration set/order, encoding case and reference-token spelling are normalized away — grouped
-        /// into the accepted benign categories documented in <c>docs/xmi-writer.md</c>. It is
+        /// into the accepted benign categories documented in the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer">Xmi Writer</see> wiki page. It is
         /// <see cref="ExplicitAttribute">explicit</see> (not run by default): byte-level fidelity is not a
         /// v1 goal, so this is an on-demand audit of the residual differences rather than a gate. The gating
         /// round-trip check is <see cref="Verify_that_the_model_round_trips_semantically"/>. Any difference
@@ -95,8 +95,8 @@ namespace Auriga.Xmi.Tests
         }
 
         /// <summary>
-        /// Buckets a residual text difference into one of the accepted benign categories (documented in
-        /// <c>docs/xmi-writer.md</c>), or <c>UNCLASSIFIED</c> for anything new.
+        /// Buckets a residual text difference into one of the accepted benign categories (documented in the
+        /// <see href="https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer">Xmi Writer</see> wiki page), or <c>UNCLASSIFIED</c> for anything new.
         /// </summary>
         private static string Categorize(string difference)
         {

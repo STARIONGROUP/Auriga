@@ -3,8 +3,8 @@
 Pinned copies of the Eclipse Sirius diagram/representation metamodels and the Eclipse GMF
 `notation` metamodel. These are the metamodels behind the Sirius `.aird` / `.airdfragment`
 diagram files, and are the input for the `.aird` object-model code generation and validation.
-See [`docs/sirius-metamodel-inventory.md`](../../docs/sirius-metamodel-inventory.md) for the full
-inventory and [`docs/sirius-ecorenetto-validation.md`](../../docs/sirius-ecorenetto-validation.md)
+See the [Sirius Metamodel Inventory](https://github.com/STARIONGROUP/Auriga/wiki/Sirius-Metamodel-Inventory) wiki page for the full
+inventory and [Sirius ECoreNetto Validation](https://github.com/STARIONGROUP/Auriga/wiki/Sirius-ECoreNetto-Validation)
 for how these files are validated.
 
 These files live in a directory separate from the Capella metamodel (`resources/ecore/`) so the

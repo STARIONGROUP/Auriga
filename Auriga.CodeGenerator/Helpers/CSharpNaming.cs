@@ -19,7 +19,7 @@ namespace Auriga.CodeGenerator.Helpers
     /// <summary>
     /// C#-specific naming rules for the generated Capella object model: PascalCasing, C# keyword
     /// escaping, interface/enum type names and the <c>Auriga.&lt;PascalPackagePath&gt;</c> namespace
-    /// derivation described in <c>docs/codegen-design.md</c> §4/§8.
+    /// derivation described in the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Codegen-Design">Codegen Design</see> wiki page, §4/§8.
     /// </summary>
     public static class CSharpNaming
     {

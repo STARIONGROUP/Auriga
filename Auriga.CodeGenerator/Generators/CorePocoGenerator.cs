@@ -24,7 +24,7 @@ namespace Auriga.CodeGenerator.Generators
 
     /// <summary>
     /// Generates the Auriga Capella object model (interfaces, implementation classes and enums) from
-    /// the vendored Capella <c>.ecore</c> files, following <c>docs/codegen-design.md</c>. The whole
+    /// the vendored Capella <c>.ecore</c> files, following the <see href="https://github.com/STARIONGROUP/Auriga/wiki/Codegen-Design">Codegen Design</see> wiki page. The whole
     /// metamodel is loaded into one <see cref="ResourceSet"/> (the graph is cyclic and cannot be
     /// generated file-by-file). By default every package is generated — the whole metamodel is the v1
     /// scope — and a caller may instead name a subset of packages, in which case implementation classes
