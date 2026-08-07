@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Auriga project emblem</title>
+  <desc id="desc">Arcadia architecture layers flowing into a stylized chariot wheel and model graph beside the Auriga wordmark.</desc>
+  <g transform="translate(58 34)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Arcadia/model layers -->
+    <path d="M10 65H160L202 107H277" stroke="#082B55" stroke-width="24"/>
+    <path d="M10 126H171L211 126H277" stroke="#16A9DF" stroke-width="24"/>
+    <path d="M10 187H160L202 145H277" stroke="#E5A510" stroke-width="24"/>
+    <!-- Abstract chariot wheel / resolved graph -->
+    <path d="M277 22A104 104 0 1 1 277 230" stroke="#082B55" stroke-width="22"/>
+    <circle cx="277" cy="126" r="27" fill="#F8FAFC" stroke="#082B55" stroke-width="16"/>
+    <path d="M277 99V30M301 113l60-35M304 126h69M301 139l60 35M277 153v69" stroke="#082B55" stroke-width="13"/>
+    <!-- Auriga guiding orbit -->
+    <path d="M294 10A127 127 0 0 1 397 126" stroke="#E5A510" stroke-width="10"/>
+    <circle cx="397" cy="126" r="16" fill="#E5A510" stroke="none"/>
+  </g>
+  <g fill="#082B55" font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text x="510" y="185" font-size="138" font-weight="600" letter-spacing="2">Auriga</text>
+    <text x="518" y="235" font-size="28" font-weight="500" letter-spacing="4" fill="#52708E">CAPELLA MODELS FOR .NET</text>
+  </g>
+  <path d="M1030 58 1037 84 1063 91 1037 98 1030 124 1023 98 997 91 1023 84Z" fill="#E5A510"/>
+</svg>
