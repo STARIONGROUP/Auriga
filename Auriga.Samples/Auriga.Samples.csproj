@@ -20,7 +20,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Auriga\Auriga.csproj" />
         <ProjectReference Include="..\Auriga.Extensions\Auriga.Extensions.csproj" />
-        <ProjectReference Include="..\Auriga.Rendering\Auriga.Rendering.csproj" />
+        <ProjectReference Include="..\Auriga.Reporting\Auriga.Reporting.csproj" />
         <ProjectReference Include="..\Auriga.Xmi\Auriga.Xmi.csproj" />
     </ItemGroup>
 

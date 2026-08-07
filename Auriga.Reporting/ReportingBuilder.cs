@@ -1,0 +1,322 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="ReportingBuilder.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+namespace Auriga.Reporting
+{
+    using System;
+
+    using Auriga.Reporting.Builders;
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Generators;
+    using Auriga.Reporting.Icons;
+    using Auriga.Reporting.Model;
+    using Auriga.Reporting.Styles;
+
+    using Autofac;
+
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// The fluent entry point that composes the rendering services — the <see cref="IDiagramBuilder"/>
+    /// and the exporters built alongside it — through the Autofac container owned by a
+    /// <see cref="ReportingScope"/>, mirroring <c>XmiReaderBuilder</c>. <see cref="Create"/> opens the
+    /// scope, the fluent methods register caller-supplied services on it, and a terminal method
+    /// (<see cref="BuildDiagramBuilder"/>, <see cref="BuildTableBuilder"/>,
+    /// <see cref="BuildSvgExporter"/>, <see cref="BuildRasterExporter"/>,
+    /// <see cref="BuildXlsxTableExporter"/>) resolves the requested service. The scope is
+    /// disposable; disposing it releases every service built from it.
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// using var scope = ReportingBuilder.Create();
+    /// var diagrams = scope.BuildDiagramBuilder().BuildAll(result.Elements.Values);
+    /// scope.BuildSvgExporter().ExportToFile(diagrams[0], "diagram.svg");
+    /// scope.BuildRasterExporter().ExportToFile(diagrams[0], "diagram.png");
+    /// </code>
+    /// </example>
+    public static class ReportingBuilder
+    {
+        /// <summary>
+        /// Creates a new <see cref="ReportingScope"/> carrying the default registrations, ready to be
+        /// configured with the fluent methods and consumed by a terminal <c>Build*</c> method.
+        /// </summary>
+        /// <returns>the scope</returns>
+        public static ReportingScope Create()
+        {
+            return new ReportingScope();
+        }
+
+        /// <summary>
+        /// Configures the composed services to log through the supplied <see cref="ILoggerFactory"/>,
+        /// replacing the no-op default.
+        /// </summary>
+        /// <remarks>
+        /// Rendering degrades rather than throws, and the supplied factory is where those
+        /// degradations surface: at Debug, the workspace images and label icons no registry
+        /// resolved, the representations skipped for want of a persisted layout, and the malformed
+        /// bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved
+        /// image path as the registries see it and each style value that did not parse. Turning on
+        /// Debug therefore explains every visual difference between what Capella shows and what
+        /// Auriga exported, while a well-formed model stays silent at Information and above.
+        /// </remarks>
+        /// <param name="scope">the scope to register the logger factory on</param>
+        /// <param name="loggerFactory">the logger factory</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope or the logger factory is null</exception>
+        public static ReportingScope WithLogger(this ReportingScope scope, ILoggerFactory loggerFactory)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>().ExternallyOwned();
+            return scope;
+        }
+
+        /// <summary>
+        /// Configures the composed services to resolve workspace-image paths through the supplied
+        /// <see cref="IIconRegistry"/> — the override a caller uses to serve artwork from somewhere
+        /// else entirely. It replaces the whole default chain, the vendored
+        /// <see cref="CapellaIconRegistry"/> and the <see cref="IProjectImageRegistry"/> slot
+        /// alike, so it supersedes <see cref="UsingProjectImages"/> however the two are ordered.
+        /// To add the project-local artwork of a loaded model to the vendored set — the common
+        /// case — reach for <see cref="UsingProjectImages"/> instead.
+        /// </summary>
+        /// <param name="scope">the scope to register the registry on</param>
+        /// <param name="iconRegistry">the icon registry</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope or the registry is null</exception>
+        public static ReportingScope UsingIconRegistry(this ReportingScope scope, IIconRegistry iconRegistry)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (iconRegistry == null)
+            {
+                throw new ArgumentNullException(nameof(iconRegistry));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(iconRegistry).As<IIconRegistry>().ExternallyOwned();
+            return scope;
+        }
+
+        /// <summary>
+        /// Configures the composed services to serve the artwork the loaded model carries itself —
+        /// a <c>WorkspaceImage</c> whose path points inside the model project rather than at a
+        /// Capella plugin — from the supplied directory, through a
+        /// <see cref="WorkspaceImageRegistry"/> rooted there.
+        /// </summary>
+        /// <remarks>
+        /// This fills the <see cref="IProjectImageRegistry"/> slot, which the default
+        /// <see cref="IIconRegistry"/> is already composed over: the vendored
+        /// <see cref="CapellaIconRegistry"/> is consulted first and a path it does not know falls
+        /// through to the project's own images. It therefore adds to the vendored set instead of
+        /// replacing it, and does not collide with anything — unlike
+        /// <see cref="UsingIconRegistry"/>, which replaces the whole chain and so supersedes what
+        /// is registered here.
+        /// </remarks>
+        /// <param name="scope">the scope to register the project images on</param>
+        /// <param name="projectRoot">the root directory the workspace paths resolve against (typically the directory of the loaded <c>.aird</c>)</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        /// <exception cref="ArgumentException">the project root is null or empty</exception>
+        public static ReportingScope UsingProjectImages(this ReportingScope scope, string projectRoot)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (string.IsNullOrEmpty(projectRoot))
+            {
+                throw new ArgumentException("The project root must be provided.", nameof(projectRoot));
+            }
+
+            scope.ContainerBuilder
+                .Register(context => new WorkspaceImageRegistry(projectRoot, context.Resolve<ILoggerFactory>()))
+                .As<IProjectImageRegistry>()
+                .SingleInstance();
+
+            return scope;
+        }
+
+        /// <summary>
+        /// Configures the composed services to seed their style defaults from the supplied
+        /// <see cref="ICapellaDefaultPalette"/>, replacing the default Capella palette.
+        /// </summary>
+        /// <param name="scope">the scope to register the palette on</param>
+        /// <param name="palette">the palette seeding the defaults of every resolved property</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope or the palette is null</exception>
+        public static ReportingScope UsingPalette(this ReportingScope scope, ICapellaDefaultPalette palette)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (palette == null)
+            {
+                throw new ArgumentNullException(nameof(palette));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(palette).As<ICapellaDefaultPalette>().ExternallyOwned();
+            return scope;
+        }
+
+        /// <summary>
+        /// Configures the composed builders to resolve their styles through the supplied
+        /// <see cref="IStyleResolver"/>, replacing the default <see cref="StyleResolver"/>. A resolver
+        /// registered here supersedes any palette registered with
+        /// <see cref="UsingPalette"/> — the palette seeds the default resolver, which is no longer in
+        /// the graph.
+        /// </summary>
+        /// <param name="scope">the scope to register the resolver on</param>
+        /// <param name="styleResolver">the resolver producing each built item's resolved style</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope or the resolver is null</exception>
+        public static ReportingScope UsingStyleResolver(this ReportingScope scope, IStyleResolver styleResolver)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (styleResolver == null)
+            {
+                throw new ArgumentNullException(nameof(styleResolver));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(styleResolver).As<IStyleResolver>().ExternallyOwned();
+            return scope;
+        }
+
+        /// <summary>
+        /// Configures the composed builders to resolve their hover text through the supplied
+        /// <see cref="ITooltipResolver"/>, replacing the default <see cref="TooltipResolver"/> —
+        /// the override a caller uses to say something else about a rendered element (its property
+        /// values, a translated text) or nothing at all.
+        /// </summary>
+        /// <param name="scope">the scope to register the resolver on</param>
+        /// <param name="tooltipResolver">the resolver producing each built item's hover text</param>
+        /// <returns>the same scope, for chaining</returns>
+        /// <exception cref="ArgumentNullException">the scope or the resolver is null</exception>
+        public static ReportingScope UsingTooltipResolver(this ReportingScope scope, ITooltipResolver tooltipResolver)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            if (tooltipResolver == null)
+            {
+                throw new ArgumentNullException(nameof(tooltipResolver));
+            }
+
+            scope.ContainerBuilder.RegisterInstance(tooltipResolver).As<ITooltipResolver>().ExternallyOwned();
+            return scope;
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="IDiagramBuilder"/> — the dispatcher over the
+        /// per-representation-kind builders, and the entry point of the rendering pipeline.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the diagram builder</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        public static IDiagramBuilder BuildDiagramBuilder(this ReportingScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.Resolve<IDiagramBuilder>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="ITableBuilder"/> — the builder of the grid a Sirius table
+        /// representation does not persist. <see cref="BuildDiagramBuilder"/> already dispatches
+        /// tables to it; this terminal is for a caller that holds a table and wants its grid
+        /// directly.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the table builder</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        public static ITableBuilder BuildTableBuilder(this ReportingScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.Resolve<ITableBuilder>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="ISvgExporter"/> — the serializer of an intermediate
+        /// <see cref="Diagram"/> to an SVG document.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the SVG exporter</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        public static ISvgExporter BuildSvgExporter(this ReportingScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.Resolve<ISvgExporter>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="IRasterExporter"/> — the rasterizer turning a diagram
+        /// into a PNG or JPEG, by way of the very SVG <see cref="BuildSvgExporter"/> produces, so
+        /// the bitmap carries the same palette, styles and artwork as the vector export.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the raster exporter</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        public static IRasterExporter BuildRasterExporter(this ReportingScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.Resolve<IRasterExporter>();
+        }
+
+        /// <summary>
+        /// Builds a fully-wired <see cref="IXlsxTableExporter"/> — the serializer of Sirius table
+        /// representations to an Excel workbook.
+        /// </summary>
+        /// <param name="scope">the configured scope</param>
+        /// <returns>the XLSX table exporter</returns>
+        /// <exception cref="ArgumentNullException">the scope is null</exception>
+        public static IXlsxTableExporter BuildXlsxTableExporter(this ReportingScope scope)
+        {
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
+            }
+
+            return scope.Resolve<IXlsxTableExporter>();
+        }
+    }
+}

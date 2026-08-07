@@ -11,8 +11,11 @@ namespace Auriga.Samples
 {
     using System.Linq;
 
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Model;
+
     using Auriga.Extensions;
-    using Auriga.Rendering;
+    using Auriga.Reporting;
     using Auriga.Xmi;
 
     using Microsoft.Extensions.Logging;
@@ -69,16 +72,16 @@ namespace Auriga.Samples
             // artwork the model carries itself, chained onto the vendored Capella icons; your own
             // logger factory reports what the renderer degraded — an image no registry resolved, a
             // representation with no persisted layout, geometry that did not parse — at Debug.
-            using var rendering = RenderingBuilder.Create()
+            using var reporting = ReportingBuilder.Create()
                 .UsingProjectImages("In-Flight Entertainment System")
                 .WithLogger(loggerFactory);
 
             using var reader = XmiReaderBuilder.Create();
             var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
 
-            var svgExporter = rendering.BuildSvgExporter();
+            var svgExporter = reporting.BuildSvgExporter();
 
-            foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+            foreach (var diagram in reporting.BuildDiagramBuilder().BuildAll(session.Elements.Values))
             {
                 svgExporter.ExportToFile(diagram, $"out/{diagram.Name}.svg");
             }
@@ -90,16 +93,16 @@ namespace Auriga.Samples
         /// </summary>
         public static void RasterizeDiagramsToPng()
         {
-            using var rendering = RenderingBuilder.Create();
+            using var reporting = ReportingBuilder.Create();
             using var reader = XmiReaderBuilder.Create();
 
             var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
 
             // The raster exporter draws the very SVG the SVG exporter produces, so the bitmap
             // carries the same palette, styles and artwork. The format comes from the extension.
-            var rasterExporter = rendering.BuildRasterExporter();
+            var rasterExporter = reporting.BuildRasterExporter();
 
-            foreach (var diagram in rendering.BuildDiagramBuilder().BuildAll(session.Elements.Values))
+            foreach (var diagram in reporting.BuildDiagramBuilder().BuildAll(session.Elements.Values))
             {
                 // Twice the persisted size, on a white background instead of PNG's transparency.
                 rasterExporter.ExportToFile(
@@ -117,13 +120,13 @@ namespace Auriga.Samples
         /// </summary>
         public static void ExportTablesToExcel()
         {
-            using var rendering = RenderingBuilder.Create();
+            using var reporting = ReportingBuilder.Create();
             using var reader = XmiReaderBuilder.Create();
 
             var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
             var tables = session.Elements.Values.OfType<Auriga.Diagram.Table.IDTable>().ToList();
 
-            var xlsxExporter = rendering.BuildXlsxTableExporter();
+            var xlsxExporter = reporting.BuildXlsxTableExporter();
 
             // One workbook per table, or pass a name-to-table sequence to get one workbook of many sheets.
             foreach (var table in tables)
@@ -132,7 +135,7 @@ namespace Auriga.Samples
             }
 
             // The same table also lays out as a grid of boxes, which the SVG exporter renders.
-            var grid = rendering.BuildTableBuilder().Build(tables.First());
+            var grid = reporting.BuildTableBuilder().Build(tables.First());
         }
     }
 }

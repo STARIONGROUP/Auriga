@@ -63,7 +63,7 @@ namespace Auriga.Xmi
             var settings = new XmiReaderSettings();
             configure(settings);
 
-            scope.ContainerBuilder.RegisterInstance(settings).As<IXmiReaderSettings>();
+            scope.ContainerBuilder.RegisterInstance(settings).As<IXmiReaderSettings>().ExternallyOwned();
             return scope;
         }
 
@@ -86,7 +86,7 @@ namespace Auriga.Xmi
                 throw new ArgumentNullException(nameof(loggerFactory));
             }
 
-            scope.ContainerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>();
+            scope.ContainerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>().ExternallyOwned();
             return scope;
         }
 

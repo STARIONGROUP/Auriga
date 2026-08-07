@@ -1,0 +1,186 @@
+// ------------------------------------------------------------------------------------------------
+// <copyright file="DiagramBuilder.cs" company="Starion Group S.A.">
+//
+//   Copyright 2026 Starion Group S.A.
+//   SPDX-License-Identifier: Apache-2.0
+//
+// </copyright>
+// ------------------------------------------------------------------------------------------------
+
+namespace Auriga.Reporting.Builders
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Auriga.Reporting;
+    using Auriga.Reporting.Drawing;
+    using Auriga.Reporting.Model;
+    using Auriga.Reporting.Styles;
+
+    using Microsoft.Extensions.Logging;
+
+    using SiriusDiagramModel = Auriga.Diagram.Diagram;
+    using SiriusTable = Auriga.Diagram.Table;
+    using SiriusViewpoint = Auriga.Diagram.Viewpoint;
+
+    /// <summary>
+    /// The default <see cref="IDiagramBuilder"/>: dispatches a parsed Sirius representation to the
+    /// builder of its kind — <see cref="SequenceDiagramBuilder"/> for a sequence representation (a
+    /// Capella scenario), <see cref="TableBuilder"/> for a table representation (a cross-table),
+    /// <see cref="NodeDiagramBuilder"/> otherwise — which builds the intermediate <see cref="Diagram"/>
+    /// model. Diagrams build from the representation's persisted GMF layout; a table has no notation
+    /// layout, so its grid is synthesized from the persisted column widths and line order. The per-kind
+    /// builders are injected as interfaces, so each is substitutable and the whole graph is composed in
+    /// one place — <see cref="ReportingScope"/>, reached through <see cref="ReportingBuilder.Create"/>.
+    /// All representation-kind-specific knowledge lives in the builders, expressed as intermediate-model
+    /// data, so <see cref="SvgExporter"/> and <see cref="StyleResolver"/> stay kind-agnostic.
+    /// </summary>
+    public sealed class DiagramBuilder : IDiagramBuilder
+    {
+        /// <summary>
+        /// The builder for node-and-edge representations, the default kind.
+        /// </summary>
+        private readonly INodeDiagramBuilder nodeDiagramBuilder;
+
+        /// <summary>
+        /// The builder for sequence representations (Capella scenarios).
+        /// </summary>
+        private readonly ISequenceDiagramBuilder sequenceDiagramBuilder;
+
+        /// <summary>
+        /// The builder for table representations (cross-tables).
+        /// </summary>
+        private readonly ITableBuilder tableBuilder;
+
+        /// <summary>
+        /// The logger reporting what <see cref="BuildAll"/> built and what it skipped.
+        /// </summary>
+        private readonly ILogger<DiagramBuilder> logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagramBuilder"/> class with the supplied
+        /// per-kind builders.
+        /// </summary>
+        /// <param name="nodeDiagramBuilder">the builder for node-and-edge representations</param>
+        /// <param name="sequenceDiagramBuilder">the builder for sequence representations</param>
+        /// <param name="tableBuilder">the builder for table representations</param>
+        /// <param name="loggerFactory">the factory the builder creates its logger from</param>
+        /// <exception cref="ArgumentNullException">a builder or the logger factory is null</exception>
+        public DiagramBuilder(INodeDiagramBuilder nodeDiagramBuilder, ISequenceDiagramBuilder sequenceDiagramBuilder, ITableBuilder tableBuilder, ILoggerFactory loggerFactory)
+        {
+            this.nodeDiagramBuilder = nodeDiagramBuilder ?? throw new ArgumentNullException(nameof(nodeDiagramBuilder));
+            this.sequenceDiagramBuilder = sequenceDiagramBuilder ?? throw new ArgumentNullException(nameof(sequenceDiagramBuilder));
+            this.tableBuilder = tableBuilder ?? throw new ArgumentNullException(nameof(tableBuilder));
+
+            if (loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+
+            this.logger = loggerFactory.CreateLogger<DiagramBuilder>();
+        }
+
+        /// <summary>
+        /// Builds the intermediate model of the supplied Sirius representation, using the builder
+        /// of the representation's kind: a sequence representation goes to the
+        /// <see cref="SequenceDiagramBuilder"/>, every other kind to the
+        /// <see cref="NodeDiagramBuilder"/>.
+        /// </summary>
+        /// <param name="siriusDiagram">the parsed Sirius representation (e.g. a <c>DSemanticDiagram</c>)</param>
+        /// <param name="name">
+        /// the diagram name, or <c>null</c>; the name lives on the <c>DRepresentationDescriptor</c>
+        /// in the <c>DAnalysis</c> rather than on the representation, so the caller supplies it
+        /// </param>
+        /// <returns>the intermediate diagram model</returns>
+        /// <exception cref="ArgumentNullException">the representation is null</exception>
+        /// <exception cref="InvalidOperationException">the representation carries no GMF notation diagram</exception>
+        public Diagram Build(SiriusDiagramModel.IDDiagram siriusDiagram, string? name = null)
+        {
+            return siriusDiagram is Auriga.Diagram.Sequence.ISequenceDDiagram
+                ? this.sequenceDiagramBuilder.Build(siriusDiagram, name)
+                : this.nodeDiagramBuilder.Build(siriusDiagram, name);
+        }
+
+        /// <summary>
+        /// Builds the intermediate model of every representation in a parsed <c>.aird</c> session
+        /// that carries a persisted GMF layout, naming each diagram from its
+        /// <c>DRepresentationDescriptor</c> — the descriptor in the <c>DAnalysis</c> owns the
+        /// human-readable name (<c>DRepresentation</c> itself does not serialize one) and points at
+        /// its representation via <c>repPath</c>. A diagram without a notation diagram, or a
+        /// descriptor without a resolvable representation, is skipped, not an error. Table
+        /// representations (<see cref="SiriusTable.IDTable"/>) are built too — they carry no notation
+        /// diagram, so their grid is synthesized — named from the same descriptors.
+        /// </summary>
+        /// <param name="elements">
+        /// the elements of the parsed session (e.g. the loader result's element index values),
+        /// providing both the representations and their descriptors
+        /// </param>
+        /// <returns>the intermediate models, diagrams first then tables, in element order</returns>
+        /// <exception cref="ArgumentNullException">the element collection is null</exception>
+        public IReadOnlyList<Diagram> BuildAll(IEnumerable<Auriga.Core.IAurigaElement> elements)
+        {
+            if (elements == null)
+            {
+                throw new ArgumentNullException(nameof(elements));
+            }
+
+            var snapshot = elements.ToList();
+
+            var names = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var descriptor in snapshot
+                .OfType<SiriusViewpoint.IDRepresentationDescriptor>()
+                .Where(descriptor => !string.IsNullOrEmpty(descriptor.RepPath) && !string.IsNullOrEmpty(descriptor.Name)))
+            {
+                names[descriptor.RepPath!.TrimStart('#')] = descriptor.Name!;
+            }
+
+            var diagrams = new List<Diagram>();
+            var representationCount = 0;
+            foreach (var representation in snapshot.OfType<SiriusDiagramModel.IDDiagram>())
+            {
+                representationCount++;
+
+                if (DiagramBuilderBase.FindNotationDiagram(representation) == null)
+                {
+                    this.logger.LogDebug(
+                        "Skipped the representation {Uid} ({Name}): it carries no GMF notation diagram, so there is no persisted layout to build from",
+                        representation.Id,
+                        NameOf(representation.Id, names));
+                    continue;
+                }
+
+                diagrams.Add(this.Build(representation, NameOf(representation.Id, names)));
+            }
+
+            var tableCount = 0;
+            foreach (var table in snapshot.OfType<SiriusTable.IDTable>())
+            {
+                tableCount++;
+                diagrams.Add(this.tableBuilder.Build(table, NameOf(table.Id, names)));
+            }
+
+            this.logger.LogDebug(
+                "Built {Built} of {Total} representations: {Diagrams} of {DiagramTotal} diagrams and {Tables} tables",
+                diagrams.Count,
+                representationCount + tableCount,
+                diagrams.Count - tableCount,
+                representationCount,
+                tableCount);
+
+            return diagrams;
+        }
+
+        /// <summary>
+        /// Looks up a representation's descriptor name by its id, or <c>null</c> when the id is unknown
+        /// or no descriptor named it.
+        /// </summary>
+        /// <param name="id">the representation's id (its uid)</param>
+        /// <param name="names">the descriptor name map, keyed by representation path</param>
+        /// <returns>the descriptor name, or <c>null</c></returns>
+        private static string? NameOf(string? id, IReadOnlyDictionary<string, string> names)
+        {
+            return id != null && names.TryGetValue(id, out var name) ? name : null;
+        }
+    }
+}

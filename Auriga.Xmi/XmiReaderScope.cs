@@ -56,9 +56,9 @@ namespace Auriga.Xmi
         {
             // Overridable defaults (the last registration for a service wins in Autofac).
             this.ContainerBuilder.RegisterType<XmiReaderSettings>().As<IXmiReaderSettings>().InstancePerLifetimeScope();
-            this.ContainerBuilder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
+            this.ContainerBuilder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>().ExternallyOwned();
 
-            this.ContainerBuilder.RegisterInstance(this).As<IXmiReaderScope>();
+            this.ContainerBuilder.RegisterInstance(this).As<IXmiReaderScope>().ExternallyOwned();
 
             this.ContainerBuilder.RegisterType<XmiElementCache>().As<IXmiElementCache>().InstancePerLifetimeScope();
 
