@@ -6,6 +6,10 @@ name: Nuget-Release
 # Packaging metadata, SBOM generation (Microsoft.Sbom.Targets) and SourceLink are configured in
 # Directory.Build.props.
 #
+# The release also carries a standalone aurigatools executable per platform, published
+# self-contained and single-file from Auriga.Tools and attached to the GitHub release, so the tool
+# can be run on a machine with no .NET installed.
+#
 # CHANGELOG.md is the source of truth for what a release contains. tools/SyncReleaseNotes.cs moves
 # its [Unreleased] section under the version being released, writes each package's entries into that
 # package's <PackageReleaseNotes> — which is generated, never hand-edited — and renders the GitHub
@@ -156,3 +160,36 @@ jobs:
             FLAGS+=(--prerelease)
           fi
           gh release create "${VERSION}" "${FLAGS[@]}"
+
+      # A standalone aurigatools for a machine with no .NET installed. Each publish is
+      # self-contained and single-file, and Auriga.Tools.csproj sets
+      # IncludeNativeLibrariesForSelfExtract for it, so the executable carries the runtime and
+      # Skia's native libraries and runs from wherever it is put. Cross-publishing every RID from
+      # this runner works: the apphost comes from the runtime pack, nothing is compiled natively.
+      - name: Publish the standalone executables
+        if: ${{ !inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          for RID in win-x64 linux-x64 osx-arm64; do
+            dotnet publish Auriga.Tools/Auriga.Tools.csproj \
+              -c Release -r "$RID" --self-contained true \
+              -p:PublishSingleFile=true -p:Version="${VERSION}" \
+              -o "standalone/${RID}"
+          done
+
+      - name: Attach the standalone executables to the release
+        if: ${{ !inputs.dry_run }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p standalone/zips
+          for RID in win-x64 linux-x64 osx-arm64; do
+            BIN="standalone/${RID}/Auriga.Tools"
+            if [ "$RID" = "win-x64" ]; then
+              BIN="${BIN}.exe"
+            fi
+            # The executable alone: with the native libraries bundled it is the whole program.
+            zip -j "standalone/zips/aurigatools-${VERSION}-${RID}.zip" "$BIN"
+          done
+          gh release upload "${VERSION}" standalone/zips/*.zip

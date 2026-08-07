@@ -18,6 +18,22 @@
         <PackageReleaseNotes></PackageReleaseNotes>
     </PropertyGroup>
 
+    <!--
+      A single-file publish bundles the managed assemblies but leaves SkiaSharp's and HarfBuzz's
+      native libraries loose beside the executable, so an .exe moved away from the folder it was
+      published into cannot rasterize. Bundle them, so the file that is handed around is the whole
+      program. Conditioned on PublishSingleFile: a plain build and the RID-less pack that produces
+      the dotnet tool never set it, and neither property means anything to them.
+    -->
+    <PropertyGroup Condition="'$(PublishSingleFile)' == 'true'">
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    </PropertyGroup>
+
+    <!-- Compression is only supported for a self-contained publish, and errors on any other. -->
+    <PropertyGroup Condition="'$(PublishSingleFile)' == 'true' and '$(SelfContained)' == 'true'">
+        <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Autofac.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.Extensions.Hosting" />

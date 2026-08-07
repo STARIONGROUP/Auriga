@@ -198,7 +198,7 @@ namespace Auriga.Tools.Commands
 
                     throw;
                 }
-                catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+                catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or PlatformNotSupportedException)
                 {
                     Ui.Problem("The export could not complete.", exception.Message);
 

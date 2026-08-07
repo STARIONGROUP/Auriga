@@ -75,6 +75,7 @@ namespace Auriga.Reporting.Drawing
         /// <returns>the encoded image bytes</returns>
         /// <exception cref="ArgumentNullException">the diagram is null</exception>
         /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">Skia's native library could not be loaded</exception>
         public byte[] Export(Diagram diagram, RasterFormat format, RasterOptions? options = null)
         {
             return this.Export(this.ToSvg(diagram), format, options);
@@ -89,6 +90,7 @@ namespace Auriga.Reporting.Drawing
         /// <param name="options">how the diagram is rasterized, or <c>null</c> for the defaults</param>
         /// <exception cref="ArgumentNullException">the diagram or the stream is null</exception>
         /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">Skia's native library could not be loaded</exception>
         public void Export(Diagram diagram, Stream stream, RasterFormat format, RasterOptions? options = null)
         {
             this.Export(this.ToSvg(diagram), stream, format, options);
@@ -103,6 +105,7 @@ namespace Auriga.Reporting.Drawing
         /// <returns>the encoded image bytes</returns>
         /// <exception cref="ArgumentException">the SVG text is null or empty</exception>
         /// <exception cref="InvalidOperationException">the document did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">Skia's native library could not be loaded</exception>
         public byte[] Export(string svg, RasterFormat format, RasterOptions? options = null)
         {
             using var data = this.Encode(svg, format, options ?? new RasterOptions());
@@ -120,6 +123,7 @@ namespace Auriga.Reporting.Drawing
         /// <exception cref="ArgumentNullException">the stream is null</exception>
         /// <exception cref="ArgumentException">the SVG text is null or empty</exception>
         /// <exception cref="InvalidOperationException">the document did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">Skia's native library could not be loaded</exception>
         public void Export(string svg, Stream stream, RasterFormat format, RasterOptions? options = null)
         {
             if (stream == null)
@@ -141,6 +145,7 @@ namespace Auriga.Reporting.Drawing
         /// <exception cref="ArgumentNullException">the diagram is null</exception>
         /// <exception cref="ArgumentException">the path is null or empty, or names no supported format</exception>
         /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">Skia's native library could not be loaded</exception>
         public void ExportToFile(Diagram diagram, string path, RasterOptions? options = null)
         {
             this.ExportToFile(this.ToSvg(diagram), path, options);
@@ -154,6 +159,7 @@ namespace Auriga.Reporting.Drawing
         /// <param name="options">how the document is rasterized, or <c>null</c> for the defaults</param>
         /// <exception cref="ArgumentException">the SVG text is null or empty, or the path is null or empty or names no supported format</exception>
         /// <exception cref="InvalidOperationException">the document did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">Skia's native library could not be loaded</exception>
         public void ExportToFile(string svg, string path, RasterOptions? options = null)
         {
             if (string.IsNullOrEmpty(path))
@@ -192,6 +198,33 @@ namespace Auriga.Reporting.Drawing
             throw new ArgumentException(
                 string.Format(CultureInfo.InvariantCulture, "The extension '{0}' names no supported image format; expected .png, .jpg or .jpeg.", extension),
                 nameof(path));
+        }
+
+        /// <summary>
+        /// The Svg.Skia document a raster is drawn from — the first thing here to touch Skia's
+        /// native library, and so where a deployment missing it is reported.
+        /// </summary>
+        /// <returns>the document, owned by the caller</returns>
+        /// <exception cref="PlatformNotSupportedException">the native library could not be loaded</exception>
+        /// <remarks>
+        /// Constructing the document reads <c>SKImageInfo</c>, whose type initializer is what fails
+        /// when the native library is absent: the caller meets a
+        /// <see cref="TypeInitializationException"/> wrapping a <see cref="DllNotFoundException"/>
+        /// several frames deep inside Svg.Skia, which says nothing about what to do about it. This
+        /// turns it into a statement about the deployment.
+        /// </remarks>
+        private static SKSvg CreateSvgDocument()
+        {
+            try
+            {
+                return new SKSvg();
+            }
+            catch (Exception exception) when (exception is TypeInitializationException or DllNotFoundException)
+            {
+                throw new PlatformNotSupportedException(
+                    "Skia's native library could not be loaded, so no diagram can be rasterized. It has to sit beside the application: a single-file publish carries it only when IncludeNativeLibrariesForSelfExtract is set, and an executable copied away from the folder it was published into leaves it behind. The SVG and Excel exports do not need it.",
+                    exception);
+            }
         }
 
         /// <summary>
@@ -247,6 +280,7 @@ namespace Auriga.Reporting.Drawing
         /// <returns>the encoded image data, owned by the caller</returns>
         /// <exception cref="ArgumentException">the SVG text is null or empty</exception>
         /// <exception cref="InvalidOperationException">the document did not parse, or the image did not encode</exception>
+        /// <exception cref="PlatformNotSupportedException">Skia's native library could not be loaded</exception>
         private SKData Encode(string svg, RasterFormat format, RasterOptions options)
         {
             if (string.IsNullOrEmpty(svg))
@@ -254,7 +288,7 @@ namespace Auriga.Reporting.Drawing
                 throw new ArgumentException("The SVG document must be provided.", nameof(svg));
             }
 
-            using var document = new SKSvg();
+            using var document = CreateSvgDocument();
 
             SKPicture? picture;
 

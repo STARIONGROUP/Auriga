@@ -59,10 +59,14 @@ that ship no package, so they are not recorded here.
 - [CHG] the package is renamed from Auriga.Rendering to Auriga.Reporting: it writes Excel workbooks as well as SVG and PNG, so it reports rather than renders, matching uml4net.Reporting. The types move into Model, Builders, Drawing, Generators, Styles and Icons namespaces, and RenderingBuilder / RenderingScope / IRenderingScope become ReportingBuilder / ReportingScope / IReportingScope
 - [ADD] IDiagramReportGenerator / DiagramReportGenerator: load a .aird and write every representation to SVG, PNG, JPEG and Excel in one call, with a format set, a raster scale or DPI, a background and a wildcard name filter (DiagramReportOptions), reporting what it is doing through an optional IProgress. It resolves a model's own artwork against the model's directory, so UsingProjectImages needs no wiring, and Query lists a model's representations without writing anything
 - [FIX] a scope no longer disposes the services it was handed: the ILoggerFactory given to WithLogger, and the palette, style resolver, tooltip resolver and icon registry given to the Using* methods, are registered as externally owned. Disposing one scope previously disposed the caller's logger factory, so a second scope built from the same factory threw ObjectDisposedException
+- [CHG] a raster export whose native Skia library cannot be loaded throws PlatformNotSupportedException naming what is missing and where it has to be, instead of surfacing the SKImageInfo type-initializer failure from inside Svg.Skia; IRasterExporter documents it, and the SVG and Excel exports are unaffected
 
 ### Auriga.Tools
 
 - [ADD] a command-line tool, published as a dotnet tool: `dotnet tool install -g Auriga.Tools` then `aurigatools export <model.aird> -o out --format svg,png` writes a picture per diagram with no compiler and no code, and `aurigatools list <model.aird>` names what a model holds without writing anything. Formats, raster scale or DPI, background, JPEG quality and a wildcard name filter are options; progress, a per-format summary and errors are rendered with Spectre.Console
+- [ADD] a standalone executable per platform (Windows, Linux, macOS) attached to every release, so the tool runs on a machine with no .NET installed
+- [FIX] a single-file publish bundles the native Skia and HarfBuzz libraries, so the standalone executable rasterizes when it is moved away from the folder it was published into instead of failing with a missing-library error
+- [FIX] an export that cannot load the native rasterizer reports what is missing as a problem to act on rather than as an unexpected crash with a stack trace
 
 ## [1.0.0] - 2026-07-10
 

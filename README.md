@@ -44,6 +44,28 @@ aurigatools export model.aird -o out --format jpeg --dpi 300 --name "[SAB]*" --b
 
 The tool holds no logic of its own: each command resolves `IDiagramReportGenerator` from **Auriga.Reporting** and binds the parsed options to it, so what the tool does and what your own code does are the same code path.
 
+### Running it without installing .NET
+
+Every release attaches a standalone executable per platform — `aurigatools-<version>-win-x64.zip`, `-linux-x64.zip` and `-osx-arm64.zip`, each holding a single file. Download it, unzip it, run it: nothing to install, and no .NET on the machine.
+
+To build one yourself, publish it self-contained and single-file, naming the platform you want:
+
+```
+dotnet publish Auriga.Tools -c Release -r win-x64   --self-contained -p:PublishSingleFile=true -o dist/win-x64
+dotnet publish Auriga.Tools -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true -o dist/linux-x64
+dotnet publish Auriga.Tools -c Release -r osx-arm64 --self-contained -p:PublishSingleFile=true -o dist/osx-arm64
+```
+
+Each writes `Auriga.Tools` — `Auriga.Tools.exe` on Windows — into its `-o` directory, beside the `.pdb` and `.xml` files the build also emits. **The executable is the only file you need**: it carries the .NET runtime, the managed assemblies and the native Skia and HarfBuzz libraries, so copy it anywhere and run it. Any runtime identifier the SDK knows works, and every one of them cross-publishes from any host; a Linux or macOS executable built on Windows only needs its executable bit set (`chmod +x`) once it arrives.
+
+Every part of that command line earns its place, and dropping one produces something that looks right and then fails:
+
+- `-r <rid>` names the platform the executable will run on, and is required by the other two.
+- `--self-contained` removes the need for an installed .NET runtime.
+- `-p:PublishSingleFile=true` collapses the assemblies into the one file, and is also what switches on `IncludeNativeLibrariesForSelfExtract` in `Auriga.Tools.csproj`. Without it the publish leaves Skia's native library loose in the output directory, and an executable copied away from that directory then reads models and writes SVG but fails on the first PNG or JPEG.
+
+The bundled native libraries are unpacked to a temporary directory the first time the executable runs, so the first export is a little slower than the ones after it.
+
 ## Auriga.CodeGenerator
 
 The **Auriga.CodeGenerator** tool is everything the repository does with the vendored `.ecore` files, and is a development-time tool published as no package.

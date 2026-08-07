@@ -42,6 +42,7 @@ namespace Auriga.Reporting.Drawing
         /// <returns>the encoded image bytes</returns>
         /// <exception cref="ArgumentNullException">the diagram is null</exception>
         /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">the rasterizer's native library could not be loaded</exception>
         byte[] Export(Diagram diagram, RasterFormat format, RasterOptions? options = null);
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace Auriga.Reporting.Drawing
         /// <param name="options">how the diagram is rasterized, or <c>null</c> for the defaults</param>
         /// <exception cref="ArgumentNullException">the diagram or the stream is null</exception>
         /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">the rasterizer's native library could not be loaded</exception>
         void Export(Diagram diagram, Stream stream, RasterFormat format, RasterOptions? options = null);
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace Auriga.Reporting.Drawing
         /// <returns>the encoded image bytes</returns>
         /// <exception cref="ArgumentException">the SVG text is null or empty</exception>
         /// <exception cref="InvalidOperationException">the document did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">the rasterizer's native library could not be loaded</exception>
         byte[] Export(string svg, RasterFormat format, RasterOptions? options = null);
 
         /// <summary>
@@ -76,6 +79,7 @@ namespace Auriga.Reporting.Drawing
         /// <exception cref="ArgumentNullException">the stream is null</exception>
         /// <exception cref="ArgumentException">the SVG text is null or empty</exception>
         /// <exception cref="InvalidOperationException">the document did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">the rasterizer's native library could not be loaded</exception>
         void Export(string svg, Stream stream, RasterFormat format, RasterOptions? options = null);
 
         /// <summary>
@@ -87,6 +91,7 @@ namespace Auriga.Reporting.Drawing
         /// <exception cref="ArgumentNullException">the diagram is null</exception>
         /// <exception cref="ArgumentException">the path is null or empty, or names no supported format</exception>
         /// <exception cref="InvalidOperationException">the diagram did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">the rasterizer's native library could not be loaded</exception>
         void ExportToFile(Diagram diagram, string path, RasterOptions? options = null);
 
         /// <summary>
@@ -97,6 +102,7 @@ namespace Auriga.Reporting.Drawing
         /// <param name="options">how the document is rasterized, or <c>null</c> for the defaults</param>
         /// <exception cref="ArgumentException">the SVG text is null or empty, or the path is null or empty or names no supported format</exception>
         /// <exception cref="InvalidOperationException">the document did not rasterize</exception>
+        /// <exception cref="PlatformNotSupportedException">the rasterizer's native library could not be loaded</exception>
         void ExportToFile(string svg, string path, RasterOptions? options = null);
     }
 }
