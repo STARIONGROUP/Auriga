@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/STARIONGROUP/Auriga/development/assets/auriga-readme-emblem.png" alt="Auriga — Capella models for .NET" width="480">
+</p>
+
 # Introduction
 
 Auriga is a suite of dotnet libraries and tools for reading, manipulating and writing Eclipse Capella™ models. Capella is an open-source Model-Based Systems Engineering (MBSE) tool implementing the [Arcadia](https://mbse-capella.org/arcadia.html) method; its models are Ecore-based XMI. Auriga makes the Capella semantic model available as an in-memory .NET object graph, and builds on [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) — it is a sibling of [uml4net](https://github.com/STARIONGROUP/uml4net) and [SysML2.NET](https://github.com/STARIONGROUP/SysML2.NET), and a part of `modeltopia`.
