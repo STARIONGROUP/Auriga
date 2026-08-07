@@ -1,78 +1,43 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/STARIONGROUP/Auriga/development/assets/auriga-readme-emblem.png" alt="Auriga — Capella models for .NET" width="480">
+</p>
+
 # Introduction
 
-Auriga is a suite of dotnet libraries and tools that are used to deserialize (read), manipulate, and serialize (write) Eclipse Capella™ models. Capella is an open-source Model-Based Systems Engineering (MBSE) tool implementing the [Arcadia](https://mbse-capella.org/arcadia.html) method; its models are stored as Ecore-based XMI. Auriga makes the Capella semantic model (the five Arcadia architecture layers and the common packages) available as an in-memory .NET object graph, typically to support opinionated template-based code-generation and model transformation, and is a part of `modeltopia`.
-
-Auriga builds on [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) for reading the Capella Ecore metamodel, and is a sibling of [uml4net](https://github.com/STARIONGROUP/uml4net) and [SysML2.NET](https://github.com/STARIONGROUP/SysML2.NET). Auriga provides a number of libraries that are described in the following sections.
+Auriga is a suite of dotnet libraries and tools for reading, manipulating and writing Eclipse Capella™ models. Capella is an open-source Model-Based Systems Engineering (MBSE) tool implementing the [Arcadia](https://mbse-capella.org/arcadia.html) method; its models are Ecore-based XMI. Auriga makes the Capella semantic model available as an in-memory .NET object graph, and builds on [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) — it is a sibling of [uml4net](https://github.com/STARIONGROUP/uml4net) and [SysML2.NET](https://github.com/STARIONGROUP/SysML2.NET), and a part of `modeltopia`.
 
 ## Auriga
 
-The core library that contains the shared base types (the `Auriga.Core` namespace) and two generated object models: the Capella semantic metamodel (the Arcadia layers — Operational Analysis, System Analysis, Logical Architecture, Physical Architecture, EPBS — and the common packages) under the `Auriga.Model.*` namespaces, and the Sirius/GMF diagramming metamodel (the `.aird` representation model) under the `Auriga.Diagram.*` namespaces. Together with **Auriga.Xmi** it provides the capability to read and write Capella models and make them available as an in-memory object graph.
+The core library: shared base types (`Auriga.Core`) plus two generated object models — the Capella semantic metamodel (`Auriga.Model.*`, the five Arcadia layers and common packages) and the Sirius/GMF diagramming metamodel (`Auriga.Diagram.*`). Combined with **Auriga.Xmi**, it reads and writes Capella models as an in-memory object graph.
 
 ## Auriga.Xmi
 
-The **Auriga.Xmi** library provides XMI reader implementations to read Capella semantic model files (`.capella` / `.melodymodeller`, the `Auriga.Xmi.Model.*` namespaces) and Sirius diagram files (`.aird`, the `Auriga.Xmi.Diagram.*` namespaces), and an XMI writer implementation to write them back, all built on a metamodel-agnostic XMI runtime (the `Auriga.Xmi.Core.*` namespaces). It resolves intra-file (`xmi:id`) and cross-file (`href`) references, including references that cross `.capellafragment` boundaries, into a fully resolved object graph. The writer serializes the graph back to Capella-faithful XMI, preserving the fragment layout — see [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer).
+XMI readers for Capella semantic files (`.capella` / `.melodymodeller`) and Sirius diagram files (`.aird`), resolving intra-file and cross-file (`.capellafragment`) references into one graph, plus a writer that serializes back to Capella-faithful XMI. See [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer).
 
 ## Auriga.Extensions
 
-The **Auriga.Extensions** library provides LINQ-style query extension methods over the Auriga object graph, following the `uml4net.Extensions` pattern: containment navigation (`QueryAncestors`, `QueryRoot`, `QueryAllFunctions`, `QueryAllComponents`), component-functional allocation (`QueryAllocatedFunctions`, `IsAllocatedTo`, `QueryAllocatingBlocks`), function/component ports and functional exchanges, and cross-layer realization (`QueryRealizedFunctions`/`QueryRealizingFunctions` and the component equivalents). See [Query Extension Methods](https://github.com/STARIONGROUP/Auriga/wiki/Query-Extensions).
+LINQ-style query extensions over the object graph — containment navigation, component/function allocation, ports, exchanges, and cross-layer realization. See [Query Extension Methods](https://github.com/STARIONGROUP/Auriga/wiki/Query-Extensions).
 
 ## Auriga.Reporting
 
-The **Auriga.Reporting** library turns a model's diagrams into the artifacts a reader consumes — SVG, PNG, JPEG and Excel — over a renderer-agnostic intermediate diagram model: `IDiagramBuilder.Build` turns a parsed Sirius representation into a `Diagram` of `Box`es and `Edge`s whose coordinates are absolute and taken from the persisted GMF layout (never computed), pairing every notation view with the Sirius element that names and styles it and with its resolved Capella semantic element. Every item carries a `ResolvedStyle` (colors, fonts, line patterns, arrows) resolved from the persisted Sirius/GMF styles with Capella-default fallbacks, and `ISvgExporter` serializes a diagram to plain SVG (string, stream or file) — the SVG writer itself is dependency-free, built on `System.Xml.Linq` alone. Every item also carries a `Tooltip`, resolved by the injectable `ITooltipResolver` — the type and name of what it represents, what a relationship connects, and the Capella `description` reduced to plain text — which the exporter emits as the group's SVG `title`, so hovering a rendered element in a browser explains it without any scripting.
-
-`IRasterExporter` is the bitmap counterpart, for the consumers that cannot take a vector document — a thumbnail, a Word or PowerPoint report, an issue-tracker attachment. It rasterizes a diagram (or any SVG text) to PNG or JPEG at a requested scale or DPI, by way of the very SVG the exporter produces, so the bitmap carries the same palette, styles and artwork. The image measures the diagram's viewport rounded to whole pixels, multiplied by `RasterOptions.Scale`; PNG keeps transparency, JPEG composites onto white unless a background is given. Rasterization is done with [SkiaSharp](https://github.com/mono/SkiaSharp) and [Svg.Skia](https://github.com/wieslawsoltes/Svg.Skia), which is why this package — unlike the rest of Auriga — carries native assets, one set per platform; the SVG *writer* itself remains `System.Xml.Linq` alone.
-
-Sirius table representations are covered as well. Unlike a diagram, a table persists no layout, so `ITableBuilder` synthesizes the grid: it lays a `DTable` out as the same `Diagram` of boxes, which makes the SVG exporter the table's visual export. `IXlsxTableExporter` is the editable counterpart, writing one or more tables to an Excel workbook (a worksheet each) via [ClosedXML](https://github.com/ClosedXML/ClosedXML).
-
-The services are composed through `ReportingBuilder.Create()`, the same fluent-scope pattern as `XmiReaderBuilder`, so any of them — the icon registry, the palette, the style resolver, the tooltip resolver, the exporters — can be substituted in one place. `UsingProjectImages(projectRoot)` adds the artwork a model carries itself (a `WorkspaceImage` pointing inside the project rather than at a Capella plugin) to the vendored Capella icon set rather than replacing it.
-
-Rendering degrades rather than throws — a diagram that renders imperfectly beats one that does not render at all — and `WithLogger(ILoggerFactory)` is where those degradations surface: at Debug, the images no registry resolved, the representations skipped for want of a persisted layout, and the malformed bendpoints and anchor ids that fell back to view centres; at Trace, each unresolved image path and each style value that did not parse. A well-formed model stays silent at Information and above, so turning on Debug is what explains a difference between what Capella shows and what Auriga exported.
+Renders a model's diagrams and tables to SVG, PNG/JPEG and Excel, over an intermediate `Diagram` model whose layout comes from the persisted Sirius/GMF geometry — never computed. Rendering degrades rather than throws; enable `Debug` logging to see what an export couldn't resolve. See [Sirius `.aird` Diagrams](https://github.com/STARIONGROUP/Auriga/wiki/Aird).
 
 ## Auriga.Tools
 
-The **Auriga.Tools** command-line application exports the diagrams of a Capella model without writing any code — it is the way to use Auriga if you are not a developer. It is published as a [dotnet tool](https://learn.microsoft.com/dotnet/core/tools/global-tools):
+The `aurigatools` command-line application exports the diagrams of a Capella model without writing any code, published as a [dotnet tool](https://learn.microsoft.com/dotnet/core/tools/global-tools):
 
 ```
 dotnet tool install --global Auriga.Tools
 
 aurigatools list "In-Flight Entertainment System.aird"
 aurigatools export "In-Flight Entertainment System.aird" -o out --format svg,png --scale 2
-aurigatools export model.aird -o out --format jpeg --dpi 300 --name "[SAB]*" --background "#FFFFFF"
 ```
 
-`list` names the representations a model holds — with their box and edge counts — so you can see what is there before exporting. `export` writes them: `--format` takes any of `svg`, `png`, `jpeg` and `xlsx`, `--scale` or `--dpi` sizes the rasters, `--background` sets the colour they are drawn on, `--name` narrows the run to the diagrams whose name matches a wildcard, and `--open` opens the output folder when it finishes. Progress, a per-format summary and any failure are rendered with [Spectre.Console](https://spectreconsole.net/); the log goes to a rolling `auriga.logs` file so it never disturbs the display.
-
-The tool holds no logic of its own: each command resolves `IDiagramReportGenerator` from **Auriga.Reporting** and binds the parsed options to it, so what the tool does and what your own code does are the same code path.
-
-### Running it without installing .NET
-
-Every release attaches a standalone executable per platform — `aurigatools-<version>-win-x64.zip`, `-linux-x64.zip` and `-osx-arm64.zip`, each holding a single file. Download it, unzip it, run it: nothing to install, and no .NET on the machine.
-
-To build one yourself, publish it self-contained and single-file, naming the platform you want:
-
-```
-dotnet publish Auriga.Tools -c Release -r win-x64   --self-contained -p:PublishSingleFile=true -o dist/win-x64
-dotnet publish Auriga.Tools -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true -o dist/linux-x64
-dotnet publish Auriga.Tools -c Release -r osx-arm64 --self-contained -p:PublishSingleFile=true -o dist/osx-arm64
-```
-
-Each writes `Auriga.Tools` — `Auriga.Tools.exe` on Windows — into its `-o` directory, beside the `.pdb` and `.xml` files the build also emits. **The executable is the only file you need**: it carries the .NET runtime, the managed assemblies and the native Skia and HarfBuzz libraries, so copy it anywhere and run it. Any runtime identifier the SDK knows works, and every one of them cross-publishes from any host; a Linux or macOS executable built on Windows only needs its executable bit set (`chmod +x`) once it arrives.
-
-Every part of that command line earns its place, and dropping one produces something that looks right and then fails:
-
-- `-r <rid>` names the platform the executable will run on, and is required by the other two.
-- `--self-contained` removes the need for an installed .NET runtime.
-- `-p:PublishSingleFile=true` collapses the assemblies into the one file, and is also what switches on `IncludeNativeLibrariesForSelfExtract` in `Auriga.Tools.csproj`. Without it the publish leaves Skia's native library loose in the output directory, and an executable copied away from that directory then reads models and writes SVG but fails on the first PNG or JPEG.
-
-The bundled native libraries are unpacked to a temporary directory the first time the executable runs, so the first export is a little slower than the ones after it.
+`list` shows the representations a model holds; `export` writes them (`--format svg|png|jpeg|xlsx`, `--scale`/`--dpi`, `--name` to filter by wildcard). Every release also attaches a standalone executable per platform (`aurigatools-<version>-win-x64.zip` etc.) — download, unzip, run, no .NET required.
 
 ## Auriga.CodeGenerator
 
-The **Auriga.CodeGenerator** tool is everything the repository does with the vendored `.ecore` files, and is a development-time tool published as no package.
-
-It generates both object models described above, using [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) to load the metamodel and Handlebars templates to emit the code — the POCOs and interfaces in **Auriga**, and the per-type XMI readers and writers in **Auriga.Xmi**. The generated code is committed, and a CI drift guard regenerates it on every build and fails if the result differs from what is committed, so the templates and the checked-in code cannot fall out of step. Generation itself is driven from `[Explicit]` tests rather than a CLI, following the same convention as uml4net. See [Auriga.CodeGenerator Design](https://github.com/STARIONGROUP/Auriga/wiki/Codegen-Design).
-
-Its command-line entry point renders a browsable HTML report of the Capella metamodel from the same `.ecore` files, using the ECoreNetto `HtmlReportGenerator` — the same report generator used by the sibling projects (uml4net, SysML2.NET). The [`docker-build-docs-local.sh`](docker-build-docs-local.sh) and [`docker-build-docs-attested.sh`](docker-build-docs-attested.sh) scripts render the report and serve it from an nginx image ([`HtmlDocs/Dockerfile`](HtmlDocs/Dockerfile)). See [Capella Metamodel HTML Report](https://github.com/STARIONGROUP/Auriga/wiki/Metamodel-Report) for build and run instructions.
+A development-time tool, published as no package, that generates both object models above from the vendored `.ecore` files via [ECoreNetto](https://github.com/STARIONGROUP/EcoreNetto) and Handlebars templates. The generated code is committed and a CI drift guard regenerates it on every build. See [Auriga.CodeGenerator Design](https://github.com/STARIONGROUP/Auriga/wiki/Codegen-Design) and [Capella Metamodel HTML Report](https://github.com/STARIONGROUP/Auriga/wiki/Metamodel-Report).
 
 # Getting Started
 
@@ -118,87 +83,35 @@ var writer = XmiWriterBuilder.Create().Build();
 writer.Write(project.Project!, "out/In-Flight Entertainment System.capella");
 ```
 
-Render the diagrams of a Sirius `.aird` session to SVG:
+Render the diagrams of a Sirius `.aird` session to SVG, PNG and Excel:
 
 ```csharp
 using Auriga.Reporting;
 using Auriga.Xmi;
-using Microsoft.Extensions.Logging;
 
-// The rendering services compose the same way the readers do: a disposable scope with
-// fluent overrides for the parts you want to replace. UsingProjectImages serves the
-// artwork the model carries itself, chained onto the vendored Capella icons; your own
-// logger factory reports what the renderer degraded — an image no registry resolved, a
-// representation with no persisted layout, geometry that did not parse — at Debug.
-using var reporting = ReportingBuilder.Create()
-    .UsingProjectImages("In-Flight Entertainment System")
-    .WithLogger(loggerFactory);
-
+using var reporting = ReportingBuilder.Create();
 using var reader = XmiReaderBuilder.Create();
 var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
 
 var svgExporter = reporting.BuildSvgExporter();
-
-foreach (var diagram in reporting.BuildDiagramBuilder().BuildAll(session.Elements.Values))
-{
-    svgExporter.ExportToFile(diagram, $"out/{diagram.Name}.svg");
-}
-```
-
-Rasterize the same diagrams to PNG or JPEG, for the consumers that cannot take a vector document:
-
-```csharp
-using Auriga.Reporting;
-using Auriga.Xmi;
-
-using var reporting = ReportingBuilder.Create();
-using var reader = XmiReaderBuilder.Create();
-
-var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
-
-// The raster exporter draws the very SVG the SVG exporter produces, so the bitmap
-// carries the same palette, styles and artwork. The format comes from the extension.
 var rasterExporter = reporting.BuildRasterExporter();
 
 foreach (var diagram in reporting.BuildDiagramBuilder().BuildAll(session.Elements.Values))
 {
-    // Twice the persisted size, on a white background instead of PNG's transparency.
-    rasterExporter.ExportToFile(
-        diagram,
-        $"out/{diagram.Name}.png",
-        new RasterOptions { Scale = 2, Background = new Color(255, 255, 255) });
-
-    // Or hand the bytes to whatever wanted the picture, at print resolution.
-    var jpeg = rasterExporter.Export(diagram, RasterFormat.Jpeg, RasterOptions.FromDpi(300));
+    svgExporter.ExportToFile(diagram, $"out/{diagram.Name}.svg");
+    rasterExporter.ExportToFile(diagram, $"out/{diagram.Name}.png", new RasterOptions { Scale = 2 });
 }
-```
 
-Export the table representations of the same session to Excel:
-
-```csharp
-using Auriga.Reporting;
-using Auriga.Xmi;
-
-using var reporting = ReportingBuilder.Create();
-using var reader = XmiReaderBuilder.Create();
-
-var session = reader.BuildAirdModelLoader().Load("In-Flight Entertainment System/In-Flight Entertainment System.aird");
-var tables = session.Elements.Values.OfType<Auriga.Diagram.Table.IDTable>().ToList();
-
+// Tables export to Excel the same way, one worksheet per table.
 var xlsxExporter = reporting.BuildXlsxTableExporter();
-
-// One workbook per table, or pass a name-to-table sequence to get one workbook of many sheets.
-foreach (var table in tables)
+foreach (var table in session.Elements.Values.OfType<Auriga.Diagram.Table.IDTable>())
 {
     xlsxExporter.Export(table, $"out/{table.Uid}.xlsx");
 }
-
-// The same table also lays out as a grid of boxes, which the SVG exporter renders.
-var grid = reporting.BuildTableBuilder().Build(tables.First());
 ```
 
-See [ContainerList Design](https://github.com/STARIONGROUP/Auriga/wiki/Containment-List), [Query Extension Methods](https://github.com/STARIONGROUP/Auriga/wiki/Query-Extensions)
-and [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer) for the containment, query and write-back APIs in depth.
+See [Sirius `.aird` Diagrams](https://github.com/STARIONGROUP/Auriga/wiki/Aird), [ContainerList Design](https://github.com/STARIONGROUP/Auriga/wiki/Containment-List), [Query Extension Methods](https://github.com/STARIONGROUP/Auriga/wiki/Query-Extensions)
+and [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer) for these APIs in depth.
 
 # Code Quality
 
@@ -249,7 +162,6 @@ Background and design documentation lives in the [Auriga wiki](https://github.co
   - [ContainerList Design](https://github.com/STARIONGROUP/Auriga/wiki/Containment-List) — the non-bypassable `Collection<T>`-based containment collection and its exclusive-ownership (reject-not-steal) semantics
   - [XMI Writer](https://github.com/STARIONGROUP/Auriga/wiki/Xmi-Writer) — serializing the object graph back to Capella-faithful XMI (`Auriga.Xmi`), fragment layout, and the fidelity model
   - [Validation Against Real Capella Models](https://github.com/STARIONGROUP/Auriga/wiki/Validation) — the round-trip validation harness, per-model results, and exactly how out-of-scope content (other versions, add-on viewpoints, diagrams) is handled
-  - [Project Context](https://github.com/STARIONGROUP/Auriga/wiki/Project-Context) — the original design conversation behind the project's scope and phased plan
 
 # Capella and Arcadia Documentation
 

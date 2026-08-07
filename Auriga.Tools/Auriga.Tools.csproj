@@ -6,6 +6,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
         <LangVersion>latest</LangVersion>
+        <ApplicationIcon>..\assets\auriga.ico</ApplicationIcon>
         <Title>Auriga.Tools</Title>
         <Version>1.0.0</Version>
         <Description>A command line application that exports the diagrams of an Eclipse Capella model to SVG, PNG, JPEG and Excel. Install it as a dotnet tool and run "aurigatools export &lt;model.aird&gt;" — no compiler and no code required.</Description>
